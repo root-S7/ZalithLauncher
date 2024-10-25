@@ -1,6 +1,6 @@
 name: Feature Request / 功能建议
 description: 'Share your thoughts with me / 将你的想法分享给我'
-labels: [建议]
+labels: [Suggestion]
 body:
   - type: textarea
     id: description
