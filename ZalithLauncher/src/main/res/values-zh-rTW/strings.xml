@@ -591,8 +591,6 @@
     <string name="about_version_code">軟體版本碼:</string>
     <string name="about_last_update_time">上一次更新時間:</string>
     <string name="about_version_status">版本狀態:</string>
-    <string name="about_version_status_main_branch">主要分支</string>
-    <string name="about_version_status_other_branch">其他分支</string>
     <string name="about_version_status_debug">測試版</string>
     <string name="about_version_status_pre_release">預發布版</string>
     <!-- Newbie Guide -->

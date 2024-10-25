@@ -591,8 +591,6 @@
     <string name="about_version_code">Código da versão do software:</string>
     <string name="about_last_update_time">Última atualização:</string>
     <string name="about_version_status">Status da versão:</string>
-    <string name="about_version_status_main_branch">Ramo Principal</string>
-    <string name="about_version_status_other_branch">Outros Ramos</string>
     <string name="about_version_status_debug">Versão de Teste</string>
     <string name="about_version_status_pre_release">Versão Pré-lançamento</string>
     <!-- Newbie Guide -->

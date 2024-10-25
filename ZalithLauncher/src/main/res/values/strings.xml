@@ -596,8 +596,6 @@
     <string name="about_version_code">Software Version Code:</string>
     <string name="about_last_update_time">Last Update Time:</string>
     <string name="about_version_status">Version Status:</string>
-    <string name="about_version_status_main_branch">Main Branch</string>
-    <string name="about_version_status_other_branch">Other Branch</string>
     <string name="about_version_status_debug">Debug</string>
     <string name="about_version_status_pre_release">Pre-release</string>
     <!-- Newbie Guide -->

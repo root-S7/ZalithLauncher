@@ -591,8 +591,6 @@
     <string name="about_version_code">Code de version du logiciel :</string>
     <string name="about_last_update_time">Dernière date de mise à jour :</string>
     <string name="about_version_status">État de la version :</string>
-    <string name="about_version_status_main_branch">Branche principale</string>
-    <string name="about_version_status_other_branch">Autres branches</string>
     <string name="about_version_status_debug">Version de test</string>
     <string name="about_version_status_pre_release">Version préliminaire</string>
     <!-- Newbie Guide -->

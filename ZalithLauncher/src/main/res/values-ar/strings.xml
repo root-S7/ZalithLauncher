@@ -591,8 +591,6 @@
     <string name="about_version_code">رمز إصدار البرنامج:</string>
     <string name="about_last_update_time">آخر وقت تحديث:</string>
     <string name="about_version_status">حالة الإصدار:</string>
-    <string name="about_version_status_main_branch">الفرع الرئيسي</string>
-    <string name="about_version_status_other_branch">فروع أخرى</string>
     <string name="about_version_status_debug">إصدار تجريبي</string>
     <string name="about_version_status_pre_release">إصدار مسبق</string>
     <!-- Newbie Guide -->

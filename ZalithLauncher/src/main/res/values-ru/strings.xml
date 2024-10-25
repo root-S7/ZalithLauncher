@@ -591,8 +591,6 @@
     <string name="about_version_code">Код версии программного обеспечения:</string>
     <string name="about_last_update_time">Дата последнего обновления:</string>
     <string name="about_version_status">Статус версии:</string>
-    <string name="about_version_status_main_branch">Основная ветка</string>
-    <string name="about_version_status_other_branch">Другие ветки</string>
     <string name="about_version_status_debug">Отладочная версия</string>
     <string name="about_version_status_pre_release">Предварительная версия</string>
     <!-- Newbie Guide -->

@@ -591,8 +591,6 @@
     <string name="about_version_code">Software-Versionscode:</string>
     <string name="about_last_update_time">Letzte Aktualisierungszeit:</string>
     <string name="about_version_status">Versionsstatus:</string>
-    <string name="about_version_status_main_branch">Hauptzweig</string>
-    <string name="about_version_status_other_branch">Anderer Zweig</string>
     <string name="about_version_status_debug">Testversion</string>
     <string name="about_version_status_pre_release">Vorabversion</string>
     <!-- Newbie Guide -->

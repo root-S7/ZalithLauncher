@@ -591,8 +591,6 @@
     <string name="about_version_code">Mã phiên bản phần mềm:</string>
     <string name="about_last_update_time">Lần cập nhật cuối:</string>
     <string name="about_version_status">Trạng thái phiên bản:</string>
-    <string name="about_version_status_main_branch">Nhánh chính</string>
-    <string name="about_version_status_other_branch">Nhánh khác</string>
     <string name="about_version_status_debug">Bản thử nghiệm</string>
     <string name="about_version_status_pre_release">Bản phát hành trước</string>
     <!-- Newbie Guide -->
