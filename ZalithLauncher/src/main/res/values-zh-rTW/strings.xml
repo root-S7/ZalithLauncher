@@ -358,7 +358,7 @@
     <string name="setting_renderer_title">渲染器</string>
     <string name="setting_renderer_name_ltw">LTW（僅限 1.17+）</string>
     <string name="setting_ignore_notch_title">全螢幕模式</string>
-    <string name="setting_ignore_notch_desc">忽略劉海螢幕並將螢幕內容擴展至全螢幕\n給你更完整的沉浸感</string>
+    <string name="setting_ignore_notch_desc">忽略劉海屏並將螢幕內容擴展至全螢幕，給你更完整的沉浸感</string>
     <string name="setting_resolution_scaler_title">解析度調整</string>
     <string name="setting_resolution_scaler_desc">允許調整遊戲畫面解析度，原生解析度為 100%</string>
     <string name="setting_use_surface_view_title">使用備用表面渲染</string>

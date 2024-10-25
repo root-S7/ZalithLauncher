@@ -358,7 +358,7 @@
     <string name="setting_renderer_title">Moteur de rendu</string>
     <string name="setting_renderer_name_ltw">LTW (1.17+ uniquement)</string>
     <string name="setting_ignore_notch_title">Mode plein écran</string>
-    <string name="setting_ignore_notch_desc">Ignorer l\'écran notchi et étendre le contenu à l\'écran complet\nPour une immersion plus complète</string>
+    <string name="setting_ignore_notch_desc">Ignorer l\'encoche et étendre le contenu de l\'écran en plein écran pour une immersion plus complète</string>
     <string name="setting_resolution_scaler_title">Ajustement de la résolution</string>
     <string name="setting_resolution_scaler_desc">Permet d\'ajuster la résolution de l\'écran du jeu, la résolution native est de 100%</string>
     <string name="setting_use_surface_view_title">Utiliser le rendu de surface de secours</string>

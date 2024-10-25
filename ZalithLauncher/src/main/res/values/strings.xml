@@ -363,7 +363,7 @@
     <string name="setting_renderer_title">Renderer</string>
     <string name="setting_renderer_name_ltw">LTW (1.17+ Only)</string>
     <string name="setting_ignore_notch_title">Fullscreen Mode</string>
-    <string name="setting_ignore_notch_desc">Ignore the notch and extend the screen content to fullscreen\nProviding a more immersive experience</string>
+    <string name="setting_ignore_notch_desc">Ignore the notch and extend screen content to full screen for a more complete immersive experience</string>
     <string name="setting_resolution_scaler_title">Resolution Scaling</string>
     <string name="setting_resolution_scaler_desc">Allows adjusting the game\'s resolution, with native resolution set to 100%</string>
     <string name="setting_use_surface_view_title">Use Alternate Surface Rendering</string>
