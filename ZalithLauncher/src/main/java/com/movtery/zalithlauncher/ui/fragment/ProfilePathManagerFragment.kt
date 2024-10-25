@@ -43,27 +43,29 @@ class ProfilePathManagerFragment : FragmentWithAnim(R.layout.fragment_profile_pa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val value = EventBus.getDefault().getStickyEvent(FileSelectorEvent::class.java)?.path
+        val selectorEvent = EventBus.getDefault().getStickyEvent(FileSelectorEvent::class.java)
 
-        value?.let {
-            if (value.isNotEmpty() && !isAddedPath(value)) {
-                EditTextDialog.Builder(requireContext())
-                    .setTitle(R.string.profiles_path_create_new_title)
-                    .setConfirmListener { editBox: EditText ->
-                        val string = editBox.text.toString()
-                        if (string.isEmpty()) {
-                            editBox.error = getString(R.string.generic_error_field_empty)
-                            return@setConfirmListener false
-                        }
+        selectorEvent?.let { event ->
+            event.path?.let { path ->
+                if (path.isNotEmpty() && !isAddedPath(path)) {
+                    EditTextDialog.Builder(requireContext())
+                        .setTitle(R.string.profiles_path_create_new_title)
+                        .setConfirmListener { editBox: EditText ->
+                            val string = editBox.text.toString()
+                            if (string.isEmpty()) {
+                                editBox.error = getString(R.string.generic_error_field_empty)
+                                return@setConfirmListener false
+                            }
 
-                        mData.add(ProfileItem(UUID.randomUUID().toString(), string, value))
-                        save(this.mData)
-                        refresh()
-                        true
-                    }.buildDialog()
+                            mData.add(ProfileItem(UUID.randomUUID().toString(), string, path))
+                            save(this.mData)
+                            refresh()
+                            true
+                        }.buildDialog()
+                }
             }
+            EventBus.getDefault().removeStickyEvent(event)
         }
-
         binding = FragmentProfilePathManagerBinding.inflate(layoutInflater)
         return binding.root
     }
