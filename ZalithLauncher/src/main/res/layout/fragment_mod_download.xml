@@ -180,6 +180,7 @@
                             android:singleLine="true"
                             android:textSize="14sp"
                             android:textStyle="bold"
+                            android:textIsSelectable="true"
                             tools:text="Mod Title" />
 
                         <TextView
@@ -191,6 +192,7 @@
                             android:layout_toEndOf="@+id/name"
                             android:singleLine="true"
                             android:textSize="12sp"
+                            android:textIsSelectable="true"
                             android:visibility="gone"
                             tools:text="Mod SubTitle" />
 

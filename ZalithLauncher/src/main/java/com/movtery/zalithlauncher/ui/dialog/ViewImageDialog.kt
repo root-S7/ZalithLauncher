@@ -28,18 +28,24 @@ class ViewImageDialog private constructor(
         private val binding = DialogImagePreviewBinding.inflate(layoutInflater)
 
         init {
-            setContentView(binding.root)
-            title?.let { binding.titleView.text = it }
-            description?.let {
-                binding.descriptionView.apply {
-                    visibility = View.VISIBLE
-                    text = it
+            binding.apply {
+                setContentView(root)
+                title?.let {
+                    titleView.text = it
+                    titleView.setTextIsSelectable(true)
                 }
+                description?.let {
+                    descriptionView.apply {
+                        visibility = View.VISIBLE
+                        text = it
+                        setTextIsSelectable(true)
+                    }
+                }
+                requestBuilder.priority(Priority.IMMEDIATE)
+                if (!imageCache) requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
+                requestBuilder.into(imageView)
+                closeButton.setOnClickListener { dismiss() }
             }
-            requestBuilder.priority(Priority.HIGH)
-            if (!imageCache) requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
-            requestBuilder.into(binding.imageView)
-            binding.closeButton.setOnClickListener { dismiss() }
         }
 
     override fun onInit(): Window {

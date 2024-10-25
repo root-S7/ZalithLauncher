@@ -279,6 +279,7 @@ class DownloadModFragment : ModListFragment() {
             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
             gravity = Gravity.CENTER_HORIZONTAL
             text = title
+            setTextIsSelectable(true)
         }
     }
 
