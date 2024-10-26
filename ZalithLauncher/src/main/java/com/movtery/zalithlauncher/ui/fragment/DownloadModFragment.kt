@@ -2,26 +2,19 @@ package com.movtery.zalithlauncher.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.InfoViewModel
+import com.movtery.zalithlauncher.feature.download.ScreenshotAdapter
 import com.movtery.zalithlauncher.feature.download.VersionAdapter
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
@@ -29,13 +22,11 @@ import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.ui.dialog.ViewImageDialog
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import net.kdt.pojavlaunch.PojavApplication
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.util.versioning.VersionNumber
@@ -43,6 +34,7 @@ import java.io.File
 import java.util.Collections
 import java.util.concurrent.Future
 import java.util.function.Consumer
+
 
 class DownloadModFragment : ModListFragment() {
     companion object {
@@ -201,30 +193,14 @@ class DownloadModFragment : ModListFragment() {
 
     @SuppressLint("CheckResult")
     private fun setScreenshotView(screenshotItems: List<ScreenshotItem>) {
-        screenshotItems.forEach { item ->
-            fragmentActivity?.let { activity ->
-
-                val newLinearLayout = createLinearLayout(activity)
-                val progressBar = createProgressView(activity)
-                val imageView = createImageView(activity, item)
-                val titleView: TextView? = item.title?.let { createTitleView(activity, it) }
-
-                val reloadImageView = createReloadImageView(activity) {
-                    loadImage(activity, newLinearLayout, progressBar, imageView, it, titleView, item)
-                }
-
-                loadImage(activity, newLinearLayout, progressBar, imageView, reloadImageView, titleView, item)
-
-                addMoreView(newLinearLayout)
+        fragmentActivity?.let { activity ->
+            val recyclerView = RecyclerView(activity).apply {
+                layoutParams = RecyclerView.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                layoutManager = LinearLayoutManager(activity)
+                adapter = ScreenshotAdapter(screenshotItems)
             }
-        }
-    }
 
-    private fun createLinearLayout(activity: FragmentActivity): LinearLayout {
-        return LinearLayout(activity).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            addMoreView(recyclerView)
         }
     }
 
@@ -233,106 +209,6 @@ class DownloadModFragment : ModListFragment() {
             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
                 gravity = Gravity.CENTER_HORIZONTAL
             }
-        }
-    }
-
-    private fun createImageView(activity: FragmentActivity, item: ScreenshotItem): ImageView {
-        return ImageView(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
-                topMargin = Tools.dpToPx(8f).toInt()
-            }
-            scaleType = ImageView.ScaleType.FIT_CENTER
-            setOnClickListener {
-                ViewImageDialog.Builder(activity)
-                    .setImage(drawable)
-                    .setTitle(item.title)
-                    .setDescription(item.description)
-                    .setImageCache(AllSettings.resourceImageCache)
-                    .buildDialog()
-            }
-        }
-    }
-
-    private fun createReloadImageView(
-        activity: FragmentActivity,
-        onClick: (ImageView) -> Unit
-    ): ImageView {
-        return ImageView(activity).apply {
-            val typedValue = TypedValue()
-            activity.theme.resolveAttribute(
-                android.R.attr.selectableItemBackgroundBorderless,
-                typedValue,
-                true
-            )
-            setBackgroundResource(typedValue.resourceId)
-            setImageResource(R.drawable.ic_refresh)
-            scaleType = ImageView.ScaleType.FIT_CENTER
-            layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                gravity = Gravity.CENTER_HORIZONTAL
-            }
-            setOnClickListener { onClick(this) }
-        }
-    }
-
-    private fun createTitleView(activity: FragmentActivity, title: String): TextView {
-        return TextView(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            gravity = Gravity.CENTER_HORIZONTAL
-            text = title
-            setTextIsSelectable(true)
-        }
-    }
-
-    @SuppressLint("CheckResult")
-    private fun loadImage(
-        activity: FragmentActivity,
-        layout: LinearLayout,
-        progressBar: ProgressBar,
-        imageView: ImageView,
-        reloadImageView: ImageView,
-        titleView: TextView?,
-        item: ScreenshotItem
-    ) {
-        layout.removeAllViews()
-        layout.addView(progressBar)
-        layout.addView(imageView)
-        titleView?.let { layout.addView(it) }
-
-        Glide.with(activity).load(item.imageUrl).apply {
-            listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    layout.removeView(progressBar)
-                    layout.addView(reloadImageView)
-                    ensureTitleViewOrder(layout, titleView)
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: Drawable,
-                    model: Any,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    layout.removeView(progressBar)
-                    layout.removeView(reloadImageView)
-                    return false
-                }
-            })
-
-            if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
-        }.into(imageView)
-    }
-
-    private fun ensureTitleViewOrder(layout: LinearLayout, titleView: TextView?) {
-        titleView?.let {
-            layout.removeView(it)
-            layout.addView(it)
         }
     }
 }
