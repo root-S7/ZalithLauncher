@@ -148,7 +148,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
     companion object {
         fun createModPackProfiles(modpackName: String, mcbbsPackMeta: MCBBSPackMeta, versionId: String?) {
             val profile = MinecraftProfile()
-            profile.gameDir = "./custom_instances/$modpackName"
+            profile.gameDir = "./modpack_instances/$modpackName"
             profile.name = mcbbsPackMeta.name
             profile.lastVersionId = versionId
             profile.javaArgs = StringUtils.insertSpace(null, *mcbbsPackMeta.launchInfo.javaArgument)

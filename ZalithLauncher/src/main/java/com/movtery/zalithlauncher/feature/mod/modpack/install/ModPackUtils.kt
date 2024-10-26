@@ -61,7 +61,7 @@ class ModPackUtils {
 
         fun createModPackProfiles(modpackName: String, profileName: String?, versionId: String?) {
             val profile = MinecraftProfile()
-            profile.gameDir = "./custom_instances/$modpackName"
+            profile.gameDir = "./modpack_instances/$modpackName"
             profile.name = profileName
             profile.lastVersionId = versionId
 
