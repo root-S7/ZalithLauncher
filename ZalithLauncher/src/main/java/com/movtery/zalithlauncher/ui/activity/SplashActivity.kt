@@ -51,9 +51,8 @@ class SplashActivity : BaseActivity() {
         }
 
         if (!Tools.checkStorageRoot()) {
-            finish()
             startActivity(Intent(this, MissingStorageActivity::class.java))
-            return
+            finish()
         } else {
             setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view))
             checkEnd()
@@ -101,7 +100,7 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun toMain() {
-        finish()
         startActivity(Intent(this, LauncherActivity::class.java))
+        finish()
     }
 }
