@@ -108,14 +108,14 @@ object OtherLoginApi {
         }
     }
 
-    fun getServeInfo(url: String): String? {
+    fun getServeInfo(context: Context, url: String): String? {
         val call = client.newCall(createRequestBuilder(url).get().build())
         runCatching {
             call.execute().use { response ->
                 val res = response.body?.string()
                 if (response.code == 200) return res
             }
-        }.getOrElse { e -> e("Other Login", e.toString()) }
+        }.getOrElse { e -> Tools.showError(context, e) }
         return null
     }
 

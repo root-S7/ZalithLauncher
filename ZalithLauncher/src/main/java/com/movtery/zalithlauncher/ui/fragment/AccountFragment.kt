@@ -339,39 +339,42 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), TaskCountLi
         mProgressDialog.show()
         PojavApplication.sExecutorService.execute {
             val editString = editText.text.toString()
-            val serverUrl = if (type == 0) AccountUtils.tryGetFullServerUrl(editString) else editString
-            OtherLoginApi.getServeInfo(if (type == 0) serverUrl else "https://auth.mc-user.com:233/$serverUrl")
-                ?.let { data ->
-                    runCatching {
-                        val server = Server()
-                        JSONObject(data).optJSONObject("meta")?.let { meta ->
-                            server.serverName = meta.optString("serverName")
-                            server.baseUrl = serverUrl
-                            if (type == 0) {
-                                server.register =
-                                    meta.optJSONObject("links")?.optString("register") ?: ""
-                            } else {
-                                server.baseUrl = "https://auth.mc-user.com:233/$serverUrl"
-                                server.register = "https://login.mc-user.com:233/$serverUrl"
-                            }
-                            checkServerConfig()
-                            mOtherServerConfig?.server?.apply addServer@{
-                                forEach {
-                                    //确保服务器不重复
-                                    if (it.baseUrl == server.baseUrl) return@addServer
-                                }
-                                add(server)
-                            }
-                            Tools.write(
-                                mOtherServerConfigFile.absolutePath,
-                                Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
-                            )
-
-                            Tools.runOnUiThread { refreshOtherServer() }
+            val serverUrl =
+                if (type == 0) AccountUtils.tryGetFullServerUrl(editString) else editString
+            OtherLoginApi.getServeInfo(
+                requireActivity(),
+                if (type == 0) serverUrl else "https://auth.mc-user.com:233/$serverUrl"
+            )?.let { data ->
+                runCatching {
+                    val server = Server()
+                    JSONObject(data).optJSONObject("meta")?.let { meta ->
+                        server.serverName = meta.optString("serverName")
+                        server.baseUrl = serverUrl
+                        if (type == 0) {
+                            server.register =
+                                meta.optJSONObject("links")?.optString("register") ?: ""
+                        } else {
+                            server.baseUrl = "https://auth.mc-user.com:233/$serverUrl"
+                            server.register = "https://login.mc-user.com:233/$serverUrl"
                         }
-                    }.getOrElse { e -> Logging.e("Add Other Server", Tools.printToString(e)) }
-                    Tools.runOnUiThread { mProgressDialog.dismiss() }
-                }
+                        checkServerConfig()
+                        mOtherServerConfig?.server?.apply addServer@{
+                            forEach {
+                                //确保服务器不重复
+                                if (it.baseUrl == server.baseUrl) return@addServer
+                            }
+                            add(server)
+                        }
+                        Tools.write(
+                            mOtherServerConfigFile.absolutePath,
+                            Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
+                        )
+
+                        Tools.runOnUiThread { refreshOtherServer() }
+                    }
+                }.getOrElse { e -> Logging.e("Add Other Server", Tools.printToString(e)) }
+            }
+            Tools.runOnUiThread { mProgressDialog.dismiss() }
         }
     }
 
