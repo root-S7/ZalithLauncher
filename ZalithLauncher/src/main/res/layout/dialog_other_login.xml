@@ -27,7 +27,7 @@
     <com.movtery.zalithlauncher.ui.view.AnimEditText
         android:id="@+id/email_edit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_38sdp"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:autofillHints="emailAddress"
         android:background="@drawable/background_edit_box"
@@ -47,7 +47,7 @@
     <com.movtery.zalithlauncher.ui.view.AnimEditText
         android:id="@+id/password_edit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_38sdp"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:autofillHints="password"
         android:background="@drawable/background_edit_box"
@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
