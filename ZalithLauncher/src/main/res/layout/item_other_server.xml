@@ -13,11 +13,13 @@
         android:src="@drawable/ic_add"
         tools:ignore="ContentDescription" />
 
-    <com.movtery.zalithlauncher.ui.view.AnimTextView
+    <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:textColor="@color/black_or_white"
         android:layout_toEndOf="@id/icon"/>
 
     <ImageView
