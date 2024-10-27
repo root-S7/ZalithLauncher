@@ -21,7 +21,6 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.FragmentMicrosoftLoginBinding;
 
 import org.greenrobot.eventbus.EventBus;
@@ -121,21 +120,18 @@ public class MicrosoftLoginFragment extends Fragment {
                 // Should be captured by the activity to kill the fragment and get
                 EventBus.getDefault().post(new MicrosoftLoginEvent(Uri.parse(url)));
                 Toast.makeText(view.getContext(), getString(R.string.account_login_start), Toast.LENGTH_SHORT).show();
-                Tools.backToMainMenu(requireActivity());
+                ZHTools.onBackPressed(requireActivity());
 
                 return true;
             }
 
             // Sometimes, the user just clicked cancel
             if(url.contains("res=cancel")){
-                Tools.backToMainMenu(requireActivity());
+                ZHTools.onBackPressed(requireActivity());
                 return true;
             }
-
 
             return super.shouldOverrideUrlLoading(view, url);
         }
     }
-
-
 }

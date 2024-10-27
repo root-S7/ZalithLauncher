@@ -244,8 +244,6 @@
     <string name="account_add">添加帳戶</string>
     <string name="account_no_saved_accounts">沒有已保存的帳戶</string>
     <string name="account_remove">此帳號將從啟動器內移除，你確定要這麼做嗎？</string>
-    <string name="account_manager">帳號管理</string>
-    <string name="account_text">請選擇一種登入方式</string>
     <string name="account_microsoft_account">微軟帳號</string>
     <string name="account_microsoft_xerr_unauthorized">你的微軟帳號登入資訊貌似已過期，這種情況常出現在帳號密碼被修改之後，請移除當前帳號並重新登入你的帳號，以重置你的登入資訊。</string>
     <string name="account_local_account">離線帳號</string>
@@ -256,9 +254,8 @@
     <string name="account_login_start">開始登入！</string>
     <string name="account_no_microsoft_account">請至少登入一個 Minecraft 正版帳號，我們不提倡用戶在沒有正版帳號的情況下啟動 Minecraft。</string>
     <string name="account_no_microsoft_account_local">你似乎沒有登入正版帳號！離線帳號是為玩家在無法連線時提供的一種備用方案，而不是給沒有正版帳號的玩家使用的。</string>
-    <string name="account_no_microsoft_account_local_confirm">仍然使用離線帳號</string>
     <string name="account_no_microsoft_account_other">你似乎沒有登入正版帳號！你確定要在沒有登入正版帳號的情況下使用外部登入嗎？</string>
-    <string name="account_no_microsoft_account_other_confirm">仍然使用外部登入</string>
+    <string name="account_no_microsoft_account_continue">忽略並繼續</string>
     <string name="account_continue_to_launch_the_game">仍然啟動遊戲</string>
     <string name="account_purchase_minecraft_account">購買 Minecraft 正版帳號</string>
     <string name="account_purchase_minecraft_account_tip">如果你沒有 Minecraft 正版帳號，請先在 Minecraft 官網購買正版帳號！</string>
@@ -544,9 +541,8 @@
     <string name="update_downloading">正在下載安裝包… (%s / %s)</string>
     <string name="update_downloading_tip">正在獲取中，更新源：%s</string>
     <!-- Other Login -->
-    <string name="other_login">外部登入</string>
-    <string name="other_login_authentication_server">身份驗證伺服器</string>
-    <string name="other_login_register">註冊</string>
+    <string name="other_login_server">認證伺服器</string>
+    <string name="other_login_server_add">添加認證伺服器</string>
     <string name="other_login_email">電子郵件或使用者名稱</string>
     <string name="other_login_password">密碼</string>
     <string name="other_login_add_server">請選擇身份驗證伺服器類型</string>
@@ -554,11 +550,11 @@
     <string name="other_login_yggdrasil_api">請輸入 Yggdrasil API 認證伺服器地址</string>
     <string name="other_login_32_bit_server">請輸入 32 位伺服器 ID</string>
     <string name="other_login_error">登入時發生錯誤：\n</string>
-    <string name="other_login_no_server">無身份驗證伺服器</string>
     <string name="other_login_baseurl_not_set">尚未設定基本 URL</string>
     <string name="other_login_server_not_empty">伺服器不能為空，請檢查身份驗證伺服器設定！</string>
     <string name="other_login_select_role_title">選擇角色</string>
     <string name="other_login_select_role_message">當前帳號存在多個角色，請選擇想要使用的角色</string>
+    <string name="other_login_registry_now">沒有帳號？點我跳轉註冊一個！</string>
     <!-- Splash -->
     <string name="splash_screen_desc">啟動器需要安裝這些內容，以確保 Minecraft 能夠正常啟動。這些內容已包含在應用中，需要解壓縮後才能正常使用，請點擊下方按鈕開始解壓縮並更新這些內容。</string>
     <string name="splash_screen_installing">啟動器正在解壓縮這些內容，解壓縮完成後將自動進入主界面，請耐心等待。</string>

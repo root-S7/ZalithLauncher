@@ -244,8 +244,6 @@
     <string name="account_add">Ajouter un compte</string>
     <string name="account_no_saved_accounts">Aucun compte enregistré</string>
     <string name="account_remove">Ce compte sera supprimé du lanceur. Êtes-vous sûr de vouloir faire cela ?</string>
-    <string name="account_manager">Gestion des comptes</string>
-    <string name="account_text">Veuillez sélectionner un mode de connexion</string>
     <string name="account_microsoft_account">Compte Microsoft</string>
     <string name="account_microsoft_xerr_unauthorized">Vos informations de connexion à votre compte Microsoft semblent avoir expiré, ce qui se produit souvent après la modification du mot de passe du compte. Veuillez supprimer le compte actuel et vous reconnecter pour réinitialiser vos informations de connexion.</string>
     <string name="account_local_account">Compte hors ligne</string>
@@ -256,9 +254,8 @@
     <string name="account_login_start">Commencer la connexion !</string>
     <string name="account_no_microsoft_account">Veuillez vous connecter avec au moins un compte Minecraft officiel. Nous déconseillons de lancer Minecraft sans compte officiel.</string>
     <string name="account_no_microsoft_account_local">Il semble que vous n\'êtes pas connecté avec un compte officiel ! Le compte hors ligne est une solution de secours pour les joueurs qui ne peuvent pas se connecter à Internet, et non pour ceux qui n\'ont pas de compte officiel.</string>
-    <string name="account_no_microsoft_account_local_confirm">Utiliser toujours le compte hors ligne</string>
     <string name="account_no_microsoft_account_other">Il semble que vous n\'êtes pas connecté avec un compte officiel ! Êtes-vous sûr de vouloir utiliser une connexion externe sans compte officiel ?</string>
-    <string name="account_no_microsoft_account_other_confirm">Utiliser toujours la connexion externe</string>
+    <string name="account_no_microsoft_account_continue">Ignorer et continuer</string>
     <string name="account_continue_to_launch_the_game">Lancer le jeu quand même</string>
     <string name="account_purchase_minecraft_account">Acheter un compte Minecraft officiel</string>
     <string name="account_purchase_minecraft_account_tip">Si vous n\'avez pas de compte Minecraft officiel, veuillez d\'abord l\'acheter sur le site officiel de Minecraft !</string>
@@ -544,9 +541,8 @@
     <string name="update_downloading">Téléchargement du paquet d\'installation… (%s / %s)</string>
     <string name="update_downloading_tip">En cours de récupération, source de mise à jour : %s</string>
     <!-- Other Login -->
-    <string name="other_login">Connexion externe</string>
-    <string name="other_login_authentication_server">Serveur d\'authentification</string>
-    <string name="other_login_register">S\'inscrire</string>
+    <string name="other_login_server">Serveur Auth</string>
+    <string name="other_login_server_add">Ajouter un Serveur Auth</string>
     <string name="other_login_email">Adresse e-mail ou nom d\'utilisateur</string>
     <string name="other_login_password">Mot de passe</string>
     <string name="other_login_add_server">Veuillez sélectionner le type de serveur d\'authentification</string>
@@ -554,11 +550,11 @@
     <string name="other_login_yggdrasil_api">Veuillez entrer l\'adresse du serveur d\'authentification Yggdrasil API</string>
     <string name="other_login_32_bit_server">Veuillez entrer l\'ID du serveur 32 bits</string>
     <string name="other_login_error">Erreur lors de la connexion :\n</string>
-    <string name="other_login_no_server">Aucun serveur d\'authentification</string>
     <string name="other_login_baseurl_not_set">URL de base non définie</string>
     <string name="other_login_server_not_empty">Le serveur ne peut pas être vide, veuillez vérifier les paramètres du serveur d\'authentification !</string>
     <string name="other_login_select_role_title">Sélectionner un rôle</string>
     <string name="other_login_select_role_message">Ce compte possède plusieurs rôles, veuillez sélectionner le rôle que vous souhaitez utiliser</string>
+    <string name="other_login_registry_now">Pas de compte ? Cliquez ici pour vous inscrire !</string>
     <!-- Splash -->
     <string name="splash_screen_desc">Le lanceur a besoin d\'installer ces éléments pour garantir le bon démarrage de Minecraft. Ces éléments sont inclus dans l\'application et doivent être décompressés pour être utilisés. Cliquez sur le bouton ci-dessous pour commencer la décompression et la mise à jour de ces éléments.</string>
     <string name="splash_screen_installing">Le lanceur est en train de décompresser ces éléments, l\'interface principale s\'ouvrira automatiquement une fois la décompression terminée, veuillez patienter.</string>

@@ -11,12 +11,12 @@ import net.kdt.pojavlaunch.databinding.DialogEditTextBinding;
 
 public class EditTextDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogEditTextBinding binding = DialogEditTextBinding.inflate(getLayoutInflater());
-    private final String title, message, editText, hintText;
+    private final String title, message, editText, hintText, confirm;
     private final View.OnClickListener cancelListener;
     private final ConfirmListener confirmListener;
     private final int inputType;
 
-    private EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText,
+    private EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText, String confirm,
                            int inputType,
                            View.OnClickListener cancelListener, ConfirmListener confirmListener) {
         super(context);
@@ -28,6 +28,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         this.message = message;
         this.editText = editText;
         this.hintText = hintText;
+        this.confirm = confirm;
 
         this.inputType = inputType;
 
@@ -49,6 +50,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
 
         if (editText != null) binding.textEdit.setText(editText);
         if (hintText != null) binding.textEdit.setHint(hintText);
+        if (confirm != null) binding.confirmButton.setText(confirm);
 
         if (inputType != -1) binding.textEdit.setInputType(inputType);
 
@@ -73,7 +75,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
 
     public static class Builder {
         private final Context context;
-        private String title, message, editText, hintText;
+        private String title, message, editText, hintText, confirm;
         private int inputType = -1;
         private View.OnClickListener cancelListener;
         private ConfirmListener confirmListener;
@@ -120,6 +122,15 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
             return this;
         }
 
+        public Builder setConfirmText(int text) {
+            return setConfirmText(context.getString(text));
+        }
+
+        public Builder setConfirmText(String text) {
+            this.confirm = text;
+            return this;
+        }
+
         public Builder setInputType(int inputType) {
             this.inputType = inputType;
             return this;
@@ -131,7 +142,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         }
 
         public void buildDialog() {
-            new EditTextDialog(this.context, this.title, this.message, this.editText, this.hintText,
+            new EditTextDialog(this.context, this.title, this.message, this.editText, this.hintText, this.confirm,
                     inputType,
                     this.cancelListener, this.confirmListener).show();
         }

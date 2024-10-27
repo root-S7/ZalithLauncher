@@ -1,3 +1,3 @@
 package com.movtery.zalithlauncher.event.single
 
-class SelectAuthMethodEvent
+class SwapToLoginEvent

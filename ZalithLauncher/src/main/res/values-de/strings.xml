@@ -244,8 +244,6 @@
     <string name="account_add">Konto hinzufügen</string>
     <string name="account_no_saved_accounts">Keine gespeicherten Konten</string>
     <string name="account_remove">Dieses Konto wird aus dem Launcher entfernt. Bist du sicher, dass du das tun möchtest?</string>
-    <string name="account_manager">Kontenverwaltung</string>
-    <string name="account_text">Bitte wähle eine Anmeldemethode</string>
     <string name="account_microsoft_account">Microsoft-Konto</string>
     <string name="account_microsoft_xerr_unauthorized">Deine Microsoft-Konto-Anmeldeinformationen scheinen abgelaufen zu sein. Dies passiert oft, nachdem das Kontopasswort geändert wurde. Bitte entferne das aktuelle Konto und melde dich erneut an, um deine Anmeldeinformationen zurückzusetzen.</string>
     <string name="account_local_account">Offline-Konto</string>
@@ -256,9 +254,8 @@
     <string name="account_login_start">Anmeldung starten!</string>
     <string name="account_no_microsoft_account">Bitte melde dich mindestens mit einem offiziellen Minecraft-Konto an. Wir empfehlen nicht, Minecraft ohne offizielles Konto zu starten.</string>
     <string name="account_no_microsoft_account_local">Du scheinst kein offizielles Konto angemeldet zu haben! Offline-Konten sind eine Notlösung für Spieler, die nicht online sein können, und nicht für Spieler ohne offizielles Konto.</string>
-    <string name="account_no_microsoft_account_local_confirm">Offline-Konto trotzdem verwenden</string>
     <string name="account_no_microsoft_account_other">Du scheinst kein offizielles Konto angemeldet zu haben! Bist du sicher, dass du ohne offizielles Konto eine externe Anmeldung verwenden möchtest?</string>
-    <string name="account_no_microsoft_account_other_confirm">Externe Anmeldung trotzdem verwenden</string>
+    <string name="account_no_microsoft_account_continue">Ignorieren und fortfahren</string>
     <string name="account_continue_to_launch_the_game">Spiel trotzdem starten</string>
     <string name="account_purchase_minecraft_account">Offizielles Minecraft-Konto kaufen</string>
     <string name="account_purchase_minecraft_account_tip">Wenn du kein offizielles Minecraft-Konto hast, kaufe bitte zuerst ein offizielles Konto auf der Minecraft-Website!</string>
@@ -544,9 +541,8 @@
     <string name="update_downloading">Installationspaket wird heruntergeladen… (%s / %s)</string>
     <string name="update_downloading_tip">Wird abgerufen, Aktualisierungsquelle: %s</string>
     <!-- Other Login -->
-    <string name="other_login">Externe Anmeldung</string>
-    <string name="other_login_authentication_server">Authentifizierungsserver</string>
-    <string name="other_login_register">Registrieren</string>
+    <string name="other_login_server">Auth-Server</string>
+    <string name="other_login_server_add">Auth-Server hinzufügen</string>
     <string name="other_login_email">E-Mail oder Benutzername</string>
     <string name="other_login_password">Passwort</string>
     <string name="other_login_add_server">Bitte wählen Sie den Typ des Authentifizierungsservers</string>
@@ -554,11 +550,11 @@
     <string name="other_login_yggdrasil_api">Bitte geben Sie die Adresse des Yggdrasil API-Authentifizierungsservers ein</string>
     <string name="other_login_32_bit_server">Bitte geben Sie die 32-Bit-Server-ID ein</string>
     <string name="other_login_error">Fehler bei der Anmeldung:\n</string>
-    <string name="other_login_no_server">Kein Authentifizierungsserver</string>
     <string name="other_login_baseurl_not_set">Basis-URL nicht festgelegt</string>
     <string name="other_login_server_not_empty">Der Server darf nicht leer sein. Bitte überprüfen Sie die Einstellungen des Authentifizierungsservers!</string>
     <string name="other_login_select_role_title">Rolle auswählen</string>
     <string name="other_login_select_role_message">Ihr aktueller Account hat mehrere Rollen. Bitte wählen Sie die Rolle aus, die Sie verwenden möchten.</string>
+    <string name="other_login_registry_now">Kein Konto? Klicken Sie hier, um sich zu registrieren!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">Der Launcher benötigt diese Inhalte, um sicherzustellen, dass Minecraft ordnungsgemäß gestartet werden kann. Diese Inhalte sind in der Anwendung enthalten und müssen entpackt werden, bevor sie verwendet werden können. Klicken Sie auf die Schaltfläche unten, um den Entpackvorgang zu starten und diese Inhalte zu aktualisieren.</string>
     <string name="splash_screen_installing">Der Launcher entpackt diese Inhalte. Nach dem Entpacken gelangen Sie automatisch zur Hauptoberfläche. Bitte haben Sie einen Moment Geduld.</string>

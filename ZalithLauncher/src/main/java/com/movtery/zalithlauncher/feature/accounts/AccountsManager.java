@@ -81,9 +81,10 @@ public class AccountsManager {
             //检查账号是否已存在
             if (getAllAccount().contains(account)) return;
 
+            reload();
+
             if (getAllAccount().isEmpty()) PojavProfile.setCurrentProfile(context, account.username);
             else EventBus.getDefault().post(new AccountUpdateEvent());
-            reload();
         };
 
         mErrorListener = errorMessage -> {

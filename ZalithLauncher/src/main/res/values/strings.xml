@@ -249,8 +249,6 @@
     <string name="account_add">Add Account</string>
     <string name="account_no_saved_accounts">No Saved Accounts</string>
     <string name="account_remove">This account will be removed from the launcher, are you sure you want to do this?</string>
-    <string name="account_manager">Account Management</string>
-    <string name="account_text">Please select a login method</string>
     <string name="account_microsoft_account">Microsoft Account</string>
     <string name="account_microsoft_xerr_unauthorized">Your Microsoft account login information seems to be expired, this often happens after the account password is changed. Please remove the current account and log in again to reset your login information.</string>
     <string name="account_local_account">Offline Account</string>
@@ -261,9 +259,8 @@
     <string name="account_login_start">Start Login!</string>
     <string name="account_no_microsoft_account">Please log in with at least one Minecraft premium account, we do not encourage launching Minecraft without a premium account.</string>
     <string name="account_no_microsoft_account_local">It seems you are not logged in with a premium account! Offline accounts are a backup solution for players who cannot connect to the internet, not for players without a premium account.</string>
-    <string name="account_no_microsoft_account_local_confirm">Still use Offline Account</string>
     <string name="account_no_microsoft_account_other">It seems you are not logged in with a premium account! Are you sure you want to use third-party login without logging in with a premium account?</string>
-    <string name="account_no_microsoft_account_other_confirm">Still use Third-Party Login</string>
+    <string name="account_no_microsoft_account_continue">Ignore and continue</string>
     <string name="account_continue_to_launch_the_game">Continue to Launch Game</string>
     <string name="account_purchase_minecraft_account">Purchase Minecraft Account</string>
     <string name="account_purchase_minecraft_account_tip">If you do not have a Minecraft account, please purchase one on the Minecraft official website first!</string>
@@ -549,9 +546,8 @@
     <string name="update_downloading">Downloading installation package… (%s / %s)</string>
     <string name="update_downloading_tip">Fetching, update source: %s</string>
     <!-- Other Login -->
-    <string name="other_login">External Login</string>
-    <string name="other_login_authentication_server">Authentication Server</string>
-    <string name="other_login_register">Register</string>
+    <string name="other_login_server">Auth Server</string>
+    <string name="other_login_server_add">Add Auth Server</string>
     <string name="other_login_email">Email or Username</string>
     <string name="other_login_password">Password</string>
     <string name="other_login_add_server">Please select the type of authentication server</string>
@@ -559,11 +555,11 @@
     <string name="other_login_yggdrasil_api">Please enter the Yggdrasil API authentication server address</string>
     <string name="other_login_32_bit_server">Please enter the 32-bit server ID</string>
     <string name="other_login_error">An error occurred during login:\n</string>
-    <string name="other_login_no_server">No Authentication Server</string>
     <string name="other_login_baseurl_not_set">Base URL Not Set</string>
     <string name="other_login_server_not_empty">Server cannot be empty, please check the authentication server settings!</string>
     <string name="other_login_select_role_title">Select Role</string>
     <string name="other_login_select_role_message">Multiple roles exist for the current account, please select the role you want to use</string>
+    <string name="other_login_registry_now">No account? Click here to register one!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">The launcher needs to install these contents to ensure Minecraft can start properly. These contents are included in the app and need to be extracted before they can be used. Click the button below to start extracting and updating these contents.</string>
     <string name="splash_screen_installing">The launcher is extracting these contents. The main interface will automatically open after extraction is complete. Please wait patiently.</string>

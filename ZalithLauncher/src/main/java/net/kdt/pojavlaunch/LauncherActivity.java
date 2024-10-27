@@ -46,8 +46,8 @@ import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
+import com.movtery.zalithlauncher.ui.fragment.AccountFragment;
 import com.movtery.zalithlauncher.ui.fragment.DownloadFragment;
-import com.movtery.zalithlauncher.ui.fragment.SelectAuthFragment;
 import com.movtery.zalithlauncher.ui.fragment.SettingsFragment;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.SettingsButtonWrapper;
@@ -150,11 +150,11 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Subscribe()
-    public void event(SelectAuthMethodEvent event) {
+    public void event(SwapToLoginEvent event) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
-        // Allow starting the add account only from the main menu, should it be moved to fragment itself ?
-        if (!(fragment instanceof MainMenuFragment)) return;
-        ZHTools.swapFragmentWithAnim(fragment, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+        if (!(fragment instanceof AccountFragment)) return;
+        // 如果当前不是AccountFragment，那么将切换到AccountFragment要求用户登录
+        ZHTools.swapFragmentWithAnim(fragment, AccountFragment.class, AccountFragment.TAG, null);
     }
 
     @Subscribe()
@@ -177,7 +177,7 @@ public class LauncherActivity extends BaseActivity {
 
         if (accountsManager.getAllAccount().isEmpty()) {
             Toast.makeText(this, R.string.account_no_saved_accounts, Toast.LENGTH_LONG).show();
-            EventBus.getDefault().post(new SelectAuthMethodEvent());
+            EventBus.getDefault().post(new SwapToLoginEvent());
             return;
         }
 
@@ -222,6 +222,7 @@ public class LauncherActivity extends BaseActivity {
         String userName = event.getUserName();
         MinecraftAccount localAccount = new MinecraftAccount();
         localAccount.username = userName;
+        localAccount.accountType = "Local";
         try {
             localAccount.save();
             Logging.i("McAccountSpinner", "Saved the account : " + localAccount.username);

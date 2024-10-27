@@ -26,6 +26,7 @@ public class MinecraftAccount {
     public long expiresAt;
     public String baseUrl;
     public String account;
+    public String accountType;
 
     void updateSkin(String uuid) {
         File skinFile = new File(PathAndUrlManager.DIR_USER_SKIN, username + ".png");
@@ -36,10 +37,6 @@ public class MinecraftAccount {
         } catch (Exception e) {
             Logging.i("SkinLoader", "Could not update skin\n" + Tools.printToString(e));
         }
-    }
-
-    public boolean isLocal(){
-        return accessToken.equals("0");
     }
     
     public void updateSkin() {

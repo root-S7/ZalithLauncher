@@ -52,7 +52,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentLauncherBinding.inflate(getLayoutInflater());
-        accountViewWrapper = new AccountViewWrapper(binding.viewAccount.getRoot());
+        accountViewWrapper = new AccountViewWrapper(this, binding.viewAccount.getRoot());
         accountViewWrapper.refreshAccountInfo();
         return binding.getRoot();
     }

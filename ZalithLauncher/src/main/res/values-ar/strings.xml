@@ -244,8 +244,6 @@
     <string name="account_add">إضافة حساب</string>
     <string name="account_no_saved_accounts">لا توجد حسابات محفوظة</string>
     <string name="account_remove">سيتم إزالة هذا الحساب من المشغل، هل أنت متأكد من القيام بذلك؟</string>
-    <string name="account_manager">إدارة الحسابات</string>
-    <string name="account_text">يرجى اختيار طريقة تسجيل دخول</string>
     <string name="account_microsoft_account">حساب مايكروسوفت</string>
     <string name="account_microsoft_xerr_unauthorized">يبدو أن معلومات تسجيل الدخول إلى حساب مايكروسوفت الخاص بك قد انتهت، هذا الأمر شائع عند تغيير كلمة مرور الحساب، يرجى إزالة الحساب الحالي وإعادة تسجيل الدخول لإعادة تعيين معلومات تسجيل الدخول الخاصة بك.</string>
     <string name="account_local_account">حساب في وضع عدم الاتصال</string>
@@ -256,9 +254,8 @@
     <string name="account_login_start">بدء تسجيل الدخول!</string>
     <string name="account_no_microsoft_account">يرجى تسجيل الدخول إلى حساب Minecraft الأصلي على الأقل، لا نشجع المستخدمين على تشغيل Minecraft بدون حساب أصلي.</string>
     <string name="account_no_microsoft_account_local">يبدو أنك لم تسجل الدخول إلى حساب أصلي! حساب في وضع عدم الاتصال هو خيار بديل للاعبين لا يمكنهم الاتصال بالإنترنت، وليس للاعبين الذين ليس لديهم حساب أصلي.</string>
-    <string name="account_no_microsoft_account_local_confirm">متابعة استخدام حساب في وضع عدم الاتصال</string>
     <string name="account_no_microsoft_account_other">يبدو أنك لم تسجل الدخول إلى حساب أصلي! هل أنت متأكد من الاستمرار في استخدام تسجيل الدخول الخارجي بدون تسجيل الدخول إلى حساب أصلي؟</string>
-    <string name="account_no_microsoft_account_other_confirm">متابعة استخدام تسجيل الدخول الخارجي</string>
+    <string name="account_no_microsoft_account_continue">تجاهل واستمر</string>
     <string name="account_continue_to_launch_the_game">متابعة تشغيل اللعبة</string>
     <string name="account_purchase_minecraft_account">شراء حساب Minecraft الأصلي</string>
     <string name="account_purchase_minecraft_account_tip">إذا لم يكن لديك حساب Minecraft الأصلي، يرجى شراء حساب أصلي من موقع Minecraft!</string>
@@ -544,9 +541,8 @@
     <string name="update_downloading">جارٍ تنزيل حزمة التثبيت… (%s / %s)</string>
     <string name="update_downloading_tip">جارٍ التحميل، مصدر التحديث: %s</string>
     <!-- Other Login -->
-    <string name="other_login">تسجيل دخول خارجي</string>
-    <string name="other_login_authentication_server">خادم التحقق من الهوية</string>
-    <string name="other_login_register">تسجيل</string>
+    <string name="other_login_server">خادم التحقق</string>
+    <string name="other_login_server_add">إضافة خادم التحقق</string>
     <string name="other_login_email">البريد الإلكتروني أو اسم المستخدم</string>
     <string name="other_login_password">كلمة المرور</string>
     <string name="other_login_add_server">يرجى اختيار نوع خادم التحقق من الهوية</string>
@@ -554,11 +550,11 @@
     <string name="other_login_yggdrasil_api">يرجى إدخال عنوان خادم Yggdrasil API للتحقق</string>
     <string name="other_login_32_bit_server">يرجى إدخال معرف الخادم 32 بت</string>
     <string name="other_login_error">حدث خطأ أثناء تسجيل الدخول:\n</string>
-    <string name="other_login_no_server">لا يوجد خادم تحقق</string>
     <string name="other_login_baseurl_not_set">لم يتم تعيين عنوان URL الأساسي</string>
     <string name="other_login_server_not_empty">الخادم لا يمكن أن يكون فارغًا، يرجى التحقق من إعدادات خادم التحقق!</string>
     <string name="other_login_select_role_title">اختر شخصية</string>
     <string name="other_login_select_role_message">الحساب الحالي يحتوي على عدة شخصيات، يرجى اختيار الشخصية التي ترغب في استخدامها</string>
+    <string name="other_login_registry_now">ليس لديك حساب؟ اضغط هنا للتسجيل!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">يحتاج المُشغّل إلى تثبيت هذه المحتويات لضمان تشغيل Minecraft بشكل صحيح. هذه المحتويات مضمنة بالفعل في التطبيق، ويجب فك ضغطها لاستخدامها بشكل صحيح. انقر على الزر أدناه لبدء فك الضغط وتحديث هذه المحتويات.</string>
     <string name="splash_screen_installing">يقوم المُشغّل حاليًا بفك ضغط هذه المحتويات، سيتم الدخول إلى الواجهة الرئيسية تلقائيًا بعد الانتهاء من فك الضغط، يرجى الانتظار بصبر.</string>

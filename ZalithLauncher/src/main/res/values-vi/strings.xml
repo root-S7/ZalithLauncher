@@ -244,8 +244,6 @@
     <string name="account_add">Thêm tài khoản</string>
     <string name="account_no_saved_accounts">Không có tài khoản đã lưu</string>
     <string name="account_remove">Tài khoản này sẽ bị xóa khỏi trình khởi động, bạn có chắc chắn muốn làm điều này không?</string>
-    <string name="account_manager">Quản lý tài khoản</string>
-    <string name="account_text">Vui lòng chọn một phương thức đăng nhập</string>
     <string name="account_microsoft_account">Tài khoản Microsoft</string>
     <string name="account_microsoft_xerr_unauthorized">Thông tin đăng nhập tài khoản Microsoft của bạn có vẻ đã hết hạn, tình huống này thường xảy ra khi mật khẩu tài khoản bị thay đổi. Vui lòng xóa tài khoản hiện tại và đăng nhập lại để đặt lại thông tin đăng nhập của bạn.</string>
     <string name="account_local_account">Tài khoản ngoại tuyến</string>
@@ -256,9 +254,8 @@
     <string name="account_login_start">Bắt đầu đăng nhập!</string>
     <string name="account_no_microsoft_account">Vui lòng đăng nhập ít nhất một tài khoản Minecraft bản quyền, chúng tôi không khuyến khích người dùng khởi động Minecraft mà không có tài khoản bản quyền.</string>
     <string name="account_no_microsoft_account_local">Có vẻ như bạn chưa đăng nhập vào tài khoản bản quyền! Tài khoản ngoại tuyến là một giải pháp thay thế cho người chơi khi không thể kết nối mạng, không phải dành cho người chơi không có tài khoản bản quyền.</string>
-    <string name="account_no_microsoft_account_local_confirm">Tiếp tục sử dụng tài khoản ngoại tuyến</string>
     <string name="account_no_microsoft_account_other">Có vẻ như bạn chưa đăng nhập vào tài khoản bản quyền! Bạn có chắc chắn muốn sử dụng đăng nhập bên ngoài mà không có tài khoản bản quyền không?</string>
-    <string name="account_no_microsoft_account_other_confirm">Tiếp tục sử dụng đăng nhập bên ngoài</string>
+    <string name="account_no_microsoft_account_continue">Bỏ qua và tiếp tục</string>
     <string name="account_continue_to_launch_the_game">Vẫn khởi động trò chơi</string>
     <string name="account_purchase_minecraft_account">Mua tài khoản Minecraft bản quyền</string>
     <string name="account_purchase_minecraft_account_tip">Nếu bạn chưa có tài khoản Minecraft bản quyền, vui lòng mua tài khoản bản quyền trên trang web chính thức của Minecraft trước!</string>
@@ -544,9 +541,8 @@
     <string name="update_downloading">Đang tải gói cài đặt… (%s / %s)</string>
     <string name="update_downloading_tip">Đang lấy, nguồn cập nhật: %s</string>
     <!-- Other Login -->
-    <string name="other_login">Đăng nhập bên ngoài</string>
-    <string name="other_login_authentication_server">Máy chủ xác thực</string>
-    <string name="other_login_register">Đăng ký</string>
+    <string name="other_login_server">Máy chủ Auth</string>
+    <string name="other_login_server_add">Thêm Máy chủ Auth</string>
     <string name="other_login_email">Email hoặc tên người dùng</string>
     <string name="other_login_password">Mật khẩu</string>
     <string name="other_login_add_server">Vui lòng chọn loại máy chủ xác thực</string>
@@ -554,11 +550,11 @@
     <string name="other_login_yggdrasil_api">Vui lòng nhập địa chỉ máy chủ xác thực API Yggdrasil</string>
     <string name="other_login_32_bit_server">Vui lòng nhập ID máy chủ 32 bit</string>
     <string name="other_login_error">Lỗi xảy ra khi đăng nhập: \n</string>
-    <string name="other_login_no_server">Không có máy chủ xác thực</string>
     <string name="other_login_baseurl_not_set">Chưa đặt URL cơ sở</string>
     <string name="other_login_server_not_empty">Máy chủ không được để trống, vui lòng kiểm tra cài đặt máy chủ xác thực!</string>
     <string name="other_login_select_role_title">Chọn vai trò</string>
     <string name="other_login_select_role_message">Tài khoản hiện tại có nhiều vai trò, vui lòng chọn vai trò bạn muốn sử dụng</string>
+    <string name="other_login_registry_now">Chưa có tài khoản? Nhấn vào đây để đăng ký!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">Trình khởi chạy cần cài đặt những nội dung này để đảm bảo Minecraft có thể khởi chạy bình thường. Những nội dung này đã được bao gồm trong ứng dụng và cần được giải nén trước khi có thể sử dụng bình thường, hãy nhấp vào nút bên dưới để bắt đầu giải nén và cập nhật những nội dung này.</string>
     <string name="splash_screen_installing">Trình khởi chạy đang giải nén những nội dung này, sau khi giải nén xong sẽ tự động vào giao diện chính, vui lòng chờ đợi.</string>

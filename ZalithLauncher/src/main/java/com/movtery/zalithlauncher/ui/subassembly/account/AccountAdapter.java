@@ -2,12 +2,10 @@ package com.movtery.zalithlauncher.ui.subassembly.account;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils;
@@ -78,37 +76,27 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
                 binding.delete.setOnClickListener(v -> accountUpdateListener.onDelete(account));
             }
 
-            if (account != null) {
-                binding.name.setText(account.username);
+            binding.name.setText(account.username);
 
-                int loginType;
-                if (account.isMicrosoft) {
-                    setButtonClickable(binding.refresh, true);
-                    loginType = R.string.account_microsoft_account;
-                } else if (AccountUtils.isOtherLoginAccount(account)) {
-                    setButtonClickable(binding.refresh, true);
-                    loginType = R.string.other_login;
-                } else {
-                    setButtonClickable(binding.refresh, false);
-                    loginType = R.string.account_local_account;
-                }
-
-                try {
-                    binding.icon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(38f)));
-                } catch (IOException e) {
-                    Logging.e("AccountAdapter", Tools.printToString(e));
-                }
-
-                binding.loginType.setText(loginType);
+            String loginType;
+            if (account.isMicrosoft) {
+                setButtonClickable(binding.refresh, true);
+                loginType = mContext.getString(R.string.account_microsoft_account);
+            } else if (AccountUtils.isOtherLoginAccount(account)) {
+                setButtonClickable(binding.refresh, true);
+                loginType = account.accountType;
             } else {
-                binding.icon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));
-                binding.name.setVisibility(View.GONE);
-                binding.loginType.setVisibility(View.GONE);
-                binding.add.setVisibility(View.VISIBLE);
-
-                binding.refresh.setVisibility(View.GONE);
-                binding.delete.setVisibility(View.GONE);
+                setButtonClickable(binding.refresh, false);
+                loginType = mContext.getString(R.string.account_local_account);
             }
+
+            try {
+                binding.icon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(38f)));
+            } catch (IOException e) {
+                Logging.e("AccountAdapter", Tools.printToString(e));
+            }
+
+            binding.loginType.setText(loginType);
         }
 
         private void setButtonClickable(ImageButton button, boolean clickable) {

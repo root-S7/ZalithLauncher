@@ -15,9 +15,14 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.Objects
 import java.util.UUID
+import java.util.concurrent.TimeUnit
 
 object OtherLoginApi {
-    private var client: OkHttpClient = OkHttpClient()
+    private var client: OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .build()
     private var baseUrl: String? = null
 
     fun setBaseUrl(baseUrl: String) {
