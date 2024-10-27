@@ -60,7 +60,8 @@ public class VersionListView extends LinearLayout {
 
         if (event != null) {
             JMinecraftVersionList jMinecraftVersionList = event.getList();
-            versionArray = (jMinecraftVersionList.versions != null) ? jMinecraftVersionList.versions : new JMinecraftVersionList.Version[0];
+            boolean isVersionsNotNull = jMinecraftVersionList != null && jMinecraftVersionList.versions != null;
+            versionArray = isVersionsNotNull ? jMinecraftVersionList.versions : new JMinecraftVersionList.Version[0];
         } else {
             versionArray = new JMinecraftVersionList.Version[0];
         }
