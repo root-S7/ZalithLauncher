@@ -32,7 +32,7 @@ import com.movtery.zalithlauncher.event.single.*;
 import com.movtery.zalithlauncher.event.sticky.*;
 import com.movtery.zalithlauncher.event.value.*;
 import com.movtery.zalithlauncher.feature.CheckNewNotice;
-import com.movtery.zalithlauncher.feature.UpdateLauncher;
+import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager;
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;

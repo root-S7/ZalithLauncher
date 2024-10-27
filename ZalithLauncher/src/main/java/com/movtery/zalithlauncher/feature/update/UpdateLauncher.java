@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.feature;
+package com.movtery.zalithlauncher.feature.update;
 
 import static com.movtery.zalithlauncher.utils.file.FileTools.formatFileSize;
 import static net.kdt.pojavlaunch.Architecture.ARCH_ARM;
@@ -32,7 +32,6 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.FileUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -54,20 +53,16 @@ public final class UpdateLauncher {
     public static long LAST_UPDATE_CHECK_TIME = 0;
     private final Context context;
     private final UpdateSource updateSource;
-    private final String versionName, tagName, fileSizeString;
-    private final long fileSize;
+    private final LauncherVersion launcherVersion;
     private final String destinationFilePath;
     private final Call call;
     private ProgressDialog dialog;
     private Timer timer;
 
-    public UpdateLauncher(Context context, String versionName, String tagName, long fileSize, UpdateSource updateSource) {
+    public UpdateLauncher(Context context, LauncherVersion launcherVersion, UpdateSource updateSource) {
         this.context = context;
         this.updateSource = updateSource;
-        this.versionName = versionName;
-        this.tagName = tagName;
-        this.fileSizeString = formatFileSize(fileSize);
-        this.fileSize = fileSize;
+        this.launcherVersion = launcherVersion;
 
         this.destinationFilePath = sApkFile.getAbsolutePath();
         this.call = new OkHttpClient().newCall(
@@ -137,38 +132,18 @@ public final class UpdateLauncher {
                     String responseBody = response.body().string(); //解析响应体
                     try {
                         JSONObject jsonObject = new JSONObject(responseBody);
-                        String versionName = jsonObject.getString("name");
+                        String rawBase64 = jsonObject.getString("content");
+                        String rawJson = StringUtils.decodeBase64(rawBase64);
 
+                        LauncherVersion launcherVersion = Tools.GLOBAL_GSON.fromJson(rawJson, LauncherVersion.class);
+
+                        String versionName = launcherVersion.getVersionName();
                         if (ignore && Objects.equals(versionName, AllSettings.Companion.getIgnoreUpdate()))
                             return; //忽略此版本
 
-                        String tagName = jsonObject.getString("tag_name");
-                        JSONArray assetsJson = jsonObject.getJSONArray("assets");
-                        JSONObject firstAsset = assetsJson.getJSONObject(0);
-                        long fileSize = firstAsset.getLong("size");
-                        int githubVersion = 0;
-                        try {
-                            githubVersion = Integer.parseInt(tagName);
-                        } catch (Exception e) {
-                            Logging.e("Parse github version", Tools.printToString(e));
-                        }
-
-                        if (ZHTools.getVersionCode() < githubVersion) {
-                            runOnUiThread(() -> {
-                                UpdateDialog.UpdateInformation updateInformation = new UpdateDialog.UpdateInformation();
-                                try {
-                                    updateInformation.information(versionName,
-                                            tagName,
-                                            StringUtils.formattingTime(jsonObject.getString("created_at")),
-                                            fileSize,
-                                            jsonObject.getString("body"));
-                                } catch (Exception e) {
-                                    Logging.e("Init update information", Tools.printToString(e));
-                                }
-                                UpdateDialog updateDialog = new UpdateDialog(context, updateInformation);
-
-                                updateDialog.show();
-                            });
+                        int versionCode = launcherVersion.getVersionCode();
+                        if (ZHTools.getVersionCode() < versionCode) {
+                            runOnUiThread(() -> new UpdateDialog(context, launcherVersion).show());
                         } else if (!ignore) {
                             runOnUiThread(() -> {
                                 String nowVersionName = ZHTools.getVersionName();
@@ -182,7 +157,7 @@ public final class UpdateLauncher {
                     }
                 }
             }
-        }, PathAndUrlManager.URL_GITHUB_RELEASE, token.equals("DUMMY") ? null : token).enqueue();
+        }, PathAndUrlManager.URL_GITHUB_UPDATE, token.equals("DUMMY") ? null : token).enqueue();
     }
 
     private static void showFailToast(Context context, String resString) {
@@ -198,10 +173,19 @@ public final class UpdateLauncher {
         return null;
     }
 
+    public static long getFileSize(LauncherVersion.FileSize fileSize) {
+        int arch = Tools.DEVICE_ARCHITECTURE;
+        if (arch == ARCH_ARM64) return fileSize.getArm64();
+        if (arch == ARCH_ARM) return fileSize.getArm();
+        if (arch == ARCH_X86_64) return fileSize.getX86_64();
+        if (arch == ARCH_X86) return fileSize.getX86();
+        return fileSize.getAll();
+    }
+
     private String getDownloadUrl() {
         String fileUrl;
         String archModel = getArchModel();
-        String githubUrl = "github.com/MovTery/ZalithLauncher/releases/download/" + tagName + "/" + "ZalithLauncher-" + versionName +
+        String githubUrl = "github.com/MovTery/ZalithLauncher/releases/download/" + launcherVersion.getVersionCode() + "/" + "ZalithLauncher-" + launcherVersion.getVersionName() +
                 (archModel != null ? String.format("-%s", archModel) : "") + ".apk";
         switch (updateSource) {
             case GHPROXY:
@@ -264,9 +248,10 @@ public final class UpdateLauncher {
 
                                 runOnUiThread(() -> {
                                     String formattedDownloaded = formatFileSize(size);
-                                    UpdateLauncher.this.dialog.updateProgress(size, fileSize);
+                                    String totalSize = formatFileSize(getFileSize(launcherVersion.getFileSize()));
+                                    UpdateLauncher.this.dialog.updateProgress(size, getFileSize(launcherVersion.getFileSize()));
                                     UpdateLauncher.this.dialog.updateRate(rate > 0 ? rate : 0L);
-                                    UpdateLauncher.this.dialog.updateText(String.format(context.getString(R.string.update_downloading), formattedDownloaded, fileSizeString));
+                                    UpdateLauncher.this.dialog.updateText(String.format(context.getString(R.string.update_downloading), formattedDownloaded, totalSize));
                                 });
                             }
                         }, 0, 120);

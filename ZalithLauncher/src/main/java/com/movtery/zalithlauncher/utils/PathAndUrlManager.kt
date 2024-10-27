@@ -17,7 +17,7 @@ class PathAndUrlManager {
     companion object {
         private const val TIME_OUT = 8000
         private const val URL_USER_AGENT: String = "PZH/${BuildConfig.VERSION_NAME}" //此处不做更改，继承 Pojav Zenith Horizon
-        const val URL_GITHUB_RELEASE: String = "https://api.github.com/repos/MovTery/ZalithLauncher/releases/latest"
+        const val URL_GITHUB_UPDATE: String = "https://api.github.com/repos/MovTery/ZalithLauncher/contents/versions.json"
         const val URL_GITHUB_HOME: String = "https://api.github.com/repos/MovTery/Zalith-Info/contents/"
         const val URL_MCMOD: String = "https://www.mcmod.cn/"
         const val URL_MINECRAFT: String = "https://www.minecraft.net/"

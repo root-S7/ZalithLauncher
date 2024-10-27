@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.zalithlauncher.feature.UpdateLauncher;
+import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
+import com.movtery.zalithlauncher.feature.update.LauncherVersion;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
@@ -21,19 +22,11 @@ import net.kdt.pojavlaunch.databinding.DialogUpdateBinding;
 
 public class UpdateDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogUpdateBinding binding = DialogUpdateBinding.inflate(getLayoutInflater());
-    private final String versionName;
-    private final String tagName;
-    private final String createdTime;
-    private final long fileSize;
-    private final String description;
+    private final LauncherVersion launcherVersion;
 
-    public UpdateDialog(@NonNull Context context, UpdateInformation updateInformation) {
+    public UpdateDialog(@NonNull Context context, LauncherVersion launcherVersion) {
         super(context);
-        this.versionName = updateInformation.versionName;
-        this.tagName = updateInformation.tagName;
-        this.createdTime = updateInformation.createdTime;
-        this.fileSize = updateInformation.fileSize;
-        this.description = updateInformation.description;
+        this.launcherVersion = launcherVersion;
 
         this.setCancelable(false);
         this.setContentView(binding.getRoot());
@@ -43,15 +36,15 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
 
     @SuppressLint("SetJavaScriptEnabled")
     private void init() {
-        String version = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_version), this.versionName);
-        String time = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_time), this.createdTime);
-        String size = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_file_size), FileTools.formatFileSize(this.fileSize));
+        String versionString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_version), launcherVersion.getVersionName());
+        String timeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_time), StringUtils.formattingTime(launcherVersion.getPublishedAt()));
+        String sizeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_file_size), FileTools.formatFileSize(UpdateLauncher.getFileSize(launcherVersion.getFileSize())));
 
-        binding.versionName.setText(version);
-        binding.updateTime.setText(time);
-        binding.fileSize.setText(size);
+        binding.versionName.setText(versionString);
+        binding.updateTime.setText(timeString);
+        binding.fileSize.setText(sizeString);
 
-        String descriptionHtml = markdownToHtml(this.description);
+        String descriptionHtml = markdownToHtml(getLanguageText(launcherVersion.getDescription()));
 
         ZHTools.getWebViewAfterProcessing(binding.description);
 
@@ -62,40 +55,39 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
             this.dismiss();
             if (ZHTools.areaChecks("zh")) {
                 runOnUiThread(() -> {
-                    UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), versionName, tagName, fileSize);
+                    UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), launcherVersion);
                     updateSourceDialog.show();
                 });
             } else {
                 runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
-                UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), versionName, tagName, fileSize, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
+                UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), launcherVersion, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
                 updateLauncher.start();
             }
         });
         binding.cancelButton.setOnClickListener(view -> this.dismiss());
         binding.ignoreButton.setOnClickListener(view -> {
-            Settings.Manager.Companion.put("ignoreUpdate", this.versionName).save();
+            Settings.Manager.Companion.put("ignoreUpdate", launcherVersion.getVersionName()).save();
             this.dismiss();
         });
+    }
+
+    private String getLanguageText(LauncherVersion.WhatsNew whatsNew) {
+        String text;
+        switch (ZHTools.getSystemLanguage()) {
+            case "zh_cn":
+                text = whatsNew.getZhCN();
+                break;
+            case "zh_tw":
+                text = whatsNew.getZhTW();
+                break;
+            default:
+                text = whatsNew.getEnUS();
+        }
+        return text;
     }
 
     @Override
     public Window onInit() {
         return getWindow();
-    }
-
-    public static class UpdateInformation {
-        public String versionName;
-        public String tagName;
-        public String createdTime;
-        public long fileSize;
-        public String description;
-
-        public void information(@NonNull String versionName, @NonNull String tagName, @NonNull String createdTime, long fileSize, @NonNull String description) {
-            this.versionName = versionName;
-            this.tagName = tagName;
-            this.createdTime = createdTime;
-            this.fileSize = fileSize;
-            this.description = description;
-        }
     }
 }
