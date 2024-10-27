@@ -542,7 +542,7 @@
     <string name="update_downloading_tip">En cours de récupération, source de mise à jour : %s</string>
     <!-- Other Login -->
     <string name="other_login_server">Serveur Auth</string>
-    <string name="other_login_server_add">Ajouter un Serveur Auth</string>
+    <string name="other_login_server_add">Ajouter Serveur Auth</string>
     <string name="other_login_email">Adresse e-mail ou nom d\'utilisateur</string>
     <string name="other_login_password">Mot de passe</string>
     <string name="other_login_add_server">Veuillez sélectionner le type de serveur d\'authentification</string>

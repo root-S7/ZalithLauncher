@@ -541,7 +541,7 @@
     <string name="update_downloading">جارٍ تنزيل حزمة التثبيت… (%s / %s)</string>
     <string name="update_downloading_tip">جارٍ التحميل، مصدر التحديث: %s</string>
     <!-- Other Login -->
-    <string name="other_login_server">خادم التحقق</string>
+    <string name="other_login_server">إضافة خادم Auth</string>
     <string name="other_login_server_add">إضافة خادم التحقق</string>
     <string name="other_login_email">البريد الإلكتروني أو اسم المستخدم</string>
     <string name="other_login_password">كلمة المرور</string>
