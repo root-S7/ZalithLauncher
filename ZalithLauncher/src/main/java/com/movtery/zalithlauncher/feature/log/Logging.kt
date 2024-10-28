@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.feature.log
 import android.util.Log
 import com.movtery.zalithlauncher.utils.PathAndUrlManager.Companion.DIR_LAUNCHER_LOG
 import com.movtery.zalithlauncher.utils.ZHTools
+import net.kdt.pojavlaunch.BuildConfig
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import java.io.BufferedWriter
@@ -22,6 +23,7 @@ object Logging {
 
     init {
         FILE_LAUNCHER_LOG = getLogFile()
+        writeLauncherInfo()
     }
 
     private fun getLogFile(): File {
@@ -55,6 +57,7 @@ object Logging {
                 FILE_LAUNCHER_LOG?.let { file ->
                     if (file.exists() && FileUtils.sizeOf(file) >= 15 * 1024 * 1024) { //15MB
                         FILE_LAUNCHER_LOG = getLogFile()
+                        writeLauncherInfo()
                     }
                 }
 
@@ -62,14 +65,30 @@ object Logging {
                 val timeString = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date)
                 val logString = "($timeString) [${tag.name}] <$mark> $log"
 
-                runCatching {
-                    BufferedWriter(FileWriter(FILE_LAUNCHER_LOG, true)).use { writer ->
-                        writer.append(logString).append("\n")
-                    }
-                }.getOrElse { e ->
-                    Log.e("Logging", "Failed to write log: ${Tools.printToString(e)}")
-                }
+                writeToFile(logString)
             }
+        }
+    }
+
+    private fun writeLauncherInfo() {
+        writeToFile(
+            """
+                =============== Zalith Launcher ===============
+                - Version Name : ${BuildConfig.VERSION_NAME}
+                - Version Code : ${BuildConfig.VERSION_CODE}
+                - Build Type : ${BuildConfig.BUILD_TYPE}
+
+            """.trimIndent()
+        )
+    }
+
+    private fun writeToFile(string: String) {
+        runCatching {
+            BufferedWriter(FileWriter(FILE_LAUNCHER_LOG, true)).use { writer ->
+                writer.append(string).append("\n")
+            }
+        }.getOrElse { e ->
+            Log.e("Logging", "Failed to write log: ${Tools.printToString(e)}")
         }
     }
 
