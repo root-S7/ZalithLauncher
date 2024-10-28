@@ -16,13 +16,16 @@ import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.anim.SlideAnimation
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
+import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
 
-abstract class FragmentWithAnim : Fragment, SlideAnimation {
+abstract class FragmentWithAnim : Fragment, SlideAnimation, TaskCountListener {
     companion object {
         private const val REQUEST_CODE_PERMISSIONS: Int = 0
     }
 
     private var animPlayer: AnimPlayer = AnimPlayer()
+    private var mIsTaskRunning: Boolean = false
 
     constructor()
 
@@ -31,7 +34,19 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation {
     override fun onStart() {
         super.onStart()
         playAnimation { slideIn(it) }
+        ProgressKeeper.addTaskCountListener(this)
     }
+
+    override fun onStop() {
+        super.onStop()
+        ProgressKeeper.removeTaskCountListener(this)
+    }
+
+    override fun onUpdateTaskCount(taskCount: Int) {
+        this.mIsTaskRunning = taskCount != 0
+    }
+
+    fun isTaskRunning() = mIsTaskRunning
 
     fun slideOut() {
         playAnimation { slideOut(it) }

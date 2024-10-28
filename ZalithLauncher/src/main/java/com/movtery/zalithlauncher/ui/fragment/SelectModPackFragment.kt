@@ -21,12 +21,10 @@ import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentSelectModpackBinding
-import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
-import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 
-class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack), TaskCountListener {
+class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack) {
     companion object {
         const val TAG: String = "SelectModPackFragment"
     }
@@ -34,13 +32,12 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
     private lateinit var binding: FragmentSelectModpackBinding
     private var openDocumentLauncher: ActivityResultLauncher<Any?>? = null
     private var modPackFile: File? = null
-    private var mTasksRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null)) { result: Uri? ->
             result?.let{
-                if (!mTasksRunning) {
+                if (!isTaskRunning()) {
                     val dialog = AlertDialog.Builder(requireContext())
                         .setView(R.layout.view_task_running)
                         .setCancelable(false)
@@ -64,11 +61,9 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        ProgressKeeper.addTaskCountListener(this)
-
         binding.returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         binding.searchButton.setOnClickListener {
-            if (!mTasksRunning) {
+            if (!isTaskRunning()) {
                 val bundle = Bundle()
                 bundle.putInt(DownloadFragment.BUNDLE_CLASSIFY_TYPE, Classify.MODPACK.type)
                 ZHTools.swapFragmentWithAnim(this, DownloadFragment::class.java, DownloadFragment.TAG, bundle)
@@ -78,7 +73,7 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
             }
         }
         binding.localButton.setOnClickListener {
-            if (!mTasksRunning) {
+            if (!isTaskRunning()) {
                 Toast.makeText(requireActivity(), getString(R.string.select_modpack_local_tip), Toast.LENGTH_SHORT).show()
                 openDocumentLauncher?.launch(null)
             } else {
@@ -86,10 +81,6 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
                 Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    override fun onUpdateTaskCount(taskCount: Int) {
-        mTasksRunning = taskCount != 0
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {

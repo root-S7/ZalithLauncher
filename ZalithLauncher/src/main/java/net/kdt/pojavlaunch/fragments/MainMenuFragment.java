@@ -33,16 +33,14 @@ import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.databinding.FragmentLauncherBinding;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
-import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class MainMenuFragment extends FragmentWithAnim implements TaskCountListener {
+public class MainMenuFragment extends FragmentWithAnim {
     public static final String TAG = "MainMenuFragment";
     private FragmentLauncherBinding binding;
     private AccountViewWrapper accountViewWrapper;
-    private boolean mTasksRunning;
 
     public MainMenuFragment() {
         super(R.layout.fragment_launcher);
@@ -60,8 +58,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding.mcVersionSpinner.setParentFragment(this);
-        ProgressKeeper.addTaskCountListener(this);
-
         binding.aboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
         binding.customControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
         binding.openMainDirButton.setOnClickListener(v -> {
@@ -80,7 +76,7 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
         });
 
         binding.pathManagerButton.setOnClickListener(v -> {
-            if (!mTasksRunning) {
+            if (!isTaskRunning()) {
                 checkPermissions(R.string.profiles_path_title, () -> {
                     ViewAnimUtils.setViewAnim(binding.pathManagerButton, Animations.Pulse);
                     ZHTools.swapFragmentWithAnim(this, ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
@@ -126,11 +122,6 @@ public class MainMenuFragment extends FragmentWithAnim implements TaskCountListe
             Tools.installMod(requireActivity(), isCustomArgs);
         else
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onUpdateTaskCount(int taskCount) {
-        mTasksRunning = taskCount != 0;
     }
 
     @Override

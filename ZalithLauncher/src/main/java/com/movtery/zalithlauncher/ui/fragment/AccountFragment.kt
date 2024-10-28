@@ -45,7 +45,6 @@ import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentAccountBinding
 import net.kdt.pojavlaunch.databinding.ItemOtherServerBinding
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment
-import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
@@ -54,8 +53,7 @@ import org.json.JSONObject
 import java.io.File
 import java.util.regex.Pattern
 
-class AccountFragment : FragmentWithAnim(R.layout.fragment_account), TaskCountListener,
-    View.OnClickListener {
+class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClickListener {
     companion object {
         const val TAG = "AccountFragment"
     }
@@ -66,10 +64,9 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), TaskCountLi
     private val mAccountsData: MutableList<MinecraftAccount> = mAccountManager.allAccount
     private val mAccountAdapter = AccountAdapter(mAccountsData)
 
-    private var mIsTaskRunning: Boolean = false
     private val selectAccountListener = object : SelectAccountListener {
         override fun onSelect(account: MinecraftAccount) {
-            if (!mIsTaskRunning) {
+            if (!isTaskRunning()) {
                 PojavProfile.setCurrentProfile(requireActivity(), account.username)
             } else {
                 Tools.runOnUiThread {
@@ -83,7 +80,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), TaskCountLi
         }
     }
 
-    private val localNamePattern = Pattern.compile("[^a-zA-Z0-9_]")
+    private val mLocalNamePattern = Pattern.compile("[^a-zA-Z0-9_]")
     private var mOtherServerConfig: Servers? = null
     private val mOtherServerConfigFile = File(PathAndUrlManager.DIR_GAME_HOME, "servers.json")
     private val mOtherServerList: MutableList<Server> = ArrayList()
@@ -114,7 +111,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), TaskCountLi
             }
 
             override fun onRefresh(account: MinecraftAccount) {
-                if (!mIsTaskRunning) {
+                if (!isTaskRunning()) {
                     mAccountManager.performLogin(account, true)
                 } else {
                     Toast.makeText(context, R.string.tasks_ongoing, Toast.LENGTH_SHORT).show()
@@ -247,7 +244,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), TaskCountLi
 
                 if (!checkEditText(string, editText)) return@setConfirmListener false
 
-                val matcher = localNamePattern.matcher(string)
+                val matcher = mLocalNamePattern.matcher(string)
 
                 if (matcher.find()) {
                     TipDialog.Builder(requireContext())
@@ -434,10 +431,6 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), TaskCountLi
     fun event(event: AccountUpdateEvent) {
         mAccountViewWrapper.refreshAccountInfo()
         reloadRecyclerView()
-    }
-
-    override fun onUpdateTaskCount(taskCount: Int) {
-        mIsTaskRunning = taskCount != 0
     }
 
     override fun onClick(v: View) {
