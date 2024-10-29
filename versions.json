@@ -2,21 +2,21 @@
   "version_code": 1362,
   "version_name": "1.3.6.2",
   "title": {
-    "en_us": "",
-    "zh_cn": "1.3.6.2 更新",
-    "zh_tw": ""
+    "en_us": "1.3.6.2",
+    "zh_cn": "1.3.6.2",
+    "zh_tw": "1.3.6.2"
   },
   "description": {
-    "en_us": "",
-    "zh_cn": "",
-    "zh_tw": ""
+    "en_us": "## Update Notes:\r\n- Updated [Account Management]: Refactored account management\r\n- Updated [Launcher Update]: Rewrote the logic for fetching updates, supports multiple languages\r\n---\r\n- Adjusted [App Layout]: Adjusted UI and descriptions of certain interfaces\r\n- Adjusted [About]: Removed \"Branch Status\" information\r\n- Adjusted [Logs]: Printed launcher information at the top of the file content\r\n---\r\n- Fixed [Path Management]: Resolved the issue where sticky events were not cleared after selecting a path\r\n- Fixed [Local Integration Package]: Corrected instance path settings\r\n- Fixed [Version]: Resolved the crash issue caused by inability to fetch MC version list without internet\r\n- Fixed [Startup]: Addressed the flashing screen issue on some devices when launching the app\r\n",
+    "zh_cn": "## 更新内容：\n- 更新[账号管理]：重构账户管理\n- 更新[启动器更新]：重写获取更新的逻辑，支持多语言\n---\n- 调整[应用布局]：调整部分界面的UI与描述\n- 调整[关于]：移除“分支状态”信息\n- 调整[日志]：文件内容头部打印启动器信息\n---\n- 修复[路径管理]：选择路径后，粘性事件未消除的问题\n- 修复[本地整合包]：实例路径设置不正确\n- 修复[版本]：无互联网后无法获取MC版本列表引发的崩溃问题\n- 修复[启动]：部分设备启动应用时出现闪屏问题",
+    "zh_tw": "## 更新內容：\n- 更新[帳號管理]：重構帳號管理\n- 更新[啟動器更新]：重寫獲取更新的邏輯，支持多語言\n---\n- 調整[應用佈局]：調整部分介面的UI與描述\n- 調整[關於]：移除“分支狀態”資訊\n- 調整[日誌]：文件內容頭部打印啟動器資訊\n---\n- 修復[路徑管理]：選擇路徑後，粘性事件未消除的問題\n- 修復[本地整合包]：實例路徑設置不正確\n- 修復[版本]：無網路後無法獲取MC版本列表引發的崩潰問題\n- 修復[啟動]：部分設備啟動應用時出現閃屏問題\n"
   },
-  "published_at": "2024-10-25T02:37:48Z",
+  "published_at": "2024-10-29T07:27:36Z",
   "file_size": {
-    "all": 207525152,
-    "arm": 128377554,
-    "arm64": 119647245,
-    "x86": 121905122,
-    "x86_64": 122996077
+    "all": 207522753,
+    "arm": 128375159,
+    "arm64": 119644846,
+    "x86": 121902731,
+    "x86_64": 122993686
   }
 }
