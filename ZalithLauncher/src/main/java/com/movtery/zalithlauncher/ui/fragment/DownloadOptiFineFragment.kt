@@ -106,9 +106,11 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_optifine, entry.value)
 
                 adapter.setOnItemClickListener { version: Any? ->
+                    if (isTaskRunning()) return@setOnItemClickListener false
                     Thread(OptiFineDownloadTask(version as OptiFineVersion?, modloaderListenerProxy,
                             if (mIsDownloadMod) OptiFineDownloadType.DOWNLOAD_MOD else OptiFineDownloadType.DOWNLOAD_GAME)
                     ).start()
+                    true
                 }
                 mData.add(ModListItemBean(entry.key, adapter))
             }

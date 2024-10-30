@@ -114,7 +114,9 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_neoforge, entry.value)
 
                 adapter.setOnItemClickListener { version: Any? ->
+                    if (isTaskRunning()) return@setOnItemClickListener false
                     Thread(NeoForgeDownloadTask(modloaderListenerProxy, (version as String?)!!)).start()
+                    true
                 }
                 mData.add(ModListItemBean("Minecraft " + entry.key, adapter))
             }

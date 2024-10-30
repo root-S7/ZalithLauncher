@@ -101,10 +101,12 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                 //为整理好的Fabric版本设置Adapter
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, icon, loaderVersions)
                 adapter.setOnItemClickListener { version ->
+                    if (isTaskRunning()) return@setOnItemClickListener false
                     selectedGameVersion = gameVersion
                     val loaderVersion = (version as FabricVersion).version
                     selectedLoaderVersion = loaderVersion
                     Thread(utils.getDownloadTask(modloaderListenerProxy, gameVersion, loaderVersion)).start()
+                    true
                 }
 
                 mData.add(ModListItemBean("Minecraft $gameVersion", adapter))

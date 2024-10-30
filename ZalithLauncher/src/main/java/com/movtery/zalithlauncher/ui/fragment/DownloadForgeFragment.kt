@@ -95,7 +95,9 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
                 //为整理好的Forge版本设置Adapter
                 val adapter = ModVersionListAdapter(modloaderListenerProxy, this, R.drawable.ic_anvil, entry.value)
                 adapter.setOnItemClickListener { version: Any? ->
+                    if (isTaskRunning()) return@setOnItemClickListener false
                     Thread(ForgeDownloadTask(modloaderListenerProxy, version as String?)).start()
+                    true
                 }
                 mData.add(ModListItemBean("Minecraft " + entry.key, adapter))
             }
