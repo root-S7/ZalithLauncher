@@ -78,9 +78,7 @@ class SeekbarDialog(
         binding.seekbarValue.text = valueText
     }
 
-    override fun onInit(): Window? {
-        return window
-    }
+    override fun onInit(): Window? = window
 
     class Builder(val context: Context) {
         private var title: String? = null

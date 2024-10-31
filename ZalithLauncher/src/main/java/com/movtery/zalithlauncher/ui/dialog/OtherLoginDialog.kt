@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import android.view.Window
 import android.widget.Toast
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.login.AuthResult
 import com.movtery.zalithlauncher.feature.login.OtherLoginApi
 import com.movtery.zalithlauncher.feature.login.Servers.Server
+import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
@@ -21,7 +23,7 @@ class OtherLoginDialog(
     context: Context,
     private val server: Server,
     private val listener: OnLoginListener
-) : FullScreenDialog(context), View.OnClickListener {
+) : FullScreenDialog(context), View.OnClickListener, DialogInitializationListener {
     private val binding = DialogOtherLoginBinding.inflate(layoutInflater)
 
     init {
@@ -37,6 +39,8 @@ class OtherLoginDialog(
             cancelButton.setOnClickListener(this@OtherLoginDialog)
             loginButton.setOnClickListener(this@OtherLoginDialog)
         }
+
+        DraggableDialog.initDialog(this)
     }
 
     private fun checkAccountInformation(email: String?, password: String?): Boolean {
@@ -76,6 +80,8 @@ class OtherLoginDialog(
             }.getOrElse { e -> Logging.e("Other Login", Tools.printToString(e)) }
         }
     }
+
+    override fun onInit(): Window? = window
 
     override fun onClick(v: View) {
         binding.apply {

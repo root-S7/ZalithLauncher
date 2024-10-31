@@ -75,5 +75,5 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
         view.alpha = 0.5f
     }
 
-    override fun onInit(): Window = window!!
+    override fun onInit(): Window? = window
 }

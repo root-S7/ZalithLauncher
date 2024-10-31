@@ -56,9 +56,7 @@ class TipDialog private constructor(
         super.dismiss()
     }
 
-    override fun onInit(): Window {
-        return window!!
-    }
+    override fun onInit(): Window? = window
 
     fun interface OnCancelClickListener {
         fun onCancelClick()

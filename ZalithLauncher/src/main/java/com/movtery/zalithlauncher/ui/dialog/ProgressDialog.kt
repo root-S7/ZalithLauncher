@@ -15,9 +15,7 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
     init {
         this.setContentView(binding.root)
         this.setCancelable(false)
-    }
 
-    init {
         binding.progressBar.setMax(1000)
         binding.cancelButton.setOnClickListener {
             if (!listener.onClick()) return@setOnClickListener
@@ -47,9 +45,7 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
         }
     }
 
-    override fun onInit(): Window? {
-        return window
-    }
+    override fun onInit(): Window? = window
 
     fun interface OnCancelListener {
         fun onClick(): Boolean

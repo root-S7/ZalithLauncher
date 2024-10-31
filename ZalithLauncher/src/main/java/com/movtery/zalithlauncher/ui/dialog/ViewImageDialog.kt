@@ -48,9 +48,7 @@ class ViewImageDialog private constructor(
             }
         }
 
-    override fun onInit(): Window {
-        return this.window!!
-    }
+    override fun onInit(): Window? = window
 
     class Builder(val context: Context) {
         private val rm: RequestManager = Glide.with(context)
