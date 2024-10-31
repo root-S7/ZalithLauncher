@@ -311,129 +311,165 @@
                 app:layout_constraintTop_toBottomOf="@+id/name_edit"
                 app:layout_constraintBottom_toTopOf="@+id/return_button">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/mc_version_textview"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/mc_version_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/mc_version_textview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/download_ui_mc_version"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/selected_mc_version_view"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginEnd="@dimen/_4sdp"
+                            android:background="@drawable/background_edit_box"
+                            android:hint="@string/version_select_hint"
+                            android:paddingHorizontal="@dimen/padding_heavy"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintEnd_toStartOf="@id/mc_version_button"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/mc_version_textview" />
+
+                        <com.movtery.zalithlauncher.ui.view.AnimButton
+                            android:id="@+id/mc_version_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:paddingHorizontal="@dimen/padding_large"
+                            android:text="@string/generic_select"
+                            app:layout_constraintBottom_toBottomOf="@id/selected_mc_version_view"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/selected_mc_version_view" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/platform_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/download_ui_mc_version"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginTop="@dimen/_8sdp">
 
-                    <TextView
-                        android:id="@+id/selected_mc_version_view"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginEnd="@dimen/_4sdp"
-                        android:background="@drawable/background_edit_box"
-                        android:hint="@string/version_select_hint"
-                        android:paddingHorizontal="@dimen/padding_heavy"
-                        android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toStartOf="@+id/mc_version_button"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/mc_version_textview" />
+                        <TextView
+                            android:id="@+id/platform_textview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/download_ui_platform"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.movtery.zalithlauncher.ui.view.AnimButton
-                        android:id="@+id/mc_version_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:paddingHorizontal="@dimen/padding_large"
-                        android:text="@string/generic_select"
-                        app:layout_constraintBottom_toBottomOf="@+id/selected_mc_version_view"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/selected_mc_version_view" />
+                        <com.skydoves.powerspinner.PowerSpinnerView
+                            android:id="@+id/platform_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/background_edit_box"
+                            android:paddingHorizontal="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/platform_textview"
+                            app:spinner_arrow_tint="@color/primary_text"
+                            app:spinner_popup_height="@dimen/_80sdp"
+                            app:spinner_popup_background="@drawable/background_edit_box"
+                            tools:paddingVertical="@dimen/_12sdp" />
 
-                    <TextView
-                        android:id="@+id/platform_textview"
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sort_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/download_ui_platform"
-                        app:layout_constraintTop_toBottomOf="@+id/selected_mc_version_view" />
+                        android:layout_marginTop="@dimen/_8sdp">
 
-                    <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/platform_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/background_edit_box"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/platform_textview"
-                        app:spinner_arrow_tint="@color/primary_text"
-                        app:spinner_popup_height="@dimen/_80sdp"
-                        app:spinner_popup_background="@drawable/background_edit_box"
-                        tools:paddingVertical="@dimen/_12sdp" />
+                        <TextView
+                            android:id="@+id/sort_textview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/download_ui_sort_by"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/sort_textview"
+                        <com.skydoves.powerspinner.PowerSpinnerView
+                            android:id="@+id/sort_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/background_edit_box"
+                            android:paddingHorizontal="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/sort_textview"
+                            app:spinner_arrow_tint="@color/primary_text"
+                            app:spinner_popup_height="@dimen/_200sdp"
+                            app:spinner_popup_background="@drawable/background_edit_box"
+                            tools:paddingVertical="@dimen/_12sdp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/category_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/download_ui_sort_by"
-                        app:layout_constraintTop_toBottomOf="@+id/platform_spinner" />
+                        android:layout_marginTop="@dimen/_8sdp">
 
-                    <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/sort_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/background_edit_box"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/sort_textview"
-                        app:spinner_arrow_tint="@color/primary_text"
-                        app:spinner_popup_height="@dimen/_200sdp"
-                        app:spinner_popup_background="@drawable/background_edit_box"
-                        tools:paddingVertical="@dimen/_12sdp" />
+                        <TextView
+                            android:id="@+id/category_textview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/download_ui_category"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/category_textview"
+                        <com.skydoves.powerspinner.PowerSpinnerView
+                            android:id="@+id/category_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/background_edit_box"
+                            android:paddingHorizontal="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/category_textview"
+                            app:spinner_arrow_tint="@color/primary_text"
+                            app:spinner_popup_height="@dimen/_200sdp"
+                            app:spinner_popup_background="@drawable/background_edit_box"
+                            tools:paddingVertical="@dimen/_12sdp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/modloader_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/download_ui_category"
-                        app:layout_constraintTop_toBottomOf="@+id/sort_spinner" />
+                        android:layout_marginTop="@dimen/_8sdp">
 
-                    <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/category_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/background_edit_box"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/category_textview"
-                        app:spinner_arrow_tint="@color/primary_text"
-                        app:spinner_popup_height="@dimen/_200sdp"
-                        app:spinner_popup_background="@drawable/background_edit_box"
-                        tools:paddingVertical="@dimen/_12sdp" />
+                        <TextView
+                            android:id="@+id/modloader_textview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/download_ui_modloader"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/modloader_textview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/download_ui_modloader"
-                        app:layout_constraintTop_toBottomOf="@+id/category_spinner" />
+                        <com.skydoves.powerspinner.PowerSpinnerView
+                            android:id="@+id/modloader_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/background_edit_box"
+                            android:paddingHorizontal="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/modloader_textview"
+                            app:spinner_arrow_tint="@color/primary_text"
+                            app:spinner_popup_background="@drawable/background_edit_box"
+                            app:spinner_popup_height="@dimen/_200sdp"
+                            tools:paddingVertical="@dimen/_12sdp" />
 
-                    <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/modloader_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/background_edit_box"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/modloader_textview"
-                        app:spinner_arrow_tint="@color/primary_text"
-                        app:spinner_popup_background="@drawable/background_edit_box"
-                        app:spinner_popup_height="@dimen/_200sdp"
-                        tools:paddingVertical="@dimen/_12sdp" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
             </ScrollView>
 
             <com.movtery.zalithlauncher.ui.view.AnimButton

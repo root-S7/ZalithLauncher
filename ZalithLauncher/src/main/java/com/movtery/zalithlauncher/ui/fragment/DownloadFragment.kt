@@ -280,8 +280,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download_search), In
         binding.apply {
             modloaderSpinner.dismiss()
 
-            modloaderTextview.visibility = if (show) View.VISIBLE else View.GONE
-            modloaderSpinner.visibility = if (show) View.VISIBLE else View.GONE
+            modloaderLayout.visibility = if (show) View.VISIBLE else View.GONE
             if (show) {
                 modloaderSpinner.setSpinnerAdapter(mModLoaderAdapter)
                 modloaderSpinner.selectItemByIndex(0)
