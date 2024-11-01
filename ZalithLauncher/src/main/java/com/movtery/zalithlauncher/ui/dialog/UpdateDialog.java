@@ -1,7 +1,6 @@
 package com.movtery.zalithlauncher.ui.dialog;
 
 import static com.movtery.zalithlauncher.utils.stringutils.StringUtils.markdownToHtml;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.feature.update.LauncherVersion;
 import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
@@ -54,12 +54,12 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         binding.updateButton.setOnClickListener(view -> {
             this.dismiss();
             if (ZHTools.areaChecks("zh")) {
-                runOnUiThread(() -> {
+                TaskExecutors.Companion.runInUIThread(() -> {
                     UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), launcherVersion);
                     updateSourceDialog.show();
                 });
             } else {
-                runOnUiThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
+                TaskExecutors.Companion.runInUIThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
                 UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), launcherVersion, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
                 updateLauncher.start();
             }

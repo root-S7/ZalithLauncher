@@ -62,14 +62,14 @@ class OtherLoginDialog(
             OtherLoginApi.refresh(context, account, true, object : OtherLoginApi.Listener {
                 override fun onSuccess(authResult: AuthResult) {
                     account.accessToken = authResult.accessToken
-                    Tools.runOnUiThread {
+                    TaskExecutors.runInUIThread {
                         listener.unLoading()
                         listener.onSuccess(account)
                     }
                 }
 
                 override fun onFailed(error: String) {
-                    Tools.runOnUiThread {
+                    TaskExecutors.runInUIThread {
                         listener.unLoading()
                         listener.onFailed(error)
                     }
@@ -123,12 +123,12 @@ class OtherLoginDialog(
                                         if (!Objects.isNull(authResult.selectedProfile)) {
                                             username = authResult.selectedProfile.name
                                             profileId = authResult.selectedProfile.id
-                                            Tools.runOnUiThread {
+                                            TaskExecutors.runInUIThread {
                                                 listener.unLoading()
                                                 listener.onSuccess(this)
                                             }
                                         } else {
-                                            Tools.runOnUiThread {
+                                            TaskExecutors.runInUIThread {
                                                 val selectRoleDialog = SelectRoleDialog(
                                                     context,
                                                     authResult.availableProfiles
@@ -146,7 +146,7 @@ class OtherLoginDialog(
                                 }
 
                                 override fun onFailed(error: String) {
-                                    Tools.runOnUiThread {
+                                    TaskExecutors.runInUIThread {
                                         listener.unLoading()
                                         listener.onFailed(error)
                                     }

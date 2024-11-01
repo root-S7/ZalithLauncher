@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.formatFileSize
 import com.movtery.zalithlauncher.utils.platform.MemoryUtils
 import com.petterp.floatingx.assist.FxGravity
@@ -12,7 +13,6 @@ import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.util.createFx
 import com.petterp.floatingx.view.FxViewHolder
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import java.util.Timer
 import java.util.TimerTask
 
@@ -79,9 +79,7 @@ class GameMenuViewWrapper(
                             "${AllSettings.gameMenuMemoryText} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
                                 formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))
                             }".trim()
-                        Tools.runOnUiThread {
-                            text = memoryText
-                        }
+                        TaskExecutors.runInUIThread { text = memoryText }
                     }
                 }, 0, 2000)
                 View.VISIBLE

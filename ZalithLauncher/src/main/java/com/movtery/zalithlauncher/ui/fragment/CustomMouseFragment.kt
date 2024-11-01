@@ -31,7 +31,6 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentCustomMouseBinding
 import java.io.File
 
@@ -109,7 +108,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
             getString(R.string.custom_mouse_default),
             ContextCompat.getDrawable(requireActivity(), R.drawable.ic_mouse_pointer)
         ))
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             fileRecyclerViewCreator?.loadData(fileItemBeans)
             //默认显示当前选中的鼠标
             refreshIcon()

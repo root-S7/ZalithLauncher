@@ -8,8 +8,9 @@ import android.content.Context;
 import android.util.Base64;
 import android.widget.Toast;
 
+import com.movtery.zalithlauncher.task.TaskExecutors;
+
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
@@ -131,7 +132,7 @@ public class StringUtils {
     public static void copyText(String label, String text, Context context) {
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
         clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text));
-        Tools.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.generic_copied), Toast.LENGTH_SHORT).show());
+        TaskExecutors.Companion.runInUIThread(() -> Toast.makeText(context, context.getString(R.string.generic_copied), Toast.LENGTH_SHORT).show());
     }
 
     public static String decodeBase64(String rawValue) {

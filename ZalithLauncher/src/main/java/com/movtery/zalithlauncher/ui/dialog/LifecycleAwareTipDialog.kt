@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.ui.dialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import net.kdt.pojavlaunch.Tools
+import com.movtery.zalithlauncher.task.TaskExecutors
 import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class LifecycleAwareTipDialog: LifecycleEventObserver {
@@ -73,7 +73,7 @@ abstract class LifecycleAwareTipDialog: LifecycleEventObserver {
                 dialogBuilder.show(lifecycle, builder)
             }
             synchronized(waitLock) {
-                Tools.runOnUiThread(showDialogRunnable)
+                TaskExecutors.runInUIThread(showDialogRunnable)
                 // the wait() method makes the thread wait on the end of the synchronized block.
                 // so we put it here to make sure that the thread won't get notified before wait()
                 // is called

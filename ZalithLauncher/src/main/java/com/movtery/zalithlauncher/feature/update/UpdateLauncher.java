@@ -1,11 +1,11 @@
 package com.movtery.zalithlauncher.feature.update;
 
+import static com.movtery.zalithlauncher.task.TaskExecutors.Companion;
 import static com.movtery.zalithlauncher.utils.file.FileTools.formatFileSize;
 import static net.kdt.pojavlaunch.Architecture.ARCH_ARM;
 import static net.kdt.pojavlaunch.Architecture.ARCH_ARM64;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86_64;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import android.content.Context;
 import android.content.Intent;
@@ -97,7 +97,7 @@ public final class UpdateLauncher {
     }
 
     private static void installApk(Context context, File outputFile) {
-        runOnUiThread(() -> new TipDialog.Builder(context)
+        Companion.runInUIThread(() -> new TipDialog.Builder(context)
                 .setMessage(StringUtils.insertNewline(context.getString(R.string.update_success), outputFile.getAbsolutePath()))
                 .setCenterMessage(false)
                 .setCancelable(false)
@@ -143,11 +143,11 @@ public final class UpdateLauncher {
 
                         int versionCode = launcherVersion.getVersionCode();
                         if (ZHTools.getVersionCode() < versionCode) {
-                            runOnUiThread(() -> new UpdateDialog(context, launcherVersion).show());
+                            Companion.runInUIThread(() -> new UpdateDialog(context, launcherVersion).show());
                         } else if (!ignore) {
-                            runOnUiThread(() -> {
+                            Companion.runInUIThread(() -> {
                                 String nowVersionName = ZHTools.getVersionName();
-                                runOnUiThread(() -> Toast.makeText(context,
+                                Companion.runInUIThread(() -> Toast.makeText(context,
                                         StringUtils.insertSpace(context.getString(R.string.update_without), nowVersionName),
                                         Toast.LENGTH_SHORT).show());
                             });
@@ -161,7 +161,7 @@ public final class UpdateLauncher {
     }
 
     private static void showFailToast(Context context, String resString) {
-        runOnUiThread(() -> Toast.makeText(context, resString, Toast.LENGTH_SHORT).show());
+        Companion.runInUIThread(() -> Toast.makeText(context, resString, Toast.LENGTH_SHORT).show());
     }
 
     private static String getArchModel() {
@@ -220,7 +220,7 @@ public final class UpdateLauncher {
                         byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
 
-                        runOnUiThread(() -> {
+                        Companion.runInUIThread(() -> {
                             UpdateLauncher.this.dialog = new ProgressDialog(UpdateLauncher.this.context, () -> {
                                 UpdateLauncher.this.stop();
                                 return true;
@@ -246,7 +246,7 @@ public final class UpdateLauncher {
                                 lastSize[0] = size;
                                 lastTime[0] = currentTime;
 
-                                runOnUiThread(() -> {
+                                Companion.runInUIThread(() -> {
                                     String formattedDownloaded = formatFileSize(size);
                                     String totalSize = formatFileSize(getFileSize(launcherVersion.getFileSize()));
                                     UpdateLauncher.this.dialog.updateProgress(size, getFileSize(launcherVersion.getFileSize()));
@@ -268,7 +268,7 @@ public final class UpdateLauncher {
     }
 
     private void finish(File outputFile) {
-        runOnUiThread(UpdateLauncher.this.dialog::dismiss);
+        Companion.runInUIThread(UpdateLauncher.this.dialog::dismiss);
         timer.cancel();
 
         installApk(context, outputFile);

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -90,7 +91,7 @@ public class ImportControlActivity extends Activity {
         }).start();
 
         //Auto show the keyboard
-        Tools.MAIN_HANDLER.postDelayed(() -> {
+        TaskExecutors.Companion.getUIHandler().postDelayed(() -> {
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
             mEditText.setSelection(mEditText.getText().length());

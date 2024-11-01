@@ -21,8 +21,10 @@ class TaskExecutors {
             return Executor { r: Runnable -> uiHandler.post(r) }
         }
 
+        fun getUIHandler() = uiHandler
+
         fun runInUIThread(runnable: Runnable) {
-            getAndroidUI().execute { runnable.run() }
+            uiHandler.post(runnable)
         }
     }
 }

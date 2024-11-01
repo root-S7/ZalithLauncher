@@ -25,12 +25,10 @@ abstract class Task<V>: TaskExecutionPhaseListener {
         this.throwableFromTask = e
     }
 
-    private fun checkThrowable(): Boolean {
+    private fun checkThrowable() {
         throwableFromTask?.let {
             onThrowable(it)
-            return true
         }
-        return false
     }
 
     /**
@@ -95,7 +93,7 @@ abstract class Task<V>: TaskExecutionPhaseListener {
 
     override fun onBeforeStart() {
         this.beforeStart?.let { r ->
-            executor.execute {
+            r.second.execute {
                 runCatching { r.first.run() }.getOrElse { t -> setThrowable(t) }
             }
         }
@@ -103,14 +101,14 @@ abstract class Task<V>: TaskExecutionPhaseListener {
 
     override fun execute() {
         onBeforeStart()
-        if (checkThrowable()) return
+        checkThrowable()
 
         this.executor.execute run@{
             runCatching {
                 performMainTask()
                 onEnded()
             }.getOrElse { t -> setThrowable(t) }
-
+            checkThrowable()
             onFinally()
         }
     }

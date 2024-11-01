@@ -1,11 +1,10 @@
 package com.movtery.zalithlauncher.utils.file;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.app.Activity;
 import android.widget.Toast;
 
 import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 
 import net.kdt.pojavlaunch.R;
 
@@ -43,7 +42,7 @@ public class PasteFile {
 
     public void pasteFiles(Activity activity, File target, FileCopyHandler.FileExtensionGetter fileExtensionGetter, Task<?> endTask) {
         if (copyFiles.isEmpty()) {
-            runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.file_does_not_exist), Toast.LENGTH_SHORT).show());
+            TaskExecutors.Companion.runInUIThread(() -> Toast.makeText(activity, activity.getString(R.string.file_does_not_exist), Toast.LENGTH_SHORT).show());
             return;
         }
         new FileCopyHandler(activity, pasteType, copyFiles, mRoot, target, fileExtensionGetter, endTask.beforeStart(this::resetState)).start();

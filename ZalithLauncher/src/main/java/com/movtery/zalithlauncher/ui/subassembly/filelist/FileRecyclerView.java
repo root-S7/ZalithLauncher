@@ -1,7 +1,5 @@
 package com.movtery.zalithlauncher.ui.subassembly.filelist;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
@@ -10,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.movtery.zalithlauncher.task.TaskExecutors;
 
 import net.kdt.pojavlaunch.R;
 
@@ -159,7 +159,7 @@ public class FileRecyclerView extends LinearLayout {
                     mSetTitleListener.setTitle(path.getAbsolutePath());
                 }
 
-                runOnUiThread(() -> {
+                TaskExecutors.Companion.runInUIThread(() -> {
                     fileRecyclerViewCreator.loadData(itemBeans);
                     if (mRefreshListener != null) mRefreshListener.onRefresh();
                 });

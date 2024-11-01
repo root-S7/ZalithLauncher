@@ -1,7 +1,5 @@
 package com.movtery.zalithlauncher.ui.subassembly.customcontrols;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
@@ -155,7 +153,7 @@ public class ControlsListViewCreator {
             this.mData.addAll(data);
         }
         if (searchCountText != null) {
-            runOnUiThread(() -> {
+            TaskExecutors.Companion.runInUIThread(() -> {
                 //展示搜索结果
                 int count = searchCount.get();
                 searchCountText.setText(searchCountText.getContext().getString(R.string.search_count, count));

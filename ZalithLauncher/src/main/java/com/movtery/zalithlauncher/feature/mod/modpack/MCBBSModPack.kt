@@ -9,6 +9,7 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta.MCBBSAddons
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getFileHashSHA1
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
@@ -78,7 +79,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                                         }
                                 }
                                 val fileCount = fileCounters.getAndIncrement()
-                                Tools.runOnUiThread {
+                                TaskExecutors.runInUIThread {
                                     installDialog?.updateText(
                                         context.getString(
                                             R.string.select_modpack_local_installing_files,
@@ -104,7 +105,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
     }
 
     private fun initDialog() {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             installDialog = ProgressDialog(context) {
                 isCanceled = true
                 true
@@ -114,7 +115,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
     }
 
     private fun closeDialog() {
-        Tools.runOnUiThread { installDialog?.dismiss() }
+        TaskExecutors.runInUIThread { installDialog?.dismiss() }
     }
 
     private fun cancel(instanceDestination: File) {

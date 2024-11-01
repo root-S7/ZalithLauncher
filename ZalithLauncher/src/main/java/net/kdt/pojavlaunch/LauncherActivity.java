@@ -128,7 +128,7 @@ public class LauncherActivity extends BaseActivity {
         // Hide the notification that starts the game if there are tasks executing.
         // Prevents the user from trying to launch the game with tasks ongoing.
         if(taskCount > 0) {
-            Tools.runOnUiThread(() ->
+            TaskExecutors.Companion.runInUIThread(() ->
                     mNotificationManager.cancel(NotificationUtils.NOTIFICATION_ID_GAME_START)
             );
         }
@@ -466,7 +466,7 @@ public class LauncherActivity extends BaseActivity {
             //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
             if (AllSettings.Companion.getNoticeDefault() ||
                     (noticeInfo.numbering != AllSettings.Companion.getNoticeNumbering())) {
-                Tools.runOnUiThread(() -> setNotice(true));
+                TaskExecutors.Companion.runInUIThread(() -> setNotice(true));
                 Settings.Manager.Companion.put("noticeDefault", true)
                         .put("noticeNumbering", noticeInfo.numbering)
                         .save();

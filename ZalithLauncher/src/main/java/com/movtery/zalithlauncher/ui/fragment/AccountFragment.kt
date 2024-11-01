@@ -70,7 +70,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
             if (!isTaskRunning()) {
                 PojavProfile.setCurrentProfile(requireActivity(), account.username)
             } else {
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     Toast.makeText(
                         requireActivity(),
                         R.string.tasks_ongoing,
@@ -365,8 +365,6 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                         mOtherServerConfigFile.absolutePath,
                         Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
                     )
-
-                    Tools.runOnUiThread {  }
                 }
             }
         }.beforeStart(TaskExecutors.getAndroidUI()) {

@@ -37,6 +37,7 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.launch.LaunchGame;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.ControlSettingsDialog;
 import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
@@ -331,7 +332,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Tools.MAIN_HANDLER.postDelayed(() -> binding.mainGameRenderView.refreshSize(), 500);
+        TaskExecutors.Companion.getUIHandler().postDelayed(() -> binding.mainGameRenderView.refreshSize(), 500);
     }
 
     @Override
@@ -493,7 +494,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static void querySystemClipboard() {
-        Tools.runOnUiThread(()->{
+        TaskExecutors.Companion.runInUIThread(()->{
             ClipData clipData = GLOBAL_CLIPBOARD.getPrimaryClip();
             if(clipData == null) {
                 AWTInputBridge.nativeClipboardReceived(null, null);
@@ -511,7 +512,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static void putClipboardData(String data, String mimeType) {
-        Tools.runOnUiThread(()-> {
+        TaskExecutors.Companion.runInUIThread(()-> {
             ClipData clipData = null;
             switch(mimeType) {
                 case "text/plain":

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
@@ -43,7 +44,7 @@ public class NotificationDownloadListener implements ModloaderDownloadListener {
     }
 
     private void sendIntentNotification(Intent intent, int localeString) {
-        Tools.runOnUiThread(() -> NotificationUtils.sendBasicNotification(mContext,
+        TaskExecutors.Companion.runInUIThread(() -> NotificationUtils.sendBasicNotification(mContext,
                 R.string.modpack_install_notification_title,
                 localeString,
                 intent,
@@ -53,7 +54,7 @@ public class NotificationDownloadListener implements ModloaderDownloadListener {
     }
 
     private void sendEmptyNotification(int localeString) {
-        Tools.runOnUiThread(()->NotificationUtils.sendBasicNotification(mContext,
+        TaskExecutors.Companion.runInUIThread(()->NotificationUtils.sendBasicNotification(mContext,
                 R.string.modpack_install_notification_title,
                 localeString,
                 null,

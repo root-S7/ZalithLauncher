@@ -3,6 +3,8 @@ package net.kdt.pojavlaunch.lifecycle;
 import android.app.Activity;
 import android.app.Application;
 
+import com.movtery.zalithlauncher.task.TaskExecutors;
+
 import net.kdt.pojavlaunch.Tools;
 
 import java.lang.ref.WeakReference;
@@ -18,7 +20,7 @@ public class ContextExecutor {
      * @param contextExecutorTask the task to be executed
      */
     public static void execute(ContextExecutorTask contextExecutorTask) {
-        Tools.runOnUiThread(()->executeOnUiThread(contextExecutorTask));
+        TaskExecutors.Companion.runInUIThread(() -> executeOnUiThread(contextExecutorTask));
     }
 
     private static void executeOnUiThread(ContextExecutorTask contextExecutorTask) {

@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.zalithlauncher.event.sticky.MinecraftVersionValueEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean;
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerViewCreator;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.FilteredSubList;
 
 import org.greenrobot.eventbus.EventBus;
@@ -121,7 +121,7 @@ public class VersionListView extends LinearLayout {
 
     private List<FileItemBean> getVersion(Drawable icon, String[] names) {
         List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBean(icon, names);
-        Tools.runOnUiThread(() -> fileRecyclerViewCreator.loadData(itemBeans));
+        TaskExecutors.Companion.runInUIThread(() -> fileRecyclerViewCreator.loadData(itemBeans));
         return itemBeans;
     }
 }

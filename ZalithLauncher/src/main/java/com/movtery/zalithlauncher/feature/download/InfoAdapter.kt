@@ -246,8 +246,8 @@ class InfoAdapter(
             runCatching {
                 val result: SearchResult? = mPlatform.helper.search(mPreviousResult ?: SearchResult())
 
-                Tools.runOnUiThread {
-                    if (myFuture.isCancelled) return@runOnUiThread
+                TaskExecutors.runInUIThread {
+                    if (myFuture.isCancelled) return@runInUIThread
                     mTaskInProgress = null
 
                     when {
@@ -262,7 +262,7 @@ class InfoAdapter(
                                 mItems = result.infoItems
                                 notifyDataSetChanged()
                                 mSearchResultCallback.onSearchFinished(index)
-                                return@runOnUiThread
+                                return@runInUIThread
                             }
                         }
                         else -> {
@@ -273,7 +273,7 @@ class InfoAdapter(
                     if (result == null) {
                         mItems = MOD_ITEMS_EMPTY
                         notifyDataSetChanged()
-                        return@runOnUiThread
+                        return@runInUIThread
                     } else {
                         mItems = result.infoItems
                         notifyDataSetChanged()
@@ -281,7 +281,7 @@ class InfoAdapter(
                     }
                 }
             }.getOrElse { e ->
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     mItems = MOD_ITEMS_EMPTY
                     notifyDataSetChanged()
                     Logging.e("SearchTask", Tools.printToString(e))

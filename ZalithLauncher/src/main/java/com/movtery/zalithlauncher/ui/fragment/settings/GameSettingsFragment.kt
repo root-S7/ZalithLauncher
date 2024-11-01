@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.BaseSettingsWrapper
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.EditTextSettingsWrapper
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.ListSettingsWrapper
@@ -185,7 +186,7 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         if (isMemorySizeExceeded) summary =
             StringUtils.insertNewline(summary, getString(R.string.setting_java_memory_exceeded))
 
-        Tools.runOnUiThread { binding.allocationMemory.text = summary }
+        TaskExecutors.runInUIThread { binding.allocationMemory.text = summary }
     }
 
     private fun getMemoryInfoText(context: Context, freeDeviceMemory: Long): String {

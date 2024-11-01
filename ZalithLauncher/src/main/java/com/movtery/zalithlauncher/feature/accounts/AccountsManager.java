@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
@@ -76,7 +77,7 @@ public class AccountsManager {
         };
 
         mDoneListener = account -> {
-            Tools.runOnUiThread(() -> Toast.makeText(context, R.string.account_login_done, Toast.LENGTH_SHORT).show());
+            TaskExecutors.Companion.runInUIThread(() -> Toast.makeText(context, R.string.account_login_done, Toast.LENGTH_SHORT).show());
 
             //检查账号是否已存在
             if (getAllAccount().contains(account)) return;

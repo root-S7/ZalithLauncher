@@ -297,10 +297,10 @@ public class MicrosoftBackgroundLogin {
 
     /** Wrapper to ease notifying the listener */
     private void notifyProgress(@Nullable ProgressListener listener, int step){
-        if(listener != null){
-            Tools.runOnUiThread(() -> listener.onLoginProgress(step));
+        if (listener != null) {
+            TaskExecutors.Companion.runInUIThread(() -> listener.onLoginProgress(step));
         }
-        ProgressLayout.setProgress(ProgressLayout.AUTHENTICATE_MICROSOFT, step*20);
+        ProgressLayout.setProgress(ProgressLayout.AUTHENTICATE_MICROSOFT, step * 20);
     }
 
 

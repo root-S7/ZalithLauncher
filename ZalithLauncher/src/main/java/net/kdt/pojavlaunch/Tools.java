@@ -18,8 +18,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.OpenableColumns;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -83,7 +81,6 @@ import java.util.List;
 @SuppressWarnings("IOStreamConstructor")
 public final class Tools {
     public  static final float BYTE_TO_MB = 1024 * 1024;
-    public static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
     private final static boolean isClientFirst = false;
@@ -809,10 +806,6 @@ public final class Tools {
             }
         }
         return runtime;
-    }
-
-    public static void runOnUiThread(Runnable runnable) {
-        MAIN_HANDLER.post(runnable);
     }
 
     public static @NonNull String pickRuntime(Activity activity, MinecraftProfile minecraftProfile, int targetJavaVersion) {

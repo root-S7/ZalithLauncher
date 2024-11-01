@@ -10,6 +10,7 @@ import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
 import com.movtery.zalithlauncher.feature.mod.modpack.MCBBSModPack
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils.ModPackEnum
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -95,7 +96,7 @@ class InstallLocalModPack {
                         }
 
                         else -> {
-                            Tools.runOnUiThread {
+                            TaskExecutors.runInUIThread {
                                 TipDialog.Builder(context)
                                     .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
                                     .setShowCancel(true)

@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +13,7 @@ import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.event.single.LaunchGameEvent;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.fragment.AboutFragment;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 import com.movtery.zalithlauncher.ui.fragment.ControlButtonFragment;
@@ -83,7 +82,7 @@ public class MainMenuFragment extends FragmentWithAnim {
                 });
             } else {
                 ViewAnimUtils.setViewAnim(binding.pathManagerButton, Animations.Shake);
-                runOnUiThread(() -> Toast.makeText(requireContext(), R.string.profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
+                TaskExecutors.Companion.runInUIThread(() -> Toast.makeText(requireContext(), R.string.profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
             }
         });
         binding.managerProfileButton.setOnClickListener(v -> {

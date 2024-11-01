@@ -13,6 +13,7 @@ import com.movtery.zalithlauncher.feature.CheckSponsor
 import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.check
 import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.getSponsorData
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
@@ -165,7 +166,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     }
 
     private fun setSponsorVisible(visible: Boolean) {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             try {
                 binding.sponsorLayout.visibility = if (visible) View.VISIBLE else View.GONE
 
