@@ -48,6 +48,7 @@ import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
+import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.memory.MemoryHoleFinder;
@@ -693,8 +694,7 @@ public final class Tools {
     }
 
     public static void backToMainMenu(FragmentActivity fragmentActivity) {
-        fragmentActivity.getSupportFragmentManager()
-                .popBackStack("ROOT", 0);
+        fragmentActivity.getSupportFragmentManager().popBackStack(MainMenuFragment.TAG, 0);
     }
 
     /** Remove the current fragment */
