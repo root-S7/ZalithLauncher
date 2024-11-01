@@ -1,12 +1,12 @@
 package net.kdt.pojavlaunch;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.widget.FrameLayout;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
@@ -34,12 +34,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		Bundle bundle = getIntent().getExtras();
-		if (bundle != null) {
-			mControlPath = bundle.getString(BUNDLE_CONTROL_PATH);
-		}
-
+		parseBundle();
 		binding = ActivityCustomControlsBinding.inflate(getLayoutInflater());
 		setContentView(binding.getRoot());
 
@@ -90,8 +85,22 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		try {
 			if (mControlPath == null) controlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
 			else controlLayout.loadLayout(mControlPath);
-		}catch (IOException e) {
+		} catch (IOException e) {
 			Tools.showError(this, e);
+		}
+
+		getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+			@Override
+			public void handleOnBackPressed() {
+				binding.customctrlControllayout.askToExit(CustomControlsActivity.this);
+			}
+		});
+	}
+
+	private void parseBundle() {
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mControlPath = bundle.getString(BUNDLE_CONTROL_PATH);
 		}
 	}
 
@@ -100,14 +109,8 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		return AllSettings.Companion.getIgnoreNotch();
 	}
 
-	@SuppressLint("MissingSuperCall")
-	@Override
-	public void onBackPressed() {
-		binding.customctrlControllayout.askToExit(this);
-	}
-
 	@Override
 	public void exitEditor() {
-		super.onBackPressed();
+		finish();
 	}
 }

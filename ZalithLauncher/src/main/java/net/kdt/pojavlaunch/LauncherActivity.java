@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -270,19 +271,35 @@ public class LauncherActivity extends BaseActivity {
         binding = ActivityPojavLauncherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                MicrosoftLoginFragment fragment = (MicrosoftLoginFragment) getVisibleFragment(MicrosoftLoginFragment.TAG);
+                if (fragment != null) {
+                    if (fragment.canGoBack()) {
+                        fragment.goBack();
+                        return;
+                    }
+                }
+                //如果栈中只剩下1个或没有Fragment，则直接退出启动器
+                if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
+                    finish();
+                } else {
+                    getSupportFragmentManager().popBackStackImmediate();
+                }
+            }
+        });
+
         mSettingsButtonWrapper = new SettingsButtonWrapper(binding.settingButton);
         mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(binding.settingButton, Animations.Pulse));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        // If we don't have a back stack root yet...
-        if(fragmentManager.getBackStackEntryCount() < 1) {
-            // Manually add the first fragment to the backstack to get easily back to it
-            // There must be a better way to handle the root though...
-            // (artDev: No, there is not. I've spent days researching this for another unrelated project.)
+        //如果栈中没有Fragment，那么就将主Fragment添加进来
+        if (fragmentManager.getBackStackEntryCount() < 1) {
             fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
-                    .addToBackStack("ROOT")
-                    .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
+                    .addToBackStack(MainMenuFragment.TAG)
+                    .add(R.id.container_fragment, MainMenuFragment.class, null, MainMenuFragment.TAG).commit();
         }
 
         mRequestNotificationPermissionLauncher = registerForActivityResult(
@@ -414,25 +431,6 @@ public class LauncherActivity extends BaseActivity {
         ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
-    }
-
-    /** Custom implementation to feel more natural when a backstack isn't present */
-    @Override
-    public void onBackPressed() {
-        MicrosoftLoginFragment fragment = (MicrosoftLoginFragment) getVisibleFragment(MicrosoftLoginFragment.TAG);
-        if(fragment != null){
-            if(fragment.canGoBack()){
-                fragment.goBack();
-                return;
-            }
-        }
-
-        // Check if we are at the root then
-        if(getVisibleFragment("ROOT") != null){
-            finish();
-        }
-
-        super.onBackPressed();
     }
 
     @Override
