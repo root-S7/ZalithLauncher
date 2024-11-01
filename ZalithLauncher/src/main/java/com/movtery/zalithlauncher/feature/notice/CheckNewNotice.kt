@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.feature
+package com.movtery.zalithlauncher.feature.notice
 
 import android.content.Context
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -8,6 +8,7 @@ import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
 import okhttp3.Call
 import okhttp3.Response
 import org.json.JSONObject
@@ -21,7 +22,7 @@ class CheckNewNotice {
         private var isChecking = false
 
         @JvmStatic
-        fun checkNewNotice(context: Context, listener: CheckListener) {
+        fun checkNewNotice(context: Context, listener: CheckNoticeListener) {
             if (isChecking) {
                 return
             }
@@ -53,32 +54,14 @@ class CheckNewNotice {
                             //base64解码，因为这里读取的是一个经过Base64加密后的文本
                             val rawJson = StringUtils.decodeBase64(rawBase64)
 
-                            val noticeJson = JSONObject(rawJson)
+                            val noticeJson = Tools.GLOBAL_GSON.fromJson(rawJson, NoticeJsonObject::class.java)
 
                             //获取通知消息
                             val language = ZHTools.getSystemLanguage()
-                            val rawTitle: String
-                            val rawSubstance: String
-                            when (language) {
-                                "zh_cn" -> {
-                                    rawTitle = noticeJson.getString("title_zh_cn")
-                                    rawSubstance = noticeJson.getString("substance_zh_cn")
-                                }
+                            val title = getLanguageText(language, noticeJson.title)
+                            val content = getLanguageText(language, noticeJson.content)
 
-                                "zh_tw" -> {
-                                    rawTitle = noticeJson.getString("title_zh_tw")
-                                    rawSubstance = noticeJson.getString("substance_zh_tw")
-                                }
-
-                                else -> {
-                                    rawTitle = noticeJson.getString("title_en_us")
-                                    rawSubstance = noticeJson.getString("substance_en_us")
-                                }
-                            }
-                            val rawDate = noticeJson.getString("date")
-                            val numbering = noticeJson.getInt("numbering")
-
-                            noticeInfo = NoticeInfo(rawTitle, rawSubstance, rawDate, numbering)
+                            noticeInfo = NoticeInfo(title, content, noticeJson.date, noticeJson.numbering)
                             listener.onSuccessful(noticeInfo)
                         }.getOrElse { e ->
                             Logging.e("Check New Notice", e.toString())
@@ -86,18 +69,15 @@ class CheckNewNotice {
                     }
                     isChecking = false
                 }
-            }, PathAndUrlManager.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).enqueue()
+            }, PathAndUrlManager.URL_GITHUB_HOME + "launcher_notice.json", if (token == "DUMMY") null else token).enqueue()
+        }
+
+        private fun getLanguageText(language: String, text: NoticeJsonObject.Text): String {
+            return when (language) {
+                "zh_cn" -> text.zhCN
+                "zh_tw" -> text.zhTW
+                else -> text.enUS
+            }
         }
     }
-
-    fun interface CheckListener {
-        fun onSuccessful(noticeInfo: NoticeInfo?)
-    }
-
-    class NoticeInfo(
-        @JvmField val rawTitle: String,
-        @JvmField val substance: String,
-        @JvmField val rawDate: String,
-        @JvmField val numbering: Int
-    )
 }

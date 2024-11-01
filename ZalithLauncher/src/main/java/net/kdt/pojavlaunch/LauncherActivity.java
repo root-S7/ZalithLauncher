@@ -31,7 +31,8 @@ import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.event.single.*;
 import com.movtery.zalithlauncher.event.sticky.*;
 import com.movtery.zalithlauncher.event.value.*;
-import com.movtery.zalithlauncher.feature.CheckNewNotice;
+import com.movtery.zalithlauncher.feature.notice.CheckNewNotice;
+import com.movtery.zalithlauncher.feature.notice.NoticeInfo;
 import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager;
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils;
@@ -465,7 +466,7 @@ public class LauncherActivity extends BaseActivity {
         AnimButton gotButton = binding.noticeLayout.findViewById(R.id.notice_got_button);
 
         if (show) {
-            CheckNewNotice.NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
+            NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
             if (noticeInfo != null) {
                 TextView title = binding.noticeLayout.findViewById(R.id.notice_title_view);
                 TextView message = binding.noticeLayout.findViewById(R.id.notice_message_view);
@@ -473,9 +474,9 @@ public class LauncherActivity extends BaseActivity {
 
                 gotButton.setClickable(true);
 
-                title.setText(noticeInfo.rawTitle);
-                message.setText(noticeInfo.substance);
-                date.setText(noticeInfo.rawDate);
+                title.setText(noticeInfo.title);
+                message.setText(noticeInfo.content);
+                date.setText(noticeInfo.date);
 
                 Linkify.addLinks(message, Linkify.WEB_URLS);
                 message.setMovementMethod(LinkMovementMethod.getInstance());
