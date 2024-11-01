@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.feature.download.platform.curseforge
 
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.InstallHelper
 import com.movtery.zalithlauncher.feature.download.install.UnpackWorldZipHelper
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
@@ -11,7 +12,6 @@ import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelp
 import com.movtery.zalithlauncher.feature.download.platform.curseforge.CurseForgeCommonUtils.Companion.CURSEFORGE_MODPACK_CLASS_ID
 import com.movtery.zalithlauncher.feature.download.platform.curseforge.CurseForgeCommonUtils.Companion.CURSEFORGE_MOD_CLASS_ID
 import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils
-import net.kdt.pojavlaunch.utils.GsonJsonUtils
 import java.io.File
 
 class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeApi()) {
@@ -22,14 +22,17 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
         return new
     }
 
+    //更换为使用 slug 拼接链接
     override fun getWebUrl(infoItem: InfoItem): String? {
-        val response = CurseForgeCommonUtils.searchModFromID(api, infoItem.projectId)
-        val hit = GsonJsonUtils.getJsonObjectSafe(response, "data")
-        if (hit != null) {
-            val links = hit.getAsJsonObject("links")
-            return links["websiteUrl"].asString
-        }
-        return null
+        return "https://www.curseforge.com/minecraft/${
+            when (currentClassify) {
+                Classify.ALL -> return null
+                Classify.MOD -> "mc-mods"
+                Classify.MODPACK -> "modpacks"
+                Classify.RESOURCE_PACK -> "texture-packs"
+                Classify.WORLD -> "worlds"
+            }
+        }/${infoItem.slug}"
     }
 
     override fun getScreenshots(projectId: String): List<ScreenshotItem> {

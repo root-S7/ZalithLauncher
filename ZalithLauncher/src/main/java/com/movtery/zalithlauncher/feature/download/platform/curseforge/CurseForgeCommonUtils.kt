@@ -113,6 +113,7 @@ class CurseForgeCommonUtils {
             return InfoItem(
                 Platform.CURSEFORGE,
                 dataObject.get("id").asString,
+                dataObject.get("slug").asString,
                 getAuthors(dataObject.get("authors").asJsonArray).toTypedArray(),
                 dataObject.get("name").asString,
                 dataObject.get("summary").asString,

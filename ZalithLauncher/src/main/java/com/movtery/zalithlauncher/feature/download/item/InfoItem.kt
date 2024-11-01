@@ -8,6 +8,7 @@ import java.util.Date
  * 基础的信息类
  * @param platform 记录该项目来自哪个平台
  * @param projectId 该项目的唯一标识
+ * @param slug 该项目的slug
  * @param author 该项目的作者
  * @param title 该项目的标题
  * @param description 该项目的描述
@@ -19,6 +20,7 @@ import java.util.Date
 open class InfoItem(
     val platform: Platform,
     val projectId: String,
+    val slug: String,
     val author: Array<String>?,
     val title: String,
     val description: String,
@@ -28,13 +30,14 @@ open class InfoItem(
     val category: List<Category>
 ) {
     fun copy() = InfoItem(
-        platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, category
+        platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category
     )
 
     override fun toString(): String {
         return "InfoItem(" +
                 "platform='$platform', " +
                 "projectId='$projectId', " +
+                "slug='$slug', " +
                 "author=${author.contentToString()}, " +
                 "title='$title', " +
                 "description='$description', " +

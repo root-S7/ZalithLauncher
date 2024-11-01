@@ -11,6 +11,7 @@ import java.util.Date
 open class ModInfoItem(
     platform: Platform,
     projectId: String,
+    slug: String,
     author: Array<String>?,
     title: String,
     description: String,
@@ -20,12 +21,13 @@ open class ModInfoItem(
     category: List<Category>,
     val modloaders: List<ModLoader>
 ) : InfoItem(
-    platform, projectId, author, title, description, downloadCount, uploadDate, iconUrl, category
+    platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category
 ) {
     override fun toString(): String {
         return "ModInfoItem(" +
                 "platform='$platform', " +
                 "projectId='$projectId', " +
+                "slug='$slug', " +
                 "author=${author.contentToString()}, " +
                 "title='$title', " +
                 "description='$description', " +

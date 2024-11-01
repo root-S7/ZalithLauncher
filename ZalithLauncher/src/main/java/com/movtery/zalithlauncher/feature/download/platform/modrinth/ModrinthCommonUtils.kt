@@ -126,6 +126,7 @@ class ModrinthCommonUtils {
             return InfoItem(
                 Platform.MODRINTH,
                 hit.get("project_id").asString,
+                hit.get("slug").asString,
                 arrayOf(hit.get("author").asString),
                 hit.get("title").asString,
                 hit.get("description").asString,

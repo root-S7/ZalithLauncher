@@ -26,10 +26,10 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
                 Classify.ALL -> return null
                 Classify.MOD -> "mod"
                 Classify.MODPACK -> "modpack"
-                Classify.RESOURCE_PACK -> "resourcepacks"
+                Classify.RESOURCE_PACK -> "resourcepack"
                 Classify.WORLD -> return null
             }
-        }/${infoItem.projectId}"
+        }/${infoItem.slug}"
     }
 
     override fun getScreenshots(projectId: String): List<ScreenshotItem> {

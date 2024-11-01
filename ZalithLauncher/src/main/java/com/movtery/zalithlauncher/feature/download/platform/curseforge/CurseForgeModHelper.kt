@@ -51,6 +51,7 @@ class CurseForgeModHelper {
                         ModInfoItem(
                             Platform.CURSEFORGE,
                             item.projectId,
+                            item.slug,
                             item.author,
                             item.title,
                             item.description,
@@ -137,6 +138,7 @@ class CurseForgeModHelper {
                                     api, modId, DependenciesInfoItem(
                                         Platform.CURSEFORGE,
                                         modId,
+                                        hit.get("slug").asString,
                                         CurseForgeCommonUtils.getAuthors(hit.get("authors").asJsonArray).toTypedArray(),
                                         hit.get("name").asString,
                                         hit.get("summary").asString,

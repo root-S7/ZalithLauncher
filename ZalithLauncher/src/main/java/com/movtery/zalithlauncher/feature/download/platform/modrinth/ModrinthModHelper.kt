@@ -49,6 +49,7 @@ class ModrinthModHelper {
                     ModInfoItem(
                         Platform.MODRINTH,
                         hit.get("project_id").asString,
+                        hit.get("slug").asString,
                         arrayOf(hit.get("author").asString),
                         hit.get("title").asString,
                         hit.get("description").asString,
@@ -85,6 +86,7 @@ class ModrinthModHelper {
                                     api, dProjectId, DependenciesInfoItem(
                                         Platform.MODRINTH,
                                         dProjectId,
+                                        hit.get("slug").asString,
                                         null,
                                         hit.get("title").asString,
                                         hit.get("description").asString,
