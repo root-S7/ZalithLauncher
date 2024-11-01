@@ -12,13 +12,14 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.DeleteDialog;
 import com.movtery.zalithlauncher.ui.subassembly.filelist.RefreshListener;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringFilter;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 
 import java.io.File;
@@ -68,7 +69,14 @@ public class ControlsListViewCreator {
                 File file = new File(fullPath, name);
                 List<File> files = new ArrayList<>();
                 files.add(file);
-                new DeleteDialog(context, () -> runOnUiThread(ControlsListViewCreator.this::refresh), files).show();
+                new DeleteDialog(
+                        context,
+                        Task.Companion.runTask(TaskExecutors.Companion.getAndroidUI(), () -> {
+                            refresh();
+                            return null;
+                        }),
+                        files
+                ).show();
             }
         });
 
@@ -181,14 +189,14 @@ public class ControlsListViewCreator {
 
     @SuppressLint("NotifyDataSetChanged")
     public void refresh() {
-        PojavApplication.sExecutorService.execute(() -> {
+        Task.Companion.runTask(() -> {
             loadInfoData(fullPath);
             filterString = "";
-            runOnUiThread(() -> {
-                controlListAdapter.notifyDataSetChanged();
-                mainListView.scheduleLayoutAnimation();
-                if (refreshListener != null) refreshListener.onRefresh();
-            });
-        });
+            return null;
+        }).ended(TaskExecutors.Companion.getAndroidUI(), r -> {
+            controlListAdapter.notifyDataSetChanged();
+            mainListView.scheduleLayoutAnimation();
+            if (refreshListener != null) refreshListener.onRefresh();
+        }).execute();
     }
 }

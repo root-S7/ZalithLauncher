@@ -21,6 +21,8 @@ import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.launch.LaunchArgs;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
@@ -188,10 +190,11 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 startModInstaller(null, javaArgs, jreName);
             }else if(resourceUri != null) {
                 ProgressDialog barrierDialog = Tools.getWaitingDialog(this, R.string.multirt_progress_caching);
-                PojavApplication.sExecutorService.execute(()->{
+                Task.Companion.runTask(() -> {
                     startModInstallerWithUri(resourceUri, jreName);
-                    runOnUiThread(barrierDialog::dismiss);
-                });
+                    return null;
+                }).ended(TaskExecutors.Companion.getAndroidUI(), r -> barrierDialog.dismiss())
+                        .execute();
             }
         } catch (Throwable th) {
             Tools.showError(this, th, true);

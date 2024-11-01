@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
-import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
 
 import android.app.Activity;
@@ -37,6 +36,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
@@ -767,20 +767,18 @@ public final class Tools {
     }
 
 
-    public static void installRuntimeFromUri(Context context, Uri uri){
-        sExecutorService.execute(() -> {
-            try {
-                String name = getFileName(context, uri);
-                MultiRTUtils.installRuntimeNamed(
-                        PathAndUrlManager.DIR_NATIVE_LIB,
-                        context.getContentResolver().openInputStream(uri),
-                        name);
+    public static void installRuntimeFromUri(Context context, Uri uri) {
+        Task.Companion.runTask(() -> {
+            String name = getFileName(context, uri);
+            MultiRTUtils.installRuntimeNamed(
+                    PathAndUrlManager.DIR_NATIVE_LIB,
+                    context.getContentResolver().openInputStream(uri),
+                    name);
 
-                MultiRTUtils.postPrepare(name);
-            } catch (IOException e) {
-                Tools.showError(context, e);
-            }
-        });
+            MultiRTUtils.postPrepare(name);
+            return null;
+        }).onThrowable(e -> Tools.showError(context, e))
+                .execute();
     }
 
     public static String extractUntilCharacter(String input, String whatFor, char terminator) {

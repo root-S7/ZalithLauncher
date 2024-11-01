@@ -9,7 +9,7 @@ import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
-import net.kdt.pojavlaunch.PojavApplication
+import com.movtery.zalithlauncher.task.Task
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
@@ -50,15 +50,12 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
             Classify.RESOURCE_PACK -> installResourcePack(infoItem, version, targetPath)
             Classify.WORLD -> installWorld(infoItem, version, targetPath)
             Classify.MODPACK -> {
-                PojavApplication.sExecutorService.execute {
-                    runCatching {
-                        val modloader = installModPack(infoItem, version) ?: return@execute
-                        val task = modloader.getDownloadTask(NotificationDownloadListener(context, modloader))
-                        task?.run()
-                    }.getOrElse { e ->
-                        Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e)
-                    }
-                }
+                Task.runTask {
+                    val modloader = installModPack(infoItem, version) ?: return@runTask
+                    val task = modloader.getDownloadTask(NotificationDownloadListener(context, modloader))
+                    task?.run()
+                }.onThrowable { e -> Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e) }
+                    .execute()
             }
         }
         ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)

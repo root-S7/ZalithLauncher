@@ -1,6 +1,5 @@
 package net.kdt.pojavlaunch.tasks;
 
-import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 import static net.kdt.pojavlaunch.utils.DownloadUtils.downloadString;
 
 import androidx.annotation.Nullable;
@@ -9,6 +8,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
@@ -26,14 +26,14 @@ import java.io.IOException;
 public class AsyncVersionList {
 
     public void getVersionList(@Nullable VersionDoneListener listener, boolean secondPass){
-        sExecutorService.execute(() -> {
+        Task.Companion.runTask(() -> {
             File versionFile = new File(PathAndUrlManager.FILE_VERSION_LIST);
             JMinecraftVersionList versionList = null;
-            try{
-                if(!versionFile.exists() || (ZHTools.getCurrentTimeMillis() > versionFile.lastModified() + 86400000 )){
+            try {
+                if (!versionFile.exists() || (ZHTools.getCurrentTimeMillis() > versionFile.lastModified() + 86400000)) {
                     versionList = downloadVersionList(LauncherPreferences.PREF_VERSION_REPOS);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 Logging.e("AsyncVersionList", "Refreshing version list failed :" + e);
                 Logging.e("GetVersionList", Tools.printToString(e));
             }
@@ -47,14 +47,13 @@ public class AsyncVersionList {
                 } catch (JsonIOException | JsonSyntaxException e) {
                     Logging.e("AsyncVersionList", Tools.printToString(e));
                     versionFile.delete();
-                    if(!secondPass)
-                        getVersionList(listener, true);
+                    if (!secondPass) getVersionList(listener, true);
                 }
             }
 
-            if(listener != null)
-                listener.onVersionDone(versionList);
-        });
+            if (listener != null) listener.onVersionDone(versionList);
+            return null;
+        }).execute();
     }
 
 

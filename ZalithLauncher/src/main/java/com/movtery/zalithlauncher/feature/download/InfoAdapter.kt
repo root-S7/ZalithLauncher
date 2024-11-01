@@ -22,11 +22,11 @@ import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.fragment.DownloadModFragment
 import com.movtery.zalithlauncher.utils.NumberWithUnits
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.ItemDownloadInfoBinding
@@ -67,7 +67,7 @@ class InfoAdapter(
         }
         this.mLastPage = false
         mTaskInProgress = SelfReferencingFuture(SearchApiTask(null))
-            .startOnExecutor(PojavApplication.sExecutorService)
+            .startOnExecutor(TaskExecutors.getDefault())
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -105,7 +105,7 @@ class InfoAdapter(
     private fun loadMoreResults() {
         if (mTaskInProgress != null) return
         mTaskInProgress = SelfReferencingFuture(SearchApiTask(mCurrentResult))
-            .startOnExecutor(PojavApplication.sExecutorService)
+            .startOnExecutor(TaskExecutors.getDefault())
     }
 
     override fun getItemViewType(position: Int): Int {

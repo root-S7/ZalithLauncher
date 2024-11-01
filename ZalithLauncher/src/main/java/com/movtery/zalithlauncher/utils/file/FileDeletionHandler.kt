@@ -2,7 +2,7 @@ package com.movtery.zalithlauncher.utils.file
 
 import android.content.Context
 import com.movtery.zalithlauncher.feature.log.Logging
-import net.kdt.pojavlaunch.PojavApplication
+import com.movtery.zalithlauncher.task.Task
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.concurrent.atomic.AtomicLong
@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong
 class FileDeletionHandler(
     mContext: Context,
     private val mSelectedFiles: List<File>,
-    private val onEndRunnable: Runnable?
+    private val endTask: Task<*>?
 ) : FileHandler(mContext), FileSearchProgress {
     private val foundFiles = mutableListOf<File>()
     private val totalFileSize = AtomicLong(0)
@@ -69,6 +69,6 @@ class FileDeletionHandler(
     override fun getPendingSize() = fileSize.get()
 
     override fun onEnd() {
-        PojavApplication.sExecutorService.execute(onEndRunnable)
+        endTask?.execute()
     }
 }

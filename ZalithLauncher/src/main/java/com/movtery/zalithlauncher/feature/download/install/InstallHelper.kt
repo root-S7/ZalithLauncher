@@ -8,8 +8,8 @@ import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils.Companion.getIcon
+import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper
 import net.kdt.pojavlaunch.utils.DownloadUtils
@@ -33,7 +33,7 @@ class InstallHelper {
             targetFile: File?,
             listener: OnFileDownloadedListener?
         ) {
-            PojavApplication.sExecutorService.execute {
+            Task.runTask {
                 try {
                     val downloadBuffer = ByteArray(8192)
                     DownloadUtils.ensureSha1<Void?>(targetFile, version.fileHash) {
@@ -54,7 +54,7 @@ class InstallHelper {
                     targetFile?.let { listener?.onEnded(it) }
                     ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
                 }
-            }
+            }.execute()
         }
 
         @Throws(IOException::class)

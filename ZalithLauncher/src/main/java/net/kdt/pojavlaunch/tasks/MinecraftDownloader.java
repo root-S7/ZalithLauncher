@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.tasks;
 
-import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -9,6 +7,7 @@ import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.JAssetInfo;
@@ -56,15 +55,13 @@ public class MinecraftDownloader {
     public void start(@Nullable JMinecraftVersionList.Version version,
                       @NonNull String realVersion, // this was there for a reason
                       @NonNull AsyncMinecraftDownloader.DoneListener listener) {
-        sExecutorService.execute(() -> {
-            try {
-                downloadGame(version, realVersion);
-                listener.onDownloadDone();
-            }catch (Exception e) {
-                listener.onDownloadFailed(e);
-            }
-            ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT);
-        });
+        Task.Companion.runTask(() -> {
+            downloadGame(version, realVersion);
+            listener.onDownloadDone();
+            return null;
+        }).onThrowable(listener::onDownloadFailed)
+                .finallyTask(() -> ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT))
+                .execute();
     }
 
     /**

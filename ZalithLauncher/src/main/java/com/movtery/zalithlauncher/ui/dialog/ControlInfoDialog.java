@@ -6,11 +6,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.EditControlData;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
 import net.kdt.pojavlaunch.databinding.DialogControlInfoBinding;
@@ -20,21 +20,19 @@ import java.io.File;
 public class ControlInfoDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogControlInfoBinding binding = DialogControlInfoBinding.inflate(getLayoutInflater());
     private final ControlInfoData controlInfoData;
-    private final Runnable runnable;
 
-    public ControlInfoDialog(@NonNull Context context, Runnable runnable, ControlInfoData controlInfoData) {
+    public ControlInfoDialog(@NonNull Context context, ControlInfoData controlInfoData, Task<?> task) {
         super(context);
-        this.runnable = runnable;
         this.controlInfoData = controlInfoData;
 
         setCancelable(false);
         setContentView(binding.getRoot());
 
-        init(context);
+        init(context, task);
         DraggableDialog.initDialog(this);
     }
 
-    private void init(Context context) {
+    private void init(Context context, Task<?> task) {
         setTextOrDefault(binding.nameText, R.string.controls_info_name, controlInfoData.name);
         setTextOrDefault(binding.fileNameText, R.string.controls_info_file_name, controlInfoData.fileName);
         setTextOrDefault(binding.authorText, R.string.controls_info_author, controlInfoData.author);
@@ -59,8 +57,7 @@ public class ControlInfoDialog extends FullScreenDialog implements DraggableDial
                     EditControlData.saveToFile(context, customControls, controlFile);
                 }
 
-                PojavApplication.sExecutorService.execute(runnable);
-
+                task.execute();
                 editControlInfoDialog.dismiss();
             });
             editControlInfoDialog.show();

@@ -1,7 +1,6 @@
 package com.movtery.zalithlauncher.ui.subassembly.customcontrols;
 
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -15,6 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.ControlInfoDialog;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
@@ -132,7 +133,12 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ControlInfoData controlInfoData = controlItemBean.controlInfoData;
 
             binding.infoButton.setOnClickListener(v -> {
-                ControlInfoDialog controlInfoDialog = new ControlInfoDialog(mContext, () -> runOnUiThread(ControlListAdapter.this::notifyDataSetChanged), controlInfoData);
+                @SuppressLint("NotifyDataSetChanged")
+                ControlInfoDialog controlInfoDialog = new ControlInfoDialog(mContext, controlInfoData,
+                        Task.Companion.runTask(TaskExecutors.Companion.getAndroidUI(), () -> {
+                            notifyDataSetChanged();
+                            return null;
+                        }));
                 controlInfoDialog.show();
             });
             binding.infoLayout.removeAllViews();

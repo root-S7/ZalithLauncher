@@ -46,6 +46,8 @@ import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallLocalModPac
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.AccountFragment;
@@ -249,20 +251,23 @@ public class LauncherActivity extends BaseActivity {
         ModPackUtils.ModPackEnum type;
         type = ModPackUtils.determineModpack(dirGameModpackFile);
 
-        ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting);
-        PojavApplication.sExecutorService.execute(() -> {
-            try {
-                ModLoaderWrapper loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, () -> runOnUiThread(installExtra.dialog::dismiss));
-                if (loaderInfo == null) return;
-                Runnable task = loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo));
-                if (task != null) task.run();
-            } catch (Exception e) {
-                installExtra.dialog.dismiss();
-                Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
-            } finally {
-                ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
-            }
-        });
+        Task.Companion.runTask(() -> {
+                    ModLoaderWrapper loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile,
+                            () -> runOnUiThread(installExtra.dialog::dismiss));
+                    if (loaderInfo == null) return null;
+                    return loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo));
+                }).beforeStart(TaskExecutors.Companion.getAndroidUI(),
+                        () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting))
+                .ended(task -> {
+                    if (task != null) {
+                        task.run();
+                    }
+                }).onThrowable(TaskExecutors.Companion.getAndroidUI(), e -> {
+                    installExtra.dialog.dismiss();
+                    Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
+                })
+                .finallyTask(() -> ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE))
+                .execute();
     }
 
     @Override
@@ -302,7 +307,10 @@ public class LauncherActivity extends BaseActivity {
         checkNotice();
 
         //检查已经下载后的包，或者检查更新
-        PojavApplication.sExecutorService.execute(() -> UpdateLauncher.CheckDownloadedPackage(this, true));
+        Task.Companion.runTask(() -> {
+            UpdateLauncher.CheckDownloadedPackage(this, true);
+            return null;
+        }).execute();
 
         LauncherActivity.activity = this;
     }
@@ -451,7 +459,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void checkNotice() {
-        checkNotice = PojavApplication.sExecutorService.submit(() -> CheckNewNotice.checkNewNotice(this, noticeInfo -> {
+        checkNotice = TaskExecutors.Companion.getDefault().submit(() -> CheckNewNotice.checkNewNotice(this, noticeInfo -> {
             if (checkNotice.isCancelled() || noticeInfo == null) {
                 return;
             }

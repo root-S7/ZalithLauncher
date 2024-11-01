@@ -1,11 +1,10 @@
 package com.movtery.zalithlauncher.utils.file
 
 import android.content.Context
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.Future
@@ -19,7 +18,7 @@ abstract class FileHandler(
     private var lastTime: Long = ZHTools.getCurrentTimeMillis()
 
     protected fun start(progress: FileSearchProgress) {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             val dialog = ProgressDialog(context) {
                 cancelTask()
                 onEnd()
@@ -27,8 +26,8 @@ abstract class FileHandler(
             }
             dialog.updateText(context.getString(R.string.file_operation_file, "0 B", "0 B", 0))
 
-            currentTask = PojavApplication.sExecutorService.submit {
-                Tools.runOnUiThread { dialog.show() }
+            currentTask = TaskExecutors.getDefault().submit {
+                TaskExecutors.runInUIThread { dialog.show() }
 
                 timer = Timer()
                 timer?.schedule(object : TimerTask() {
@@ -45,7 +44,7 @@ abstract class FileHandler(
                         lastSize = processedSize
                         lastTime = currentTime
 
-                        Tools.runOnUiThread {
+                        TaskExecutors.runInUIThread {
                             dialog.updateText(
                                 context.getString(
                                     R.string.file_operation_file,
@@ -67,7 +66,7 @@ abstract class FileHandler(
                 currentTask?.let { task -> if (task.isCancelled) return@submit }
                 processFile()
 
-                Tools.runOnUiThread { dialog.dismiss() }
+                TaskExecutors.runInUIThread { dialog.dismiss() }
                 timer?.cancel()
                 onEnd()
             }

@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.authenticator.microsoft;
 
-import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
-
 import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
@@ -9,6 +7,8 @@ import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
@@ -73,50 +73,46 @@ public class MicrosoftBackgroundLogin {
     /** Performs a full login, calling back listeners appropriately  */
     public void performLogin(@Nullable final ProgressListener progressListener,
                              @Nullable final DoneListener doneListener,
-                             @Nullable final ErrorListener errorListener){
-        sExecutorService.execute(() -> {
-            try {
-                notifyProgress(progressListener, 1);
-                String accessToken = acquireAccessToken(mIsRefresh, mAuthCode);
-                notifyProgress(progressListener, 2);
-                String xboxLiveToken = acquireXBLToken(accessToken);
-                notifyProgress(progressListener, 3);
-                String[] xsts = acquireXsts(xboxLiveToken);
-                notifyProgress(progressListener, 4);
-                String mcToken = acquireMinecraftToken(xsts[0], xsts[1]);
-                notifyProgress(progressListener, 5);
-                fetchOwnedItems(mcToken);
-                checkMcProfile(mcToken);
+                             @Nullable final ErrorListener errorListener) {
+        Task.Companion.runTask(() -> {
+            notifyProgress(progressListener, 1);
+            String accessToken = acquireAccessToken(mIsRefresh, mAuthCode);
+            notifyProgress(progressListener, 2);
+            String xboxLiveToken = acquireXBLToken(accessToken);
+            notifyProgress(progressListener, 3);
+            String[] xsts = acquireXsts(xboxLiveToken);
+            notifyProgress(progressListener, 4);
+            String mcToken = acquireMinecraftToken(xsts[0], xsts[1]);
+            notifyProgress(progressListener, 5);
+            fetchOwnedItems(mcToken);
+            checkMcProfile(mcToken);
 
-                MinecraftAccount acc = MinecraftAccount.load(mcName);
-                if(acc == null) acc = new MinecraftAccount();
-                if (doesOwnGame) {
-                    acc.xuid = xsts[0];
-                    acc.clientToken = "0"; /* FIXME */
-                    acc.accessToken = mcToken;
-                    acc.username = mcName;
-                    acc.profileId = mcUuid;
-                    acc.isMicrosoft = true;
-                    acc.msaRefreshToken = msRefreshToken;
-                    acc.expiresAt = expiresAt;
-                    acc.accountType = "Microsoft";
-                    acc.updateSkin();
-                }
-                acc.save();
-                Logging.i("McAccountSpinner", "Saved the account : " + acc.username);
-
-                if(doneListener != null) {
-                    MinecraftAccount finalAcc = acc;
-                    Tools.runOnUiThread(() -> doneListener.onLoginDone(finalAcc));
-                }
-
-            }catch (Exception e){
-                Logging.e("MicroAuth", "Exception thrown during authentication", e);
-                if(errorListener != null)
-                    Tools.runOnUiThread(() -> errorListener.onLoginError(e));
+            MinecraftAccount acc = MinecraftAccount.load(mcName);
+            if(acc == null) acc = new MinecraftAccount();
+            if (doesOwnGame) {
+                acc.xuid = xsts[0];
+                acc.clientToken = "0"; /* FIXME */
+                acc.accessToken = mcToken;
+                acc.username = mcName;
+                acc.profileId = mcUuid;
+                acc.isMicrosoft = true;
+                acc.msaRefreshToken = msRefreshToken;
+                acc.expiresAt = expiresAt;
+                acc.accountType = "Microsoft";
+                acc.updateSkin();
             }
+            acc.save();
+            Logging.i("McAccountSpinner", "Saved the account : " + acc.username);
+
+            return acc;
+        }).ended(TaskExecutors.Companion.getAndroidUI(), account -> {
+            if (doneListener != null && account != null) doneListener.onLoginDone(account);
+        }).onThrowable(TaskExecutors.Companion.getAndroidUI(), e -> {
+            Logging.e("MicroAuth", "Exception thrown during authentication", e);
+            if(errorListener != null) errorListener.onLoginError(e);
+        }).finallyTask(() -> {
             ProgressLayout.clearProgress(ProgressLayout.AUTHENTICATE_MICROSOFT);
-        });
+        }).execute();
     }
 
     public String acquireAccessToken(boolean isRefresh, String authcode) throws IOException, JSONException {

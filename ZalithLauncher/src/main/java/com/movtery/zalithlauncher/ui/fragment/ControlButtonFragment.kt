@@ -15,6 +15,8 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
 import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditControlInfoDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog.FilesButton
@@ -31,7 +33,6 @@ import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAn
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.zalithlauncher.utils.file.PasteFile
 import net.kdt.pojavlaunch.CustomControlsActivity
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
@@ -55,15 +56,14 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("json")) { result: Uri? ->
             result?.let {
-                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
-
-                PojavApplication.sExecutorService.execute {
+                Task.runTask {
                     copyFileInBackground(requireContext(), result, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
-                    Tools.runOnUiThread {
-                        Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
-                        controlsListViewCreator.refresh()
-                    }
-                }
+                }.beforeStart(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                }.ended(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
+                    controlsListViewCreator.refresh()
+                }.execute()
             }
         }
     }
@@ -116,12 +116,15 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 
             pasteButton.setOnClickListener {
-                PasteFile.getInstance().pasteFiles(requireActivity(), File(PathAndUrlManager.DIR_CTRLMAP_PATH), null) {
-                    Tools.runOnUiThread {
+                PasteFile.getInstance().pasteFiles(
+                    requireActivity(),
+                    File(PathAndUrlManager.DIR_CTRLMAP_PATH),
+                    null,
+                    Task.runTask(TaskExecutors.getAndroidUI()) {
                         pasteButton.visibility = View.GONE
                         controlsListViewCreator.refresh()
                     }
-                }
+                )
             }
 
             addFileButton.setOnClickListener {
@@ -170,7 +173,9 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         filesButton.setMoreButtonText(getString(R.string.generic_edit))
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
-            { Tools.runOnUiThread { controlsListViewCreator.refresh() } },
+            Task.runTask(TaskExecutors.getAndroidUI()) {
+                controlsListViewCreator.refresh()
+            },
             controlsListViewCreator.fullPath, file
         )
 

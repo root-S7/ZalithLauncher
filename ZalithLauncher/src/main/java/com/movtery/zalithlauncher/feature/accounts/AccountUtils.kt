@@ -5,7 +5,7 @@ import com.movtery.zalithlauncher.event.value.OtherLoginEvent
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.login.AuthResult
 import com.movtery.zalithlauncher.feature.login.OtherLoginApi
-import net.kdt.pojavlaunch.PojavApplication
+import com.movtery.zalithlauncher.task.Task
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin
 import net.kdt.pojavlaunch.value.MinecraftAccount
@@ -35,20 +35,18 @@ class AccountUtils {
             val errorListener = AccountsManager.getInstance().errorListener
 
             OtherLoginApi.setBaseUrl(account.baseUrl)
-            PojavApplication.sExecutorService.execute {
-                runCatching {
-                    OtherLoginApi.refresh(context, account, false, object : OtherLoginApi.Listener {
-                        override fun onSuccess(authResult: AuthResult) {
-                            account.accessToken = authResult.accessToken
-                            EventBus.getDefault().post(OtherLoginEvent(account))
-                        }
+            Task.runTask {
+                OtherLoginApi.refresh(context, account, false, object : OtherLoginApi.Listener {
+                    override fun onSuccess(authResult: AuthResult) {
+                        account.accessToken = authResult.accessToken
+                        EventBus.getDefault().post(OtherLoginEvent(account))
+                    }
 
-                        override fun onFailed(error: String) {
-                            errorListener.onLoginError(Throwable(error))
-                        }
-                    })
-                }.getOrElse { e -> errorListener.onLoginError(e) }
-            }
+                    override fun onFailed(error: String) {
+                        errorListener.onLoginError(Throwable(error))
+                    }
+                })
+            }.onThrowable { t -> errorListener.onLoginError(t) }.execute()
         }
 
         @JvmStatic

@@ -19,6 +19,8 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.event.single.MainBackgroundChangeEvent
 import com.movtery.zalithlauncher.feature.background.BackgroundManager
 import com.movtery.zalithlauncher.feature.background.BackgroundType
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog.FilesButton
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
@@ -31,9 +33,7 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackg
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentCustomBackgroundBinding
 import org.greenrobot.eventbus.EventBus
 import java.io.File
@@ -52,15 +52,14 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
             result?.let {
-                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
-
-                PojavApplication.sExecutorService.execute {
+                Task.runTask {
                     copyFileInBackground(requireActivity(), result, binding.fileRecyclerView.fullPath.absolutePath)
-                    Tools.runOnUiThread {
-                        Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
-                        binding.fileRecyclerView.listFileAt(backgroundPath())
-                    }
-                }
+                }.beforeStart(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                }.ended(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
+                    binding.fileRecyclerView.listFileAt(backgroundPath())
+                }.execute()
             }
         }
     }
@@ -102,7 +101,9 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                         filesButton.setMoreButtonText(getString(R.string.generic_select))
 
                         val filesDialog = FilesDialog(requireActivity(), filesButton,
-                            { Tools.runOnUiThread { refreshPath() } },
+                            Task.runTask(TaskExecutors.getAndroidUI()) {
+                                refreshPath()
+                            },
                             backgroundPath(), file)
                         filesDialog.setMoreButtonClick {
                             backgroundMap[backgroundType] = fileName

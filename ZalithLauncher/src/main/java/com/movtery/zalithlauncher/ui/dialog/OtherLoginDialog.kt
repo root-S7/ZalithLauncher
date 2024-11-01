@@ -10,9 +10,10 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.login.AuthResult
 import com.movtery.zalithlauncher.feature.login.OtherLoginApi
 import com.movtery.zalithlauncher.feature.login.Servers.Server
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.DialogOtherLoginBinding
@@ -56,29 +57,29 @@ class OtherLoginDialog(
     }
 
     private fun refresh(account: MinecraftAccount) {
-        listener.onLoading()
-
-        PojavApplication.sExecutorService.execute {
-            runCatching {
-                OtherLoginApi.setBaseUrl(server.baseUrl)
-                OtherLoginApi.refresh(context, account, true, object : OtherLoginApi.Listener {
-                    override fun onSuccess(authResult: AuthResult) {
-                        account.accessToken = authResult.accessToken
-                        Tools.runOnUiThread {
-                            listener.unLoading()
-                            listener.onSuccess(account)
-                        }
+        Task.runTask {
+            OtherLoginApi.setBaseUrl(server.baseUrl)
+            OtherLoginApi.refresh(context, account, true, object : OtherLoginApi.Listener {
+                override fun onSuccess(authResult: AuthResult) {
+                    account.accessToken = authResult.accessToken
+                    Tools.runOnUiThread {
+                        listener.unLoading()
+                        listener.onSuccess(account)
                     }
+                }
 
-                    override fun onFailed(error: String) {
-                        Tools.runOnUiThread {
-                            listener.unLoading()
-                            listener.onFailed(error)
-                        }
+                override fun onFailed(error: String) {
+                    Tools.runOnUiThread {
+                        listener.unLoading()
+                        listener.onFailed(error)
                     }
-                })
-            }.getOrElse { e -> Logging.e("Other Login", Tools.printToString(e)) }
-        }
+                }
+            })
+        }.beforeStart(TaskExecutors.getAndroidUI()) {
+            listener.onLoading()
+        }.onThrowable { e ->
+            Logging.e("Other Login", Tools.printToString(e))
+        }.execute()
     }
 
     override fun onInit(): Window? = window
@@ -106,55 +107,57 @@ class OtherLoginDialog(
                         Toast.makeText(context, context.getString(R.string.other_login_server_not_empty), Toast.LENGTH_SHORT).show()
                         return
                     }
-                    listener.onLoading()
 
-                    PojavApplication.sExecutorService.execute {
-                        runCatching {
-                            OtherLoginApi.setBaseUrl(server.baseUrl)
-                            OtherLoginApi.login(context, email, password,
-                                object : OtherLoginApi.Listener {
-                                    override fun onSuccess(authResult: AuthResult) {
-                                        MinecraftAccount().apply {
-                                            accessToken = authResult.accessToken
-                                            clientToken = authResult.clientToken
-                                            baseUrl = server.baseUrl
-                                            account = email
-                                            expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000
-                                            accountType = server.serverName
-                                            if (!Objects.isNull(authResult.selectedProfile)) {
-                                                username = authResult.selectedProfile.name
-                                                profileId = authResult.selectedProfile.id
-                                                Tools.runOnUiThread {
-                                                    listener.unLoading()
-                                                    listener.onSuccess(this)
+                    Task.runTask {
+                        OtherLoginApi.setBaseUrl(server.baseUrl)
+                        OtherLoginApi.login(context, email, password,
+                            object : OtherLoginApi.Listener {
+                                override fun onSuccess(authResult: AuthResult) {
+                                    MinecraftAccount().apply {
+                                        accessToken = authResult.accessToken
+                                        clientToken = authResult.clientToken
+                                        baseUrl = server.baseUrl
+                                        account = email
+                                        expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000
+                                        accountType = server.serverName
+                                        if (!Objects.isNull(authResult.selectedProfile)) {
+                                            username = authResult.selectedProfile.name
+                                            profileId = authResult.selectedProfile.id
+                                            Tools.runOnUiThread {
+                                                listener.unLoading()
+                                                listener.onSuccess(this)
+                                            }
+                                        } else {
+                                            Tools.runOnUiThread {
+                                                val selectRoleDialog = SelectRoleDialog(
+                                                    context,
+                                                    authResult.availableProfiles
+                                                )
+                                                selectRoleDialog.setOnSelectedListener { selectedProfile ->
+                                                    username = selectedProfile.name
+                                                    profileId = selectedProfile.id
+                                                    refresh(this)
                                                 }
-                                            } else {
-                                                Tools.runOnUiThread {
-                                                    val selectRoleDialog = SelectRoleDialog(
-                                                        context,
-                                                        authResult.availableProfiles
-                                                    )
-                                                    selectRoleDialog.setOnSelectedListener { selectedProfile ->
-                                                        username = selectedProfile.name
-                                                        profileId = selectedProfile.id
-                                                        refresh(this)
-                                                    }
-                                                    listener.unLoading()
-                                                    selectRoleDialog.show()
-                                                }
+                                                listener.unLoading()
+                                                selectRoleDialog.show()
                                             }
                                         }
                                     }
+                                }
 
-                                    override fun onFailed(error: String) {
-                                        Tools.runOnUiThread {
-                                            listener.unLoading()
-                                            listener.onFailed(error)
-                                        }
+                                override fun onFailed(error: String) {
+                                    Tools.runOnUiThread {
+                                        listener.unLoading()
+                                        listener.onFailed(error)
                                     }
-                                })
-                        }.getOrElse { e -> Logging.e("Other Login", Tools.printToString(e)) }
-                    }
+                                }
+                            })
+                    }.beforeStart(TaskExecutors.getAndroidUI()) {
+                        listener.onLoading()
+                    }.onThrowable { e ->
+                        Logging.e("Other Login", Tools.printToString(e))
+                    }.execute()
+
                     dismiss()
                 }
             }

@@ -5,13 +5,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.feature.log.Logging.e
 import com.movtery.zalithlauncher.feature.mod.modloader.ModVersionListAdapter
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
 import com.movtery.zalithlauncher.utils.MCVersionRegex
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.FabricVersion
@@ -43,16 +43,16 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
     }
 
     private fun refresh(force: Boolean): Future<*> {
-        return PojavApplication.sExecutorService.submit {
+        return TaskExecutors.getDefault().submit {
             runCatching {
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
                 val gameVersions = utils.downloadGameVersions(force)
                 processInfo(gameVersions, force)
             }.getOrElse { e ->
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
@@ -63,7 +63,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
 
     private fun processInfo(gameVersions: Array<FabricVersion>, force: Boolean) {
         if (gameVersions.isEmpty()) {
-            Tools.runOnUiThread {
+            TaskExecutors.runInUIThread {
                 componentProcessing(false)
                 setFailedToLoad("gameVersions is Empty!")
             }
@@ -114,7 +114,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
 
         currentTask?.apply { if (isCancelled) return }
 
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             val recyclerView = recyclerView
             runCatching {
                 var mModAdapter = recyclerView.adapter as ModListAdapter?
@@ -135,7 +135,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
     }
 
     override fun onDownloadFinished(downloadedFile: File?) {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             downloadedFile?.apply {
                 val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
                 FabriclikeUtils.addAutoInstallArgs(modInstallerStartIntent, utils, selectedGameVersion, selectedLoaderVersion, this)
@@ -150,14 +150,14 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
                     setTitleText(R.string.create_profile_fabric)
                     show()
                 }
-                return@runOnUiThread
+                return@runInUIThread
             }
             Tools.backToMainMenu(fragmentActivity!!)
         }
     }
 
     override fun onDataNotAvailable() {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             val context = fragmentActivity!!
             modloaderListenerProxy.detachListener()
             Tools.dialog(context, context.getString(R.string.generic_error),
@@ -167,7 +167,7 @@ abstract class DownloadFabricLikeFragment(val utils: FabriclikeUtils, val icon: 
     }
 
     override fun onDownloadError(e: java.lang.Exception?) {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             val context = fragmentActivity!!
             modloaderListenerProxy.detachListener()
             Tools.showError(context, e)

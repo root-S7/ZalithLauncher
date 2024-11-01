@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.multirt;
 
-import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -18,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 
@@ -25,7 +24,6 @@ import net.kdt.pojavlaunch.Architecture;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -183,7 +181,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             mDeleteButton.setOnClickListener(v -> {
                 if (mCurrentRuntime == null) return;
 
-                if(MultiRTUtils.getRuntimes().size() < 2) {
+                if (MultiRTUtils.getRuntimes().size() < 2) {
                     new TipDialog.Builder(mContext)
                             .setTitle(R.string.generic_warning)
                             .setMessage(R.string.multirt_config_removeerror_last)
@@ -192,22 +190,17 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     return;
                 }
 
-                sExecutorService.execute(() -> {
-                    try {
-                        MultiRTUtils.removeRuntimeNamed(mCurrentRuntime.name);
-                        mDeleteButton.post(() -> {
-                            if(getBindingAdapter() != null) {
-                                mData.clear();
-                                mData.addAll(MultiRTUtils.getRuntimes());
-                                getBindingAdapter().notifyDataSetChanged();
-                            }
-                        });
-
-                    } catch (IOException e) {
-                        Tools.showError(itemView.getContext(), e);
-                    }
-                });
-
+                Task.Companion.runTask(() -> {
+                    MultiRTUtils.removeRuntimeNamed(mCurrentRuntime.name);
+                    mDeleteButton.post(() -> {
+                        if(getBindingAdapter() != null) {
+                            mData.clear();
+                            mData.addAll(MultiRTUtils.getRuntimes());
+                            getBindingAdapter().notifyDataSetChanged();
+                        }
+                    });
+                    return null;
+                }).onThrowable(e -> Tools.showError(itemView.getContext(), e)).execute();
             });
         }
 

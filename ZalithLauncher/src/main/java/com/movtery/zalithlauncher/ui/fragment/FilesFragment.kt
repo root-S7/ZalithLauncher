@@ -15,6 +15,8 @@ import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog.FilesButton
@@ -26,7 +28,6 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.zalithlauncher.utils.file.PasteFile
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
@@ -65,14 +66,14 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null)) { result: Uri? ->
             result?.let {
-                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
-                PojavApplication.sExecutorService.execute {
+                Task.runTask {
                     copyFileInBackground(requireContext(), result, binding.fileRecyclerView.fullPath.absolutePath)
-                    Tools.runOnUiThread {
-                        Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
-                        binding.fileRecyclerView.refreshPath()
-                    }
-                }
+                }.beforeStart(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                }.ended(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
+                    binding.fileRecyclerView.refreshPath()
+                }.execute()
             }
         }
     }
@@ -112,30 +113,35 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
 
                 setOnMultiSelectListener { itemBeans: List<FileItemBean> ->
                     if (itemBeans.isNotEmpty()) {
-                        PojavApplication.sExecutorService.execute {
+                        Task.runTask {
                             //取出全部文件
                             val selectedFiles: MutableList<File> = ArrayList()
                             itemBeans.forEach(Consumer { value: FileItemBean ->
                                 val file = value.file
                                 file?.apply { selectedFiles.add(this) }
                             })
+                            selectedFiles
+                        }.ended(TaskExecutors.getAndroidUI()) { selectedFiles ->
                             val filesButton = FilesButton()
                             filesButton.setButtonVisibility(true, true, false, false, true, false)
                             filesButton.setDialogText(
                                 getString(R.string.file_multi_select_mode_title),
                                 getString(R.string.file_multi_select_mode_message, itemBeans.size), null
                             )
-                            Tools.runOnUiThread {
-                                val filesDialog = FilesDialog(requireContext(), filesButton, {
-                                    Tools.runOnUiThread {
-                                        closeMultiSelect()
-                                        refreshPath()
-                                    }
-                                }, fullPath, selectedFiles)
-                                filesDialog.setCopyButtonClick { operateView.pasteButton.visibility = View.VISIBLE }
-                                filesDialog.show()
-                            }
-                        }
+
+                            val filesDialog = FilesDialog(
+                                requireContext(),
+                                filesButton,
+                                Task.runTask(TaskExecutors.getAndroidUI()) {
+                                    closeMultiSelect()
+                                    refreshPath()
+                                },
+                                fullPath,
+                                selectedFiles!!
+                            )
+                            filesDialog.setCopyButtonClick { operateView.pasteButton.visibility = View.VISIBLE }
+                            filesDialog.show()
+                        }.execute()
                     }
                 }
 
@@ -242,13 +248,16 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             operateView.pasteButton.apply {
                 setOnClickListener {
                     PasteFile.getInstance()
-                        .pasteFiles(requireActivity(), fileRecyclerView.fullPath, null) {
-                            Tools.runOnUiThread {
+                        .pasteFiles(
+                            requireActivity(),
+                            fileRecyclerView.fullPath,
+                            null,
+                            Task.runTask(TaskExecutors.getAndroidUI()) {
                                 closeMultiSelect()
                                 visibility = View.GONE
                                 fileRecyclerView.refreshPath()
                             }
-                        }
+                        )
                 }
             }
             operateView.searchButton.setOnClickListener {
@@ -312,7 +321,9 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         filesButton.setMessageText(message)
 
         val filesDialog = FilesDialog(requireContext(), filesButton,
-            { Tools.runOnUiThread { binding.fileRecyclerView.refreshPath() } },
+            Task.runTask(TaskExecutors.getAndroidUI()) {
+                binding.fileRecyclerView.refreshPath()
+            },
             binding.fileRecyclerView.fullPath, file)
         filesDialog.setCopyButtonClick { binding.operateView.pasteButton.visibility = View.VISIBLE }
         filesDialog.show()

@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch.customcontrols;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
-import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 
 import static org.lwjgl.glfw.CallbackBridge.isGrabbing;
 
@@ -19,11 +18,12 @@ import com.google.gson.JsonSyntaxException;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlButton;
@@ -498,7 +498,7 @@ public class ControlLayout extends FrameLayout {
 		return jsonPath;
 	}
 
-	private void saveDialog(String title, Runnable confirmRunnable) {
+	private void saveDialog(String title, Task<?> confirmTask) {
 		EditControlInfoDialog infoDialog = new EditControlInfoDialog(getContext(), true, mLayoutFileName, mInfoData);
 
 		if (title != null && !title.isEmpty()) infoDialog.setTitle(title);
@@ -507,7 +507,7 @@ public class ControlLayout extends FrameLayout {
 			try {
 				String jsonPath = saveToDirectory(fileName);
 				Toast.makeText(getContext(), getContext().getString(R.string.generic_save) + ": " + jsonPath, Toast.LENGTH_SHORT).show();
-				if (confirmRunnable != null) PojavApplication.sExecutorService.execute(confirmRunnable);
+				if (confirmTask != null) confirmTask.execute();
 			} catch (Throwable th) {
 				Tools.showError(getContext(), th, true);
 			}
@@ -522,7 +522,11 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void openSaveAndExitDialog(EditorExitable editorExitable) {
-		saveDialog(getContext().getString(R.string.global_save_and_exit), () -> runOnUiThread(editorExitable::exitEditor));
+		saveDialog(getContext().getString(R.string.global_save_and_exit),
+				Task.Companion.runTask(TaskExecutors.Companion.getAndroidUI(), () -> {
+					editorExitable.exitEditor();
+					return null;
+				}));
 	}
 
 	public void openLoadDialog() {

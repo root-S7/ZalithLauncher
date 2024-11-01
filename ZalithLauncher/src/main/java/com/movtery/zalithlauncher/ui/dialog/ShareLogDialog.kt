@@ -5,10 +5,11 @@ import android.view.View
 import android.view.Window
 import android.widget.TextView
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.file.FileTools
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import java.io.File
@@ -30,15 +31,14 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
 
             setOnClickListener {
                 if (launcherLogFiles.isNotEmpty()) {
-                    PojavApplication.sExecutorService.execute {
-                        runCatching {
-                            val zipFile = File(PathAndUrlManager.DIR_APP_CACHE, "logs.zip")
-                            FileTools.packZip(launcherLogFiles, zipFile)
-                            Tools.runOnUiThread { FileTools.shareFile(context, zipFile) }
-                        }.getOrElse { e ->
-                            Logging.e("ShareLauncherLog", Tools.printToString(e))
-                        }
-                    }
+                    Task.runTask {
+                        val zipFile = File(PathAndUrlManager.DIR_APP_CACHE, "logs.zip")
+                        FileTools.packZip(launcherLogFiles, zipFile)
+                        zipFile
+                    }.ended(TaskExecutors.getAndroidUI()) { zipFile ->
+                        zipFile?.let { FileTools.shareFile(context, it) }
+                    }.onThrowable { e -> Logging.e("ShareLauncherLog", Tools.printToString(e)) }
+                        .execute()
                     this@ShareLogDialog.dismiss()
                 }
             }

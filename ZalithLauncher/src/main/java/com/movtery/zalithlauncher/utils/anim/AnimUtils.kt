@@ -3,8 +3,8 @@ package com.movtery.zalithlauncher.utils.anim
 import android.view.View
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import net.kdt.pojavlaunch.PojavApplication
 
 class AnimUtils {
     companion object {
@@ -94,7 +94,7 @@ class AnimUtils {
             endAction: Runnable?
         ) {
             if ((view.visibility != View.VISIBLE && end == 0f) || (view.visibility == View.VISIBLE && end == 1f)) {
-                endAction?.let { PojavApplication.sExecutorService.execute(endAction) }
+                endAction?.let { r -> Task.runTask { r.run() }.execute() }
                 return
             }
             view.visibility = View.VISIBLE

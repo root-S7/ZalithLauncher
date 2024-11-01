@@ -16,6 +16,8 @@ import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog.FilesButton
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
@@ -28,7 +30,6 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackg
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentCustomMouseBinding
@@ -46,16 +47,15 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
-            result?.let{
-                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
-
-                PojavApplication.sExecutorService.execute {
+            result?.let {
+                Task.runTask {
                     copyFileInBackground(requireActivity(), result, mousePath().absolutePath)
-                    Tools.runOnUiThread {
-                        Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
-                        loadData()
-                    }
-                }
+                }.beforeStart(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                }.ended(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
+                    loadData()
+                }.execute()
             }
         }
     }
@@ -168,7 +168,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 filesButton.setMessageText(message)
                 filesButton.setMoreButtonText(getString(R.string.generic_select))
 
-                val filesDialog = FilesDialog(requireActivity(), filesButton, { this.loadData() }, mousePath(), file)
+                val filesDialog = FilesDialog(requireActivity(), filesButton, Task.runTask { loadData() }, mousePath(), file)
                 filesDialog.setMoreButtonClick {
                     Settings.Manager.put("custom_mouse", fileName).save()
                     refreshIcon()

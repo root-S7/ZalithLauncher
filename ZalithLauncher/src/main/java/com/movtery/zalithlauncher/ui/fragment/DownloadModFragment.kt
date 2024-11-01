@@ -22,11 +22,12 @@ import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.util.versioning.VersionNumber
@@ -34,7 +35,6 @@ import java.io.File
 import java.util.Collections
 import java.util.concurrent.Future
 import java.util.function.Consumer
-
 
 class DownloadModFragment : ModListFragment() {
     companion object {
@@ -48,7 +48,7 @@ class DownloadModFragment : ModListFragment() {
 
     override fun init() {
         parseViewModel()
-        linkGetSubmit = PojavApplication.sExecutorService.submit {
+        linkGetSubmit = TaskExecutors.getDefault().submit {
             runCatching {
                 val webUrl = platformHelper.getWebUrl(mInfoItem)
                 fragmentActivity?.runOnUiThread { setLink(webUrl) }
@@ -76,16 +76,16 @@ class DownloadModFragment : ModListFragment() {
     }
 
     private fun refresh(force: Boolean): Future<*> {
-        return PojavApplication.sExecutorService.submit {
+        return TaskExecutors.getDefault().submit {
             runCatching {
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
                 val versions = platformHelper.getVersions(mInfoItem, force)
                 processModDetails(versions)
             }.getOrElse { e ->
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
@@ -135,7 +135,7 @@ class DownloadModFragment : ModListFragment() {
 
         currentTask?.apply { if (isCancelled) return }
 
-        Tools.runOnUiThread {
+        Task.runTask(TaskExecutors.getAndroidUI()) {
             val modVersionView = recyclerView
             runCatching {
                 var mModAdapter = modVersionView.adapter as ModListAdapter?
@@ -152,7 +152,7 @@ class DownloadModFragment : ModListFragment() {
 
             componentProcessing(false)
             modVersionView.scheduleLayoutAnimation()
-        }
+        }.execute()
     }
 
     @SuppressLint("CheckResult")
@@ -177,18 +177,18 @@ class DownloadModFragment : ModListFragment() {
     private fun loadScreenshots() {
         val progressBar = createProgressView(fragmentActivity!!)
         addMoreView(progressBar)
-        PojavApplication.sExecutorService.execute {
-            runCatching {
-                val screenshotItems = platformHelper.getScreenshots(mInfoItem.projectId)
-                Tools.runOnUiThread { setScreenshotView(screenshotItems) }
-            }.getOrElse { e ->
-                Logging.e(
-                    "DownloadModFragment",
-                    "Unable to load screenshots, ${Tools.printToString(e)}"
-                )
-            }
-            Tools.runOnUiThread { removeMoreView(progressBar) }
-        }
+
+        Task.runTask {
+            platformHelper.getScreenshots(mInfoItem.projectId)
+        }.ended(TaskExecutors.getAndroidUI()) { screenshotItems ->
+            screenshotItems?.let { setScreenshotView(it) }
+            removeMoreView(progressBar)
+        }.onThrowable { e ->
+            Logging.e(
+                "DownloadModFragment",
+                "Unable to load screenshots, ${Tools.printToString(e)}"
+            )
+        }.execute()
     }
 
     @SuppressLint("CheckResult")

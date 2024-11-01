@@ -13,11 +13,11 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.event.value.InstallLocalModpackEvent
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallExtra
+import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentSelectModpackBinding
@@ -42,10 +42,10 @@ class SelectModPackFragment : FragmentWithAnim(R.layout.fragment_select_modpack)
                         .setView(R.layout.view_task_running)
                         .setCancelable(false)
                         .show()
-                    PojavApplication.sExecutorService.execute {
+                    Task.runTask {
                         modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
                         EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, modPackFile!!.absolutePath, dialog)))
-                    }
+                    }.execute()
                 }
             }
         }

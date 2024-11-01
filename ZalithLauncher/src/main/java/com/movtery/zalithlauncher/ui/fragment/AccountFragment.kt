@@ -27,6 +27,8 @@ import com.movtery.zalithlauncher.feature.login.OtherLoginApi
 import com.movtery.zalithlauncher.feature.login.Servers
 import com.movtery.zalithlauncher.feature.login.Servers.Server
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.OtherLoginDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -38,7 +40,6 @@ import com.movtery.zalithlauncher.ui.subassembly.account.SelectAccountListener
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.PojavProfile
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
@@ -333,8 +334,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     }
 
     private fun addOtherServer(editText: EditText, type: Int) {
-        mProgressDialog.show()
-        PojavApplication.sExecutorService.execute {
+        Task.runTask {
             val editString = editText.text.toString()
             val serverUrl =
                 if (type == 0) AccountUtils.tryGetFullServerUrl(editString) else editString
@@ -342,37 +342,41 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                 requireActivity(),
                 if (type == 0) serverUrl else "https://auth.mc-user.com:233/$serverUrl"
             )?.let { data ->
-                runCatching {
-                    val server = Server()
-                    JSONObject(data).optJSONObject("meta")?.let { meta ->
-                        server.serverName = meta.optString("serverName")
-                        server.baseUrl = serverUrl
-                        if (type == 0) {
-                            server.register =
-                                meta.optJSONObject("links")?.optString("register") ?: ""
-                        } else {
-                            server.baseUrl = "https://auth.mc-user.com:233/$serverUrl"
-                            server.register = "https://login.mc-user.com:233/$serverUrl"
-                        }
-                        checkServerConfig()
-                        mOtherServerConfig?.server?.apply addServer@{
-                            forEach {
-                                //确保服务器不重复
-                                if (it.baseUrl == server.baseUrl) return@addServer
-                            }
-                            add(server)
-                        }
-                        Tools.write(
-                            mOtherServerConfigFile.absolutePath,
-                            Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
-                        )
-
-                        Tools.runOnUiThread { refreshOtherServer() }
+                val server = Server()
+                JSONObject(data).optJSONObject("meta")?.let { meta ->
+                    server.serverName = meta.optString("serverName")
+                    server.baseUrl = serverUrl
+                    if (type == 0) {
+                        server.register =
+                            meta.optJSONObject("links")?.optString("register") ?: ""
+                    } else {
+                        server.baseUrl = "https://auth.mc-user.com:233/$serverUrl"
+                        server.register = "https://login.mc-user.com:233/$serverUrl"
                     }
-                }.getOrElse { e -> Logging.e("Add Other Server", Tools.printToString(e)) }
+                    checkServerConfig()
+                    mOtherServerConfig?.server?.apply addServer@{
+                        forEach {
+                            //确保服务器不重复
+                            if (it.baseUrl == server.baseUrl) return@addServer
+                        }
+                        add(server)
+                    }
+                    Tools.write(
+                        mOtherServerConfigFile.absolutePath,
+                        Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
+                    )
+
+                    Tools.runOnUiThread {  }
+                }
             }
-            Tools.runOnUiThread { mProgressDialog.dismiss() }
-        }
+        }.beforeStart(TaskExecutors.getAndroidUI()) {
+            mProgressDialog.show()
+        }.ended(TaskExecutors.getAndroidUI()) {
+            refreshOtherServer()
+            mProgressDialog.dismiss()
+        }.onThrowable { e ->
+            Logging.e("Add Other Server", Tools.printToString(e))
+        }.execute()
     }
 
     private fun deleteOtherServer(server: Server) {

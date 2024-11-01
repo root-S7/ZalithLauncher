@@ -7,10 +7,10 @@ import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.EditText
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog.ConfirmListener
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
@@ -113,7 +113,7 @@ class FileTools {
 
         @JvmStatic
         @SuppressLint("UseCompatLoadingForDrawables")
-        fun renameFileListener(context: Context, runnable: Runnable?, file: File, suffix: String) {
+        fun renameFileListener(context: Context, endTask: Task<*>?, file: File, suffix: String) {
             val fileParent = file.parent
             val fileName = file.name
 
@@ -139,7 +139,7 @@ class FileTools {
 
                     val renamed = file.renameTo(newFile)
                     if (renamed) {
-                        if (runnable != null) PojavApplication.sExecutorService.execute(runnable)
+                        endTask?.execute()
                     }
                     true
                 }).buildDialog()
@@ -147,7 +147,7 @@ class FileTools {
 
         @JvmStatic
         @SuppressLint("UseCompatLoadingForDrawables")
-        fun renameFileListener(context: Context, runnable: Runnable?, file: File) {
+        fun renameFileListener(context: Context, endTask: Task<*>?, file: File) {
             val fileParent = file.parent
             val fileName = file.name
 
@@ -173,7 +173,7 @@ class FileTools {
 
                     val renamed = renameFile(file, newFile)
                     if (renamed) {
-                        if (runnable != null) PojavApplication.sExecutorService.execute(runnable)
+                        endTask?.execute()
                     }
                     true
                 }).buildDialog()

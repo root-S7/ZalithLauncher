@@ -2,8 +2,8 @@ package com.movtery.zalithlauncher.utils.file
 
 import android.content.Context
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getFileNameWithoutExtension
-import net.kdt.pojavlaunch.PojavApplication
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.concurrent.atomic.AtomicLong
@@ -15,7 +15,7 @@ class FileCopyHandler(
     private val mRoot: File,
     private val mTarget: File,
     private val mFileExtensionGetter: FileExtensionGetter?,
-    private val onEndRunnable: Runnable?
+    private val endTask: Task<*>
 ) : FileHandler(mContext), FileSearchProgress {
     private val foundFiles = mutableMapOf<File, File>()
     private val totalFileSize = AtomicLong(0)
@@ -110,7 +110,7 @@ class FileCopyHandler(
     override fun getPendingSize() = fileSize.get()
 
     override fun onEnd() {
-        PojavApplication.sExecutorService.execute(onEndRunnable)
+        endTask.execute()
     }
 
     interface FileExtensionGetter {

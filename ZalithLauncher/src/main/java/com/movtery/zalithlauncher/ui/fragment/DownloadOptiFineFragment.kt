@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modloader.ModVersionListAdapter
 import com.movtery.zalithlauncher.feature.mod.modloader.OptiFineDownloadType
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
@@ -52,16 +52,16 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     private fun refresh(force: Boolean): Future<*> {
-        return PojavApplication.sExecutorService.submit {
+        return TaskExecutors.getDefault().submit {
             runCatching {
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
                 val optiFineVersions = OptiFineUtils.downloadOptiFineVersions(force)
                 processModDetails(optiFineVersions)
             }.getOrElse { e ->
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
@@ -77,7 +77,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
 
     private fun processModDetails(optiFineVersions: OptiFineVersions?) {
         optiFineVersions ?: run {
-            Tools.runOnUiThread {
+            TaskExecutors.runInUIThread {
                 componentProcessing(false)
                 setFailedToLoad("optiFineVersions is Empty!")
             }
@@ -117,7 +117,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
 
         currentTask?.apply { if (isCancelled) return }
 
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             val recyclerView = recyclerView
             runCatching {
                 var mModAdapter = recyclerView.adapter as ModListAdapter?
@@ -139,7 +139,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
 
     override fun onDownloadFinished(downloadedFile: File) {
         if (!mIsDownloadMod) {
-            Tools.runOnUiThread {
+            TaskExecutors.runInUIThread {
                 val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
                 OptiFineUtils.addAutoInstallArgs(modInstallerStartIntent, downloadedFile)
                 SelectRuntimeDialog(fragmentActivity!!).apply {
@@ -158,14 +158,14 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     override fun onDataNotAvailable() {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             modloaderListenerProxy.detachListener()
             Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.generic_error), fragmentActivity!!.getString(R.string.mod_optifine_failed_to_scrape))
         }
     }
 
     override fun onDownloadError(e: Exception) {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             modloaderListenerProxy.detachListener()
             Tools.showError(fragmentActivity!!, e)
         }

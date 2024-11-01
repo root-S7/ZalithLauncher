@@ -1,9 +1,9 @@
 package com.movtery.zalithlauncher.feature.mod
 
 import android.content.Context
+import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.file.FileHandler
 import com.movtery.zalithlauncher.utils.file.FileSearchProgress
-import net.kdt.pojavlaunch.PojavApplication
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.concurrent.atomic.AtomicLong
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong
 class ModToggleHandler(
     mContext: Context,
     private val mSelectedFiles: List<File>,
-    private val onEndRunnable: Runnable?
+    private val onEndTask: Task<*>
 ) : FileHandler(mContext), FileSearchProgress {
     private val foundFiles = mutableListOf<File>()
     private val totalFileSize = AtomicLong(0)
@@ -60,6 +60,6 @@ class ModToggleHandler(
     override fun getPendingSize() = fileSize.get()
 
     override fun onEnd() {
-        PojavApplication.sExecutorService.execute(onEndRunnable)
+        onEndTask.execute()
     }
 }

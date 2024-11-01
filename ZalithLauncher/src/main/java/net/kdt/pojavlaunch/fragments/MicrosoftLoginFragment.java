@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 
 import com.movtery.zalithlauncher.event.value.MicrosoftLoginEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
-import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.databinding.FragmentMicrosoftLoginBinding;
@@ -44,7 +43,7 @@ public class MicrosoftLoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.returnButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
+        binding.returnButton.setOnClickListener(v -> forceBack());
 
         setWebViewSettings();
         if(savedInstanceState == null) startNewSession();
@@ -108,26 +107,34 @@ public class MicrosoftLoginFragment extends Fragment {
     }
 
     /* Expose webview actions to others */
-    public boolean canGoBack(){ return binding.webView.canGoBack();}
-    public void goBack(){ binding.webView.goBack();}
+    public boolean canGoBack() {
+        return binding.webView.canGoBack();
+    }
+
+    public void goBack() {
+        binding.webView.goBack();
+    }
+
+    private void forceBack() {
+        requireActivity().getSupportFragmentManager().popBackStackImmediate();
+    }
 
     /** Client to track when to sent the data to the launcher */
     class WebViewTrackClient extends WebViewClient {
-
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if(url.startsWith("ms-xal-00000000402b5328")) {
+            if (url.startsWith("ms-xal-00000000402b5328")) {
                 // Should be captured by the activity to kill the fragment and get
                 EventBus.getDefault().post(new MicrosoftLoginEvent(Uri.parse(url)));
                 Toast.makeText(view.getContext(), getString(R.string.account_login_start), Toast.LENGTH_SHORT).show();
-                ZHTools.onBackPressed(requireActivity());
+                forceBack();
 
                 return true;
             }
 
             // Sometimes, the user just clicked cancel
-            if(url.contains("res=cancel")){
-                ZHTools.onBackPressed(requireActivity());
+            if (url.contains("res=cancel")) {
+                forceBack();
                 return true;
             }
 

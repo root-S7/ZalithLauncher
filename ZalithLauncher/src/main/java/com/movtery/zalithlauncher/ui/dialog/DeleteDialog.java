@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.utils.file.FileDeletionHandler;
 
 import net.kdt.pojavlaunch.R;
@@ -13,16 +14,14 @@ import java.util.List;
 
 public class DeleteDialog extends TipDialog.Builder {
     private final Context context;
-    private final Runnable runnable;
 
-    public DeleteDialog(@NonNull Context context, Runnable runnable, List<File> files) {
+    public DeleteDialog(@NonNull Context context, Task<?> endTask, List<File> files) {
         super(context);
         this.context = context;
-        this.runnable = runnable;
-        init(files);
+        init(files, endTask);
     }
 
-    private void init(List<File> files) {
+    private void init(List<File> files, Task<?> endTask) {
         this.setCancelable(false);
 
         boolean singleFile = files.size() == 1;
@@ -36,7 +35,7 @@ public class DeleteDialog extends TipDialog.Builder {
                 R.string.file_delete) : R.string.file_delete_multiple_items_message);
         setConfirm(R.string.generic_delete);
 
-        setConfirmClickListener(() -> new FileDeletionHandler(context, files, runnable).start());
+        setConfirmClickListener(() -> new FileDeletionHandler(context, files, endTask).start());
     }
 
     public void show() {

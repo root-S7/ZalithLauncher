@@ -25,11 +25,11 @@ import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAn
 import com.movtery.zalithlauncher.utils.file.FileCopyHandler
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.zalithlauncher.feature.mod.ModToggleHandler
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.file.PasteFile
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.databinding.FragmentModsBinding
 import java.io.File
@@ -50,14 +50,14 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("jar")) { result: Uri? ->
             result?.let{
-                Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
-
-                PojavApplication.sExecutorService.execute {
+                Task.runTask {
                     copyFileInBackground(requireContext(), result, mRootPath)
-                    Tools.runOnUiThread { Toast.makeText(requireContext(), getString(R.string.profile_mods_added_mod), Toast.LENGTH_SHORT).show()
-                        binding.fileRecyclerView.refreshPath()
-                    }
-                }
+                }.beforeStart(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                }.ended(TaskExecutors.getAndroidUI()) {
+                    Toast.makeText(requireContext(), getString(R.string.profile_mods_added_mod), Toast.LENGTH_SHORT).show()
+                    binding.fileRecyclerView.refreshPath()
+                }.execute()
             }
         }
     }
@@ -96,7 +96,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                                 else if (fileName.endsWith(ModUtils.DISABLE_JAR_FILE_SUFFIX)) filesButton.setMoreButtonText(getString(R.string.profile_mods_enable))
 
                                 val filesDialog = FilesDialog(requireContext(), filesButton,
-                                    { Tools.runOnUiThread { refreshPath() } },
+                                    Task.runTask(TaskExecutors.getAndroidUI()) { refreshPath() },
                                     fullPath, it
                                 )
 
@@ -130,38 +130,38 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
                 setOnMultiSelectListener { itemBeans: List<FileItemBean> ->
                     if (itemBeans.isNotEmpty()) {
-                        PojavApplication.sExecutorService.execute {}
-                        //取出全部文件
-                        val selectedFiles: MutableList<File> = ArrayList()
-                        itemBeans.forEach(Consumer { value: FileItemBean ->
-                            val file = value.file
-                            file?.apply { selectedFiles.add(this) }
-                        })
-                        val filesButton = FilesButton()
-                        filesButton.setButtonVisibility(true, true, false, false, true, true)
-                        filesButton.setDialogText(
-                            getString(R.string.file_multi_select_mode_title),
-                            getString(R.string.file_multi_select_mode_message, itemBeans.size),
-                            getString(R.string.profile_mods_disable_or_enable)
-                        )
-                        Tools.runOnUiThread {
-                            val filesDialog = FilesDialog(requireContext(), filesButton, {
-                                Tools.runOnUiThread {
+                        Task.runTask {
+                            //取出全部文件
+                            val selectedFiles: MutableList<File> = ArrayList()
+                            itemBeans.forEach(Consumer { value: FileItemBean ->
+                                val file = value.file
+                                file?.apply { selectedFiles.add(this) }
+                            })
+                            selectedFiles
+                        }.ended(TaskExecutors.getAndroidUI()) { selectedFiles ->
+                            val filesButton = FilesButton()
+                            filesButton.setButtonVisibility(true, true, false, false, true, true)
+                            filesButton.setDialogText(
+                                getString(R.string.file_multi_select_mode_title),
+                                getString(R.string.file_multi_select_mode_message, itemBeans.size),
+                                getString(R.string.profile_mods_disable_or_enable)
+                            )
+
+                            val filesDialog = FilesDialog(requireContext(), filesButton,
+                                Task.runTask(TaskExecutors.getAndroidUI()) {
                                     closeMultiSelect()
                                     refreshPath()
-                                }
-                            }, fullPath, selectedFiles)
+                                }, fullPath, selectedFiles!!)
                             filesDialog.setCopyButtonClick { operateView.pasteButton.visibility = View.VISIBLE }
                             filesDialog.setMoreButtonClick {
-                                ModToggleHandler(requireContext(), selectedFiles) {
-                                    Tools.runOnUiThread {
+                                ModToggleHandler(requireContext(), selectedFiles,
+                                    Task.runTask(TaskExecutors.getAndroidUI()) {
                                         closeMultiSelect()
                                         refreshPath()
-                                    }
-                                }.start()
+                                    }).start()
                             }
                             filesDialog.show()
-                        }
+                        }.execute()
                     }
                 }
 
@@ -209,14 +209,13 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                             override fun onGet(file: File?): String? {
                                 return file?.let { it1 -> getFileSuffix(it1) }
                             }
-                        }
-                    ) {
-                        Tools.runOnUiThread {
+                        },
+                        Task.runTask(TaskExecutors.getAndroidUI()) {
                             closeMultiSelect()
                             pasteButton.visibility = View.GONE
                             fileRecyclerView.refreshPath()
                         }
-                    }
+                    )
                 }
 
                 createFolderButton.setOnClickListener { goDownloadMod() }

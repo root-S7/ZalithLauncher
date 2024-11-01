@@ -10,12 +10,12 @@ import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgeVersions
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgedForgeVersions
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.formatGameVersion
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
@@ -49,15 +49,15 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     private fun refresh(force: Boolean): Future<*> {
-        return PojavApplication.sExecutorService.submit {
+        return TaskExecutors.getDefault().submit {
             runCatching {
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
                 processModDetails(loadVersionList(force))
             }.getOrElse { e ->
-                Tools.runOnUiThread {
+                TaskExecutors.runInUIThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
@@ -79,7 +79,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
 
     private fun processModDetails(neoForgeVersions: List<String?>?) {
         neoForgeVersions ?: run {
-            Tools.runOnUiThread {
+            TaskExecutors.runInUIThread {
                 componentProcessing(false)
                 setFailedToLoad("neoForgeVersions is Empty!")
             }
@@ -123,7 +123,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
 
         currentTask?.apply { if (isCancelled) return }
 
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             val recyclerView = recyclerView
             runCatching {
                 var mModAdapter = recyclerView.adapter as ModListAdapter?
@@ -144,7 +144,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     override fun onDownloadFinished(downloadedFile: File) {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             val modInstallerStartIntent = Intent(fragmentActivity!!, JavaGUILauncherActivity::class.java)
             addAutoInstallArgs(modInstallerStartIntent, downloadedFile)
             SelectRuntimeDialog(fragmentActivity!!).apply {
@@ -162,14 +162,14 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
     }
 
     override fun onDataNotAvailable() {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             modloaderListenerProxy.detachListener()
             Tools.dialog(fragmentActivity!!, fragmentActivity!!.getString(R.string.generic_error), fragmentActivity!!.getString(R.string.mod_no_installer, "NeoForge"))
         }
     }
 
     override fun onDownloadError(e: Exception) {
-        Tools.runOnUiThread {
+        TaskExecutors.runInUIThread {
             modloaderListenerProxy.detachListener()
             Tools.showError(fragmentActivity!!, e)
         }

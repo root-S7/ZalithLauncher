@@ -12,9 +12,9 @@ import com.movtery.zalithlauncher.feature.unpack.Jre
 import com.movtery.zalithlauncher.feature.unpack.UnpackComponentsTask
 import com.movtery.zalithlauncher.feature.unpack.UnpackJreTask
 import com.movtery.zalithlauncher.feature.unpack.UnpackSingleFilesTask
+import com.movtery.zalithlauncher.task.Task
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.MissingStorageActivity
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.ActivitySplashBinding
@@ -92,9 +92,9 @@ class SplashActivity : BaseActivity() {
     
     private fun checkEnd() {
         installableAdapter.checkAllTask()
-        PojavApplication.sExecutorService.execute {
+        Task.runTask {
             UnpackSingleFilesTask(this).run()
-        }
+        }.execute()
 
         binding.startButton.isClickable = true
     }
