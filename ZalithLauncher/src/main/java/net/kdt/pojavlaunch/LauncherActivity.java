@@ -271,6 +271,43 @@ public class LauncherActivity extends BaseActivity {
         binding = ActivityPojavLauncherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        processFragment();
+        processViews();
+
+        mRequestNotificationPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isAllowed -> {
+                    if(!isAllowed) handleNoNotificationPermission();
+                    else {
+                        Runnable runnable = Tools.getWeakReference(mRequestNotificationPermissionRunnable);
+                        if(runnable != null) runnable.run();
+                    }
+                }
+        );
+        checkNotificationPermission();
+
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
+        ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
+        ProgressKeeper.addTaskCountListener(binding.progressLayout);
+
+        new AsyncVersionList().getVersionList(versions -> EventBus.getDefault().postSticky(
+                        new MinecraftVersionValueEvent(versions)),
+                false
+        );
+
+        mInstallTracker = new ModloaderInstallTracker(this);
+
+        checkNotice();
+
+        //检查已经下载后的包，或者检查更新
+        PojavApplication.sExecutorService.execute(() -> UpdateLauncher.CheckDownloadedPackage(this, true));
+
+        LauncherActivity.activity = this;
+    }
+
+    private void processFragment() {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -290,9 +327,6 @@ public class LauncherActivity extends BaseActivity {
             }
         });
 
-        mSettingsButtonWrapper = new SettingsButtonWrapper(binding.settingButton);
-        mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(binding.settingButton, Animations.Pulse));
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         //如果栈中没有Fragment，那么就将主Fragment添加进来
         if (fragmentManager.getBackStackEntryCount() < 1) {
@@ -301,25 +335,13 @@ public class LauncherActivity extends BaseActivity {
                     .addToBackStack(MainMenuFragment.TAG)
                     .add(R.id.container_fragment, MainMenuFragment.class, null, MainMenuFragment.TAG).commit();
         }
+    }
 
-        mRequestNotificationPermissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                isAllowed -> {
-                    if(!isAllowed) handleNoNotificationPermission();
-                    else {
-                        Runnable runnable = Tools.getWeakReference(mRequestNotificationPermissionRunnable);
-                        if(runnable != null) runnable.run();
-                    }
-                }
-        );
+    private void processViews() {
         setPageOpacity();
         refreshBackground();
-
-        checkNotificationPermission();
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
-        ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
-
+        mSettingsButtonWrapper = new SettingsButtonWrapper(binding.settingButton);
+        mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(binding.settingButton, Animations.Pulse));
         binding.downloadButton.setOnClickListener(v -> {
             if (mIsInDownloadFragment) return;
             Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
@@ -340,15 +362,6 @@ public class LauncherActivity extends BaseActivity {
         binding.appTitleText.setOnClickListener(v ->
                 binding.appTitleText.setText(StringUtils.shiftString(binding.appTitleText.getText().toString(), ShiftDirection.RIGHT, 1))
         );
-
-        ProgressKeeper.addTaskCountListener(binding.progressLayout);
-
-        new AsyncVersionList().getVersionList(versions -> EventBus.getDefault().postSticky(
-                new MinecraftVersionValueEvent(versions)),
-                false
-        );
-
-        mInstallTracker = new ModloaderInstallTracker(this);
 
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_MINECRAFT);
         binding.progressLayout.observe(ProgressLayout.UNPACK_RUNTIME);
@@ -383,16 +396,9 @@ public class LauncherActivity extends BaseActivity {
             }
         }).init();
 
-        checkNotice();
-
-        // 愚人节彩蛋
+        //愚人节彩蛋
         if (ZHTools.checkDate(4, 1)) binding.hair.setVisibility(View.VISIBLE);
         else binding.hair.setVisibility(View.GONE);
-
-        //检查已经下载后的包，或者检查更新
-        PojavApplication.sExecutorService.execute(() -> UpdateLauncher.CheckDownloadedPackage(this, true));
-
-        LauncherActivity.activity = this;
     }
 
     @Override
