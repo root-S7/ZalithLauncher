@@ -138,7 +138,7 @@ public final class UpdateLauncher {
                         LauncherVersion launcherVersion = Tools.GLOBAL_GSON.fromJson(rawJson, LauncherVersion.class);
 
                         String versionName = launcherVersion.getVersionName();
-                        if (ignore && Objects.equals(versionName, AllSettings.Companion.getIgnoreUpdate()))
+                        if (ignore && Objects.equals(versionName, AllSettings.getIgnoreUpdate()))
                             return; //忽略此版本
 
                         int versionCode = launcherVersion.getVersionCode();

@@ -79,7 +79,7 @@ public final class ZHTools {
     }
 
     public static File getCustomMouse() {
-        String customMouse = AllSettings.Companion.getCustomMouse();
+        String customMouse = AllSettings.getCustomMouse();
         if (customMouse == null) {
             return null;
         }
@@ -90,7 +90,7 @@ public final class ZHTools {
                                             @Nullable String fragmentTag, @Nullable Bundle bundle) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
 
-        boolean animation = AllSettings.Companion.getAnimation();
+        boolean animation = AllSettings.getAnimation();
         if (animation) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
 
         transaction.setReorderingAllowed(true).replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
@@ -105,7 +105,7 @@ public final class ZHTools {
                                    @Nullable String fragmentTag, @Nullable Bundle bundle) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
 
-        if (AllSettings.Companion.getAnimation()) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        if (AllSettings.getAnimation()) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
 
         transaction.setReorderingAllowed(true)
                 .addToBackStack(fragmentClass.getName())

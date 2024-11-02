@@ -84,7 +84,7 @@ public class PojavApplication extends Application {
 		}
 
 		//设置主题
-		String launcherTheme = AllSettings.Companion.getLauncherTheme();
+		String launcherTheme = AllSettings.getLauncherTheme();
 		Objects.requireNonNull(launcherTheme);
 		if (!Objects.equals(launcherTheme, "system")) {
 			switch (launcherTheme) {

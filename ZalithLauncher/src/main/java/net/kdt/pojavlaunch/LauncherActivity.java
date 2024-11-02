@@ -160,7 +160,7 @@ public class LauncherActivity extends BaseActivity {
             return;
         }
 
-        String selectedProfile = AllSettings.Companion.getCurrentProfile();
+        String selectedProfile = AllSettings.getCurrentProfile();
         if (LauncherProfiles.mainProfileJson == null || !LauncherProfiles.mainProfileJson.profiles.containsKey(selectedProfile)) {
             Toast.makeText(this, R.string.error_no_version, Toast.LENGTH_LONG).show();
             return;
@@ -185,7 +185,7 @@ public class LauncherActivity extends BaseActivity {
 
             @Override
             public void onUsageDenied() {
-                if (!AllSettings.Companion.getLocalAccountReminders()) {
+                if (!AllSettings.getLocalAccountReminders()) {
                     launchGame(prof);
                 } else {
                     LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(prof),
@@ -448,8 +448,8 @@ public class LauncherActivity extends BaseActivity {
                 return;
             }
             //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
-            if (AllSettings.Companion.getNoticeDefault() ||
-                    (noticeInfo.numbering != AllSettings.Companion.getNoticeNumbering())) {
+            if (AllSettings.getNoticeDefault() ||
+                    (noticeInfo.numbering != AllSettings.getNoticeNumbering())) {
                 TaskExecutors.runInUIThread(() -> setNotice(true));
                 Settings.Manager.Companion.put("noticeDefault", true)
                         .put("noticeNumbering", noticeInfo.numbering)
@@ -526,7 +526,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void checkNotificationPermission() {
-        if(AllSettings.Companion.getSkipNotificationPermissionCheck() ||
+        if(AllSettings.getSkipNotificationPermissionCheck() ||
             checkForNotificationPermission()) {
             return;
         }
@@ -571,7 +571,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setPageOpacity() {
-        float v = (float) AllSettings.Companion.getPageOpacity() / 100;
+        float v = (float) AllSettings.getPageOpacity() / 100;
         if (binding.containerFragment.getAlpha() != v) binding.containerFragment.setAlpha(v);
     }
 }

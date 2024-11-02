@@ -27,9 +27,9 @@ public class ControlSettingsDialog extends FullScreenDialog implements Draggable
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private void init() {
         //设置值
-        binding.snappingSwitch.setChecked(AllSettings.Companion.getButtonSnapping());
-        binding.snappingDistanceSeek.setProgress(AllSettings.Companion.getButtonSnappingDistance());
-        String text = AllSettings.Companion.getButtonSnappingDistance() + "dp";
+        binding.snappingSwitch.setChecked(AllSettings.getButtonSnapping());
+        binding.snappingDistanceSeek.setProgress(AllSettings.getButtonSnappingDistance());
+        String text = AllSettings.getButtonSnappingDistance() + "dp";
         binding.snappingDistanceText.setText(text);
 
         binding.confirmButton.setOnClickListener(v -> this.dismiss());

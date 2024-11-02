@@ -132,7 +132,7 @@ public class ControlLayout extends FrameLayout {
 			if(mModifiable) drawer.areButtonsVisible = true;
 		}
 
-		mLayout.scaledAt = AllSettings.Companion.getButtonscale();
+		mLayout.scaledAt = AllSettings.getButtonscale();
 
 		setModified(false);
 		mButtons = null;

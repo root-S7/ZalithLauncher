@@ -58,7 +58,7 @@ public class LauncherProfiles {
 
     public static @NonNull MinecraftProfile getCurrentProfile() {
         if(mainProfileJson == null) LauncherProfiles.load();
-        String defaultProfileName = AllSettings.Companion.getCurrentProfile();
+        String defaultProfileName = AllSettings.getCurrentProfile();
         MinecraftProfile profile = mainProfileJson.profiles.get(defaultProfileName);
         if(profile == null) throw new RuntimeException("The current profile stopped existing :(");
         return profile;

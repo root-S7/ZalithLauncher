@@ -25,7 +25,7 @@ public class InGameEventProcessor implements TouchEventProcessor {
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 mTracker.startTracking(motionEvent);
-                if(AllSettings.Companion.getDisableGestures()) break;
+                if(AllSettings.getDisableGestures()) break;
                 mEventTransitioned = false;
                 checkGestures();
                 break;
@@ -35,7 +35,7 @@ public class InGameEventProcessor implements TouchEventProcessor {
                 CallbackBridge.mouseX += motionVector[0] * mSensitivity;
                 CallbackBridge.mouseY += motionVector[1] * mSensitivity;
                 CallbackBridge.sendCursorPos(CallbackBridge.mouseX, CallbackBridge.mouseY);
-                if(AllSettings.Companion.getDisableGestures()) break;
+                if(AllSettings.getDisableGestures()) break;
                 checkGestures();
                 break;
             case MotionEvent.ACTION_UP:

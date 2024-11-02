@@ -41,7 +41,7 @@ public class InGUIEventProcessor implements TouchEventProcessor {
                     sendTouchCoordinates(motionEvent.getX(), motionEvent.getY());
 
                     // disabled gestures means no scrolling possible, send gesture early
-                    if (AllSettings.Companion.getDisableGestures()) enableMouse();
+                    if (AllSettings.getDisableGestures()) enableMouse();
                     else setGestureStart(motionEvent);
                 }
                 break;
@@ -49,7 +49,7 @@ public class InGUIEventProcessor implements TouchEventProcessor {
             case MotionEvent.ACTION_MOVE:
                 int pointerCount = motionEvent.getPointerCount();
                 int pointerIndex = mTracker.trackEvent(motionEvent);
-                if(pointerCount == 1 || AllSettings.Companion.getDisableGestures()) {
+                if(pointerCount == 1 || AllSettings.getDisableGestures()) {
                     if(touchpadDisplayed()) {
                         mTouchpad.applyMotionVector(mTracker.getMotionVector());
                     } else {
@@ -73,7 +73,7 @@ public class InGUIEventProcessor implements TouchEventProcessor {
                 mTracker.cancelTracking();
 
                 // Handle single tap on gestures
-                if((!AllSettings.Companion.getDisableGestures() || touchpadDisplayed()) && !mIsMouseDown && singleTap) {
+                if((!AllSettings.getDisableGestures() || touchpadDisplayed()) && !mIsMouseDown && singleTap) {
                     CallbackBridge.putMouseEventWithCoords(LwjglGlfwKeycode.GLFW_MOUSE_BUTTON_LEFT, CallbackBridge.mouseX, CallbackBridge.mouseY);
                 }
 

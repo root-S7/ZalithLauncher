@@ -154,7 +154,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
         // Set up the icon change click listener
         binding.vprofEditorProfileLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
-        loadValues(Objects.requireNonNull(AllSettings.Companion.getCurrentProfile()), view.getContext());
+        loadValues(Objects.requireNonNull(AllSettings.getCurrentProfile()), view.getContext());
     }
 
     @Override

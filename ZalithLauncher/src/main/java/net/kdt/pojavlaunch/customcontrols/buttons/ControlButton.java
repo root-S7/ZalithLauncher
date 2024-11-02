@@ -41,7 +41,7 @@ public class ControlButton extends TextView implements ControlInterface {
         super(layout.getContext());
         mControlLayout = layout;
         setGravity(Gravity.CENTER);
-        setAllCaps(AllSettings.Companion.getButtonAllCaps());
+        setAllCaps(AllSettings.getButtonAllCaps());
         setTextColor(Color.WHITE);
         setPadding(4, 4, 4, 4);
         setTextSize(14); // Nullify the default size setting

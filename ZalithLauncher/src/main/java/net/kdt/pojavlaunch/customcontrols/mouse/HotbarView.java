@@ -27,7 +27,7 @@ public class HotbarView extends View implements MCOptionUtils.MCOptionListener, 
             LwjglGlfwKeycode.GLFW_KEY_4, LwjglGlfwKeycode.GLFW_KEY_5,   LwjglGlfwKeycode.GLFW_KEY_6,
             LwjglGlfwKeycode.GLFW_KEY_7, LwjglGlfwKeycode.GLFW_KEY_8, LwjglGlfwKeycode.GLFW_KEY_9};
     private final DropGesture mDropGesture = new DropGesture(new Handler(Looper.getMainLooper()));
-    private float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
+    private float mScaleFactor = AllSettings.getResolutionRatio() / 100f;
     private int mWidth;
     private int mLastIndex;
     private int mGuiScale;
@@ -109,7 +109,7 @@ public class HotbarView extends View implements MCOptionUtils.MCOptionListener, 
         // Check if the slot changed and we need to make a key press
         if(hotbarIndex == mLastIndex) {
             // Only check for doubletapping if the slot has not changed
-            if(hasDoubleTapped && !AllSettings.Companion.getDisableDoubleTap()) CallbackBridge.sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_F);
+            if(hasDoubleTapped && !AllSettings.getDisableDoubleTap()) CallbackBridge.sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_F);
             return true;
         }
         mLastIndex = hotbarIndex;

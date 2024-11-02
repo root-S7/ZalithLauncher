@@ -30,7 +30,7 @@ public class LauncherPreferences {
         PathAndUrlManager.initContextConstants(ctx);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
-        String javaArgs = AllSettings.Companion.getJavaArgs();
+        String javaArgs = AllSettings.getJavaArgs();
         if (javaArgs != null) {
             for (String arg : JREUtils.parseJavaArguments(javaArgs)) {
                 if (arg.startsWith(argLwjglLibname)) {

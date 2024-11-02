@@ -115,7 +115,7 @@ public class ProfileAdapter extends BaseAdapter {
 
         // Set selected background if needed
         if(displaySelection){
-            String selectedProfile = AllSettings.Companion.getCurrentProfile();
+            String selectedProfile = AllSettings.getCurrentProfile();
             extendedTextView.setBackgroundColor(Objects.equals(selectedProfile, nm) ? ColorUtils.setAlphaComponent(Color.WHITE,60) : Color.TRANSPARENT);
         }else extendedTextView.setBackgroundColor(Color.TRANSPARENT);
     }

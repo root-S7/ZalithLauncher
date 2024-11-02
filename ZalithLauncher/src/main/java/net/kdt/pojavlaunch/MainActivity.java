@@ -103,8 +103,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         super.onCreate(savedInstanceState);
         minecraftProfile = LauncherProfiles.getCurrentProfile();
         MCOptionUtils.load(Tools.getGameDirPath(minecraftProfile).getAbsolutePath());
-        if (AllSettings.Companion.getAutoSetGameLanguage())
-            ProfileLanguageSelector.setGameLanguage(minecraftProfile, AllSettings.Companion.getGameLanguageOverridden());
+        if (AllSettings.getAutoSetGameLanguage())
+            ProfileLanguageSelector.setGameLanguage(minecraftProfile, AllSettings.getGameLanguageOverridden());
 
         Intent gameServiceIntent = new Intent(this, GameService.class);
         // Start the service a bit early
@@ -112,14 +112,14 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         initLayout();
         CallbackBridge.addGrabListener(binding.mainTouchpad);
         CallbackBridge.addGrabListener(binding.mainGameRenderView);
-        if(AllSettings.Companion.getEnableGyro()) mGyroControl = new GyroControl(this);
+        if(AllSettings.getEnableGyro()) mGyroControl = new GyroControl(this);
 
         // Enabling this on TextureView results in a broken white result
-        if(AllSettings.Companion.getAlternateSurface()) getWindow().setBackgroundDrawable(null);
+        if(AllSettings.getAlternateSurface()) getWindow().setBackgroundDrawable(null);
         else getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
         // Set the sustained performance mode for available APIs
-        getWindow().setSustainedPerformanceMode(AllSettings.Companion.getSustainedPerformance());
+        getWindow().setSustainedPerformanceMode(AllSettings.getSustainedPerformance());
 
         ControlLayout controlLayout = binding.mainControlLayout;
         mControlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             binding.mainGameRenderView.setSurfaceReadyListener(() -> {
                 try {
                     // Setup virtual mouse right before launching
-                    if (AllSettings.Companion.getVirtualMouseStart()) {
+                    if (AllSettings.getVirtualMouseStart()) {
                         binding.mainTouchpad.post(() -> binding.mainTouchpad.switchState());
                     }
                     LaunchGame.runGame(this, mServiceBinder, minecraftProfile, finalVersion, mVersionInfo);
@@ -217,7 +217,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 }
             });
 
-            if (AllSettings.Companion.getEnableLogOutput()) openLogOutput();
+            if (AllSettings.getEnableLogOutput()) openLogOutput();
 
             String tipString = StringUtils.insertNewline(binding.gameTip.getText(), StringUtils.insertSpace(getString(R.string.game_tip_version), minecraftProfile.lastVersionId));
             binding.gameTip.setText(tipString);
@@ -242,7 +242,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 .setMin(25)
                 .setMax(300)
                 .setSuffix("%")
-                .setValue(AllSettings.Companion.getResolutionRatio())
+                .setValue(AllSettings.getResolutionRatio())
                 .setPreviewTextContentGetter(value -> VideoSettingsFragment.getResolutionRatioPreview(getResources(), value))
                 .setOnSeekbarChangeListener(value -> {
                     binding.mainGameRenderView.refreshSize(value);
@@ -257,7 +257,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             // Load keys
             binding.mainControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
-                            ? AllSettings.Companion.getDefaultCtrl()
+                            ? AllSettings.getDefaultCtrl()
                             : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
         } catch(IOException e) {
             try {
@@ -341,7 +341,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             try {
-                binding.mainControlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
+                binding.mainControlLayout.loadLayout(AllSettings.getDefaultCtrl());
             } catch (IOException e) {
                 Logging.e("LoadLayout", Tools.printToString(e));
             }
@@ -350,7 +350,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     @Override
     public boolean shouldIgnoreNotch() {
-        return AllSettings.Companion.getIgnoreNotch();
+        return AllSettings.getIgnoreNotch();
     }
 
     private void dialogSendCustomKey() {
@@ -438,7 +438,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public void adjustGyroSensitivityLive() {
-        if(!AllSettings.Companion.getEnableGyro()) {
+        if(!AllSettings.getEnableGyro()) {
             Toast.makeText(this, R.string.toast_turn_on_gyro, Toast.LENGTH_LONG).show();
             return;
         }
@@ -446,7 +446,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 .setTitle(R.string.setting_gyro_sensitivity_title)
                 .setMin(25)
                 .setMax(300)
-                .setValue((int) (AllSettings.Companion.getGyroSensitivity() * 100))
+                .setValue((int) (AllSettings.getGyroSensitivity() * 100))
                 .setSuffix("%")
                 .setOnSeekbarStopTrackingTouch(value -> Settings.Manager.Companion.put("gyroSensitivity", value).save())
                 .buildDialog();
@@ -545,7 +545,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             System.gc();
             MainActivity.binding.mainControlLayout.loadLayout(
                     minecraftProfile.controlFile == null
-                            ? AllSettings.Companion.getDefaultCtrl()
+                            ? AllSettings.getDefaultCtrl()
                             : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
             mGameMenuWrapper.setVisibility(!binding.mainControlLayout.hasMenuButton());
         } catch (IOException e) {

@@ -18,7 +18,7 @@ public class LeftClickGesture extends ValidatorGesture {
     private boolean mMouseActivated;
 
     public LeftClickGesture(Handler handler) {
-        super(handler, AllSettings.Companion.getTimeLongPressTrigger());
+        super(handler, AllSettings.getTimeLongPressTrigger());
     }
 
     public final void inputEvent() {

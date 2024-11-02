@@ -53,7 +53,7 @@ public class LoggerView extends ConstraintLayout {
 
         ViewAnimUtils.setViewAnim(this,
                 visibility ? Animations.BounceInUp : Animations.SlideOutDown,
-                (long) (AllSettings.Companion.getAnimationSpeed() * 0.7),
+                (long) (AllSettings.getAnimationSpeed() * 0.7),
                 () -> setVisibility(VISIBLE),
                 () -> setVisibility(visibility ? VISIBLE : GONE));
     }

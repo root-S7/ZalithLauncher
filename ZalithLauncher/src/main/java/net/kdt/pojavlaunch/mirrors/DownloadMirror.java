@@ -73,11 +73,11 @@ public class DownloadMirror {
      * @return true if the source is a mirror, false otherwise
      */
     public static boolean isMirrored() {
-        return !Objects.equals(AllSettings.Companion.getDownloadSource(), "default");
+        return !Objects.equals(AllSettings.getDownloadSource(), "default");
     }
 
     private static String[] getMirrorSettings() {
-        switch (Objects.requireNonNull(AllSettings.Companion.getDownloadSource())) {
+        switch (Objects.requireNonNull(AllSettings.getDownloadSource())) {
             case "bmclapi": return MIRROR_BMCLAPI;
             case "default":
             default:

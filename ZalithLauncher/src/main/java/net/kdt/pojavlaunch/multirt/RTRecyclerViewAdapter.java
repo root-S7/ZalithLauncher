@@ -77,7 +77,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public boolean isDefaultRuntime(Runtime rt) {
-        return Objects.equals(AllSettings.Companion.getDefaultRuntime(), rt.name);
+        return Objects.equals(AllSettings.getDefaultRuntime(), rt.name);
     }
 
     @Override

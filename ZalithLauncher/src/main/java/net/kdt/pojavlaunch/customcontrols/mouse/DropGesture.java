@@ -19,7 +19,7 @@ public class DropGesture implements Runnable{
     public void submit() {
         if(!mActive) {
             mActive = true;
-            mHandler.postDelayed(this, AllSettings.Companion.getTimeLongPressTrigger());
+            mHandler.postDelayed(this, AllSettings.getTimeLongPressTrigger());
         }
     }
 

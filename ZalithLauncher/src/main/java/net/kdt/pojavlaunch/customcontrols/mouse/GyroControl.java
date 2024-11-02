@@ -41,7 +41,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
 
     /* Used to average the last values, if smoothing is enabled */
     private final float[][] mAngleBuffer = new float[
-            AllSettings.Companion.getGyroSmoothing() ? 2 : 1
+            AllSettings.getGyroSmoothing() ? 2 : 1
             ][3];
     private float xTotal = 0;
     private float yTotal = 0;
@@ -66,7 +66,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
     public void enable() {
         if(mSensor == null) return;
         mFirstPass = true;
-        mSensorManager.registerListener(this, mSensor, 1000 * AllSettings.Companion.getGyroSampleRate());
+        mSensorManager.registerListener(this, mSensor, 1000 * AllSettings.getGyroSampleRate());
         mCorrectionListener.enable();
         mShouldHandleEvents = CallbackBridge.isGrabbing();
         CallbackBridge.addGrabListener(this);
@@ -94,8 +94,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
         }
         SensorManager.getAngleChange(mAngleDifference, mCurrentRotation, mPreviousRotation);
         damperValue(mAngleDifference);
-        mStoredX += xAverage * 1000 * AllSettings.Companion.getGyroSensitivity();
-        mStoredY += yAverage * 1000 * AllSettings.Companion.getGyroSensitivity();
+        mStoredX += xAverage * 1000 * AllSettings.getGyroSensitivity();
+        mStoredY += yAverage * 1000 * AllSettings.getGyroSensitivity();
 
         boolean updatePosition = false;
         float absX = Math.abs(mStoredX);
@@ -153,8 +153,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
                 break;
         }
 
-        if(AllSettings.Companion.getGyroInvertX()) xFactor *= -1;
-        if(AllSettings.Companion.getGyroInvertY()) yFactor *= -1;
+        if(AllSettings.getGyroInvertX()) xFactor *= -1;
+        if(AllSettings.getGyroInvertY()) yFactor *= -1;
     }
 
     @Override
@@ -244,8 +244,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
                     break;
             }
 
-            if(AllSettings.Companion.getGyroInvertX()) xFactor *= -1;
-            if(AllSettings.Companion.getGyroInvertY()) yFactor *= -1;
+            if(AllSettings.getGyroInvertX()) xFactor *= -1;
+            if(AllSettings.getGyroInvertY()) yFactor *= -1;
         }
     }
 }

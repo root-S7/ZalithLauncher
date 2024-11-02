@@ -39,7 +39,7 @@ public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.
         this.fragment = fragment;
         this.mData = mData;
         this.view = view;
-        this.currentId = AllSettings.Companion.getLauncherProfile();
+        this.currentId = AllSettings.getLauncherProfile();
     }
 
     @NonNull

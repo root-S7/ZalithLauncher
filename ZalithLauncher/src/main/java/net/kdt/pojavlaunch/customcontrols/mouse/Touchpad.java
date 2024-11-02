@@ -29,7 +29,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
     private Drawable mMousePointerDrawable;
     private float mMouseX, mMouseY;
     /* Resolution scaler option, allow downsizing a window */
-    private float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
+    private float mScaleFactor = AllSettings.getResolutionRatio() / 100f;
 
     public Touchpad(@NonNull Context context) {
         this(context, null);
@@ -109,7 +109,7 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
 
     public void updateMouseScale() {
         Dimension mousescale = ImageUtils.resizeWithRatio(mMousePointerDrawable.getIntrinsicWidth(), mMousePointerDrawable.getIntrinsicHeight(),
-                AllSettings.Companion.getMouseScale());
+                AllSettings.getMouseScale());
         mMousePointerDrawable.setBounds(0, 0, (int) (mousescale.width * 0.5), (int) (mousescale.height * 0.5));
     }
 
@@ -137,8 +137,8 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
 
     @Override
     public void applyMotionVector(float x, float y) {
-        mMouseX = Math.max(0, Math.min(currentDisplayMetrics.widthPixels, mMouseX + x * (AllSettings.Companion.getMouseSpeed() / 100f)));
-        mMouseY = Math.max(0, Math.min(currentDisplayMetrics.heightPixels, mMouseY + y * (AllSettings.Companion.getMouseSpeed() / 100f)));
+        mMouseX = Math.max(0, Math.min(currentDisplayMetrics.widthPixels, mMouseX + x * (AllSettings.getMouseSpeed() / 100f)));
+        mMouseY = Math.max(0, Math.min(currentDisplayMetrics.heightPixels, mMouseY + y * (AllSettings.getMouseSpeed() / 100f)));
         updateMousePosition();
     }
 

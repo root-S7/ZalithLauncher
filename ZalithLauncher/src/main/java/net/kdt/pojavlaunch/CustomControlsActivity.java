@@ -84,7 +84,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		drawerNavigationView.addView(controlSettingsBinding.getRoot());
 		controlLayout.setModifiable(true);
 		try {
-			if (mControlPath == null) controlLayout.loadLayout(AllSettings.Companion.getDefaultCtrl());
+			if (mControlPath == null) controlLayout.loadLayout(AllSettings.getDefaultCtrl());
 			else controlLayout.loadLayout(mControlPath);
 		} catch (IOException e) {
 			Tools.showError(this, e);
@@ -113,7 +113,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 
 	@Override
 	public boolean shouldIgnoreNotch() {
-		return AllSettings.Companion.getIgnoreNotch();
+		return AllSettings.getIgnoreNotch();
 	}
 
 	@Override

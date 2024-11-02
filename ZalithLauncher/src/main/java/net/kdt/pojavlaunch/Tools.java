@@ -798,7 +798,7 @@ public final class Tools {
     }
 
     public static String getSelectedRuntime(MinecraftProfile minecraftProfile) {
-        String runtime = AllSettings.Companion.getDefaultRuntime();
+        String runtime = AllSettings.getDefaultRuntime();
         String profileRuntime = getRuntimeName(minecraftProfile.javaDir);
         if(profileRuntime != null) {
             if(MultiRTUtils.forceReread(profileRuntime).versionString != null) {

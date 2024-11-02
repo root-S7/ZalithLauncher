@@ -25,8 +25,8 @@ public class MouseSettingsDialog extends FullScreenDialog implements DraggableDi
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private void init(OnConfirmListener listener, SelectMouseDialog.MouseSelectedListener mouseSelectedListener) {
-        final int[] mouseSpeed = {AllSettings.Companion.getMouseSpeed()};
-        final int[] mouseScale = {AllSettings.Companion.getMouseScale()};
+        final int[] mouseSpeed = {AllSettings.getMouseSpeed()};
+        final int[] mouseScale = {AllSettings.getMouseScale()};
 
         binding.speedSeek.setProgress(mouseSpeed[0]);
         binding.scaleSeek.setProgress(mouseScale[0]);

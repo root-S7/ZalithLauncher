@@ -110,7 +110,7 @@ public class mcVersionSpinner extends ExtendedTextView {
             profileIndex = extraValue.equals(DELETED_PROFILE) ? 0
                     : getProfileAdapter().resolveProfileIndex(extraValue);
         } else
-            profileIndex = mProfileAdapter.resolveProfileIndex(AllSettings.Companion.getCurrentProfile());
+            profileIndex = mProfileAdapter.resolveProfileIndex(AllSettings.getCurrentProfile());
 
         if (versionSpinnerEvent != null) EventBus.getDefault().removeStickyEvent(versionSpinnerEvent);
 

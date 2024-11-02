@@ -66,7 +66,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
             .remapDpad(true));
 
     /* Resolution scaler option, allow downsizing a window */
-    private float mScaleFactor = AllSettings.Companion.getResolutionRatio() / 100f;
+    private float mScaleFactor = AllSettings.getResolutionRatio() / 100f;
     /* Sensitivity, adjusted according to screen size */
     private final double mSensitivityFactor = (1.4 * (1080f/ Tools.getDisplayMetrics((BaseActivity) getContext()).heightPixels));
 
@@ -113,7 +113,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
     public void start(boolean isAlreadyRunning, AbstractTouchpad touchpad){
         setUpPointerCapture(touchpad);
         mInGUIProcessor.setAbstractTouchpad(touchpad);
-        if(AllSettings.Companion.getAlternateSurface()){
+        if(AllSettings.getAlternateSurface()){
             SurfaceView surfaceView = new SurfaceView(getContext());
             mSurface = surfaceView;
 
@@ -343,7 +343,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
             Logging.w("MGLSurface", "Attempt to refresh size on null surface");
             return;
         }
-        if(AllSettings.Companion.getAlternateSurface()){
+        if(AllSettings.getAlternateSurface()){
             SurfaceView view = (SurfaceView) mSurface;
             if(view.getHolder() != null){
                 view.getHolder().setFixedSize(windowWidth, windowHeight);
