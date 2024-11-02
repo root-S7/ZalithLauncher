@@ -17,7 +17,7 @@ class ExperimentalSettingsFragment :
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = SettingsFragmentExperimentalBinding.inflate(layoutInflater)
         return binding.root
     }

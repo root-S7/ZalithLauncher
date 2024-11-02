@@ -32,7 +32,7 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = SettingsFragmentControlBinding.inflate(layoutInflater)
         return binding.root
     }

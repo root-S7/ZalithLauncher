@@ -673,10 +673,10 @@ public final class Tools {
         }
     }
 
-    public static int getDisplayFriendlyRes(int displaySideRes, float scaling){
-        displaySideRes *= scaling;
-        if(displaySideRes % 2 != 0) displaySideRes --;
-        return displaySideRes;
+    public static int getDisplayFriendlyRes(int displaySideRes, float scaling) {
+        int display = (int) (displaySideRes * scaling);
+        if (display % 2 != 0) display --;
+        return display;
     }
 
     public static String getFileName(Context ctx, Uri uri) {

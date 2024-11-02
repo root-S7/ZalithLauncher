@@ -25,7 +25,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = SettingsFragmentVideoBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -154,8 +154,8 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE || width > height
 
             val progressFloat = progress.toFloat() / 100F
-            val previewWidth = (Tools.getDisplayFriendlyRes((if (isLandscape) width else height), progressFloat)).toInt()
-            val previewHeight = (Tools.getDisplayFriendlyRes((if (isLandscape) height else width), progressFloat)).toInt()
+            val previewWidth = Tools.getDisplayFriendlyRes((if (isLandscape) width else height), progressFloat)
+            val previewHeight = Tools.getDisplayFriendlyRes((if (isLandscape) height else width), progressFloat)
 
             return "$previewWidth x $previewHeight"
         }

@@ -33,13 +33,12 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
     ) { data: Uri? ->
         if (data != null) Tools.installRuntimeFromUri(context, data)
     }
-    private var mDialogScreen: MultiRTConfigDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = SettingsFragmentGameBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -77,7 +76,9 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             context,
             binding.installJreLayout
         ) {
-            openMultiRTDialog()
+            MultiRTConfigDialog().apply {
+                prepare(context, mVmInstallLauncher)
+            }.show()
         }
 
         EditTextSettingsWrapper(
@@ -196,15 +197,6 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             formatFileSize(getTotalDeviceMemory(context)),
             formatFileSize(freeDeviceMemory)
         )
-    }
-
-    private fun openMultiRTDialog() {
-        mDialogScreen ?: run {
-            mDialogScreen = MultiRTConfigDialog().apply {
-                prepare(context, mVmInstallLauncher)
-            }
-        }
-        mDialogScreen?.show()
     }
 
     private fun openGameMenuMemory() {
