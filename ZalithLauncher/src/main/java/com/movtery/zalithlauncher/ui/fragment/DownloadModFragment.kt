@@ -28,8 +28,11 @@ import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListAdapter
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListItemBean
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
+import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
+import org.jackhuang.hmcl.ui.versions.ModTranslations
 import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.io.File
 import java.util.Collections
@@ -163,7 +166,19 @@ class DownloadModFragment : ModListFragment() {
         mPath = viewModel.targetPath
 
         mInfoItem.apply {
-            setNameText(title)
+            val type = ModTranslations.getTranslationsByRepositoryType(platform.helper.currentClassify)
+            val mod = type.getModByCurseForgeId(slug)
+
+            setTitleText(
+                if (ZHTools.areaChecks("zh")) {
+                    mod?.displayName ?: title
+                } else title
+            )
+            mod?.let {
+                setMCMod(
+                    StringUtilsKt.getNonEmptyOrBlank(type.getMcmodUrl(it))
+                )
+            }
             loadScreenshots()
 
             iconUrl?.apply {

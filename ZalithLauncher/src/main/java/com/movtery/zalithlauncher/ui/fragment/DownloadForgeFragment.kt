@@ -31,8 +31,9 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
 
     override fun init() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_anvil))
-        setNameText("Forge")
+        setTitleText("Forge")
         setLink("https://forums.minecraftforge.net/")
+        setMCMod("https://www.mcmod.cn/class/30.html")
         setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
         super.init()
     }

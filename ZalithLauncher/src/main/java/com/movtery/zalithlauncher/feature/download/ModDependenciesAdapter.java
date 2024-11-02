@@ -34,6 +34,8 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.databinding.ItemModDependenciesBinding;
 
+import org.jackhuang.hmcl.ui.versions.ModTranslations;
+
 import java.io.File;
 import java.util.List;
 import java.util.StringJoiner;
@@ -88,13 +90,22 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
 
         @SuppressLint("CheckResult")
         public void setData(DependenciesInfoItem infoItem) {
+            ModTranslations.Mod mod = ModTranslations.getTranslationsByRepositoryType(infoItem.getPlatform().getHelper().getCurrentClassify())
+                    .getModByCurseForgeId(infoItem.getSlug());
+
             if (mExtensionFuture != null) {
                 mExtensionFuture.cancel(true);
                 mExtensionFuture = null;
             }
 
             binding.sourceImageview.setImageDrawable(getPlatformIcon(infoItem.getPlatform()));
-            binding.titleTextview.setText(infoItem.getTitle());
+
+            String title;
+            if (ZHTools.areaChecks("zh")) {
+                if (mod != null) title = mod.getDisplayName();
+                else title = infoItem.getTitle();
+            } else title = infoItem.getTitle();
+            binding.titleTextview.setText(title);
 
             binding.categoriesLayout.removeAllViews();
             binding.tagsLayout.removeAllViews();

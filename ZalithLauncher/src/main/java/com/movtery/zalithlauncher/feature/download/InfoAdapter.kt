@@ -32,6 +32,7 @@ import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.ItemDownloadInfoBinding
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import org.greenrobot.eventbus.EventBus
+import org.jackhuang.hmcl.ui.versions.ModTranslations
 import java.io.File
 import java.util.Collections
 import java.util.Locale
@@ -129,6 +130,8 @@ class InfoAdapter(
         @SuppressLint("CheckResult")
         fun setStateLimited(item: InfoItem) {
             this.item = item
+            val mod = ModTranslations.getTranslationsByRepositoryType(item.platform.helper.currentClassify)
+                .getModByCurseForgeId(item.slug)
 
             if (mExtensionFuture != null) {
                 /*
@@ -159,7 +162,12 @@ class InfoAdapter(
                     )
                 }
 
-                titleTextview.text = item.title
+                titleTextview.text =
+                    if (ZHTools.areaChecks("zh")) {
+                        mod?.displayName ?: item.title
+                    } else {
+                        item.title
+                    }
                 descriptionTextview.text = item.description
                 platformImageview.setImageDrawable(getPlatformIcon(item.platform))
                 //设置类别

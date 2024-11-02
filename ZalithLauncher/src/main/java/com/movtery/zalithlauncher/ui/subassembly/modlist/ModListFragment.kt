@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.ui.subassembly.modlist
 
 import android.content.Context
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentModDownloadBinding
 import java.util.concurrent.Future
+
 
 abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download) {
     private lateinit var binding: FragmentModDownloadBinding
@@ -157,15 +159,8 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         }
     }
 
-    protected fun setNameText(nameText: String?) {
-        binding.name.text = nameText
-    }
-
-    protected fun setSubTitleText(text: String?) {
-        binding.subtitle.apply {
-            visibility = if (text != null) View.VISIBLE else View.GONE
-            text?.let { this.text = it }
-        }
+    protected fun setTitleText(nameText: String?) {
+        binding.title.text = nameText
     }
 
     protected fun setIcon(icon: Drawable?) {
@@ -190,10 +185,23 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     }
 
     protected fun setLink(link: String?) {
-        if (link == null) return
-        binding.launchLink.let { view ->
-            view.setOnClickListener { Tools.openURL(fragmentActivity, link) }
-            AnimUtils.setVisibilityAnim(view, true)
+        link?.let { uri ->
+            binding.launchLink.apply {
+                this.setOnClickListener { Tools.openURL(fragmentActivity, uri) }
+                AnimUtils.setVisibilityAnim(this, true)
+            }
+        }
+    }
+
+    protected fun setMCMod(link: String?) {
+        if (ZHTools.areaChecks("zh")) {
+            link?.let { uri ->
+                binding.mcmodLink.apply {
+                    this.visibility = View.VISIBLE
+                    this.paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                    this.setOnClickListener { Tools.openURL(fragmentActivity, uri) }
+                }
+            }
         }
     }
 
@@ -223,7 +231,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
             animPlayer.apply(AnimPlayer.Entry(modsLayout, Animations.BounceInDown))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
                 .apply(AnimPlayer.Entry(icon, Animations.Wobble))
-                .apply(AnimPlayer.Entry(modTitleLayout, Animations.FadeInLeft))
+                .apply(AnimPlayer.Entry(title, Animations.FadeInLeft))
                 .apply(AnimPlayer.Entry(returnButton, Animations.FadeInLeft))
                 .apply(AnimPlayer.Entry(refreshButton, Animations.FadeInLeft))
                 .apply(AnimPlayer.Entry(releaseVersion, Animations.FadeInLeft))

@@ -162,41 +162,19 @@
                         tools:ignore="ContentDescription"
                         tools:srcCompat="@tools:sample/avatars" />
 
-                    <RelativeLayout
-                        android:id="@+id/mod_title_layout"
+                    <TextView
+                        android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_14sdp"
-                        android:paddingHorizontal="@dimen/_8sdp"
+                        android:textSize="12.5sp"
+                        android:textStyle="bold"
+                        android:textIsSelectable="true"
+                        android:gravity="center_horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/icon">
-
-                        <TextView
-                            android:id="@+id/name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:singleLine="true"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textIsSelectable="true"
-                            tools:text="Mod Title" />
-
-                        <TextView
-                            android:id="@+id/subtitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_toEndOf="@+id/name"
-                            android:singleLine="true"
-                            android:textSize="12sp"
-                            android:textIsSelectable="true"
-                            android:visibility="gone"
-                            tools:text="Mod SubTitle" />
-
-                    </RelativeLayout>
+                        app:layout_constraintTop_toBottomOf="@+id/icon"
+                        tools:text="Title" />
 
                     <TextView
                         android:id="@+id/select_title"
@@ -211,7 +189,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mod_title_layout"
+                        app:layout_constraintTop_toBottomOf="@+id/title"
                         tools:ignore="HardcodedText" />
 
                     <LinearLayout
@@ -230,19 +208,39 @@
 
             </androidx.core.widget.NestedScrollView>
 
-            <ImageView
-                android:id="@+id/launch_link"
-                android:layout_width="24dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/about_access_link"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_launch_link"
-                android:visibility="gone"
+                android:orientation="horizontal"
+                android:gravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.movtery.zalithlauncher.ui.view.AnimTextView
+                    android:id="@+id/mcmod_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:text="MC 百科"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/launch_link"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/about_access_link"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_launch_link"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <com.movtery.zalithlauncher.ui.view.AnimButton
                 android:id="@+id/return_button"

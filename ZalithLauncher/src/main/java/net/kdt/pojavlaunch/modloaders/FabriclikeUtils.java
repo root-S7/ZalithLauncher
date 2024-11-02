@@ -27,8 +27,8 @@ import java.util.Objects;
 
 public class FabriclikeUtils {
 
-    public static final FabriclikeUtils FABRIC_UTILS = new FabriclikeUtils("https://fabricmc.net/", "https://meta.fabricmc.net/v2", "fabric", "Fabric");
-    public static final FabriclikeUtils QUILT_UTILS = new FabriclikeUtils("https://quiltmc.org/", "https://meta.quiltmc.org/v3", "quilt", "Quilt");
+    public static final FabriclikeUtils FABRIC_UTILS = new FabriclikeUtils("https://fabricmc.net/", "https://www.mcmod.cn/class/1411.html", "https://meta.fabricmc.net/v2", "fabric", "Fabric");
+    public static final FabriclikeUtils QUILT_UTILS = new FabriclikeUtils("https://quiltmc.org/", "https://www.mcmod.cn/class/3901.html", "https://meta.quiltmc.org/v3", "quilt", "Quilt");
 
     private static final String INSTALLER_METADATA_URL = "%s/versions/installer";
     private static final String LOADER_METADATA_URL = "%s/versions/loader";
@@ -37,12 +37,14 @@ public class FabriclikeUtils {
     private static final String JSON_DOWNLOAD_URL = "%s/versions/loader/%s/%s/profile/json";
 
     private final String mWebUrl;
+    private final String mMCModUrl;
     private final String mApiUrl;
     private final String mCachePrefix;
     private final String mName;
 
-    private FabriclikeUtils(String mWebUrl, String mApiUrl, String cachePrefix, String mName) {
+    private FabriclikeUtils(String mWebUrl, String mMCModUrl, String mApiUrl, String cachePrefix, String mName) {
         this.mWebUrl = mWebUrl;
+        this.mMCModUrl = mMCModUrl;
         this.mApiUrl = mApiUrl;
         this.mCachePrefix = cachePrefix;
         this.mName = mName;
@@ -98,6 +100,10 @@ public class FabriclikeUtils {
 
     public String getWebUrl() {
         return mWebUrl;
+    }
+
+    public String getMCModUrl() {
+        return mMCModUrl;
     }
 
     public String getName() {
