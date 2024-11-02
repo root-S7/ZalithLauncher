@@ -54,7 +54,7 @@ public class ProgressService extends Service implements TaskCountListener {
                 .setContentTitle(getString(R.string.lazy_service_default_title))
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, getString(R.string.notification_terminate), pendingKillIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setNotificationSilent();
+                .setSilent(true);
     }
 
     @SuppressLint("StringFormatInvalid")
