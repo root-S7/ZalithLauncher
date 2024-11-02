@@ -175,7 +175,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
     private fun setupNotificationRequestPreference(notificationPermissionRequest: SwitchSettingsWrapper) {
         val activity = requireActivity()
         if (activity is LauncherActivity) {
-            if (activity.checkForNotificationPermission()) notificationPermissionRequest.setGone()
+            if (ZHTools.checkForNotificationPermission()) notificationPermissionRequest.setGone()
             notificationPermissionRequest.switchView.setOnCheckedChangeListener { _, _ ->
                 activity.askForNotificationPermission {
                     notificationPermissionRequest.mainView.visibility = View.GONE

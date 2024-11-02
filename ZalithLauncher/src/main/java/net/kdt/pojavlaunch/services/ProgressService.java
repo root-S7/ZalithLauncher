@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.TaskExecutors;
+import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -93,13 +94,15 @@ public class ProgressService extends Service implements TaskCountListener {
 
     @Override
     public void onUpdateTaskCount(int taskCount) {
-        TaskExecutors.runInUIThread(() -> {
-            if(taskCount > 0) {
-                mNotificationBuilder.setContentText(getString(R.string.progresslayout_tasks_in_progress, taskCount));
-                notificationManagerCompat.notify(1, mNotificationBuilder.build());
-            }else{
-                stopSelf();
-            }
-        });
+        if (ZHTools.checkForNotificationPermission()) {
+            TaskExecutors.runInUIThread(() -> {
+                if (taskCount > 0) {
+                    mNotificationBuilder.setContentText(getString(R.string.progresslayout_tasks_in_progress, taskCount));
+                    notificationManagerCompat.notify(1, mNotificationBuilder.build());
+                } else {
+                    stopSelf();
+                }
+            });
+        }
     }
 }

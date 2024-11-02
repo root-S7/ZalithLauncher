@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.utils;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.opengl.EGLConfig;
 import android.opengl.EGLContext;
 import android.opengl.EGLDisplay;
 import android.opengl.GLES20;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.view.View;
@@ -19,11 +21,13 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
@@ -185,6 +189,13 @@ public final class ZHTools {
     public static String getSystemLanguage() {
         Locale locale = Locale.getDefault();
         return locale.getLanguage() + "_" + locale.getCountry().toLowerCase();
+    }
+
+    public static boolean checkForNotificationPermission() {
+        return Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(
+                ContextExecutor.getApplication(),
+                Manifest.permission.POST_NOTIFICATIONS
+        ) != PackageManager.PERMISSION_DENIED;
     }
 
     public static boolean isAdrenoGPU() {

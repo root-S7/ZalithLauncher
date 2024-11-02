@@ -5,7 +5,6 @@ import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -19,7 +18,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -526,14 +524,11 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void checkNotificationPermission() {
-        if(AllSettings.getSkipNotificationPermissionCheck() ||
-            checkForNotificationPermission()) {
+        if (AllSettings.getSkipNotificationPermissionCheck() || ZHTools.checkForNotificationPermission()) {
             return;
         }
 
-        if(ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
             showNotificationPermissionReasoning();
             return;
         }
@@ -556,15 +551,9 @@ public class LauncherActivity extends BaseActivity {
         Toast.makeText(this, R.string.notification_permission_toast, Toast.LENGTH_LONG).show();
     }
 
-    public boolean checkForNotificationPermission() {
-        return Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_DENIED;
-    }
-
     public void askForNotificationPermission(Runnable onSuccessRunnable) {
-        if(Build.VERSION.SDK_INT < 33) return;
-        if(onSuccessRunnable != null) {
+        if (Build.VERSION.SDK_INT < 33) return;
+        if (onSuccessRunnable != null) {
             mRequestNotificationPermissionRunnable = new WeakReference<>(onSuccessRunnable);
         }
         mRequestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
