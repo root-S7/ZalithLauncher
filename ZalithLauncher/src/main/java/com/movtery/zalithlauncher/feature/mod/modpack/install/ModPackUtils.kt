@@ -4,10 +4,10 @@ import android.graphics.Bitmap
 import android.util.Base64
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.FutureTarget
+import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex
@@ -97,7 +97,7 @@ class ModPackUtils {
         @JvmStatic
         fun getIcon(imageUrl: String?): String? {
             runCatching {
-                val context = PojavApplication.getContext()
+                val context = ContextExecutor.getApplication()
                 val futureTarget: FutureTarget<Bitmap> = Glide.with(context)
                     .asBitmap()
                     .load(imageUrl)

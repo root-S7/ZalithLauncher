@@ -74,7 +74,7 @@ public class MicrosoftBackgroundLogin {
     public void performLogin(@Nullable final ProgressListener progressListener,
                              @Nullable final DoneListener doneListener,
                              @Nullable final ErrorListener errorListener) {
-        Task.Companion.runTask(() -> {
+        Task.runTask(() -> {
             notifyProgress(progressListener, 1);
             String accessToken = acquireAccessToken(mIsRefresh, mAuthCode);
             notifyProgress(progressListener, 2);
@@ -105,9 +105,9 @@ public class MicrosoftBackgroundLogin {
             Logging.i("McAccountSpinner", "Saved the account : " + acc.username);
 
             return acc;
-        }).ended(TaskExecutors.Companion.getAndroidUI(), account -> {
+        }).ended(TaskExecutors.getAndroidUI(), account -> {
             if (doneListener != null && account != null) doneListener.onLoginDone(account);
-        }).onThrowable(TaskExecutors.Companion.getAndroidUI(), e -> {
+        }).onThrowable(TaskExecutors.getAndroidUI(), e -> {
             Logging.e("MicroAuth", "Exception thrown during authentication", e);
             if(errorListener != null) errorListener.onLoginError(e);
         }).finallyTask(() -> {
@@ -298,7 +298,7 @@ public class MicrosoftBackgroundLogin {
     /** Wrapper to ease notifying the listener */
     private void notifyProgress(@Nullable ProgressListener listener, int step){
         if (listener != null) {
-            TaskExecutors.Companion.runInUIThread(() -> listener.onLoginProgress(step));
+            TaskExecutors.runInUIThread(() -> listener.onLoginProgress(step));
         }
         ProgressLayout.setProgress(ProgressLayout.AUTHENTICATE_MICROSOFT, step * 20);
     }

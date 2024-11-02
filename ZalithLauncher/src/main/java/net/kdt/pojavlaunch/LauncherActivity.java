@@ -3,12 +3,9 @@ package net.kdt.pojavlaunch;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -29,6 +26,7 @@ import androidx.fragment.app.FragmentManager;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.event.single.*;
 import com.movtery.zalithlauncher.event.sticky.*;
 import com.movtery.zalithlauncher.event.value.*;
@@ -68,7 +66,6 @@ import net.kdt.pojavlaunch.databinding.ActivityPojavLauncherBinding;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
 import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener;
-import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.NotificationDownloadListener;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
@@ -92,7 +89,6 @@ import java.lang.ref.WeakReference;
 import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
-    @SuppressLint("StaticFieldLeak") private static Activity activity;
     private final AnimPlayer noticeAnimPlayer = new AnimPlayer();
     private final AccountsManager accountsManager = AccountsManager.getInstance();
     public final ActivityResultLauncher<Object> modInstallerLauncher =
@@ -107,10 +103,6 @@ public class LauncherActivity extends BaseActivity {
     private NotificationManager mNotificationManager;
     private boolean mIsInDownloadFragment = false;
     private Future<?> checkNotice;
-
-    public static Activity getActivity() {
-        return LauncherActivity.activity;
-    }
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -128,7 +120,7 @@ public class LauncherActivity extends BaseActivity {
         // Hide the notification that starts the game if there are tasks executing.
         // Prevents the user from trying to launch the game with tasks ongoing.
         if(taskCount > 0) {
-            TaskExecutors.Companion.runInUIThread(() ->
+            TaskExecutors.runInUIThread(() ->
                     mNotificationManager.cancel(NotificationUtils.NOTIFICATION_ID_GAME_START)
             );
         }
@@ -251,18 +243,18 @@ public class LauncherActivity extends BaseActivity {
         ModPackUtils.ModPackEnum type;
         type = ModPackUtils.determineModpack(dirGameModpackFile);
 
-        Task.Companion.runTask(() -> {
+        Task.runTask(() -> {
                     ModLoaderWrapper loaderInfo = InstallLocalModPack.installModPack(this, type, dirGameModpackFile,
                             () -> runOnUiThread(installExtra.dialog::dismiss));
                     if (loaderInfo == null) return null;
                     return loaderInfo.getDownloadTask(new NotificationDownloadListener(this, loaderInfo));
-                }).beforeStart(TaskExecutors.Companion.getAndroidUI(),
+                }).beforeStart(TaskExecutors.getAndroidUI(),
                         () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting))
                 .ended(task -> {
                     if (task != null) {
                         task.run();
                     }
-                }).onThrowable(TaskExecutors.Companion.getAndroidUI(), e -> {
+                }).onThrowable(TaskExecutors.getAndroidUI(), e -> {
                     installExtra.dialog.dismiss();
                     Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
                 })
@@ -307,12 +299,10 @@ public class LauncherActivity extends BaseActivity {
         checkNotice();
 
         //检查已经下载后的包，或者检查更新
-        Task.Companion.runTask(() -> {
+        Task.runTask(() -> {
             UpdateLauncher.CheckDownloadedPackage(this, true);
             return null;
         }).execute();
-
-        LauncherActivity.activity = this;
     }
 
     private void processFragment() {
@@ -420,7 +410,6 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        ContextExecutor.clearActivity();
         mInstallTracker.detach();
     }
 
@@ -445,6 +434,7 @@ public class LauncherActivity extends BaseActivity {
         ProgressKeeper.removeTaskCountListener(mProgressServiceKeeper);
 
         getSupportFragmentManager().unregisterFragmentLifecycleCallbacks(mFragmentCallbackListener);
+        ContextExecutor.clearActivity();
     }
 
     @Override
@@ -452,21 +442,15 @@ public class LauncherActivity extends BaseActivity {
         LauncherPreferences.computeNotchSize(this);
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        LauncherActivity.activity = this;
-    }
-
     private void checkNotice() {
-        checkNotice = TaskExecutors.Companion.getDefault().submit(() -> CheckNewNotice.checkNewNotice(this, noticeInfo -> {
+        checkNotice = TaskExecutors.getDefault().submit(() -> CheckNewNotice.checkNewNotice(this, noticeInfo -> {
             if (checkNotice.isCancelled() || noticeInfo == null) {
                 return;
             }
             //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
             if (AllSettings.Companion.getNoticeDefault() ||
                     (noticeInfo.numbering != AllSettings.Companion.getNoticeNumbering())) {
-                TaskExecutors.Companion.runInUIThread(() -> setNotice(true));
+                TaskExecutors.runInUIThread(() -> setNotice(true));
                 Settings.Manager.Companion.put("noticeDefault", true)
                         .put("noticeNumbering", noticeInfo.numbering)
                         .save();

@@ -82,7 +82,7 @@ public class MainMenuFragment extends FragmentWithAnim {
                 });
             } else {
                 ViewAnimUtils.setViewAnim(binding.pathManagerButton, Animations.Shake);
-                TaskExecutors.Companion.runInUIThread(() -> Toast.makeText(requireContext(), R.string.profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
+                TaskExecutors.runInUIThread(() -> Toast.makeText(requireContext(), R.string.profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
             }
         });
         binding.managerProfileButton.setOnClickListener(v -> {

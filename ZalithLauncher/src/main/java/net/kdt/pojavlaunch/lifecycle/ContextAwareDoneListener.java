@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.setting.AllSettings;
 
 import net.kdt.pojavlaunch.MainActivity;
@@ -33,7 +34,7 @@ public class ContextAwareDoneListener implements AsyncMinecraftDownloader.DoneLi
 
     @Override
     public void onDownloadDone() {
-        ProgressKeeper.waitUntilDone(()->ContextExecutor.execute(this));
+        ProgressKeeper.waitUntilDone(() -> ContextExecutor.executeTask(this));
     }
 
     @Override

@@ -3,17 +3,14 @@ package com.movtery.zalithlauncher.feature.accounts;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.widget.Toast;
 
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
-import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
-import net.kdt.pojavlaunch.LauncherActivity;
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -34,22 +31,20 @@ public class AccountsManager {
     private final static int MAX_LOGIN_STEP = 5;
     @SuppressLint("StaticFieldLeak")
     private static volatile AccountsManager accountsManager;
-    private final Context context;
     private final List<MinecraftAccount> accounts = new ArrayList<>();
     private ObjectAnimator mLoginBarAnimator;
     private ProgressListener mProgressListener;
     private DoneListener mDoneListener;
     private ErrorListener mErrorListener;
 
-    public AccountsManager(Context context) {
-        this.context = context;
+    public AccountsManager() {
     }
 
     public static AccountsManager getInstance() {
         if (accountsManager == null) {
             synchronized (AccountsManager.class) {
                 if (accountsManager == null) {
-                    accountsManager = new AccountsManager(PojavApplication.getContext());
+                    accountsManager = new AccountsManager();
                     //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新与登录操作
                     accountsManager.initListener();
                     accountsManager.reload();
@@ -77,31 +72,29 @@ public class AccountsManager {
         };
 
         mDoneListener = account -> {
-            TaskExecutors.Companion.runInUIThread(() -> Toast.makeText(context, R.string.account_login_done, Toast.LENGTH_SHORT).show());
+            ContextExecutor.showToast(R.string.account_login_done, Toast.LENGTH_SHORT);
 
             //检查账号是否已存在
             if (getAllAccount().contains(account)) return;
 
             reload();
 
-            if (getAllAccount().isEmpty()) PojavProfile.setCurrentProfile(context, account.username);
+            if (getAllAccount().isEmpty()) PojavProfile.setCurrentProfile(ContextExecutor.getApplication(), account.username);
             else EventBus.getDefault().post(new AccountUpdateEvent());
         };
 
         mErrorListener = errorMessage -> {
-            Activity activity = LauncherActivity.getActivity();
-            if (activity != null) {
-                if (errorMessage instanceof PresentedException) {
-                    PresentedException exception = (PresentedException) errorMessage;
-                    Throwable cause = exception.getCause();
-                    if (cause == null) {
-                        Tools.dialog(activity, activity.getString(R.string.generic_error), exception.toString(activity));
-                    } else {
-                        Tools.showError(activity, exception.toString(activity), exception.getCause());
-                    }
+            Activity activity = ContextExecutor.getActivity();
+            if (errorMessage instanceof PresentedException) {
+                PresentedException exception = (PresentedException) errorMessage;
+                Throwable cause = exception.getCause();
+                if (cause == null) {
+                    Tools.dialog(activity, activity.getString(R.string.generic_error), exception.toString(activity));
                 } else {
-                    Tools.showError(activity, errorMessage);
+                    Tools.showError(activity, exception.toString(activity), exception.getCause());
                 }
+            } else {
+                Tools.showError(activity, errorMessage);
             }
         };
     }
@@ -111,7 +104,7 @@ public class AccountsManager {
 
         if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
             if (force || ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
-                AccountUtils.otherLogin(context, minecraftAccount);
+                AccountUtils.otherLogin(ContextExecutor.getApplication(), minecraftAccount);
                 return;
             }
         }
@@ -145,11 +138,11 @@ public class AccountsManager {
     }
 
     public MinecraftAccount getCurrentAccount() {
-        MinecraftAccount account = PojavProfile.getCurrentProfileContent(context, null);
+        MinecraftAccount account = PojavProfile.getCurrentProfileContent(ContextExecutor.getApplication(), null);
         if (account == null) {
             if (getAllAccount().isEmpty()) return null;
             MinecraftAccount account1 = getAllAccount().get(0);
-            PojavProfile.setCurrentProfile(context, account1.username);
+            PojavProfile.setCurrentProfile(ContextExecutor.getApplication(), account1.username);
             return account1;
         }
         return account;

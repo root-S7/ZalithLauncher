@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
@@ -47,7 +48,6 @@ import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
-import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.memory.MemoryHoleFinder;
 import net.kdt.pojavlaunch.memory.SelfMapsParser;
@@ -316,7 +316,7 @@ public final class Tools {
 
     private static void showError(final Context ctx, final int titleId, final String rolledMessage, final Throwable e, final boolean exitIfOk, final boolean showMore) {
         if(e instanceof ContextExecutorTask) {
-            ContextExecutor.execute((ContextExecutorTask) e);
+            ContextExecutor.executeTask((ContextExecutorTask) e);
             return;
         }
         Logging.e("ShowError", printToString(e));
@@ -381,7 +381,7 @@ public final class Tools {
         // abstraction?
 
         // Add your Context-related rage here
-        ContextExecutor.execute(new ShowErrorActivity.RemoteErrorTask(e, rolledMessage));
+        ContextExecutor.executeTask(new ShowErrorActivity.RemoteErrorTask(e, rolledMessage));
     }
 
     public static void dialog(final Context context, final CharSequence title, final CharSequence message) {
@@ -765,7 +765,7 @@ public final class Tools {
 
 
     public static void installRuntimeFromUri(Context context, Uri uri) {
-        Task.Companion.runTask(() -> {
+        Task.runTask(() -> {
             String name = getFileName(context, uri);
             MultiRTUtils.installRuntimeNamed(
                     PathAndUrlManager.DIR_NATIVE_LIB,

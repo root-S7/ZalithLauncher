@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.ProfileLanguageSelector;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
 import com.movtery.zalithlauncher.feature.background.BackgroundType;
@@ -66,7 +67,6 @@ import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
 import net.kdt.pojavlaunch.databinding.ActivityBasemainBinding;
 import net.kdt.pojavlaunch.databinding.ViewControlSettingsBinding;
 import net.kdt.pojavlaunch.databinding.ViewGameSettingsBinding;
-import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.services.GameService;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
@@ -139,9 +139,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         MCOptionUtils.addMCOptionListener(optionListener);
         binding.mainControlLayout.setModifiable(false);
 
-        // Set the activity for the executor. Must do this here, or else Tools.showErrorRemote() may not
-        // execute the correct method
-        ContextExecutor.setActivity(this);
         //Now, attach to the service. The game will only start when this happens, to make sure that we know the right state.
         bindService(gameServiceIntent, this, 0);
     }
@@ -285,6 +282,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     public void onResume() {
         super.onResume();
+        // Set the activity for the executor. Must do this here, or else Tools.showErrorRemote() may not
+        // execute the correct method
+        ContextExecutor.setActivity(this);
         if(mGyroControl != null) mGyroControl.enable();
         CallbackBridge.nativeSetWindowAttrib(LwjglGlfwKeycode.GLFW_HOVERED, 1);
     }
@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        TaskExecutors.Companion.getUIHandler().postDelayed(() -> binding.mainGameRenderView.refreshSize(), 500);
+        TaskExecutors.getUIHandler().postDelayed(() -> binding.mainGameRenderView.refreshSize(), 500);
     }
 
     @Override
@@ -494,7 +494,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static void querySystemClipboard() {
-        TaskExecutors.Companion.runInUIThread(()->{
+        TaskExecutors.runInUIThread(()->{
             ClipData clipData = GLOBAL_CLIPBOARD.getPrimaryClip();
             if(clipData == null) {
                 AWTInputBridge.nativeClipboardReceived(null, null);
@@ -512,7 +512,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     public static void putClipboardData(String data, String mimeType) {
-        TaskExecutors.Companion.runInUIThread(()-> {
+        TaskExecutors.runInUIThread(()-> {
             ClipData clipData = null;
             switch(mimeType) {
                 case "text/plain":

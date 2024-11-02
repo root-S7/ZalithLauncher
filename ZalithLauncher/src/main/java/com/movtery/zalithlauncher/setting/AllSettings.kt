@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.setting
 
+import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class AllSettings {
@@ -94,7 +94,7 @@ class AllSettings {
             get() = Settings.Manager.getString("javaArgs", "")
 
         val ramAllocation: Int
-            get() = Settings.Manager.getInt("allocation", LauncherPreferences.findBestRAMAllocation(PojavApplication.getContext()))
+            get() = Settings.Manager.getInt("allocation", LauncherPreferences.findBestRAMAllocation(ContextExecutor.getApplication()))
 
         val javaSandbox: Boolean
             get() = Settings.Manager.getBoolean("java_sandbox", true)

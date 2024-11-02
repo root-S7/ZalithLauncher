@@ -523,7 +523,7 @@ public class ControlLayout extends FrameLayout {
 
 	public void openSaveAndExitDialog(EditorExitable editorExitable) {
 		saveDialog(getContext().getString(R.string.global_save_and_exit),
-				Task.Companion.runTask(TaskExecutors.Companion.getAndroidUI(), () -> {
+				Task.runTask(TaskExecutors.getAndroidUI(), () -> {
 					editorExitable.exitEditor();
 					return null;
 				}));

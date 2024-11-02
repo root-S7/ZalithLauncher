@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.background.BackgroundManager.setBackgroundImage
 import com.movtery.zalithlauncher.feature.background.BackgroundType
 import com.movtery.zalithlauncher.feature.unpack.Components
@@ -57,6 +58,11 @@ class SplashActivity : BaseActivity() {
             setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view))
             checkEnd()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ContextExecutor.setActivity(this)
     }
 
     private fun initItems() {

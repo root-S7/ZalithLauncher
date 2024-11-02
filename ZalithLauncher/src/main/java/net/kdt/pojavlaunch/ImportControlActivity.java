@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
@@ -47,6 +48,12 @@ public class ImportControlActivity extends Activity {
 
         setContentView(R.layout.activity_import_control);
         mEditText = findViewById(R.id.editText_import_control_file_name);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ContextExecutor.setActivity(this);
     }
 
     /**
@@ -91,7 +98,7 @@ public class ImportControlActivity extends Activity {
         }).start();
 
         //Auto show the keyboard
-        TaskExecutors.Companion.getUIHandler().postDelayed(() -> {
+        TaskExecutors.getUIHandler().postDelayed(() -> {
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
             mEditText.setSelection(mEditText.getText().length());

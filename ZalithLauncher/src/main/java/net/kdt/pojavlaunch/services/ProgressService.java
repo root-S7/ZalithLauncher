@@ -93,7 +93,7 @@ public class ProgressService extends Service implements TaskCountListener {
 
     @Override
     public void onUpdateTaskCount(int taskCount) {
-        TaskExecutors.Companion.runInUIThread(() -> {
+        TaskExecutors.runInUIThread(() -> {
             if(taskCount > 0) {
                 mNotificationBuilder.setContentText(getString(R.string.progresslayout_tasks_in_progress, taskCount));
                 notificationManagerCompat.notify(1, mNotificationBuilder.build());

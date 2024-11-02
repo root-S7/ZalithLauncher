@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 
 import com.kdt.LoggerView;
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.launch.LaunchArgs;
@@ -190,10 +191,10 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 startModInstaller(null, javaArgs, jreName);
             }else if(resourceUri != null) {
                 ProgressDialog barrierDialog = Tools.getWaitingDialog(this, R.string.multirt_progress_caching);
-                Task.Companion.runTask(() -> {
+                Task.runTask(() -> {
                     startModInstallerWithUri(resourceUri, jreName);
                     return null;
-                }).ended(TaskExecutors.Companion.getAndroidUI(), r -> barrierDialog.dismiss())
+                }).ended(TaskExecutors.getAndroidUI(), r -> barrierDialog.dismiss())
                         .execute();
             }
         } catch (Throwable th) {
@@ -318,12 +319,11 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     @Override
     public void onResume() {
         super.onResume();
+        ContextExecutor.setActivity(this);
         final int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         final View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(uiOptions);
     }
-
-
 
     @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
     @Override

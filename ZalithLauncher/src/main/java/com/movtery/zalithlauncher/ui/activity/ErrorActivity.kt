@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getLatestFile
@@ -43,6 +44,11 @@ class ErrorActivity : BaseActivity() {
             window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
             showCrash(extras)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ContextExecutor.setActivity(this)
     }
 
     private fun showCrash(extras: Bundle) {

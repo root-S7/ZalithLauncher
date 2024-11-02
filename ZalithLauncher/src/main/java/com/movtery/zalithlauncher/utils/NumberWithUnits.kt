@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.utils
 
+import com.movtery.zalithlauncher.context.ContextExecutor.Companion.getString
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.R
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -12,8 +12,8 @@ class NumberWithUnits {
         private val UNITS_EN = arrayOf("", "K", "M") //英文单位：千、百万
         private val UNITS_ZH = arrayOf(
             "",
-            PojavApplication.getResString(R.string.generic_wan),
-            PojavApplication.getResString(R.string.generic_yi)
+            getString(R.string.generic_wan),
+            getString(R.string.generic_yi)
         ) //中文单位:万、亿
 
         @JvmStatic

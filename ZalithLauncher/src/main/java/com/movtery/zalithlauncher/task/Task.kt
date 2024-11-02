@@ -141,11 +141,13 @@ abstract class Task<V>: TaskExecutionPhaseListener {
         const val SUGGEST = "NOT_REQUIRED_TO_EXECUTE"
 
         @CheckResult(SUGGEST)
+        @JvmStatic
         fun <V> runTask(callable: Callable<V>): Task<V> {
             return SimpleTask(callable)
         }
 
         @CheckResult(SUGGEST)
+        @JvmStatic
         fun <V> runTask(executor: Executor, callable: Callable<V>): Task<V> {
             return SimpleTask(callable).setExecutor(executor)
         }

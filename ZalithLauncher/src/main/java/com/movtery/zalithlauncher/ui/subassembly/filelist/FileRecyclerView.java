@@ -159,7 +159,7 @@ public class FileRecyclerView extends LinearLayout {
                     mSetTitleListener.setTitle(path.getAbsolutePath());
                 }
 
-                TaskExecutors.Companion.runInUIThread(() -> {
+                TaskExecutors.runInUIThread(() -> {
                     fileRecyclerViewCreator.loadData(itemBeans);
                     if (mRefreshListener != null) mRefreshListener.onRefresh();
                 });

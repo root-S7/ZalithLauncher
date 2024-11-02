@@ -5,7 +5,6 @@ import net.kdt.pojavlaunch.Tools;
 
 import java.util.ArrayList;
 
-import static net.kdt.pojavlaunch.PojavApplication.getResString;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.DOWN;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.LEFT;
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.RIGHT;
@@ -13,6 +12,8 @@ import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.U
 import static net.kdt.pojavlaunch.customcontrols.ControlDrawerData.Orientation.FREE;
 
 import android.content.Context;
+
+import com.movtery.zalithlauncher.context.ContextExecutor;
 
 @androidx.annotation.Keep
 public class ControlDrawerData {
@@ -67,7 +68,7 @@ public class ControlDrawerData {
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties){
-        this(buttonProperties, new ControlData(getResString(R.string.controls_add_control_drawer), new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
+        this(buttonProperties, new ControlData(ContextExecutor.getString(R.string.controls_add_control_drawer), new int[] {}, Tools.currentDisplayMetrics.widthPixels/2f, Tools.currentDisplayMetrics.heightPixels/2f));
     }
 
     public ControlDrawerData(ArrayList<ControlData> buttonProperties, ControlData properties){

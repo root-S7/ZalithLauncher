@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.movtery.zalithlauncher.utils.ZHTools.getVersionName;
 
-import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.*;
 import android.content.pm.*;
@@ -16,6 +15,7 @@ import androidx.core.app.*;
 
 import android.util.*;
 
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.context.LocaleHelper;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
@@ -28,12 +28,10 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
-import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.utils.FileUtils;
 
 public class PojavApplication extends Application {
 	public static final String CRASH_REPORT_TAG = "PojavCrashReport";
-	@SuppressLint("StaticFieldLeak") private static Context context;
 
 	@Override
 	public void onCreate() {
@@ -109,21 +107,13 @@ public class PojavApplication extends Application {
 	@Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleHelper.Companion.setLocale(base));
-		PojavApplication.context = base;
+		ContextExecutor.setApplication(this);
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+		ContextExecutor.setApplication(this);
 		LocaleHelper.Companion.setLocale(this);
-		PojavApplication.context = this;
     }
-
-	public static Context getContext() {
-		return PojavApplication.context;
-	}
-
-	public static String getResString(int resId) {
-		return PojavApplication.context.getString(resId);
-	}
 }

@@ -190,7 +190,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     return;
                 }
 
-                Task.Companion.runTask(() -> {
+                Task.runTask(() -> {
                     MultiRTUtils.removeRuntimeNamed(mCurrentRuntime.name);
                     mDeleteButton.post(() -> {
                         if(getBindingAdapter() != null) {

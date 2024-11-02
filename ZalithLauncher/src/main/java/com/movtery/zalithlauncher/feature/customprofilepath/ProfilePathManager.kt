@@ -3,13 +3,13 @@ package com.movtery.zalithlauncher.feature.customprofilepath
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 import java.io.FileWriter
@@ -56,7 +56,7 @@ class ProfilePathManager {
                 val file = File(gameHome, "launcher_profiles.json")
                 if (!file.exists()) {
                     try {
-                        Tools.copyAssetFile(PojavApplication.getContext(), "launcher_profiles.json", gameHome, false)
+                        Tools.copyAssetFile(ContextExecutor.getApplication(), "launcher_profiles.json", gameHome, false)
                     } catch (e: IOException) {
                         return File(defaultPath, "launcher_profiles.json")
                     }

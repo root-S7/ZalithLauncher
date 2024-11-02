@@ -44,7 +44,7 @@ public class NotificationDownloadListener implements ModloaderDownloadListener {
     }
 
     private void sendIntentNotification(Intent intent, int localeString) {
-        TaskExecutors.Companion.runInUIThread(() -> NotificationUtils.sendBasicNotification(mContext,
+        TaskExecutors.runInUIThread(() -> NotificationUtils.sendBasicNotification(mContext,
                 R.string.modpack_install_notification_title,
                 localeString,
                 intent,
@@ -54,7 +54,7 @@ public class NotificationDownloadListener implements ModloaderDownloadListener {
     }
 
     private void sendEmptyNotification(int localeString) {
-        TaskExecutors.Companion.runInUIThread(()->NotificationUtils.sendBasicNotification(mContext,
+        TaskExecutors.runInUIThread(()->NotificationUtils.sendBasicNotification(mContext,
                 R.string.modpack_install_notification_title,
                 localeString,
                 null,

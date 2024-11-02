@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import androidx.activity.OnBackPressedCallback;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
 import com.movtery.zalithlauncher.feature.background.BackgroundType;
 import com.movtery.zalithlauncher.setting.AllSettings;
@@ -95,6 +96,12 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 				binding.customctrlControllayout.askToExit(CustomControlsActivity.this);
 			}
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		ContextExecutor.setActivity(this);
 	}
 
 	private void parseBundle() {

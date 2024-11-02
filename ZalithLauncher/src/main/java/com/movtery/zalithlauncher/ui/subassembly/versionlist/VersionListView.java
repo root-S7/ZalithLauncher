@@ -121,7 +121,7 @@ public class VersionListView extends LinearLayout {
 
     private List<FileItemBean> getVersion(Drawable icon, String[] names) {
         List<FileItemBean> itemBeans = FileRecyclerViewCreator.loadItemBean(icon, names);
-        TaskExecutors.Companion.runInUIThread(() -> fileRecyclerViewCreator.loadData(itemBeans));
+        TaskExecutors.runInUIThread(() -> fileRecyclerViewCreator.loadData(itemBeans));
         return itemBeans;
     }
 }

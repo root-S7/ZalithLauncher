@@ -135,7 +135,7 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             binding.infoButton.setOnClickListener(v -> {
                 @SuppressLint("NotifyDataSetChanged")
                 ControlInfoDialog controlInfoDialog = new ControlInfoDialog(mContext, controlInfoData,
-                        Task.Companion.runTask(TaskExecutors.Companion.getAndroidUI(), () -> {
+                        Task.runTask(TaskExecutors.getAndroidUI(), () -> {
                             notifyDataSetChanged();
                             return null;
                         }));

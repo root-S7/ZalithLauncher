@@ -69,7 +69,7 @@ public class ControlsListViewCreator {
                 files.add(file);
                 new DeleteDialog(
                         context,
-                        Task.Companion.runTask(TaskExecutors.Companion.getAndroidUI(), () -> {
+                        Task.runTask(TaskExecutors.getAndroidUI(), () -> {
                             refresh();
                             return null;
                         }),
@@ -153,7 +153,7 @@ public class ControlsListViewCreator {
             this.mData.addAll(data);
         }
         if (searchCountText != null) {
-            TaskExecutors.Companion.runInUIThread(() -> {
+            TaskExecutors.runInUIThread(() -> {
                 //展示搜索结果
                 int count = searchCount.get();
                 searchCountText.setText(searchCountText.getContext().getString(R.string.search_count, count));
@@ -187,11 +187,11 @@ public class ControlsListViewCreator {
 
     @SuppressLint("NotifyDataSetChanged")
     public void refresh() {
-        Task.Companion.runTask(() -> {
+        Task.runTask(() -> {
             loadInfoData(fullPath);
             filterString = "";
             return null;
-        }).ended(TaskExecutors.Companion.getAndroidUI(), r -> {
+        }).ended(TaskExecutors.getAndroidUI(), r -> {
             controlListAdapter.notifyDataSetChanged();
             mainListView.scheduleLayoutAnimation();
             if (refreshListener != null) refreshListener.onRefresh();

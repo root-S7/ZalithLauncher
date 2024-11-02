@@ -1,7 +1,7 @@
 package net.kdt.pojavlaunch.customcontrols;
 
+import static com.movtery.zalithlauncher.context.ContextExecutor.getString;
 import static net.kdt.pojavlaunch.LwjglGlfwKeycode.GLFW_KEY_UNKNOWN;
-import static net.kdt.pojavlaunch.PojavApplication.getResString;
 
 import android.content.Context;
 import android.util.ArrayMap;
@@ -73,7 +73,7 @@ public class ControlData {
     private float height;        //Dp instead of Px now
 
     public ControlData() {
-        this(getResString(R.string.controls_add_control_button));
+        this(getString(R.string.controls_add_control_button));
     }
 
     public ControlData(String name) {

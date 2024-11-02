@@ -26,7 +26,7 @@ import java.io.IOException;
 public class AsyncVersionList {
 
     public void getVersionList(@Nullable VersionDoneListener listener, boolean secondPass){
-        Task.Companion.runTask(() -> {
+        Task.runTask(() -> {
             File versionFile = new File(PathAndUrlManager.FILE_VERSION_LIST);
             JMinecraftVersionList versionList = null;
             try {

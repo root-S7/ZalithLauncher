@@ -55,7 +55,7 @@ public class MinecraftDownloader {
     public void start(@Nullable JMinecraftVersionList.Version version,
                       @NonNull String realVersion, // this was there for a reason
                       @NonNull AsyncMinecraftDownloader.DoneListener listener) {
-        Task.Companion.runTask(() -> {
+        Task.runTask(() -> {
             downloadGame(version, realVersion);
             listener.onDownloadDone();
             return null;
