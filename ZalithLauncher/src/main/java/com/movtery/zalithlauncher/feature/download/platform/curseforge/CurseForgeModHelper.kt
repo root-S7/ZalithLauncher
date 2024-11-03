@@ -17,6 +17,7 @@ import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.download.utils.DependencyUtils
 import com.movtery.zalithlauncher.feature.download.utils.ModLoaderUtils
+import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
 import com.movtery.zalithlauncher.feature.log.Logging.e
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
@@ -33,6 +34,10 @@ class CurseForgeModHelper {
         internal fun modLikeSearch(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: Int): SearchResult? {
             if (filters.category != Category.ALL && filters.category.curseforgeID == null) {
                 throw PlatformNotSupportedException("The platform does not support the ${filters.category} category!")
+            }
+
+            PlatformUtils.searchModLikeWithChinese(filters, type == CurseForgeCommonUtils.CURSEFORGE_MOD_CLASS_ID)?.let {
+                filters.name = it
             }
 
             val params = HashMap<String, Any>()

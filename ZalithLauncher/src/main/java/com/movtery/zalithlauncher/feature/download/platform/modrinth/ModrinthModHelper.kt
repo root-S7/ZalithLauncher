@@ -17,6 +17,7 @@ import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.download.utils.DependencyUtils
 import com.movtery.zalithlauncher.feature.download.utils.ModLoaderUtils
+import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
@@ -27,6 +28,10 @@ class ModrinthModHelper {
         internal fun modLikeSearch(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: String): SearchResult? {
             if (filters.category != Category.ALL && filters.category.modrinthName == null) {
                 throw PlatformNotSupportedException("The platform does not support the ${filters.category} category!")
+            }
+
+            PlatformUtils.searchModLikeWithChinese(filters, type == "mod")?.let {
+                filters.name = it
             }
 
             val response = api.get("search",
