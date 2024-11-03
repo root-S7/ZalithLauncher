@@ -15,14 +15,17 @@ public class LauncherVersion {
     private final String publishedAt;
     @SerializedName("file_size")
     private final FileSize fileSize;
+    @SerializedName("pre_release")
+    private final boolean isPreRelease;
 
-    public LauncherVersion(int versionCode, String versionName, WhatsNew title, WhatsNew description, String publishedAt, FileSize fileSize) {
+    public LauncherVersion(int versionCode, String versionName, WhatsNew title, WhatsNew description, String publishedAt, FileSize fileSize, boolean isPreRelease) {
         this.versionCode = versionCode;
         this.versionName = versionName;
         this.title = title;
         this.description = description;
         this.publishedAt = publishedAt;
         this.fileSize = fileSize;
+        this.isPreRelease = isPreRelease;
     }
 
     public int getVersionCode() {
@@ -47,6 +50,10 @@ public class LauncherVersion {
 
     public FileSize getFileSize() {
         return fileSize;
+    }
+
+    public boolean isPreRelease() {
+        return isPreRelease;
     }
 
     @NonNull

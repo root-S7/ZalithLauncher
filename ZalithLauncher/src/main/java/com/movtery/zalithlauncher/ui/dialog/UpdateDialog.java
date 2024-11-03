@@ -39,10 +39,12 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         String versionString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_version), launcherVersion.getVersionName());
         String timeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_time), StringUtils.formattingTime(launcherVersion.getPublishedAt()));
         String sizeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_file_size), FileTools.formatFileSize(UpdateLauncher.getFileSize(launcherVersion.getFileSize())));
+        String versionType = StringUtils.insertSpace(getContext().getString(R.string.about_version_status), getVersionType());
 
         binding.versionName.setText(versionString);
         binding.updateTime.setText(timeString);
         binding.fileSize.setText(sizeString);
+        binding.versionType.setText(versionType);
 
         String descriptionHtml = markdownToHtml(getLanguageText(launcherVersion.getDescription()));
 
@@ -69,6 +71,10 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
             Settings.Manager.Companion.put("ignoreUpdate", launcherVersion.getVersionName()).save();
             this.dismiss();
         });
+    }
+
+    private String getVersionType() {
+        return getContext().getString(launcherVersion.isPreRelease() ? R.string.about_version_status_pre_release : R.string.version_release);
     }
 
     private String getLanguageText(LauncherVersion.WhatsNew whatsNew) {
