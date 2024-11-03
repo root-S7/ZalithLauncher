@@ -81,7 +81,7 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     }
 
     private class ViewPagerAdapter(val fragment: FragmentWithAnim): FragmentStateAdapter(fragment.requireActivity()) {
-        override fun getItemCount(): Int = 6
+        override fun getItemCount(): Int = 5
         override fun createFragment(position: Int): Fragment {
             return when(position) {
                 1 -> ControlSettingsFragment(fragment)
