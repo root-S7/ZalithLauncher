@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.movtery.zalithlauncher.event.single.PageOpacityChangeEvent
-import com.movtery.zalithlauncher.feature.update.UpdateLauncher
+import com.movtery.zalithlauncher.feature.update.UpdateUtils
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.fragment.CustomBackgroundFragment
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
@@ -159,7 +159,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             binding.checkUpdateLayout
         ) {
-            UpdateLauncher.CheckDownloadedPackage(context, false)
+            UpdateUtils.checkDownloadedPackage(context, false)
         }
 
         val notificationPermissionRequest = SwitchSettingsWrapper(

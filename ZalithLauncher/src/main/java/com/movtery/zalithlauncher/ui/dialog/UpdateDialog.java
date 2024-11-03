@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.feature.update.LauncherVersion;
+import com.movtery.zalithlauncher.feature.update.UpdateUtils;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -38,7 +39,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
     private void init() {
         String versionString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_version), launcherVersion.getVersionName());
         String timeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_time), StringUtils.formattingTime(launcherVersion.getPublishedAt()));
-        String sizeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_file_size), FileTools.formatFileSize(UpdateLauncher.getFileSize(launcherVersion.getFileSize())));
+        String sizeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_file_size), FileTools.formatFileSize(UpdateUtils.getFileSize(launcherVersion.getFileSize())));
         String versionType = StringUtils.insertSpace(getContext().getString(R.string.about_version_status), getVersionType());
 
         binding.versionName.setText(versionString);

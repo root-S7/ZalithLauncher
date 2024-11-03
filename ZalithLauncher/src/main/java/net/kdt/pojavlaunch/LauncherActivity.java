@@ -30,7 +30,6 @@ import com.movtery.zalithlauncher.event.sticky.*;
 import com.movtery.zalithlauncher.event.value.*;
 import com.movtery.zalithlauncher.feature.notice.CheckNewNotice;
 import com.movtery.zalithlauncher.feature.notice.NoticeInfo;
-import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager;
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
@@ -40,6 +39,7 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallExtra;
 import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallLocalModPack;
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils;
+import com.movtery.zalithlauncher.feature.update.UpdateUtils;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.Task;
@@ -298,7 +298,7 @@ public class LauncherActivity extends BaseActivity {
 
         //检查已经下载后的包，或者检查更新
         Task.runTask(() -> {
-            UpdateLauncher.CheckDownloadedPackage(this, true);
+            UpdateUtils.checkDownloadedPackage(this, true);
             return null;
         }).execute();
     }
