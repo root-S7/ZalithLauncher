@@ -1,23 +1,23 @@
 {
-  "version_code": 1362,
-  "version_name": "1.3.6.2",
+  "version_code": 136301,
+  "version_name": "1.3.6.3 pre-release",
   "title": {
-    "en_us": "1.3.6.2",
-    "zh_cn": "1.3.6.2",
-    "zh_tw": "1.3.6.2"
+    "en_us": "1.3.6.3 pre-release",
+    "zh_cn": "1.3.6.3 pre-release",
+    "zh_tw": "1.3.6.3 pre-release"
   },
   "description": {
-    "en_us": "## Update Notes:\r\n- Updated [Account Management]: Refactored account management\r\n- Updated [Launcher Update]: Rewrote the logic for fetching updates, supports multiple languages\r\n---\r\n- Adjusted [App Layout]: Adjusted UI and descriptions of certain interfaces\r\n- Adjusted [About]: Removed \"Branch Status\" information\r\n- Adjusted [Logs]: Printed launcher information at the top of the file content\r\n---\r\n- Fixed [Path Management]: Resolved the issue where sticky events were not cleared after selecting a path\r\n- Fixed [Local Integration Package]: Corrected instance path settings\r\n- Fixed [Version]: Resolved the crash issue caused by inability to fetch MC version list without internet\r\n- Fixed [Startup]: Addressed the flashing screen issue on some devices when launching the app\r\n",
-    "zh_cn": "## 更新内容：\n- 更新[账号管理]：重构账户管理\n- 更新[启动器更新]：重写获取更新的逻辑，支持多语言\n---\n- 调整[应用布局]：调整部分界面的UI与描述\n- 调整[关于]：移除“分支状态”信息\n- 调整[日志]：文件内容头部打印启动器信息\n---\n- 修复[路径管理]：选择路径后，粘性事件未消除的问题\n- 修复[本地整合包]：实例路径设置不正确\n- 修复[版本]：无互联网后无法获取MC版本列表引发的崩溃问题\n- 修复[启动]：部分设备启动应用时出现闪屏问题",
-    "zh_tw": "## 更新內容：\n- 更新[帳號管理]：重構帳號管理\n- 更新[啟動器更新]：重寫獲取更新的邏輯，支持多語言\n---\n- 調整[應用佈局]：調整部分介面的UI與描述\n- 調整[關於]：移除“分支狀態”資訊\n- 調整[日誌]：文件內容頭部打印啟動器資訊\n---\n- 修復[路徑管理]：選擇路徑後，粘性事件未消除的問題\n- 修復[本地整合包]：實例路徑設置不正確\n- 修復[版本]：無網路後無法獲取MC版本列表引發的崩潰問題\n- 修復[啟動]：部分設備啟動應用時出現閃屏問題\n"
+    "en_us": "## Update Notes:\r\n- Updated [Tasks]: Refactored task thread pool management and invocation\r\n---\r\n- Adjusted [Download]: Adjusted layout files\r\n- Adjusted [Mesa]: Downgraded version to 23.0.4\r\n- Adjusted [Notifications]: Modified data structure and parsing logic\r\n- Adjusted [Activity]: Adopted new method for listening to back button press\r\n- Adjusted [Network]: Changed UA to \"ZalithLauncher/version\"\r\n- Adjusted [Notifications]: Updated handling for cases without notification permissions\r\n- Adjusted [Notifications]: Replaced deprecated code\r\n- Adjusted [Launcher Update]: Displayed version status\r\n---\r\n- Fixed [Download]: Used Slug for homepage link construction\r\n- Fixed [Bridge]: Resolved issue with repeated function calls\r\n- Fixed [Startup]: Corrected issue where the account management page wouldn\u0027t open if no account was available\r\n",
+    "zh_cn": "## 更新内容：\n- 更新[任务]: 重构任务线程池管理和调用\n- 更新[下载]: 展示 Mod/ModPack 的中文译名\n- 更新[下载]: 支持中文搜索\n---\n- 调整[下载]: 调整布局文件\n- 调整[Mesa]: 将版本降至 23.0.4\n- 调整[通知]: 调整数据结构和解析逻辑\n- 调整[Activity]: 使用新的方式监听返回键按下\n- 调整[网络]: 将 UA 更改为 \"ZalithLauncher/版本\"\n- 调整[通知]: 没有通知权限时的处理\n- 调整[通知]: 更换被废弃的代码\n- 调整[更新启动器]: 展示版本状态\n---\n- 修复[下载]: 使用 Slug 拼接主页链接\n- 修复[Bridge]: 函数重复调用的问题\n- 修复[启动]: 没有账号时无法正常跳转至账号管理页面",
+    "zh_tw": "## 更新內容：\n- 更新[任務]: 重構任務執行緒池管理和調用\n- 更新[下載]: 展示 Mod/ModPack 的中文譯名\n- 更新[下載]: 支持中文搜索\n---\n- 調整[下載]: 調整佈局檔案\n- 調整[Mesa]: 將版本降至 23.0.4\n- 調整[通知]: 調整數據結構和解析邏輯\n- 調整[Activity]: 使用新的方式監聽返回鍵按下\n- 調整[網路]: 將 UA 更改為 \"ZalithLauncher/版本\"\n- 調整[通知]: 沒有通知權限時的處理\n- 調整[通知]: 更換已廢棄的代碼\n- 調整[更新啟動器]: 展示版本狀態\n---\n- 修復[下載]: 使用 Slug 拼接主頁鏈接\n- 修復[Bridge]: 解決函數重複調用的問題\n- 修復[啟動]: 沒有帳號時無法正常跳轉至帳號管理頁面\n"
   },
-  "published_at": "2024-10-29T07:27:36Z",
+  "published_at": "2024-11-03T11:27:14Z",
   "file_size": {
-    "all": 207522753,
-    "arm": 128375159,
-    "arm64": 119644846,
-    "x86": 121902731,
-    "x86_64": 122993686
+    "all": 206941451,
+    "arm": 128389701,
+    "arm64": 119655148,
+    "x86": 122300801,
+    "x86_64": 123183676
   },
-  "pre_release": false
+  "pre_release": true
 }
