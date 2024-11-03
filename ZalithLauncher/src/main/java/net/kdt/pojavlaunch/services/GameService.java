@@ -17,10 +17,7 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
 
-import java.lang.ref.WeakReference;
-
 public class GameService extends Service {
-    private static final WeakReference<Service> sGameService = new WeakReference<>(null);
     private final LocalBinder mLocalBinder = new LocalBinder();
 
     @Override
@@ -44,7 +41,7 @@ public class GameService extends Service {
                 .setContentText(getString(R.string.notification_game_runs))
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel,  getString(R.string.notification_terminate), pendingKillIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setNotificationSilent();
+                .setSilent(true);
 
         Notification notification = notificationBuilder.build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
