@@ -72,7 +72,7 @@
     <string name="memory_warning_msg">A memória disponível atual (%d) é menor que a memória alocada (%d), o que pode causar falhas no jogo. Se o jogo falhar, altere a configuração!</string>
     <string name="address_memory_warning_msg">O espaço de memória livre disponível (%d) é menor que a memória alocada (%d), o que causará falhas. Se o jogo falhar, ajuste a alocação de memória.</string>
     <string name="notif_channel_name">Geral</string>
-    <string name="lazy_service_default_title">Serviço de Primeiro Plano Pojav</string>
+    <string name="lazy_service_default_title">Serviço de Recepção Zalith</string>
     <string name="progresslayout_tasks_in_progress">%d tarefas em andamento</string>
     <string name="notification_terminate">Encerrar</string>
     <string name="notification_game_runs">O jogo está em execução!</string>
@@ -513,7 +513,7 @@
     <string name="modpack_download_downloading_mods">Baixando mods (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Baixando mods (arquivos baixados: %d, total de arquivos: %d)</string>
     <string name="modpack_download_applying_overrides">Aplicando substituições (%d/%d)</string>
-    <string name="modpack_install_notification_title">Instalador de Modpack Pojav</string>
+    <string name="modpack_install_notification_title">Instalador de Modpack Zalith</string>
     <string name="modpack_install_notification_success">Toque aqui para concluir a instalação do modpack</string>
     <string name="modpack_install_notification_data_not_available">Falha ao baixar informações do carregador de mods</string>
     <string name="modpack_install_modloader_download_failed">Falha ao baixar arquivos do carregador de mods</string>

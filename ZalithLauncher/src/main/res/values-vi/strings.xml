@@ -72,7 +72,7 @@
     <string name="memory_warning_msg">Bộ nhớ hiện có (%d) thấp hơn bộ nhớ được phân bổ (%d), điều này có thể gây ra sự cố trò chơi, nếu trò chơi bị sự cố, vui lòng thay đổi cấu hình!</string>
     <string name="address_memory_warning_msg">Không gian bộ nhớ trống hiện có (%d) thấp hơn bộ nhớ được phân bổ (%d), điều này sẽ gây ra sự cố, nếu trò chơi bị sự cố, vui lòng điều chỉnh phân bổ bộ nhớ.</string>
     <string name="notif_channel_name">Thông thường</string>
-    <string name="lazy_service_default_title">Dịch vụ nền Pojav</string>
+    <string name="lazy_service_default_title">Dịch vụ Tiếp tân Zalith</string>
     <string name="progresslayout_tasks_in_progress">%d nhiệm vụ đang diễn ra</string>
     <string name="notification_terminate">Kết thúc</string>
     <string name="notification_game_runs">Trò chơi đang chạy!</string>
@@ -513,7 +513,7 @@
     <string name="modpack_download_downloading_mods">Đang tải mod (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Đang tải mod (tệp đã tải: %d, tổng số tệp: %d)</string>
     <string name="modpack_download_applying_overrides">Đang áp dụng ghi đè (%d/%d)</string>
-    <string name="modpack_install_notification_title">Trình cài đặt gói tích hợp Pojav</string>
+    <string name="modpack_install_notification_title">Trình cài đặt gói Zalith</string>
     <string name="modpack_install_notification_success">Nhấn vào đây để hoàn thành cài đặt gói tích hợp</string>
     <string name="modpack_install_notification_data_not_available">Không thể tải thông tin trình nạp mod</string>
     <string name="modpack_install_modloader_download_failed">Không thể tải tệp trình nạp mod</string>

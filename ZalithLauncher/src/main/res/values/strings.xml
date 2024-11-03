@@ -73,7 +73,7 @@
     <string name="memory_warning_msg">The available memory (%d) is lower than the allocated memory (%d), which may cause the game to crash. If the game crashes, please change the configuration!</string>
     <string name="address_memory_warning_msg">The available free memory space (%d) is lower than the allocated memory (%d), which will cause a crash. If the game crashes, please adjust the memory allocation.</string>
     <string name="notif_channel_name">General</string>
-    <string name="lazy_service_default_title">Pojav Foreground Service</string>
+    <string name="lazy_service_default_title">Zalith Front Desk Service</string>
     <string name="progresslayout_tasks_in_progress">%d tasks in progress</string>
     <string name="notification_terminate">Terminate</string>
     <string name="notification_game_runs">The game is running!</string>
@@ -518,7 +518,7 @@
     <string name="modpack_download_downloading_mods">Downloading mods (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Downloading mods (files downloaded: %d, total files: %d)</string>
     <string name="modpack_download_applying_overrides">Applying overrides (%d/%d)</string>
-    <string name="modpack_install_notification_title">Pojav Modpack Installer</string>
+    <string name="modpack_install_notification_title">Zalith Modpack Installer</string>
     <string name="modpack_install_notification_success">Click here to complete modpack installation</string>
     <string name="modpack_install_notification_data_not_available">Failed to download mod loader information</string>
     <string name="modpack_install_modloader_download_failed">Failed to download mod loader file</string>
