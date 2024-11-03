@@ -145,10 +145,10 @@ public class LauncherActivity extends BaseActivity {
 
     @Subscribe()
     public void event(SwapToLoginEvent event) {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
-        if (!(fragment instanceof AccountFragment)) return;
-        // 如果当前不是AccountFragment，那么将切换到AccountFragment要求用户登录
-        ZHTools.swapFragmentWithAnim(fragment, AccountFragment.class, AccountFragment.TAG, null);
+        Fragment currentFragment = getVisibleFragment(binding.containerFragment.getId());
+        //如果当前可见的Fragment不为空，则判断当前的Fragment是否为AccountFragment，不是就跳转至AccountFragment
+        if (currentFragment == null || getVisibleFragment(AccountFragment.TAG) != null) return;
+        ZHTools.swapFragmentWithAnim(currentFragment, AccountFragment.class, AccountFragment.TAG, null);
     }
 
     @Subscribe()
@@ -506,18 +506,16 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private Fragment getVisibleFragment(String tag){
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
-        if(fragment != null && fragment.isVisible()) {
-            return fragment;
-        }
-        return null;
+    private Fragment getVisibleFragment(String tag) {
+        return checkFragmentAvailability(getSupportFragmentManager().findFragmentByTag(tag));
     }
 
-    @SuppressWarnings("unused")
-    private Fragment getVisibleFragment(int id){
-        Fragment fragment = getSupportFragmentManager().findFragmentById(id);
-        if(fragment != null && fragment.isVisible()) {
+    private Fragment getVisibleFragment(int id) {
+        return checkFragmentAvailability(getSupportFragmentManager().findFragmentById(id));
+    }
+
+    private Fragment checkFragmentAvailability(Fragment fragment) {
+        if (fragment != null && fragment.isVisible()) {
             return fragment;
         }
         return null;
