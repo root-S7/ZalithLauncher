@@ -26,6 +26,7 @@ import com.movtery.zalithlauncher.feature.download.item.InfoItem;
 import com.movtery.zalithlauncher.feature.download.utils.DependencyUtils;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.fragment.DownloadModFragment;
+import com.movtery.zalithlauncher.ui.fragment.download.AbstractResourceDownloadFragment;
 import com.movtery.zalithlauncher.utils.NumberWithUnits;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
@@ -147,7 +148,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
                 InfoViewModel viewModel = new ViewModelProvider(mParentFragment.requireActivity()).get(InfoViewModel.class);
                 viewModel.setInfoItem(infoItem);
                 viewModel.setPlatformHelper(mInfoItem.getPlatform().getHelper());
-                viewModel.setTargetPath(new File(InfoAdapter.Companion.getGameDir(), "/mods"));
+                viewModel.setTargetPath(new File(AbstractResourceDownloadFragment.sGameDir, "/mods"));
                 ZHTools.addFragment(mParentFragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
 
                 if (onClickListener != null) onClickListener.onItemClick();

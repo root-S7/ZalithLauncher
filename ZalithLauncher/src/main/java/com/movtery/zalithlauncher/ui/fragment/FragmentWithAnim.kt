@@ -33,7 +33,7 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation, TaskCountListener {
 
     override fun onStart() {
         super.onStart()
-        playAnimation { slideIn(it) }
+        slideIn()
         ProgressKeeper.addTaskCountListener(this)
     }
 
@@ -47,6 +47,10 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation, TaskCountListener {
     }
 
     fun isTaskRunning() = mIsTaskRunning
+
+    fun slideIn() {
+        playAnimation { slideIn(it) }
+    }
 
     fun slideOut() {
         playAnimation { slideOut(it) }

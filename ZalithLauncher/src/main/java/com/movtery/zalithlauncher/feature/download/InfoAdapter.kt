@@ -30,7 +30,6 @@ import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.ItemDownloadInfoBinding
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.ui.versions.ModTranslations
 import java.io.File
@@ -43,8 +42,8 @@ import java.util.concurrent.Future
 
 class InfoAdapter(
     private val parentFragment: Fragment,
-    private val index: Int,
-    private val mSearchResultCallback: SearchResultCallback
+    private val mSearchResultCallback: SearchResultCallback,
+    private val targetPath: File?
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var mPlatform: Platform
@@ -149,12 +148,7 @@ class InfoAdapter(
                     val infoViewModel = ViewModelProvider(parentFragment.requireActivity())[InfoViewModel::class.java]
                     infoViewModel.infoItem = item.copy()
                     infoViewModel.platformHelper = item.platform.helper.copy()
-                    infoViewModel.targetPath = when(index) {
-                        1 -> null
-                        2 -> File(gameDir, "/resourcepacks")
-                        3 -> File(gameDir, "/saves")
-                        else -> File(gameDir, "/mods")
-                    }
+                    infoViewModel.targetPath = targetPath
 
                     ZHTools.addFragment(
                         parentFragment,
@@ -260,21 +254,21 @@ class InfoAdapter(
 
                     when {
                         result == null -> {
-                            mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_INTERNAL)
+                            mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_INTERNAL)
                         }
                         result.isLastPage -> {
                             if (result.infoItems.isEmpty()) {
-                                mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_NO_RESULTS)
+                                mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_NO_RESULTS)
                             } else {
                                 mLastPage = true
                                 mItems = result.infoItems
                                 notifyDataSetChanged()
-                                mSearchResultCallback.onSearchFinished(index)
+                                mSearchResultCallback.onSearchFinished()
                                 return@runInUIThread
                             }
                         }
                         else -> {
-                            mSearchResultCallback.onSearchFinished(index)
+                            mSearchResultCallback.onSearchFinished()
                         }
                     }
 
@@ -294,9 +288,9 @@ class InfoAdapter(
                     notifyDataSetChanged()
                     Logging.e("SearchTask", Tools.printToString(e))
                     if (e is PlatformNotSupportedException) {
-                        mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_PLATFORM_NOT_SUPPORTED)
+                        mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_PLATFORM_NOT_SUPPORTED)
                     } else {
-                        mSearchResultCallback.onSearchError(index, SearchResultCallback.ERROR_NO_RESULTS)
+                        mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_NO_RESULTS)
                     }
                 }
             }
@@ -304,8 +298,8 @@ class InfoAdapter(
     }
 
     interface SearchResultCallback {
-        fun onSearchFinished(index: Int)
-        fun onSearchError(index: Int, error: Int)
+        fun onSearchFinished()
+        fun onSearchError(error: Int)
 
         companion object {
             const val ERROR_INTERNAL: Int = 0
@@ -318,14 +312,5 @@ class InfoAdapter(
         private val MOD_ITEMS_EMPTY: MutableList<InfoItem> = ArrayList()
         private const val VIEW_TYPE_MOD_ITEM = 0
         private const val VIEW_TYPE_LOADING = 1
-        val gameDir: File = ZHTools.getGameDirPath(getDir())
-
-        private fun getDir(): String? {
-            var dir: String? = LauncherProfiles.getCurrentProfile().gameDir
-            dir?.let {
-                if (it.startsWith("./")) dir = it.removePrefix("./")
-            }
-            return dir
-        }
     }
 }
