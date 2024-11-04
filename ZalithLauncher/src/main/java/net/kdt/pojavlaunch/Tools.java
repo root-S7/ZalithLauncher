@@ -80,7 +80,8 @@ import java.util.List;
 
 @SuppressWarnings("IOStreamConstructor")
 public final class Tools {
-    public  static final float BYTE_TO_MB = 1024 * 1024;
+    public static final String NOTIFICATION_CHANNEL_DEFAULT = "channel_id";
+    public static final float BYTE_TO_MB = 1024 * 1024;
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
     private final static boolean isClientFirst = false;
@@ -119,13 +120,14 @@ public final class Tools {
         return new File(PathAndUrlManager.DIR_GAME_DEFAULT);
     }
 
-    public static void buildNotificationChannel(Context context){
+    public static void buildNotificationChannel(Context context) {
         NotificationChannel channel = new NotificationChannel(
-                "channel_id",
+                NOTIFICATION_CHANNEL_DEFAULT,
                 context.getString(R.string.notif_channel_name), NotificationManager.IMPORTANCE_DEFAULT);
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
         manager.createNotificationChannel(channel);
     }
+
     public static void disableSplash(File dir) {
         File configDir = new File(dir, "config");
         if(FileUtils.ensureDirectorySilently(configDir)) {

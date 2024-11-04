@@ -34,8 +34,10 @@ public class ProgressService extends Service implements TaskCountListener {
 
     private NotificationManagerCompat notificationManagerCompat;
 
-    /** Simple wrapper to start the service */
-    public static void startService(Context context){
+    /**
+     * Simple wrapper to start the service
+     */
+    public static void startService(Context context) {
         Intent intent = new Intent(context, ProgressService.class);
         ContextCompat.startForegroundService(context, intent);
     }
@@ -50,7 +52,7 @@ public class ProgressService extends Service implements TaskCountListener {
         killIntent.putExtra("kill", true);
         PendingIntent pendingKillIntent = PendingIntent.getService(this, NotificationUtils.PENDINGINTENT_CODE_KILL_PROGRESS_SERVICE
                 , killIntent, PendingIntent.FLAG_IMMUTABLE);
-        mNotificationBuilder = new NotificationCompat.Builder(this, "channel_id")
+        mNotificationBuilder = new NotificationCompat.Builder(this, Tools.NOTIFICATION_CHANNEL_DEFAULT)
                 .setContentTitle(getString(R.string.lazy_service_default_title))
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, getString(R.string.notification_terminate), pendingKillIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -60,8 +62,8 @@ public class ProgressService extends Service implements TaskCountListener {
     @SuppressLint("StringFormatInvalid")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent != null) {
-            if(intent.getBooleanExtra("kill", false)) {
+        if (intent != null) {
+            if (intent.getBooleanExtra("kill", false)) {
                 stopSelf(); // otherwise Android tries to restart the service since it "crashed"
                 Process.killProcess(Process.myPid());
                 return START_NOT_STICKY;
@@ -75,7 +77,7 @@ public class ProgressService extends Service implements TaskCountListener {
         } else {
             startForeground(NotificationUtils.NOTIFICATION_ID_PROGRESS_SERVICE, notification);
         }
-        if(ProgressKeeper.getTaskCount() < 1) stopSelf();
+        if (ProgressKeeper.getTaskCount() < 1) stopSelf();
         else ProgressKeeper.addTaskCountListener(this, false);
 
         return START_NOT_STICKY;

@@ -117,10 +117,8 @@ public class LauncherActivity extends BaseActivity {
     private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
         // Hide the notification that starts the game if there are tasks executing.
         // Prevents the user from trying to launch the game with tasks ongoing.
-        if(taskCount > 0) {
-            TaskExecutors.runInUIThread(() ->
-                    mNotificationManager.cancel(NotificationUtils.NOTIFICATION_ID_GAME_START)
-            );
+        if (taskCount > 0) {
+            TaskExecutors.runInUIThread(() -> mNotificationManager.cancel(NotificationUtils.NOTIFICATION_ID_GAME_START));
         }
     };
 
