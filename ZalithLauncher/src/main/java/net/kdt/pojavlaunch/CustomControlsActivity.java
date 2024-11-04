@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.activity.OnBackPressedCallback;
@@ -55,31 +56,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
 		ViewControlSettingsBinding controlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
-		controlSettingsBinding.addButton.setOnClickListener(v -> controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button))));
-		controlSettingsBinding.addDrawer.setOnClickListener(v -> controlLayout.addDrawer(new ControlDrawerData()));
-		controlSettingsBinding.addJoystick.setOnClickListener(v -> controlLayout.addJoystickButton(new ControlJoystickData()));
-		controlSettingsBinding.controlsSettings.setOnClickListener(v -> new ControlSettingsDialog(this).show());
-		controlSettingsBinding.load.setOnClickListener(v -> controlLayout.openLoadDialog());
-		controlSettingsBinding.save.setOnClickListener(v -> controlLayout.openSaveDialog());
-		controlSettingsBinding.saveAndExit.setOnClickListener(v -> controlLayout.openSaveAndExitDialog(this));
-		controlSettingsBinding.selectDefault.setOnClickListener(v -> controlLayout.openSetDefaultDialog());
-		controlSettingsBinding.export.setOnClickListener(v -> {
-			try { // Saving the currently shown control
-				Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), controlLayout.saveToDirectory(controlLayout.mLayoutFileName));
-
-				Intent shareIntent = new Intent();
-				shareIntent.setAction(Intent.ACTION_SEND);
-				shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
-				shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-				shareIntent.setType("application/json");
-				startActivity(shareIntent);
-
-				Intent sendIntent = Intent.createChooser(shareIntent, controlLayout.mLayoutFileName);
-				startActivity(sendIntent);
-			} catch (Exception e) {
-				Tools.showError(this, e);
-			}
-		});
+		new ControlSettingsClickListener(controlSettingsBinding, controlLayout);
 
 		drawerNavigationView.addView(controlSettingsBinding.getRoot());
 		controlLayout.setModifiable(true);
@@ -119,5 +96,53 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 	@Override
 	public void exitEditor() {
 		finish();
+	}
+
+	private class ControlSettingsClickListener implements View.OnClickListener {
+		private final ViewControlSettingsBinding binding;
+		private final ControlLayout controlLayout;
+
+		public ControlSettingsClickListener(ViewControlSettingsBinding binding, ControlLayout controlLayout) {
+			this.binding = binding;
+			this.controlLayout = controlLayout;
+			this.binding.addButton.setOnClickListener(this);
+			this.binding.addDrawer.setOnClickListener(this);
+			this.binding.addJoystick.setOnClickListener(this);
+			this.binding.controlsSettings.setOnClickListener(this);
+			this.binding.load.setOnClickListener(this);
+			this.binding.save.setOnClickListener(this);
+			this.binding.saveAndExit.setOnClickListener(this);
+			this.binding.selectDefault.setOnClickListener(this);
+			this.binding.export.setOnClickListener(this);
+		}
+
+		@Override
+		public void onClick(View v) {
+			if (v == binding.addButton) controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button)));
+			else if (v == binding.addDrawer) controlLayout.addDrawer(new ControlDrawerData());
+			else if (v == binding.addJoystick) controlLayout.addJoystickButton(new ControlJoystickData());
+			else if (v == binding.controlsSettings) new ControlSettingsDialog(CustomControlsActivity.this).show();
+			else if (v == binding.load) controlLayout.openLoadDialog();
+			else if (v == binding.save) controlLayout.openSaveDialog();
+			else if (v == binding.saveAndExit) controlLayout.openSaveAndExitDialog(CustomControlsActivity.this);
+			else if (v == binding.selectDefault) controlLayout.openSetDefaultDialog();
+			else if (v == binding.export) {
+				try { // Saving the currently shown control
+					Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), controlLayout.saveToDirectory(controlLayout.mLayoutFileName));
+
+					Intent shareIntent = new Intent();
+					shareIntent.setAction(Intent.ACTION_SEND);
+					shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+					shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+					shareIntent.setType("application/json");
+					startActivity(shareIntent);
+
+					Intent sendIntent = Intent.createChooser(shareIntent, controlLayout.mLayoutFileName);
+					startActivity(sendIntent);
+				} catch (Exception e) {
+					Tools.showError(CustomControlsActivity.this, e);
+				}
+			}
+		}
 	}
 }

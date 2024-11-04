@@ -19,7 +19,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.DocumentsContract;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -123,15 +122,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         ControlLayout controlLayout = binding.mainControlLayout;
         mControlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
-        mControlSettingsBinding.addButton.setOnClickListener(v -> controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button))));
-        mControlSettingsBinding.addDrawer.setOnClickListener(v -> controlLayout.addDrawer(new ControlDrawerData()));
-        mControlSettingsBinding.addJoystick.setOnClickListener(v -> controlLayout.addJoystickButton(new ControlJoystickData()));
-        mControlSettingsBinding.controlsSettings.setOnClickListener(v -> new ControlSettingsDialog(this).show());
-        mControlSettingsBinding.load.setOnClickListener(v -> controlLayout.openLoadDialog());
-        mControlSettingsBinding.save.setOnClickListener(v -> controlLayout.openSaveDialog());
-        mControlSettingsBinding.saveAndExit.setOnClickListener(v -> controlLayout.openSaveAndExitDialog(this));
-        mControlSettingsBinding.selectDefault.setOnClickListener(v -> controlLayout.openSetDefaultDialog());
-        mControlSettingsBinding.export.setOnClickListener(v -> controlLayout.openExitDialog(this));
+        new ControlSettingsClickListener(mControlSettingsBinding, controlLayout);
         mControlSettingsBinding.export.setText(R.string.customctrl_editor_exit);
 
         // Recompute the gui scale when options are changed
@@ -188,17 +179,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             windowWidth = Tools.getDisplayFriendlyRes(currentDisplayMetrics.widthPixels, 1f);
             windowHeight = Tools.getDisplayFriendlyRes(currentDisplayMetrics.heightPixels, 1f);
 
-
             // Menu
             mGameSettingsBinding = ViewGameSettingsBinding.inflate(getLayoutInflater());
-            mGameSettingsBinding.forceClose.setOnClickListener(v -> dialogForceClose(this));
-            mGameSettingsBinding.logOutput.setOnClickListener(v -> openLogOutput());
-            mGameSettingsBinding.sendCustomKey.setOnClickListener(v -> dialogSendCustomKey());
-            mGameSettingsBinding.mouseSettings.setOnClickListener(v -> openMouseSettings());
-            mGameSettingsBinding.resolutionScaler.setOnClickListener(v -> openResolutionAdjuster());
-            mGameSettingsBinding.gyroSensitivity.setOnClickListener(v -> adjustGyroSensitivityLive());
-            mGameSettingsBinding.replacementCustomcontrol.setOnClickListener(v -> replacementCustomControls());
-            mGameSettingsBinding.editControl.setOnClickListener(v -> openCustomControls());
+            new MenuSettingsClickListener(mGameSettingsBinding);
 
             binding.mainNavigationView.removeAllViews();
             binding.mainNavigationView.addView(mGameSettingsBinding.getRoot());
@@ -479,19 +462,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             }
         });
     }
-    @SuppressWarnings("unused") //TODO: actually use it
-    public static void openPath(String path) {
-        Context ctx = binding.mainTouchpad.getContext(); // no more better way to obtain a context statically
-        ((Activity)ctx).runOnUiThread(() -> {
-            try {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(DocumentsContract.buildDocumentUri(ctx.getString(R.string.storageProviderAuthorities), path), "*/*");
-                ctx.startActivity(intent);
-            } catch (Throwable th) {
-                Tools.showError(ctx, th);
-            }
-        });
-    }
 
     public static void querySystemClipboard() {
         TaskExecutors.runInUIThread(()->{
@@ -588,5 +558,65 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if(checkCaptureDispatchConditions(ev))
             return binding.mainGameRenderView.dispatchCapturedPointerEvent(ev);
         else return super.dispatchTrackballEvent(ev);
+    }
+
+    private class MenuSettingsClickListener implements View.OnClickListener {
+        private final ViewGameSettingsBinding binding;
+
+        public MenuSettingsClickListener(ViewGameSettingsBinding binding) {
+            this.binding = binding;
+            this.binding.forceClose.setOnClickListener(this);
+            this.binding.logOutput.setOnClickListener(this);
+            this.binding.sendCustomKey.setOnClickListener(this);
+            this.binding.mouseSettings.setOnClickListener(this);
+            this.binding.resolutionScaler.setOnClickListener(this);
+            this.binding.gyroSensitivity.setOnClickListener(this);
+            this.binding.replacementCustomcontrol.setOnClickListener(this);
+            this.binding.editControl.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v == binding.forceClose) dialogForceClose(MainActivity.this);
+            else if (v == binding.logOutput) openLogOutput();
+            else if (v == binding.sendCustomKey) dialogSendCustomKey();
+            else if (v == binding.mouseSettings) openMouseSettings();
+            else if (v == binding.resolutionScaler) openResolutionAdjuster();
+            else if (v == binding.gyroSensitivity) adjustGyroSensitivityLive();
+            else if (v == binding.replacementCustomcontrol) replacementCustomControls();
+            else if (v == binding.editControl) openCustomControls();
+        }
+    }
+
+    private class ControlSettingsClickListener implements View.OnClickListener {
+        private final ViewControlSettingsBinding binding;
+        private final ControlLayout controlLayout;
+
+        public ControlSettingsClickListener(ViewControlSettingsBinding binding, ControlLayout controlLayout) {
+            this.binding = binding;
+            this.controlLayout = controlLayout;
+            this.binding.addButton.setOnClickListener(this);
+            this.binding.addDrawer.setOnClickListener(this);
+            this.binding.addJoystick.setOnClickListener(this);
+            this.binding.controlsSettings.setOnClickListener(this);
+            this.binding.load.setOnClickListener(this);
+            this.binding.save.setOnClickListener(this);
+            this.binding.saveAndExit.setOnClickListener(this);
+            this.binding.selectDefault.setOnClickListener(this);
+            this.binding.export.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v == binding.addButton) controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button)));
+            else if (v == binding.addDrawer) controlLayout.addDrawer(new ControlDrawerData());
+            else if (v == binding.addJoystick) controlLayout.addJoystickButton(new ControlJoystickData());
+            else if (v == binding.controlsSettings) new ControlSettingsDialog(MainActivity.this).show();
+            else if (v == binding.load) controlLayout.openLoadDialog();
+            else if (v == binding.save) controlLayout.openSaveDialog();
+            else if (v == binding.saveAndExit) controlLayout.openSaveAndExitDialog(MainActivity.this);
+            else if (v == binding.selectDefault) controlLayout.openSetDefaultDialog();
+            else if (v == binding.export) controlLayout.openExitDialog(MainActivity.this);
+        }
     }
 }
