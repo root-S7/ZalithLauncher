@@ -1,11 +1,11 @@
 package com.movtery.zalithlauncher.feature.download.utils
 
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils.containsChinese
 import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import org.jackhuang.hmcl.ui.versions.ModTranslations
 import org.jackhuang.hmcl.util.StringUtils

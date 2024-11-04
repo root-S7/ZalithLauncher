@@ -5,16 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
+import com.movtery.zalithlauncher.databinding.ActivityErrorBinding
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getLatestFile
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.shareFile
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.LauncherActivity
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.databinding.ActivityErrorBinding
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import java.io.File
 

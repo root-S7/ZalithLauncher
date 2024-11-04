@@ -7,9 +7,8 @@ import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.databinding.DialogMouseSettingsBinding;
 import com.movtery.zalithlauncher.setting.AllSettings;
-
-import net.kdt.pojavlaunch.databinding.DialogMouseSettingsBinding;
 
 public class MouseSettingsDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogMouseSettingsBinding binding = DialogMouseSettingsBinding.inflate(getLayoutInflater());

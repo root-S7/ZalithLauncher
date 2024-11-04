@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.mod.modpack.install
 
 import android.content.Context
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager
 import com.movtery.zalithlauncher.feature.download.install.OnInstallStartListener
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
@@ -12,7 +13,6 @@ import com.movtery.zalithlauncher.feature.mod.modpack.MCBBSModPack
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils.ModPackEnum
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex

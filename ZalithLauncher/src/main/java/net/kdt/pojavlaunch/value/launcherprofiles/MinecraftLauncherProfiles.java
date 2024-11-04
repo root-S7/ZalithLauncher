@@ -1,8 +1,11 @@
 package net.kdt.pojavlaunch.value.launcherprofiles;
+
 import androidx.annotation.Keep;
 
-import java.util.*;
-import net.kdt.pojavlaunch.*;
+import net.kdt.pojavlaunch.Tools;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Keep
 public class MinecraftLauncherProfiles {

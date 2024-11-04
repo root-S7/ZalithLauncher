@@ -12,7 +12,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.core.math.MathUtils;
 
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
+
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
 
 /**

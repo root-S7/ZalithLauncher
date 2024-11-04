@@ -5,9 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.text.Html;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.setting.Settings;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.ShowErrorActivity;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 

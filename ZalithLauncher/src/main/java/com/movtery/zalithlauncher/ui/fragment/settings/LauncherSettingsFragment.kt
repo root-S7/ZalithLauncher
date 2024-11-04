@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.SettingsFragmentLauncherBinding
 import com.movtery.zalithlauncher.event.single.PageOpacityChangeEvent
 import com.movtery.zalithlauncher.feature.update.UpdateUtils
 import com.movtery.zalithlauncher.setting.AllSettings
@@ -16,8 +18,6 @@ import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SwitchSettingsWra
 import com.movtery.zalithlauncher.utils.CleanUpCache.Companion.start
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.LauncherActivity
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.SettingsFragmentLauncherBinding
 import org.greenrobot.eventbus.EventBus
 
 class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {

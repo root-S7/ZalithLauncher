@@ -8,11 +8,11 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.DialogModDependenciesBinding
 import com.movtery.zalithlauncher.feature.download.ModDependenciesAdapter
 import com.movtery.zalithlauncher.feature.download.item.DependenciesInfoItem
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.DialogModDependenciesBinding
 
 class ModDependenciesDialog(
     parentFragment: Fragment,

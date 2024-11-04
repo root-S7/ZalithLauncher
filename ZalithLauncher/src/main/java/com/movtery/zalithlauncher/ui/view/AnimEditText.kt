@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import net.kdt.pojavlaunch.R
 
 class AnimEditText @JvmOverloads constructor(
     context: Context,

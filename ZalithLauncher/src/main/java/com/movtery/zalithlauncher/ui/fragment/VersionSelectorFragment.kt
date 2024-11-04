@@ -9,13 +9,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentVersionBinding
 import com.movtery.zalithlauncher.event.sticky.VersionSelectorEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedListener
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionType
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.FragmentVersionBinding
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 

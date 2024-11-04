@@ -10,8 +10,7 @@ import android.view.Gravity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
 
 import fr.spse.extended_view.ExtendedButton;
 

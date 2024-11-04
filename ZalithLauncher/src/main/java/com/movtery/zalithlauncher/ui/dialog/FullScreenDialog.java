@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
 
 public abstract class FullScreenDialog extends Dialog {
 

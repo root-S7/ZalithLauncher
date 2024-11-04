@@ -5,10 +5,10 @@ import static org.apache.commons.io.FileUtils.listFiles;
 import android.system.Os;
 
 import com.kdt.mcgui.ProgressLayout;
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.MathUtils;
 

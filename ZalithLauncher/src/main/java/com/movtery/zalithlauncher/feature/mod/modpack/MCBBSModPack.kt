@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.mod.modpack
 
 import android.content.Context
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.install.OnInstallStartListener
@@ -13,7 +14,6 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getFileHashSHA1
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.utils.FileUtils
 import net.kdt.pojavlaunch.utils.ZipUtils

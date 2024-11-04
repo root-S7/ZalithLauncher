@@ -10,14 +10,14 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentSettingsBinding
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.fragment.settings.ControlSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.ExperimentalSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.GameSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.LauncherSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.VideoSettingsFragment
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.FragmentSettingsBinding
 
 class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     companion object {

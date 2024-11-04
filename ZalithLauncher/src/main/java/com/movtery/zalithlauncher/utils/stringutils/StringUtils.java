@@ -8,9 +8,8 @@ import android.content.Context;
 import android.util.Base64;
 import android.widget.Toast;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.task.TaskExecutors;
-
-import net.kdt.pojavlaunch.R;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;

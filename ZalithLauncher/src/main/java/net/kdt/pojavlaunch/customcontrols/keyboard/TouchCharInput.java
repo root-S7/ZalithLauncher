@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
 
 /**
  * This class is intended for sending characters used in chat via the virtual keyboard

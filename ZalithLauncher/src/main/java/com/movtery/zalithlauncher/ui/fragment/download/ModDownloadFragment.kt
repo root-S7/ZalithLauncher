@@ -7,13 +7,13 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import java.io.File
 

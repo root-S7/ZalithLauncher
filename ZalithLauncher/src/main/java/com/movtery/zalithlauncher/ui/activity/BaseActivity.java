@@ -1,16 +1,17 @@
 package com.movtery.zalithlauncher.ui.activity;
 
-import android.content.*;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.*;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.movtery.zalithlauncher.context.LocaleHelper;
 
 import net.kdt.pojavlaunch.MissingStorageActivity;
 import net.kdt.pojavlaunch.Tools;
-
-import com.movtery.zalithlauncher.context.LocaleHelper;
 
 public abstract class BaseActivity extends AppCompatActivity {
 

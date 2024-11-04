@@ -6,6 +6,8 @@ import android.net.Uri
 import android.view.View
 import android.view.Window
 import android.widget.Toast
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.DialogOtherLoginBinding
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.login.AuthResult
 import com.movtery.zalithlauncher.feature.login.OtherLoginApi
@@ -14,9 +16,7 @@ import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.databinding.DialogOtherLoginBinding
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import java.util.Objects
 

@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentProfileTypeBinding
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.FragmentProfileTypeBinding
 import net.kdt.pojavlaunch.fragments.ProfileEditorFragment
 
 class ProfileTypeSelectFragment : FragmentWithAnim(R.layout.fragment_profile_type) {

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentDownloadResourceBinding
 import com.movtery.zalithlauncher.event.single.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.Filters
@@ -32,8 +34,6 @@ import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedList
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.skydoves.powerspinner.PowerSpinnerView
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.FragmentDownloadResourceBinding
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

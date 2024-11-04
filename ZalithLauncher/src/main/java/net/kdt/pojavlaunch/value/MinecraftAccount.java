@@ -1,17 +1,19 @@
 package net.kdt.pojavlaunch.value;
 
-import net.kdt.pojavlaunch.*;
+import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 
-import java.io.*;
-import com.google.gson.*;
+import com.google.gson.JsonSyntaxException;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.skin.SkinFileDownloader;
 
-import androidx.annotation.Keep;
-import androidx.annotation.NonNull;
+import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 @Keep
 public class MinecraftAccount {

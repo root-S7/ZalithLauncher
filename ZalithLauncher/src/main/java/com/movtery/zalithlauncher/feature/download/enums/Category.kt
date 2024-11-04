@@ -1,6 +1,6 @@
 package com.movtery.zalithlauncher.feature.download.enums
 
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 
 /**
  * CurseForge与Modrinth双平台的类别汇集，记录类别所代指的实际值，以便搜索资源时填入类别。

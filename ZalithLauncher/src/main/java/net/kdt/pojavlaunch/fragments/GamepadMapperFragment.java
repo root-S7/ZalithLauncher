@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.FragmentControllerRemapperBinding;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.customcontrols.gamepad.Gamepad;
 import net.kdt.pojavlaunch.customcontrols.gamepad.GamepadMapperAdapter;
-import net.kdt.pojavlaunch.databinding.FragmentControllerRemapperBinding;
 
 import fr.spse.gamepad_remapper.RemapperManager;
 import fr.spse.gamepad_remapper.RemapperView;

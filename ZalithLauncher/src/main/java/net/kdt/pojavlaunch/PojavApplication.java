@@ -3,17 +3,17 @@ package net.kdt.pojavlaunch;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.movtery.zalithlauncher.utils.ZHTools.getVersionName;
 
-import android.app.*;
-import android.content.*;
-import android.content.pm.*;
-import android.content.res.*;
-import android.os.*;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.*;
-
-import android.util.*;
+import androidx.core.app.ActivityCompat;
 
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.context.LocaleHelper;
@@ -24,11 +24,13 @@ import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
-import java.io.*;
-import java.text.*;
-import java.util.*;
-
 import net.kdt.pojavlaunch.utils.FileUtils;
+
+import java.io.File;
+import java.io.PrintStream;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Objects;
 
 public class PojavApplication extends Application {
 	public static final String CRASH_REPORT_TAG = "PojavCrashReport";

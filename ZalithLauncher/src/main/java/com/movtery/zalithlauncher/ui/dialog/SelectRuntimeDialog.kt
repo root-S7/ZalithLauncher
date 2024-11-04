@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.ui.dialog
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.multirt.RTRecyclerViewAdapter
 import net.kdt.pojavlaunch.multirt.Runtime

@@ -23,6 +23,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.movtery.anim.animations.Animations;
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.event.sticky.RefreshVersionSpinnerEvent;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -30,7 +31,6 @@ import com.movtery.zalithlauncher.ui.fragment.ProfileTypeSelectFragment;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.profiles.ProfileAdapter;
 import net.kdt.pojavlaunch.profiles.ProfileAdapterExtra;
 

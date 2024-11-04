@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.Task;
@@ -21,7 +22,6 @@ import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.Architecture;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import java.util.List;

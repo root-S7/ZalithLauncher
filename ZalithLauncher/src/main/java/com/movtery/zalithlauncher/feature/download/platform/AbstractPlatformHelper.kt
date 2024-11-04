@@ -2,6 +2,7 @@ package com.movtery.zalithlauncher.feature.download.platform
 
 import android.content.Context
 import com.kdt.mcgui.ProgressLayout
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
@@ -10,7 +11,6 @@ import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.task.Task
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.modloaders.modpacks.api.NotificationDownloadListener

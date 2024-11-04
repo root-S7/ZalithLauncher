@@ -4,10 +4,9 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.utils.file.FileDeletionHandler;
-
-import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 import java.util.List;

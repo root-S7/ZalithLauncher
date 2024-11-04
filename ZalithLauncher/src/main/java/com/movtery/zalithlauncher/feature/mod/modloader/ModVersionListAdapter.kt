@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.ItemFileListViewBinding
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.ItemFileListViewBinding
 import net.kdt.pojavlaunch.modloaders.FabricVersion
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
 import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy

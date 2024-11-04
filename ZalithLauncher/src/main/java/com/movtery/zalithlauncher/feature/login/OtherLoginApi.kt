@@ -2,9 +2,9 @@ package com.movtery.zalithlauncher.feature.login
 
 import android.content.Context
 import com.google.gson.Gson
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
 import com.movtery.zalithlauncher.utils.PathAndUrlManager.Companion.createRequestBuilder
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

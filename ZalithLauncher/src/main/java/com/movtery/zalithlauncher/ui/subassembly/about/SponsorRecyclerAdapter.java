@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.ItemSponsorViewBinding;
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.ItemSponsorViewBinding;
 
 import java.util.List;
 

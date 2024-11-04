@@ -7,7 +7,8 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
+
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
 
 @SuppressLint("AppCompatCustomView")

@@ -2,9 +2,9 @@ package com.movtery.zalithlauncher.ui.fragment.settings.wrapper
 
 import android.content.Context
 import android.view.View
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.R
 
 abstract class AbstractSettingsWrapper(
     private val mainView: View

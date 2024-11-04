@@ -12,8 +12,8 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.movtery.zalithlauncher.databinding.DialogImagePreviewBinding
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
-import net.kdt.pojavlaunch.databinding.DialogImagePreviewBinding
 import java.io.File
 
 @SuppressLint("CheckResult")

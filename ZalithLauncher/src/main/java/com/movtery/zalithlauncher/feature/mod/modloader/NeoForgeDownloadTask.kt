@@ -1,13 +1,13 @@
 package com.movtery.zalithlauncher.feature.mod.modloader
 
 import com.kdt.mcgui.ProgressLayout
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgeVersions
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgedForgeVersions
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgeInstallerUrl
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgedForgeInstallerUrl
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools.DownloaderFeedback
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper

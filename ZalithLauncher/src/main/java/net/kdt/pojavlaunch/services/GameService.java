@@ -13,7 +13,8 @@ import android.os.Process;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
+
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
 

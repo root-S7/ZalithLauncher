@@ -10,12 +10,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import net.kdt.pojavlaunch.GrabListener;
 
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.image.Dimension;
 import com.movtery.zalithlauncher.utils.image.ImageUtils;
+
+import net.kdt.pojavlaunch.GrabListener;
 
 import org.lwjgl.glfw.CallbackBridge;
 

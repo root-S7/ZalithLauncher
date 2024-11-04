@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.download.install
 
 import com.kdt.mcgui.ProgressLayout
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentPath
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
@@ -10,7 +11,6 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils.Companion.getIcon
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper
 import net.kdt.pojavlaunch.utils.DownloadUtils
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles

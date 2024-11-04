@@ -1,8 +1,8 @@
 package com.movtery.zalithlauncher.feature.download.utils
 
 import android.content.Context
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.enums.DependencyType
-import net.kdt.pojavlaunch.R
 
 class DependencyUtils {
     companion object {

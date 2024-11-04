@@ -5,8 +5,8 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.Settings
-import net.kdt.pojavlaunch.R
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class ListSettingsWrapper(

@@ -9,9 +9,9 @@ import android.widget.BaseAdapter;
 
 import androidx.core.graphics.ColorUtils;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.setting.AllSettings;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;

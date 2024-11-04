@@ -7,7 +7,8 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
+
 import net.kdt.pojavlaunch.Tools;
 
 public class NotificationUtils {

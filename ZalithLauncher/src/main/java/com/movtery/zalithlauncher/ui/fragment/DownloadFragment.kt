@@ -10,14 +10,14 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentDownloadBinding
 import com.movtery.zalithlauncher.event.single.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
 import com.movtery.zalithlauncher.ui.fragment.download.ModDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ModPackDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ResourcePackDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.WorldDownloadFragment
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.FragmentDownloadBinding
 import org.greenrobot.eventbus.EventBus
 
 class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {

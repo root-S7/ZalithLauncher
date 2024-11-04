@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.Window
+import com.movtery.zalithlauncher.databinding.DialogTipBinding
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
-import net.kdt.pojavlaunch.databinding.DialogTipBinding
 
 class TipDialog private constructor(
     context: Context,

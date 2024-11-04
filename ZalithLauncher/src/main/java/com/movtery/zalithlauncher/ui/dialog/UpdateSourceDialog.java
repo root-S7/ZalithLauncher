@@ -7,12 +7,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.DialogUpdateSourceBinding;
 import com.movtery.zalithlauncher.feature.update.LauncherVersion;
+import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.task.TaskExecutors;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.DialogUpdateSourceBinding;
 
 public class UpdateSourceDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogUpdateSourceBinding binding = DialogUpdateSourceBinding.inflate(getLayoutInflater());

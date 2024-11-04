@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.value;
 
 import androidx.annotation.Keep;
+
 import net.kdt.pojavlaunch.JMinecraftVersionList.Arguments.ArgValue.ArgRules;
 
 @Keep

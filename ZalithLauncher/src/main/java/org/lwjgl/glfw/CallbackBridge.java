@@ -1,10 +1,14 @@
 package org.lwjgl.glfw;
 
-import net.kdt.pojavlaunch.*;
-import android.content.*;
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.view.Choreographer;
 
 import androidx.annotation.Nullable;
+
+import net.kdt.pojavlaunch.GrabListener;
+import net.kdt.pojavlaunch.LwjglGlfwKeycode;
+import net.kdt.pojavlaunch.MainActivity;
 
 import java.util.ArrayList;
 

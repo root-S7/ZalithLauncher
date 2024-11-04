@@ -10,19 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
+
 import net.kdt.pojavlaunch.EfficientAndroidLWJGLKeycode;
 import net.kdt.pojavlaunch.GrabListener;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-
-import android.widget.TextView;
-
-import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
 
 public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdapter.ViewHolder> implements GamepadDataProvider {
     private static final int BUTTON_COUNT = 20;

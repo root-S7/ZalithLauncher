@@ -17,7 +17,10 @@
  */
 package org.jackhuang.hmcl.util.io;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This utility class consists of some util methods operating on InputStream/OutputStream.

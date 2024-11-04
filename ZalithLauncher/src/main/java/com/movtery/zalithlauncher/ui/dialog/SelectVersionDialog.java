@@ -5,11 +5,10 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.tabs.TabLayout;
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionListView;
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedListener;
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionType;
-
-import net.kdt.pojavlaunch.R;
 
 public class SelectVersionDialog extends FullScreenDialog {
     private TabLayout mTabLayout;

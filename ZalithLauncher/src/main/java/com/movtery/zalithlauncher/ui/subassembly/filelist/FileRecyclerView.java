@@ -9,9 +9,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.task.TaskExecutors;
-
-import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 import java.util.ArrayList;

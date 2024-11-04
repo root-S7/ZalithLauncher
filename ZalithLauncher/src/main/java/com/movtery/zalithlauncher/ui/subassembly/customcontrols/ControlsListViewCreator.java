@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.DeleteDialog;
@@ -17,8 +18,6 @@ import com.movtery.zalithlauncher.ui.subassembly.filelist.RefreshListener;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringFilter;
-
-import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 import java.util.ArrayList;

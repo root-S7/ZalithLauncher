@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.ui.dialog
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import net.kdt.pojavlaunch.databinding.DialogSelectItemBinding
+import com.movtery.zalithlauncher.databinding.DialogSelectItemBinding
 
 abstract class AbstractSelectDialog(context: Context) : FullScreenDialog(context) {
     protected val binding = DialogSelectItemBinding.inflate(layoutInflater)

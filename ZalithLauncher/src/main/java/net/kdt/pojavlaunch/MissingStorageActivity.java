@@ -1,8 +1,10 @@
 package net.kdt.pojavlaunch;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.movtery.zalithlauncher.R;
 
 public class MissingStorageActivity extends AppCompatActivity {
     @Override

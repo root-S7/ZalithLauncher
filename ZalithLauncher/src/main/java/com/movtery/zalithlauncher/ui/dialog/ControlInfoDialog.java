@@ -6,14 +6,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.DialogControlInfoBinding;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.EditControlData;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
-import net.kdt.pojavlaunch.databinding.DialogControlInfoBinding;
 
 import java.io.File;
 

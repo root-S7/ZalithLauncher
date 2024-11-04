@@ -7,11 +7,10 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
-
-import net.kdt.pojavlaunch.R;
 
 import org.apache.commons.io.FileUtils;
 

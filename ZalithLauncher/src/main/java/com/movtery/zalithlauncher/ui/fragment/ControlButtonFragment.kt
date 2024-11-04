@@ -13,6 +13,8 @@ import androidx.activity.result.ActivityResultLauncher
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentControlManagerBinding
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.task.Task
@@ -33,10 +35,8 @@ import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAn
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.zalithlauncher.utils.file.PasteFile
 import net.kdt.pojavlaunch.CustomControlsActivity
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
-import net.kdt.pojavlaunch.databinding.FragmentControlManagerBinding
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 

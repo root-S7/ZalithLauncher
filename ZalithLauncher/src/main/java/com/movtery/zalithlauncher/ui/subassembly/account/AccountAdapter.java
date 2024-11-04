@@ -8,13 +8,13 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.ItemAccountManagerBinding;
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.utils.skin.SkinLoader;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.databinding.ItemAccountManagerBinding;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import java.io.IOException;

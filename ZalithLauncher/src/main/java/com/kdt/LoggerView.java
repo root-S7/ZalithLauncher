@@ -13,11 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.movtery.anim.animations.Animations;
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.Logger;
-import net.kdt.pojavlaunch.R;
 
 /**
  * A class able to display logs to the user.

@@ -13,6 +13,8 @@ import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentProfilePathManagerBinding
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathJsonObject
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.save
@@ -23,9 +25,7 @@ import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfilePathAd
 import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.databinding.FragmentProfilePathManagerBinding
 import org.greenrobot.eventbus.EventBus
 import java.util.UUID
 

@@ -16,11 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.FragmentMicrosoftLoginBinding;
 import com.movtery.zalithlauncher.event.value.MicrosoftLoginEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.FragmentMicrosoftLoginBinding;
 
 import org.greenrobot.eventbus.EventBus;
 

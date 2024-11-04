@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
 
     <application
-        android:name=".PojavApplication"
+        android:name="net.kdt.pojavlaunch.PojavApplication"
         android:allowBackup="true"
         android:allowNativeHeapPointerTagging="false"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -53,12 +53,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MissingStorageActivity"
+            android:name="net.kdt.pojavlaunch.MissingStorageActivity"
             android:exported="false"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".LauncherActivity"
+            android:name="net.kdt.pojavlaunch.LauncherActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
@@ -66,7 +66,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".ImportControlActivity"
+            android:name="net.kdt.pojavlaunch.ImportControlActivity"
             android:exported="true"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateVisible"
@@ -86,16 +86,16 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowErrorActivity"
+        <activity android:name="net.kdt.pojavlaunch.ShowErrorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
             android:process=":gui_installer"
-            android:name=".JavaGUILauncherActivity"
+            android:name="net.kdt.pojavlaunch.JavaGUILauncherActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".CustomControlsActivity"
+            android:name="net.kdt.pojavlaunch.CustomControlsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
             android:exported="false"
             android:screenOrientation="sensorLandscape" >
@@ -106,14 +106,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="net.kdt.pojavlaunch.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:launchMode="standard"
             android:process=":game"
             android:screenOrientation="sensorLandscape" />
 
         <provider
-            android:name=".scoped.FolderProvider"
+            android:name="net.kdt.pojavlaunch.scoped.FolderProvider"
             android:authorities="@string/storageProviderAuthorities"
             android:exported="true"
             android:grantUriPermissions="true"
@@ -133,9 +133,9 @@
         </provider>
 
         <service
-            android:name=".services.ProgressService"
+            android:name="net.kdt.pojavlaunch.services.ProgressService"
             android:foregroundServiceType="dataSync" />
-        <service android:name=".services.GameService" android:process=":game"
+        <service android:name="net.kdt.pojavlaunch.services.GameService" android:process=":game"
             android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="This application is intended to run a 3rd-party piece of software which cannot be managed using the activity's saved instance state. This service is used for background persistence of this piece of software."/>

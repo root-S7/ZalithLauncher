@@ -4,7 +4,7 @@ import android.animation.AnimatorInflater
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 
 class AnimRelativeLayout @JvmOverloads constructor(
     context: Context,

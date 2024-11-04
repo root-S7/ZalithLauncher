@@ -1,8 +1,8 @@
 package com.movtery.zalithlauncher.utils
 
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor.Companion.getString
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat

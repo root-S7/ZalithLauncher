@@ -7,10 +7,9 @@ import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.databinding.DialogControlSettingsBinding;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
-
-import net.kdt.pojavlaunch.databinding.DialogControlSettingsBinding;
 
 public class ControlSettingsDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogControlSettingsBinding binding = DialogControlSettingsBinding.inflate(getLayoutInflater());

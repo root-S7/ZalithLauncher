@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.event.sticky.MinecraftVersionValueEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -16,7 +17,6 @@ import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean;
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerViewCreator;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.utils.FilteredSubList;
 
 import org.greenrobot.eventbus.EventBus;

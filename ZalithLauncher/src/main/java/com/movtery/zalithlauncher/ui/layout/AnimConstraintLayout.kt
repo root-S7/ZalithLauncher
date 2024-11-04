@@ -4,7 +4,7 @@ import android.animation.AnimatorInflater
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 
 class AnimConstraintLayout @JvmOverloads constructor(
     context: Context,

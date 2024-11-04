@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
+import com.movtery.zalithlauncher.databinding.ActivitySplashBinding
 import com.movtery.zalithlauncher.feature.background.BackgroundManager.setBackgroundImage
 import com.movtery.zalithlauncher.feature.background.BackgroundType
 import com.movtery.zalithlauncher.feature.unpack.Components
@@ -16,9 +18,7 @@ import com.movtery.zalithlauncher.feature.unpack.UnpackSingleFilesTask
 import com.movtery.zalithlauncher.task.Task
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.MissingStorageActivity
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.databinding.ActivitySplashBinding
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {

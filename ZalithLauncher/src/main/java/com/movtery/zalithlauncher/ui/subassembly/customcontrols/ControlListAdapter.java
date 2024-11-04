@@ -14,15 +14,15 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.ItemControlListViewBinding;
+import com.movtery.zalithlauncher.databinding.ItemFileListViewBinding;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.ControlInfoDialog;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.databinding.ItemControlListViewBinding;
-import net.kdt.pojavlaunch.databinding.ItemFileListViewBinding;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.movtery.zalithlauncher.BuildConfig
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.update.LauncherVersion.FileSize
 import com.movtery.zalithlauncher.feature.update.UpdateLauncher.UpdateSource
@@ -17,8 +19,6 @@ import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Architecture
-import net.kdt.pojavlaunch.BuildConfig
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import okhttp3.Call
 import okhttp3.Response

@@ -27,14 +27,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.movtery.zalithlauncher.BuildConfig;
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 
-import net.kdt.pojavlaunch.BuildConfig;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;

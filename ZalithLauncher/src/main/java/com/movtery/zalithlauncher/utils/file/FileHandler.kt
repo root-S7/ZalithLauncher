@@ -1,10 +1,10 @@
 package com.movtery.zalithlauncher.utils.file
 
 import android.content.Context
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.R
 import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.Future

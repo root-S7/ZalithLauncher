@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.ItemFileListViewBinding
 import com.movtery.zalithlauncher.feature.login.AuthResult.AvailableProfiles
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.ItemFileListViewBinding
 
 class SelectRoleDialog(context: Context, private val mProfiles: List<AvailableProfiles>) :
     AbstractSelectDialog(context) {

@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
-import net.kdt.pojavlaunch.R;
+import com.movtery.zalithlauncher.R;
 
 public class ColorSelector implements HueSelectionListener, RectangleSelectionListener, AlphaSelectionListener, TextWatcher{
     private static final int ALPHA_MASK = ~(0xFF << 24);

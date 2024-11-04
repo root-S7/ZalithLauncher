@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
-import net.kdt.pojavlaunch.databinding.DialogEditTextBinding;
+import com.movtery.zalithlauncher.databinding.DialogEditTextBinding;
 
 public class EditTextDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogEditTextBinding binding = DialogEditTextBinding.inflate(getLayoutInflater());

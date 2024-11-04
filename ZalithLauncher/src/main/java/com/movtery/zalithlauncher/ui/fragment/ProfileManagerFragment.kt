@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentProfileManagerBinding
 import com.movtery.zalithlauncher.event.sticky.RefreshVersionSpinnerEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.databinding.FragmentProfileManagerBinding
 import net.kdt.pojavlaunch.fragments.ProfileEditorFragment
 import net.kdt.pojavlaunch.profiles.ProfileIconCache
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles

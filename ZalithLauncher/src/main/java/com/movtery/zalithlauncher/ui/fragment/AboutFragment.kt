@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentAboutBinding
 import com.movtery.zalithlauncher.feature.CheckSponsor
 import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.check
 import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.getSponsorData
@@ -23,9 +25,7 @@ import com.movtery.zalithlauncher.ui.subassembly.about.SponsorRecyclerAdapter
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.databinding.FragmentAboutBinding
 
 class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     companion object {

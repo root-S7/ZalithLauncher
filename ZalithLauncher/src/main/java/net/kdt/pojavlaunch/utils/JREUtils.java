@@ -6,32 +6,45 @@ import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
-import android.content.*;
+import android.content.Context;
 import android.os.Build;
-import android.system.*;
-import android.util.*;
+import android.system.ErrnoException;
+import android.system.Os;
+import android.util.ArrayMap;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.movtery.zalithlauncher.event.value.JvmExitEvent;
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.event.sticky.LIBGLESValueEvent;
+import com.movtery.zalithlauncher.event.value.JvmExitEvent;
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
-import com.oracle.dalvik.*;
-import java.io.*;
-import java.util.*;
-import net.kdt.pojavlaunch.*;
+import com.oracle.dalvik.VMLauncher;
+
+import net.kdt.pojavlaunch.Architecture;
+import net.kdt.pojavlaunch.Logger;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin;
 
 import org.greenrobot.eventbus.EventBus;
-import org.lwjgl.glfw.*;
+import org.lwjgl.glfw.CallbackBridge;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;

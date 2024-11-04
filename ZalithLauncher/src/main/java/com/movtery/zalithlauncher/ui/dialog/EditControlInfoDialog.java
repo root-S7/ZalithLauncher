@@ -7,10 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.DialogEditControlInfoBinding;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.DialogEditControlInfoBinding;
 
 public class EditControlInfoDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogEditControlInfoBinding binding = DialogEditControlInfoBinding.inflate(getLayoutInflater());

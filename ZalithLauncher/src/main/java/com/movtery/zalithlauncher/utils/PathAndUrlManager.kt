@@ -2,8 +2,8 @@ package com.movtery.zalithlauncher.utils
 
 import android.content.Context
 import android.os.Environment
+import com.movtery.zalithlauncher.BuildConfig
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.gameHome
-import net.kdt.pojavlaunch.BuildConfig
 import net.kdt.pojavlaunch.Tools
 import okhttp3.Request
 import okhttp3.RequestBody

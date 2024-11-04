@@ -1,6 +1,6 @@
 package com.movtery.zalithlauncher.feature.download.enums
 
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 
 enum class Sort(val resNameID: Int, val curseforge: Int, val modrinth: String) {
     RELEVANT(R.string.download_ui_sort_by_relevant, 1, "relevance"),

@@ -11,10 +11,9 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.DialogKeyboardBinding;
 import com.movtery.zalithlauncher.ui.view.AnimButton;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.DialogKeyboardBinding;
 
 import java.util.ArrayList;
 import java.util.List;

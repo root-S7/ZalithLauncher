@@ -8,8 +8,8 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import java.io.FileWriter
 

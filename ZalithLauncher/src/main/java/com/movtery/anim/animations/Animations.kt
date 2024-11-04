@@ -1,9 +1,32 @@
 package com.movtery.anim.animations
 
-import com.movtery.anim.animations.bounce.*
-import com.movtery.anim.animations.fade.*
-import com.movtery.anim.animations.other.*
-import com.movtery.anim.animations.slide.*
+import com.movtery.anim.animations.bounce.BounceEnlargeAnimator
+import com.movtery.anim.animations.bounce.BounceInDownAnimator
+import com.movtery.anim.animations.bounce.BounceInLeftAnimator
+import com.movtery.anim.animations.bounce.BounceInRightAnimator
+import com.movtery.anim.animations.bounce.BounceInUpAnimator
+import com.movtery.anim.animations.bounce.BounceShrinkAnimator
+import com.movtery.anim.animations.fade.FadeInAnimator
+import com.movtery.anim.animations.fade.FadeInDownAnimator
+import com.movtery.anim.animations.fade.FadeInLeftAnimator
+import com.movtery.anim.animations.fade.FadeInRightAnimator
+import com.movtery.anim.animations.fade.FadeInUpAnimator
+import com.movtery.anim.animations.fade.FadeOutAnimator
+import com.movtery.anim.animations.fade.FadeOutDownAnimator
+import com.movtery.anim.animations.fade.FadeOutLeftAnimator
+import com.movtery.anim.animations.fade.FadeOutRightAnimator
+import com.movtery.anim.animations.fade.FadeOutUpAnimator
+import com.movtery.anim.animations.other.PulseAnimator
+import com.movtery.anim.animations.other.ShakeAnimator
+import com.movtery.anim.animations.other.WobbleAnimator
+import com.movtery.anim.animations.slide.SlideInDownAnimator
+import com.movtery.anim.animations.slide.SlideInLeftAnimator
+import com.movtery.anim.animations.slide.SlideInRightAnimator
+import com.movtery.anim.animations.slide.SlideInUpAnimator
+import com.movtery.anim.animations.slide.SlideOutDownAnimator
+import com.movtery.anim.animations.slide.SlideOutLeftAnimator
+import com.movtery.anim.animations.slide.SlideOutRightAnimator
+import com.movtery.anim.animations.slide.SlideOutUpAnimator
 
 enum class Animations(val animator: BaseAnimator) {
     //Bounce

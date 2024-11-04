@@ -10,12 +10,12 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.movtery.zalithlauncher.R
 import com.petterp.floatingx.assist.FxAnimation
 import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.util.createFx
 import com.petterp.floatingx.view.FxViewHolder
-import net.kdt.pojavlaunch.R
 
 class SearchViewWrapper(private val fragment: Fragment) {
     private lateinit var mSearchEditText: EditText

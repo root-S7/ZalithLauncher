@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.ui.dialog
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean
@@ -10,7 +11,6 @@ import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerViewCreato
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
-import net.kdt.pojavlaunch.R
 import java.io.File
 
 class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {

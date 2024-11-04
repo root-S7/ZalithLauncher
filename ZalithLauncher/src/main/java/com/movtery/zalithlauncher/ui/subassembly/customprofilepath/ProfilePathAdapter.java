@@ -12,16 +12,15 @@ import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.ItemProfilePathBinding;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
-import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 import com.movtery.zalithlauncher.ui.fragment.FilesFragment;
+import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 import com.movtery.zalithlauncher.utils.ZHTools;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.ItemProfilePathBinding;
 
 import java.util.List;
 import java.util.Map;

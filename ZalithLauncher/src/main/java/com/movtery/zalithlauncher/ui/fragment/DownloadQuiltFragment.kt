@@ -1,6 +1,6 @@
 package com.movtery.zalithlauncher.ui.fragment
 
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 import net.kdt.pojavlaunch.modloaders.FabriclikeUtils
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
 

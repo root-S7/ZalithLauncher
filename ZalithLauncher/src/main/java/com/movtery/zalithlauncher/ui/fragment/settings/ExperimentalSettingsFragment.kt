@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.SettingsFragmentExperimentalBinding
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SwitchSettingsWrapper
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.SettingsFragmentExperimentalBinding
 
 class ExperimentalSettingsFragment :
     AbstractSettingsFragment(R.layout.settings_fragment_experimental) {

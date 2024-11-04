@@ -1,13 +1,20 @@
 package net.kdt.pojavlaunch;
 
-import android.content.*;
-import android.graphics.*;
-import android.text.*;
-import android.util.*;
-import android.view.*;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.SurfaceTexture;
+import android.text.TextPaint;
+import android.util.AttributeSet;
+import android.view.Surface;
+import android.view.TextureView;
+import android.view.ViewGroup;
 
-import java.util.*;
-import net.kdt.pojavlaunch.utils.*;
+import net.kdt.pojavlaunch.utils.JREUtils;
+
+import java.util.LinkedList;
 
 public class AWTCanvasView extends TextureView implements TextureView.SurfaceTextureListener, Runnable {
     public static final int AWT_CANVAS_WIDTH = (int) (Tools.currentDisplayMetrics.widthPixels * 0.8);

@@ -9,17 +9,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.DialogUpdateBinding;
 import com.movtery.zalithlauncher.feature.update.LauncherVersion;
+import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.feature.update.UpdateUtils;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.DialogUpdateBinding;
 
 public class UpdateDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogUpdateBinding binding = DialogUpdateBinding.inflate(getLayoutInflater());

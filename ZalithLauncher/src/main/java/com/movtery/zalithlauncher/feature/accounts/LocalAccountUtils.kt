@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.widget.Button
 import android.widget.CheckBox
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 
 class LocalAccountUtils {

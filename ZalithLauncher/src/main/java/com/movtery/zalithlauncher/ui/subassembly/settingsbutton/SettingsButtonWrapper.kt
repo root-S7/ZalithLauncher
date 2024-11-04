@@ -2,7 +2,7 @@ package com.movtery.zalithlauncher.ui.subassembly.settingsbutton
 
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 
 class SettingsButtonWrapper(val button: ImageButton) {
     private var onTypeChangeListener: OnTypeChangeListener? = null

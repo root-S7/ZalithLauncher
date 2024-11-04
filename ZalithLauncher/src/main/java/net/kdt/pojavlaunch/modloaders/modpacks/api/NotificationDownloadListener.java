@@ -3,11 +3,11 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import android.content.Context;
 import android.content.Intent;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 
 import net.kdt.pojavlaunch.LauncherActivity;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModloaderInstallTracker;

@@ -14,10 +14,9 @@ import android.webkit.MimeTypeMap;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
-
-import net.kdt.pojavlaunch.R;
 
 import org.apache.commons.io.FileUtils;
 

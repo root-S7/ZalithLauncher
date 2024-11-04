@@ -1,7 +1,7 @@
 package net.kdt.pojavlaunch;
 
-import android.view.*;
-import android.view.GestureDetector.*;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
 
 public class SingleTapConfirm extends SimpleOnGestureListener {
 	@Override

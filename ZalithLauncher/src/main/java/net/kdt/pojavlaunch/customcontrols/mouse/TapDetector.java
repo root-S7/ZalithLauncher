@@ -1,11 +1,11 @@
 package net.kdt.pojavlaunch.customcontrols.mouse;
 
-import android.view.MotionEvent;
-
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_POINTER_DOWN;
 import static android.view.MotionEvent.ACTION_POINTER_UP;
 import static android.view.MotionEvent.ACTION_UP;
+
+import android.view.MotionEvent;
 
 import net.kdt.pojavlaunch.Tools;
 

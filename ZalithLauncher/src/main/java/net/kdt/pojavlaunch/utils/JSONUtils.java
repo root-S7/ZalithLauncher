@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.utils;
 
-import java.util.*;
+import java.util.Map;
 
 public class JSONUtils {
     public static String[] insertJSONValueList(String[] args, Map<String, String> keyValueMap) {

@@ -5,6 +5,8 @@ import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 
 import android.view.KeyEvent;
 
+import com.movtery.zalithlauncher.R;
+
 import org.lwjgl.glfw.CallbackBridge;
 
 import java.util.Arrays;

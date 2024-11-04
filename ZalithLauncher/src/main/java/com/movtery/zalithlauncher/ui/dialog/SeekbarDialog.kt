@@ -5,7 +5,7 @@ import android.view.View
 import android.view.Window
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import net.kdt.pojavlaunch.databinding.DialogSeekbarBinding
+import com.movtery.zalithlauncher.databinding.DialogSeekbarBinding
 
 class SeekbarDialog(
     context: Context,

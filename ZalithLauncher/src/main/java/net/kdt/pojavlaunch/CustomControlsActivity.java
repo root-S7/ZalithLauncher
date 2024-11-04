@@ -10,7 +10,10 @@ import android.widget.FrameLayout;
 import androidx.activity.OnBackPressedCallback;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
+import com.movtery.zalithlauncher.databinding.ActivityCustomControlsBinding;
+import com.movtery.zalithlauncher.databinding.ViewControlSettingsBinding;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
 import com.movtery.zalithlauncher.feature.background.BackgroundType;
 import com.movtery.zalithlauncher.setting.AllSettings;
@@ -23,8 +26,6 @@ import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
-import net.kdt.pojavlaunch.databinding.ActivityCustomControlsBinding;
-import net.kdt.pojavlaunch.databinding.ViewControlSettingsBinding;
 
 import java.io.IOException;
 

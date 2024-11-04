@@ -1,6 +1,6 @@
 package com.movtery.zalithlauncher.feature.unpack
 
-import net.kdt.pojavlaunch.R
+import com.movtery.zalithlauncher.R
 
 enum class Components(val component: String, val summary: Int?, val privateDirectory: Boolean) {
     OTHER_LOGIN("other_login", null, false),

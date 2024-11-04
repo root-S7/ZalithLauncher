@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movtery.zalithlauncher.databinding.ItemAboutViewBinding;
+
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.databinding.ItemAboutViewBinding;
 
 import java.util.List;
 

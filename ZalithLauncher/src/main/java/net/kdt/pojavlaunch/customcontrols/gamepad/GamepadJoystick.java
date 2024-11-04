@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch.customcontrols.gamepad;
 import android.view.InputDevice;
 import android.view.MotionEvent;
 
-
 import net.kdt.pojavlaunch.utils.MathUtils;
 
 public class GamepadJoystick {

@@ -4,13 +4,13 @@ import android.content.Context
 import android.view.View
 import android.view.Window
 import android.widget.TextView
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.file.FileTools
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 

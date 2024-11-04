@@ -2,8 +2,9 @@ package net.kdt.pojavlaunch.customcontrols.gamepad;
 
 import android.content.Context;
 
+import com.movtery.zalithlauncher.R;
+
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
-import net.kdt.pojavlaunch.R;
 
 public class GamepadMap {
 

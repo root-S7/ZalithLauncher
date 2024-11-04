@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.SettingsFragmentControlBinding
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.fragment.CustomMouseFragment
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
@@ -16,8 +18,6 @@ import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SeekBarSettingsWr
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.zalithlauncher.utils.ZHTools
 import fr.spse.gamepad_remapper.Remapper
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.SettingsFragmentControlBinding
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 
 class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_control) {

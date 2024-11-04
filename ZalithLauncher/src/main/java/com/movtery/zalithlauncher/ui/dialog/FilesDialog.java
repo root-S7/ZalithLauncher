@@ -6,12 +6,11 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.DialogOperationFileBinding;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.file.PasteFile;
-
-import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.databinding.DialogOperationFileBinding;
 
 import java.io.File;
 import java.util.ArrayList;

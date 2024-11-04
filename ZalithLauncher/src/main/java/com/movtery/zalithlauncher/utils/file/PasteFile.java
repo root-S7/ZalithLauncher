@@ -3,10 +3,9 @@ package com.movtery.zalithlauncher.utils.file;
 import android.app.Activity;
 import android.widget.Toast;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
-
-import net.kdt.pojavlaunch.R;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.ui.subassembly.view
 import android.app.Activity
 import android.view.View
 import android.widget.TextView
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.task.TaskExecutors
@@ -12,7 +13,6 @@ import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.util.createFx
 import com.petterp.floatingx.view.FxViewHolder
-import net.kdt.pojavlaunch.R
 import java.util.Timer
 import java.util.TimerTask
 

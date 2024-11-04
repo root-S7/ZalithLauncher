@@ -16,6 +16,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentCustomBackgroundBinding
 import com.movtery.zalithlauncher.event.single.MainBackgroundChangeEvent
 import com.movtery.zalithlauncher.feature.background.BackgroundManager
 import com.movtery.zalithlauncher.feature.background.BackgroundType
@@ -33,8 +35,6 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackg
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.databinding.FragmentCustomBackgroundBinding
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 

@@ -28,18 +28,17 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.kdt.DefocusableScrollView;
+import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
 
 import net.kdt.pojavlaunch.EfficientAndroidLWJGLKeycode;
-import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.colorselector.ColorSelector;
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
 import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlDrawer;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
-
-import com.movtery.zalithlauncher.feature.log.Logging;
-import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
 
 import java.util.List;
 

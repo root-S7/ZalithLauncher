@@ -9,10 +9,10 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
-import net.kdt.pojavlaunch.R
 
 @SuppressLint("UseSwitchCompatOrMaterialCode", "StringFormatInvalid")
 class SeekBarSettingsWrapper(

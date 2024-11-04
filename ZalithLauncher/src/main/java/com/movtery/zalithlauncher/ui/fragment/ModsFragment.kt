@@ -12,7 +12,12 @@ import androidx.core.content.ContextCompat
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentModsBinding
+import com.movtery.zalithlauncher.feature.mod.ModToggleHandler
 import com.movtery.zalithlauncher.feature.mod.ModUtils
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog.FilesButton
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -20,18 +25,13 @@ import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileSelectedListener
 import com.movtery.zalithlauncher.ui.subassembly.view.SearchViewWrapper
+import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.movtery.zalithlauncher.utils.file.FileCopyHandler
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
-import com.movtery.zalithlauncher.feature.mod.ModToggleHandler
-import com.movtery.zalithlauncher.task.Task
-import com.movtery.zalithlauncher.task.TaskExecutors
-import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.file.PasteFile
-import net.kdt.pojavlaunch.R
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
-import net.kdt.pojavlaunch.databinding.FragmentModsBinding
 import java.io.File
 import java.util.function.Consumer
 

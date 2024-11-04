@@ -3,10 +3,10 @@ package com.movtery.zalithlauncher.ui.dialog
 import android.content.Context
 import android.view.View
 import android.view.Window
+import com.movtery.zalithlauncher.databinding.DialogProgressBinding
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.formatFileSize
-import net.kdt.pojavlaunch.databinding.DialogProgressBinding
 
 class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenDialog(context),
     DialogInitializationListener {
