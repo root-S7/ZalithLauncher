@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.movtery.anim.AnimPlayer
@@ -18,14 +17,12 @@ import com.movtery.zalithlauncher.ui.fragment.download.ModPackDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ResourcePackDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.WorldDownloadFragment
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentDownloadBinding
 import org.greenrobot.eventbus.EventBus
 
 class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
     companion object {
         const val TAG = "DownloadFragment"
-        const val BUNDLE_CLASSIFY_TYPE = "bundle_classify_type"
     }
 
     private lateinit var binding: FragmentDownloadBinding
@@ -48,8 +45,6 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
             if (reselect) return@observeIndexChange
             binding.downloadViewpager.setCurrentItem(toIndex, false)
         }
-
-        parseBundle()
     }
 
     private fun initViewPager() {
@@ -58,7 +53,6 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 1
             isUserInputEnabled = false
-            setPageTransformer(MarginPageTransformer(Tools.dpToPx(12F).toInt()))
             registerOnPageChangeCallback(object: OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -81,11 +75,6 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
     override fun onStop() {
         super.onStop()
         EventBus.getDefault().post(InDownloadFragmentEvent(false))
-    }
-
-    private fun parseBundle() {
-        val type = arguments?.getInt(BUNDLE_CLASSIFY_TYPE) ?: 0
-        binding.classifyTab.onPageSelected(type)
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
