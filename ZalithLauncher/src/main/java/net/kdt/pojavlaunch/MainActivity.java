@@ -23,6 +23,8 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -114,12 +116,16 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         CallbackBridge.addGrabListener(binding.mainGameRenderView);
         if(AllSettings.getEnableGyro()) mGyroControl = new GyroControl(this);
 
+        Window window = getWindow();
         // Enabling this on TextureView results in a broken white result
-        if(AllSettings.getAlternateSurface()) getWindow().setBackgroundDrawable(null);
-        else getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+        if(AllSettings.getAlternateSurface()) window.setBackgroundDrawable(null);
+        else window.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
         // Set the sustained performance mode for available APIs
-        getWindow().setSustainedPerformanceMode(AllSettings.getSustainedPerformance());
+        window.setSustainedPerformanceMode(AllSettings.getSustainedPerformance());
+
+        // 防止系统息屏
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         ControlLayout controlLayout = binding.mainControlLayout;
         mControlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
