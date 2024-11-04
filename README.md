@@ -59,6 +59,7 @@ This project uses several useful code libraries. Special thanks to them!
 
 #### Additional Code Libraries Used by Zalith Launcher
 
->- [CommonMark](https://github.com/thephpleague/commonmark) (For rendering Markdown text): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE).
->- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (Used part of the animation source code): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License).
->- [TapTargetView](https://github.com/KeepSafe/TapTargetView) (for creating user guides): [Apache License 2.0](https://github.com/KeepSafe/TapTargetView/blob/master/LICENSE)。
+>- [HMCL](https://github.com/HMCL-dev/HMCL) (uses some source code): [GPL-3.0 License](https://github.com/HMCL-dev/HMCL/blob/main/LICENSE)
+>- [CommonMark](https://github.com/thephpleague/commonmark) (for rendering Markdown text): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE)
+>- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (uses part of the animation source code): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License)
+>- [TapTargetView](https://github.com/KeepSafe/TapTargetView) (for creating onboarding guides): [Apache License 2.0](https://github.com/KeepSafe/TapTargetView/blob/master/LICENSE)

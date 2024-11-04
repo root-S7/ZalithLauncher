@@ -59,6 +59,7 @@
 
 #### Zalith Launcher 额外使用的代码库
 
+>- [HMCL](https://github.com/HMCL-dev/HMCL) (使用了一些源代码): [GPL-3.0 License](https://github.com/HMCL-dev/HMCL/blob/main/LICENSE)
 >- [CommonMark](https://github.com/thephpleague/commonmark) (用于渲染 MarkDown 文本): [BSD-3-Clause License](https://github.com/thephpleague/commonmark/blob/2.5/LICENSE)。
 >- [AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations) (使用了部分动画源代码): [MIT License](https://github.com/daimajia/AndroidViewAnimations/blob/master/License)。
 >- [TapTargetView](https://github.com/KeepSafe/TapTargetView) (用于制作新手引导): [Apache License 2.0](https://github.com/KeepSafe/TapTargetView/blob/master/LICENSE)。
