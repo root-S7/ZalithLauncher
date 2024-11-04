@@ -125,7 +125,6 @@
     <string name="create_profile_neoforge">Créer une instance NeoForge</string>
     <string name="create_profile_fabric">Créer une instance Fabric</string>
     <string name="create_profile_quilt">Créer une instance Quilt</string>
-    <string name="create_profile_modpack">Créer une instance de modpack</string>
     <!-- Controls -->
     <string name="control_primary">Clic gauche</string>
     <string name="control_secondary">Clic droit</string>
@@ -471,6 +470,7 @@
     <string name="download_classify_modpack">Télécharger le Modpack</string>
     <string name="download_classify_resource_pack">Télécharger le Pack de ressources</string>
     <string name="download_classify_world">Télécharger le Monde</string>
+    <string name="download_ui_install_local">Installer à partir de local</string>
     <string name="download_ui_search">Rechercher par nom</string>
     <string name="download_ui_mc_version">Version MC</string>
     <string name="download_ui_platform">Rechercher la plateforme</string>
@@ -504,11 +504,9 @@
     <string name="download_install_dependencies_include">Comprend</string>
     <string name="download_install">Téléchargement de %s</string>
     <!-- ModPack -->
-    <string name="select_modpack_local">Pack local</string>
     <string name="select_modpack_local_tip">Veuillez sélectionner un fichier de pack compatible avec l\'importation du lanceur !</string>
     <string name="select_modpack_local_not_supported">Ce fichier n\'est pas pris en charge par le lanceur !</string>
     <string name="select_modpack_local_installing_files">Installation des fichiers du jeu… (%d / %d)</string>
-    <string name="search_modpack">Rechercher un modpack</string>
     <string name="modpack_download_downloading_metadata">Téléchargement des métadonnées du modpack (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Téléchargement des mods (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Téléchargement des mods (fichiers téléchargés : %d, total : %d)</string>

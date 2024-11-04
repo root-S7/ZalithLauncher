@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.zalithlauncher.event.value.DownloadCheckSearchEvent
+import com.movtery.zalithlauncher.event.single.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
 import com.movtery.zalithlauncher.ui.fragment.download.ModDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ModPackDownloadFragment
@@ -63,7 +63,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     onFragmentSelect(position)
-                    EventBus.getDefault().post(DownloadCheckSearchEvent(position))
+                    EventBus.getDefault().post(DownloadPageSwapEvent())
                 }
             })
         }

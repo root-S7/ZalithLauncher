@@ -126,7 +126,6 @@
     <string name="create_profile_neoforge">Create NeoForge Instance</string>
     <string name="create_profile_fabric">Create Fabric Instance</string>
     <string name="create_profile_quilt">Create Quilt Instance</string>
-    <string name="create_profile_modpack">Create Modpack Instance</string>
     <!-- Controls -->
     <string name="control_primary">Left Click</string>
     <string name="control_secondary">Right Click</string>
@@ -476,6 +475,7 @@
     <string name="download_classify_modpack">Download Modpack</string>
     <string name="download_classify_resource_pack">Download Resource Pack</string>
     <string name="download_classify_world">Download World</string>
+    <string name="download_ui_install_local">Install from local</string>
     <string name="download_ui_search">Search Name</string>
     <string name="download_ui_mc_version">MC Version</string>
     <string name="download_ui_platform">Search Platform</string>
@@ -509,11 +509,9 @@
     <string name="download_install_dependencies_include">Includes</string>
     <string name="download_install">Download %s</string>
     <!-- ModPack -->
-    <string name="select_modpack_local">Local Modpack</string>
     <string name="select_modpack_local_tip">Please select a modpack file that the launcher supports importing!</string>
     <string name="select_modpack_local_not_supported">This file is not supported by the launcher!</string>
     <string name="select_modpack_local_installing_files">Installing game files… (%d / %d)</string>
-    <string name="search_modpack">Search Modpacks</string>
     <string name="modpack_download_downloading_metadata">Downloading modpack metadata (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Downloading mods (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Downloading mods (files downloaded: %d, total files: %d)</string>

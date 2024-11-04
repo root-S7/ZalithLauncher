@@ -125,7 +125,6 @@
     <string name="create_profile_neoforge">Tạo thể hiện NeoForge</string>
     <string name="create_profile_fabric">Tạo thể hiện Fabric</string>
     <string name="create_profile_quilt">Tạo thể hiện Quilt</string>
-    <string name="create_profile_modpack">Tạo thể hiện gói tích hợp</string>
     <!-- Controls -->
     <string name="control_primary">Nhấp chuột trái</string>
     <string name="control_secondary">Nhấp chuột phải</string>
@@ -471,6 +470,7 @@
     <string name="download_classify_modpack">Tải Modpack</string>
     <string name="download_classify_resource_pack">Tải Gói Tài Nguyên</string>
     <string name="download_classify_world">Tải Thế Giới</string>
+    <string name="download_ui_install_local">Cài đặt từ địa phương</string>
     <string name="download_ui_search">Tìm Kiếm Tên</string>
     <string name="download_ui_mc_version">Phiên Bản MC</string>
     <string name="download_ui_platform">Tìm Kiếm Nền Tảng</string>
@@ -504,11 +504,9 @@
     <string name="download_install_dependencies_include">Bao gồm</string>
     <string name="download_install">Tải xuống %s</string>
     <!-- ModPack -->
-    <string name="select_modpack_local">Gói tích hợp cục bộ</string>
     <string name="select_modpack_local_tip">Vui lòng chọn một tệp gói tích hợp được hỗ trợ bởi trình khởi chạy!</string>
     <string name="select_modpack_local_not_supported">Tệp này không được hỗ trợ bởi trình khởi chạy!</string>
     <string name="select_modpack_local_installing_files">Đang cài đặt tệp trò chơi… (%d / %d)</string>
-    <string name="search_modpack">Tìm kiếm gói tích hợp</string>
     <string name="modpack_download_downloading_metadata">Đang tải siêu dữ liệu gói tích hợp (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Đang tải mod (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Đang tải mod (tệp đã tải: %d, tổng số tệp: %d)</string>

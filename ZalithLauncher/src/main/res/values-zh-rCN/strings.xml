@@ -130,7 +130,6 @@
     <string name="create_profile_neoforge">创建 NeoForge 实例</string>
     <string name="create_profile_fabric">创建 Fabric 实例</string>
     <string name="create_profile_quilt">创建 Quilt 实例</string>
-    <string name="create_profile_modpack">创建整合包实例</string>
 
     <!-- Controls -->
     <string name="control_primary">左键</string>
@@ -503,6 +502,7 @@
     <string name="download_classify_modpack">下载整合包</string>
     <string name="download_classify_resource_pack">下载资源包</string>
     <string name="download_classify_world">下载世界</string>
+    <string name="download_ui_install_local">从本地安装</string>
     <string name="download_ui_search">搜索名称</string>
     <string name="download_ui_mc_version">MC 版本</string>
     <string name="download_ui_platform">搜索平台</string>
@@ -537,12 +537,9 @@
     <string name="download_install">下载 %s</string>
 
     <!-- ModPack -->
-    <string name="select_modpack_local">本地整合包</string>
     <string name="select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>
     <string name="select_modpack_local_not_supported">此文件不受启动器支持！</string>
     <string name="select_modpack_local_installing_files">安装游戏文件中… (%d / %d)</string>
-
-    <string name="search_modpack">搜索整合包</string>
 
     <string name="modpack_download_downloading_metadata">正在下载整合包元数据（%.2fMB / %.2fMB）</string>
     <string name="modpack_download_downloading_mods">正在下载模组（%.2fMB / %.2fMB）</string>

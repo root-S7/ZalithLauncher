@@ -35,7 +35,6 @@ class ProfileTypeSelectFragment : FragmentWithAnim(R.layout.fragment_profile_typ
             moddedProfileFabric.setOnClickListener { swapToFragment(DownloadFabricFragment::class.java, DownloadFabricFragment.TAG) }
             moddedProfileForge.setOnClickListener { swapToFragment(DownloadForgeFragment::class.java, DownloadForgeFragment.TAG) }
             moddedProfileNeoforge.setOnClickListener { swapToFragment(DownloadNeoForgeFragment::class.java, DownloadNeoForgeFragment.TAG) }
-            moddedProfileModpack.setOnClickListener { swapToFragment(SelectModPackFragment::class.java, SelectModPackFragment.TAG) }
             moddedProfileQuilt.setOnClickListener { swapToFragment(DownloadQuiltFragment::class.java, DownloadQuiltFragment.TAG) }
         }
     }

@@ -125,7 +125,6 @@
     <string name="create_profile_neoforge">Создать экземпляр NeoForge</string>
     <string name="create_profile_fabric">Создать экземпляр Fabric</string>
     <string name="create_profile_quilt">Создать экземпляр Quilt</string>
-    <string name="create_profile_modpack">Создать экземпляр модпака</string>
     <!-- Controls -->
     <string name="control_primary">Левая кнопка</string>
     <string name="control_secondary">Правая кнопка</string>
@@ -471,6 +470,7 @@
     <string name="download_classify_modpack">Скачать модпак</string>
     <string name="download_classify_resource_pack">Скачать ресурсный пакет</string>
     <string name="download_classify_world">Скачать мир</string>
+    <string name="download_ui_install_local">Установить из локального</string>
     <string name="download_ui_search">Поиск по названию</string>
     <string name="download_ui_mc_version">Версия MC</string>
     <string name="download_ui_platform">Поиск платформы</string>
@@ -504,11 +504,9 @@
     <string name="download_install_dependencies_include">Включает</string>
     <string name="download_install">Скачивание %s</string>
     <!-- ModPack -->
-    <string name="select_modpack_local">Локальный модпак</string>
     <string name="select_modpack_local_tip">Пожалуйста, выберите файл модпака, который поддерживается лаунчером для импорта!</string>
     <string name="select_modpack_local_not_supported">Этот файл не поддерживается лаунчером!</string>
     <string name="select_modpack_local_installing_files">Установка игровых файлов… (%d / %d)</string>
-    <string name="search_modpack">Поиск модпака</string>
     <string name="modpack_download_downloading_metadata">Загрузка метаданных модпака (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Загрузка модов (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Загрузка модов (загружено файлов: %d, всего файлов: %d)</string>

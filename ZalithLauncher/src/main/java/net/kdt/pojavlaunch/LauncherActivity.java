@@ -250,11 +250,11 @@ public class LauncherActivity extends BaseActivity {
                     if (task != null) {
                         task.run();
                     }
-                }).onThrowable(TaskExecutors.getAndroidUI(), e -> {
+                }).onThrowable(TaskExecutors.getAndroidUI(), e -> Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e))
+                .finallyTask(TaskExecutors.getAndroidUI(), () -> {
+                    ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
                     installExtra.dialog.dismiss();
-                    Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e);
                 })
-                .finallyTask(() -> ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE))
                 .execute();
     }
 

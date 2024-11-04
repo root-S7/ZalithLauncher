@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:baselineAligned="false"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="ContentDescription">
 
     <ScrollView
         android:id="@+id/vanilla_like_layout"
@@ -197,27 +198,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/neoforge_icon"
                 app:layout_constraintTop_toBottomOf="@+id/modded_profile_forge" />
-
-            <ImageView
-                android:id="@+id/modpack_icon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="@dimen/_16sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/modded_profile_modpack"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/modded_profile_modpack"
-                app:srcCompat="@drawable/ic_barrel" />
-
-            <com.movtery.zalithlauncher.ui.view.AnimButton
-                android:id="@+id/modded_profile_modpack"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/create_profile_modpack"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/modpack_icon"
-                app:layout_constraintTop_toBottomOf="@+id/modded_profile_neoforge" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

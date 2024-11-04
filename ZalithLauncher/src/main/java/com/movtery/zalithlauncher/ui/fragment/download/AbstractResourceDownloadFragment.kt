@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.zalithlauncher.event.value.DownloadCheckSearchEvent
+import com.movtery.zalithlauncher.event.single.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
@@ -39,7 +40,6 @@ import org.greenrobot.eventbus.Subscribe
 import java.io.File
 
 abstract class AbstractResourceDownloadFragment(
-    private val index: Int,
     private val classify: Classify,
     private val categoryList: List<Category>,
     private val showModloader: Boolean
@@ -53,6 +53,8 @@ abstract class AbstractResourceDownloadFragment(
     private lateinit var mModLoaderAdapter: ObjectSpinnerAdapter<ModLoader>
     private var mCurrentPlatform: Platform = Platform.CURSEFORGE
     private val mFilters: Filters = Filters()
+
+    abstract fun initInstallButton(installButton: Button)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -135,6 +137,8 @@ abstract class AbstractResourceDownloadFragment(
         mModLoaderAdapter.setItems(ModLoaderUtils.getModLoaderList())
 
         binding.apply {
+            initInstallButton(binding.installButton)
+
             platformSpinner.setSpinnerAdapter(mPlatformAdapter)
             platformSpinner.selectItemByIndex(0)
             setSpinnerListener<Platform>(platformSpinner) {
@@ -170,6 +174,7 @@ abstract class AbstractResourceDownloadFragment(
         }
 
         showModLoader()
+        checkSearch()
     }
 
     override fun onStart() {
@@ -286,9 +291,8 @@ abstract class AbstractResourceDownloadFragment(
     }
 
     @Subscribe
-    fun event(event: DownloadCheckSearchEvent) {
+    fun event(event: DownloadPageSwapEvent) {
         slideIn()
-        if (event.index == index) checkSearch()
     }
 
     companion object {
