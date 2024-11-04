@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.movtery.anim.AnimPlayer
@@ -18,7 +17,6 @@ import com.movtery.zalithlauncher.ui.fragment.settings.GameSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.LauncherSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.VideoSettingsFragment
 import net.kdt.pojavlaunch.R
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.databinding.FragmentSettingsBinding
 
 class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
@@ -56,7 +54,6 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             adapter = ViewPagerAdapter(this@SettingsFragment)
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 1
-            setPageTransformer(MarginPageTransformer(Tools.dpToPx(12F).toInt()))
             registerOnPageChangeCallback(object: OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
