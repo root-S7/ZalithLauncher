@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.download.item
 
 import com.movtery.zalithlauncher.feature.download.enums.Category
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import java.util.Date
@@ -9,6 +10,7 @@ import java.util.Date
  * @param modloaders Mod 加载器信息
  */
 open class ModInfoItem(
+    classify: Classify,
     platform: Platform,
     projectId: String,
     slug: String,
@@ -21,10 +23,11 @@ open class ModInfoItem(
     category: List<Category>,
     val modloaders: List<ModLoader>
 ) : InfoItem(
-    platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category
+    classify, platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category
 ) {
     override fun toString(): String {
         return "ModInfoItem(" +
+                "classify='$classify', " +
                 "platform='$platform', " +
                 "projectId='$projectId', " +
                 "slug='$slug', " +

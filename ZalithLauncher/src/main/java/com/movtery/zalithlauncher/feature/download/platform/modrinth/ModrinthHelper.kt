@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.feature.download.platform.modrinth
 
+import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.InstallHelper
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
@@ -14,15 +15,12 @@ import java.io.File
 
 class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.com/v2")) {
     override fun copy(): AbstractPlatformHelper {
-        val new = ModrinthHelper()
-        new.filters = this.filters
-        new.currentClassify = this.currentClassify
-        return new
+        return ModrinthHelper()
     }
 
     override fun getWebUrl(infoItem: InfoItem): String? {
         return "https://modrinth.com/${
-            when (currentClassify) {
+            when (infoItem.classify) {
                 Classify.ALL -> return null
                 Classify.MOD -> "mod"
                 Classify.MODPACK -> "modpack"
@@ -37,22 +35,22 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
     }
 
     @Throws(Throwable::class)
-    override fun searchMod(lastResult: SearchResult): SearchResult? {
-        return ModrinthModHelper.modLikeSearch(api, lastResult, filters, "mod")
+    override fun searchMod(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return ModrinthModHelper.modLikeSearch(api, lastResult, filters, "mod", Classify.MOD)
     }
 
     @Throws(Throwable::class)
-    override fun searchModPack(lastResult: SearchResult): SearchResult? {
-        return ModrinthModHelper.modLikeSearch(api, lastResult, filters, "modpack")
+    override fun searchModPack(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return ModrinthModHelper.modLikeSearch(api, lastResult, filters, "modpack", Classify.MODPACK)
     }
 
     @Throws(Throwable::class)
-    override fun searchResourcePack(lastResult: SearchResult): SearchResult? {
-        return ModrinthCommonUtils.getResults(api, lastResult, filters, "resourcepack")
+    override fun searchResourcePack(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return ModrinthCommonUtils.getResults(api, lastResult, filters, "resourcepack", Classify.RESOURCE_PACK)
     }
 
     @Throws(Throwable::class)
-    override fun searchWorld(lastResult: SearchResult): SearchResult? {
+    override fun searchWorld(filters: Filters, lastResult: SearchResult): SearchResult? {
         throw PlatformNotSupportedException("Modrinth does not provide archive download support.") //Modrinth不提供MC存档
     }
 

@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoCache
 import com.movtery.zalithlauncher.feature.download.enums.Category
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
@@ -85,7 +86,7 @@ class ModrinthCommonUtils {
             return emptyList()
         }
 
-        internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: String): SearchResult? {
+        internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: String, classify: Classify): SearchResult? {
             if (filters.category != Category.ALL && filters.category.modrinthName == null) {
                 throw PlatformNotSupportedException("The platform does not support the ${filters.category} category!")
             }
@@ -96,7 +97,7 @@ class ModrinthCommonUtils {
             val infoItems: MutableList<InfoItem> = ArrayList()
             for (responseHit in responseHits) {
                 val hit = responseHit.asJsonObject
-                getInfoItem(hit)?.let { item ->
+                getInfoItem(hit, classify)?.let { item ->
                     infoItems.add(item)
                 }
             }
@@ -118,12 +119,13 @@ class ModrinthCommonUtils {
             return params
         }
 
-        private fun getInfoItem(hit: JsonObject): InfoItem? {
+        private fun getInfoItem(hit: JsonObject, classify: Classify): InfoItem? {
             val categories = hit.get("categories").asJsonArray
             for (category in categories) {
                 if (category.asString == "datapack") return null //没有数据包安装的需求，一律排除
             }
             return InfoItem(
+                classify,
                 Platform.MODRINTH,
                 hit.get("project_id").asString,
                 hit.get("slug").asString,

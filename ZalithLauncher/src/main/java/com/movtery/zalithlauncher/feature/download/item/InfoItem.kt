@@ -1,12 +1,14 @@
 package com.movtery.zalithlauncher.feature.download.item
 
 import com.movtery.zalithlauncher.feature.download.enums.Category
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import java.util.Date
 
 /**
  * 基础的信息类
- * @param platform 记录该项目来自哪个平台
+ * @param classify 该项目的类别
+ * @param platform 该项目的所属平台
  * @param projectId 该项目的唯一标识
  * @param slug 该项目的slug
  * @param author 该项目的作者
@@ -18,6 +20,7 @@ import java.util.Date
  * @param category 该项目的标签
  */
 open class InfoItem(
+    val classify: Classify,
     val platform: Platform,
     val projectId: String,
     val slug: String,
@@ -30,11 +33,12 @@ open class InfoItem(
     val category: List<Category>
 ) {
     fun copy() = InfoItem(
-        platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category
+        classify, platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category
     )
 
     override fun toString(): String {
         return "InfoItem(" +
+                "classify='$classify', " +
                 "platform='$platform', " +
                 "projectId='$projectId', " +
                 "slug='$slug', " +

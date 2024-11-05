@@ -8,7 +8,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
-import com.movtery.zalithlauncher.feature.download.InfoAdapter
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.UnpackWorldZipHelper
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
@@ -19,18 +18,14 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackg
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import java.io.File
 
-class WorldDownloadFragment() : AbstractResourceDownloadFragment(
+class WorldDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
+    parentFragment,
     Classify.WORLD,
     CategoryUtils.getWorldCategory(),
-    false
+    false,
+    sWorldPath
 ) {
-    private var mParentFragment: Fragment? = null
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
-    private val mWorldPath = File(sGameDir, "/saves")
-
-    constructor(parentFragment: Fragment): this() {
-        this.mParentFragment = parentFragment
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +34,9 @@ class WorldDownloadFragment() : AbstractResourceDownloadFragment(
                 uriList[0].let { result ->
                     val dialog = ZHTools.showTaskRunningDialog(requireContext())
                     Task.runTask {
-                        val worldFile = copyFileInBackground(requireContext(), result, mWorldPath.absolutePath)
+                        val worldFile = copyFileInBackground(requireContext(), result, sWorldPath.absolutePath)
                         runCatching {
-                            UnpackWorldZipHelper.unpackFile(worldFile, mWorldPath)
+                            UnpackWorldZipHelper.unpackFile(worldFile, sWorldPath)
                         }.getOrElse {
                             ContextExecutor.showToast(R.string.download_install_unpack_world_error, Toast.LENGTH_SHORT)
                         }
@@ -53,8 +48,6 @@ class WorldDownloadFragment() : AbstractResourceDownloadFragment(
         }
     }
 
-    override fun initInfoAdapter() = InfoAdapter(mParentFragment, this, mWorldPath)
-
     override fun initInstallButton(installButton: Button) {
         installButton.setOnClickListener {
             val suffix = ".zip"
@@ -65,5 +58,9 @@ class WorldDownloadFragment() : AbstractResourceDownloadFragment(
             ).show()
             openDocumentLauncher?.launch(suffix)
         }
+    }
+
+    companion object {
+        private val sWorldPath = File(sGameDir, "/saves")
     }
 }

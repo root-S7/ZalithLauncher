@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoCache
 import com.movtery.zalithlauncher.feature.download.enums.Category
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.DependenciesInfoItem
@@ -31,7 +32,7 @@ import java.util.TreeSet
 class CurseForgeModHelper {
     companion object {
         @Throws(Throwable::class)
-        internal fun modLikeSearch(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: Int): SearchResult? {
+        internal fun modLikeSearch(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: Int, classify: Classify): SearchResult? {
             if (filters.category != Category.ALL && filters.category.curseforgeID == null) {
                 throw PlatformNotSupportedException("The platform does not support the ${filters.category} category!")
             }
@@ -51,9 +52,10 @@ class CurseForgeModHelper {
             val infoItems: MutableList<InfoItem> = ArrayList()
             for (data in dataArray) {
                 val dataElement = data.asJsonObject
-                CurseForgeCommonUtils.getInfoItem(dataElement)?.let { item ->
+                CurseForgeCommonUtils.getInfoItem(dataElement, classify)?.let { item ->
                     infoItems.add(
                         ModInfoItem(
+                            item.classify,
                             Platform.CURSEFORGE,
                             item.projectId,
                             item.slug,
@@ -141,6 +143,7 @@ class CurseForgeModHelper {
                                 val dModLoaders = getModLoaders(hit.getAsJsonArray("latestFilesIndexes"))
                                 InfoCache.DependencyInfoCache.put(
                                     api, modId, DependenciesInfoItem(
+                                        infoItem.classify,
                                         Platform.CURSEFORGE,
                                         modId,
                                         hit.get("slug").asString,

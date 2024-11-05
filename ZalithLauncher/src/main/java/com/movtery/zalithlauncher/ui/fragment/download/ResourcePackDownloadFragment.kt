@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.feature.download.InfoAdapter
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
@@ -17,18 +16,14 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackg
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import java.io.File
 
-class ResourcePackDownloadFragment() : AbstractResourceDownloadFragment(
+class ResourcePackDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
+    parentFragment,
     Classify.RESOURCE_PACK,
     CategoryUtils.getResourcePackCategory(),
-    false
+    false,
+    sResourcePackPath
 ) {
-    private var mParentFragment: Fragment? = null
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
-    private val mResourcePackPath = File(sGameDir, "/resourcepacks")
-
-    constructor(parentFragment: Fragment): this() {
-        this.mParentFragment = parentFragment
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +32,7 @@ class ResourcePackDownloadFragment() : AbstractResourceDownloadFragment(
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireActivity(), uri, mResourcePackPath.absolutePath)
+                        copyFileInBackground(requireActivity(), uri, sResourcePackPath.absolutePath)
                     }
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
@@ -45,8 +40,6 @@ class ResourcePackDownloadFragment() : AbstractResourceDownloadFragment(
             }
         }
     }
-
-    override fun initInfoAdapter() = InfoAdapter(mParentFragment, this, mResourcePackPath)
 
     override fun initInstallButton(installButton: Button) {
         installButton.setOnClickListener {
@@ -58,5 +51,9 @@ class ResourcePackDownloadFragment() : AbstractResourceDownloadFragment(
             ).show()
             openDocumentLauncher?.launch(suffix)
         }
+    }
+
+    companion object {
+        private val sResourcePackPath = File(sGameDir, "/resourcepacks")
     }
 }

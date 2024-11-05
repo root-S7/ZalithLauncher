@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.feature.download.platform.curseforge
 import android.widget.Toast
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
+import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.InstallHelper
 import com.movtery.zalithlauncher.feature.download.install.UnpackWorldZipHelper
@@ -19,16 +20,13 @@ import java.io.File
 
 class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeApi()) {
     override fun copy(): AbstractPlatformHelper {
-        val new = CurseForgeHelper()
-        new.filters = this.filters
-        new.currentClassify = this.currentClassify
-        return new
+        return CurseForgeHelper()
     }
 
     //更换为使用 slug 拼接链接
     override fun getWebUrl(infoItem: InfoItem): String? {
         return "https://www.curseforge.com/minecraft/${
-            when (currentClassify) {
+            when (infoItem.classify) {
                 Classify.ALL -> return null
                 Classify.MOD -> "mc-mods"
                 Classify.MODPACK -> "modpacks"
@@ -43,23 +41,23 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     }
 
     @Throws(Throwable::class)
-    override fun searchMod(lastResult: SearchResult): SearchResult? {
-        return CurseForgeModHelper.modLikeSearch(api, lastResult, filters, CURSEFORGE_MOD_CLASS_ID)
+    override fun searchMod(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return CurseForgeModHelper.modLikeSearch(api, lastResult, filters, CURSEFORGE_MOD_CLASS_ID, Classify.MOD)
     }
 
     @Throws(Throwable::class)
-    override fun searchModPack(lastResult: SearchResult): SearchResult? {
-        return CurseForgeModHelper.modLikeSearch(api, lastResult, filters, CURSEFORGE_MODPACK_CLASS_ID)
+    override fun searchModPack(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return CurseForgeModHelper.modLikeSearch(api, lastResult, filters, CURSEFORGE_MODPACK_CLASS_ID, Classify.MODPACK)
     }
 
     @Throws(Throwable::class)
-    override fun searchResourcePack(lastResult: SearchResult): SearchResult? {
-        return CurseForgeCommonUtils.getResults(api, lastResult, filters, 12)
+    override fun searchResourcePack(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return CurseForgeCommonUtils.getResults(api, lastResult, filters, 12, Classify.RESOURCE_PACK)
     }
 
     @Throws(Throwable::class)
-    override fun searchWorld(lastResult: SearchResult): SearchResult? {
-        return CurseForgeCommonUtils.getResults(api, lastResult, filters, 17)
+    override fun searchWorld(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return CurseForgeCommonUtils.getResults(api, lastResult, filters, 17, Classify.WORLD)
     }
 
     @Throws(Throwable::class)

@@ -17,23 +17,20 @@ import net.kdt.pojavlaunch.modloaders.modpacks.api.NotificationDownloadListener
 import java.io.File
 
 abstract class AbstractPlatformHelper(val api: ApiHandler) {
-    var filters: Filters = Filters()
-    var currentClassify: Classify = Classify.MOD
-
     @Throws(Throwable::class)
-    fun search(lastResult: SearchResult): SearchResult? {
-        return when (currentClassify) {
+    fun search(classify: Classify, filters: Filters, lastResult: SearchResult): SearchResult? {
+        return when (classify) {
             Classify.ALL -> throw IllegalArgumentException("Cannot be the enum value ${Classify.ALL}")
-            Classify.MOD -> searchMod(lastResult)
-            Classify.MODPACK -> searchModPack(lastResult)
-            Classify.RESOURCE_PACK -> searchResourcePack(lastResult)
-            Classify.WORLD -> searchWorld(lastResult)
+            Classify.MOD -> searchMod(filters, lastResult)
+            Classify.MODPACK -> searchModPack(filters, lastResult)
+            Classify.RESOURCE_PACK -> searchResourcePack(filters, lastResult)
+            Classify.WORLD -> searchWorld(filters, lastResult)
         }
     }
 
     @Throws(Throwable::class)
     fun getVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>? {
-        return when (currentClassify) {
+        return when (infoItem.classify) {
             Classify.ALL -> throw IllegalArgumentException("Cannot be the enum value ${Classify.ALL}")
             Classify.MOD -> getModVersions(infoItem, force)
             Classify.MODPACK -> getModPackVersions(infoItem, force)
@@ -44,7 +41,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
     @Throws(Throwable::class)
     fun install(context: Context, infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        when (currentClassify) {
+        when (infoItem.classify) {
             Classify.ALL -> throw IllegalArgumentException("Cannot be the enum value ${Classify.ALL}")
             Classify.MOD -> installMod(infoItem, version, targetPath)
             Classify.RESOURCE_PACK -> installResourcePack(infoItem, version, targetPath)
@@ -65,10 +62,10 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
     abstract fun getWebUrl(infoItem: InfoItem): String?
     abstract fun getScreenshots(projectId: String): List<ScreenshotItem>
 
-    abstract fun searchMod(lastResult: SearchResult): SearchResult?
-    abstract fun searchModPack(lastResult: SearchResult): SearchResult?
-    abstract fun searchResourcePack(lastResult: SearchResult): SearchResult?
-    abstract fun searchWorld(lastResult: SearchResult): SearchResult?
+    abstract fun searchMod(filters: Filters, lastResult: SearchResult): SearchResult?
+    abstract fun searchModPack(filters: Filters, lastResult: SearchResult): SearchResult?
+    abstract fun searchResourcePack(filters: Filters, lastResult: SearchResult): SearchResult?
+    abstract fun searchWorld(filters: Filters, lastResult: SearchResult): SearchResult?
 
     abstract fun getModVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
     abstract fun getModPackVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?

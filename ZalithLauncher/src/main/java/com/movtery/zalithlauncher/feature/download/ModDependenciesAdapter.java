@@ -91,7 +91,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
 
         @SuppressLint("CheckResult")
         public void setData(DependenciesInfoItem infoItem) {
-            ModTranslations.Mod mod = ModTranslations.getTranslationsByRepositoryType(infoItem.getPlatform().getHelper().getCurrentClassify())
+            ModTranslations.Mod mod = ModTranslations.getTranslationsByRepositoryType(infoItem.getClassify())
                     .getModByCurseForgeId(infoItem.getSlug());
 
             if (mExtensionFuture != null) {

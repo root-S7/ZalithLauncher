@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -20,13 +21,19 @@ import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
+import com.movtery.zalithlauncher.feature.download.SelfReferencingFuture
 import com.movtery.zalithlauncher.feature.download.enums.Category
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.enums.Sort
+import com.movtery.zalithlauncher.feature.download.item.InfoItem
+import com.movtery.zalithlauncher.feature.download.item.SearchResult
+import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.download.utils.ModLoaderUtils
 import com.movtery.zalithlauncher.feature.download.utils.SortUtils
+import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectVersionDialog
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
 import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter
@@ -34,19 +41,22 @@ import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedList
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.skydoves.powerspinner.PowerSpinnerView
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.File
+import java.util.concurrent.Future
 
 abstract class AbstractResourceDownloadFragment(
+    parentFragment: Fragment?,
     private val classify: Classify,
     private val categoryList: List<Category>,
-    private val showModloader: Boolean
-) : FragmentWithAnim(R.layout.fragment_download_resource), InfoAdapter.SearchResultCallback {
+    private val showModloader: Boolean,
+    targetPath: File?
+) : FragmentWithAnim(R.layout.fragment_download_resource) {
     private lateinit var binding: FragmentDownloadResourceBinding
 
-    private lateinit var mInfoAdapter: InfoAdapter
     private lateinit var mPlatformAdapter: ObjectSpinnerAdapter<Platform>
     private lateinit var mSortAdapter: ObjectSpinnerAdapter<Sort>
     private lateinit var mCategoryAdapter: ObjectSpinnerAdapter<Category>
@@ -54,7 +64,19 @@ abstract class AbstractResourceDownloadFragment(
     private var mCurrentPlatform: Platform = Platform.CURSEFORGE
     private val mFilters: Filters = Filters()
 
-    abstract fun initInfoAdapter(): InfoAdapter
+    private val mInfoAdapter = InfoAdapter(parentFragment, targetPath,
+        object : InfoAdapter.CallSearchListener {
+            override fun isLastPage() = mLastPage
+
+            override fun loadMoreResult() {
+                loadMoreResults()
+            }
+        })
+
+    private var mTaskInProgress: Future<*>? = null
+    private var mCurrentResult: SearchResult? = null
+    protected var mLastPage = false
+
     abstract fun initInstallButton(installButton: Button)
 
     override fun onCreateView(
@@ -64,12 +86,6 @@ abstract class AbstractResourceDownloadFragment(
     ): View {
         binding = FragmentDownloadResourceBinding.inflate(layoutInflater)
 
-        mInfoAdapter = initInfoAdapter()
-        mInfoAdapter.setBeforeSearchListener {
-            mCurrentPlatform.helper.currentClassify = classify
-            mCurrentPlatform.helper.filters = mFilters
-            mInfoAdapter.setPlatform(mCurrentPlatform)
-        }
         mPlatformAdapter = ObjectSpinnerAdapter(binding.platformSpinner) { platform -> platform.pName }
         mSortAdapter = ObjectSpinnerAdapter(binding.sortSpinner) { sort -> getString(sort.resNameID) }
         mCategoryAdapter = ObjectSpinnerAdapter(binding.categorySpinner) { category -> getString(category.resNameID) }
@@ -148,10 +164,7 @@ abstract class AbstractResourceDownloadFragment(
 
             platformSpinner.setSpinnerAdapter(mPlatformAdapter)
             platformSpinner.selectItemByIndex(0)
-            setSpinnerListener<Platform>(platformSpinner) {
-                mCurrentPlatform = it
-                checkSearch()
-            }
+            setSpinnerListener<Platform>(platformSpinner) { mCurrentPlatform = it }
 
             sortSpinner.setSpinnerAdapter(mSortAdapter)
             sortSpinner.selectItemByIndex(0)
@@ -199,7 +212,7 @@ abstract class AbstractResourceDownloadFragment(
         super.onPause()
     }
 
-    override fun onSearchFinished() {
+    private fun onSearchFinished() {
         binding.apply {
             setStatusText(false)
             setLoadingLayout(false)
@@ -207,11 +220,11 @@ abstract class AbstractResourceDownloadFragment(
         }
     }
 
-    override fun onSearchError(error: Int) {
+    private fun onSearchError(error: Int) {
         binding.apply {
             statusText.text = when (error) {
-                InfoAdapter.SearchResultCallback.ERROR_INTERNAL -> getString(R.string.download_search_failed)
-                InfoAdapter.SearchResultCallback.ERROR_PLATFORM_NOT_SUPPORTED -> getString(R.string.download_search_platform_not_supported)
+                ERROR_INTERNAL -> getString(R.string.download_search_failed)
+                ERROR_PLATFORM_NOT_SUPPORTED -> getString(R.string.download_search_platform_not_supported)
                 else -> getString(R.string.download_search_no_result)
             }
         }
@@ -277,11 +290,27 @@ abstract class AbstractResourceDownloadFragment(
         setRecyclerView(false)
         setLoadingLayout(true)
         binding.recyclerView.scrollToPosition(0)
-        mInfoAdapter.performSearchQuery()
+        performSearchQuery()
     }
 
     private fun checkSearch() {
-        if (mInfoAdapter.itemCount == 0 || mInfoAdapter.checkPlatform(mCurrentPlatform)) search()
+        if (mInfoAdapter.itemCount == 0) search()
+    }
+
+    private fun performSearchQuery() {
+        if (mTaskInProgress != null) {
+            mTaskInProgress!!.cancel(true)
+            mTaskInProgress = null
+        }
+        this.mLastPage = false
+        mTaskInProgress = SelfReferencingFuture(SearchApiTask(null))
+            .startOnExecutor(TaskExecutors.getDefault())
+    }
+
+    protected fun loadMoreResults() {
+        if (mTaskInProgress != null) return
+        mTaskInProgress = SelfReferencingFuture(SearchApiTask(mCurrentResult))
+            .startOnExecutor(TaskExecutors.getDefault())
     }
 
     @Subscribe
@@ -295,9 +324,68 @@ abstract class AbstractResourceDownloadFragment(
         if (event.index == classify.type) slideIn()
     }
 
+    private inner class SearchApiTask(
+        private val mPreviousResult: SearchResult?
+    ) :
+        SelfReferencingFuture.FutureInterface {
+
+        override fun run(myFuture: Future<*>) {
+            runCatching {
+                val result: SearchResult? = mCurrentPlatform.helper.search(classify, mFilters, mPreviousResult ?: SearchResult())
+
+                TaskExecutors.runInUIThread {
+                    if (myFuture.isCancelled) return@runInUIThread
+                    mTaskInProgress = null
+
+                    when {
+                        result == null -> {
+                            onSearchError(ERROR_INTERNAL)
+                        }
+                        result.isLastPage -> {
+                            if (result.infoItems.isEmpty()) {
+                                onSearchError(ERROR_NO_RESULTS)
+                            } else {
+                                mLastPage = true
+                                mInfoAdapter.setItems(result.infoItems)
+                                onSearchFinished()
+                                return@runInUIThread
+                            }
+                        }
+                        else -> {
+                            onSearchFinished()
+                        }
+                    }
+
+                    if (result == null) {
+                        mInfoAdapter.setItems(MOD_ITEMS_EMPTY)
+                        return@runInUIThread
+                    } else {
+                        mInfoAdapter.setItems(result.infoItems)
+                        mCurrentResult = result
+                    }
+                }
+            }.getOrElse { e ->
+                TaskExecutors.runInUIThread {
+                    mInfoAdapter.setItems(MOD_ITEMS_EMPTY)
+                    Logging.e("SearchTask", Tools.printToString(e))
+                    if (e is PlatformNotSupportedException) {
+                        onSearchError(ERROR_PLATFORM_NOT_SUPPORTED)
+                    } else {
+                        onSearchError(ERROR_NO_RESULTS)
+                    }
+                }
+            }
+        }
+    }
+
     companion object {
+        private val MOD_ITEMS_EMPTY: MutableList<InfoItem> = ArrayList()
         @JvmField
         val sGameDir: File = ZHTools.getGameDirPath(getDir())
+
+        const val ERROR_INTERNAL: Int = 0
+        const val ERROR_NO_RESULTS: Int = 1
+        const val ERROR_PLATFORM_NOT_SUPPORTED: Int = 2
 
         private fun getDir(): String? {
             var dir: String? = LauncherProfiles.getCurrentProfile().gameDir

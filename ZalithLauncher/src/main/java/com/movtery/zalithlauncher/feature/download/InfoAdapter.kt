@@ -20,11 +20,7 @@ import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModInfoItem
-import com.movtery.zalithlauncher.feature.download.item.SearchResult
-import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
-import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.fragment.DownloadModFragment
 import com.movtery.zalithlauncher.utils.NumberWithUnits
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -42,39 +38,13 @@ import java.util.concurrent.Future
 
 class InfoAdapter(
     private val parentFragment: Fragment?,
-    private val mSearchResultCallback: SearchResultCallback,
-    private val targetPath: File?
+    private val targetPath: File?,
+    private val listener: CallSearchListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var mPlatform: Platform
 
-    private var beforeSearchListener: BeforeSearchListener? = null
     private val mViewHolderSet: MutableSet<ViewHolder> = Collections.newSetFromMap(WeakHashMap())
     private var mItems: MutableList<InfoItem> = ArrayList()
-
-    private var mTaskInProgress: Future<*>? = null
-    private var mCurrentResult: SearchResult? = null
-    private var mLastPage = false
-
-    fun setPlatform(platform: Platform) {
-        this.mPlatform = platform
-    }
-
-    fun setBeforeSearchListener(listener: BeforeSearchListener) {
-        this.beforeSearchListener = listener
-    }
-
-    fun checkPlatform(platform: Platform): Boolean = this.mPlatform != platform
-
-    fun performSearchQuery() {
-        if (mTaskInProgress != null) {
-            mTaskInProgress!!.cancel(true)
-            mTaskInProgress = null
-        }
-        this.mLastPage = false
-        mTaskInProgress = SelfReferencingFuture(SearchApiTask(null))
-            .startOnExecutor(TaskExecutors.getDefault())
-    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
@@ -98,25 +68,26 @@ class InfoAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             VIEW_TYPE_MOD_ITEM -> (holder as ViewHolder).setStateLimited(mItems[position])
-            VIEW_TYPE_LOADING -> loadMoreResults()
+            VIEW_TYPE_LOADING -> listener.loadMoreResult()
             else -> throw RuntimeException("Unimplemented view type!")
         }
     }
 
     override fun getItemCount(): Int {
-        if (mLastPage || mItems.isEmpty()) return mItems.size
+        if (listener.isLastPage() || mItems.isEmpty()) return mItems.size
         return mItems.size + 1
-    }
-
-    private fun loadMoreResults() {
-        if (mTaskInProgress != null) return
-        mTaskInProgress = SelfReferencingFuture(SearchApiTask(mCurrentResult))
-            .startOnExecutor(TaskExecutors.getDefault())
     }
 
     override fun getItemViewType(position: Int): Int {
         if (position < mItems.size) return VIEW_TYPE_MOD_ITEM
         return VIEW_TYPE_LOADING
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setItems(item: List<InfoItem>) {
+        this.mItems.clear()
+        this.mItems.addAll(item)
+        notifyDataSetChanged()
     }
 
     /**
@@ -135,7 +106,7 @@ class InfoAdapter(
         @SuppressLint("CheckResult")
         fun setStateLimited(item: InfoItem) {
             this.item = item
-            val mod = ModTranslations.getTranslationsByRepositoryType(item.platform.helper.currentClassify)
+            val mod = ModTranslations.getTranslationsByRepositoryType(item.classify)
                 .getModByCurseForgeId(item.slug)
 
             if (mExtensionFuture != null) {
@@ -243,83 +214,12 @@ class InfoAdapter(
      */
     private class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    private inner class SearchApiTask(
-        private val mPreviousResult: SearchResult?
-    ) :
-        SelfReferencingFuture.FutureInterface {
-
-        @SuppressLint("NotifyDataSetChanged")
-        override fun run(myFuture: Future<*>) {
-            runCatching {
-                beforeSearchListener?.beforeSearch()
-                val result: SearchResult? = mPlatform.helper.search(mPreviousResult ?: SearchResult())
-
-                TaskExecutors.runInUIThread {
-                    if (myFuture.isCancelled) return@runInUIThread
-                    mTaskInProgress = null
-
-                    when {
-                        result == null -> {
-                            mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_INTERNAL)
-                        }
-                        result.isLastPage -> {
-                            if (result.infoItems.isEmpty()) {
-                                mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_NO_RESULTS)
-                            } else {
-                                mLastPage = true
-                                mItems = result.infoItems
-                                notifyDataSetChanged()
-                                mSearchResultCallback.onSearchFinished()
-                                return@runInUIThread
-                            }
-                        }
-                        else -> {
-                            mSearchResultCallback.onSearchFinished()
-                        }
-                    }
-
-                    if (result == null) {
-                        mItems = MOD_ITEMS_EMPTY
-                        notifyDataSetChanged()
-                        return@runInUIThread
-                    } else {
-                        mItems = result.infoItems
-                        notifyDataSetChanged()
-                        mCurrentResult = result
-                    }
-                }
-            }.getOrElse { e ->
-                TaskExecutors.runInUIThread {
-                    mItems = MOD_ITEMS_EMPTY
-                    notifyDataSetChanged()
-                    Logging.e("SearchTask", Tools.printToString(e))
-                    if (e is PlatformNotSupportedException) {
-                        mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_PLATFORM_NOT_SUPPORTED)
-                    } else {
-                        mSearchResultCallback.onSearchError(SearchResultCallback.ERROR_NO_RESULTS)
-                    }
-                }
-            }
-        }
-    }
-
-    fun interface BeforeSearchListener {
-        fun beforeSearch()
-    }
-
-    interface SearchResultCallback {
-        fun onSearchFinished()
-        fun onSearchError(error: Int)
-
-        companion object {
-            const val ERROR_INTERNAL: Int = 0
-            const val ERROR_NO_RESULTS: Int = 1
-            const val ERROR_PLATFORM_NOT_SUPPORTED: Int = 2
-        }
+    interface CallSearchListener {
+        fun isLastPage(): Boolean
+        fun loadMoreResult()
     }
 
     companion object {
-        private val MOD_ITEMS_EMPTY: MutableList<InfoItem> = ArrayList()
         private const val VIEW_TYPE_MOD_ITEM = 0
         private const val VIEW_TYPE_LOADING = 1
     }

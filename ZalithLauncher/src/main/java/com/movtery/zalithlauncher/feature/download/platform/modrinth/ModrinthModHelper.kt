@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoCache
 import com.movtery.zalithlauncher.feature.download.enums.Category
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.DependenciesInfoItem
@@ -25,7 +26,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 class ModrinthModHelper {
     companion object {
         @Throws(Throwable::class)
-        internal fun modLikeSearch(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: String): SearchResult? {
+        internal fun modLikeSearch(api: ApiHandler, lastResult: SearchResult, filters: Filters, type: String, classify: Classify): SearchResult? {
             if (filters.category != Category.ALL && filters.category.modrinthName == null) {
                 throw PlatformNotSupportedException("The platform does not support the ${filters.category} category!")
             }
@@ -52,6 +53,7 @@ class ModrinthModHelper {
 
                 infoItems.add(
                     ModInfoItem(
+                        classify,
                         Platform.MODRINTH,
                         hit.get("project_id").asString,
                         hit.get("slug").asString,
@@ -89,6 +91,7 @@ class ModrinthModHelper {
                             if (hit != null) {
                                 InfoCache.DependencyInfoCache.put(
                                     api, dProjectId, DependenciesInfoItem(
+                                        infoItem.classify,
                                         Platform.MODRINTH,
                                         dProjectId,
                                         hit.get("slug").asString,

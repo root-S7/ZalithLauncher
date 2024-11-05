@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.feature.download.InfoAdapter
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
@@ -17,18 +16,14 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackg
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import java.io.File
 
-class ModDownloadFragment() : AbstractResourceDownloadFragment(
+class ModDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
+    parentFragment,
     Classify.MOD,
     CategoryUtils.getModCategory(),
-    true
+    true,
+    sModPath
 ) {
-    private var mParentFragment: Fragment? = null
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
-    private val mModPath = File(sGameDir, "/mods")
-
-    constructor(parentFragment: Fragment): this() {
-        this.mParentFragment = parentFragment
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +32,7 @@ class ModDownloadFragment() : AbstractResourceDownloadFragment(
                 val dialog = ZHTools.showTaskRunningDialog((requireContext()))
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireActivity(), uri, mModPath.absolutePath)
+                        copyFileInBackground(requireActivity(), uri, sModPath.absolutePath)
                     }
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
@@ -45,8 +40,6 @@ class ModDownloadFragment() : AbstractResourceDownloadFragment(
             }
         }
     }
-
-    override fun initInfoAdapter() = InfoAdapter(mParentFragment, this, mModPath)
 
     override fun initInstallButton(installButton: Button) {
         installButton.setOnClickListener {
@@ -58,5 +51,9 @@ class ModDownloadFragment() : AbstractResourceDownloadFragment(
             ).show()
             openDocumentLauncher?.launch(suffix)
         }
+    }
+
+    companion object {
+        private val sModPath = File(sGameDir, "/mods")
     }
 }

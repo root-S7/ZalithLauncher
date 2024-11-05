@@ -1,12 +1,14 @@
 package com.movtery.zalithlauncher.feature.download.item
 
 import com.movtery.zalithlauncher.feature.download.enums.Category
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.DependencyType
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import java.util.Date
 
 open class DependenciesInfoItem(
+    classify: Classify,
     platform: Platform,
     projectId: String,
     slug: String,
@@ -20,10 +22,11 @@ open class DependenciesInfoItem(
     modloaders: List<ModLoader>,
     val dependencyType: DependencyType
 ) : ModInfoItem (
-    platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category, modloaders
+    classify, platform, projectId, slug, author, title, description, downloadCount, uploadDate, iconUrl, category, modloaders
 ), Comparable<DependenciesInfoItem> {
     override fun toString(): String {
         return "InfoItem(" +
+                "classify='$classify', " +
                 "platform='$platform', " +
                 "projectId='$projectId', " +
                 "slug='$slug', " +

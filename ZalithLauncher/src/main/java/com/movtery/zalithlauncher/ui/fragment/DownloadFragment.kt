@@ -26,7 +26,6 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
     }
 
     private lateinit var binding: FragmentDownloadBinding
-    private lateinit var mPageAdapter: ViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +33,6 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDownloadBinding.inflate(layoutInflater)
-        mPageAdapter = ViewPagerAdapter(this)
         return binding.root
     }
 
@@ -49,7 +47,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
 
     private fun initViewPager() {
         binding.downloadViewpager.apply {
-            adapter = mPageAdapter
+            adapter = ViewPagerAdapter(this@DownloadFragment)
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 1
             isUserInputEnabled = false

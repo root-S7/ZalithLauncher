@@ -166,7 +166,7 @@ class DownloadModFragment : ModListFragment() {
         mPath = viewModel.targetPath
 
         mInfoItem.apply {
-            val type = ModTranslations.getTranslationsByRepositoryType(platform.helper.currentClassify)
+            val type = ModTranslations.getTranslationsByRepositoryType(classify)
             val mod = type.getModByCurseForgeId(slug)
 
             setTitleText(

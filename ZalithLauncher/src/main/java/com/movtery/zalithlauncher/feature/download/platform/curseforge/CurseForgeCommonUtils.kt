@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoCache
 import com.movtery.zalithlauncher.feature.download.enums.Category
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
@@ -78,7 +79,7 @@ class CurseForgeCommonUtils {
             return emptyList()
         }
 
-        internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, classId: Int): SearchResult? {
+        internal fun getResults(api: ApiHandler, lastResult: SearchResult, filters: Filters, classId: Int, classify: Classify): SearchResult? {
             if (filters.category != Category.ALL && filters.category.curseforgeID == null) {
                 throw PlatformNotSupportedException("The platform does not support the ${filters.category} category!")
             }
@@ -93,7 +94,7 @@ class CurseForgeCommonUtils {
             val infoItems: MutableList<InfoItem> = ArrayList()
             for (data in dataArray) {
                 val dataElement = data.asJsonObject
-                getInfoItem(dataElement)?.let { item ->
+                getInfoItem(dataElement, classify)?.let { item ->
                     infoItems.add(item)
                 }
             }
@@ -101,7 +102,7 @@ class CurseForgeCommonUtils {
             return returnResults(lastResult, infoItems, dataArray, response)
         }
 
-        internal fun getInfoItem(dataObject: JsonObject): InfoItem? {
+        internal fun getInfoItem(dataObject: JsonObject, classify: Classify): InfoItem? {
             val allowModDistribution = dataObject.get("allowModDistribution")
             // Gson automatically casts null to false, which leans to issues
             // So, only check the distribution flag if it is non-null
@@ -111,6 +112,7 @@ class CurseForgeCommonUtils {
             }
 
             return InfoItem(
+                classify,
                 Platform.CURSEFORGE,
                 dataObject.get("id").asString,
                 dataObject.get("slug").asString,
