@@ -508,6 +508,7 @@
     <string name="download_install_dependencies_tool">Tool</string>
     <string name="download_install_dependencies_include">Includes</string>
     <string name="download_install">Download %s</string>
+    <string name="download_install_unpack_world_error">Unable to recognize file structure, automatic unpacking failed, please handle the file manually!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Please select a modpack file that the launcher supports importing!</string>
     <string name="select_modpack_local_not_supported">This file is not supported by the launcher!</string>

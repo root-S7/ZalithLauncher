@@ -4,12 +4,13 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import net.kdt.pojavlaunch.utils.ZipUtils
 import org.apache.commons.io.FileUtils
 import java.io.File
+import java.io.IOException
 import java.util.zip.ZipFile
 
 class UnpackWorldZipHelper {
     companion object {
         fun unpackFile(zipFile: File, targetPath: File) {
-            val path = extractLevelPath(zipFile) ?: return
+            val path = extractLevelPath(zipFile) ?: throw IOException()
             Logging.i("UnpackWorldZipHelper", "Found the level of the level.data file: $path")
             ZipFile(zipFile).use {
                 val fileName = zipFile.name.removeSuffix(".${zipFile.extension}")

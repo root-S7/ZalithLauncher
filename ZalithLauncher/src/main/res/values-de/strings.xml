@@ -503,6 +503,7 @@
     <string name="download_install_dependencies_tool">Werkzeug</string>
     <string name="download_install_dependencies_include">Einschließlich</string>
     <string name="download_install">Lade %s herunter</string>
+    <string name="download_install_unpack_world_error">Dateistruktur konnte nicht erkannt werden, automatisches Entpacken fehlgeschlagen, bitte bearbeiten Sie die Datei manuell!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Bitte wählen Sie eine Modpack-Datei aus, die der Launcher unterstützt!</string>
     <string name="select_modpack_local_not_supported">Diese Datei wird vom Launcher nicht unterstützt!</string>

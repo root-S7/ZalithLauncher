@@ -535,6 +535,7 @@
     <string name="download_install_dependencies_tool">工具</string>
     <string name="download_install_dependencies_include">包括</string>
     <string name="download_install">下载 %s</string>
+    <string name="download_install_unpack_world_error">无法识别文件结构，自动解压存档失败，请自行处理此文件！</string>
 
     <!-- ModPack -->
     <string name="select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>

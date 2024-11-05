@@ -503,6 +503,7 @@
     <string name="download_install_dependencies_tool">Ferramenta</string>
     <string name="download_install_dependencies_include">Inclui</string>
     <string name="download_install">Baixando %s</string>
+    <string name="download_install_unpack_world_error">Não foi possível reconhecer a estrutura do arquivo, falha ao descompactar automaticamente, por favor, manuseie o arquivo manualmente!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Por favor, selecione um arquivo de pacote compatível com o launcher para importação!</string>
     <string name="select_modpack_local_not_supported">Este arquivo não é suportado pelo launcher!</string>

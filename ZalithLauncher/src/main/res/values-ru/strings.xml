@@ -503,6 +503,7 @@
     <string name="download_install_dependencies_tool">Инструмент</string>
     <string name="download_install_dependencies_include">Включает</string>
     <string name="download_install">Скачивание %s</string>
+    <string name="download_install_unpack_world_error">Не удалось распознать структуру файла, автоматическая распаковка не удалась, пожалуйста, обработайте файл вручную!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Пожалуйста, выберите файл модпака, который поддерживается лаунчером для импорта!</string>
     <string name="select_modpack_local_not_supported">Этот файл не поддерживается лаунчером!</string>

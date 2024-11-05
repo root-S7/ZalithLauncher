@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.UnpackWorldZipHelper
@@ -38,7 +39,11 @@ class WorldDownloadFragment() : AbstractResourceDownloadFragment(
                     val dialog = ZHTools.showTaskRunningDialog(requireContext())
                     Task.runTask {
                         val worldFile = copyFileInBackground(requireContext(), result, mWorldPath.absolutePath)
-                        UnpackWorldZipHelper.unpackFile(worldFile, mWorldPath)
+                        runCatching {
+                            UnpackWorldZipHelper.unpackFile(worldFile, mWorldPath)
+                        }.getOrElse {
+                            ContextExecutor.showToast(R.string.download_install_unpack_world_error, Toast.LENGTH_SHORT)
+                        }
                     }.finallyTask(TaskExecutors.getAndroidUI()) {
                         dialog.dismiss()
                     }.execute()

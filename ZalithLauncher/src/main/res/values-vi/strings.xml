@@ -503,6 +503,7 @@
     <string name="download_install_dependencies_tool">Công cụ</string>
     <string name="download_install_dependencies_include">Bao gồm</string>
     <string name="download_install">Tải xuống %s</string>
+    <string name="download_install_unpack_world_error">Không thể nhận dạng cấu trúc tệp, giải nén tự động thất bại, vui lòng xử lý tệp thủ công!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Vui lòng chọn một tệp gói tích hợp được hỗ trợ bởi trình khởi chạy!</string>
     <string name="select_modpack_local_not_supported">Tệp này không được hỗ trợ bởi trình khởi chạy!</string>

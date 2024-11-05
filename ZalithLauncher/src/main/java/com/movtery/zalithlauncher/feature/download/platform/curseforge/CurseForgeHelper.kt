@@ -1,5 +1,8 @@
 package com.movtery.zalithlauncher.feature.download.platform.curseforge
 
+import android.widget.Toast
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.InstallHelper
 import com.movtery.zalithlauncher.feature.download.install.UnpackWorldZipHelper
@@ -97,7 +100,13 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     @Throws(Throwable::class)
     override fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
         InstallHelper.downloadFile(version, targetPath) { file ->
-            targetPath!!.parentFile?.let { UnpackWorldZipHelper.unpackFile(file, it) }
+            targetPath!!.parentFile?.let {
+                runCatching {
+                    UnpackWorldZipHelper.unpackFile(file, it)
+                }.getOrElse {
+                    ContextExecutor.showToast(R.string.download_install_unpack_world_error, Toast.LENGTH_SHORT)
+                }
+            }
         }
     }
 }

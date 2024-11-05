@@ -503,6 +503,7 @@
     <string name="download_install_dependencies_tool">工具</string>
     <string name="download_install_dependencies_include">包括</string>
     <string name="download_install">下載 %s</string>
+    <string name="download_install_unpack_world_error">無法識別文件結構，自動解壓失敗，請自行處理此文件！</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">請選擇一個啟動器支持導入的模組包檔案！</string>
     <string name="select_modpack_local_not_supported">此檔案不受啟動器支持！</string>
