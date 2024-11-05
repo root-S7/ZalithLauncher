@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.ui.fragment.download
 
 import android.app.AlertDialog
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -33,17 +34,19 @@ class ModPackDownloadFragment() : AbstractResourceDownloadFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null)) { result ->
-            result?.let {
-                if (!isTaskRunning()) {
-                    val dialog = AlertDialog.Builder(requireContext())
-                        .setView(R.layout.view_task_running)
-                        .setCancelable(false)
-                        .show()
-                    Task.runTask {
-                        val modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
-                        EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, modPackFile.absolutePath, dialog)))
-                    }.execute()
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null)) { uris: List<Uri>? ->
+            uris?.let { uriList ->
+                uriList[0].let { result ->
+                    if (!isTaskRunning()) {
+                        val dialog = AlertDialog.Builder(requireContext())
+                            .setView(R.layout.view_task_running)
+                            .setCancelable(false)
+                            .show()
+                        Task.runTask {
+                            val modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
+                            EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, modPackFile.absolutePath, dialog)))
+                        }.execute()
+                    }
                 }
             }
         }

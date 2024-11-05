@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.ui.fragment.download
 
 import android.app.AlertDialog
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -31,18 +32,20 @@ class WorldDownloadFragment() : AbstractResourceDownloadFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("zip")) { result ->
-            result?.let {
-                val dialog = AlertDialog.Builder(requireContext())
-                    .setView(R.layout.view_task_running)
-                    .setCancelable(false)
-                    .show()
-                Task.runTask {
-                    val worldFile = copyFileInBackground(requireContext(), result, mWorldPath.absolutePath)
-                    UnpackWorldZipHelper.unpackFile(worldFile, mWorldPath)
-                }.finallyTask(TaskExecutors.getAndroidUI()) {
-                    dialog.dismiss()
-                }.execute()
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("zip")) { uris: List<Uri>? ->
+            uris?.let { uriList ->
+                uriList[0].let { result ->
+                    val dialog = AlertDialog.Builder(requireContext())
+                        .setView(R.layout.view_task_running)
+                        .setCancelable(false)
+                        .show()
+                    Task.runTask {
+                        val worldFile = copyFileInBackground(requireContext(), result, mWorldPath.absolutePath)
+                        UnpackWorldZipHelper.unpackFile(worldFile, mWorldPath)
+                    }.finallyTask(TaskExecutors.getAndroidUI()) {
+                        dialog.dismiss()
+                    }.execute()
+                }
             }
         }
     }

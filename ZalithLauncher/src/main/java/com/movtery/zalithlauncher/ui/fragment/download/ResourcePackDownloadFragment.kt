@@ -31,14 +31,16 @@ class ResourcePackDownloadFragment() : AbstractResourceDownloadFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("zip")) { result: Uri? ->
-            result?.let {
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("zip", true)) { uris: List<Uri>? ->
+            uris?.let { uriList ->
                 val dialog = AlertDialog.Builder(requireContext())
                     .setView(R.layout.view_task_running)
                     .setCancelable(false)
                     .show()
                 Task.runTask {
-                    copyFileInBackground(requireActivity(), result, mResourcePackPath.absolutePath)
+                    uriList.forEach { uri ->
+                        copyFileInBackground(requireActivity(), uri, mResourcePackPath.absolutePath)
+                    }
                 }.ended(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

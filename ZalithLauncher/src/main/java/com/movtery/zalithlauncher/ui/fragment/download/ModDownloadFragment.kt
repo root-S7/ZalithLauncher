@@ -31,14 +31,16 @@ class ModDownloadFragment() : AbstractResourceDownloadFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("jar")) { result: Uri? ->
-            result?.let {
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("jar", true)) { uris: List<Uri>? ->
+            uris?.let { uriList ->
                 val dialog = AlertDialog.Builder(requireContext())
                     .setView(R.layout.view_task_running)
                     .setCancelable(false)
                     .show()
                 Task.runTask {
-                    copyFileInBackground(requireActivity(), result, mModPath.absolutePath)
+                    uriList.forEach { uri ->
+                        copyFileInBackground(requireActivity(), uri, mModPath.absolutePath)
+                    }
                 }.ended(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

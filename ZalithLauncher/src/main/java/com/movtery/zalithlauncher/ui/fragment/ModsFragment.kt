@@ -48,10 +48,12 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("jar")) { result: Uri? ->
-            result?.let{
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("jar", true)) { uris: List<Uri>? ->
+            uris?.let { uriList ->
                 Task.runTask {
-                    copyFileInBackground(requireContext(), result, mRootPath)
+                    uriList.forEach { uri ->
+                        copyFileInBackground(requireContext(), uri, mRootPath)
+                    }
                 }.beforeStart(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {

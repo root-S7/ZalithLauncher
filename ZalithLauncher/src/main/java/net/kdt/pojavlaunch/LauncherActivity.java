@@ -98,8 +98,10 @@ public class LauncherActivity extends BaseActivity {
     private final AnimPlayer noticeAnimPlayer = new AnimPlayer();
     private final AccountsManager accountsManager = AccountsManager.getInstance();
     public final ActivityResultLauncher<Object> modInstallerLauncher =
-            registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
-                if(data != null) Tools.launchModInstaller(this, data);
+            registerForActivityResult(new OpenDocumentWithExtension("jar"), (uris) -> {
+                if (uris != null) {
+                    Tools.launchModInstaller(this, uris.get(0));
+                }
             });
 
     private ActivityPojavLauncherBinding binding;

@@ -64,10 +64,12 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null)) { result: Uri? ->
-            result?.let {
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null, true)) { uris: List<Uri>? ->
+            uris?.let { uriList ->
                 Task.runTask {
-                    copyFileInBackground(requireContext(), result, binding.fileRecyclerView.fullPath.absolutePath)
+                    uriList.forEach { uri ->
+                        copyFileInBackground(requireContext(), uri, binding.fileRecyclerView.fullPath.absolutePath)
+                    }
                 }.beforeStart(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {

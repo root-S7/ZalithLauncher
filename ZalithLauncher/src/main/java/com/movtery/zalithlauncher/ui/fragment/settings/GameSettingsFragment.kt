@@ -30,8 +30,12 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
     private lateinit var binding: SettingsFragmentGameBinding
     private val mVmInstallLauncher = registerForActivityResult(
         OpenDocumentWithExtension("xz")
-    ) { data: Uri? ->
-        if (data != null) Tools.installRuntimeFromUri(context, data)
+    ) { uris: List<Uri>? ->
+        uris?.let { uriList ->
+            uriList[0].let { data ->
+                Tools.installRuntimeFromUri(context, data)
+            }
+        }
     }
 
     override fun onCreateView(

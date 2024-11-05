@@ -54,10 +54,12 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("json")) { result: Uri? ->
-            result?.let {
+        openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("json", true)) { uris: List<Uri>? ->
+            uris?.let { uriList ->
                 Task.runTask {
-                    copyFileInBackground(requireContext(), result, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
+                    uriList.forEach { uri ->
+                        copyFileInBackground(requireContext(), uri, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
+                    }
                 }.beforeStart(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {
