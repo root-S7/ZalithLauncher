@@ -96,7 +96,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     ): View {
         binding = FragmentAccountBinding.inflate(layoutInflater)
         mAccountViewWrapper = AccountViewWrapper(mainView = binding.viewAccount.root)
-        mProgressDialog = ZHTools.showTaskRunningDialog(binding.root.context)
+        mProgressDialog = ZHTools.createTaskRunningDialog(binding.root.context)
         return binding.root
     }
 

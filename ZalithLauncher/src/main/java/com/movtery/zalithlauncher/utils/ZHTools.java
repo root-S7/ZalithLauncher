@@ -199,11 +199,17 @@ public final class ZHTools {
         ) != PackageManager.PERMISSION_DENIED;
     }
 
-    public static AlertDialog showTaskRunningDialog(Context context) {
+    public static AlertDialog createTaskRunningDialog(Context context) {
         return new AlertDialog.Builder(context, R.style.CustomAlertDialogTheme)
                 .setView(R.layout.view_task_running)
                 .setCancelable(false)
-                .show();
+                .create();
+    }
+
+    public static AlertDialog showTaskRunningDialog(Context context) {
+        AlertDialog dialog = createTaskRunningDialog(context);
+        dialog.show();
+        return dialog;
     }
 
     public static boolean isAdrenoGPU() {

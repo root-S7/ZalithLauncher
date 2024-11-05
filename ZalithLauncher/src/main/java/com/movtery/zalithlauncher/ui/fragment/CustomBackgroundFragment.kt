@@ -55,8 +55,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     copyFileInBackground(requireActivity(), result, binding.fileRecyclerView.fullPath.absolutePath)
-                }.beforeStart(TaskExecutors.getAndroidUI()) {
-                    Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.listFileAt(backgroundPath())

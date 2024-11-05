@@ -50,8 +50,6 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     copyFileInBackground(requireActivity(), result, mousePath().absolutePath)
-                }.beforeStart(TaskExecutors.getAndroidUI()) {
-                    Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     loadData()

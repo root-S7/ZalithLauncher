@@ -71,8 +71,6 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     uriList.forEach { uri ->
                         copyFileInBackground(requireContext(), uri, binding.fileRecyclerView.fullPath.absolutePath)
                     }
-                }.beforeStart(TaskExecutors.getAndroidUI()) {
-                    Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.refreshPath()

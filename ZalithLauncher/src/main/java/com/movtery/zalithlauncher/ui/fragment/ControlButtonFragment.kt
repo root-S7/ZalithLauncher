@@ -61,8 +61,6 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                     uriList.forEach { uri ->
                         copyFileInBackground(requireContext(), uri, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
                     }
-                }.beforeStart(TaskExecutors.getAndroidUI()) {
-                    Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     controlsListViewCreator.refresh()

@@ -55,8 +55,6 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                     uriList.forEach { uri ->
                         copyFileInBackground(requireContext(), uri, mRootPath)
                     }
-                }.beforeStart(TaskExecutors.getAndroidUI()) {
-                    Toast.makeText(requireContext(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.profile_mods_added_mod), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.refreshPath()
