@@ -12,7 +12,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentDownloadBinding
-import com.movtery.zalithlauncher.event.single.DownloadPageSwapEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
 import com.movtery.zalithlauncher.ui.fragment.download.ModDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ModPackDownloadFragment
@@ -57,7 +57,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     onFragmentSelect(position)
-                    EventBus.getDefault().post(DownloadPageSwapEvent())
+                    EventBus.getDefault().post(DownloadPageSwapEvent(position))
                 }
             })
         }

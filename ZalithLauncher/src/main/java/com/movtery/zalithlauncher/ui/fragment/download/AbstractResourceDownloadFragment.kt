@@ -16,7 +16,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentDownloadResourceBinding
-import com.movtery.zalithlauncher.event.single.DownloadPageSwapEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
@@ -292,7 +292,7 @@ abstract class AbstractResourceDownloadFragment(
 
     @Subscribe
     fun event(event: DownloadPageSwapEvent) {
-        slideIn()
+        if (event.index == classify.type) slideIn()
     }
 
     companion object {
