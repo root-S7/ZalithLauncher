@@ -248,7 +248,7 @@
     <string name="account_local_account">Tài khoản ngoại tuyến</string>
     <string name="account_local_account_empty">Tên người dùng không được để trống!</string>
     <string name="account_local_account_exists">Tên người dùng đã bị trùng với tài khoản hiện có, vui lòng nhập một tên mới!</string>
-    <string name="account_local_account_invalid">Tên người dùng hợp lệ chỉ hỗ trợ chữ cái tiếng Anh (cả chữ hoa và chữ thường), số và dấu gạch dưới, độ dài không được ngắn hơn 2 ký tự và không được dài hơn 16 ký tự.\nVí dụ tên người dùng hợp lệ: Name, Name_, Name123\nVí dụ tên người dùng không hợp lệ: Name@, N ame, name_name_name_name\nNếu bạn đang sử dụng Mod hoặc plugin liên quan có thể bỏ qua cơ chế này, bạn có thể tiếp tục sử dụng tên này, nếu không, vui lòng đặt lại tên!</string>
+    <string name="account_local_account_invalid">Tên người dùng hợp lệ chỉ hỗ trợ chữ cái tiếng Anh (không phân biệt chữ hoa chữ thường), số và dấu gạch dưới. Độ dài không được ít hơn 3 ký tự và không quá 16 ký tự.\nVí dụ tên người dùng hợp lệ: Name, Name_, Name123\nVí dụ tên người dùng không hợp lệ: Name@, N ame, name_name_name_name\nTuy nhiên, nếu bạn sử dụng các Mod hoặc plugin liên quan có thể vượt qua hạn chế này, bạn có thể tiếp tục sử dụng tên này. Nếu không, vui lòng đổi tên!</string>
     <string name="account_login_local_name">Tên người dùng</string>
     <string name="account_login_start">Bắt đầu đăng nhập!</string>
     <string name="account_no_microsoft_account">Vui lòng đăng nhập ít nhất một tài khoản Minecraft bản quyền, chúng tôi không khuyến khích người dùng khởi động Minecraft mà không có tài khoản bản quyền.</string>

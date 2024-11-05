@@ -248,7 +248,7 @@
     <string name="account_local_account">Conta offline</string>
     <string name="account_local_account_empty">O nome de usuário não pode estar vazio!</string>
     <string name="account_local_account_exists">O nome de usuário entra em conflito com uma conta existente. Por favor, insira um novo nome!</string>
-    <string name="account_local_account_invalid">Nomes de usuário válidos suportam apenas letras (maiúsculas e minúsculas), números e sublinhados. O comprimento deve ter entre 2 e 16 caracteres.\nExemplos de nomes de usuário válidos: Name, Name_, Name123\nExemplos de nomes de usuário inválidos: Name@, N ame, name_name_name_name\nSe você estiver usando um Mod ou plugin relacionado que possa remover essa restrição, você pode continuar usando esse nome; caso contrário, por favor, renomeie!</string>
+    <string name="account_local_account_invalid">Um nome de usuário válido suporta apenas letras inglesas (maiúsculas ou minúsculas), números e underscores. O comprimento deve ser entre 3 e 16 caracteres.\nExemplos de nomes de usuário corretos: Name, Name_, Name123\nExemplos de nomes de usuário incorretos: Name@, N ame, name_name_name_name\nNo entanto, se você estiver usando mods ou plugins relevantes que possam contornar essa restrição, poderá continuar usando este nome. Caso contrário, renomeie-o!</string>
     <string name="account_login_local_name">Nome de usuário</string>
     <string name="account_login_start">Iniciar login!</string>
     <string name="account_no_microsoft_account">Por favor, faça login em pelo menos uma conta oficial do Minecraft. Não incentivamos os usuários a iniciarem o Minecraft sem uma conta oficial.</string>

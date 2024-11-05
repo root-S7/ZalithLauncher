@@ -248,7 +248,7 @@
     <string name="account_local_account">حساب في وضع عدم الاتصال</string>
     <string name="account_local_account_empty">اسم المستخدم لا يمكن أن يكون فارغًا!</string>
     <string name="account_local_account_exists">اسم المستخدم يتعارض مع حساب موجود، يرجى إعادة كتابة اسم جديد!</string>
-    <string name="account_local_account_invalid">اسم المستخدم الصحيح يدعم فقط الأحرف الإنجليزية (أحرف كبيرة وصغيرة) والأرقام والشرطة السفلية كاسم مستخدم، لا يمكن أن يكون أقل من 2 أحرف، ولا يزيد عن 16 حرفًا\nمثال على اسم مستخدم صحيح: Name، Name_، Name123\nمثال على اسم مستخدم غير صحيح: Name@، N ame، name_name_name_name\nولكن إذا كنت قد استخدمت مود أو مكونات إضافية تقوم بإلغاء هذه الآلية، فيمكنك الاستمرار في استخدام هذا الاسم، وإلا يرجى إعادة تسمية!</string>
+    <string name="account_local_account_invalid">اسم المستخدم الصالح يدعم فقط الحروف الإنجليزية (غير حساس لحالة الحروف)، الأرقام، والشرطات السفلية. يجب أن تكون الطول بين 3 و 16 حرفًا.\nأمثلة على أسماء المستخدمين الصحيحة: Name، Name_، Name123\nأمثلة على أسماء المستخدمين غير الصحيحة: Name@، N ame، name_name_name_name\nولكن إذا كنت تستخدم المودات أو الإضافات ذات الصلة التي يمكنها تجاوز هذه الآلية، يمكنك الاستمرار في استخدام هذا الاسم، وإلا يرجى إعادة التسمية!</string>
     <string name="account_login_local_name">اسم المستخدم</string>
     <string name="account_login_start">بدء تسجيل الدخول!</string>
     <string name="account_no_microsoft_account">يرجى تسجيل الدخول إلى حساب Minecraft الأصلي على الأقل، لا نشجع المستخدمين على تشغيل Minecraft بدون حساب أصلي.</string>
