@@ -22,11 +22,12 @@ class ModDownloadFragment() : AbstractResourceDownloadFragment(
     CategoryUtils.getModCategory(),
     true
 ) {
+    private var mParentFragment: Fragment? = null
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
     private val mModPath = File(sGameDir, "/mods")
 
     constructor(parentFragment: Fragment): this() {
-        this.mInfoAdapter = InfoAdapter(parentFragment, this, mModPath)
+        this.mParentFragment = parentFragment
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,8 @@ class ModDownloadFragment() : AbstractResourceDownloadFragment(
             }
         }
     }
+
+    override fun initInfoAdapter() = InfoAdapter(mParentFragment, this, mModPath)
 
     override fun initInstallButton(installButton: Button) {
         installButton.setOnClickListener {

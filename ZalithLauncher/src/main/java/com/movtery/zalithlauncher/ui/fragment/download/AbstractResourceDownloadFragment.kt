@@ -44,9 +44,9 @@ abstract class AbstractResourceDownloadFragment(
     private val categoryList: List<Category>,
     private val showModloader: Boolean
 ) : FragmentWithAnim(R.layout.fragment_download_resource), InfoAdapter.SearchResultCallback {
-    protected lateinit var mInfoAdapter: InfoAdapter
-
     private lateinit var binding: FragmentDownloadResourceBinding
+
+    private lateinit var mInfoAdapter: InfoAdapter
     private lateinit var mPlatformAdapter: ObjectSpinnerAdapter<Platform>
     private lateinit var mSortAdapter: ObjectSpinnerAdapter<Sort>
     private lateinit var mCategoryAdapter: ObjectSpinnerAdapter<Category>
@@ -54,6 +54,7 @@ abstract class AbstractResourceDownloadFragment(
     private var mCurrentPlatform: Platform = Platform.CURSEFORGE
     private val mFilters: Filters = Filters()
 
+    abstract fun initInfoAdapter(): InfoAdapter
     abstract fun initInstallButton(installButton: Button)
 
     override fun onCreateView(
@@ -63,6 +64,12 @@ abstract class AbstractResourceDownloadFragment(
     ): View {
         binding = FragmentDownloadResourceBinding.inflate(layoutInflater)
 
+        mInfoAdapter = initInfoAdapter()
+        mInfoAdapter.setBeforeSearchListener {
+            mCurrentPlatform.helper.currentClassify = classify
+            mCurrentPlatform.helper.filters = mFilters
+            mInfoAdapter.setPlatform(mCurrentPlatform)
+        }
         mPlatformAdapter = ObjectSpinnerAdapter(binding.platformSpinner) { platform -> platform.pName }
         mSortAdapter = ObjectSpinnerAdapter(binding.sortSpinner) { sort -> getString(sort.resNameID) }
         mCategoryAdapter = ObjectSpinnerAdapter(binding.categorySpinner) { category -> getString(category.resNameID) }
@@ -266,18 +273,11 @@ abstract class AbstractResourceDownloadFragment(
     }
 
     private fun search() {
-        mCurrentPlatform.helper.currentClassify = classify
-        mCurrentPlatform.helper.filters = mFilters
         setStatusText(false)
         setRecyclerView(false)
         setLoadingLayout(true)
-        binding.apply {
-            recyclerView.scrollToPosition(0)
-        }
-        mInfoAdapter.apply {
-            setPlatform(mCurrentPlatform)
-            performSearchQuery()
-        }
+        binding.recyclerView.scrollToPosition(0)
+        mInfoAdapter.performSearchQuery()
     }
 
     private fun checkSearch() {

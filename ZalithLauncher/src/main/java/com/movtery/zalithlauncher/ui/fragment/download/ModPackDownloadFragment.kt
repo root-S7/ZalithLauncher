@@ -26,10 +26,11 @@ class ModPackDownloadFragment() : AbstractResourceDownloadFragment(
     CategoryUtils.getModPackCategory(),
     true
 ) {
+    private var mParentFragment: Fragment? = null
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
 
     constructor(parentFragment: Fragment): this() {
-        this.mInfoAdapter = InfoAdapter(parentFragment, this, null)
+        this.mParentFragment = parentFragment
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +49,8 @@ class ModPackDownloadFragment() : AbstractResourceDownloadFragment(
             }
         }
     }
+
+    override fun initInfoAdapter() = InfoAdapter(mParentFragment, this, null)
 
     override fun initInstallButton(installButton: Button) {
         installButton.setOnClickListener {

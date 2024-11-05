@@ -22,11 +22,12 @@ class ResourcePackDownloadFragment() : AbstractResourceDownloadFragment(
     CategoryUtils.getResourcePackCategory(),
     false
 ) {
+    private var mParentFragment: Fragment? = null
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
     private val mResourcePackPath = File(sGameDir, "/resourcepacks")
 
     constructor(parentFragment: Fragment): this() {
-        this.mInfoAdapter = InfoAdapter(parentFragment, this, mResourcePackPath)
+        this.mParentFragment = parentFragment
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,8 @@ class ResourcePackDownloadFragment() : AbstractResourceDownloadFragment(
             }
         }
     }
+
+    override fun initInfoAdapter() = InfoAdapter(mParentFragment, this, mResourcePackPath)
 
     override fun initInstallButton(installButton: Button) {
         installButton.setOnClickListener {

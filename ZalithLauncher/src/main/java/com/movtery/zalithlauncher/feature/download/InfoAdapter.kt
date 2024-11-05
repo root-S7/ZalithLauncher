@@ -41,12 +41,14 @@ import java.util.WeakHashMap
 import java.util.concurrent.Future
 
 class InfoAdapter(
-    private val parentFragment: Fragment,
+    private val parentFragment: Fragment?,
     private val mSearchResultCallback: SearchResultCallback,
     private val targetPath: File?
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var mPlatform: Platform
+
+    private var beforeSearchListener: BeforeSearchListener? = null
     private val mViewHolderSet: MutableSet<ViewHolder> = Collections.newSetFromMap(WeakHashMap())
     private var mItems: MutableList<InfoItem> = ArrayList()
 
@@ -56,6 +58,10 @@ class InfoAdapter(
 
     fun setPlatform(platform: Platform) {
         this.mPlatform = platform
+    }
+
+    fun setBeforeSearchListener(listener: BeforeSearchListener) {
+        this.beforeSearchListener = listener
     }
 
     fun checkPlatform(platform: Platform): Boolean = this.mPlatform != platform
@@ -142,18 +148,17 @@ class InfoAdapter(
             }
 
             binding.apply {
-                root.setOnClickListener {
-                    EventBus.getDefault().post(DownloadRecyclerEnableEvent(false))
+                parentFragment?.let { fragment ->
+                    root.setOnClickListener {
+                        EventBus.getDefault().post(DownloadRecyclerEnableEvent(false))
 
-                    val infoViewModel = ViewModelProvider(parentFragment.requireActivity())[InfoViewModel::class.java]
-                    infoViewModel.infoItem = item.copy()
-                    infoViewModel.platformHelper = item.platform.helper.copy()
-                    infoViewModel.targetPath = targetPath
+                        val infoViewModel = ViewModelProvider(fragment.requireActivity())[InfoViewModel::class.java]
+                        infoViewModel.infoItem = item.copy()
+                        infoViewModel.platformHelper = item.platform.helper.copy()
+                        infoViewModel.targetPath = targetPath
 
-                    ZHTools.addFragment(
-                        parentFragment,
-                        DownloadModFragment::class.java, DownloadModFragment.TAG, null
-                    )
+                        ZHTools.addFragment(fragment, DownloadModFragment::class.java, DownloadModFragment.TAG, null)
+                    }
                 }
 
                 titleTextview.text =
@@ -246,6 +251,7 @@ class InfoAdapter(
         @SuppressLint("NotifyDataSetChanged")
         override fun run(myFuture: Future<*>) {
             runCatching {
+                beforeSearchListener?.beforeSearch()
                 val result: SearchResult? = mPlatform.helper.search(mPreviousResult ?: SearchResult())
 
                 TaskExecutors.runInUIThread {
@@ -295,6 +301,10 @@ class InfoAdapter(
                 }
             }
         }
+    }
+
+    fun interface BeforeSearchListener {
+        fun beforeSearch()
     }
 
     interface SearchResultCallback {

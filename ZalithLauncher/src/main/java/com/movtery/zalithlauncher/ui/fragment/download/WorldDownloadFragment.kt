@@ -24,11 +24,12 @@ class WorldDownloadFragment() : AbstractResourceDownloadFragment(
     CategoryUtils.getWorldCategory(),
     false
 ) {
+    private var mParentFragment: Fragment? = null
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
     private val mWorldPath = File(sGameDir, "/saves")
 
     constructor(parentFragment: Fragment): this() {
-        this.mInfoAdapter = InfoAdapter(parentFragment, this, mWorldPath)
+        this.mParentFragment = parentFragment
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +52,8 @@ class WorldDownloadFragment() : AbstractResourceDownloadFragment(
             }
         }
     }
+
+    override fun initInfoAdapter() = InfoAdapter(mParentFragment, this, mWorldPath)
 
     override fun initInstallButton(installButton: Button) {
         installButton.setOnClickListener {
