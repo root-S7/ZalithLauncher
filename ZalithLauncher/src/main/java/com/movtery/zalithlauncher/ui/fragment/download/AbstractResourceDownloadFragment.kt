@@ -215,14 +215,14 @@ abstract class AbstractResourceDownloadFragment(
 
     override fun slideIn(animPlayer: AnimPlayer) {
         binding.apply {
-            animPlayer.apply(AnimPlayer.Entry(operateLayout, Animations.BounceInRight))
+            animPlayer.apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
                 .apply(AnimPlayer.Entry(downloadLayout, Animations.BounceInDown))
         }
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
         binding.apply {
-            animPlayer.apply(AnimPlayer.Entry(operateLayout, Animations.FadeOutLeft))
+            animPlayer.apply(AnimPlayer.Entry(operateLayout, Animations.FadeOutRight))
                 .apply(AnimPlayer.Entry(downloadLayout, Animations.FadeOutUp))
         }
     }
