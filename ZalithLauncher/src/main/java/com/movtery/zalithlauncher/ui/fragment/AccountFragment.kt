@@ -1,7 +1,6 @@
 package com.movtery.zalithlauncher.ui.fragment
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.angcyo.tablayout.DslTabLayout
 import com.movtery.anim.AnimPlayer
@@ -96,10 +96,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     ): View {
         binding = FragmentAccountBinding.inflate(layoutInflater)
         mAccountViewWrapper = AccountViewWrapper(mainView = binding.viewAccount.root)
-        mProgressDialog = AlertDialog.Builder(binding.root.context)
-            .setView(R.layout.view_task_running)
-            .setCancelable(false)
-            .create()
+        mProgressDialog = ZHTools.showTaskRunningDialog(binding.root.context)
         return binding.root
     }
 

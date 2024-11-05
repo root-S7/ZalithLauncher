@@ -47,6 +47,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
             result?.let {
+                val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     copyFileInBackground(requireActivity(), result, mousePath().absolutePath)
                 }.beforeStart(TaskExecutors.getAndroidUI()) {
@@ -54,6 +55,8 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     loadData()
+                }.finallyTask(TaskExecutors.getAndroidUI()) {
+                    dialog.dismiss()
                 }.execute()
             }
         }

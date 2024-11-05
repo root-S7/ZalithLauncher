@@ -52,6 +52,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
             result?.let {
+                val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     copyFileInBackground(requireActivity(), result, binding.fileRecyclerView.fullPath.absolutePath)
                 }.beforeStart(TaskExecutors.getAndroidUI()) {
@@ -59,6 +60,8 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.listFileAt(backgroundPath())
+                }.finallyTask(TaskExecutors.getAndroidUI()) {
+                    dialog.dismiss()
                 }.execute()
             }
         }
@@ -124,8 +127,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
                 })
 
                 setRefreshListener {
-                    val show = itemCount == 0
-                    setVisibilityAnim(nothingText, show)
+                    setVisibilityAnim(nothingText, isNoFile)
                 }
             }
 

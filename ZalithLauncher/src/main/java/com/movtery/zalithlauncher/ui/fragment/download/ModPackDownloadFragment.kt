@@ -1,6 +1,5 @@
 package com.movtery.zalithlauncher.ui.fragment.download
 
-import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
@@ -16,6 +15,7 @@ import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallExtra
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
@@ -38,10 +38,7 @@ class ModPackDownloadFragment() : AbstractResourceDownloadFragment(
             uris?.let { uriList ->
                 uriList[0].let { result ->
                     if (!isTaskRunning()) {
-                        val dialog = AlertDialog.Builder(requireContext())
-                            .setView(R.layout.view_task_running)
-                            .setCancelable(false)
-                            .show()
+                        val dialog = ZHTools.showTaskRunningDialog(requireContext())
                         Task.runTask {
                             val modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
                             EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, modPackFile.absolutePath, dialog)))

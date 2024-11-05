@@ -66,6 +66,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension(null, true)) { uris: List<Uri>? ->
             uris?.let { uriList ->
+                val dialog = ZHTools.showTaskRunningDialog((requireContext()))
                 Task.runTask {
                     uriList.forEach { uri ->
                         copyFileInBackground(requireContext(), uri, binding.fileRecyclerView.fullPath.absolutePath)
@@ -75,6 +76,8 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.refreshPath()
+                }.finallyTask(TaskExecutors.getAndroidUI()) {
+                    dialog.dismiss()
                 }.execute()
             }
         }
@@ -148,8 +151,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                 }
 
                 setRefreshListener {
-                    val show = itemCount <= 1
-                    setVisibilityAnim(nothingText, show)
+                    setVisibilityAnim(nothingText, isNoFile)
                     // 如果目录变更到了外部存储，则会检查权限
                     if (Objects.equals(fullPath.absolutePath, storageDirectory.absolutePath)) {
                         checkPermissions(R.string.file_external_storage, null)

@@ -49,6 +49,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("jar", true)) { uris: List<Uri>? ->
+            val dialog = ZHTools.showTaskRunningDialog(requireContext())
             uris?.let { uriList ->
                 Task.runTask {
                     uriList.forEach { uri ->
@@ -59,6 +60,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.profile_mods_added_mod), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.refreshPath()
+                }.finallyTask(TaskExecutors.getAndroidUI()) {
+                    dialog.dismiss()
                 }.execute()
             }
         }
@@ -168,8 +171,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 }
 
                 setRefreshListener {
-                    val show = itemCount == 0
-                    setVisibilityAnim(nothingLayout, show)
+                    setVisibilityAnim(nothingLayout, isNoFile)
                 }
             }
 

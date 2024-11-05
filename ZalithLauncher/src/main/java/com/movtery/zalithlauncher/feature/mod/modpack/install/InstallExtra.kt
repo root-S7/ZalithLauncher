@@ -1,6 +1,6 @@
 package com.movtery.zalithlauncher.feature.mod.modpack.install
 
-import android.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 
 class InstallExtra(
     @JvmField var startInstall: Boolean,

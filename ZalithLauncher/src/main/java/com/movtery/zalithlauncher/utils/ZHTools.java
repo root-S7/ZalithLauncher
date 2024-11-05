@@ -20,6 +20,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -196,6 +197,13 @@ public final class ZHTools {
                 ContextExecutor.getApplication(),
                 Manifest.permission.POST_NOTIFICATIONS
         ) != PackageManager.PERMISSION_DENIED;
+    }
+
+    public static AlertDialog showTaskRunningDialog(Context context) {
+        return new AlertDialog.Builder(context, R.style.CustomAlertDialogTheme)
+                .setView(R.layout.view_task_running)
+                .setCancelable(false)
+                .show();
     }
 
     public static boolean isAdrenoGPU() {

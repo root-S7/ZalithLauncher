@@ -56,6 +56,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("json", true)) { uris: List<Uri>? ->
             uris?.let { uriList ->
+                val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     uriList.forEach { uri ->
                         copyFileInBackground(requireContext(), uri, File(PathAndUrlManager.DIR_CTRLMAP_PATH).absolutePath)
@@ -65,6 +66,8 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     controlsListViewCreator.refresh()
+                }.finallyTask(TaskExecutors.getAndroidUI()) {
+                    dialog.dismiss()
                 }.execute()
             }
         }

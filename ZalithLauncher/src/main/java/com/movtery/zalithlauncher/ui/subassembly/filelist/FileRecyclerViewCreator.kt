@@ -56,6 +56,10 @@ class FileRecyclerViewCreator(
         fileRecyclerAdapter.setOnMultiSelectListener(listener)
     }
 
+    fun isNoFile(): Boolean {
+        return (mData.size == 1 && !mData[0].isCanCheck) || mData.size == 0
+    }
+
     companion object {
         fun loadItemBeansFromPath(context: Context, path: File, fileIcon: FileIcon,
             showFile: Boolean, showFolder: Boolean

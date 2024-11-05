@@ -110,6 +110,10 @@ public class FileRecyclerView extends LinearLayout {
         this.fileIcon = fileIcon;
     }
 
+    public boolean isNoFile() {
+        return fileRecyclerViewCreator.isNoFile();
+    }
+
     public int searchFiles(String filterString, boolean caseSensitive) {
         searchCount.set(0);
         this.filterString = filterString;
