@@ -99,6 +99,8 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
                 mExtensionFuture = null;
             }
 
+            binding.getRoot().getBackground().setTint(infoItem.getDependencyType().getColor());
+
             binding.sourceImageview.setImageDrawable(getPlatformIcon(infoItem.getPlatform()));
 
             String title;

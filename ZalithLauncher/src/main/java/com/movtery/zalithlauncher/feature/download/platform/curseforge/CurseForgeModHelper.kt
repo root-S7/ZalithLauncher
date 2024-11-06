@@ -95,8 +95,8 @@ class CurseForgeModHelper {
                 dependencies: List<DependenciesInfoItem>?
             ) -> T
         ): List<T>? {
-            if (!force && cache.containsKey(api, infoItem.projectId))
-                return cache.get(api, infoItem.projectId)
+            if (!force && cache.containsKey(infoItem.projectId))
+                return cache.get(infoItem.projectId)
 
             val allModData: List<JsonObject>
             try {
@@ -135,14 +135,14 @@ class CurseForgeModHelper {
                         val modId = dObject.get("modId").asString
                         if (invalidDependencies.contains(modId)) continue
 
-                        if (!InfoCache.DependencyInfoCache.containsKey(api, modId)) {
+                        if (!InfoCache.DependencyInfoCache.containsKey(modId)) {
                             val response = CurseForgeCommonUtils.searchModFromID(api, modId)
                             val hit = GsonJsonUtils.getJsonObjectSafe(response, "data")
 
                             if (hit != null) {
                                 val dModLoaders = getModLoaders(hit.getAsJsonArray("latestFilesIndexes"))
                                 InfoCache.DependencyInfoCache.put(
-                                    api, modId, DependenciesInfoItem(
+                                    modId, DependenciesInfoItem(
                                         infoItem.classify,
                                         Platform.CURSEFORGE,
                                         modId,
@@ -161,7 +161,7 @@ class CurseForgeModHelper {
                             } else invalidDependencies.add(modId)
                         }
 
-                        val cacheItem = InfoCache.DependencyInfoCache.get(api, modId)
+                        val cacheItem = InfoCache.DependencyInfoCache.get(modId)
                         cacheItem?.let { dependencyInfoList.add(it) }
                     }
                 }
@@ -183,7 +183,7 @@ class CurseForgeModHelper {
                 )
             }
 
-            cache.put(api, infoItem.projectId, versionItems)
+            cache.put(infoItem.projectId, versionItems)
             return versionItems
         }
 

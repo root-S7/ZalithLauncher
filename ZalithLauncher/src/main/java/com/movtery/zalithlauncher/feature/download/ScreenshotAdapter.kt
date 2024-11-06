@@ -16,7 +16,6 @@ import com.bumptech.glide.request.target.Target
 import com.movtery.zalithlauncher.databinding.ViewInfoScreenshotBinding
 import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.ui.dialog.ViewImageDialog
 
 class ScreenshotAdapter(private val screenshotItems: List<ScreenshotItem>) : RecyclerView.Adapter<ScreenshotAdapter.ViewHolder>() {
 
@@ -34,14 +33,6 @@ class ScreenshotAdapter(private val screenshotItems: List<ScreenshotItem>) : Rec
         fun setScreenshot(item: ScreenshotItem) {
             binding.apply {
                 retry.setOnClickListener { loadScreenshotImage(item.imageUrl) }
-                screenshot.setOnClickListener {
-                    ViewImageDialog.Builder(itemView.context)
-                        .setImage(screenshot.drawable)
-                        .setTitle(item.title)
-                        .setDescription(item.description)
-                        .setImageCache(AllSettings.resourceImageCache)
-                        .buildDialog()
-                }
 
                 loadScreenshotImage(item.imageUrl)
 

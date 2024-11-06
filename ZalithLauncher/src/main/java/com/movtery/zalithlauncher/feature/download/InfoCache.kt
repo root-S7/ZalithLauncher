@@ -4,23 +4,33 @@ import com.movtery.zalithlauncher.feature.download.item.DependenciesInfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModLikeVersionItem
 import com.movtery.zalithlauncher.feature.download.item.ModVersionItem
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
-import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 
+/**
+ * 将搜索得到的信息缓存在内存中，下次加载时可直接从内存中拿到上次的搜索结果
+ */
 class InfoCache {
     abstract class CacheBase<V> {
-        //需要传入api对象，以防止不同api的Mod的id重叠的问题
-        private val cache: MutableMap<ApiHandler, MutableMap<String, V>> = HashMap()
+        private val cache: MutableMap<String, V> = HashMap()
 
-        fun put(api: ApiHandler, modId: String, value: V) {
-            cache.getOrPut(api) { HashMap() }[modId] = value
+        /**
+         * 根据ModId，将搜索到的值存入内存
+         */
+        fun put(modId: String, value: V) {
+            cache[modId] = value
         }
 
-        fun get(api: ApiHandler, modId: String): V? {
-            return cache.getOrPut(api) { HashMap() }[modId]
+        /**
+         * 根据ModId，拿到内存中存储的值，若没有，则返回空
+         */
+        fun get(modId: String): V? {
+            return cache[modId]
         }
 
-        fun containsKey(api: ApiHandler, modId: String): Boolean {
-            return cache.getOrPut(api) { HashMap() }.containsKey(modId)
+        /**
+         * 检查内存中是否存在已经存入的ModId
+         */
+        fun containsKey(modId: String): Boolean {
+            return cache.containsKey(modId)
         }
     }
 

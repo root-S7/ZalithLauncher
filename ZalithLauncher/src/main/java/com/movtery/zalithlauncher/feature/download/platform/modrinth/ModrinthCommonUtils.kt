@@ -147,8 +147,8 @@ class ModrinthCommonUtils {
             cache: InfoCache.CacheBase<MutableList<T>>,
             createItem: (JsonObject, JsonObject, MutableList<String>) -> T
         ): List<T>? {
-            if (!force && cache.containsKey(api, infoItem.projectId))
-                return cache.get(api, infoItem.projectId)
+            if (!force && cache.containsKey(infoItem.projectId))
+                return cache.get(infoItem.projectId)
 
             val response: JsonArray = api.get(
                 "project/${infoItem.projectId}/version",
@@ -165,7 +165,7 @@ class ModrinthCommonUtils {
                 items.add(createItem(versionObject, filesJsonObject, invalidDependencies))
             }
 
-            cache.put(api, infoItem.projectId, items)
+            cache.put(infoItem.projectId, items)
             return items
         }
 

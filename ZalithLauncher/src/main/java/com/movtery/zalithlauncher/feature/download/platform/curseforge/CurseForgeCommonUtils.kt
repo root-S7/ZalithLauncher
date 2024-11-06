@@ -128,8 +128,8 @@ class CurseForgeCommonUtils {
 
         @Throws(Throwable::class)
         internal fun getVersions(api: ApiHandler, infoItem: InfoItem, force: Boolean): List<VersionItem>? {
-            if (!force && InfoCache.VersionCache.containsKey(api, infoItem.projectId))
-                return InfoCache.VersionCache.get(api, infoItem.projectId)
+            if (!force && InfoCache.VersionCache.containsKey(infoItem.projectId))
+                return InfoCache.VersionCache.get(infoItem.projectId)
 
             val allData: List<JsonObject>
             try {
@@ -170,7 +170,7 @@ class CurseForgeCommonUtils {
                 )
             }
 
-            InfoCache.VersionCache.put(api, infoItem.projectId, versionsItem)
+            InfoCache.VersionCache.put(infoItem.projectId, versionsItem)
             return versionsItem
         }
 

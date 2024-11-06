@@ -86,11 +86,11 @@ class ModrinthModHelper {
                         val dependencyType = dObject.get("dependency_type").asString
 
                         if (invalidDependencies.contains(dProjectId)) continue
-                        if (!InfoCache.DependencyInfoCache.containsKey(api, dProjectId)) {
+                        if (!InfoCache.DependencyInfoCache.containsKey(dProjectId)) {
                             val hit = ModrinthCommonUtils.searchModFromID(api, dProjectId)
                             if (hit != null) {
                                 InfoCache.DependencyInfoCache.put(
-                                    api, dProjectId, DependenciesInfoItem(
+                                    dProjectId, DependenciesInfoItem(
                                         infoItem.classify,
                                         Platform.MODRINTH,
                                         dProjectId,
@@ -108,7 +108,7 @@ class ModrinthModHelper {
                                 )
                             } else invalidDependencies.add(dProjectId)
                         }
-                        InfoCache.DependencyInfoCache.get(api, dProjectId)?.let {
+                        InfoCache.DependencyInfoCache.get(dProjectId)?.let {
                             dependencyInfoItems.add(it)
                         }
                     }
