@@ -6,22 +6,9 @@ import com.movtery.zalithlauncher.feature.download.enums.DependencyType
 
 class DependencyUtils {
     companion object {
-        //1 = EmbeddedLibrary
-        //2 = OptionalDependency
-        //3 = RequiredDependency
-        //4 = Tool
-        //5 = Incompatible
-        //6 = Include
         fun getDependencyType(type: String?): DependencyType {
-            return when (type) {
-                "optional", "2" -> DependencyType.OPTIONAL
-                "incompatible", "5" -> DependencyType.INCOMPATIBLE
-                "embedded", "1" -> DependencyType.EMBEDDED
-                "4" -> DependencyType.TOOL
-                "6" -> DependencyType.INCLUDE
-                "required", "3" -> DependencyType.REQUIRED
-                else -> DependencyType.REQUIRED
-            }
+            return DependencyType.entries.find { it.curseforge == type || it.modrinth == type }
+                ?: DependencyType.REQUIRED
         }
 
         fun getTextFromType(context: Context, type: DependencyType?): String {

@@ -34,7 +34,6 @@ import java.util.Locale
 import java.util.StringJoiner
 import java.util.TimeZone
 import java.util.WeakHashMap
-import java.util.concurrent.Future
 
 class InfoAdapter(
     private val parentFragment: Fragment?,
@@ -90,33 +89,19 @@ class InfoAdapter(
         notifyDataSetChanged()
     }
 
-    /**
-     * Basic viewholder with expension capabilities
-     */
     inner class ViewHolder(val binding: ItemDownloadInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         private val mContext = binding.root.context
-        private var mExtensionFuture: Future<*>? = null
         private var item: InfoItem? = null
 
         init {
             mViewHolderSet.add(this)
         }
 
-        /** Display basic info about the moditem  */
         @SuppressLint("CheckResult")
         fun setStateLimited(item: InfoItem) {
             this.item = item
             val mod = ModTranslations.getTranslationsByRepositoryType(item.classify)
                 .getModByCurseForgeId(item.slug)
-
-            if (mExtensionFuture != null) {
-                /*
-                 * Since this method reinitializes the ViewHolder for a new mod, this Future stops being ours, so we cancel it
-                 * and null it. The rest is handled above
-                 */
-                mExtensionFuture!!.cancel(true)
-                mExtensionFuture = null
-            }
 
             binding.apply {
                 parentFragment?.let { fragment ->
@@ -153,7 +138,7 @@ class InfoAdapter(
 
                 item.author?.let {
                     val authorSJ = StringJoiner(", ")
-                    for (s in item.author) {
+                    for (s in it) {
                         authorSJ.add(s)
                     }
                     tagsLayout.addView(getTagTextView(R.string.download_info_author, authorSJ.toString()))
@@ -214,8 +199,19 @@ class InfoAdapter(
      */
     private class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
+    /**
+     * @see com.movtery.zalithlauncher.ui.fragment.download.AbstractResourceDownloadFragment
+     */
     interface CallSearchListener {
+        /**
+         * 用于判定当前搜索结果是否为最后一页
+         * 如果是最后一页，那么将不再展示加载视图，也不会请求搜索更多结果
+         */
         fun isLastPage(): Boolean
+
+        /**
+         * 请求加载更多结果
+         */
         fun loadMoreResult()
     }
 

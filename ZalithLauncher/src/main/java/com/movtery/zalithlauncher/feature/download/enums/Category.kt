@@ -6,24 +6,24 @@ import com.movtery.zalithlauncher.R
  * CurseForge与Modrinth双平台的类别汇集，记录类别所代指的实际值，以便搜索资源时填入类别。
  * 如果某类别的curseforge id或modrinth id为null，那么就代表此类别在该平台不存在
  */
-enum class Category(val classify: Classify, val resNameID: Int, val curseforgeID: String?, val modrinthName: String?, val retraction: Boolean = false) {
+enum class Category(val classify: Classify, val resNameID: Int, val curseforgeID: String?, val modrinthName: String?) {
     ALL(Classify.ALL, R.string.generic_all, null, null),
 
     //Mod与ModPack数据来源：https://github.com/Hex-Dragon/PCL2/blob/f40a2990103ae85c34acb5d8d367ab1644aa7ca6/Plain%20Craft%20Launcher%202/Modules/Minecraft/ModComp.vb#L281
     //感谢龙腾猫跃!!!!
     //Mod类别
     MOD_WORLDGEN(Classify.MOD, R.string.category_worldgen, "406", "worldgen"),
-    MOD_BIOMES(Classify.MOD, R.string.category_biomes, "407", null, true),
-    MOD_DIMENSIONS(Classify.MOD, R.string.category_dimensions, "410", null, true),
-    MOD_ORES_RESOURCES(Classify.MOD, R.string.category_ores_resources, "408", null, true),
-    MOD_STRUCTURES(Classify.MOD, R.string.category_structures, "409", null, true),
+    MOD_BIOMES(Classify.MOD, R.string.category_biomes, "407", null),
+    MOD_DIMENSIONS(Classify.MOD, R.string.category_dimensions, "410", null),
+    MOD_ORES_RESOURCES(Classify.MOD, R.string.category_ores_resources, "408", null),
+    MOD_STRUCTURES(Classify.MOD, R.string.category_structures, "409", null),
     MOD_TECHNOLOGY(Classify.MOD, R.string.category_technology, "412", "technology"),
-    MOD_ITEM_FLUID_ENERGY_TRANSPORT(Classify.MOD, R.string.category_item_fluid_energy_transport, "415", null, true),
-    MOD_AUTOMATION(Classify.MOD, R.string.category_automation, "4843", null, true),
-    MOD_ENERGY(Classify.MOD, R.string.category_energy, "417", null, true),
-    MOD_REDSTONE(Classify.MOD, R.string.category_redstone, "4558", null, true),
+    MOD_ITEM_FLUID_ENERGY_TRANSPORT(Classify.MOD, R.string.category_item_fluid_energy_transport, "415", null),
+    MOD_AUTOMATION(Classify.MOD, R.string.category_automation, "4843", null),
+    MOD_ENERGY(Classify.MOD, R.string.category_energy, "417", null),
+    MOD_REDSTONE(Classify.MOD, R.string.category_redstone, "4558", null),
     MOD_FOOD(Classify.MOD, R.string.category_food, "436", "food"),
-    MOD_FARMING(Classify.MOD, R.string.category_farming, "416", null, true),
+    MOD_FARMING(Classify.MOD, R.string.category_farming, "416", null),
     MOD_GAME_MECHANICS(Classify.MOD, R.string.category_game_mechanics, null, "game-mechanics"),
     MOD_TRANSPORT(Classify.MOD, R.string.category_transport, "414", "transportation"),
     MOD_STORAGE(Classify.MOD, R.string.category_storage, "420", "storage"),

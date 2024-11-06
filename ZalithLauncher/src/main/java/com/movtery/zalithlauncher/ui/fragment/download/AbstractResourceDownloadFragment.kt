@@ -69,7 +69,9 @@ abstract class AbstractResourceDownloadFragment(
             override fun isLastPage() = mLastPage
 
             override fun loadMoreResult() {
-                loadMoreResults()
+                mTaskInProgress?.let { return }
+                mTaskInProgress = SelfReferencingFuture(SearchApiTask(mCurrentResult))
+                    .startOnExecutor(TaskExecutors.getDefault())
             }
         })
 
@@ -164,7 +166,11 @@ abstract class AbstractResourceDownloadFragment(
 
             platformSpinner.setSpinnerAdapter(mPlatformAdapter)
             platformSpinner.selectItemByIndex(0)
-            setSpinnerListener<Platform>(platformSpinner) { mCurrentPlatform = it }
+            setSpinnerListener<Platform>(platformSpinner) {
+                if (mCurrentPlatform == it) return@setSpinnerListener
+                mCurrentPlatform = it
+                search()
+            }
 
             sortSpinner.setSpinnerAdapter(mSortAdapter)
             sortSpinner.selectItemByIndex(0)
@@ -285,19 +291,15 @@ abstract class AbstractResourceDownloadFragment(
         }
     }
 
+    /**
+     * 清除上一次的搜索状态，然后执行搜索
+     */
     private fun search() {
         setStatusText(false)
         setRecyclerView(false)
         setLoadingLayout(true)
         binding.recyclerView.scrollToPosition(0)
-        performSearchQuery()
-    }
 
-    private fun checkSearch() {
-        if (mInfoAdapter.itemCount == 0) search()
-    }
-
-    private fun performSearchQuery() {
         if (mTaskInProgress != null) {
             mTaskInProgress!!.cancel(true)
             mTaskInProgress = null
@@ -307,10 +309,11 @@ abstract class AbstractResourceDownloadFragment(
             .startOnExecutor(TaskExecutors.getDefault())
     }
 
-    protected fun loadMoreResults() {
-        if (mTaskInProgress != null) return
-        mTaskInProgress = SelfReferencingFuture(SearchApiTask(mCurrentResult))
-            .startOnExecutor(TaskExecutors.getDefault())
+    /**
+     * 检查当前适配器内的item数量是否为0，如果是，那么执行搜索
+     */
+    private fun checkSearch() {
+        if (mInfoAdapter.itemCount == 0) search()
     }
 
     @Subscribe
