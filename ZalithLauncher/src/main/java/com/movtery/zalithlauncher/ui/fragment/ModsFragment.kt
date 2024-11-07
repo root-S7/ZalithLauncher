@@ -49,8 +49,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult(OpenDocumentWithExtension("jar", true)) { uris: List<Uri>? ->
-            val dialog = ZHTools.showTaskRunningDialog(requireContext())
             uris?.let { uriList ->
+                val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     uriList.forEach { uri ->
                         copyFileInBackground(requireContext(), uri, mRootPath)
