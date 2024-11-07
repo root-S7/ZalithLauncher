@@ -94,12 +94,6 @@ class VersionAdapter(
             binding.tagsLayout.addView(getTagTextView(getDownloadTypeText(versionItem.versionType)))
 
             itemView.setOnClickListener { _: View? ->
-                if (mTasksRunning) {
-                    setViewAnim(itemView, Animations.Shake)
-                    Toast.makeText(mContext, mContext.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
                 if (versionItem is ModVersionItem && versionItem.dependencies.isNotEmpty()) {
                     ModDependenciesDialog(parentFragment, infoItem, versionItem.dependencies) {
                         preInstall(versionItem)
@@ -139,6 +133,12 @@ class VersionAdapter(
         }
 
         private fun startInstall(versionItem: VersionItem, targetFile: File?) {
+            if (mTasksRunning) {
+                setViewAnim(itemView, Animations.Shake)
+                Toast.makeText(mContext, mContext.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+                return
+            }
+
             platformHelper.install(mContext, infoItem, versionItem, targetFile)
         }
 
