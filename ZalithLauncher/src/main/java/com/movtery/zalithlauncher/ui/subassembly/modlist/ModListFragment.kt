@@ -163,6 +163,13 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         binding.title.text = nameText
     }
 
+    protected fun setDescription(text: String) {
+        binding.description.apply {
+            this.visibility = View.VISIBLE
+            this.text = text
+        }
+    }
+
     protected fun setIcon(icon: Drawable?) {
         binding.icon.setImageDrawable(icon)
     }

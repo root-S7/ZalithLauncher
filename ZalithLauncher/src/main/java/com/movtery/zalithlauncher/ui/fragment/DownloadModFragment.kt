@@ -174,6 +174,7 @@ class DownloadModFragment : ModListFragment() {
                     mod?.displayName ?: title
                 } else title
             )
+            setDescription(description)
             mod?.let {
                 setMCMod(
                     StringUtilsKt.getNonEmptyOrBlank(type.getMcmodUrl(it))

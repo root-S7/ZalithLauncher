@@ -65,7 +65,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:singleLine="true"
         android:textSize="11.5sp"
         app:layout_constraintEnd_toEndOf="@+id/title_textview"
         app:layout_constraintHorizontal_bias="0.0"

@@ -181,7 +181,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:alpha="0"
+                        android:visibility="gone"
                         android:paddingHorizontal="@dimen/_8sdp"
                         android:singleLine="true"
                         android:text="Select Title"
@@ -192,6 +192,16 @@
                         app:layout_constraintTop_toBottomOf="@+id/title"
                         tools:ignore="HardcodedText" />
 
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:paddingHorizontal="@dimen/_8sdp"
+                        android:visibility="gone"
+                        android:gravity="center_horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/select_title"/>
+
                     <LinearLayout
                         android:id="@+id/more_layout"
                         android:layout_width="0dp"
@@ -199,7 +209,7 @@
                         android:layout_marginBottom="@dimen/_4sdp"
                         android:layout_marginHorizontal="@dimen/_12sdp"
                         android:orientation="vertical"
-                        app:layout_constraintTop_toBottomOf="@id/select_title"
+                        app:layout_constraintTop_toBottomOf="@id/description"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
