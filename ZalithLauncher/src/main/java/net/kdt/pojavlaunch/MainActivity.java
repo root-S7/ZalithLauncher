@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         ControlLayout controlLayout = binding.mainControlLayout;
         mControlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
         new ControlSettingsClickListener(mControlSettingsBinding, controlLayout);
-        mControlSettingsBinding.export.setText(R.string.customctrl_editor_exit);
+        mControlSettingsBinding.export.setVisibility(View.GONE);
 
         // Recompute the gui scale when options are changed
         MCOptionUtils.MCOptionListener optionListener = MCOptionUtils::getMcScale;
@@ -610,7 +610,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             this.binding.save.setOnClickListener(this);
             this.binding.saveAndExit.setOnClickListener(this);
             this.binding.selectDefault.setOnClickListener(this);
-            this.binding.export.setOnClickListener(this);
+            this.binding.exit.setOnClickListener(this);
         }
 
         @Override
@@ -623,7 +623,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             else if (v == binding.save) controlLayout.openSaveDialog();
             else if (v == binding.saveAndExit) controlLayout.openSaveAndExitDialog(MainActivity.this);
             else if (v == binding.selectDefault) controlLayout.openSetDefaultDialog();
-            else if (v == binding.export) controlLayout.openExitDialog(MainActivity.this);
+            else if (v == binding.exit) controlLayout.openExitDialog(MainActivity.this);
         }
     }
 }

@@ -115,6 +115,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 			this.binding.saveAndExit.setOnClickListener(this);
 			this.binding.selectDefault.setOnClickListener(this);
 			this.binding.export.setOnClickListener(this);
+			this.binding.exit.setOnClickListener(this);
 		}
 
 		@Override
@@ -144,6 +145,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 					Tools.showError(CustomControlsActivity.this, e);
 				}
 			}
+			else if (v == binding.exit) controlLayout.openExitDialog(CustomControlsActivity.this);
 		}
 	}
 }

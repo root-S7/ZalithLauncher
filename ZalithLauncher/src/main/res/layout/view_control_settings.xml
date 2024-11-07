@@ -112,6 +112,16 @@
                 android:gravity="center_horizontal"
                 android:paddingHorizontal="@dimen/_8sdp"/>
 
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/customctrl_editor_exit"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
         </LinearLayout>
 
     </ScrollView>
