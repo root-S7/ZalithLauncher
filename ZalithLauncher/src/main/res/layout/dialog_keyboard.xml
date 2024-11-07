@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="HardcodedText,NestedWeights,TooManyViews,ContentDescription">
+    tools:ignore="HardcodedText,NestedWeights,TooManyViews,ContentDescription,SmallSp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="340dp"
+                android:layout_height="285dp"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_8sdp"
                 android:scrollbars="none">
@@ -25,7 +25,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:minWidth="1340dp">
+                    android:minWidth="1050dp">
 
                     <LinearLayout
                         android:id="@+id/layout_1"
@@ -162,6 +162,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="11sp"
                                 android:text="~\n`" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -169,6 +170,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="!\n1" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -176,6 +178,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="\@\n2" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -183,6 +186,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="#\n3" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -190,6 +194,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="$\n4" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -197,6 +202,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="%\n5" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -204,6 +210,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="^\n6" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -211,6 +218,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="&amp;\n7" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -218,6 +226,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="*\n8" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -225,6 +234,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="(\n9" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -232,6 +242,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text=")\n0" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -239,6 +250,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="10sp"
                                 android:text="_\n-" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -246,6 +258,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="10sp"
                                 android:text="+\n=" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -253,6 +266,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.9"
+                                android:textSize="11sp"
                                 android:text="backspace" />
                         </LinearLayout>
 
@@ -344,6 +358,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="{\n[" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -351,6 +366,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="9.6sp"
                                 android:text="}\n]" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -358,6 +374,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.2"
+                                android:textSize="9.6sp"
                                 android:text="|\n\\" />
                         </LinearLayout>
 
@@ -372,6 +389,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.4"
+                                android:textSize="10sp"
                                 android:text="Caps Lock" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -442,6 +460,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="10sp"
                                 android:text=":\n;" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -449,6 +468,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="10sp"
                                 android:text="&quot;\n'" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -526,6 +546,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="10sp"
                                 android:text="&lt;\n," />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -533,6 +554,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="10sp"
                                 android:text="&gt;\n." />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -540,6 +562,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:textSize="10sp"
                                 android:text="\?\n/" />
 
                             <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -623,6 +646,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:textSize="8.6sp"
                                     android:text="Pause" />
 
                                 <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -630,6 +654,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:textSize="8.6sp"
                                     android:text="Insert" />
 
                                 <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -637,6 +662,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:textSize="8.6sp"
                                     android:text="Home" />
                             </LinearLayout>
 
@@ -651,6 +677,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:textSize="8.6sp"
                                     android:text="End" />
 
                                 <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -658,6 +685,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:textSize="8.6sp"
                                     android:text="PGUp" />
 
                                 <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -665,6 +693,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:textSize="8.6sp"
                                     android:text="PGDn" />
                             </LinearLayout>
 
@@ -749,6 +778,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
+                                    android:textSize="9sp"
                                     android:text="Num Lock" />
 
                                 <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -877,7 +907,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.345"
+                            android:layout_weight="0.344"
                             android:orientation="vertical">
 
                             <Space
@@ -904,6 +934,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="2"
+                                android:textSize="9sp"
                                 android:text="Enter" />
 
                         </LinearLayout>
@@ -926,7 +957,7 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/zh_keyboard_close"
+        android:id="@+id/close"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="@dimen/_12sdp"

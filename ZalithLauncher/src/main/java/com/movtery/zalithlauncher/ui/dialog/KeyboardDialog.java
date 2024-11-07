@@ -2,18 +2,19 @@ package com.movtery.zalithlauncher.ui.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.DialogKeyboardBinding;
 import com.movtery.zalithlauncher.ui.view.AnimButton;
+
+import net.kdt.pojavlaunch.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class KeyboardDialog extends FullScreenDialog {
     }
 
     private void init(boolean showSpecialButtons) {
-        binding.zhKeyboardClose.setOnClickListener(v -> this.dismiss());
+        binding.close.setOnClickListener(v -> this.dismiss());
 
         List<View> specialButtons = new ArrayList<>();
 
@@ -157,9 +158,8 @@ public class KeyboardDialog extends FullScreenDialog {
 
     private AnimButton getKey(String text) {
         AnimButton key = new AnimButton(getContext());
-        FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        key.setLayoutParams(layoutParams);
         key.setText(text);
+        key.setTextSize(TypedValue.COMPLEX_UNIT_PX, Tools.dpToPx(9.6F));
         binding.specialKey.addView(key);
         return key;
     }
