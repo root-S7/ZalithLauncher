@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.res.ResourcesCompat
 import com.movtery.zalithlauncher.R
 
-class AnimButton @JvmOverloads constructor(
+open class AnimButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = android.R.attr.buttonStyle

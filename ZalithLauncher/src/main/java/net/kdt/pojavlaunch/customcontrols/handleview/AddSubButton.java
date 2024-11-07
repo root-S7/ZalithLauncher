@@ -3,24 +3,24 @@ package net.kdt.pojavlaunch.customcontrols.handleview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.ui.view.AnimButton;
 
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlDrawer;
 import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
 
 @SuppressLint("AppCompatCustomView")
-public class AddSubButton extends Button implements ActionButtonInterface {
+public class AddSubButton extends AnimButton implements ActionButtonInterface {
     public AddSubButton(Context context) {super(context); init();}
     public AddSubButton(Context context, @Nullable AttributeSet attrs) {super(context, attrs); init();}
 
     public void init() {
-        setText(R.string.customctrl_addsubbutton);
         setOnClickListener(this);
+        setText(R.string.customctrl_addsubbutton);
     }
 
     private ControlInterface mCurrentlySelectedButton = null;
