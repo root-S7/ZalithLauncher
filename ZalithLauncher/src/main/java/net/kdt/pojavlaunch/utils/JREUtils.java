@@ -187,7 +187,7 @@ public class JREUtils {
         LD_LIBRARY_PATH = ldLibraryPath.toString();
     }
 
-    private static void setJavaEnvi(String jreHome) throws Throwable {
+    private static void setJavaEnv(String jreHome) throws Throwable {
         Map<String, String> envMap = new ArrayMap<>();
 
         envMap.put("POJAV_NATIVEDIR", DIR_NATIVE_LIB);
