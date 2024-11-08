@@ -1,23 +1,23 @@
 {
-  "version_code": 136302,
-  "version_name": "1.3.6.3",
+  "version_code": 136400,
+  "version_name": "1.3.6.4",
   "title": {
-    "en_us": "1.3.6.3",
-    "zh_cn": "1.3.6.3",
-    "zh_tw": "1.3.6.3"
+    "en_us": "1.3.6.4",
+    "zh_cn": "1.3.6.4",
+    "zh_tw": "1.3.6.4"
   },
   "description": {
-    "en_us": "## Update Notes:\r\n- Updated [Tasks]: Refactored task thread pool management and invocation\r\n---\r\n- Adjusted [Download]: Adjusted layout files\r\n- Adjusted [Mesa]: Downgraded version to 23.0.4\r\n- Adjusted [Notifications]: Modified data structure and parsing logic\r\n- Adjusted [Activity]: Adopted new method for listening to back button press\r\n- Adjusted [Network]: Changed UA to \"ZalithLauncher/version\"\r\n- Adjusted [Notifications]: Updated handling for cases without notification permissions\r\n- Adjusted [Notifications]: Replaced deprecated code\r\n- Adjusted [Launcher Update]: Displayed version status\r\n- Adjusted [Settings]: Changed orientation switch to horizontal to avoid sliding issues with physical mice\r\n---\r\n- Fixed [Download]: Used Slug for homepage link construction\r\n- Fixed [Bridge]: Resolved issue with repeated function calls\r\n- Fixed [Startup]: Corrected issue where the account management page wouldn\u0027t open if no account was available\r\n- Fixed [Settings]: Incorrect total number in settings page",
-    "zh_cn": "## 更新内容：\n- 更新[任务]: 重构任务线程池管理和调用\n- 更新[下载]: 展示 Mod/ModPack 的中文译名\n- 更新[下载]: 支持中文搜索\n---\n- 调整[下载]: 调整布局文件\n- 调整[Mesa]: 将版本降至 23.0.4\n- 调整[通知]: 调整数据结构和解析逻辑\n- 调整[Activity]: 使用新的方式监听返回键按下\n- 调整[网络]: 将 UA 更改为 \"ZalithLauncher/版本\"\n- 调整[通知]: 没有通知权限时的处理\n- 调整[通知]: 更换被废弃的代码\n- 调整[更新启动器]: 展示版本状态\n- 调整[设置]: 将切换方向更改为横向，避免实体鼠标的滑动问题\n---\n- 修复[下载]: 使用 Slug 拼接主页链接\n- 修复[Bridge]: 函数重复调用的问题\n- 修复[启动]: 没有账号时无法正常跳转至账号管理页面\n- 修复[设置]: 设置页总数不正确",
-    "zh_tw": "## 更新內容：\n- 更新[任務]: 重構任務線程池管理和調用\n- 更新[下載]: 顯示 Mod/ModPack 的中文譯名\n- 更新[下載]: 支持中文搜索\n---\n- 調整[下載]: 調整佈局文件\n- 調整[Mesa]: 將版本降至 23.0.4\n- 調整[通知]: 調整數據結構和解析邏輯\n- 調整[Activity]: 使用新的方式監聽返回鍵按下\n- 調整[網絡]: 將 UA 更改為 \"ZalithLauncher/版本\"\n- 調整[通知]: 沒有通知權限時的處理\n- 調整[通知]: 更換被廢棄的代碼\n- 調整[更新啟動器]: 顯示版本狀態\n- 調整[設置]: 將切換方向更改為橫向，避免實體鼠標的滑動問題\n---\n- 修復[下載]: 使用 Slug 拼接首頁鏈接\n- 修復[Bridge]: 函數重複調用的問題\n- 修復[啟動]: 沒有帳號時無法正常跳轉至帳號管理頁面\n- 修復[設置]: 設置頁總數不正確\n"
+    "en_us": "## Update Notes\r\n- Updated [Download]: Supported local import from local storage\r\n- Updated [Download]: Used different background colors for different dependency types\r\n- Updated [File Management]: Allowed multi-file selection for import\r\n---\r\n- Adjusted [App Interface]: Adjusted UI layout and animation effects\r\n- Adjusted [Settings]: Adjusted spacing between settings pages\r\n- Adjusted [Download]: Separated download page\r\n- Adjusted [Game]: Prevented device from sleeping while running the game\r\n- Adjusted [File Management]: Processing during file import\r\n- Adjusted [Download]: Notified user if save data structure cannot be recognized\r\n- Adjusted [Control Layout]: Reduced button size for keyboard mapping\r\n- Adjusted [Control Layout]: Added \"Exit Editor\" button to the menu\r\n- Adjusted [Language]: Edited control layout\r\n---\r\n- Fixed [Language]: Warning related to username\r\n- Fixed [Download]: Potential crash issues\r\n",
+    "zh_cn": "## 更新内容\n- 更新[下载]: 支持本地从本地导入\n- 更新[下载]: 不同依赖类型使用不同的背景颜色\n- 更新[文件管理]: 允许多选文件导入\n---\n- 调整[应用界面]: 调整UI布局、动画效果\n- 调整[设置]: 调整设置分页间距\n- 调整[下载]: 分离下载页\n- 调整[游戏]: 运行游戏时，阻止设备息屏\n- 调整[文件管理]: 导入文件时的处理\n- 调整[下载]: 无法识别存档数据结构时，提醒用户\n- 调整[控制布局]: 调小键盘映射的按钮\n- 调整[控制布局]: 为菜单添加“退出编辑器”按钮\n- 调整[语言]: 编辑控制布局\n---\n- 修复[语言]: 有关用户名的警告\n- 修复[下载]: 可能出现的崩溃问题",
+    "zh_tw": "## 更新內容\n- 更新[下載]: 支持從本地導入\n- 更新[下載]: 不同依賴類型使用不同的背景顏色\n- 更新[文件管理]: 允許多選文件導入\n---\n- 調整[應用介面]: 調整UI佈局和動畫效果\n- 調整[設置]: 調整設置分頁間距\n- 調整[下載]: 分離下載頁面\n- 調整[遊戲]: 運行遊戲時，防止設備息屏\n- 調整[文件管理]: 文件導入時的處理\n- 調整[下載]: 無法識別存檔數據結構時，提醒用戶\n- 調整[控制佈局]: 調小鍵盤映射的按鈕\n- 調整[控制佈局]: 為菜單添加“退出編輯器”按鈕\n- 調整[語言]: 編輯控制佈局\n---\n- 修復[語言]: 有關用戶名的警告\n- 修復[下載]: 可能出現的崩潰問題\n"
   },
-  "published_at": "2024-11-03T14:45:03Z",
+  "published_at": "2024-11-08T14:13:48Z",
   "file_size": {
-    "all": 206941763,
-    "arm": 128390013,
-    "arm64": 119655460,
-    "x86": 122301109,
-    "x86_64": 123183988
+    "all": 206877463,
+    "arm": 128325717,
+    "arm64": 119591156,
+    "x86": 122236805,
+    "x86_64": 123119708
   },
   "pre_release": false
 }
