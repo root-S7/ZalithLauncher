@@ -150,10 +150,7 @@ class ModrinthCommonUtils {
             if (!force && cache.containsKey(infoItem.projectId))
                 return cache.get(infoItem.projectId)
 
-            val response: JsonArray = api.get(
-                "project/${infoItem.projectId}/version",
-                JsonArray::class.java
-            ) ?: return null
+            val response = api.get("project/${infoItem.projectId}/version", JsonArray::class.java) ?: return null
 
             val items: MutableList<T> = ArrayList()
             //如果第一次获取依赖信息失败，则记录其id，之后不再尝试获取

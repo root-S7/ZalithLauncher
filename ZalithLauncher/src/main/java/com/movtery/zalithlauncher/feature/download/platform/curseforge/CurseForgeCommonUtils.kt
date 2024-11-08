@@ -131,10 +131,9 @@ class CurseForgeCommonUtils {
             if (!force && InfoCache.VersionCache.containsKey(infoItem.projectId))
                 return InfoCache.VersionCache.get(infoItem.projectId)
 
-            val allData: List<JsonObject>
-            try {
-                allData = getPaginatedData(api, infoItem.projectId)
-            } catch (e: IOException) {
+            val allData: List<JsonObject> = runCatching {
+                getPaginatedData(api, infoItem.projectId)
+            }.getOrElse { e ->
                 Logging.e("CurseForgeCommonHelper", Tools.printToString(e))
                 return null
             }
@@ -213,7 +212,7 @@ class CurseForgeCommonUtils {
 
         internal fun getDownloadSha1(api: ApiHandler, projectID: Long, fileID: Long): String? {
             // Try the api endpoint, die in the other case
-            val response: JsonObject = api.get("mods/$projectID/files/$fileID", JsonObject::class.java)
+            val response = api.get("mods/$projectID/files/$fileID", JsonObject::class.java)
             val data = GsonJsonUtils.getJsonObjectSafe(response, "data") ?: return null
             return getSha1FromData(data)
         }
@@ -232,9 +231,8 @@ class CurseForgeCommonUtils {
                 params["index"] = index
                 params["pageSize"] = CURSEFORGE_PAGINATION_SIZE
 
-                val response: JsonObject = api.get("mods/$projectId/files", params, JsonObject::class.java)
-                val data = GsonJsonUtils.getJsonArraySafe(response, "data")
-                    ?: throw IOException("Invalid data!")
+                val response = api.get("mods/$projectId/files", params, JsonObject::class.java)
+                val data = GsonJsonUtils.getJsonArraySafe(response, "data") ?: throw IOException("Invalid data!")
 
                 for (i in 0 until data.size()) {
                     val fileInfo = data[i].asJsonObject
