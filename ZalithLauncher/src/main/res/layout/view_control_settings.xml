@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         style="@style/TextAppearance.Material3.TitleMedium"
         android:gravity="center_horizontal"
-        android:text="@string/option_custom_control"/>
+        android:text="@string/option_edit_controls"/>
 
     <ScrollView
         android:layout_width="match_parent"

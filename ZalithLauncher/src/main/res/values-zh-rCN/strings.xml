@@ -56,7 +56,7 @@
     <string name="option_force_close">强制关闭</string>
     <string name="option_log_out">日志输出</string>
     <string name="option_send_custom_key">发送自定义键码</string>
-    <string name="option_custom_control">自定义控制布局</string>
+    <string name="option_edit_controls">编辑控制布局</string>
     <string name="customctrl_editor_exit_title">是否离开？</string>
     <string name="customctrl_editor_exit_msg">你是否确认退出？</string>
     <string name="customctrl_editor_exit">退出编辑器</string>
@@ -310,7 +310,6 @@
     <string name="custom_background_title">自定义启动器背景图片</string>
     <string name="custom_background_desc">打开启动器背景图标管理界面，你能够自行添加你喜欢的背景图片，并为各个不同的界面设置不同的背景</string>
     <string name="custom_background_main_menu">主菜单</string>
-    <string name="custom_background_controls">编辑控制布局</string>
     <string name="custom_background_in_game">游戏界面</string>
     <string name="custom_background_dialog_message">点击 “选择” 按钮，将此图片设置为 %s 的背景图片</string>
     <string name="custom_background_selected">成功为 %s 设置背景图片:</string>

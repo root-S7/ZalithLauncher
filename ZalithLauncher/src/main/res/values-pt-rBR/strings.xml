@@ -54,7 +54,7 @@
     <string name="option_force_close">Forçar fechamento</string>
     <string name="option_log_out">Registro de saída</string>
     <string name="option_send_custom_key">Enviar código de tecla personalizado</string>
-    <string name="option_custom_control">Layout de controle personalizado</string>
+    <string name="option_edit_controls">Editar Layout de Controles</string>
     <string name="customctrl_editor_exit_title">Sair?</string>
     <string name="customctrl_editor_exit_msg">Tem certeza de que deseja sair?</string>
     <string name="customctrl_editor_exit">Sair do Editor</string>
@@ -291,7 +291,6 @@
     <string name="custom_background_title">Imagem de Fundo Personalizada do Launcher</string>
     <string name="custom_background_desc">Abra a interface de gerenciamento de ícones de fundo do launcher, onde você pode adicionar suas próprias imagens de fundo e configurá-las para diferentes interfaces</string>
     <string name="custom_background_main_menu">Menu Principal</string>
-    <string name="custom_background_controls">Editar Layout de Controles</string>
     <string name="custom_background_in_game">Interface do Jogo</string>
     <string name="custom_background_dialog_message">Clique no botão \"Selecionar\" para definir esta imagem como fundo de %s</string>
     <string name="custom_background_selected">Fundo de %s configurado com sucesso:</string>

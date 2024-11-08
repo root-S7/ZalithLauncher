@@ -54,7 +54,7 @@
     <string name="option_force_close">Buộc đóng</string>
     <string name="option_log_out">Ghi log ra</string>
     <string name="option_send_custom_key">Gửi mã phím tùy chỉnh</string>
-    <string name="option_custom_control">Tùy chỉnh bố cục điều khiển</string>
+    <string name="option_edit_controls">Chỉnh sửa bố cục điều khiển</string>
     <string name="customctrl_editor_exit_title">Bạn có muốn rời đi?</string>
     <string name="customctrl_editor_exit_msg">Bạn có chắc chắn muốn thoát?</string>
     <string name="customctrl_editor_exit">Thoát trình soạn thảo</string>
@@ -291,7 +291,6 @@
     <string name="custom_background_title">Tùy chỉnh hình nền trình khởi chạy</string>
     <string name="custom_background_desc">Mở giao diện quản lý hình nền trình khởi chạy, bạn có thể tự thêm các hình nền yêu thích của mình và đặt chúng cho các giao diện khác nhau</string>
     <string name="custom_background_main_menu">Menu chính</string>
-    <string name="custom_background_controls">Chỉnh sửa bố cục điều khiển</string>
     <string name="custom_background_in_game">Giao diện trong trò chơi</string>
     <string name="custom_background_dialog_message">Nhấn nút “Chọn” để đặt hình này làm hình nền cho %s</string>
     <string name="custom_background_selected">Đã thiết lập thành công hình nền cho %s:</string>

@@ -54,7 +54,7 @@
     <string name="option_force_close">إغلاق إجباري</string>
     <string name="option_log_out">تسجيل الخروج</string>
     <string name="option_send_custom_key">إرسال رمز المفتاح المخصص</string>
-    <string name="option_custom_control">تخصيص تخطيط التحكم</string>
+    <string name="option_edit_controls">تحرير تخطيط التحكم</string>
     <string name="customctrl_editor_exit_title">هل تريد الخروج؟</string>
     <string name="customctrl_editor_exit_msg">هل أنت متأكد من الخروج؟</string>
     <string name="customctrl_editor_exit">الخروج من المحرر</string>
@@ -291,7 +291,6 @@
     <string name="custom_background_title">صورة خلفية مشغل مخصصة</string>
     <string name="custom_background_desc">افتح واجهة إدارة أيقونات خلفية المشغل، يمكنك إضافة الصور الخلفية التي تفضلها وتعيين خلفيات مختلفة للواجهات المختلفة</string>
     <string name="custom_background_main_menu">قائمة الرئيسية</string>
-    <string name="custom_background_controls">تحرير تخطيط التحكم</string>
     <string name="custom_background_in_game">واجهة اللعبة</string>
     <string name="custom_background_dialog_message">انقر فوق الزر \"اختيار\" لتعيين هذه الصورة كخلفية لـ %s</string>
     <string name="custom_background_selected">تم تعيين صورة الخلفية بنجاح لـ %s:</string>

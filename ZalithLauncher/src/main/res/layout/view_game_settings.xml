@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_item"
-                android:text="@string/option_custom_control"
+                android:text="@string/option_edit_controls"
                 android:gravity="center_horizontal"
                 android:paddingHorizontal="@dimen/_8sdp"/>
 

@@ -54,7 +54,7 @@
     <string name="option_force_close">Принудительное закрытие</string>
     <string name="option_log_out">Выход из системы</string>
     <string name="option_send_custom_key">Отправить пользовательский код клавиши</string>
-    <string name="option_custom_control">Пользовательская раскладка управления</string>
+    <string name="option_edit_controls">Редактировать раскладку управления</string>
     <string name="customctrl_editor_exit_title">Выйти?</string>
     <string name="customctrl_editor_exit_msg">Вы уверены, что хотите выйти?</string>
     <string name="customctrl_editor_exit">Выйти из редактора</string>
@@ -291,7 +291,6 @@
     <string name="custom_background_title">Пользовательское фоновое изображение лаунчера</string>
     <string name="custom_background_desc">Откройте интерфейс управления фоновыми изображениями, где вы сможете добавить свои любимые изображения и установить разные фоны для разных интерфейсов</string>
     <string name="custom_background_main_menu">Главное меню</string>
-    <string name="custom_background_controls">Редактировать раскладку управления</string>
     <string name="custom_background_in_game">Игровой интерфейс</string>
     <string name="custom_background_dialog_message">Нажмите кнопку \"Выбрать\", чтобы установить это изображение в качестве фона для %s</string>
     <string name="custom_background_selected">Фоновое изображение успешно установлено для %s:</string>

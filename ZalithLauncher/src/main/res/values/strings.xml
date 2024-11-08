@@ -55,7 +55,7 @@
     <string name="option_force_close">Force Close</string>
     <string name="option_log_out">Log Output</string>
     <string name="option_send_custom_key">Send Custom Key Code</string>
-    <string name="option_custom_control">Custom Control Layout</string>
+    <string name="option_edit_controls">Edit Control Layout</string>
     <string name="customctrl_editor_exit_title">Exit?</string>
     <string name="customctrl_editor_exit_msg">Are you sure you want to exit?</string>
     <string name="customctrl_editor_exit">Exit Editor</string>
@@ -296,7 +296,6 @@
     <string name="custom_background_title">Custom Launcher Background Image</string>
     <string name="custom_background_desc">Open the launcher background icon management interface, where you can add your favorite background images and set different backgrounds for different interfaces</string>
     <string name="custom_background_main_menu">Main Menu</string>
-    <string name="custom_background_controls">Edit Control Layout</string>
     <string name="custom_background_in_game">In-Game Interface</string>
     <string name="custom_background_dialog_message">Click the \"Select\" button to set this image as the background for %s</string>
     <string name="custom_background_selected">Successfully set background image for %s:</string>

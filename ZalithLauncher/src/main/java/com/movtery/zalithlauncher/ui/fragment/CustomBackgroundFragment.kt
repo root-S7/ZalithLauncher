@@ -201,7 +201,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     private val currentStatusName: String
         get() = when (this.backgroundType) {
             BackgroundType.MAIN_MENU -> getString(R.string.custom_background_main_menu)
-            BackgroundType.CUSTOM_CONTROLS -> getString(R.string.custom_background_controls)
+            BackgroundType.CUSTOM_CONTROLS -> getString(R.string.option_edit_controls)
             BackgroundType.IN_GAME -> getString(R.string.custom_background_in_game)
             else -> getString(R.string.generic_unknown)
         }
@@ -258,7 +258,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             val inGame = newTab()
 
             mainMenu.setText(resources.getText(R.string.custom_background_main_menu))
-            controls.setText(resources.getText(R.string.custom_background_controls))
+            controls.setText(resources.getText(R.string.option_edit_controls))
             inGame.setText(resources.getText(R.string.custom_background_in_game))
 
             addTab(mainMenu)

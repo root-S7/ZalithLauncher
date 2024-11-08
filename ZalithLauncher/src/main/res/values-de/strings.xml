@@ -54,7 +54,7 @@
     <string name="option_force_close">Zwangsschluss</string>
     <string name="option_log_out">Protokoll ausgeben</string>
     <string name="option_send_custom_key">Benutzerdefinierten Tastenbefehl senden</string>
-    <string name="option_custom_control">Benutzerdefinierte Steuerungslayout</string>
+    <string name="option_edit_controls">Steuerungseinstellungen</string>
     <string name="customctrl_editor_exit_title">Soll verlassen werden?</string>
     <string name="customctrl_editor_exit_msg">Möchtest du wirklich beenden?</string>
     <string name="customctrl_editor_exit">Editor beenden</string>
@@ -291,7 +291,6 @@
     <string name="custom_background_title">Benutzerdefiniertes Launcher-Hintergrundbild</string>
     <string name="custom_background_desc">Öffnen Sie die Launcher-Hintergrundbild-Verwaltungsoberfläche, um Ihre bevorzugten Hintergrundbilder hinzuzufügen und für verschiedene Oberflächen unterschiedliche Hintergründe festzulegen</string>
     <string name="custom_background_main_menu">Hauptmenü</string>
-    <string name="custom_background_controls">Steuerungseinstellungen</string>
     <string name="custom_background_in_game">Spieloberfläche</string>
     <string name="custom_background_dialog_message">Klicken Sie auf die Schaltfläche „Auswählen“, um dieses Bild als Hintergrundbild für %s festzulegen</string>
     <string name="custom_background_selected">Erfolgreich Hintergrundbild für %s festgelegt:</string>
