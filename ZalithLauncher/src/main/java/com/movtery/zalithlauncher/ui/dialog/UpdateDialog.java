@@ -68,7 +68,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         });
         binding.cancelButton.setOnClickListener(view -> this.dismiss());
         binding.ignoreButton.setOnClickListener(view -> {
-            Settings.Manager.Companion.put("ignoreUpdate", launcherVersion.getVersionName()).save();
+            Settings.Manager.put("ignoreUpdate", launcherVersion.getVersionName()).save();
             this.dismiss();
         });
     }

@@ -70,9 +70,7 @@ public class mcVersionSpinner extends ExtendedTextView {
     /** Set the selection AND saves it as a shared preference */
     public void setProfileSelection(int position){
         setSelection(position);
-        Settings.Manager.Companion
-                .put("currentProfile", mProfileAdapter.getItem(position).toString())
-                .save();
+        Settings.Manager.put("currentProfile", mProfileAdapter.getItem(position).toString()).save();
     }
 
     public void setSelection(int position){

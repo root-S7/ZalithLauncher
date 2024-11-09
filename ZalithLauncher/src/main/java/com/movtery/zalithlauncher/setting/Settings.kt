@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.setting
 
+import androidx.annotation.CheckResult
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -71,17 +72,20 @@ class Settings {
                 return getValue(key, defaultValue) { it }
             }
 
+            @JvmStatic
             fun contains(key: String): Boolean {
                 return settings.any { it.key == key }
             }
 
-            fun put(key: String, value: Any?): SettingBuilder =
-                SettingBuilder().put(key, value)
+            @JvmStatic
+            @CheckResult
+            fun put(key: String, value: Any?) = SettingBuilder().put(key, value)
         }
 
         class SettingBuilder {
             private val valueMap: MutableMap<String, Any?> = HashMap()
 
+            @CheckResult
             fun put(key: String, value: Any?): SettingBuilder {
                 valueMap[key] = value
                 return this

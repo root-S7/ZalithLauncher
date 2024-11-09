@@ -33,9 +33,7 @@ class LocalAccountUtils {
             val checkBox = CheckBox(activity)
             checkBox.setText(R.string.generic_no_more_reminders)
             checkBox.setOnCheckedChangeListener { _: Button?, isChecked: Boolean ->
-                Settings.Manager
-                    .put("localAccountReminders", !isChecked)
-                    .save()
+                Settings.Manager.put("localAccountReminders", !isChecked).save()
             }
 
             TipDialog.Builder(activity)

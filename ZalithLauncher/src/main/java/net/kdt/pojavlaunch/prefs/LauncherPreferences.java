@@ -34,7 +34,7 @@ public class LauncherPreferences {
             for (String arg : JREUtils.parseJavaArguments(javaArgs)) {
                 if (arg.startsWith(argLwjglLibname)) {
                     // purge arg
-                    Settings.Manager.Companion.put("javaArgs", javaArgs.replace(arg, "")).save();
+                    Settings.Manager.put("javaArgs", javaArgs.replace(arg, "")).save();
                 }
             }
         }
@@ -43,9 +43,9 @@ public class LauncherPreferences {
     }
 
     public static void reloadRuntime() {
-        if (!Settings.Manager.Companion.contains("defaultRuntime") && !MultiRTUtils.getRuntimes().isEmpty()) {
+        if (!Settings.Manager.contains("defaultRuntime") && !MultiRTUtils.getRuntimes().isEmpty()) {
             //设置默认运行环境
-            Settings.Manager.Companion.put("defaultRuntime", Jre.JRE_8.getJreName()).save();
+            Settings.Manager.put("defaultRuntime", Jre.JRE_8.getJreName()).save();
         }
     }
 

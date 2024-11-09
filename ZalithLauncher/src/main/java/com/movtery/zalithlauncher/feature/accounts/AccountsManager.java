@@ -164,7 +164,7 @@ public class AccountsManager {
     }
 
     public void setCurrentAccount(@NonNull MinecraftAccount account) {
-        Settings.Manager.Companion.put("currentAccount", account.getUniqueUUID()).save();
+        Settings.Manager.put("currentAccount", account.getUniqueUUID()).save();
         EventBus.getDefault().post(new AccountUpdateEvent());
     }
 

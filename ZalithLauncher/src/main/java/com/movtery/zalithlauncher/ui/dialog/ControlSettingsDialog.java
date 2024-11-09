@@ -32,11 +32,11 @@ public class ControlSettingsDialog extends FullScreenDialog implements Draggable
         binding.snappingDistanceText.setText(text);
 
         binding.confirmButton.setOnClickListener(v -> this.dismiss());
-        binding.snappingSwitch.setOnCheckedChangeListener((compoundButton, b) -> Settings.Manager.Companion.put("buttonSnapping", b).save());
+        binding.snappingSwitch.setOnCheckedChangeListener((compoundButton, b) -> Settings.Manager.put("buttonSnapping", b).save());
         binding.snappingDistanceSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                Settings.Manager.Companion.put("buttonSnappingDistance", i).save();
+                Settings.Manager.put("buttonSnappingDistance", i).save();
                 String text = i + "dp";
                 binding.snappingDistanceText.setText(text);
             }

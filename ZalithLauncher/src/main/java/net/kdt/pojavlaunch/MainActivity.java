@@ -238,7 +238,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     binding.hotbarView.refreshScaleFactor(value / 100f);
                 })
                 .setOnSeekbarStopTrackingTouch(value -> {
-                    Settings.Manager.Companion.put("resolutionRatio", value).save();
+                    Settings.Manager.put("resolutionRatio", value).save();
                     //当分辨率缩放的时候，需要刷新一下Hotbar的判定
                     EventBus.getDefault().post(new RefreshHotbarEvent());
                 })
@@ -424,8 +424,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     public void openMouseSettings() {
         new MouseSettingsDialog(this, (mouseSpeed, mouseScale) -> {
-            Settings.Manager.Companion.put("mousespeed", mouseSpeed).save();
-            Settings.Manager.Companion.put("mousescale", mouseScale).save();
+            Settings.Manager
+                    .put("mousespeed", mouseSpeed)
+                    .put("mousescale", mouseScale).save();
             binding.mainTouchpad.updateMouseScale();
         }, () -> binding.mainTouchpad.updateMouseDrawable()).show();
     }
@@ -441,7 +442,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 .setMax(300)
                 .setValue((int) (AllSettings.getGyroSensitivity() * 100))
                 .setSuffix("%")
-                .setOnSeekbarStopTrackingTouch(value -> Settings.Manager.Companion.put("gyroSensitivity", value).save())
+                .setOnSeekbarStopTrackingTouch(value -> Settings.Manager.put("gyroSensitivity", value).save())
                 .buildDialog();
     }
 

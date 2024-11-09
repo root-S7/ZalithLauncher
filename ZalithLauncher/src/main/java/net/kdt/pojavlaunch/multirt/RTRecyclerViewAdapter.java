@@ -87,7 +87,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @SuppressLint("NotifyDataSetChanged") //not a problem, given the typical size of the list
     public void setDefault(Runtime rt){
-        Settings.Manager.Companion.put("defaultRuntime", rt.name).save();
+        Settings.Manager.put("defaultRuntime", rt.name).save();
         notifyDataSetChanged();
     }
 

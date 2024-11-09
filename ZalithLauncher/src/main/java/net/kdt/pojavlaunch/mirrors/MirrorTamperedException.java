@@ -27,11 +27,11 @@ public class MirrorTamperedException extends Exception implements ContextExecuto
 
     private void addButtons(AlertDialog.Builder builder) {
         builder.setPositiveButton(R.string.dl_switch_to_official_site,(d,w)->{
-            Settings.Manager.Companion.put("downloadSource", "default").save();
+            Settings.Manager.put("downloadSource", "default").save();
 
         });
         builder.setNegativeButton(R.string.dl_turn_off_manifest_checks,(d,w)->{
-            Settings.Manager.Companion.put("verifyManifest", false).save();
+            Settings.Manager.put("verifyManifest", false).save();
         });
         builder.setNeutralButton(android.R.string.cancel, (d,w)->{});
     }
