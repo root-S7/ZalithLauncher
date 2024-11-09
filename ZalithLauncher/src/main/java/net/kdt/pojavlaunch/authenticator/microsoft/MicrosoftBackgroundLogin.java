@@ -90,15 +90,16 @@ public class MicrosoftBackgroundLogin {
             fetchOwnedItems(mcToken);
             checkMcProfile(mcToken);
 
-            MinecraftAccount acc = account;
+            MinecraftAccount acc = null;
+            if (account == null) acc = MinecraftAccount.loadFromProfileID(mcUuid);
             if (acc == null) acc = new MinecraftAccount();
+
             if (doesOwnGame) {
                 acc.xuid = xsts[0];
                 acc.clientToken = "0"; /* FIXME */
                 acc.accessToken = mcToken;
                 acc.username = mcName;
                 acc.profileId = mcUuid;
-                acc.isMicrosoft = true;
                 acc.msaRefreshToken = msRefreshToken;
                 acc.expiresAt = expiresAt;
                 acc.accountType = "Microsoft";

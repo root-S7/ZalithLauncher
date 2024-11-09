@@ -79,7 +79,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
             binding.name.setText(account.username);
 
             String loginType;
-            if (account.isMicrosoft) {
+            if (AccountUtils.isMicrosoftAccount(account)) {
                 setButtonClickable(binding.refresh, true);
                 loginType = mContext.getString(R.string.account_microsoft_account);
             } else if (AccountUtils.isOtherLoginAccount(account)) {

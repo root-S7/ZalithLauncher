@@ -113,34 +113,39 @@ class OtherLoginDialog(
                         OtherLoginApi.login(context, email, password,
                             object : OtherLoginApi.Listener {
                                 override fun onSuccess(authResult: AuthResult) {
-                                    MinecraftAccount().apply {
-                                        accessToken = authResult.accessToken
-                                        clientToken = authResult.clientToken
-                                        baseUrl = server.baseUrl
-                                        account = email
-                                        expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000
-                                        accountType = server.serverName
-                                        if (!Objects.isNull(authResult.selectedProfile)) {
-                                            username = authResult.selectedProfile.name
-                                            profileId = authResult.selectedProfile.id
-                                            TaskExecutors.runInUIThread {
-                                                listener.unLoading()
-                                                listener.onSuccess(this)
+                                    fun createAccount(userName: String, profileId: String): MinecraftAccount {
+                                        val account: MinecraftAccount = MinecraftAccount.loadFromProfileID(profileId) ?: MinecraftAccount()
+                                        account.apply {
+                                            this.accessToken = authResult.accessToken
+                                            this.clientToken = authResult.clientToken
+                                            this.otherBaseUrl = server.baseUrl
+                                            this.otherAccount = email
+                                            this.expiresAt = ZHTools.getCurrentTimeMillis() + 30 * 60 * 1000
+                                            this.accountType = server.serverName
+                                            this.username = userName
+                                            this.profileId = profileId
+                                        }
+                                        return account
+                                    }
+
+                                    if (!Objects.isNull(authResult.selectedProfile)) {
+                                        val account = createAccount(authResult.selectedProfile.name, authResult.selectedProfile.id)
+                                        TaskExecutors.runInUIThread {
+                                            listener.unLoading()
+                                            listener.onSuccess(account)
+                                        }
+                                    } else {
+                                        TaskExecutors.runInUIThread {
+                                            val selectRoleDialog = SelectRoleDialog(
+                                                context,
+                                                authResult.availableProfiles
+                                            )
+                                            selectRoleDialog.setOnSelectedListener { selectedProfile ->
+                                                val account = createAccount(selectedProfile.name, selectedProfile.id)
+                                                refresh(account)
                                             }
-                                        } else {
-                                            TaskExecutors.runInUIThread {
-                                                val selectRoleDialog = SelectRoleDialog(
-                                                    context,
-                                                    authResult.availableProfiles
-                                                )
-                                                selectRoleDialog.setOnSelectedListener { selectedProfile ->
-                                                    username = selectedProfile.name
-                                                    profileId = selectedProfile.id
-                                                    refresh(this)
-                                                }
-                                                listener.unLoading()
-                                                selectRoleDialog.show()
-                                            }
+                                            listener.unLoading()
+                                            selectRoleDialog.show()
                                         }
                                     }
                                 }

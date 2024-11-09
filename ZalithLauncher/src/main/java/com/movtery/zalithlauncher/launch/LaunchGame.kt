@@ -3,7 +3,6 @@ package com.movtery.zalithlauncher.launch
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
@@ -69,11 +68,6 @@ class LaunchGame {
                 return if (javaRuntime.startsWith(prefix)) javaRuntime.removePrefix(prefix)
                 else javaRuntime
             }
-            fun getLoginType(): String {
-                return if (account.isMicrosoft) "Microsoft"
-                else if (AccountUtils.isOtherLoginAccount(account)) "Other"
-                else "Local"
-            }
 
             Logger.appendToLog("--------- Start launching the game")
             Logger.appendToLog("Info: Launcher version: ${ZHTools.getVersionName()} (${ZHTools.getVersionCode()})")
@@ -83,7 +77,7 @@ class LaunchGame {
             Logger.appendToLog("Info: Selected Minecraft version: $gameVersion")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
             Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
-            Logger.appendToLog("Info: Account: ${account.username} (${getLoginType()})")
+            Logger.appendToLog("Info: Account: ${account.username} (${account.accountType})")
         }
 
         @Throws(Throwable::class)

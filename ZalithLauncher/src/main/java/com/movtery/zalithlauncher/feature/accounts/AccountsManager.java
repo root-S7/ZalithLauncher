@@ -112,7 +112,7 @@ public class AccountsManager {
             }
         }
 
-        if (minecraftAccount.isMicrosoft) {
+        if (AccountUtils.isMicrosoftAccount(minecraftAccount)) {
             if (force || ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
                 AccountUtils.microsoftLogin(minecraftAccount);
             }
@@ -140,7 +140,7 @@ public class AccountsManager {
     }
 
     public MinecraftAccount getCurrentAccount() {
-        MinecraftAccount account = MinecraftAccount.load(AllSettings.getCurrentAccount());
+        MinecraftAccount account = MinecraftAccount.loadFromUniqueUUID(AllSettings.getCurrentAccount());
         if (account == null) {
             if (getAllAccount().isEmpty()) return null;
             MinecraftAccount account1 = getAllAccount().get(0);
@@ -156,7 +156,7 @@ public class AccountsManager {
 
     public boolean haveMicrosoftAccount() {
         for (MinecraftAccount account : accounts) {
-            if (account.isMicrosoft) {
+            if (AccountUtils.isMicrosoftAccount(account)) {
                 return true;
             }
         }

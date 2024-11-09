@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import com.movtery.zalithlauncher.feature.accounts.AccountUtils;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.value.MinecraftAccount;
@@ -21,13 +20,11 @@ import java.nio.file.Files;
 
 public class SkinLoader {
     public static Drawable getAvatarDrawable(Context context, MinecraftAccount account, int size) throws IOException {
-        if (account.isMicrosoft || AccountUtils.isOtherLoginAccount(account)) {
-            File skin = new File(PathAndUrlManager.DIR_USER_SKIN, account.getUniqueUUID() + ".png");
-            if (skin.exists()) {
-                try (InputStream is = Files.newInputStream(skin.toPath())) {
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    return new BitmapDrawable(context.getResources(), getAvatar(bitmap, size));
-                }
+        File skin = new File(PathAndUrlManager.DIR_USER_SKIN, account.getUniqueUUID() + ".png");
+        if (skin.exists()) {
+            try (InputStream is = Files.newInputStream(skin.toPath())) {
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                return new BitmapDrawable(context.getResources(), getAvatar(bitmap, size));
             }
         }
         return getDefaultAvatar(context, size);

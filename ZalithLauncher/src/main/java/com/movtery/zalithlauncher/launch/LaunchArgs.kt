@@ -52,11 +52,11 @@ class LaunchArgs(
         val argsList: MutableList<String> = ArrayList()
 
         if (AccountUtils.isOtherLoginAccount(account)) {
-            if (account.baseUrl.contains("auth.mc-user.com")) {
-                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/nide8auth.jar=${account.baseUrl.replace("https://auth.mc-user.com:233/", "")}")
+            if (account.otherBaseUrl.contains("auth.mc-user.com")) {
+                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/nide8auth.jar=${account.otherBaseUrl.replace("https://auth.mc-user.com:233/", "")}")
                 argsList.add("-Dnide8auth.client=true")
             } else {
-                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/authlib-injector.jar=${account.baseUrl}")
+                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/authlib-injector.jar=${account.otherBaseUrl}")
             }
         }
 
