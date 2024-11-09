@@ -1,10 +1,6 @@
 package net.kdt.pojavlaunch.customcontrols.mouse;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
@@ -13,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
@@ -174,14 +169,5 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
             // during a layout pass.
             post(this::repositionView);
         }
-    }
-
-    @SuppressLint("DrawAllocation")
-    @Override
-    protected void onDraw(@NonNull Canvas canvas) {
-        super.onDraw(canvas);
-        Paint paint = new Paint();
-        paint.setColor(Color.argb(128, 0, 0, 0));
-        canvas.drawRect(0f, 0f, getWidth(), getHeight(), paint);
     }
 }
