@@ -9,16 +9,18 @@ import android.os.FileObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Tools;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,14 +29,8 @@ import java.util.Objects;
 
 public class MCOptionUtils {
     private static final HashMap<String,String> sParameterMap = new HashMap<>();
-    private static final ArrayList<WeakReference<MCOptionListener>> sOptionListeners = new ArrayList<>();
     private static FileObserver sFileObserver;
     private static String sOptionFolderPath = null;
-    public interface MCOptionListener {
-        /** Called when an option is changed. Don't know which one though */
-        void onOptionChanged();
-    }
-
 
     public static void load(){
         load(sOptionFolderPath == null
@@ -141,52 +137,24 @@ public class MCOptionUtils {
     /** Add a file observer to reload options on file change
      * Listeners get notified of the change */
     private static void setupFileObserver(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             sFileObserver = new FileObserver(new File(sOptionFolderPath + "/options.txt"), FileObserver.MODIFY) {
                 @Override
                 public void onEvent(int i, @Nullable String s) {
                     MCOptionUtils.load();
-                    notifyListeners();
+                    EventBus.getDefault().post(new MCOptionChangeEvent());
                 }
             };
-        }else{
+        } else {
             sFileObserver = new FileObserver(sOptionFolderPath + "/options.txt", FileObserver.MODIFY) {
                 @Override
                 public void onEvent(int i, @Nullable String s) {
                     MCOptionUtils.load();
-                    notifyListeners();
+                    EventBus.getDefault().post(new MCOptionChangeEvent());
                 }
             };
         }
 
         sFileObserver.startWatching();
     }
-
-    /** Notify the option listeners */
-    public static void notifyListeners(){
-        for(WeakReference<MCOptionListener> weakReference : sOptionListeners){
-            MCOptionListener optionListener = weakReference.get();
-            if(optionListener == null) continue;
-
-            optionListener.onOptionChanged();
-        }
-    }
-
-    /** Add an option listener, notice how we don't have a reference to it */
-    public static void addMCOptionListener(MCOptionListener listener){
-        sOptionListeners.add(new WeakReference<>(listener));
-    }
-
-    /** Remove a listener from existence, or at least, its reference here */
-    public static void removeMCOptionListener(MCOptionListener listener){
-        for(WeakReference<MCOptionListener> weakReference : sOptionListeners){
-            MCOptionListener optionListener = weakReference.get();
-            if(optionListener == null) continue;
-            if(optionListener == listener){
-                sOptionListeners.remove(weakReference);
-                return;
-            }
-        }
-    }
-
 }

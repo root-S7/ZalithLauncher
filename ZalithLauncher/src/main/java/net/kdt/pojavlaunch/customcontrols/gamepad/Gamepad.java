@@ -35,13 +35,15 @@ import android.widget.ImageView;
 
 import androidx.core.math.MathUtils;
 
+import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.GrabListener;
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
-import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.lwjgl.glfw.CallbackBridge;
 
 import fr.spse.gamepad_remapper.GamepadHandler;
@@ -81,13 +83,13 @@ public class Gamepad implements GrabListener, GamepadHandler {
     private final Choreographer mScreenChoreographer;
     private long mLastFrameTime;
 
-    /* Listen for change in gui scale */
-    @SuppressWarnings("FieldCanBeLocal") //the field is used in a WeakReference
-    private final MCOptionUtils.MCOptionListener mGuiScaleListener = () -> notifyGUISizeChange(getMcScale());
-
     private final GamepadDataProvider mMapProvider;
 
     public Gamepad(View contextView, InputDevice inputDevice, GamepadDataProvider mapProvider, boolean showCursor){
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+
         Settings.setDeadzoneScale(AllSettings.getDeadzoneScale());
 
         mScreenChoreographer = Choreographer.getInstance();
@@ -100,9 +102,6 @@ public class Gamepad implements GrabListener, GamepadHandler {
         };
         mScreenChoreographer.postFrameCallback(frameCallback);
         mLastFrameTime = System.nanoTime();
-
-        /* Add the listener for the cross hair */
-        MCOptionUtils.addMCOptionListener(mGuiScaleListener);
 
         mLeftJoystick = new GamepadJoystick(AXIS_X, AXIS_Y, inputDevice);
         mRightJoystick = new GamepadJoystick(AXIS_Z, AXIS_RZ, inputDevice);
@@ -151,6 +150,11 @@ public class Gamepad implements GrabListener, GamepadHandler {
     public void updateJoysticks(){
         updateDirectionalJoystick();
         updateMouseJoystick();
+    }
+
+    @Subscribe
+    public void event(MCOptionChangeEvent event) {
+        notifyGUISizeChange(getMcScale());
     }
 
     public void notifyGUISizeChange(int newSize){
