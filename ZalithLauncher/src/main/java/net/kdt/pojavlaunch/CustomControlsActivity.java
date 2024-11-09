@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
@@ -55,6 +56,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		BackgroundManager.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, binding.backgroundView);
 
 		drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+		drawerLayout.setScrimColor(Color.TRANSPARENT);
 
 		ViewControlSettingsBinding controlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
 		new ControlSettingsClickListener(controlSettingsBinding, controlLayout);
