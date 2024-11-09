@@ -44,7 +44,6 @@
     <string name="generic_input_too_small">Giá trị đã nhập quá nhỏ, cần ít nhất là %s</string>
     <string name="generic_input_too_big">Giá trị đã nhập quá lớn, tối đa chỉ là %s</string>
     <string name="generic_copied">Đã sao chép</string>
-    <string name="generic_image_preview">Xem hình ảnh</string>
     <!-- Error -->
     <string name="error_fatal">Zalith Launcher đã gặp sự cố nghiêm trọng</string>
     <string name="error_no_version">Không có phiên bản!</string>
@@ -247,7 +246,6 @@
     <string name="account_microsoft_xerr_unauthorized">Thông tin đăng nhập tài khoản Microsoft của bạn có vẻ đã hết hạn, tình huống này thường xảy ra khi mật khẩu tài khoản bị thay đổi. Vui lòng xóa tài khoản hiện tại và đăng nhập lại để đặt lại thông tin đăng nhập của bạn.</string>
     <string name="account_local_account">Tài khoản ngoại tuyến</string>
     <string name="account_local_account_empty">Tên người dùng không được để trống!</string>
-    <string name="account_local_account_exists">Tên người dùng đã bị trùng với tài khoản hiện có, vui lòng nhập một tên mới!</string>
     <string name="account_local_account_invalid">Tên người dùng hợp lệ chỉ hỗ trợ chữ cái tiếng Anh (không phân biệt chữ hoa chữ thường), số và dấu gạch dưới. Độ dài không được ít hơn 3 ký tự và không quá 16 ký tự.\nVí dụ tên người dùng hợp lệ: Name, Name_, Name123\nVí dụ tên người dùng không hợp lệ: Name@, N ame, name_name_name_name\nTuy nhiên, nếu bạn sử dụng các Mod hoặc plugin liên quan có thể vượt qua hạn chế này, bạn có thể tiếp tục sử dụng tên này. Nếu không, vui lòng đổi tên!</string>
     <string name="account_login_local_name">Tên người dùng</string>
     <string name="account_login_start">Bắt đầu đăng nhập!</string>

@@ -24,6 +24,7 @@ class AccountUtils {
             // Perform login only if needed
             MicrosoftBackgroundLogin(true, account.msaRefreshToken)
                 .performLogin(
+                    account,
                     accountsManager.progressListener,
                     accountsManager.doneListener,
                     accountsManager.errorListener

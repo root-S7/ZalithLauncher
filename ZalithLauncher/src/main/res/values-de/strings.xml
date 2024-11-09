@@ -44,7 +44,6 @@
     <string name="generic_input_too_small">Der Wert ist zu klein, mindestens %s</string>
     <string name="generic_input_too_big">Der Wert ist zu groß, maximal %s</string>
     <string name="generic_copied">Kopiert</string>
-    <string name="generic_image_preview">Bild anzeigen</string>
     <!-- Error -->
     <string name="error_fatal">Zalith Launcher ist unerwartet abgestürzt</string>
     <string name="error_no_version">Keine Version vorhanden!</string>
@@ -247,7 +246,6 @@
     <string name="account_microsoft_xerr_unauthorized">Deine Microsoft-Konto-Anmeldeinformationen scheinen abgelaufen zu sein. Dies passiert oft, nachdem das Kontopasswort geändert wurde. Bitte entferne das aktuelle Konto und melde dich erneut an, um deine Anmeldeinformationen zurückzusetzen.</string>
     <string name="account_local_account">Offline-Konto</string>
     <string name="account_local_account_empty">Der Benutzername darf nicht leer sein!</string>
-    <string name="account_local_account_exists">Der Benutzername steht in Konflikt mit einem bestehenden Konto. Bitte gib einen neuen Namen ein!</string>
     <string name="account_local_account_invalid">Ein gültiger Benutzername unterstützt nur englische Buchstaben (Groß- und Kleinschreibung sind erlaubt), Zahlen und Unterstriche. Die Länge darf nicht weniger als 3 Zeichen und nicht mehr als 16 Zeichen betragen.\nBeispiele für korrekte Benutzernamen: Name, Name_, Name123\nBeispiele für falsche Benutzernamen: Name@, N ame, name_name_name_name\nWenn du jedoch relevante Mods oder Plugins verwendest, die diese Einschränkung umgehen können, kannst du diesen Namen weiter verwenden. Andernfalls benenne ihn bitte um!</string>
     <string name="account_login_local_name">Benutzername</string>
     <string name="account_login_start">Anmeldung starten!</string>

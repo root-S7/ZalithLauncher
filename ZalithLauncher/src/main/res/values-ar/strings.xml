@@ -44,7 +44,6 @@
     <string name="generic_input_too_small">القيمة المدخلة صغيرة جدًا، يجب أن تكون على الأقل %s</string>
     <string name="generic_input_too_big">القيمة المدخلة كبيرة جدًا، يجب أن تكون على الأكثر %s</string>
     <string name="generic_copied">تم النسخ</string>
-    <string name="generic_image_preview">عرض الصورة</string>
     <!-- Error -->
     <string name="error_fatal">حدث انهيار غير متوقع في Zalith Launcher</string>
     <string name="error_no_version">لا توجد نسخة!</string>
@@ -247,7 +246,6 @@
     <string name="account_microsoft_xerr_unauthorized">يبدو أن معلومات تسجيل الدخول إلى حساب مايكروسوفت الخاص بك قد انتهت، هذا الأمر شائع عند تغيير كلمة مرور الحساب، يرجى إزالة الحساب الحالي وإعادة تسجيل الدخول لإعادة تعيين معلومات تسجيل الدخول الخاصة بك.</string>
     <string name="account_local_account">حساب في وضع عدم الاتصال</string>
     <string name="account_local_account_empty">اسم المستخدم لا يمكن أن يكون فارغًا!</string>
-    <string name="account_local_account_exists">اسم المستخدم يتعارض مع حساب موجود، يرجى إعادة كتابة اسم جديد!</string>
     <string name="account_local_account_invalid">اسم المستخدم الصالح يدعم فقط الحروف الإنجليزية (غير حساس لحالة الحروف)، الأرقام، والشرطات السفلية. يجب أن تكون الطول بين 3 و 16 حرفًا.\nأمثلة على أسماء المستخدمين الصحيحة: Name، Name_، Name123\nأمثلة على أسماء المستخدمين غير الصحيحة: Name@، N ame، name_name_name_name\nولكن إذا كنت تستخدم المودات أو الإضافات ذات الصلة التي يمكنها تجاوز هذه الآلية، يمكنك الاستمرار في استخدام هذا الاسم، وإلا يرجى إعادة التسمية!</string>
     <string name="account_login_local_name">اسم المستخدم</string>
     <string name="account_login_start">بدء تسجيل الدخول!</string>

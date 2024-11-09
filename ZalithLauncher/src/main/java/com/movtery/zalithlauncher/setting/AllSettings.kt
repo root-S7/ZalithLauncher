@@ -209,6 +209,10 @@ class AllSettings {
             get() = Settings.Manager.getString("currentProfile", "")
 
         @JvmStatic
+        val currentAccount: String?
+            get() = Settings.Manager.getString("currentAccount", "")
+
+        @JvmStatic
         val launcherProfile: String?
             get() = Settings.Manager.getString("launcherProfile", "default")
 

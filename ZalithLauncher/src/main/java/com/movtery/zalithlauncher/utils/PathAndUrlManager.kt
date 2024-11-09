@@ -7,6 +7,7 @@ import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Comp
 import net.kdt.pojavlaunch.Tools
 import okhttp3.Request
 import okhttp3.RequestBody
+import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -57,7 +58,7 @@ class PathAndUrlManager {
             DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
             DIR_LAUNCHER_LOG = "$DIR_GAME_HOME/launcher_log"
             DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
-            DIR_ACCOUNT_NEW = "$DIR_DATA/accounts"
+            DIR_ACCOUNT_NEW = "$DIR_FILE/accounts"
             DIR_CACHE_STRING = "$DIR_CACHE/string_cache"
 
             FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
@@ -70,7 +71,13 @@ class PathAndUrlManager {
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir!!
-            DIR_USER_SKIN = File(DIR_DATA, "/user_skin")
+            DIR_USER_SKIN = File(DIR_FILE, "/user_skin")
+
+            runCatching {
+                //此处的账号文件已不再使用，需要检查并清除
+                FileUtils.deleteQuietly(File("$DIR_DATA/accounts"))
+                FileUtils.deleteQuietly(File(DIR_DATA, "/user_skin"))
+            }
         }
 
         @JvmStatic

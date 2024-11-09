@@ -43,7 +43,6 @@ import com.movtery.zalithlauncher.ui.subassembly.account.SelectAccountListener
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.PojavProfile
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment
 import net.kdt.pojavlaunch.value.MinecraftAccount
@@ -68,7 +67,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     private val selectAccountListener = object : SelectAccountListener {
         override fun onSelect(account: MinecraftAccount) {
             if (!isTaskRunning()) {
-                PojavProfile.setCurrentProfile(requireActivity(), account.username)
+                mAccountManager.currentAccount = account
             } else {
                 TaskExecutors.runInUIThread {
                     Toast.makeText(
@@ -122,9 +121,9 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                     .setConfirm(R.string.generic_delete)
                     .setConfirmClickListener {
                         val accountFile =
-                            File(PathAndUrlManager.DIR_ACCOUNT_NEW, account.username + ".json")
+                            File(PathAndUrlManager.DIR_ACCOUNT_NEW, account.uniqueUUID)
                         val userSkinFile =
-                            File(PathAndUrlManager.DIR_USER_SKIN, account.username + ".png")
+                            File(PathAndUrlManager.DIR_USER_SKIN, account.uniqueUUID + ".png")
                         if (accountFile.exists()) FileUtils.deleteQuietly(accountFile)
                         if (userSkinFile.exists()) FileUtils.deleteQuietly(userSkinFile)
                         reloadAccounts()
@@ -218,16 +217,10 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
     private fun localLogin() {
         fun checkEditText(text: String, editText: EditText): Boolean {
-            if (text.isBlank() || text.isEmpty()) {
+            return if (text.isBlank() || text.isEmpty()) {
                 editText.error = getString(R.string.account_local_account_empty)
-                return false
-            }
-
-            val exists = File(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + text + ".json").exists()
-            if (exists) {
-                editText.error = getString(R.string.account_local_account_exists)
-            }
-            return !(exists)
+                false
+            } else true
         }
 
         fun startLogin(name: String) {

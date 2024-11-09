@@ -71,9 +71,12 @@ public class MicrosoftBackgroundLogin {
     }
 
     /** Performs a full login, calling back listeners appropriately  */
-    public void performLogin(@Nullable final ProgressListener progressListener,
-                             @Nullable final DoneListener doneListener,
-                             @Nullable final ErrorListener errorListener) {
+    public void performLogin(
+            final MinecraftAccount account,
+            @Nullable final ProgressListener progressListener,
+            @Nullable final DoneListener doneListener,
+            @Nullable final ErrorListener errorListener
+    ) {
         Task.runTask(() -> {
             notifyProgress(progressListener, 1);
             String accessToken = acquireAccessToken(mIsRefresh, mAuthCode);
@@ -87,8 +90,8 @@ public class MicrosoftBackgroundLogin {
             fetchOwnedItems(mcToken);
             checkMcProfile(mcToken);
 
-            MinecraftAccount acc = MinecraftAccount.load(mcName);
-            if(acc == null) acc = new MinecraftAccount();
+            MinecraftAccount acc = account;
+            if (acc == null) acc = new MinecraftAccount();
             if (doesOwnGame) {
                 acc.xuid = xsts[0];
                 acc.clientToken = "0"; /* FIXME */
@@ -102,11 +105,11 @@ public class MicrosoftBackgroundLogin {
                 acc.updateSkin();
             }
             acc.save();
-            Logging.i("McAccountSpinner", "Saved the account : " + acc.username);
+            Logging.i("Account", "Saved the account : " + acc.username);
 
             return acc;
-        }).ended(TaskExecutors.getAndroidUI(), account -> {
-            if (doneListener != null && account != null) doneListener.onLoginDone(account);
+        }).ended(TaskExecutors.getAndroidUI(), acc -> {
+            if (doneListener != null && acc != null) doneListener.onLoginDone(acc);
         }).onThrowable(TaskExecutors.getAndroidUI(), e -> {
             Logging.e("MicroAuth", "Exception thrown during authentication", e);
             if(errorListener != null) errorListener.onLoginError(e);

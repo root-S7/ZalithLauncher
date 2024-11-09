@@ -22,7 +22,7 @@ import java.nio.file.Files;
 public class SkinLoader {
     public static Drawable getAvatarDrawable(Context context, MinecraftAccount account, int size) throws IOException {
         if (account.isMicrosoft || AccountUtils.isOtherLoginAccount(account)) {
-            File skin = new File(PathAndUrlManager.DIR_USER_SKIN, account.username + ".png");
+            File skin = new File(PathAndUrlManager.DIR_USER_SKIN, account.getUniqueUUID() + ".png");
             if (skin.exists()) {
                 try (InputStream is = Files.newInputStream(skin.toPath())) {
                     Bitmap bitmap = BitmapFactory.decodeStream(is);

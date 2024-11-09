@@ -12,7 +12,6 @@ import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.skin.SkinLoader
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.value.MinecraftAccount
 
 class AccountViewWrapper(private val parentFragment: FragmentWithAnim? = null, val mainView: View) {
     private val mContext: Context = mainView.context
@@ -28,7 +27,7 @@ class AccountViewWrapper(private val parentFragment: FragmentWithAnim? = null, v
     }
 
     fun refreshAccountInfo() {
-        val account = currentAccount
+        val account = AccountsManager.getInstance().currentAccount
         account ?: run {
             if (parentFragment == null) {
                 mUserIconView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_help))
@@ -42,7 +41,4 @@ class AccountViewWrapper(private val parentFragment: FragmentWithAnim? = null, v
         mUserIconView.setImageDrawable(SkinLoader.getAvatarDrawable(mainView.context, account, Tools.dpToPx(52f).toInt()))
         mUserNameView.text = account.username
     }
-
-    private val currentAccount: MinecraftAccount?
-        get() = AccountsManager.getInstance().currentAccount
 }

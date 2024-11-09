@@ -44,7 +44,6 @@
     <string name="generic_input_too_small">O valor preenchido é muito pequeno, deve ser pelo menos %s</string>
     <string name="generic_input_too_big">O valor preenchido é muito grande, o máximo é %s</string>
     <string name="generic_copied">Copiado</string>
-    <string name="generic_image_preview">Visualizar imagem</string>
     <!-- Error -->
     <string name="error_fatal">Zalith Launcher teve um erro e fechou inesperadamente</string>
     <string name="error_no_version">Nenhuma versão encontrada!</string>
@@ -247,7 +246,6 @@
     <string name="account_microsoft_xerr_unauthorized">As informações de login da sua conta Microsoft parecem estar expiradas. Isso geralmente acontece quando a senha da conta foi alterada. Por favor, remova a conta atual e faça login novamente para redefinir suas informações de login.</string>
     <string name="account_local_account">Conta offline</string>
     <string name="account_local_account_empty">O nome de usuário não pode estar vazio!</string>
-    <string name="account_local_account_exists">O nome de usuário entra em conflito com uma conta existente. Por favor, insira um novo nome!</string>
     <string name="account_local_account_invalid">Um nome de usuário válido suporta apenas letras inglesas (maiúsculas ou minúsculas), números e underscores. O comprimento deve ser entre 3 e 16 caracteres.\nExemplos de nomes de usuário corretos: Name, Name_, Name123\nExemplos de nomes de usuário incorretos: Name@, N ame, name_name_name_name\nNo entanto, se você estiver usando mods ou plugins relevantes que possam contornar essa restrição, poderá continuar usando este nome. Caso contrário, renomeie-o!</string>
     <string name="account_login_local_name">Nome de usuário</string>
     <string name="account_login_start">Iniciar login!</string>
