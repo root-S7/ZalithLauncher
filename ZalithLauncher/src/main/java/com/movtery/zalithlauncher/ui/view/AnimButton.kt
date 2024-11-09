@@ -15,7 +15,7 @@ open class AnimButton @JvmOverloads constructor(
     init {
         isAllCaps = false
         background = ResourcesCompat.getDrawable(resources, R.drawable.button_background, context.theme)
-        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
+        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale_with_shadow)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
