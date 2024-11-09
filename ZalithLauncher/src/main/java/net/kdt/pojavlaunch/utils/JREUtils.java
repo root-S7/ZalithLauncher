@@ -255,7 +255,7 @@ public class JREUtils {
             envMap.put("MESA_LIBRARY", loadGraphicsLibrary());
         }
 
-        envMap.put("POJAV_BETA_RENDERER", LOCAL_RENDERER);
+        envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
 
         if (!envMap.containsKey("LIBGL_ES") && LOCAL_RENDERER != null) {
             int glesMajor = getDetectedVersion();
