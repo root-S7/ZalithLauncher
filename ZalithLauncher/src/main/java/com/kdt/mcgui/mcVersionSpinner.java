@@ -1,7 +1,6 @@
 package com.kdt.mcgui;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static net.kdt.pojavlaunch.fragments.ProfileEditorFragment.DELETED_PROFILE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,7 +23,6 @@ import androidx.fragment.app.Fragment;
 
 import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.event.sticky.RefreshVersionSpinnerEvent;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.ui.fragment.ProfileTypeSelectFragment;
@@ -33,8 +31,6 @@ import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
 
 import net.kdt.pojavlaunch.profiles.ProfileAdapter;
 import net.kdt.pojavlaunch.profiles.ProfileAdapterExtra;
-
-import org.greenrobot.eventbus.EventBus;
 
 import fr.spse.extended_view.ExtendedTextView;
 
@@ -90,8 +86,17 @@ public class mcVersionSpinner extends ExtendedTextView {
     }
 
     /** Reload profiles from the file, forcing the spinner to consider the new data */
-    public void reloadProfiles(){
+    public void reloadProfiles() {
         mProfileAdapter.reloadProfiles();
+        checkProfileIndex();
+    }
+
+    /**
+     * 初始化、重载时，都应该调用这个方法，确保当前的索引不会越界，同时也能够刷新当前选中的内容
+     */
+    private void checkProfileIndex() {
+        int profileIndex = mProfileAdapter.resolveProfileIndex(AllSettings.getCurrentProfile());
+        setProfileSelection(Math.max(0, profileIndex));
     }
 
     /** Initialize various behaviors */
@@ -103,18 +108,7 @@ public class mcVersionSpinner extends ExtendedTextView {
         setPaddingRelative(padding, 0, padding, 0);
         setCompoundDrawablePadding(padding);
 
-        int profileIndex;
-        RefreshVersionSpinnerEvent versionSpinnerEvent = EventBus.getDefault().getStickyEvent(RefreshVersionSpinnerEvent.class);
-        if (versionSpinnerEvent != null && versionSpinnerEvent.getProfile() != null) {
-            String extraValue = versionSpinnerEvent.getProfile();
-            profileIndex = extraValue.equals(DELETED_PROFILE) ? 0
-                    : getProfileAdapter().resolveProfileIndex(extraValue);
-        } else
-            profileIndex = mProfileAdapter.resolveProfileIndex(AllSettings.getCurrentProfile());
-
-        if (versionSpinnerEvent != null) EventBus.getDefault().removeStickyEvent(versionSpinnerEvent);
-
-        setProfileSelection(Math.max(0,profileIndex));
+        checkProfileIndex();
 
         // Popup window behavior
         setOnClickListener(new OnClickListener() {
@@ -196,9 +190,5 @@ public class mcVersionSpinner extends ExtendedTextView {
         }else {
             mPopupWindow.dismiss();
         }
-    }
-
-    public ProfileAdapter getProfileAdapter() {
-        return mProfileAdapter;
     }
 }

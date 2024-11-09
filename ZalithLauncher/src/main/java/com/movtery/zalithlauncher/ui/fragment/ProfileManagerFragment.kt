@@ -8,7 +8,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentProfileManagerBinding
-import com.movtery.zalithlauncher.event.sticky.RefreshVersionSpinnerEvent
+import com.movtery.zalithlauncher.event.single.RefreshVersionSpinnerEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -24,11 +24,9 @@ import java.io.File
 class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manager) {
     companion object {
         const val TAG: String = "ProfileManagerFragment"
-        const val DELETED_PROFILE: String = "deleted_profile"
     }
 
     private lateinit var binding: FragmentProfileManagerBinding
-    private var mProfileKey: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +39,6 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameDirPath = ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir)
-        mProfileKey = AllSettings.currentProfile
 
         binding.apply {
             shortcutsMods.setOnClickListener {
@@ -63,17 +60,18 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
 
             profileEdit.setOnClickListener { ZHTools.swapFragmentWithAnim(this@ProfileManagerFragment, ProfileEditorFragment::class.java, ProfileEditorFragment.TAG, null) }
             profileDelete.setOnClickListener {
-                TipDialog.Builder(requireContext())
+                val activity = requireActivity()
+                TipDialog.Builder(activity)
                     .setTitle(R.string.generic_warning)
                     .setMessage(R.string.profile_manager_delete_message)
                     .setConfirmClickListener {
                         if (LauncherProfiles.mainProfileJson.profiles.size > 1) {
-                            ProfileIconCache.dropIcon(mProfileKey!!)
-                            LauncherProfiles.mainProfileJson.profiles.remove(mProfileKey)
+                            ProfileIconCache.dropIcon(AllSettings.currentProfile!!)
+                            LauncherProfiles.mainProfileJson.profiles.remove(AllSettings.currentProfile)
                             LauncherProfiles.write(currentProfile)
-                            EventBus.getDefault().postSticky(RefreshVersionSpinnerEvent(DELETED_PROFILE))
+                            EventBus.getDefault().post(RefreshVersionSpinnerEvent())
                         }
-                        Tools.removeCurrentFragment(requireActivity())
+                        Tools.backToMainMenu(activity)
                     }
                     .buildDialog()
             }

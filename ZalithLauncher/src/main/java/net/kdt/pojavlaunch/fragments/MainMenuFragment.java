@@ -15,6 +15,7 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentLauncherBinding;
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.event.single.LaunchGameEvent;
+import com.movtery.zalithlauncher.event.single.RefreshVersionSpinnerEvent;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.ShareLogDialog;
 import com.movtery.zalithlauncher.ui.fragment.AboutFragment;
@@ -94,11 +95,16 @@ public class MainMenuFragment extends FragmentWithAnim {
     @Override
     public void onResume() {
         super.onResume();
+        event(new RefreshVersionSpinnerEvent());
+    }
+
+    @Subscribe()
+    public void event(RefreshVersionSpinnerEvent event) {
         binding.mcVersionSpinner.reloadProfiles();
     }
 
     @Subscribe()
-    public void onAccountUpdate(AccountUpdateEvent event) {
+    public void event(AccountUpdateEvent event) {
         if (accountViewWrapper != null) accountViewWrapper.refreshAccountInfo();
     }
 

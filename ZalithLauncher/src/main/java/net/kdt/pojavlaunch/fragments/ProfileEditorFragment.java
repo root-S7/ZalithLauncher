@@ -22,7 +22,7 @@ import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentProfileEditorBinding;
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent;
-import com.movtery.zalithlauncher.event.sticky.RefreshVersionSpinnerEvent;
+import com.movtery.zalithlauncher.event.single.RefreshVersionSpinnerEvent;
 import com.movtery.zalithlauncher.event.sticky.VersionSelectorEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
@@ -58,7 +58,6 @@ import java.util.Objects;
 
 public class ProfileEditorFragment extends FragmentWithAnim {
     public static final String TAG = "ProfileEditorFragment";
-    public static final String DELETED_PROFILE = "deleted_profile";
 
     private final ActivityResultLauncher<String[]> openDocumentLauncher =
             registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
@@ -259,7 +258,7 @@ public class ProfileEditorFragment extends FragmentWithAnim {
 
         LauncherProfiles.mainProfileJson.profiles.put(mProfileKey, mTempProfile);
         LauncherProfiles.write(ProfilePathManager.getCurrentProfile());
-        EventBus.getDefault().postSticky(new RefreshVersionSpinnerEvent(mProfileKey));
+        EventBus.getDefault().post(new RefreshVersionSpinnerEvent());
     }
 
     private void onImageSelected(Bitmap bitmap) {
