@@ -21,10 +21,10 @@ class FileRecyclerViewCreator(
     recyclerView: RecyclerView,
     onItemClickListener: FileRecyclerAdapter.OnItemClickListener?,
     onItemLongClickListener: FileRecyclerAdapter.OnItemLongClickListener?,
-    private val mData: MutableList<FileItemBean>
+    data: MutableList<FileItemBean> = ArrayList()
 ) {
     @JvmField
-    val fileRecyclerAdapter: FileRecyclerAdapter = FileRecyclerAdapter(this.mData)
+    val fileRecyclerAdapter: FileRecyclerAdapter = FileRecyclerAdapter()
     private val mainRecyclerView: RecyclerView
 
     init {
@@ -42,13 +42,13 @@ class FileRecyclerViewCreator(
         )
         mainRecyclerView.layoutManager = layoutManager
         mainRecyclerView.adapter = this.fileRecyclerAdapter
+
+        if (data.isNotEmpty()) loadData(data)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun loadData(itemBeans: List<FileItemBean>?) {
-        mData.clear()
-        mData.addAll(itemBeans!!)
-        fileRecyclerAdapter.notifyDataSetChanged()
+        fileRecyclerAdapter.updateItems(itemBeans)
         mainRecyclerView.scheduleLayoutAnimation()
     }
 
@@ -57,7 +57,7 @@ class FileRecyclerViewCreator(
     }
 
     fun isNoFile(): Boolean {
-        return (mData.size == 1 && !mData[0].isCanCheck) || mData.size == 0
+        return fileRecyclerAdapter.isNoFile
     }
 
     companion object {

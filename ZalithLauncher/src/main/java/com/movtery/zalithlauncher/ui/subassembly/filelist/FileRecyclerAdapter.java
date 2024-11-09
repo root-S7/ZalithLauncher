@@ -22,16 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapter.InnerHolder> {
-    private final List<FileItemBean> mData;
+    private final List<FileItemBean> mData = new ArrayList<>();
     private final List<FileItemBean> selectedFiles = new ArrayList<>();
     private boolean isMultiSelectMode = false;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
     private OnMultiSelectListener mOnMultiSelectListener;
-
-    public FileRecyclerAdapter(List<FileItemBean> mData) {
-        this.mData = mData;
-    }
 
     @NonNull
     @Override
@@ -46,10 +42,18 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        if (mData != null) {
-            return mData.size();
-        }
-        return 0;
+        return mData.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateItems(List<FileItemBean> items) {
+        this.mData.clear();
+        this.mData.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public boolean isNoFile() {
+        return (mData.size() == 1 && !mData.get(0).isCanCheck) || mData.isEmpty();
     }
 
     private void toggleSelection(FileItemBean itemBean, CheckBox checkBox) {

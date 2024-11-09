@@ -30,12 +30,8 @@ import java.util.List;
 public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_VALID = 0;
     private static final int VIEW_TYPE_INVALID = 1;
-    private final List<ControlItemBean> mData;
+    private final List<ControlItemBean> mData = new ArrayList<>();
     private OnItemClickListener mOnItemClickListener;
-
-    public ControlListAdapter(List<ControlItemBean> mData) {
-        this.mData = mData;
-    }
 
     @NonNull
     @Override
@@ -76,12 +72,19 @@ public class ControlListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return (this.mData != null) ? this.mData.size() : 0;
+        return this.mData.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         return (this.mData.get(position).isInvalid) ? VIEW_TYPE_INVALID : VIEW_TYPE_VALID;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateItems(List<ControlItemBean> items) {
+        this.mData.clear();
+        this.mData.addAll(items);
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

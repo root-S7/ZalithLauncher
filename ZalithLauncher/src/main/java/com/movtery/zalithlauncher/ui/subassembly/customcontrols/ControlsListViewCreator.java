@@ -22,13 +22,11 @@ import com.movtery.zalithlauncher.utils.stringutils.StringFilter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ControlsListViewCreator {
     private final Context context;
     private final RecyclerView mainListView;
-    private final List<ControlItemBean> mData = new ArrayList<>();
     private final AtomicInteger searchCount = new AtomicInteger(0);
 
     private ControlListAdapter controlListAdapter;
@@ -47,7 +45,7 @@ public class ControlsListViewCreator {
     }
 
     public void init() {
-        controlListAdapter = new ControlListAdapter(this.mData);
+        controlListAdapter = new ControlListAdapter();
         controlListAdapter.setOnItemClickListener(new ControlListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String name) {
@@ -99,7 +97,7 @@ public class ControlsListViewCreator {
         return controlListAdapter.getItemCount();
     }
 
-    private void loadInfoData(File path) {
+    private List<ControlItemBean> loadInfoData(File path) {
         List<ControlItemBean> data = new ArrayList<>();
 
         File[] files = path.listFiles();
@@ -132,7 +130,7 @@ public class ControlsListViewCreator {
             }
         }
 
-        updateData(data);
+        return data;
     }
 
     private boolean shouldHighlight(ControlInfoData controlInfoData, File file) {
@@ -144,21 +142,6 @@ public class ControlsListViewCreator {
         //支持搜索文件名或布局名称
         return StringFilter.containsSubstring(searchString, filterString, caseSensitive) ||
                 StringFilter.containsSubstring(file.getName(), filterString, caseSensitive);
-    }
-
-    private void updateData(List<ControlItemBean> data) {
-        if (!Objects.equals(data, this.mData)) {
-            this.mData.clear();
-            this.mData.addAll(data);
-        }
-        if (searchCountText != null) {
-            TaskExecutors.runInUIThread(() -> {
-                //展示搜索结果
-                int count = searchCount.get();
-                searchCountText.setText(searchCountText.getContext().getString(R.string.search_count, count));
-                if (count != 0) searchCountText.setVisibility(View.VISIBLE);
-            });
-        }
     }
 
     public void listAtPath() {
@@ -187,12 +170,20 @@ public class ControlsListViewCreator {
     @SuppressLint("NotifyDataSetChanged")
     public void refresh() {
         Task.runTask(() -> {
-            loadInfoData(fullPath);
+            List<ControlItemBean> itemBeans = loadInfoData(fullPath);
             filterString = "";
-            return null;
-        }).ended(TaskExecutors.getAndroidUI(), r -> {
-            controlListAdapter.notifyDataSetChanged();
+            return itemBeans;
+        }).ended(TaskExecutors.getAndroidUI(), data -> {
+            controlListAdapter.updateItems(data);
             mainListView.scheduleLayoutAnimation();
+
+            if (searchCountText != null) {
+                //展示搜索结果
+                int count = searchCount.get();
+                searchCountText.setText(searchCountText.getContext().getString(R.string.search_count, count));
+                if (count != 0) searchCountText.setVisibility(View.VISIBLE);
+            }
+
             if (refreshListener != null) refreshListener.onRefresh();
         }).execute();
     }

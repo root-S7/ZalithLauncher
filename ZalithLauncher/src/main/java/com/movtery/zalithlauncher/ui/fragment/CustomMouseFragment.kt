@@ -179,8 +179,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
                 }
                 filesDialog.show()
             },
-            null,
-            ArrayList()
+            null
         )
     }
 
