@@ -54,6 +54,12 @@
     <string name="option_log_out">Ghi log ra</string>
     <string name="option_send_custom_key">Gửi mã phím tùy chỉnh</string>
     <string name="option_edit_controls">Chỉnh sửa bố cục điều khiển</string>
+    <string name="option_hotbar">Hộp kiểm tra thanh công cụ</string>
+    <string name="option_hotbar_type">Chế độ kiểm tra thanh công cụ</string>
+    <string name="option_hotbar_type_auto">Tự động (có thể không chính xác)</string>
+    <string name="option_hotbar_type_manually">Điều chỉnh thủ công</string>
+    <string name="option_hotbar_width">Chiều rộng hộp kiểm tra</string>
+    <string name="option_hotbar_height">Chiều cao hộp kiểm tra</string>
     <string name="customctrl_editor_exit_title">Bạn có muốn rời đi?</string>
     <string name="customctrl_editor_exit_msg">Bạn có chắc chắn muốn thoát?</string>
     <string name="customctrl_editor_exit">Thoát trình soạn thảo</string>

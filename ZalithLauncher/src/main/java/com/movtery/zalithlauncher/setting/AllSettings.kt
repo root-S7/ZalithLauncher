@@ -2,6 +2,7 @@ package com.movtery.zalithlauncher.setting
 
 import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
 class AllSettings {
@@ -251,5 +252,17 @@ class AllSettings {
         @JvmStatic
         val buttonSnappingDistance: Int
             get() = Settings.Manager.getInt("buttonSnappingDistance", 8)
+
+        @JvmStatic
+        val hotbarType: String?
+            get() = Settings.Manager.getString("hotbarType", "auto")
+
+        @JvmStatic
+        val hotbarWidth: Int
+            get() = Settings.Manager.getInt("hotbarWidth", Tools.currentDisplayMetrics.widthPixels / 3)
+
+        @JvmStatic
+        val hotbarHeight: Int
+            get() = Settings.Manager.getInt("hotbarHeight", Tools.currentDisplayMetrics.heightPixels / 4)
     }
 }

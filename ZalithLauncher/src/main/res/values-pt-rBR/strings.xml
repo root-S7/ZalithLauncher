@@ -54,6 +54,12 @@
     <string name="option_log_out">Registro de saída</string>
     <string name="option_send_custom_key">Enviar código de tecla personalizado</string>
     <string name="option_edit_controls">Editar Layout de Controles</string>
+    <string name="option_hotbar">Caixa de Detecção da Barra de Atalhos</string>
+    <string name="option_hotbar_type">Modo de Detecção da Barra de Atalhos</string>
+    <string name="option_hotbar_type_auto">Adaptativo (pode ser impreciso)</string>
+    <string name="option_hotbar_type_manually">Ajuste Manual</string>
+    <string name="option_hotbar_width">Largura da Caixa de Detecção</string>
+    <string name="option_hotbar_height">Altura da Caixa de Detecção</string>
     <string name="customctrl_editor_exit_title">Sair?</string>
     <string name="customctrl_editor_exit_msg">Tem certeza de que deseja sair?</string>
     <string name="customctrl_editor_exit">Sair do Editor</string>

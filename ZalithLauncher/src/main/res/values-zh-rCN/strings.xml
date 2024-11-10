@@ -56,6 +56,12 @@
     <string name="option_log_out">日志输出</string>
     <string name="option_send_custom_key">发送自定义键码</string>
     <string name="option_edit_controls">编辑控制布局</string>
+    <string name="option_hotbar">快捷栏判定框</string>
+    <string name="option_hotbar_type">快捷栏判定模式</string>
+    <string name="option_hotbar_type_auto">自适应 (可能不精准)</string>
+    <string name="option_hotbar_type_manually">手动调整</string>
+    <string name="option_hotbar_width">判定框宽度</string>
+    <string name="option_hotbar_height">判定框高度</string>
     <string name="customctrl_editor_exit_title">是否离开？</string>
     <string name="customctrl_editor_exit_msg">你是否确认退出？</string>
     <string name="customctrl_editor_exit">退出编辑器</string>

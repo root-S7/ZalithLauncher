@@ -74,12 +74,14 @@
                 android:inputType="textFilter|textImeMultiLine|textAutoComplete|textAutoCorrect"
                 tools:ignore="TouchTargetSizeCheck" />
 
-            <net.kdt.pojavlaunch.customcontrols.mouse.HotbarView
-                android:id="@+id/hotbar_view"
-                android:layout_width="0px"
-                android:layout_height="0px" />
-
         </net.kdt.pojavlaunch.customcontrols.ControlLayout>
+
+        <net.kdt.pojavlaunch.customcontrols.mouse.HotbarView
+            android:id="@+id/hotbar_view"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:alpha="0"
+            android:background="#80E64242" />
 
         <com.kdt.LoggerView
             android:id="@+id/mainLoggerView"

@@ -55,6 +55,12 @@
     <string name="option_log_out">Log Output</string>
     <string name="option_send_custom_key">Send Custom Key Code</string>
     <string name="option_edit_controls">Edit Control Layout</string>
+    <string name="option_hotbar">Hotbar Detection Box</string>
+    <string name="option_hotbar_type">Hotbar Detection Mode</string>
+    <string name="option_hotbar_type_auto">Adaptive (may be inaccurate)</string>
+    <string name="option_hotbar_type_manually">Manual Adjustment</string>
+    <string name="option_hotbar_width">Detection Box Width</string>
+    <string name="option_hotbar_height">Detection Box Height</string>
     <string name="customctrl_editor_exit_title">Exit?</string>
     <string name="customctrl_editor_exit_msg">Are you sure you want to exit?</string>
     <string name="customctrl_editor_exit">Exit Editor</string>

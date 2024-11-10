@@ -54,6 +54,12 @@
     <string name="option_log_out">Protokoll ausgeben</string>
     <string name="option_send_custom_key">Benutzerdefinierten Tastenbefehl senden</string>
     <string name="option_edit_controls">Steuerungseinstellungen</string>
+    <string name="option_hotbar">Hotbar Erkennungsbox</string>
+    <string name="option_hotbar_type">Hotbar Erkennungsmodus</string>
+    <string name="option_hotbar_type_auto">Adaptiv (kann ungenau sein)</string>
+    <string name="option_hotbar_type_manually">Manuelle Anpassung</string>
+    <string name="option_hotbar_width">Erkennungsbox Breite</string>
+    <string name="option_hotbar_height">Erkennungsbox Höhe</string>
     <string name="customctrl_editor_exit_title">Soll verlassen werden?</string>
     <string name="customctrl_editor_exit_msg">Möchtest du wirklich beenden?</string>
     <string name="customctrl_editor_exit">Editor beenden</string>

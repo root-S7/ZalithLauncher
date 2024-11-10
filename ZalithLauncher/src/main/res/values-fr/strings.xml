@@ -54,6 +54,12 @@
     <string name="option_log_out">Journaliser</string>
     <string name="option_send_custom_key">Envoyer une touche personnalisée</string>
     <string name="option_edit_controls">Modifier la disposition des contrôles</string>
+    <string name="option_hotbar">Boîte de détection du hotbar</string>
+    <string name="option_hotbar_type">Mode de détection du hotbar</string>
+    <string name="option_hotbar_type_auto">Adaptatif (peut être inexact)</string>
+    <string name="option_hotbar_type_manually">Ajustement manuel</string>
+    <string name="option_hotbar_width">Largeur de la boîte de détection</string>
+    <string name="option_hotbar_height">Hauteur de la boîte de détection</string>
     <string name="customctrl_editor_exit_title">Quitter ?</string>
     <string name="customctrl_editor_exit_msg">Êtes-vous sûr de vouloir quitter ?</string>
     <string name="customctrl_editor_exit">Quitter l\'éditeur</string>

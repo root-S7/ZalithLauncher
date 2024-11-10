@@ -11,11 +11,17 @@ import android.view.ViewParent;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
 import com.movtery.zalithlauncher.event.single.RefreshHotbarEvent;
+import com.movtery.zalithlauncher.event.value.HotbarChangeEvent;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarType;
+import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarUtils;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
 import net.kdt.pojavlaunch.utils.MathUtils;
 
@@ -36,25 +42,37 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
     private int mLastIndex;
     private int mGuiScale;
 
+    //调整判定框宽高时，用这个动画播放器播放一个淡化动画，来给用户一个当前判定框范围的反馈
+    private final AnimPlayer adjustAnimPlayer = new AnimPlayer();
+
     public HotbarView(Context context) {
         super(context);
+        init();
     }
 
     public HotbarView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public HotbarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
     @SuppressWarnings("unused") // You suggested me this constructor, Android
     public HotbarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init();
     }
 
     public void refreshScaleFactor(float scaleFactor) {
         this.mScaleFactor = scaleFactor;
+    }
+
+    private void init() {
+        adjustAnimPlayer.duration(800);
+        adjustAnimPlayer.apply(new AnimPlayer.Entry(this, Animations.FadeOut));
     }
 
     @Override
@@ -67,8 +85,7 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
             mParentView = (View) parent;
             mParentView.addOnLayoutChangeListener(this);
         }
-        mGuiScale = MCOptionUtils.getMcScale();
-        repositionView();
+        adaptiveReset();
     }
 
     @Override
@@ -92,10 +109,20 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
      */
     @Subscribe
     public void event(MCOptionChangeEvent event) {
+        mGuiScale = MCOptionUtils.getMcScale();
         post(this);
     }
 
-    private void repositionView() {
+    /**
+     * 监听手动调整判定框宽高的事件
+     * @param event 变更事件
+     */
+    @Subscribe
+    public void event(HotbarChangeEvent event) {
+        manualReset(event.getWidth(), event.getHeight(), true);
+    }
+
+    private void adaptiveReset() {
         ViewGroup.LayoutParams layoutParams = getLayoutParams();
         if(!(layoutParams instanceof ViewGroup.MarginLayoutParams))
             throw new RuntimeException("Incorrect LayoutParams type, expected ViewGroup.MarginLayoutParams");
@@ -106,6 +133,19 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
         marginLayoutParams.leftMargin = (CallbackBridge.physicalWidth / 2) - (mWidth / 2);
         marginLayoutParams.topMargin = CallbackBridge.physicalHeight - height;
         setLayoutParams(marginLayoutParams);
+    }
+
+    private void manualReset(int width, int height, boolean playAnim) {
+        ViewGroup.LayoutParams layoutParams = getLayoutParams();
+        if(!(layoutParams instanceof ViewGroup.MarginLayoutParams))
+            throw new RuntimeException("Incorrect LayoutParams type, expected ViewGroup.MarginLayoutParams");
+        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+        marginLayoutParams.width = width;
+        marginLayoutParams.height = height;
+        marginLayoutParams.leftMargin = Tools.currentDisplayMetrics.widthPixels / 2 - width / 2;
+        marginLayoutParams.topMargin = Tools.currentDisplayMetrics.heightPixels - height;
+        setLayoutParams(marginLayoutParams);
+        if (playAnim) adjustAnimPlayer.start();
     }
 
     @SuppressWarnings("ClickableViewAccessibility") // performClick does not report coordinates.
@@ -153,11 +193,14 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
 
     @Override
     public void run() {
-        if(getParent() == null) return;
-        int scale = MCOptionUtils.getMcScale();
-        if(scale == mGuiScale) return;
-        mGuiScale = scale;
-        repositionView();
+        if (getParent() == null) return;
+
+        HotbarType hotbarType = HotbarUtils.getCurrentType();
+        if (hotbarType == HotbarType.AUTO) {
+            adaptiveReset();
+        } else {
+            manualReset(AllSettings.getHotbarWidth(), AllSettings.getHotbarHeight(), false);
+        }
     }
 
     @Override
@@ -167,7 +210,7 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
         if(v.equals(mParentView) && (left != oldLeft || right != oldRight || top != oldTop || bottom != oldBottom)) {
             // Need to post this, because it is not correct to resize the view
             // during a layout pass.
-            post(this::repositionView);
+            post(this::adaptiveReset);
         }
     }
 }

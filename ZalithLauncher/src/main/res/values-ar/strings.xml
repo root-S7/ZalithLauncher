@@ -54,6 +54,12 @@
     <string name="option_log_out">تسجيل الخروج</string>
     <string name="option_send_custom_key">إرسال رمز المفتاح المخصص</string>
     <string name="option_edit_controls">تحرير تخطيط التحكم</string>
+    <string name="option_hotbar">إطار تحديد شريط الأدوات</string>
+    <string name="option_hotbar_type">وضع تحديد شريط الأدوات</string>
+    <string name="option_hotbar_type_auto">تلقائي (قد لا يكون دقيقًا)</string>
+    <string name="option_hotbar_type_manually">تعديل يدوي</string>
+    <string name="option_hotbar_width">عرض إطار التحديد</string>
+    <string name="option_hotbar_height">ارتفاع إطار التحديد</string>
     <string name="customctrl_editor_exit_title">هل تريد الخروج؟</string>
     <string name="customctrl_editor_exit_msg">هل أنت متأكد من الخروج؟</string>
     <string name="customctrl_editor_exit">الخروج من المحرر</string>
