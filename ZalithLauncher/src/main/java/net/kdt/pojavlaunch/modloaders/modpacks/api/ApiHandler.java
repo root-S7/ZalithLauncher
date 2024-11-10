@@ -71,10 +71,10 @@ public class ApiHandler {
             conn.disconnect();
             return data;
         } catch (FileNotFoundException e) {
-            Logging.e("ApiHandler", "File Not Found! " + Tools.printToString(e));
+            Logging.d("ApiHandler", "File Not Found! " + Tools.printToString(e));
             return null;
         } catch(InterruptedIOException e) {
-            Logging.e("ApiHandler", "When an exception occurs during task cancellation, but the task is successfully canceled, the exception can be ignored.");
+            Logging.d("ApiHandler", "The connection has been interrupted, or has been canceled.\n" + Tools.printToString(e));
             return null;
         } catch (Exception e) {
             Logging.e("ApiHandler", Tools.printToString(e));
