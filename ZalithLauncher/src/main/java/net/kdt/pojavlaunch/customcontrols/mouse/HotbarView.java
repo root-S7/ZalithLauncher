@@ -122,11 +122,15 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
         manualReset(event.getWidth(), event.getHeight(), true);
     }
 
-    private void adaptiveReset() {
+    private ViewGroup.MarginLayoutParams getMarginLayoutParams() {
         ViewGroup.LayoutParams layoutParams = getLayoutParams();
-        if(!(layoutParams instanceof ViewGroup.MarginLayoutParams))
+        if (!(layoutParams instanceof ViewGroup.MarginLayoutParams))
             throw new RuntimeException("Incorrect LayoutParams type, expected ViewGroup.MarginLayoutParams");
-        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+        return (ViewGroup.MarginLayoutParams) layoutParams;
+    }
+
+    private void adaptiveReset() {
+        ViewGroup.MarginLayoutParams marginLayoutParams = getMarginLayoutParams();
         int height;
         marginLayoutParams.width = mWidth = mcScale(180);
         marginLayoutParams.height = height = mcScale(20);
@@ -136,11 +140,8 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
     }
 
     private void manualReset(int width, int height, boolean playAnim) {
-        ViewGroup.LayoutParams layoutParams = getLayoutParams();
-        if(!(layoutParams instanceof ViewGroup.MarginLayoutParams))
-            throw new RuntimeException("Incorrect LayoutParams type, expected ViewGroup.MarginLayoutParams");
-        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
-        marginLayoutParams.width = width;
+        ViewGroup.MarginLayoutParams marginLayoutParams = getMarginLayoutParams();
+        marginLayoutParams.width = mWidth = width;
         marginLayoutParams.height = height;
         marginLayoutParams.leftMargin = Tools.currentDisplayMetrics.widthPixels / 2 - width / 2;
         marginLayoutParams.topMargin = Tools.currentDisplayMetrics.heightPixels - height;

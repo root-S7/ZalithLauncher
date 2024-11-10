@@ -644,6 +644,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             binding.hotbarWidth.setMin(40);
             binding.hotbarHeight.setMax(currentDisplayMetrics.heightPixels / 2);
             binding.hotbarHeight.setMin(20);
+
+            refreshHotbarProgress();
         }
 
         @Override
@@ -671,6 +673,11 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             seekBar.setProgress(seekBar.getProgress() + v);
         }
 
+        private void refreshHotbarProgress() {
+            binding.hotbarWidth.setProgress(AllSettings.getHotbarWidth());
+            binding.hotbarHeight.setProgress(AllSettings.getHotbarHeight());
+        }
+
         @Override
         public void onItemSelected(int i, @Nullable HotbarType t, int i1, HotbarType t1) {
             if (t1 == HotbarType.AUTO) {
@@ -680,8 +687,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 binding.hotbarWidthLayout.setVisibility(View.VISIBLE);
                 binding.hotbarHeightLayout.setVisibility(View.VISIBLE);
 
-                binding.hotbarWidth.setProgress(AllSettings.getHotbarWidth());
-                binding.hotbarHeight.setProgress(AllSettings.getHotbarHeight());
+                refreshHotbarProgress();
             }
 
             Settings.Manager.put("hotbarType", t1.getValueName()).save();
