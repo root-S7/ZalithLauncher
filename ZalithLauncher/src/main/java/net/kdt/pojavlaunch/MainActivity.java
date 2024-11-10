@@ -195,10 +195,12 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
             // Menu
             mGameSettingsBinding = ViewGameSettingsBinding.inflate(getLayoutInflater());
-            new MenuSettingsClickListener(mGameSettingsBinding);
+            MenuSettingsInitListener menuSettingsInitListener = new MenuSettingsInitListener(mGameSettingsBinding);
 
             binding.mainNavigationView.removeAllViews();
             binding.mainNavigationView.addView(mGameSettingsBinding.getRoot());
+
+            binding.mainDrawerOptions.addDrawerListener(menuSettingsInitListener);
             binding.mainDrawerOptions.closeDrawers();
 
             final String finalVersion = version;
@@ -579,10 +581,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         else return super.dispatchTrackballEvent(ev);
     }
 
-    private class MenuSettingsClickListener implements View.OnClickListener, OnSpinnerItemSelectedListener<HotbarType> {
+    private class MenuSettingsInitListener implements View.OnClickListener, OnSpinnerItemSelectedListener<HotbarType>, DrawerLayout.DrawerListener {
         private final ViewGameSettingsBinding binding;
 
-        public MenuSettingsClickListener(ViewGameSettingsBinding binding) {
+        public MenuSettingsInitListener(ViewGameSettingsBinding binding) {
             this.binding = binding;
             this.binding.forceClose.setOnClickListener(this);
             this.binding.logOutput.setOnClickListener(this);
@@ -692,6 +694,25 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
             Settings.Manager.put("hotbarType", t1.getValueName()).save();
             EventBus.getDefault().post(new RefreshHotbarEvent());
+        }
+
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+            //需要在菜单状态改变的时候，关闭Hotbar类型的Spinner，这个库并没有自动关闭的功能，所以需要这么做
+            //关掉！关掉！一定要关掉！
+            binding.hotbarType.dismiss();
         }
     }
 
