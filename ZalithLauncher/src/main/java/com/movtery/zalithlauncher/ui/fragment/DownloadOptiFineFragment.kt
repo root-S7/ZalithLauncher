@@ -91,8 +91,7 @@ class DownloadOptiFineFragment : ModListFragment(), ModloaderDownloadListener {
 
             optiFineVersionList.forEach(Consumer Consumer2@{ optiFineVersion: OptiFineVersion ->
                 currentTask?.apply { if (isCancelled) return@Consumer2 }
-                mOptiFineVersions.computeIfAbsent(optiFineVersion.minecraftVersion) { ArrayList() }
-                    .add(optiFineVersion)
+                addIfAbsent(mOptiFineVersions, optiFineVersion.minecraftVersion, optiFineVersion)
             })
         })
 

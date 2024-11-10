@@ -159,6 +159,18 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         }
     }
 
+    /**
+     * 如果一个Map中没有包含指定Title的List集合，则创建一个新的ArrayList，并将元素添加进去
+     * 如果这个Map中存在这个集合，则直接将元素添加进去
+     * @param map 存储Title和List集合的Map
+     * @param title 标题
+     * @param element 需要添加的元素
+     */
+    protected fun <E> addIfAbsent(map: MutableMap<String, MutableList<E>>, title: String, element: E) {
+        map.computeIfAbsent(title) { ArrayList() }
+            .add(element)
+    }
+
     protected fun setTitleText(nameText: String?) {
         binding.title.text = nameText
     }

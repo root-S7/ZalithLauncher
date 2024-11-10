@@ -4,14 +4,6 @@ import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 
 class ModLoaderUtils {
     companion object {
-        fun getModLoaderList(): List<ModLoader> {
-            val list: MutableList<ModLoader> = ArrayList()
-            ModLoader.entries.forEach { modLoader ->
-                list.add(modLoader)
-            }
-            return list
-        }
-
         private fun checkForModLoader(func: (modloader: ModLoader) -> Boolean): ModLoader? {
             ModLoader.entries.forEach { modLoader ->
                 if (func.invoke(modLoader)) return modLoader

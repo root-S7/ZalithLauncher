@@ -101,8 +101,7 @@ class DownloadNeoForgeFragment : ModListFragment(), ModloaderDownloadListener {
             } else { //1.20.2+
                 formatGameVersion(neoForgeVersion)
             }
-            mNeoForgeVersions.computeIfAbsent(gameVersion) { ArrayList() }
-                .add(neoForgeVersion)
+            addIfAbsent(mNeoForgeVersions, gameVersion, neoForgeVersion)
         })
 
         currentTask?.apply { if (isCancelled) return }

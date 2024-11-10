@@ -17,6 +17,7 @@ import com.movtery.zalithlauncher.feature.download.InfoViewModel
 import com.movtery.zalithlauncher.feature.download.ScreenshotAdapter
 import com.movtery.zalithlauncher.feature.download.VersionAdapter
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
+import com.movtery.zalithlauncher.feature.download.item.ModVersionItem
 import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper
@@ -35,7 +36,6 @@ import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.ui.versions.ModTranslations
 import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.io.File
-import java.util.Collections
 import java.util.concurrent.Future
 import java.util.function.Consumer
 
@@ -86,7 +86,7 @@ class DownloadModFragment : ModListFragment() {
                     componentProcessing(true)
                 }
                 val versions = platformHelper.getVersions(mInfoItem, force)
-                processModDetails(versions)
+                processDetails(versions)
             }.getOrElse { e ->
                 TaskExecutors.runInUIThread {
                     componentProcessing(false)
@@ -97,7 +97,7 @@ class DownloadModFragment : ModListFragment() {
         }
     }
 
-    private fun processModDetails(versions: List<VersionItem>?) {
+    private fun processDetails(versions: List<VersionItem>?) {
         val pattern = RELEASE_REGEX
 
         val releaseCheckBoxChecked = releaseCheckBox.isChecked
@@ -117,8 +117,18 @@ class DownloadModFragment : ModListFragment() {
                     }
                 }
 
-                mModVersionsByMinecraftVersion.computeIfAbsent(mcVersion) { Collections.synchronizedList(ArrayList()) }
-                    .add(versionItem) //将版本数据加入到相应的版本号分组中
+                if (versionItem is ModVersionItem) {
+                    val modloaders = versionItem.modloaders
+                    if (modloaders.isNotEmpty()) {
+                        modloaders.forEach {
+                            addIfAbsent(mModVersionsByMinecraftVersion, "${it.loaderName} $mcVersion", versionItem)
+                        }
+                        //当这个版本是一个 ModVersionItem 的时候，则检查其Mod加载器是否不为空，如果不为空，则将版本支持的Mod加载器，放到不同的Mod加载器列表中
+                        //这样会让用户更容易找到匹配自己需要的Mod加载器的版本
+                        continue //已经分类完毕，没有必要再将这个版本加入进普通的版本列表中了
+                    }
+                }
+                addIfAbsent(mModVersionsByMinecraftVersion, mcVersion, versionItem)
             }
         })
 
@@ -126,7 +136,23 @@ class DownloadModFragment : ModListFragment() {
 
         val mData: MutableList<ModListItemBean> = ArrayList()
         mModVersionsByMinecraftVersion.entries
-            .sortedWith { entry1, entry2 -> -VersionNumber.compare(entry1.key, entry2.key) }
+            .sortedWith { entry1, entry2 ->
+                //忽略这些可能会影响到排序的字符串
+                fun String.ignoreSpecific(): String {
+                    val rawString =
+                        //因为NeoForge也有"Forge"，如果不放在Forge前面，那么可能会被替换为"Neo"
+                        listOf("Minecraft", "Fabric", "Quilt", "NeoForge", "Forge")
+                            .fold(this) { acc, str ->
+                                acc.replace(str, "")
+                            }
+                    return rawString.trim()
+                }
+
+                -VersionNumber.compare(
+                    entry1.key.ignoreSpecific(),
+                    entry2.key.ignoreSpecific()
+                )
+            }
             .forEach { entry: Map.Entry<String, List<VersionItem>> ->
                 currentTask?.apply { if (isCancelled) return }
 

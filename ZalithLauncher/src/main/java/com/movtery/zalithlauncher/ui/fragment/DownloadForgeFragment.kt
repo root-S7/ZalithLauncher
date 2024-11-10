@@ -81,8 +81,7 @@ class DownloadForgeFragment : ModListFragment(), ModloaderDownloadListener {
             //查找并分组Minecraft版本与Forge版本
             val dashIndex = forgeVersion.indexOf("-")
             val gameVersion = forgeVersion.substring(0, dashIndex)
-            mForgeVersions.computeIfAbsent(gameVersion) { ArrayList() }
-                .add(forgeVersion)
+            addIfAbsent(mForgeVersions, gameVersion, forgeVersion)
         })
 
         currentTask?.apply { if (isCancelled) return }

@@ -30,7 +30,6 @@ import com.movtery.zalithlauncher.feature.download.enums.Sort
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
-import com.movtery.zalithlauncher.feature.download.utils.ModLoaderUtils
 import com.movtery.zalithlauncher.feature.download.utils.SortUtils
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.TaskExecutors
@@ -159,7 +158,7 @@ abstract class AbstractResourceDownloadFragment(
         mPlatformAdapter.setItems(listOf(Platform.CURSEFORGE, Platform.MODRINTH))
         mSortAdapter.setItems(SortUtils.getSortList())
         mCategoryAdapter.setItems(categoryList)
-        mModLoaderAdapter.setItems(ModLoaderUtils.getModLoaderList())
+        mModLoaderAdapter.setItems(ModLoader.entries)
 
         binding.apply {
             initInstallButton(binding.installButton)
