@@ -30,7 +30,6 @@ import com.movtery.zalithlauncher.feature.download.enums.Sort
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
-import com.movtery.zalithlauncher.feature.download.utils.SortUtils
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectVersionDialog
@@ -52,7 +51,8 @@ abstract class AbstractResourceDownloadFragment(
     private val classify: Classify,
     private val categoryList: List<Category>,
     private val showModloader: Boolean,
-    targetPath: File?
+    targetPath: File?,
+    private val recommendedPlatform: Platform = Platform.CURSEFORGE
 ) : FragmentWithAnim(R.layout.fragment_download_resource) {
     private lateinit var binding: FragmentDownloadResourceBinding
 
@@ -155,8 +155,8 @@ abstract class AbstractResourceDownloadFragment(
         }
 
         // 初始化 Spinner
-        mPlatformAdapter.setItems(listOf(Platform.CURSEFORGE, Platform.MODRINTH))
-        mSortAdapter.setItems(SortUtils.getSortList())
+        mPlatformAdapter.setItems(Platform.entries)
+        mSortAdapter.setItems(Sort.entries)
         mCategoryAdapter.setItems(categoryList)
         mModLoaderAdapter.setItems(ModLoader.entries)
 
@@ -164,26 +164,26 @@ abstract class AbstractResourceDownloadFragment(
             initInstallButton(binding.installButton)
 
             platformSpinner.setSpinnerAdapter(mPlatformAdapter)
-            platformSpinner.selectItemByIndex(0)
             setSpinnerListener<Platform>(platformSpinner) {
                 if (mCurrentPlatform == it) return@setSpinnerListener
                 mCurrentPlatform = it
                 search()
             }
+            platformSpinner.selectItemByIndex(recommendedPlatform.ordinal)
 
             sortSpinner.setSpinnerAdapter(mSortAdapter)
-            sortSpinner.selectItemByIndex(0)
             setSpinnerListener<Sort>(sortSpinner) { mFilters.sort = it }
+            sortSpinner.selectItemByIndex(0)
 
             categorySpinner.setSpinnerAdapter(mCategoryAdapter)
-            categorySpinner.selectItemByIndex(0)
             setSpinnerListener<Category>(binding.categorySpinner) { mFilters.category = it }
+            categorySpinner.selectItemByIndex(0)
 
             modloaderSpinner.setSpinnerAdapter(mModLoaderAdapter)
-            modloaderSpinner.selectItemByIndex(0)
             setSpinnerListener<ModLoader>(modloaderSpinner) {
                 mFilters.modloader = it.takeIf { loader -> loader != ModLoader.ALL }
             }
+            modloaderSpinner.selectItemByIndex(0)
 
             reset.setOnClickListener {
                 nameEdit.setText("")

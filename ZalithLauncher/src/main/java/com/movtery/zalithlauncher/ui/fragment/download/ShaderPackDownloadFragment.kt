@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.enums.Classify
+import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
@@ -21,7 +22,8 @@ class ShaderPackDownloadFragment(parentFragment: Fragment? = null) : AbstractRes
     Classify.SHADER_PACK,
     CategoryUtils.getShaderPackCategory(),
     false,
-    sShaderPackPath
+    sShaderPackPath,
+    Platform.MODRINTH
 ) {
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
 
