@@ -57,4 +57,21 @@
     <string name="category_modded_world">Mapas Modificados</string>
     <string name="category_parkour">Parkour</string>
     <string name="category_puzzle">Quebra-cabeça</string>
+    <!-- Shader -->
+    <string name="category_cartoon">Desenho animado</string>
+    <string name="category_cursed">Amaldiçoado</string>
+    <string name="category_fantasy">Fantasia</string>
+    <string name="category_semi_realistic">Semi-realista</string>
+    <string name="category_atmosphere">Atmosfera</string>
+    <string name="category_bloom">Brilho</string>
+    <string name="category_colored_lighting">Iluminação colorida</string>
+    <string name="category_foliage">Folhagem</string>
+    <string name="category_path_tracing">Rastreamento de caminho</string>
+    <string name="category_reflections">Reflexões</string>
+    <string name="category_shadows">Sombras</string>
+    <string name="category_configuration_potato">Configuração "Batata"</string>
+    <string name="category_configuration_low">Configuração baixa</string>
+    <string name="category_configuration_medium">Configuração média</string>
+    <string name="category_configuration_high">Configuração alta</string>
+    <string name="category_screenshot">Captura de tela</string>
 </resources>

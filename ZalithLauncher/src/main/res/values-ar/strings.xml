@@ -236,6 +236,7 @@
     <string name="profile_manager_shortcuts_instance_path">مجلد مسار المثيل</string>
     <string name="profile_manager_shortcuts_resource_path">مجلد حزم الموارد</string>
     <string name="profile_manager_shortcuts_world_path">مجلد ملفات اللعبة</string>
+    <string name="profile_manager_shortcuts_shader_path">مجلد حزمة الظلال</string>
     <string name="profile_manager_shortcuts_logs_path">مجلد السجلات</string>
     <string name="profile_manager_shortcuts_crash_report_path">مجلد تقارير الانهيار</string>
     <string name="profile_manager_edit">تعديل المثيل</string>
@@ -469,10 +470,11 @@
     <string name="game_tip">اللعبة قيد التشغيل، يمكنك فتح إخراج السجل من خلال القائمة لمراقبة حالة تشغيل اللعبة</string>
     <string name="game_tip_version">الإصدار الحالي للعبة المُشغّلة:</string>
     <!-- Download -->
-    <string name="download_classify_mod">تنزيل المود</string>
-    <string name="download_classify_modpack">تنزيل حزمة المودات</string>
+    <string name="download_classify_mod">تنزيل مود</string>
+    <string name="download_classify_modpack">تنزيل حزمة مود</string>
     <string name="download_classify_resource_pack">تنزيل حزمة الموارد</string>
     <string name="download_classify_world">تنزيل العالم</string>
+    <string name="download_classify_shader_pack">تنزيل حزمة الظلال</string>
     <string name="download_ui_install_local">التثبيت من محلي</string>
     <string name="download_ui_search">بحث عن الاسم</string>
     <string name="download_ui_mc_version">إصدار MC</string>

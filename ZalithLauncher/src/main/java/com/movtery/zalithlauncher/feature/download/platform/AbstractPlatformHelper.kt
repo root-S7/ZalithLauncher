@@ -25,6 +25,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
             Classify.MODPACK -> searchModPack(filters, lastResult)
             Classify.RESOURCE_PACK -> searchResourcePack(filters, lastResult)
             Classify.WORLD -> searchWorld(filters, lastResult)
+            Classify.SHADER_PACK -> searchShaderPack(filters, lastResult)
         }
     }
 
@@ -36,6 +37,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
             Classify.MODPACK -> getModPackVersions(infoItem, force)
             Classify.RESOURCE_PACK -> getResourcePackVersions(infoItem, force)
             Classify.WORLD -> getWorldVersions(infoItem, force)
+            Classify.SHADER_PACK -> getShaderPackVersions(infoItem, force)
         }
     }
 
@@ -54,6 +56,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                 }.onThrowable { e -> Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e) }
                     .execute()
             }
+            Classify.SHADER_PACK -> installShaderPack(infoItem, version, targetPath)
         }
         ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
     }
@@ -66,14 +69,17 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
     abstract fun searchModPack(filters: Filters, lastResult: SearchResult): SearchResult?
     abstract fun searchResourcePack(filters: Filters, lastResult: SearchResult): SearchResult?
     abstract fun searchWorld(filters: Filters, lastResult: SearchResult): SearchResult?
+    abstract fun searchShaderPack(filters: Filters, lastResult: SearchResult): SearchResult?
 
     abstract fun getModVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
     abstract fun getModPackVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
     abstract fun getResourcePackVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
     abstract fun getWorldVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
+    abstract fun getShaderPackVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
 
     abstract fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File?)
     abstract fun installModPack(infoItem: InfoItem, version: VersionItem): ModLoaderWrapper?
     abstract fun installResourcePack(infoItem: InfoItem, version: VersionItem, targetPath: File?)
     abstract fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File?)
+    abstract fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File?)
 }

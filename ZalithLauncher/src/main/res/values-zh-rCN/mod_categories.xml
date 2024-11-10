@@ -57,4 +57,21 @@
     <string name="category_parkour">跑酷</string>
     <string name="category_puzzle">解密</string>
     <string name="category_512x">512x 及更高</string>
+    <!-- Shader -->
+    <string name="category_cartoon">卡通</string>
+    <string name="category_cursed">邪门</string>
+    <string name="category_fantasy">奇幻</string>
+    <string name="category_semi_realistic">半写实</string>
+    <string name="category_atmosphere">氛围</string>
+    <string name="category_bloom">泛光</string>
+    <string name="category_colored_lighting">彩色照明</string>
+    <string name="category_foliage">植被</string>
+    <string name="category_path_tracing">路径追踪</string>
+    <string name="category_reflections">反射</string>
+    <string name="category_shadows">阴影</string>
+    <string name="category_configuration_potato">“土豆”配置</string>
+    <string name="category_configuration_low">低等配置</string>
+    <string name="category_configuration_medium">中等配置</string>
+    <string name="category_configuration_high">高等配置</string>
+    <string name="category_screenshot">截图</string>
 </resources>

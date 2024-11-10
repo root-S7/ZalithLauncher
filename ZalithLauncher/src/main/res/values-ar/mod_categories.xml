@@ -57,4 +57,21 @@
     <string name="category_modded_world">خرائط التعديلات</string>
     <string name="category_parkour">باركور</string>
     <string name="category_puzzle">ألغاز</string>
+    <!-- Shader -->
+    <string name="category_cartoon">رسوم متحركة</string>
+    <string name="category_cursed">ملعون</string>
+    <string name="category_fantasy">خيال</string>
+    <string name="category_semi_realistic">شبه واقعي</string>
+    <string name="category_atmosphere">جو</string>
+    <string name="category_bloom">توهج</string>
+    <string name="category_colored_lighting">إضاءة ملونة</string>
+    <string name="category_foliage">نباتات</string>
+    <string name="category_path_tracing">تتبع المسار</string>
+    <string name="category_reflections">إنعكاسات</string>
+    <string name="category_shadows">ظلال</string>
+    <string name="category_configuration_potato">إعدادات "بطاطا"</string>
+    <string name="category_configuration_low">إعدادات منخفضة</string>
+    <string name="category_configuration_medium">إعدادات متوسطة</string>
+    <string name="category_configuration_high">إعدادات عالية</string>
+    <string name="category_screenshot">لقطة شاشة</string>
 </resources>

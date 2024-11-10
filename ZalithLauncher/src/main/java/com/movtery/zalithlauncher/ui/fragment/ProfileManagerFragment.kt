@@ -55,6 +55,7 @@ class ProfileManagerFragment : FragmentWithAnim(R.layout.fragment_profile_manage
             instancePath.setOnClickListener { swapFilesFragment(gameDirPath, gameDirPath) }
             resourcePath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/resourcepacks")) }
             worldPath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/saves")) }
+            shaderPath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/shaderpacks")) }
             logsPath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/logs")) }
             crashReportPath.setOnClickListener { swapFilesFragment(gameDirPath, File(gameDirPath, "/crash-reports")) }
 

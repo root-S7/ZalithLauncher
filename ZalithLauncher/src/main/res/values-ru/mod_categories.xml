@@ -57,4 +57,21 @@
     <string name="category_modded_world">Модифицированные Карты</string>
     <string name="category_parkour">Паркур</string>
     <string name="category_puzzle">Головоломки</string>
+    <!-- Shader -->
+    <string name="category_cartoon">Мультфильм</string>
+    <string name="category_cursed">Проклятый</string>
+    <string name="category_fantasy">Фэнтези</string>
+    <string name="category_semi_realistic">Полуреалистичный</string>
+    <string name="category_atmosphere">Атмосфера</string>
+    <string name="category_bloom">Блум</string>
+    <string name="category_colored_lighting">Цветное освещение</string>
+    <string name="category_foliage">Листва</string>
+    <string name="category_path_tracing">Трассировка путей</string>
+    <string name="category_reflections">Отражения</string>
+    <string name="category_shadows">Тени</string>
+    <string name="category_configuration_potato">Конфигурация "Картошка"</string>
+    <string name="category_configuration_low">Низкая конфигурация</string>
+    <string name="category_configuration_medium">Средняя конфигурация</string>
+    <string name="category_configuration_high">Высокая конфигурация</string>
+    <string name="category_screenshot">Скриншот</string>
 </resources>

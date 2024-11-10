@@ -236,6 +236,7 @@
     <string name="profile_manager_shortcuts_instance_path">Instanz-Ordnerpfad</string>
     <string name="profile_manager_shortcuts_resource_path">Ressourcenpaket-Ordner</string>
     <string name="profile_manager_shortcuts_world_path">Spielstand-Ordner</string>
+    <string name="profile_manager_shortcuts_shader_path">Shader-Pack-Ordner</string>
     <string name="profile_manager_shortcuts_logs_path">Protokoll-Ordner</string>
     <string name="profile_manager_shortcuts_crash_report_path">Absturzbericht-Ordner</string>
     <string name="profile_manager_edit">Instanz bearbeiten</string>
@@ -473,6 +474,7 @@
     <string name="download_classify_modpack">Modpack herunterladen</string>
     <string name="download_classify_resource_pack">Ressourcenpaket herunterladen</string>
     <string name="download_classify_world">Welt herunterladen</string>
+    <string name="download_classify_shader_pack">Shader-Paket herunterladen</string>
     <string name="download_ui_install_local">Von lokal installieren</string>
     <string name="download_ui_search">Name suchen</string>
     <string name="download_ui_mc_version">MC Version</string>

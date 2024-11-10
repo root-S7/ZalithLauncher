@@ -32,6 +32,7 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
                 Classify.MODPACK -> "modpacks"
                 Classify.RESOURCE_PACK -> "texture-packs"
                 Classify.WORLD -> "worlds"
+                Classify.SHADER_PACK -> "shaders"
             }
         }/${infoItem.slug}"
     }
@@ -61,6 +62,11 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     }
 
     @Throws(Throwable::class)
+    override fun searchShaderPack(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return CurseForgeCommonUtils.getResults(api, lastResult, filters, 6552, Classify.SHADER_PACK)
+    }
+
+    @Throws(Throwable::class)
     override fun getModVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>? {
         return CurseForgeModHelper.getModVersions(api, infoItem, force)
     }
@@ -77,6 +83,11 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
 
     @Throws(Throwable::class)
     override fun getWorldVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>? {
+        return CurseForgeCommonUtils.getVersions(api, infoItem, force)
+    }
+
+    @Throws(Throwable::class)
+    override fun getShaderPackVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>? {
         return CurseForgeCommonUtils.getVersions(api, infoItem, force)
     }
 
@@ -106,5 +117,10 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
                 }
             }
         }
+    }
+
+    @Throws(Throwable::class)
+    override fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
+        InstallHelper.downloadFile(version, targetPath)
     }
 }

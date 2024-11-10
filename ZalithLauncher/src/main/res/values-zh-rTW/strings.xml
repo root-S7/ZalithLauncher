@@ -236,6 +236,7 @@
     <string name="profile_manager_shortcuts_instance_path">實例路徑資料夾</string>
     <string name="profile_manager_shortcuts_resource_path">資源包資料夾</string>
     <string name="profile_manager_shortcuts_world_path">遊戲存檔資料夾</string>
+    <string name="profile_manager_shortcuts_shader_path">光影包資料夾</string>
     <string name="profile_manager_shortcuts_logs_path">日誌資料夾</string>
     <string name="profile_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
     <string name="profile_manager_edit">編輯實例</string>
@@ -473,6 +474,7 @@
     <string name="download_classify_modpack">下載整合包</string>
     <string name="download_classify_resource_pack">下載資源包</string>
     <string name="download_classify_world">下載世界</string>
+    <string name="download_classify_shader_pack">下載光影包</string>
     <string name="download_ui_install_local">從本地安裝</string>
     <string name="download_ui_search">搜尋名稱</string>
     <string name="download_ui_mc_version">MC 版本</string>

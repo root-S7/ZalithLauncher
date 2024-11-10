@@ -236,6 +236,7 @@
     <string name="profile_manager_shortcuts_instance_path">Папка с экземплярами</string>
     <string name="profile_manager_shortcuts_resource_path">Папка с ресурс-паками</string>
     <string name="profile_manager_shortcuts_world_path">Папка с сохранениями игры</string>
+    <string name="profile_manager_shortcuts_shader_path">Папка с пакетом шейдеров</string>
     <string name="profile_manager_shortcuts_logs_path">Папка с логами</string>
     <string name="profile_manager_shortcuts_crash_report_path">Папка с отчетами о сбоях</string>
     <string name="profile_manager_edit">Редактировать экземпляр</string>
@@ -473,6 +474,7 @@
     <string name="download_classify_modpack">Скачать модпак</string>
     <string name="download_classify_resource_pack">Скачать ресурсный пакет</string>
     <string name="download_classify_world">Скачать мир</string>
+    <string name="download_classify_shader_pack">Скачать пакет шейдеров</string>
     <string name="download_ui_install_local">Установить из локального</string>
     <string name="download_ui_search">Поиск по названию</string>
     <string name="download_ui_mc_version">Версия MC</string>

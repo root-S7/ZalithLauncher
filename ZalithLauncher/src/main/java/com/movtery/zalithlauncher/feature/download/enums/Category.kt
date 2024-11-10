@@ -83,5 +83,26 @@ enum class Category(val classify: Classify, val resNameID: Int, val curseforgeID
     WORLD_GAME_MAP(Classify.WORLD, R.string.category_game_map, "250", null),
     WORLD_MODDED_WORLD(Classify.WORLD, R.string.category_modded_world, "4464", null),
     WORLD_PARKOUR(Classify.WORLD, R.string.category_parkour, "251", null),
-    WORLD_PUZZLE(Classify.WORLD, R.string.category_puzzle, "252", null)
+    WORLD_PUZZLE(Classify.WORLD, R.string.category_puzzle, "252", null),
+
+    //光影类别
+    SHADER_CARTOON(Classify.SHADER_PACK, R.string.category_cartoon, null, "cartoon"),
+    SHADER_CURSED(Classify.SHADER_PACK, R.string.category_cursed, null, "cursed"),
+    SHADER_FANTASY(Classify.SHADER_PACK, R.string.category_fantasy, "6554", "fantasy"),
+    SHADER_REALISTIC(Classify.SHADER_PACK, R.string.category_photo_realistic, "6553", "realistic"),
+    SHADER_SEMI_REALISTIC(Classify.SHADER_PACK, R.string.category_semi_realistic, null, "semi-realistic"),
+    SHADER_VANILLA(Classify.SHADER_PACK, R.string.category_vanilla, "6555", "vanilla-like"),
+    SHADER_ATMOSPHERE(Classify.SHADER_PACK, R.string.category_atmosphere, null, "atmosphere"),
+    SHADER_BLOOM(Classify.SHADER_PACK, R.string.category_bloom, null, "bloom"),
+    SHADER_COLORED_LIGHTING(Classify.SHADER_PACK, R.string.category_colored_lighting, null, "colored-lighting"),
+    SHADER_FOLIAGE(Classify.SHADER_PACK, R.string.category_foliage, null, "foliage"),
+    SHADER_PATH_TRACING(Classify.SHADER_PACK, R.string.category_path_tracing, null, "path-tracing"),
+    SHADER_PBR(Classify.SHADER_PACK, R.string.category_pbr, null, "pbr"),
+    SHADER_REFLECTIONS(Classify.SHADER_PACK, R.string.category_reflections, null, "reflections"),
+    SHADER_SHADOWS(Classify.SHADER_PACK, R.string.category_shadows, null, "shadows"),
+    SHADER_POTATO(Classify.SHADER_PACK, R.string.category_configuration_potato, null, "potato"),
+    SHADER_LOW(Classify.SHADER_PACK, R.string.category_configuration_low, null, "low"),
+    SHADER_MEDIUM(Classify.SHADER_PACK, R.string.category_configuration_medium, null, "medium"),
+    SHADER_HIGH(Classify.SHADER_PACK, R.string.category_configuration_high, null, "high"),
+    SHADER_SCREENSHOT(Classify.SHADER_PACK, R.string.category_screenshot, null, "screenshot")
 }

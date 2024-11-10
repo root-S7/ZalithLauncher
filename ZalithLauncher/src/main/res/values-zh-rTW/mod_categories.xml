@@ -57,4 +57,21 @@
     <string name="category_modded_world">模組地圖</string>
     <string name="category_parkour">跑酷</string>
     <string name="category_puzzle">解謎</string>
+    <!-- Shader -->
+    <string name="category_cartoon">卡通</string>
+    <string name="category_cursed">邪門</string>
+    <string name="category_fantasy">奇幻</string>
+    <string name="category_semi_realistic">半寫實</string>
+    <string name="category_atmosphere">氛圍</string>
+    <string name="category_bloom">泛光</string>
+    <string name="category_colored_lighting">彩色照明</string>
+    <string name="category_foliage">植被</string>
+    <string name="category_path_tracing">路徑追蹤</string>
+    <string name="category_reflections">反射</string>
+    <string name="category_shadows">陰影</string>
+    <string name="category_configuration_potato">“土豆”配置</string>
+    <string name="category_configuration_low">低等配置</string>
+    <string name="category_configuration_medium">中等配置</string>
+    <string name="category_configuration_high">高等配置</string>
+    <string name="category_screenshot">截圖</string>
 </resources>

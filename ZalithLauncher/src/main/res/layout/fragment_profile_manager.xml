@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:baselineAligned="false"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="ContentDescription">
 
     <ScrollView
         android:id="@+id/shortcuts_layout"
@@ -40,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/icon1"
+                android:id="@+id/mods_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -57,11 +58,11 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 android:text="@string/profile_manager_shortcuts_mods"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon1"
+                app:layout_constraintStart_toEndOf="@+id/mods_icon"
                 app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
             <ImageView
-                android:id="@+id/icon2"
+                android:id="@+id/instance_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -79,11 +80,11 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/profile_manager_shortcuts_instance_path"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintStart_toEndOf="@+id/instance_icon"
                 app:layout_constraintTop_toBottomOf="@+id/shortcuts_mods" />
             
             <ImageView
-                android:id="@+id/icon3"
+                android:id="@+id/resource_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -101,11 +102,11 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/profile_manager_shortcuts_resource_path"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintStart_toEndOf="@+id/resource_icon"
                 app:layout_constraintTop_toBottomOf="@+id/instance_path" />
             
             <ImageView
-                android:id="@+id/icon4"
+                android:id="@+id/world_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -123,11 +124,35 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/profile_manager_shortcuts_world_path"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintStart_toEndOf="@+id/world_icon"
                 app:layout_constraintTop_toBottomOf="@+id/resource_path" />
+
+            <ImageView
+                android:id="@+id/shader_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:scaleType="fitCenter"
+                android:scaleX="0.95"
+                android:scaleY="0.95"
+                app:layout_constraintBottom_toBottomOf="@+id/shader_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shader_path"
+                app:srcCompat="@drawable/ic_profile_shader_pack" />
+
+            <com.movtery.zalithlauncher.ui.view.AnimButton
+                android:id="@+id/shader_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@string/profile_manager_shortcuts_shader_path"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/shader_icon"
+                app:layout_constraintTop_toBottomOf="@+id/world_path" />
             
             <ImageView
-                android:id="@+id/icon5"
+                android:id="@+id/logs_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -145,11 +170,11 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/profile_manager_shortcuts_logs_path"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon2"
-                app:layout_constraintTop_toBottomOf="@+id/world_path" />
+                app:layout_constraintStart_toEndOf="@+id/logs_icon"
+                app:layout_constraintTop_toBottomOf="@+id/shader_path" />
             
             <ImageView
-                android:id="@+id/icon6"
+                android:id="@+id/crash_report_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -166,7 +191,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/profile_manager_shortcuts_crash_report_path"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon2"
+                app:layout_constraintStart_toEndOf="@+id/crash_report_icon"
                 app:layout_constraintTop_toBottomOf="@+id/logs_path" />
             
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -204,7 +229,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/icon7"
+                android:id="@+id/edit_profile_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -222,11 +247,11 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 android:text="@string/profile_manager_edit"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon7"
+                app:layout_constraintStart_toEndOf="@+id/edit_profile_icon"
                 app:layout_constraintTop_toBottomOf="@+id/title_modded_textview" />
 
             <ImageView
-                android:id="@+id/icon8"
+                android:id="@+id/delete_profile_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
@@ -244,7 +269,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/profile_manager_delete"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon8"
+                app:layout_constraintStart_toEndOf="@+id/delete_profile_icon"
                 app:layout_constraintTop_toBottomOf="@+id/profile_edit" />
             
         </androidx.constraintlayout.widget.ConstraintLayout>

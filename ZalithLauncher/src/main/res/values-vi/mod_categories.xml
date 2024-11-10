@@ -57,4 +57,21 @@
     <string name="category_modded_world">Bản Đồ Mod</string>
     <string name="category_parkour">Parkour</string>
     <string name="category_puzzle">Câu Đố</string>
+    <!-- Shader -->
+    <string name="category_cartoon">Hoạt hình</string>
+    <string name="category_cursed">Bị nguyền rủa</string>
+    <string name="category_fantasy">Huyền bí</string>
+    <string name="category_semi_realistic">Bán thực tế</string>
+    <string name="category_atmosphere">Không khí</string>
+    <string name="category_bloom">Sáng tỏ</string>
+    <string name="category_colored_lighting">Ánh sáng màu</string>
+    <string name="category_foliage">Tán lá</string>
+    <string name="category_path_tracing">Theo dấu đường đi</string>
+    <string name="category_reflections">Phản chiếu</string>
+    <string name="category_shadows">Bóng đổ</string>
+    <string name="category_configuration_potato">Cấu hình "Khoai tây"</string>
+    <string name="category_configuration_low">Cấu hình thấp</string>
+    <string name="category_configuration_medium">Cấu hình trung bình</string>
+    <string name="category_configuration_high">Cấu hình cao</string>
+    <string name="category_screenshot">Chụp màn hình</string>
 </resources>

@@ -236,6 +236,7 @@
     <string name="profile_manager_shortcuts_instance_path">Thư mục đường dẫn thể hiện</string>
     <string name="profile_manager_shortcuts_resource_path">Thư mục gói tài nguyên</string>
     <string name="profile_manager_shortcuts_world_path">Thư mục lưu trữ trò chơi</string>
+    <string name="profile_manager_shortcuts_shader_path">Thư mục gói shader</string>
     <string name="profile_manager_shortcuts_logs_path">Thư mục nhật ký</string>
     <string name="profile_manager_shortcuts_crash_report_path">Thư mục báo cáo sự cố</string>
     <string name="profile_manager_edit">Chỉnh sửa thể hiện</string>
@@ -469,10 +470,11 @@
     <string name="game_tip">Trò chơi đang chạy, có thể mở nhật ký đầu ra qua menu để xem tình trạng trò chơi</string>
     <string name="game_tip_version">Phiên bản trò chơi đang khởi động:</string>
     <!-- Download -->
-    <string name="download_classify_mod">Tải Mod</string>
-    <string name="download_classify_modpack">Tải Modpack</string>
-    <string name="download_classify_resource_pack">Tải Gói Tài Nguyên</string>
-    <string name="download_classify_world">Tải Thế Giới</string>
+    <string name="download_classify_mod">Tải về Mod</string>
+    <string name="download_classify_modpack">Tải về Modpack</string>
+    <string name="download_classify_resource_pack">Tải về gói tài nguyên</string>
+    <string name="download_classify_world">Tải về thế giới</string>
+    <string name="download_classify_shader_pack">Tải về gói shader</string>
     <string name="download_ui_install_local">Cài đặt từ địa phương</string>
     <string name="download_ui_search">Tìm Kiếm Tên</string>
     <string name="download_ui_mc_version">Phiên Bản MC</string>

@@ -236,6 +236,7 @@
     <string name="profile_manager_shortcuts_instance_path">Pasta do Caminho da Instância</string>
     <string name="profile_manager_shortcuts_resource_path">Pasta de Pacotes de Recursos</string>
     <string name="profile_manager_shortcuts_world_path">Pasta de Arquivos de Save do Jogo</string>
+    <string name="profile_manager_shortcuts_shader_path">Pasta do pacote de shaders</string>
     <string name="profile_manager_shortcuts_logs_path">Pasta de Logs</string>
     <string name="profile_manager_shortcuts_crash_report_path">Pasta de Relatórios de Crash</string>
     <string name="profile_manager_edit">Editar Instância</string>
@@ -473,6 +474,7 @@
     <string name="download_classify_modpack">Baixar Modpack</string>
     <string name="download_classify_resource_pack">Baixar Pacote de Recursos</string>
     <string name="download_classify_world">Baixar Mundo</string>
+    <string name="download_classify_shader_pack">Baixar Pacote de Shader</string>
     <string name="download_ui_install_local">Instalar a partir do local</string>
     <string name="download_ui_search">Pesquisar Nome</string>
     <string name="download_ui_mc_version">Versão MC</string>

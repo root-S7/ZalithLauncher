@@ -57,4 +57,21 @@
     <string name="category_modded_world">Cartes Modifiées</string>
     <string name="category_parkour">Parcours</string>
     <string name="category_puzzle">Énigmes</string>
+    <!-- Shader -->
+    <string name="category_cartoon">Dessins animés</string>
+    <string name="category_cursed">Maudit</string>
+    <string name="category_fantasy">Fantastique</string>
+    <string name="category_semi_realistic">Semi-réaliste</string>
+    <string name="category_atmosphere">Ambiance</string>
+    <string name="category_bloom">Éclat</string>
+    <string name="category_colored_lighting">Éclairage coloré</string>
+    <string name="category_foliage">Feuillage</string>
+    <string name="category_path_tracing">Routage de chemin</string>
+    <string name="category_reflections">Réflexions</string>
+    <string name="category_shadows">Ombres</string>
+    <string name="category_configuration_potato">Configuration "Pomme de terre"</string>
+    <string name="category_configuration_low">Configuration basse</string>
+    <string name="category_configuration_medium">Configuration moyenne</string>
+    <string name="category_configuration_high">Configuration haute</string>
+    <string name="category_screenshot">Capture d\'écran</string>
 </resources>

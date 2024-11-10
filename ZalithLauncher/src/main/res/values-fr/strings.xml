@@ -236,6 +236,7 @@
     <string name="profile_manager_shortcuts_instance_path">Dossier du chemin d\'instance</string>
     <string name="profile_manager_shortcuts_resource_path">Dossier des packs de ressources</string>
     <string name="profile_manager_shortcuts_world_path">Dossier des sauvegardes de jeu</string>
+    <string name="profile_manager_shortcuts_shader_path">Dossier du pack de shaders</string>
     <string name="profile_manager_shortcuts_logs_path">Dossier des journaux</string>
     <string name="profile_manager_shortcuts_crash_report_path">Dossier des rapports de crash</string>
     <string name="profile_manager_edit">Modifier l\'instance</string>
@@ -471,8 +472,9 @@
     <!-- Download -->
     <string name="download_classify_mod">Télécharger le Mod</string>
     <string name="download_classify_modpack">Télécharger le Modpack</string>
-    <string name="download_classify_resource_pack">Télécharger le Pack de ressources</string>
-    <string name="download_classify_world">Télécharger le Monde</string>
+    <string name="download_classify_resource_pack">Télécharger le pack de ressources</string>
+    <string name="download_classify_world">Télécharger le monde</string>
+    <string name="download_classify_shader_pack">Télécharger le pack de shaders</string>
     <string name="download_ui_install_local">Installer à partir de local</string>
     <string name="download_ui_search">Rechercher par nom</string>
     <string name="download_ui_mc_version">Version MC</string>

@@ -17,6 +17,7 @@ import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
 import com.movtery.zalithlauncher.ui.fragment.download.ModDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ModPackDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ResourcePackDownloadFragment
+import com.movtery.zalithlauncher.ui.fragment.download.ShaderPackDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.WorldDownloadFragment
 import org.greenrobot.eventbus.EventBus
 
@@ -84,12 +85,13 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
     }
 
     private class ViewPagerAdapter(private val fragment: Fragment): FragmentStateAdapter(fragment.requireActivity()) {
-        override fun getItemCount(): Int = 4
+        override fun getItemCount(): Int = 5
         override fun createFragment(position: Int): Fragment {
             return when(position) {
                 1 -> ModPackDownloadFragment(fragment)
                 2 -> ResourcePackDownloadFragment(fragment)
                 3 -> WorldDownloadFragment(fragment)
+                4 -> ShaderPackDownloadFragment(fragment)
                 else -> ModDownloadFragment(fragment)
             }
         }

@@ -241,6 +241,7 @@
     <string name="profile_manager_shortcuts_instance_path">Instance Folder</string>
     <string name="profile_manager_shortcuts_resource_path">Resource Pack Folder</string>
     <string name="profile_manager_shortcuts_world_path">World Folder</string>
+    <string name="profile_manager_shortcuts_shader_path">Shader Pack Folder</string>
     <string name="profile_manager_shortcuts_logs_path">Logs Folder</string>
     <string name="profile_manager_shortcuts_crash_report_path">Crash Reports Folder</string>
     <string name="profile_manager_edit">Edit Instance</string>
@@ -478,6 +479,7 @@
     <string name="download_classify_modpack">Download Modpack</string>
     <string name="download_classify_resource_pack">Download Resource Pack</string>
     <string name="download_classify_world">Download World</string>
+    <string name="download_classify_shader_pack">Download Shader Pack</string>
     <string name="download_ui_install_local">Install from local</string>
     <string name="download_ui_search">Search Name</string>
     <string name="download_ui_mc_version">MC Version</string>

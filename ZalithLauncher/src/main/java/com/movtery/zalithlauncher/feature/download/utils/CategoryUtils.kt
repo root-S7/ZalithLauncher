@@ -9,9 +9,10 @@ class CategoryUtils {
         private val sModPackCategories = mutableListOf<Category>()
         private val sResourcePackCategories = mutableListOf<Category>()
         private val sWorldCategories = mutableListOf<Category>()
+        private val sShaderPackCategories = mutableListOf<Category>()
 
         private val sCategoryMap: List<MutableList<Category>> = listOf(
-            sModCategories, sModPackCategories, sResourcePackCategories, sWorldCategories
+            sModCategories, sModPackCategories, sResourcePackCategories, sWorldCategories, sShaderPackCategories
         )
 
         private fun reloadCategories() {
@@ -24,6 +25,7 @@ class CategoryUtils {
                     Classify.MODPACK -> sModPackCategories.add(category)
                     Classify.RESOURCE_PACK -> sResourcePackCategories.add(category)
                     Classify.WORLD -> sWorldCategories.add(category)
+                    Classify.SHADER_PACK -> sShaderPackCategories.add(category)
                 }
             }
         }
@@ -46,6 +48,11 @@ class CategoryUtils {
         fun getWorldCategory(): List<Category> = sWorldCategories.ifEmpty {
             reloadCategories()
             sWorldCategories
+        }
+
+        fun getShaderPackCategory(): List<Category> = sShaderPackCategories.ifEmpty {
+            reloadCategories()
+            sShaderPackCategories
         }
 
         private fun checkForCategory(func: (category: Category) -> Boolean): Category? {

@@ -26,6 +26,7 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
                 Classify.MODPACK -> "modpack"
                 Classify.RESOURCE_PACK -> "resourcepack"
                 Classify.WORLD -> return null
+                Classify.SHADER_PACK -> "shader"
             }
         }/${infoItem.slug}"
     }
@@ -55,6 +56,11 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
     }
 
     @Throws(Throwable::class)
+    override fun searchShaderPack(filters: Filters, lastResult: SearchResult): SearchResult? {
+        return ModrinthCommonUtils.getResults(api, lastResult, filters, "shader", Classify.SHADER_PACK)
+    }
+
+    @Throws(Throwable::class)
     override fun getModVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>? {
         return ModrinthModHelper.getModVersions(api, infoItem, force)
     }
@@ -75,6 +81,11 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
     }
 
     @Throws(Throwable::class)
+    override fun getShaderPackVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>? {
+        return ModrinthCommonUtils.getVersions(api, infoItem, force)
+    }
+
+    @Throws(Throwable::class)
     override fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
         InstallHelper.downloadFile(version, targetPath)
     }
@@ -92,5 +103,10 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
     @Throws(Throwable::class)
     override fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
         throw PlatformNotSupportedException("Modrinth does not provide archive download support.")
+    }
+
+    @Throws(Throwable::class)
+    override fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
+        InstallHelper.downloadFile(version, targetPath)
     }
 }

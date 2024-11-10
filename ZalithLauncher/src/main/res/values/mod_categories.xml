@@ -63,4 +63,22 @@
     <string name="category_modded_world">Modded Maps</string>
     <string name="category_parkour">Parkour</string>
     <string name="category_puzzle">Puzzle</string>
+    <!-- Shader -->
+    <string name="category_cartoon">Cartoon</string>
+    <string name="category_cursed">Cursed</string>
+    <string name="category_fantasy">Fantasy</string>
+    <string name="category_semi_realistic">Semi-realistic</string>
+    <string name="category_atmosphere">Atmosphere</string>
+    <string name="category_bloom">Bloom</string>
+    <string name="category_colored_lighting">Colored Lighting</string>
+    <string name="category_foliage">Foliage</string>
+    <string name="category_path_tracing">Path Tracing</string>
+    <string name="category_pbr" translatable="false">PBR</string>
+    <string name="category_reflections">Reflections</string>
+    <string name="category_shadows">Shadows</string>
+    <string name="category_configuration_potato">"Potato" Configuration</string>
+    <string name="category_configuration_low">Low Configuration</string>
+    <string name="category_configuration_medium">Medium Configuration</string>
+    <string name="category_configuration_high">High Configuration</string>
+    <string name="category_screenshot">Screenshot</string>
 </resources>
