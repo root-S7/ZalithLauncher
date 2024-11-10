@@ -564,6 +564,9 @@
     <string name="splash_screen_installing">Le lanceur est en train de décompresser ces éléments, l\'interface principale s\'ouvrira automatiquement une fois la décompression terminée, veuillez patienter.</string>
     <string name="splash_screen_lwjgl">Bibliothèque Java légère pour les jeux, Minecraft en dépend pour exécuter le jeu.</string>
     <string name="splash_screen_cacio">Fournit un backend GUI portable pour OpenJDK.</string>
+    <string name="splash_screen_authlib_injector">Injecte authlib via l\'exécution pour permettre la connexion en dehors du jeu.</string>
+    <string name="splash_screen_pro_grade">Cette bibliothèque implémente un gestionnaire de sécurité Java personnalisé et une politique de sécurité avec des règles de refus.</string>
+    <string name="splash_screen_forge_installer">Aide à l\'installation automatique de Forge et OptiFine.</string>
     <string name="splash_screen_jre8">Environnement Java 8, Minecraft 1.16- dépend de Java 8.</string>
     <string name="splash_screen_jre17">Environnement Java 17, Minecraft 1.17+ dépend de Java 17.</string>
     <string name="splash_screen_jre21">Environnement Java 21, Minecraft 1.20.5+ dépend de Java 21.</string>

@@ -71,7 +71,7 @@ class SplashActivity : BaseActivity() {
             if (!unpackComponentsTask.isCheckFailed()) {
                 items.add(
                     InstallableItem(
-                        it.component,
+                        it.displayName,
                         it.summary?.let { it1 -> getString(it1) },
                         unpackComponentsTask
                     )

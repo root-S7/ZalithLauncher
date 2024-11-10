@@ -564,6 +564,9 @@
     <string name="splash_screen_installing">啟動器正在解壓縮這些內容，解壓縮完成後將自動進入主界面，請耐心等待。</string>
     <string name="splash_screen_lwjgl">輕量級 Java 遊戲庫，Minecraft 依賴它運行遊戲。</string>
     <string name="splash_screen_cacio">為 OpenJDK 提供可攜式的 GUI 後端。</string>
+    <string name="splash_screen_authlib_injector">透過運行時修改 authlib 以實現遊戲外登錄。</string>
+    <string name="splash_screen_pro_grade">該庫實現了自訂 Java 安全管理器和帶有拒絕規則的安全政策。</string>
+    <string name="splash_screen_forge_installer">幫助自動安裝 Forge 和 OptiFine。</string>
     <string name="splash_screen_jre8">Java 8 環境，Minecraft 1.16- 依賴 Java 8。</string>
     <string name="splash_screen_jre17">Java 17 環境，Minecraft 1.17+ 依賴 Java 17。</string>
     <string name="splash_screen_jre21">Java 21 環境，Minecraft 1.20.5+ 依賴 Java 21。</string>

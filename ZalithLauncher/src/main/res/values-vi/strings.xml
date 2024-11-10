@@ -564,6 +564,9 @@
     <string name="splash_screen_installing">Trình khởi chạy đang giải nén những nội dung này, sau khi giải nén xong sẽ tự động vào giao diện chính, vui lòng chờ đợi.</string>
     <string name="splash_screen_lwjgl">Thư viện trò chơi Java nhẹ, Minecraft phụ thuộc vào nó để chạy trò chơi.</string>
     <string name="splash_screen_cacio">Cung cấp backend GUI di động cho OpenJDK.</string>
+    <string name="splash_screen_authlib_injector">Tiêm authlib qua thời gian chạy để cho phép đăng nhập ngoài trò chơi.</string>
+    <string name="splash_screen_pro_grade">Thư viện này triển khai một trình quản lý bảo mật Java tùy chỉnh và một chính sách bảo mật với các quy tắc từ chối.</string>
+    <string name="splash_screen_forge_installer">Giúp cài đặt Forge và OptiFine tự động.</string>
     <string name="splash_screen_jre8">Môi trường Java 8, Minecraft 1.16- phụ thuộc vào Java 8.</string>
     <string name="splash_screen_jre17">Môi trường Java 17, Minecraft 1.17+ phụ thuộc vào Java 17.</string>
     <string name="splash_screen_jre21">Môi trường Java 21, Minecraft 1.20.5+ phụ thuộc vào Java 21.</string>

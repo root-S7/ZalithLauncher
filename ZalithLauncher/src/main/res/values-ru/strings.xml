@@ -564,6 +564,9 @@
     <string name="splash_screen_installing">Лаунчер распаковывает эти компоненты. После завершения распаковки вы автоматически перейдете на главный экран, пожалуйста, подождите.</string>
     <string name="splash_screen_lwjgl">Легковесная Java игра библиотека, на которую зависит Minecraft для работы.</string>
     <string name="splash_screen_cacio">Предоставляет переносимый GUI-бэкенд для OpenJDK.</string>
+    <string name="splash_screen_authlib_injector">Инжектирует authlib во время выполнения, чтобы разрешить вход в систему вне игры.</string>
+    <string name="splash_screen_pro_grade">Эта библиотека реализует пользовательский менеджер безопасности Java и политику безопасности с правилами отказа.</string>
+    <string name="splash_screen_forge_installer">Помогает в автоматической установке Forge и OptiFine.</string>
     <string name="splash_screen_jre8">Среда Java 8, Minecraft 1.16- зависит от Java 8.</string>
     <string name="splash_screen_jre17">Среда Java 17, Minecraft 1.17+ зависит от Java 17.</string>
     <string name="splash_screen_jre21">Среда Java 21, Minecraft 1.20.5+ зависит от Java 21.</string>
