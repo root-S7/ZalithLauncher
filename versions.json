@@ -1,23 +1,23 @@
 {
-  "version_code": 136400,
-  "version_name": "1.3.6.4",
+  "version_code": 136500,
+  "version_name": "1.3.6.5",
   "title": {
-    "en_us": "1.3.6.4",
-    "zh_cn": "1.3.6.4",
-    "zh_tw": "1.3.6.4"
+    "en_us": "1.3.6.5",
+    "zh_cn": "1.3.6.5",
+    "zh_tw": "1.3.6.5"
   },
   "description": {
-    "en_us": "## Update Notes\r\n- Updated [Download]: Supported local import from local storage\r\n- Updated [Download]: Used different background colors for different dependency types\r\n- Updated [File Management]: Allowed multi-file selection for import\r\n---\r\n- Adjusted [App Interface]: Adjusted UI layout and animation effects\r\n- Adjusted [Settings]: Adjusted spacing between settings pages\r\n- Adjusted [Download]: Separated download page\r\n- Adjusted [Game]: Prevented device from sleeping while running the game\r\n- Adjusted [File Management]: Processing during file import\r\n- Adjusted [Download]: Notified user if save data structure cannot be recognized\r\n- Adjusted [Control Layout]: Reduced button size for keyboard mapping\r\n- Adjusted [Control Layout]: Added \"Exit Editor\" button to the menu\r\n- Adjusted [Language]: Edited control layout\r\n---\r\n- Fixed [Language]: Warning related to username\r\n- Fixed [Download]: Potential crash issues\r\n",
-    "zh_cn": "## 更新内容\n- 更新[下载]: 支持本地从本地导入\n- 更新[下载]: 不同依赖类型使用不同的背景颜色\n- 更新[文件管理]: 允许多选文件导入\n---\n- 调整[应用界面]: 调整UI布局、动画效果\n- 调整[设置]: 调整设置分页间距\n- 调整[下载]: 分离下载页\n- 调整[游戏]: 运行游戏时，阻止设备息屏\n- 调整[文件管理]: 导入文件时的处理\n- 调整[下载]: 无法识别存档数据结构时，提醒用户\n- 调整[控制布局]: 调小键盘映射的按钮\n- 调整[控制布局]: 为菜单添加“退出编辑器”按钮\n- 调整[语言]: 编辑控制布局\n---\n- 修复[语言]: 有关用户名的警告\n- 修复[下载]: 可能出现的崩溃问题",
-    "zh_tw": "## 更新內容\n- 更新[下載]: 支持從本地導入\n- 更新[下載]: 不同依賴類型使用不同的背景顏色\n- 更新[文件管理]: 允許多選文件導入\n---\n- 調整[應用介面]: 調整UI佈局和動畫效果\n- 調整[設置]: 調整設置分頁間距\n- 調整[下載]: 分離下載頁面\n- 調整[遊戲]: 運行遊戲時，防止設備息屏\n- 調整[文件管理]: 文件導入時的處理\n- 調整[下載]: 無法識別存檔數據結構時，提醒用戶\n- 調整[控制佈局]: 調小鍵盤映射的按鈕\n- 調整[控制佈局]: 為菜單添加“退出編輯器”按鈕\n- 調整[語言]: 編輯控制佈局\n---\n- 修復[語言]: 有關用戶名的警告\n- 修復[下載]: 可能出現的崩潰問題\n"
+    "en_us": "## Update Notes:\r\n- Updated [Hotbar]: Allowed manual adjustment of hitbox range in game menu\r\n- Updated [Download]: Supported searching and downloading shader packs #224\r\n- Updated [Download]: Categorized mods by mod loader during mod download\r\n---\r\n- Adjusted [App Interface]: Adjusted UI and shadow effects\r\n- Adjusted [Environment Variables]: Adjusted initialization order of environment variables\r\n- Adjusted [Account]: Stored with a unique UUID; removed username exclusivity restriction\r\n---\r\n- Fixed [File Management]: Resolved data synchronization issues during file refresh\r\n- Fixed [Instance]: Fixed issues with refreshing instance list\r\n- Fixed [Logs]: Corrected log4j configuration file settings\r\n",
+    "zh_cn": "## 更新内容：\n- 更新[快捷栏]: 允许在游戏菜单中手动调整判定框范围\n- 更新[下载]: 支持搜索并下载光影包 #224 \n- 更新[下载]: Mod 下载将对 Mod 加载器进行分类\n---\n- 调整[应用界面]: 调整UI、阴影效果\n- 调整[环境变量]: 调整环境变量的初始化顺序\n- 调整[账号]: 使用唯一UUID的方式进行存储、不再限制用户名独立\n---\n- 修复[文件管理]: 刷新文件时数据不同步\n- 修复[实例]: 刷新实例列表的一些问题\n- 修复[日志]: log4j 配置文件设置错误",
+    "zh_tw": "## 更新內容：\n- 更新[快捷欄]: 允許在遊戲選單中手動調整判定框範圍\n- 更新[下載]: 支持搜索並下載光影包 #224\n- 更新[下載]: Mod 下載將對 Mod 加載器進行分類\n---\n- 調整[應用介面]: 調整UI和陰影效果\n- 調整[環境變量]: 調整環境變量的初始化順序\n- 調整[帳號]: 使用唯一UUID方式進行存儲，不再限制用戶名獨立性\n---\n- 修復[文件管理]: 刷新文件時數據不同步的問題\n- 修復[實例]: 刷新實例列表的一些問題\n- 修復[日誌]: log4j 配置文件設置錯誤\n"
   },
-  "published_at": "2024-11-08T14:13:48Z",
+  "published_at": "2024-11-11T13:04:03Z",
   "file_size": {
-    "all": 206877463,
-    "arm": 128325717,
-    "arm64": 119591156,
-    "x86": 122236805,
-    "x86_64": 123119708
+    "all": 206904226,
+    "arm": 128352468,
+    "arm64": 119617915,
+    "x86": 122263568,
+    "x86_64": 123146447
   },
   "pre_release": false
 }
