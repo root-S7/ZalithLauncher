@@ -90,9 +90,14 @@ public class MicrosoftBackgroundLogin {
             fetchOwnedItems(mcToken);
             checkMcProfile(mcToken);
 
-            MinecraftAccount acc = null;
-            if (account == null) acc = MinecraftAccount.loadFromProfileID(mcUuid);
-            if (acc == null) acc = new MinecraftAccount();
+            MinecraftAccount acc;
+            if (account == null) {
+                //尝试找到本地已经存在的，相同Profile UUID的账号
+                MinecraftAccount acc1 = MinecraftAccount.loadFromProfileID(mcUuid);
+                acc = acc1 != null ? acc1 : new MinecraftAccount();
+            } else {
+                acc = account;
+            }
 
             if (doesOwnGame) {
                 acc.xuid = xsts[0];
