@@ -30,7 +30,6 @@ public class JMinecraftVersionList {
         public String inheritsFrom;
         public JavaVersionInfo javaVersion;
         public DependentLibrary[] libraries;
-        public LoggingConfig logging;
         public String mainClass;
         public String minecraftArguments;
         public int minimumLauncherVersion;
@@ -43,17 +42,6 @@ public class JMinecraftVersionList {
         public String component;
         public int majorVersion;
         public int version; // parameter used by LabyMod 4
-    }
-    @Keep
-    public static class LoggingConfig {
-        public LoggingClientConfig client;
-
-        @Keep
-        public static class LoggingClientConfig {
-            public String argument;
-            public FileProperties file;
-            public String type;
-        }
     }
     // Since 1.13
     @Keep

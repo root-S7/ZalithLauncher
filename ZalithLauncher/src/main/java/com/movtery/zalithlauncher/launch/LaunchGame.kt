@@ -18,7 +18,6 @@ import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin
 import net.kdt.pojavlaunch.services.GameService.LocalBinder
 import net.kdt.pojavlaunch.utils.JREUtils
-import net.kdt.pojavlaunch.utils.OldVersionsUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
@@ -104,7 +103,6 @@ class LaunchGame {
 
             //预处理
             Tools.disableSplash(gameDirPath)
-            OldVersionsUtils.selectOpenGlVersion(versionInfo)
             val launchClassPath = Tools.generateLaunchClassPath(versionInfo, versionId)
 
             val launchArgs = LaunchArgs(

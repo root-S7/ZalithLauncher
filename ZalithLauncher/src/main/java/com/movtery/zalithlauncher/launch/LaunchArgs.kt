@@ -14,6 +14,7 @@ import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.multirt.Runtime
 import net.kdt.pojavlaunch.utils.JSONUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
+import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.io.File
 
 class LaunchArgs(
@@ -29,15 +30,6 @@ class LaunchArgs(
         val argsList: MutableList<String> = ArrayList()
 
         argsList.addAll(getJavaArgs())
-
-        versionInfo.logging?.apply {
-            var configFilePath = "${PathAndUrlManager.DIR_DATA}/security/${client.file.id.replace("client", "log4j-rce-patch")}"
-            if (!File(configFilePath).exists()) {
-                configFilePath = "${ProfilePathHome.gameHome}/${client.file.id}"
-            }
-            argsList.add("-Dlog4j.configurationFile=$configFilePath")
-        }
-
         argsList.addAll(getMinecraftJVMArgs())
         argsList.add("-cp")
         argsList.add("${Tools.getLWJGL3ClassPath()}:$launchClassPath")
@@ -61,6 +53,10 @@ class LaunchArgs(
         }
 
         argsList.addAll(getCacioJavaArgs(runtime.javaVersion == 8))
+
+        val is7 = VersionNumber.compare(VersionNumber.asVersion(versionInfo.id ?: "0.0").canonical, "1.12") < 0
+        val configFilePath = "${PathAndUrlManager.DIR_DATA}/security/log4j-rce-patch-${if (is7) "1.7" else "1.12"}.xml"
+        argsList.add("-Dlog4j.configurationFile=$configFilePath")
 
         return argsList
     }
