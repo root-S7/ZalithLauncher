@@ -117,7 +117,7 @@ Java_net_kdt_pojavlaunch_Logger_begin(JNIEnv *env, __attribute((unused)) jclass 
 
 typedef void (*exit_func)(int);
 
-_Noreturn static void nominal_exit(int code, bool is_signal) {
+_Noreturn void nominal_exit(int code, bool is_signal) {
     JNIEnv *env;
     jint errorCode = (*exitTrap_jvm)->GetEnv(exitTrap_jvm, (void**)&env, JNI_VERSION_1_6);
 
