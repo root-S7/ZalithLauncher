@@ -224,9 +224,9 @@ public class MicrosoftBackgroundLogin {
             long xerr = jo.optLong("XErr", -1);
             Integer locale_id = XSTS_ERRORS.get(xerr);
             if(locale_id != null) {
-                throw new PresentedException(new RuntimeException(responseContents), locale_id);
+                throw new PresentedException(new RuntimeException(responseContents), locale_id, false);
             }
-            throw new PresentedException(new RuntimeException(responseContents), R.string.xerr_unknown, xerr);
+            throw new PresentedException(new RuntimeException(responseContents), R.string.xerr_unknown, true, xerr);
         }else{
             throw getResponseThrowable(conn);
         }
@@ -299,7 +299,7 @@ public class MicrosoftBackgroundLogin {
         }else{
             Logging.i("MicrosoftLogin","It seems that this Microsoft Account does not own the game.");
             doesOwnGame = false;
-            throw new PresentedException(new RuntimeException(conn.getResponseMessage()), R.string.minecraft_not_owned);
+            throw new PresentedException(new RuntimeException(conn.getResponseMessage()), R.string.minecraft_not_owned, true);
             //throwResponseError(conn);
         }
     }
@@ -347,7 +347,7 @@ public class MicrosoftBackgroundLogin {
     private RuntimeException getResponseThrowable(HttpURLConnection conn) throws IOException {
         Logging.i("MicrosoftLogin", "Error code: " + conn.getResponseCode() + ": " + conn.getResponseMessage());
         if(conn.getResponseCode() == 429) {
-            return new PresentedException(R.string.microsoft_login_retry_later);
+            return new PresentedException(R.string.microsoft_login_retry_later, false);
         }
         return new RuntimeException(conn.getResponseMessage());
     }

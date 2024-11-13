@@ -264,11 +264,12 @@
     <string name="account_purchase_minecraft_account">Купить лицензионный аккаунт Minecraft</string>
     <string name="account_purchase_minecraft_account_tip">Если у вас нет лицензионного аккаунта Minecraft, пожалуйста, сначала купите лицензионный аккаунт на официальном сайте Minecraft!</string>
     <string name="xerr_unknown">Неизвестная ошибка API Xbox Live %d</string>
-    <string name="xerr_no_account">Похоже, у вас нет аккаунта Xbox Live. Пожалуйста, войдите на https://minecraft.net/ один раз, а затем попробуйте снова.</string>
+    <string name="xerr_no_account">Похоже, у вас нет аккаунта Xbox Live</string>
     <string name="xerr_adult_verification">Необходима проверка взрослого для вашего аккаунта</string>
     <string name="xerr_child">Ваш аккаунт является детским, его необходимо добавить в семью, чтобы войти</string>
     <string name="xerr_not_available">Xbox Live недоступен в вашей стране/регионе</string>
-    <string name="minecraft_not_owned">Профиль Minecraft не найден, пожалуйста, войдите в свой аккаунт на https://minecraft.net/ и повторите попытку</string>
+    <string name="minecraft_not_owned">Профиль Minecraft не найден</string>
+    <string name="no_minecraft_purchase">Пожалуйста, убедитесь, что вы приобрели Minecraft, войдите в свою учетную запись на https://minecraft.net/ и попробуйте снова</string>
     <!-- Jre -->
     <string name="install_select_jre_environment">Выберите среду JRE</string>
     <string name="install_recommend_use_jre8">Пожалуйста, используйте JRE 8 для обеспечения стабильности</string>

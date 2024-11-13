@@ -264,11 +264,12 @@
     <string name="account_purchase_minecraft_account">Acheter un compte Minecraft officiel</string>
     <string name="account_purchase_minecraft_account_tip">Si vous n\'avez pas de compte Minecraft officiel, veuillez d\'abord l\'acheter sur le site officiel de Minecraft !</string>
     <string name="xerr_unknown">Erreur inconnue de l\'API Xbox Live %d</string>
-    <string name="xerr_no_account">Il semble que vous n\'avez pas de compte Xbox Live, veuillez vous connecter une fois sur https://minecraft.net/ et réessayer</string>
+    <string name="xerr_no_account">Il semble que vous n\'avez pas de compte Xbox Live</string>
     <string name="xerr_adult_verification">Vérification par un adulte nécessaire pour votre compte</string>
     <string name="xerr_child">Votre compte est un compte enfant, il doit être ajouté à une famille pour pouvoir se connecter</string>
     <string name="xerr_not_available">Xbox Live n\'est pas disponible dans votre pays/région</string>
-    <string name="minecraft_not_owned">Aucun profil Minecraft trouvé, veuillez vous connecter à votre compte sur https://minecraft.net/ et réessayer</string>
+    <string name="minecraft_not_owned">Profil Minecraft non trouvé</string>
+    <string name="no_minecraft_purchase">Veuillez vous assurer que vous avez acheté Minecraft, connectez-vous à votre compte sur https://minecraft.net/ et réessayez</string>
     <!-- Jre -->
     <string name="install_select_jre_environment">Sélectionner l\'environnement JRE</string>
     <string name="install_recommend_use_jre8">Dans l\'environnement d\'exécution, veuillez utiliser JRE 8 autant que possible pour garantir la stabilité</string>

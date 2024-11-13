@@ -264,11 +264,12 @@
     <string name="account_purchase_minecraft_account">شراء حساب Minecraft الأصلي</string>
     <string name="account_purchase_minecraft_account_tip">إذا لم يكن لديك حساب Minecraft الأصلي، يرجى شراء حساب أصلي من موقع Minecraft!</string>
     <string name="xerr_unknown">خطأ غير معروف في واجهة برمجة تطبيقات Xbox Live %d</string>
-    <string name="xerr_no_account">يبدو أنك ليس لديك حساب Xbox Live، يرجى تسجيل الدخول مرة واحدة على https://minecraft.net/ ثم إعادة المحاولة</string>
+    <string name="xerr_no_account">يبدو أنك لا تملك حساب Xbox Live</string>
     <string name="xerr_adult_verification">يتطلب التحقق من البالغين لحسابك</string>
     <string name="xerr_child">حسابك هو حساب طفل، يتطلب إضافته إلى العائلة لتسجيل الدخول</string>
     <string name="xerr_not_available">Xbox Live غير متوفر في بلدك/منطقتك</string>
-    <string name="minecraft_not_owned">لم يتم العثور على ملف تعريف Minecraft، يرجى تسجيل الدخول إلى حسابك على https://minecraft.net/ ثم إعادة المحاولة</string>
+    <string name="minecraft_not_owned">لم يتم العثور على ملف تعريف Minecraft</string>
+    <string name="no_minecraft_purchase">يرجى التأكد من أنك قد اشتريت Minecraft، سجل الدخول إلى حسابك على https://minecraft.net/ ثم حاول مرة أخرى</string>
     <!-- Jre -->
     <string name="install_select_jre_environment">اختر بيئة JRE</string>
     <string name="install_recommend_use_jre8">داخل بيئة التنفيذ، يرجى استخدام JRE 8 قدر الإمكان لضمان الاستقرارية</string>

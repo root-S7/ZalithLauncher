@@ -269,11 +269,12 @@
     <string name="account_purchase_minecraft_account">Purchase Minecraft Account</string>
     <string name="account_purchase_minecraft_account_tip">If you do not have a Minecraft account, please purchase one on the Minecraft official website first!</string>
     <string name="xerr_unknown">Unknown Xbox Live API error %d</string>
-    <string name="xerr_no_account">It seems you do not have an Xbox Live account, please log in once at https://minecraft.net/ and try again</string>
+    <string name="xerr_no_account">It seems you don\'t have an Xbox Live account</string>
     <string name="xerr_adult_verification">Adult verification required for your account</string>
     <string name="xerr_child">Your account is a child account, it needs to be added to a family to log in</string>
     <string name="xerr_not_available">Xbox Live is not available in your country/region</string>
-    <string name="minecraft_not_owned">Minecraft profile not found, please log in to your account at https://minecraft.net/ and try again</string>
+    <string name="minecraft_not_owned">Minecraft profile not found</string>
+    <string name="no_minecraft_purchase">Please ensure you have purchased Minecraft, log in to your account on https://minecraft.net/ and try again</string>
     <!-- Jre -->
     <string name="install_select_jre_environment">Select JRE Environment</string>
     <string name="install_recommend_use_jre8">Within the execution environment, please try to use JRE 8 to ensure stability</string>

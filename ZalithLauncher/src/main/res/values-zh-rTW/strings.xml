@@ -264,11 +264,12 @@
     <string name="account_purchase_minecraft_account">購買 Minecraft 正版帳號</string>
     <string name="account_purchase_minecraft_account_tip">如果你沒有 Minecraft 正版帳號，請先在 Minecraft 官網購買正版帳號！</string>
     <string name="xerr_unknown">未知的 Xbox Live API 錯誤 %d</string>
-    <string name="xerr_no_account">你似乎沒有 Xbox Live 帳戶，請在 https://minecraft.net/ 上登入一次，然後重試</string>
+    <string name="xerr_no_account">你似乎沒有 Xbox Live 帳戶</string>
     <string name="xerr_adult_verification">需要成年人驗證你的帳戶</string>
     <string name="xerr_child">你的帳戶是兒童帳戶，需要添加到家庭中才能登入</string>
     <string name="xerr_not_available">Xbox Live 在你所在的國家/地區不可用</string>
-    <string name="minecraft_not_owned">未找到 Minecraft 配置檔，請前往 https://minecraft.net/ 登入你的帳號，然後重試</string>
+    <string name="minecraft_not_owned">未找到 Minecraft 設定檔</string>
+    <string name="no_minecraft_purchase">請確保你已購買 Minecraft，前往 https://minecraft.net/ 上登入你的帳號，然後重試</string>
     <!-- Jre -->
     <string name="install_select_jre_environment">選擇 JRE 環境</string>
     <string name="install_recommend_use_jre8">在執行環境內，請盡量使用 JRE 8，以保證穩定性</string>

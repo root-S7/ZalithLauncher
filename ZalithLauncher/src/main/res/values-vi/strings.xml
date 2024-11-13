@@ -264,11 +264,12 @@
     <string name="account_purchase_minecraft_account">Mua tài khoản Minecraft bản quyền</string>
     <string name="account_purchase_minecraft_account_tip">Nếu bạn chưa có tài khoản Minecraft bản quyền, vui lòng mua tài khoản bản quyền trên trang web chính thức của Minecraft trước!</string>
     <string name="xerr_unknown">Lỗi API Xbox Live không xác định %d</string>
-    <string name="xerr_no_account">Có vẻ như bạn chưa có tài khoản Xbox Live, vui lòng đăng nhập một lần tại https://minecraft.net/ và thử lại</string>
+    <string name="xerr_no_account">Có vẻ như bạn không có tài khoản Xbox Live</string>
     <string name="xerr_adult_verification">Cần xác minh người lớn cho tài khoản của bạn</string>
     <string name="xerr_child">Tài khoản của bạn là tài khoản trẻ em, cần thêm vào gia đình để có thể đăng nhập</string>
     <string name="xerr_not_available">Xbox Live không khả dụng tại quốc gia/khu vực của bạn</string>
-    <string name="minecraft_not_owned">Không tìm thấy hồ sơ Minecraft, vui lòng đăng nhập vào tài khoản của bạn tại https://minecraft.net/ và thử lại</string>
+    <string name="minecraft_not_owned">Không tìm thấy hồ sơ Minecraft</string>
+    <string name="no_minecraft_purchase">Vui lòng đảm bảo rằng bạn đã mua Minecraft, đăng nhập vào tài khoản của mình trên https://minecraft.net/ và thử lại</string>
     <!-- Jre -->
     <string name="install_select_jre_environment">Chọn môi trường JRE</string>
     <string name="install_recommend_use_jre8">Trong môi trường thực thi, vui lòng sử dụng JRE 8 để đảm bảo tính ổn định</string>
