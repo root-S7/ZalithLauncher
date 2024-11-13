@@ -465,7 +465,10 @@
     <string name="setting_reboot_tip">Diese Einstellung wurde geändert, aber der Launcher muss neu gestartet werden, damit sie wirksam wird!</string>
     <string name="setting_zink_driver_adreno">Der Launcher hat festgestellt, dass Ihr Gerät eine Adreno-GPU hat. Das Aktivieren dieser Option könnte dazu führen, dass der Zink-Renderer nicht ordnungsgemäß funktioniert. Sind Sie sicher, dass Sie diese Option aktivieren möchten?</string>
     <!-- Game -->
-    <string name="game_exit_message">Die Anwendung/das Spiel wurde mit dem Code %d beendet. Weitere Informationen zu dem Fehler finden Sie im Protokolldatei oder im Absturzbericht. Wenn Sie dieses Problem nicht selbst beheben können, senden Sie bitte die Protokolldatei oder den Absturzbericht an jemanden, der Ihnen helfen kann!\n\nBitte machen Sie keinen Screenshot des aktuellen Anwendungsbildschirms, da sonst niemand weiß, was genau passiert ist. Teilen Sie stattdessen Ihre Protokolldatei oder den Absturzbericht!</string>
+    <string name="game_exit_message">Die Anwendung/das Spiel beendete sich mit Code %d.</string>
+    <string name="game_singnal_message">Die Anwendung/das Spiel wurde aufgrund des tödlichen Signals %d abgebrochen.</string>
+    <string name="game_exit_note">Für Details zum Fehler, sehen Sie bitte in der Logdatei oder dem Absturzbericht nach. Wenn Sie das Problem nicht selbst lösen können, senden Sie die Logdatei oder den Absturzbericht an jemanden, der Ihnen helfen kann!</string>
+    <string name="game_exit_no_screenshot">Bitte machen Sie nicht nur einen Screenshot der aktuellen Anwendungsoberfläche, sonst weiß niemand, was passiert ist. Teilen Sie Ihre Logdatei oder den Absturzbericht!</string>
     <string name="game_autopick_runtime_failed">Es wurde keine geeignete Laufzeitumgebung gefunden. Die aktuell ausgewählte Laufzeitumgebung wurde festgelegt</string>
     <string name="game_tip">Das Spiel läuft gerade. Über das Menü kann die Protokollausgabe aktiviert werden, um den Spielstatus zu überwachen</string>
     <string name="game_tip_version">Aktuelle Spielversion:</string>

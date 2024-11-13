@@ -64,12 +64,15 @@ class ErrorActivity : BaseActivity() {
         val crashReportFile = getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15)
         val logFile = File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt")
 
+        val message = if (extras.getBoolean(BUNDLE_IS_SIGNAL)) R.string.game_singnal_message else R.string.game_exit_message
+
         binding.errorText.apply {
-            text = getString(R.string.game_exit_message, code)
+            text = getString(message, code)
             textSize = 14f
         }
-        binding.crashShareCrashReport.visibility =
-            if ((crashReportFile?.exists() == true)) View.VISIBLE else View.GONE
+        binding.errorTip.visibility = View.VISIBLE
+        binding.errorNoScreenshot.visibility = View.VISIBLE
+        binding.crashShareCrashReport.visibility = if ((crashReportFile?.exists() == true)) View.VISIBLE else View.GONE
         binding.crashShareLog.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
 
         crashReportFile?.let { file ->
@@ -100,6 +103,7 @@ class ErrorActivity : BaseActivity() {
 
     companion object {
         private const val BUNDLE_IS_ERROR = "is_error"
+        private const val BUNDLE_IS_SIGNAL = "is_signal"
         private const val BUNDLE_CODE = "code"
         private const val BUNDLE_CRASH_REPORTS_PATH = "crash_reports_path"
         private const val BUNDLE_THROWABLE = "throwable"
@@ -121,6 +125,7 @@ class ErrorActivity : BaseActivity() {
         fun showExitMessage(
             ctx: Context,
             code: Int,
+            isSignal: Boolean,
             crashReportsPath: String? = File(ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir), "crash-reports").absolutePath
         ) {
             val intent = Intent(ctx, ErrorActivity::class.java)
@@ -128,6 +133,7 @@ class ErrorActivity : BaseActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra(BUNDLE_CODE, code)
             intent.putExtra(BUNDLE_IS_ERROR, false)
+            intent.putExtra(BUNDLE_IS_SIGNAL, isSignal)
             intent.putExtra(BUNDLE_CRASH_REPORTS_PATH, crashReportsPath)
             ctx.startActivity(intent)
         }

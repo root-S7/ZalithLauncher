@@ -470,7 +470,10 @@
     <string name="setting_reboot_tip">This setting has been changed, but requires the app to be restarted to take effect!</string>
     <string name="setting_zink_driver_adreno">The launcher detected that your device has an Adreno GPU. Enabling this option may cause the Zink renderer to malfunction. Are you sure you want to enable this option?</string>
     <!-- Game -->
-    <string name="game_exit_message">The application/game exited with code %d. Please check the log file or crash report for specific error reasons. If you are unable to resolve this issue yourself, please send the log file or crash report to someone who can help you solve the problem!\n\nPlease do not just take a screenshot of the current app interface, as no one will know what exactly happened. Share your log file or crash report!</string>
+    <string name="game_exit_message">The application/game exited with code %d.</string>
+    <string name="game_singnal_message">The application/game aborted due to fatal signal %d.</string>
+    <string name="game_exit_note">For details on the error, please check the log file or crash report. If you can\'t solve the issue on your own, please send the log file or crash report to someone who can help you resolve it!</string>
+    <string name="game_exit_no_screenshot">Please don\'t just take a screenshot of the current app interface; otherwise, no one will know what happened. Share your log file or crash report!</string>
     <string name="game_autopick_runtime_failed">No suitable runtime environment was found. The runtime environment selected for the current instance has been set.</string>
     <string name="game_tip">The game is currently running. You can enable log output via the menu to check the game\'s status.</string>
     <string name="game_tip_version">Currently launched game version:</string>

@@ -465,7 +465,10 @@
     <string name="setting_reboot_tip">Ce paramètre a été modifié, mais nécessite un redémarrage de l\'application pour prendre effet !</string>
     <string name="setting_zink_driver_adreno">Le lanceur a détecté que votre appareil est équipé d\'un GPU Adreno, activer cette option pourrait empêcher le rendu Zink de fonctionner correctement, êtes-vous sûr de vouloir activer cette option ?</string>
     <!-- Game -->
-    <string name="game_exit_message">L\'application/jeu s\'est fermé avec le code %d, veuillez consulter le fichier journal ou le rapport de crash pour connaître la raison spécifique de l\'erreur. Si vous ne pouvez pas résoudre ce problème vous-même, veuillez envoyer le fichier journal ou le rapport de crash à quelqu\'un qui peut vous aider à résoudre le problème !\n\nVeuillez ne pas simplement prendre une capture d\'écran de l\'interface actuelle de l\'application, sinon personne ne saura ce qui s\'est réellement passé, veuillez partager votre fichier journal ou votre rapport de crash !</string>
+    <string name="game_exit_message">L\'application/le jeu a quitté avec le code %d.</string>
+    <string name="game_singnal_message">L\'application/le jeu s\'est arrêté en raison du signal fatal %d.</string>
+    <string name="game_exit_note">Pour plus de détails sur l\'erreur, consultez le fichier journal ou le rapport de plantage. Si vous ne pouvez pas résoudre le problème vous-même, envoyez le fichier journal ou le rapport de plantage à quelqu\'un qui peut vous aider à le résoudre !</string>
+    <string name="game_exit_no_screenshot">Veuillez ne pas simplement faire une capture d\'écran de l\'interface actuelle de l\'application, sinon personne ne saura ce qui s\'est passé. Partagez votre fichier journal ou votre rapport de plantage !</string>
     <string name="game_autopick_runtime_failed">Aucun environnement d\'exécution approprié n\'a été trouvé, l\'environnement d\'exécution actuellement sélectionné pour cette instance a été défini</string>
     <string name="game_tip">Le jeu est en cours d\'exécution, vous pouvez activer la sortie du journal via le menu pour surveiller l\'état du jeu</string>
     <string name="game_tip_version">Version du jeu actuellement lancée :</string>

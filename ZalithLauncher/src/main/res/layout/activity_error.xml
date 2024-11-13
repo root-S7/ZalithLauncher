@@ -62,10 +62,37 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black_or_white"
                     tools:ignore="HardcodedText"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/error_tip"
+                    android:text="@string/game_exit_note"
+                    android:textSize="12sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:textColor="@color/black_or_white"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/error_text"/>
+
+                <TextView
+                    android:id="@+id/error_no_screenshot"
+                    android:text="@string/game_exit_no_screenshot"
+                    android:textSize="12sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:textColor="#BD0B0B"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/error_tip"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

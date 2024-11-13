@@ -465,7 +465,10 @@
     <string name="setting_reboot_tip">Cài đặt này đã được thay đổi, nhưng cần khởi động lại ứng dụng để có hiệu lực!</string>
     <string name="setting_zink_driver_adreno">Trình khởi động phát hiện thiết bị của bạn là GPU Adreno, bật tùy chọn này có thể khiến trình kết xuất Zink không hoạt động bình thường, bạn có chắc chắn muốn mở tùy chọn này không?</string>
     <!-- Game -->
-    <string name="game_exit_message">Ứng dụng/trò chơi đã thoát với mã %d, vui lòng kiểm tra tệp nhật ký hoặc báo cáo sự cố để biết lý do cụ thể. Nếu bạn không thể tự giải quyết vấn đề này, vui lòng gửi tệp nhật ký hoặc báo cáo sự cố cho người có khả năng giúp bạn giải quyết vấn đề!\n\nVui lòng không chỉ chụp màn hình ứng dụng hiện tại, nếu không sẽ không ai biết chuyện gì đã xảy ra, hãy chia sẻ tệp nhật ký hoặc báo cáo sự cố của bạn!</string>
+    <string name="game_exit_message">Ứng dụng/trò chơi đã thoát với mã %d.</string>
+    <string name="game_singnal_message">Ứng dụng/trò chơi bị dừng do tín hiệu nghiêm trọng %d.</string>
+    <string name="game_exit_note">Để biết chi tiết về lỗi, vui lòng kiểm tra tệp nhật ký hoặc báo cáo sự cố. Nếu bạn không thể tự giải quyết vấn đề, hãy gửi tệp nhật ký hoặc báo cáo sự cố cho người có thể giúp bạn giải quyết!</string>
+    <string name="game_exit_no_screenshot">Vui lòng không chỉ chụp ảnh màn hình giao diện ứng dụng hiện tại, nếu không sẽ không ai biết điều gì đã xảy ra. Hãy chia sẻ tệp nhật ký hoặc báo cáo sự cố của bạn!</string>
     <string name="game_autopick_runtime_failed">Không tìm thấy môi trường chạy phù hợp, đã đặt là môi trường chạy được chọn cho thể hiện hiện tại</string>
     <string name="game_tip">Trò chơi đang chạy, có thể mở nhật ký đầu ra qua menu để xem tình trạng trò chơi</string>
     <string name="game_tip_version">Phiên bản trò chơi đang khởi động:</string>
