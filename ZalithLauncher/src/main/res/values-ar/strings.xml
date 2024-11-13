@@ -356,7 +356,8 @@
     <string name="setting_category_experimental">تجريبي</string>
     <string name="setting_category_experimental_patches">تصحيحات تجريبية</string>
     <string name="setting_renderer_title">العارض</string>
-    <string name="setting_renderer_name_ltw">LTW (فقط للإصدار 1.17+)</string>
+    <string name="setting_renderer_name_gl4es">GL4ES (للإصدار 1.21.1- فقط)</string>
+    <string name="setting_renderer_name_ltw">LTW (للإصدار 1.17+ فقط)</string>
     <string name="setting_ignore_notch_title">وضع ملء الشاشة</string>
     <string name="setting_ignore_notch_desc">تجاهل الشق وتمد المحتوى إلى كامل الشاشة لتجربة غامرة أكثر تكاملاً</string>
     <string name="setting_resolution_scaler_title">ضبط الدقة</string>

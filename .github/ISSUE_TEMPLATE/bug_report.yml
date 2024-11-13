@@ -92,7 +92,7 @@ body:
         The renderer may be the root cause of the issue. If this is not a game-related problem, please ignore and leave this field blank.
         渲染器可能会是问题的根本原因，如果此问题并非游戏问题，请忽略此项不填。
       options:
-        - 'Holy GL4ES'
+        - 'GL4ES'
         - 'Vulkan Zink'
         - 'VirGLRenderer'
         - 'Freedreno'

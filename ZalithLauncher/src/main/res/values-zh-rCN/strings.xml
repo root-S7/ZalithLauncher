@@ -380,6 +380,7 @@
     <string name="setting_category_experimental_patches">实验性的补丁</string>
 
     <string name="setting_renderer_title">渲染器</string>
+    <string name="setting_renderer_name_gl4es">GL4ES (仅限 1.21.1-)</string>
     <string name="setting_renderer_name_ltw">LTW (仅限 1.17+)</string>
     <string name="setting_ignore_notch_title">全屏模式</string>
     <string name="setting_ignore_notch_desc">忽略刘海屏并将屏幕内容扩展至全屏，给你以更完整的沉浸感</string>
