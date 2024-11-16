@@ -1,10 +1,9 @@
 package com.movtery.zalithlauncher.ui.fragment
 
 import com.movtery.zalithlauncher.R
-import net.kdt.pojavlaunch.modloaders.FabriclikeUtils
-import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
+import com.movtery.zalithlauncher.feature.mod.modloader.FabricLikeUtils
 
-class DownloadQuiltFragment : DownloadFabricLikeFragment(FabriclikeUtils.QUILT_UTILS, R.drawable.ic_quilt), ModloaderDownloadListener {
+class DownloadQuiltFragment : DownloadFabricLikeFragment(FabricLikeUtils.QUILT_UTILS, R.drawable.ic_quilt) {
     companion object {
         const val TAG: String = "DownloadQuiltFragment"
     }

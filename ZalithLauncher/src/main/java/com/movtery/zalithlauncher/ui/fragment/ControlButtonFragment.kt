@@ -185,12 +185,16 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
         filesDialog.setCopyButtonClick { binding.operateView.pasteButton.visibility = View.VISIBLE }
 
         filesDialog.setMoreButtonClick {
-            val intent = Intent(requireContext(), CustomControlsActivity::class.java)
-            val bundle = Bundle()
-            bundle.putString(CustomControlsActivity.BUNDLE_CONTROL_PATH, file.absolutePath)
-            intent.putExtras(bundle)
+            if (!isTaskRunning()) {
+                val intent = Intent(requireContext(), CustomControlsActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString(CustomControlsActivity.BUNDLE_CONTROL_PATH, file.absolutePath)
+                intent.putExtras(bundle)
 
-            startActivity(intent)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
+            }
             filesDialog.dismiss()
         } //加载
         filesDialog.show()

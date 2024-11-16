@@ -68,12 +68,5 @@ class NewbieGuideUtils {
                 .descriptionTextColor(TEXT_COLOR)
                 .targetCircleColorInt(ContextCompat.getColor(context, TARGET_CIRCLE_COLOR))
         }
-
-        @SuppressLint("ResourceType")
-        fun getSimpleTarget(context: Context, view: View?, title: String): TapTarget {
-            return TapTarget.forView(view, title)
-                .titleTextColor(TEXT_COLOR)
-                .targetCircleColorInt(ContextCompat.getColor(context, TARGET_CIRCLE_COLOR))
-        }
     }
 }

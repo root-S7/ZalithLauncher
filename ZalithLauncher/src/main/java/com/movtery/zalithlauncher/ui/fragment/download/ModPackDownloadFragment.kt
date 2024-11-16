@@ -13,6 +13,7 @@ import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallExtra
 import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
@@ -24,8 +25,7 @@ class ModPackDownloadFragment(parentFragment: Fragment? = null) : AbstractResour
     parentFragment,
     Classify.MODPACK,
     CategoryUtils.getModPackCategory(),
-    true,
-    null
+    true
 ) {
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
 
@@ -37,8 +37,13 @@ class ModPackDownloadFragment(parentFragment: Fragment? = null) : AbstractResour
                     if (!isTaskRunning()) {
                         val dialog = ZHTools.showTaskRunningDialog(requireContext())
                         Task.runTask {
-                            val modPackFile = copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
-                            EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, modPackFile.absolutePath, dialog)))
+                            copyFileInBackground(requireContext(), result, PathAndUrlManager.DIR_CACHE.absolutePath)
+                        }.ended(TaskExecutors.getAndroidUI()) { modPackFile ->
+                            modPackFile?.let {
+                                EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, it.absolutePath)))
+                            }
+                        }.finallyTask(TaskExecutors.getAndroidUI()) {
+                            dialog.dismiss()
                         }.execute()
                     }
                 }

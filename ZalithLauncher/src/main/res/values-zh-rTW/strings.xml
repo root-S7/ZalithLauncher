@@ -64,14 +64,10 @@
     <string name="customctrl_editor_exit_msg">你是否確認退出？</string>
     <string name="customctrl_editor_exit">退出編輯器</string>
     <string name="global_save_and_exit">儲存並退出</string>
-    <string name="unnamed">未命名</string>
-    <string name="version_installed">已安裝</string>
     <string name="version_release">正式版</string>
     <string name="version_snapshot">快照版</string>
     <string name="version_alpha">Alpha 版</string>
     <string name="version_beta">Beta 版</string>
-    <string name="profiles_latest_snapshot">最新快照版</string>
-    <string name="profiles_latest_release">最新正式版</string>
     <string name="force_exit_confirm">你確定要強制關閉嗎？</string>
     <string name="autoram_info_msg">記憶體已設為 %d MB</string>
     <string name="memory_warning_msg">目前可用記憶體（%d）低於已分配的記憶體（%d），這可能會導致遊戲當機，若遊戲當機，請更改設定！</string>
@@ -117,19 +113,7 @@
     <string name="mod_forge_searching">正在搜尋 Forge 版本號</string>
     <string name="mod_neoforge_searching">正在搜尋 NeoForge 版本號</string>
     <string name="mod_failed_to_load_list">載入版本列表失敗！</string>
-    <string name="mod_no_installer">抱歉，此版本的 %s 沒有安裝程式，目前不支援</string>
-    <string name="mod_fabric_cant_read_meta">讀取 %s 加載器的元數據失敗，請稍後再試</string>
-    <string name="mod_optifine_failed_to_scrape">無法收集 OptiFine 安裝數據</string>
     <string name="mod_optifine_progress">正在下載 %s</string>
-    <string name="create_profile">創建新實例</string>
-    <string name="create_profile_vanilla_like_versions">類原版版本</string>
-    <string name="create_profile_modded_versions">已修改版本</string>
-    <string name="create_profile_vanilla">創建原版實例</string>
-    <string name="create_profile_optifine">創建 OptiFine 實例</string>
-    <string name="create_profile_forge">創建 Forge 實例</string>
-    <string name="create_profile_neoforge">創建 NeoForge 實例</string>
-    <string name="create_profile_fabric">創建 Fabric 實例</string>
-    <string name="create_profile_quilt">創建 Quilt 實例</string>
     <!-- Controls -->
     <string name="control_primary">左鍵</string>
     <string name="control_secondary">右鍵</string>
@@ -210,19 +194,39 @@
     <string name="controller_dpad_right">方向鍵右</string>
     <string name="controller_remapper_operating_mode">當前模式</string>
     <string name="controller_remapper_expand_entry">展開以更改按鍵碼</string>
+    <!-- Version -->
+    <string name="version_manager_title">版本管理</string>
+    <string name="version_no_versions">沒有安裝版本</string>
+    <string name="version_install_new">安裝新版本</string>
+    <string name="version_install_not_install">不安裝</string>
+    <string name="version_install_incompatible">與 %s 不相容</string>
+    <string name="version_install_exists">此名稱的版本已存在！</string>
+    <string name="version_install_no_versions">沒有可選擇的版本！</string>
+    <string name="version_install_cannot_use_mc_name">已選擇附加內容，需確保原版核心的獨立性，請勿使用原版名稱！</string>
+    <string name="version_manager_shortcuts">快捷功能</string>
+    <string name="version_manager_shortcuts_mods">Mod 管理</string>
+    <string name="version_manager_shortcuts_version_path">版本路徑資料夾</string>
+    <string name="version_manager_shortcuts_resource_path">資源包資料夾</string>
+    <string name="version_manager_shortcuts_world_path">遊戲存檔資料夾</string>
+    <string name="version_manager_shortcuts_shader_path">光影包資料夾</string>
+    <string name="version_manager_shortcuts_logs_path">日誌資料夾</string>
+    <string name="version_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
+    <string name="version_manager_edit">編輯版本</string>
+    <string name="version_manager_delete">刪除版本</string>
+    <string name="version_manager_delete_tip">如果開啟了版本隔離功能，刪除版本時會一併刪除你的遊戲存檔、資源包和 Mod 等重要資料，請務必先做好備份再進行此操作！</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher 需要管理裝置所有檔案的權限，以便正常使用這個功能，請開啟權限！</string>
     <string name="profiles_path_title">遊戲路徑管理</string>
     <string name="profiles_path_default">預設路徑</string>
+    <string name="profiles_path_settings">打開路徑設定</string>
+    <string name="profiles_path_settings_goto">打開此目錄</string>
     <string name="profiles_path_create_new">新增路徑</string>
     <string name="profiles_path_create_new_title">為此路徑命名</string>
     <string name="profiles_path_delete_title">刪除此路徑</string>
     <string name="profiles_path_delete_message">啟動器將刪除此路徑，但不會刪除對應路徑內保存的檔案，刪除之後仍然可以重新添加此路徑</string>
-    <string name="profiles_path_task_in_progress">任務執行中，暫時無法使用路徑管理功能</string>
     <!-- Profile -->
-    <string name="pedit_profile_version">版本</string>
+    <string name="pedit_isolation_enabled">啟用版本隔離</string>
     <string name="pedit_control">控制佈局</string>
-    <string name="pedit_custom_path">自訂路徑</string>
     <string name="pedit_default">（使用全域預設值）</string>
     <string name="profile_mods_download_mod">下載 Mod</string>
     <string name="profile_mods_download_mod_release_version">僅展示 Minecraft 正式版本</string>
@@ -231,19 +235,6 @@
     <string name="profile_mods_disable">禁用</string>
     <string name="profile_mods_enable">啟用</string>
     <string name="profile_mods_disable_or_enable">禁用/啟用</string>
-    <string name="profile_manager_shortcuts">快捷功能</string>
-    <string name="profile_manager_shortcuts_mods">Mod 管理</string>
-    <string name="profile_manager_shortcuts_instance_path">實例路徑資料夾</string>
-    <string name="profile_manager_shortcuts_resource_path">資源包資料夾</string>
-    <string name="profile_manager_shortcuts_world_path">遊戲存檔資料夾</string>
-    <string name="profile_manager_shortcuts_shader_path">光影包資料夾</string>
-    <string name="profile_manager_shortcuts_logs_path">日誌資料夾</string>
-    <string name="profile_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
-    <string name="profile_manager_edit">編輯實例</string>
-    <string name="profile_manager_delete">刪除實例</string>
-    <string name="profile_manager_delete_message">此操作將會刪除此實例，但並不會刪除實例關聯的遊戲檔案</string>
-    <string name="profile_manager_download_optifine">安裝 OptiFine Mod</string>
-    <string name="profile_manager_download_optifine_message">僅將 OptiFine 作為 Mod 下載並安裝，請確保所選實例支持運行 OptiFine Mod</string>
     <!-- Account -->
     <string name="account_login_done">登入完成</string>
     <string name="account_add">添加帳戶</string>
@@ -470,7 +461,8 @@
     <string name="game_exit_message">應用程式/遊戲以代碼 %d 退出。</string>
     <string name="game_singnal_message">應用程式/遊戲因致命信號 %d 而中止。</string>
     <string name="game_exit_note">具體錯誤原因請查看日誌檔案或崩潰報告。如果你無法自行解決此問題，請將日誌檔案或崩潰報告發送給有能力解決的人協助解決！</string>
-    <string name="game_exit_no_screenshot">請不要只是截圖當前應用介面，否則沒人知道究竟發生了什麼事，請分享你的日誌檔案或崩潰報告！</string><string name="game_autopick_runtime_failed">未找到合適的運行環境，已設定為當前實例選擇的運行環境</string>
+    <string name="game_exit_no_screenshot">請不要只是截圖當前應用介面，否則沒人知道究竟發生了什麼事，請分享你的日誌檔案或崩潰報告！</string>
+    <string name="game_autopick_runtime_failed">未找到合適的執行環境，已設定為當前版本選擇的執行環境</string>
     <string name="game_tip">遊戲正在運行中，可以通過菜單開啟日誌輸出，查看遊戲運行狀況</string>
     <string name="game_tip_version">當前啟動的遊戲版本:</string>
     <!-- Download -->
@@ -521,10 +513,6 @@
     <string name="modpack_download_downloading_mods">正在下載模組（%.2fMB / %.2fMB）</string>
     <string name="modpack_download_downloading_mods_fc">正在下載模組（已下載檔案：%d, 總檔案數：%d）</string>
     <string name="modpack_download_applying_overrides">正在應用覆蓋（%d/%d）</string>
-    <string name="modpack_install_notification_title">Zalith 整合包安裝器</string>
-    <string name="modpack_install_notification_success">點擊此處完成模組包安裝</string>
-    <string name="modpack_install_notification_data_not_available">模組加載器資訊下載失敗</string>
-    <string name="modpack_install_modloader_download_failed">模組加載器檔案下載失敗</string>
     <string name="modpack_install_download_failed">模組包檔案下載失敗</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">清理快取</string>
@@ -616,7 +604,6 @@
     <string name="newbie_guide_mod_search">點擊可召喚搜尋框，使用它可以快速搜尋到你想要尋找的 Mod。</string>
     <string name="newbie_guide_mod_import">在原生的檔案管理器內選擇一個 Mod 檔案，可將其匯入當前 Mod 資料夾。</string>
     <string name="newbie_guide_mod_download">點擊可以進入 Mod 下載頁面，你可以在那裡線上搜尋與下載 Mod。</string>
-    <string name="newbie_guide_profiles_path_create">點擊此按鈕可創建新的遊戲路徑。</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">支持我的開發</string>
     <string name="request_sponsorship_message">這款軟體的大部分內容都是我一個人開發和維護的。如果你覺得這款軟體對你有幫助，並且條件允許的話，希望你能考慮贊助我，讓我有更多動力繼續開發和改進，謝謝你的支持！</string>

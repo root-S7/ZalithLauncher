@@ -97,8 +97,8 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     }
 
     @Throws(Throwable::class)
-    override fun installModPack(infoItem: InfoItem, version: VersionItem): ModLoaderWrapper? {
-        return CurseForgeModPackInstallHelper.startInstall(api, infoItem.copy(), version)
+    override fun installModPack(version: VersionItem, customName: String): ModLoaderWrapper? {
+        return CurseForgeModPackInstallHelper.startInstall(api, version, customName)
     }
 
     @Throws(Throwable::class)

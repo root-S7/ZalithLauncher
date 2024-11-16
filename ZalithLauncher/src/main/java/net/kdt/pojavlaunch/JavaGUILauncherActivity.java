@@ -214,7 +214,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     @Subscribe()
     public void onJvmExitEvent(JvmExitEvent event) {
         if (mSubscribeJvmExitEvent) {
-            ZHTools.killProcess();
+            finish();
         }
     }
 
@@ -392,7 +392,10 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     public void forceClose() {
-        MainActivity.dialogForceClose(this);
+        new TipDialog.Builder(this)
+                .setMessage(R.string.force_exit_confirm)
+                .setConfirmClickListener(this::finish)
+                .buildDialog();
     }
 
     public void openLogOutput(View v) {

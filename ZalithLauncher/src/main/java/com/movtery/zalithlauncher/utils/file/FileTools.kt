@@ -40,6 +40,11 @@ class FileTools {
         fun copyFileInBackground(context: Context, fileUri: Uri?, rootPath: String?): File {
             val fileName = Tools.getFileName(context, fileUri)
             val outputFile = File(rootPath, fileName)
+            return copyFileInBackground(context, fileUri, outputFile)
+        }
+
+        @JvmStatic
+        fun copyFileInBackground(context: Context, fileUri: Uri?, outputFile: File): File {
             runCatching {
                 context.contentResolver.openInputStream(fileUri!!).use { inputStream ->
                     FileUtils.copyInputStreamToFile(inputStream, outputFile)
@@ -239,31 +244,6 @@ class FileTools {
                         }
                     }
                 }
-            }
-        }
-
-        @JvmStatic
-        fun getFileHashMD5(inputStream: InputStream): String {
-            runCatching {
-                val md = MessageDigest.getInstance("MD5")
-                val buffer = ByteArray(8192)
-                var bytesRead: Int
-                while ((inputStream.read(buffer).also { bytesRead = it }) != -1) {
-                    md.update(buffer, 0, bytesRead)
-                }
-                val hash = md.digest()
-
-                //将哈希值转换为十六进制字符串
-                val hexString = StringBuilder()
-                for (b in hash) {
-                    val hex = Integer.toHexString(0xff and b.toInt())
-                    if (hex.length == 1) hexString.append('0')
-                    hexString.append(hex)
-                }
-
-                return hexString.toString()
-            }.getOrElse { e ->
-                throw RuntimeException(e)
             }
         }
 

@@ -10,20 +10,19 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.install.UnpackWorldZipHelper
+import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper.Companion.getWorldPath
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
-import java.io.File
 
 class WorldDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
     parentFragment,
     Classify.WORLD,
     CategoryUtils.getWorldCategory(),
-    false,
-    sWorldPath
+    false
 ) {
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
 
@@ -34,9 +33,9 @@ class WorldDownloadFragment(parentFragment: Fragment? = null) : AbstractResource
                 uriList[0].let { result ->
                     val dialog = ZHTools.showTaskRunningDialog(requireContext())
                     Task.runTask {
-                        val worldFile = copyFileInBackground(requireContext(), result, sWorldPath.absolutePath)
+                        val worldFile = copyFileInBackground(requireContext(), result, getWorldPath().absolutePath)
                         runCatching {
-                            UnpackWorldZipHelper.unpackFile(worldFile, sWorldPath)
+                            UnpackWorldZipHelper.unpackFile(worldFile, getWorldPath())
                         }.getOrElse {
                             ContextExecutor.showToast(R.string.download_install_unpack_world_error, Toast.LENGTH_SHORT)
                         }
@@ -58,9 +57,5 @@ class WorldDownloadFragment(parentFragment: Fragment? = null) : AbstractResource
             ).show()
             openDocumentLauncher?.launch(suffix)
         }
-    }
-
-    companion object {
-        private val sWorldPath = File(sGameDir, "/saves")
     }
 }

@@ -28,7 +28,6 @@ import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.ui.versions.ModTranslations
-import java.io.File
 import java.util.Collections
 import java.util.Locale
 import java.util.StringJoiner
@@ -37,7 +36,6 @@ import java.util.WeakHashMap
 
 class InfoAdapter(
     private val parentFragment: Fragment?,
-    private val targetPath: File?,
     private val listener: CallSearchListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -111,7 +109,6 @@ class InfoAdapter(
                         val infoViewModel = ViewModelProvider(fragment.requireActivity())[InfoViewModel::class.java]
                         infoViewModel.infoItem = item.copy()
                         infoViewModel.platformHelper = item.platform.helper.copy()
-                        infoViewModel.targetPath = targetPath
 
                         ZHTools.addFragment(fragment, DownloadModFragment::class.java, DownloadModFragment.TAG, null)
                     }

@@ -64,14 +64,10 @@
     <string name="customctrl_editor_exit_msg">Möchtest du wirklich beenden?</string>
     <string name="customctrl_editor_exit">Editor beenden</string>
     <string name="global_save_and_exit">Speichern und beenden</string>
-    <string name="unnamed">Unbenannt</string>
-    <string name="version_installed">Installiert</string>
     <string name="version_release">Offizielle Version</string>
     <string name="version_snapshot">Snapshot</string>
     <string name="version_alpha">Alpha-Version</string>
     <string name="version_beta">Beta-Version</string>
-    <string name="profiles_latest_snapshot">Neuster Snapshot</string>
-    <string name="profiles_latest_release">Neueste offizielle Version</string>
     <string name="force_exit_confirm">Bist du sicher, dass du gewaltsam schließen möchtest?</string>
     <string name="autoram_info_msg">Speicher auf %d MB gesetzt</string>
     <string name="memory_warning_msg">Der verfügbare Speicher (%d) ist niedriger als der zugewiesene Speicher (%d), was zu Abstürzen führen kann. Wenn das Spiel abstürzt, ändere bitte die Konfiguration!</string>
@@ -117,19 +113,7 @@
     <string name="mod_forge_searching">Suche nach Forge-Versionsnummer</string>
     <string name="mod_neoforge_searching">Suche nach NeoForge-Versionsnummer</string>
     <string name="mod_failed_to_load_list">Fehler beim Laden der Versionsliste!</string>
-    <string name="mod_no_installer">Leider gibt es für diese Version von %s kein Installationsprogramm, das noch nicht unterstützt wird</string>
-    <string name="mod_fabric_cant_read_meta">Fehler beim Lesen der %s-Loader-Metadaten, bitte versuchen Sie es später erneut</string>
-    <string name="mod_optifine_failed_to_scrape">Fehler beim Sammeln der OptiFine-Installationsdaten</string>
     <string name="mod_optifine_progress">Lade %s herunter</string>
-    <string name="create_profile">Neue Instanz erstellen</string>
-    <string name="create_profile_vanilla_like_versions">Vanilla-ähnliche Versionen</string>
-    <string name="create_profile_modded_versions">Modifizierte Versionen</string>
-    <string name="create_profile_vanilla">Vanilla-Instanz erstellen</string>
-    <string name="create_profile_optifine">OptiFine-Instanz erstellen</string>
-    <string name="create_profile_forge">Forge-Instanz erstellen</string>
-    <string name="create_profile_neoforge">NeoForge-Instanz erstellen</string>
-    <string name="create_profile_fabric">Fabric-Instanz erstellen</string>
-    <string name="create_profile_quilt">Quilt-Instanz erstellen</string>
     <!-- Controls -->
     <string name="control_primary">Linksklick</string>
     <string name="control_secondary">Rechtsklick</string>
@@ -210,19 +194,40 @@
     <string name="controller_dpad_right">Richtungstaste nach rechts</string>
     <string name="controller_remapper_operating_mode">Aktueller Modus</string>
     <string name="controller_remapper_expand_entry">Erweitern, um Tastencode zu ändern</string>
+    <!-- Version -->
+    <string name="version_manager_title">Versionsverwaltung</string>
+    <string name="version_no_versions">Keine Versionen installiert</string>
+    <string name="version_install_new">Neue Version installieren</string>
+    <string name="version_install_not_install">Nicht installieren</string>
+    <string name="version_install_incompatible">Nicht kompatibel mit %s</string>
+    <string name="version_install_exists">Eine Version mit diesem Namen existiert bereits!</string>
+    <string name="version_install_no_versions">Keine Versionen zur Auswahl!</string>
+    <string name="version_install_cannot_use_mc_name">Zusätzliche Inhalte wurden ausgewählt, und die Unabhängigkeit des ursprünglichen Kerns muss gewährleistet sein. Bitte verwenden Sie nicht den Originalnamen!</string>
+    <string name="version_manager_shortcuts">Verknüpfungen</string>
+    <string name="version_manager_shortcuts_mods">Mod-Verwaltung</string>
+    <string name="version_manager_shortcuts_version_path">Versionspfad-Ordner</string>
+    <string name="version_manager_shortcuts_resource_path">Ressourcenpaket-Ordner</string>
+    <string name="version_manager_shortcuts_world_path">Welten-Speicherordner</string>
+    <string name="version_manager_shortcuts_shader_path">Shader-Paket-Ordner</string>
+    <string name="version_manager_shortcuts_logs_path">Protokolldatei-Ordner</string>
+    <string name="version_manager_shortcuts_crash_report_path">Absturzbericht-Ordner</string>
+    <string name="version_manager_edit">Version bearbeiten</string>
+    <string name="version_manager_delete">Version löschen</string>
+    <string name="version_manager_delete_tip">Wenn die Versionsisolierung aktiviert ist, werden beim Löschen auch wichtige Daten wie Spielstände, Ressourcenpakete und Mods gelöscht. Bitte erstellen Sie vorher ein Backup!</string>
+    <string name="version_manager_task_in_progress">Aufgabe wird ausgeführt, Versionsverwaltung ist vorübergehend nicht verfügbar</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher benötigt die Berechtigung, um alle Dateien auf dem Gerät zu verwalten, damit diese Funktion ordnungsgemäß funktioniert. Bitte erteilen Sie die Berechtigung!</string>
     <string name="profiles_path_title">Spielpfad-Verwaltung</string>
     <string name="profiles_path_default">Standardpfad</string>
+    <string name="profiles_path_settings">Pfad-Einstellungen öffnen</string>
+    <string name="profiles_path_settings_goto">Dieses Verzeichnis öffnen</string>
     <string name="profiles_path_create_new">Neuen Pfad hinzufügen</string>
     <string name="profiles_path_create_new_title">Diesem Pfad einen Namen geben</string>
     <string name="profiles_path_delete_title">Diesen Pfad löschen</string>
     <string name="profiles_path_delete_message">Der Launcher wird diesen Pfad löschen, aber die darin gespeicherten Dateien nicht. Nach dem Löschen kann der Pfad erneut hinzugefügt werden.</string>
-    <string name="profiles_path_task_in_progress">Aufgabe wird ausgeführt, Pfadverwaltung ist vorübergehend nicht verfügbar</string>
     <!-- Profile -->
-    <string name="pedit_profile_version">Version</string>
+    <string name="pedit_isolation_enabled">Versionstrennung aktivieren</string>
     <string name="pedit_control">Steuerungsraster</string>
-    <string name="pedit_custom_path">Benutzerdefinierter Pfad</string>
     <string name="pedit_default">(Globale Standardeinstellung verwenden)</string>
     <string name="profile_mods_download_mod">Mod herunterladen</string>
     <string name="profile_mods_download_mod_release_version">Nur offizielle Minecraft-Versionen anzeigen</string>
@@ -231,19 +236,6 @@
     <string name="profile_mods_disable">Deaktivieren</string>
     <string name="profile_mods_enable">Aktivieren</string>
     <string name="profile_mods_disable_or_enable">Deaktivieren/Aktivieren</string>
-    <string name="profile_manager_shortcuts">Schnellzugriff</string>
-    <string name="profile_manager_shortcuts_mods">Mod-Verwaltung</string>
-    <string name="profile_manager_shortcuts_instance_path">Instanz-Ordnerpfad</string>
-    <string name="profile_manager_shortcuts_resource_path">Ressourcenpaket-Ordner</string>
-    <string name="profile_manager_shortcuts_world_path">Spielstand-Ordner</string>
-    <string name="profile_manager_shortcuts_shader_path">Shader-Pack-Ordner</string>
-    <string name="profile_manager_shortcuts_logs_path">Protokoll-Ordner</string>
-    <string name="profile_manager_shortcuts_crash_report_path">Absturzbericht-Ordner</string>
-    <string name="profile_manager_edit">Instanz bearbeiten</string>
-    <string name="profile_manager_delete">Instanz löschen</string>
-    <string name="profile_manager_delete_message">Diese Aktion wird diese Instanz löschen, aber die damit verbundenen Spieldateien nicht.</string>
-    <string name="profile_manager_download_optifine">OptiFine Mod installieren</string>
-    <string name="profile_manager_download_optifine_message">Lade und installiere OptiFine nur als Mod. Stelle sicher, dass die ausgewählte Instanz OptiFine Mod unterstützt.</string>
     <!-- Account -->
     <string name="account_login_done">Anmeldung abgeschlossen</string>
     <string name="account_add">Konto hinzufügen</string>
@@ -471,7 +463,7 @@
     <string name="game_singnal_message">Die Anwendung/das Spiel wurde aufgrund des tödlichen Signals %d abgebrochen.</string>
     <string name="game_exit_note">Für Details zum Fehler, sehen Sie bitte in der Logdatei oder dem Absturzbericht nach. Wenn Sie das Problem nicht selbst lösen können, senden Sie die Logdatei oder den Absturzbericht an jemanden, der Ihnen helfen kann!</string>
     <string name="game_exit_no_screenshot">Bitte machen Sie nicht nur einen Screenshot der aktuellen Anwendungsoberfläche, sonst weiß niemand, was passiert ist. Teilen Sie Ihre Logdatei oder den Absturzbericht!</string>
-    <string name="game_autopick_runtime_failed">Es wurde keine geeignete Laufzeitumgebung gefunden. Die aktuell ausgewählte Laufzeitumgebung wurde festgelegt</string>
+    <string name="game_autopick_runtime_failed">Es wurde keine geeignete Laufzeitumgebung gefunden, die Laufzeitumgebung wurde auf die für die aktuelle Version ausgewählte festgelegt</string>
     <string name="game_tip">Das Spiel läuft gerade. Über das Menü kann die Protokollausgabe aktiviert werden, um den Spielstatus zu überwachen</string>
     <string name="game_tip_version">Aktuelle Spielversion:</string>
     <!-- Download -->
@@ -522,10 +514,6 @@
     <string name="modpack_download_downloading_mods">Lade Mods herunter (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Lade Mods herunter (heruntergeladene Dateien: %d, Gesamtdateien: %d)</string>
     <string name="modpack_download_applying_overrides">Wende Überschreibungen an (%d/%d)</string>
-    <string name="modpack_install_notification_title">Zalith Modpack-Installer</string>
-    <string name="modpack_install_notification_success">Klicken Sie hier, um die Modpack-Installation abzuschließen</string>
-    <string name="modpack_install_notification_data_not_available">Fehler beim Herunterladen der Mod-Loader-Informationen</string>
-    <string name="modpack_install_modloader_download_failed">Fehler beim Herunterladen der Mod-Loader-Dateien</string>
     <string name="modpack_install_download_failed">Fehler beim Herunterladen der Modpack-Dateien</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Cache leeren</string>
@@ -617,7 +605,6 @@
     <string name="newbie_guide_mod_search">Klicken Sie, um das Suchfeld aufzurufen, mit dem Sie schnell den gewünschten Mod finden können.</string>
     <string name="newbie_guide_mod_import">Wählen Sie im nativen Dateimanager eine Mod-Datei aus, um sie in den aktuellen Mod-Ordner zu importieren.</string>
     <string name="newbie_guide_mod_download">Klicken Sie, um zur Mod-Download-Seite zu gelangen, auf der Sie Mods online suchen und herunterladen können.</string>
-    <string name="newbie_guide_profiles_path_create">Klicken Sie auf diese Schaltfläche, um einen neuen Spielpfad zu erstellen.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Unterstütze meine Entwicklung</string>
     <string name="request_sponsorship_message">Der Großteil dieser Software wurde von mir allein entwickelt und gewartet. Wenn Sie diese Software hilfreich finden und es Ihnen möglich ist, würde ich mich freuen, wenn Sie meine Entwicklung unterstützen würden, damit ich weiterhin motiviert bin, sie zu verbessern. Vielen Dank für Ihre Unterstützung!</string>

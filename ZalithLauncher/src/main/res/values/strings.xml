@@ -65,14 +65,10 @@
     <string name="customctrl_editor_exit_msg">Are you sure you want to exit?</string>
     <string name="customctrl_editor_exit">Exit Editor</string>
     <string name="global_save_and_exit">Save and Exit</string>
-    <string name="unnamed">Unnamed</string>
-    <string name="version_installed">Installed</string>
     <string name="version_release">Release</string>
     <string name="version_snapshot">Snapshot</string>
     <string name="version_alpha">Alpha</string>
     <string name="version_beta">Beta</string>
-    <string name="profiles_latest_snapshot">Latest Snapshot</string>
-    <string name="profiles_latest_release">Latest Release</string>
     <string name="force_exit_confirm">Are you sure you want to force close?</string>
     <string name="autoram_info_msg">Memory set to %d MB</string>
     <string name="memory_warning_msg">The available memory (%d) is lower than the allocated memory (%d), which may cause the game to crash. If the game crashes, please change the configuration!</string>
@@ -118,19 +114,7 @@
     <string name="mod_forge_searching">Searching for Forge version number</string>
     <string name="mod_neoforge_searching">Searching for NeoForge version number</string>
     <string name="mod_failed_to_load_list">Failed to load version list!</string>
-    <string name="mod_no_installer">Sorry, this version of %s does not have an installer and is not yet supported</string>
-    <string name="mod_fabric_cant_read_meta">Failed to read %s loader metadata, please try again later</string>
-    <string name="mod_optifine_failed_to_scrape">Failed to gather OptiFine installation data</string>
     <string name="mod_optifine_progress">Downloading %s</string>
-    <string name="create_profile">Create New Instance</string>
-    <string name="create_profile_vanilla_like_versions">Vanilla-like Versions</string>
-    <string name="create_profile_modded_versions">Modded Versions</string>
-    <string name="create_profile_vanilla">Create Vanilla Instance</string>
-    <string name="create_profile_optifine">Create OptiFine Instance</string>
-    <string name="create_profile_forge">Create Forge Instance</string>
-    <string name="create_profile_neoforge">Create NeoForge Instance</string>
-    <string name="create_profile_fabric">Create Fabric Instance</string>
-    <string name="create_profile_quilt">Create Quilt Instance</string>
     <!-- Controls -->
     <string name="control_primary">Left Click</string>
     <string name="control_secondary">Right Click</string>
@@ -215,19 +199,42 @@
     <string name="controller_dpad_right">D-Pad Right</string>
     <string name="controller_remapper_operating_mode">Current Mode</string>
     <string name="controller_remapper_expand_entry">Expand to change key code</string>
+
+    <!-- Version -->
+    <string name="version_manager_title">Version Management</string>
+    <string name="version_no_versions">No versions installed</string>
+    <string name="version_install_new">Install new version</string>
+    <string name="version_install_not_install">Do not install</string>
+    <string name="version_install_incompatible">Incompatible with %s</string>
+    <string name="version_install_exists">A version with this name already exists!</string>
+    <string name="version_install_no_versions">No versions available to choose from!</string>
+    <string name="version_install_cannot_use_mc_name">The additional content has been selected, and the independence of the original core must be ensured. Please do not use the original name!</string>
+    <string name="version_manager_shortcuts">Shortcuts</string>
+    <string name="version_manager_shortcuts_mods">Mod Management</string>
+    <string name="version_manager_shortcuts_version_path">Version Path Folder</string>
+    <string name="version_manager_shortcuts_resource_path">Resource Pack Folder</string>
+    <string name="version_manager_shortcuts_world_path">World Save Folder</string>
+    <string name="version_manager_shortcuts_shader_path">Shader Pack Folder</string>
+    <string name="version_manager_shortcuts_logs_path">Log Folder</string>
+    <string name="version_manager_shortcuts_crash_report_path">Crash Report Folder</string>
+    <string name="version_manager_edit">Edit Version</string>
+    <string name="version_manager_delete">Delete Version</string>
+    <string name="version_manager_delete_tip">If version isolation is enabled, your game saves, resource packs, mods, and other important resources will be deleted along with the version. Please make sure to back up your data before performing this operation!</string>
+    <string name="version_manager_task_in_progress">Task in progress, version management is temporarily unavailable</string>
+
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher requires permission to manage all files on the device to use this feature properly. Please enable the permission!</string>
     <string name="profiles_path_title">Game Path Management</string>
     <string name="profiles_path_default">Default Path</string>
+    <string name="profiles_path_settings">Open Path Settings</string>
+    <string name="profiles_path_settings_goto">Open this directory</string>
     <string name="profiles_path_create_new">Add New Path</string>
     <string name="profiles_path_create_new_title">Name this path</string>
     <string name="profiles_path_delete_title">Delete this path</string>
     <string name="profiles_path_delete_message">The launcher will delete this path, but will not delete the files saved within it. You can still re-add this path after deletion.</string>
-    <string name="profiles_path_task_in_progress">Task in progress, path management is temporarily unavailable</string>
     <!-- Profile -->
-    <string name="pedit_profile_version">Version</string>
+    <string name="pedit_isolation_enabled">Enable Version Isolation</string>
     <string name="pedit_control">Control Layout</string>
-    <string name="pedit_custom_path">Custom Path</string>
     <string name="pedit_default">(Use global default)</string>
     <string name="profile_mods_download_mod">Download Mod</string>
     <string name="profile_mods_download_mod_release_version">Show only official Minecraft versions</string>
@@ -236,19 +243,6 @@
     <string name="profile_mods_disable">Disable</string>
     <string name="profile_mods_enable">Enable</string>
     <string name="profile_mods_disable_or_enable">Disable/Enable</string>
-    <string name="profile_manager_shortcuts">Shortcuts</string>
-    <string name="profile_manager_shortcuts_mods">Mod Management</string>
-    <string name="profile_manager_shortcuts_instance_path">Instance Folder</string>
-    <string name="profile_manager_shortcuts_resource_path">Resource Pack Folder</string>
-    <string name="profile_manager_shortcuts_world_path">World Folder</string>
-    <string name="profile_manager_shortcuts_shader_path">Shader Pack Folder</string>
-    <string name="profile_manager_shortcuts_logs_path">Logs Folder</string>
-    <string name="profile_manager_shortcuts_crash_report_path">Crash Reports Folder</string>
-    <string name="profile_manager_edit">Edit Instance</string>
-    <string name="profile_manager_delete">Delete Instance</string>
-    <string name="profile_manager_delete_message">This action will delete this instance, but will not delete the associated game files</string>
-    <string name="profile_manager_download_optifine">Install OptiFine Mod</string>
-    <string name="profile_manager_download_optifine_message">Only download and install OptiFine as a Mod, ensure the selected instance supports running OptiFine Mod</string>
     <!-- Account -->
     <string name="account_login_done">Login Complete</string>
     <string name="account_add">Add Account</string>
@@ -476,7 +470,7 @@
     <string name="game_singnal_message">The application/game aborted due to fatal signal %d.</string>
     <string name="game_exit_note">For details on the error, please check the log file or crash report. If you can\'t solve the issue on your own, please send the log file or crash report to someone who can help you resolve it!</string>
     <string name="game_exit_no_screenshot">Please don\'t just take a screenshot of the current app interface; otherwise, no one will know what happened. Share your log file or crash report!</string>
-    <string name="game_autopick_runtime_failed">No suitable runtime environment was found. The runtime environment selected for the current instance has been set.</string>
+    <string name="game_autopick_runtime_failed">No suitable runtime environment found, set to the runtime environment selected for the current version</string>
     <string name="game_tip">The game is currently running. You can enable log output via the menu to check the game\'s status.</string>
     <string name="game_tip_version">Currently launched game version:</string>
     <!-- Download -->
@@ -527,10 +521,6 @@
     <string name="modpack_download_downloading_mods">Downloading mods (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Downloading mods (files downloaded: %d, total files: %d)</string>
     <string name="modpack_download_applying_overrides">Applying overrides (%d/%d)</string>
-    <string name="modpack_install_notification_title">Zalith Modpack Installer</string>
-    <string name="modpack_install_notification_success">Click here to complete modpack installation</string>
-    <string name="modpack_install_notification_data_not_available">Failed to download mod loader information</string>
-    <string name="modpack_install_modloader_download_failed">Failed to download mod loader file</string>
     <string name="modpack_install_download_failed">Failed to download modpack file</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Clear Cache</string>
@@ -622,7 +612,6 @@
     <string name="newbie_guide_mod_search">Click to summon a search box and use it to quickly find the Mod you\'re looking for.</string>
     <string name="newbie_guide_mod_import">Select a Mod file in the native file manager to import it into the current Mod folder.</string>
     <string name="newbie_guide_mod_download">Click to enter the Mod download page where you can search and download Mods online.</string>
-    <string name="newbie_guide_profiles_path_create">Click this button to create a new game path.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Support My Development</string>
     <string name="request_sponsorship_message">Most of the content in this software is developed and maintained by me alone. If you find this software helpful and are in a position to do so, I hope you will consider sponsoring me to give me more motivation to continue developing and improving it. Thank you for your support!</string>

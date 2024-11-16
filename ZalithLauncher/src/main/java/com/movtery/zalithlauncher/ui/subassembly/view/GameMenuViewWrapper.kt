@@ -35,7 +35,7 @@ class GameMenuViewWrapper(
         setEnableEdgeAdsorption(false)
         addViewLifecycle(object : IFxViewLifecycle {
             override fun initView(holder: FxViewHolder) {
-                holder.view.alpha = (AllSettings.gameMenuAlpha.toFloat() / 100f).toFloat()
+                holder.view.alpha = AllSettings.gameMenuAlpha.toFloat() / 100f
                 showMemory = AllSettings.gameMenuShowMemory
 
                 holder.getView<TextView>(R.id.memory_text).apply {

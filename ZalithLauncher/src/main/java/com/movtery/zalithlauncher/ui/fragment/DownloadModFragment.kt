@@ -35,7 +35,6 @@ import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import org.jackhuang.hmcl.ui.versions.ModTranslations
 import org.jackhuang.hmcl.util.versioning.VersionNumber
-import java.io.File
 import java.util.concurrent.Future
 import java.util.function.Consumer
 
@@ -46,7 +45,6 @@ class DownloadModFragment : ModListFragment() {
 
     private lateinit var platformHelper: AbstractPlatformHelper
     private lateinit var mInfoItem: InfoItem
-    private var mPath: File? = null
     private var linkGetSubmit: Future<*>? = null
 
     override fun init() {
@@ -157,8 +155,10 @@ class DownloadModFragment : ModListFragment() {
                 currentTask?.apply { if (isCancelled) return }
 
                 mData.add(
-                    ModListItemBean("Minecraft " + entry.key,
-                    VersionAdapter(this, mInfoItem, platformHelper, entry.value, mPath))
+                    ModListItemBean(
+                        "Minecraft " + entry.key,
+                        VersionAdapter(this, mInfoItem, platformHelper, entry.value)
+                    )
                 )
             }
 
@@ -189,7 +189,6 @@ class DownloadModFragment : ModListFragment() {
         val viewModel = ViewModelProvider(fragmentActivity!!)[InfoViewModel::class.java]
         platformHelper = viewModel.platformHelper
         mInfoItem = viewModel.infoItem
-        mPath = viewModel.targetPath
 
         mInfoItem.apply {
             val type = ModTranslations.getTranslationsByRepositoryType(classify)

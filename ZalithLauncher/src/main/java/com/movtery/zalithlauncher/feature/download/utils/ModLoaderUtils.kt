@@ -19,16 +19,6 @@ class ModLoaderUtils {
             return checkForModLoader { modloader -> modloader.curseforgeId == modLoaderId }
         }
 
-        fun getModLoader(type: Int): ModLoader {
-            return when (type) {
-                0 -> ModLoader.FORGE
-                1 -> ModLoader.NEOFORGE
-                2 -> ModLoader.FABRIC
-                3 -> ModLoader.QUILT
-                else -> ModLoader.ALL
-            }
-        }
-
         fun getModLoader(name: String): ModLoader? {
             return if (name.equals("fabric", true)) ModLoader.FABRIC
             else if (name.equals("forge", true)) ModLoader.FORGE

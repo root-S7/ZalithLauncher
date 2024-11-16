@@ -8,14 +8,13 @@ import android.view.WindowManager
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.databinding.ActivityErrorBinding
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
-import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getLatestFile
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.shareFile
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import java.io.File
 
 class ErrorActivity : BaseActivity() {
@@ -126,7 +125,7 @@ class ErrorActivity : BaseActivity() {
             ctx: Context,
             code: Int,
             isSignal: Boolean,
-            crashReportsPath: String? = File(ZHTools.getGameDirPath(LauncherProfiles.getCurrentProfile().gameDir), "crash-reports").absolutePath
+            crashReportsPath: String? = getCrashReportsPath()?.absolutePath
         ) {
             val intent = Intent(ctx, ErrorActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -136,6 +135,11 @@ class ErrorActivity : BaseActivity() {
             intent.putExtra(BUNDLE_IS_SIGNAL, isSignal)
             intent.putExtra(BUNDLE_CRASH_REPORTS_PATH, crashReportsPath)
             ctx.startActivity(intent)
+        }
+
+        private fun getCrashReportsPath(): File? {
+            val gameDir: File = VersionsManager.getCurrentVersion()?.getGameDir() ?: return null
+            return File(gameDir, "crash-reports")
         }
     }
 }

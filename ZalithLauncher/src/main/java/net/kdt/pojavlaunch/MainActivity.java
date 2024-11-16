@@ -44,6 +44,7 @@ import com.movtery.zalithlauncher.feature.ProfileLanguageSelector;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
 import com.movtery.zalithlauncher.feature.background.BackgroundType;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.launch.LaunchGame;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -80,8 +81,6 @@ import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.services.GameService;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
-import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import org.greenrobot.eventbus.EventBus;
 import org.lwjgl.glfw.CallbackBridge;
@@ -91,7 +90,8 @@ import java.io.IOException;
 
 public class MainActivity extends BaseActivity implements ControlButtonMenuListener, EditorExitable, ServiceConnection {
     public static volatile ClipboardManager GLOBAL_CLIPBOARD;
-    public static final String INTENT_MINECRAFT_VERSION = "intent_version";
+    public static final String INTENT_MINECRAFT_VERSION = "intent_minecraft_version";
+    public static final String INTENT_VERSION = "intent_version";
 
     volatile public static boolean isInputStackCall;
 
@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     public static TouchCharInput touchCharInput;
     public static ControlLayout mControlLayout;
 
-    MinecraftProfile minecraftProfile;
+    Version minecraftVersion;
 
     private ViewGameSettingsBinding mGameSettingsBinding;
     private ViewControlSettingsBinding mControlSettingsBinding;
@@ -112,10 +112,11 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        minecraftProfile = LauncherProfiles.getCurrentProfile();
-        MCOptionUtils.load(Tools.getGameDirPath(minecraftProfile).getAbsolutePath());
-        if (AllSettings.getAutoSetGameLanguage())
-            ProfileLanguageSelector.setGameLanguage(minecraftProfile, AllSettings.getGameLanguageOverridden());
+        minecraftVersion = getIntent().getParcelableExtra(INTENT_VERSION);
+        if (minecraftVersion == null) throw new RuntimeException("The game version is not selected!");
+
+        MCOptionUtils.load(minecraftVersion.getGameDir().getAbsolutePath());
+        if (AllSettings.getAutoSetGameLanguage()) ProfileLanguageSelector.setGameLanguage(minecraftVersion, AllSettings.getGameLanguageOverridden());
 
         Intent gameServiceIntent = new Intent(this, GameService.class);
         // Start the service a bit early
@@ -173,17 +174,15 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             GLOBAL_CLIPBOARD = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             binding.mainTouchCharInput.setCharacterSender(new LwjglCharSender());
 
-            if(minecraftProfile.pojavRendererName != null) {
-                Logging.i("RdrDebug","__P_renderer="+minecraftProfile.pojavRendererName);
-                Tools.LOCAL_RENDERER = minecraftProfile.pojavRendererName;
-            }
+            Logging.i("RdrDebug","__P_renderer=" + minecraftVersion.getRenderer());
+            Tools.LOCAL_RENDERER = minecraftVersion.getRenderer();
 
-            setTitle("Minecraft " + minecraftProfile.lastVersionId);
+            setTitle("Minecraft " + minecraftVersion.getVersionName());
 
             // Minecraft 1.13+
 
             String version = getIntent().getStringExtra(INTENT_MINECRAFT_VERSION);
-            version = version == null ? minecraftProfile.lastVersionId : version;
+            version = version == null ? minecraftVersion.getVersionName() : version;
 
             JMinecraftVersionList.Version mVersionInfo = Tools.getVersionInfo(version);
             isInputStackCall = mVersionInfo.arguments != null;
@@ -210,7 +209,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     if (AllSettings.getVirtualMouseStart()) {
                         binding.mainTouchpad.post(() -> binding.mainTouchpad.switchState());
                     }
-                    LaunchGame.runGame(this, mServiceBinder, minecraftProfile, finalVersion, mVersionInfo);
+                    LaunchGame.runGame(this, mServiceBinder, minecraftVersion, finalVersion, mVersionInfo);
                 } catch (Throwable e) {
                     Tools.showErrorRemote(e);
                 }
@@ -218,7 +217,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
             if (AllSettings.getEnableLogOutput()) openLogOutput();
 
-            String tipString = StringUtils.insertNewline(binding.gameTip.getText(), StringUtils.insertSpace(getString(R.string.game_tip_version), minecraftProfile.lastVersionId));
+            String tipString = StringUtils.insertNewline(binding.gameTip.getText(), StringUtils.insertSpace(getString(R.string.game_tip_version), minecraftVersion.getVersionName()));
             binding.gameTip.setText(tipString);
             AnimUtils.setVisibilityAnim(binding.gameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
                 @Override
@@ -258,10 +257,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private void loadControls() {
         try {
             // Load keys
-            binding.mainControlLayout.loadLayout(
-                    minecraftProfile.controlFile == null
-                            ? AllSettings.getDefaultCtrl()
-                            : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
+            binding.mainControlLayout.loadLayout(minecraftVersion.getControl());
         } catch(IOException e) {
             try {
                 Logging.w("MainActivity", "Unable to load the control file, loading the default now", e);
@@ -534,10 +530,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             MainActivity.binding.mainControlLayout.loadLayout((CustomControls)null);
             MainActivity.binding.mainControlLayout.setModifiable(false);
             System.gc();
-            MainActivity.binding.mainControlLayout.loadLayout(
-                    minecraftProfile.controlFile == null
-                            ? AllSettings.getDefaultCtrl()
-                            : PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + minecraftProfile.controlFile);
+            MainActivity.binding.mainControlLayout.loadLayout(minecraftVersion.getControl());
             mGameMenuWrapper.setVisibility(!binding.mainControlLayout.hasMenuButton());
         } catch (IOException e) {
             Tools.showError(this,e);

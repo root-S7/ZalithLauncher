@@ -2,9 +2,7 @@ package com.movtery.zalithlauncher.feature.mod.modpack
 
 import android.content.Context
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
-import com.movtery.zalithlauncher.feature.download.install.OnInstallStartListener
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
@@ -13,12 +11,9 @@ import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getFileHashSHA1
-import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.utils.FileUtils
 import net.kdt.pojavlaunch.utils.ZipUtils
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
-import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
 import org.apache.commons.io.IOUtils
 import java.io.File
 import java.io.IOException
@@ -31,7 +26,7 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
     private var isCanceled = false
 
     @Throws(IOException::class)
-    fun install(instanceDestination: File, listener: OnInstallStartListener): ModLoaderWrapper? {
+    fun install(versionFolder: File): ModLoaderWrapper? {
         zipFile?.let {
             ZipFile(this.zipFile).use { modpackZipFile ->
                 val mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
@@ -42,7 +37,6 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                     Logging.i("MCBBSModPack", "manifest verification failed")
                     return null
                 }
-                listener.onStart()
 
                 initDialog()
 
@@ -54,14 +48,14 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
 
                 for (file in mcbbsPackMeta.files) {
                     if (isCanceled) {
-                        cancel(instanceDestination)
+                        cancel(versionFolder)
                         return null
                     }
 
                     val entry = modpackZipFile.getEntry(overridesDir + file.path)
                     if (entry != null) {
                         val entryName = entry.name
-                        val zipDestination = File(instanceDestination, entryName.substring(dirNameLen))
+                        val zipDestination = File(versionFolder, entryName.substring(dirNameLen))
                         if (zipDestination.exists() && !file.force) continue
 
                         modpackZipFile.getInputStream(entry).use { inputStream ->
@@ -144,18 +138,5 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
             else -> return null
         }
         return ModLoaderWrapper(modloader, modLoaderVersion, version)
-    }
-
-    companion object {
-        fun createModPackProfiles(modpackName: String, mcbbsPackMeta: MCBBSPackMeta, versionId: String?) {
-            val profile = MinecraftProfile()
-            profile.gameDir = "./modpack_instances/$modpackName"
-            profile.name = mcbbsPackMeta.name
-            profile.lastVersionId = versionId
-            profile.javaArgs = StringUtils.insertSpace(null, *mcbbsPackMeta.launchInfo.javaArgument)
-
-            LauncherProfiles.mainProfileJson.profiles[modpackName] = profile
-            LauncherProfiles.write(currentProfile)
-        }
     }
 }

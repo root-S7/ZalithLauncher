@@ -1,159 +1,194 @@
-package com.movtery.zalithlauncher.ui.subassembly.customprofilepath;
+package com.movtery.zalithlauncher.ui.subassembly.customprofilepath
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.os.Environment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ListView
+import android.widget.PopupWindow
+import android.widget.RadioButton
+import androidx.recyclerview.widget.RecyclerView
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.ItemProfilePathBinding
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.save
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.setCurrentPathId
+import com.movtery.zalithlauncher.setting.AllSettings.Companion.launcherProfile
+import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
+import com.movtery.zalithlauncher.ui.dialog.TipDialog
+import com.movtery.zalithlauncher.ui.fragment.FilesFragment
+import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
+import com.movtery.zalithlauncher.utils.ZHTools
+import java.util.TreeMap
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class ProfilePathAdapter(
+    private val fragment: FragmentWithAnim,
+    private val view: RecyclerView
+) :
+    RecyclerView.Adapter<ProfilePathAdapter.ViewHolder>() {
+    private val mData: MutableList<ProfileItem> = ArrayList()
+    private val radioButtonMap: MutableMap<String, RadioButton> = TreeMap()
+    private var currentId: String?
 
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.databinding.ItemProfilePathBinding;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
-import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
-import com.movtery.zalithlauncher.ui.dialog.TipDialog;
-import com.movtery.zalithlauncher.ui.fragment.FilesFragment;
-import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
-import com.movtery.zalithlauncher.utils.ZHTools;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
-
-public class ProfilePathAdapter extends RecyclerView.Adapter<ProfilePathAdapter.ViewHolder> {
-    private final FragmentWithAnim fragment;
-    private final Map<String, RadioButton> radioButtonMap = new TreeMap<>();
-    private final RecyclerView view;
-    private List<ProfileItem> mData;
-    private String currentId;
-
-    public ProfilePathAdapter(FragmentWithAnim fragment, RecyclerView view, List<ProfileItem> mData) {
-        this.fragment = fragment;
-        this.mData = mData;
-        this.view = view;
-        this.currentId = AllSettings.getLauncherProfile();
+    init {
+        this.currentId = launcherProfile
     }
 
-    @NonNull
-    @Override
-    public ProfilePathAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ItemProfilePathBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            ItemProfilePathBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ProfilePathAdapter.ViewHolder holder, int position) {
-        holder.setView(mData.get(position), position);
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.setView(mData[position], position)
     }
 
-    @Override
-    public int getItemCount() {
-        if (mData != null) {
-            return mData.size();
-        }
-        return 0;
+    override fun getItemCount(): Int = mData.size
+
+    fun updateData(data: MutableList<ProfileItem>) {
+        this.mData.clear()
+        this.mData.addAll(data)
+
+        refresh()
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateData(List<ProfileItem> mData) {
-        this.mData = mData;
+    private fun refresh() {
+        save(this.mData)
 
-        ProfilePathManager.save(this.mData);
-
-        notifyDataSetChanged();
-        this.view.scheduleLayoutAnimation();
+        notifyDataSetChanged()
+        view.scheduleLayoutAnimation()
     }
 
-    private void setPathId(String id) {
-        currentId = id;
-        ProfilePathManager.setCurrentPathId(id);
-        updateRadioButtonState(id);
+    private fun setPathId(id: String) {
+        currentId = id
+        setCurrentPathId(id)
+        updateRadioButtonState(id)
     }
 
-    private void updateRadioButtonState(String id) {
+    private fun updateRadioButtonState(id: String) {
         //遍历全部RadioButton，取消除去此id的全部RadioButton
-        for (Map.Entry<String, RadioButton> entry : radioButtonMap.entrySet()) {
-            entry.getValue().setChecked(Objects.equals(id, entry.getKey()));
+        for ((key, value) in radioButtonMap) {
+            value.isChecked = id == key
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private final ItemProfilePathBinding binding;
+    inner class ViewHolder(private val binding: ItemProfilePathBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun setView(profileItem: ProfileItem, position: Int) {
+            radioButtonMap[profileItem.id] = binding.radioButton
+            binding.title.text = profileItem.title
+            binding.path.text = profileItem.path
+            binding.path.isSelected = true
 
-        public ViewHolder(@NonNull ItemProfilePathBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+            val onClickListener = View.OnClickListener { setPathId(profileItem.id) }
+            itemView.setOnClickListener(onClickListener)
+            binding.radioButton.setOnClickListener(onClickListener)
+
+            binding.settings.setOnClickListener {
+                showPopupWindow(binding.settings, profileItem.id == "default", profileItem, position)
+            }
+
+            if (currentId == profileItem.id) {
+                updateRadioButtonState(profileItem.id)
+            }
         }
 
-        public void setView(ProfileItem profileItem, int position) {
-            radioButtonMap.put(profileItem.id, binding.radioButton);
-            binding.title.setText(profileItem.title);
-            binding.path.setText(profileItem.path);
+        private fun showPopupWindow(
+            anchorView: View,
+            isDefault: Boolean,
+            profileItem: ProfileItem,
+            itemIndex: Int
+        ) {
+            val context = anchorView.context
+            val popupView = LayoutInflater.from(context).inflate(R.layout.popup_layout, null)
 
-            View.OnClickListener onClickListener = v -> setPathId(profileItem.id);
-            itemView.setOnClickListener(onClickListener);
-            binding.radioButton.setOnClickListener(onClickListener);
+            val popupWindow = PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+            )
 
-            binding.rename.setOnClickListener(v -> {
-                if (!profileItem.id.equals("default")) {
-                    Context context = binding.rename.getContext();
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
 
-                    new EditTextDialog.Builder(context)
-                            .setTitle(R.string.generic_rename)
-                            .setEditText(profileItem.title)
-                            .setConfirmListener(editBox -> {
-                                String string = editBox.getText().toString();
-                                if (string.isEmpty()) {
-                                    editBox.setError(context.getString(R.string.generic_error_field_empty));
-                                    return false;
-                                }
-
-                                mData.get(position).title = string;
-                                updateData(mData);
-                                return true;
-                            }).buildDialog();
-                }
-            });
-
-            binding.visit.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().getAbsolutePath());
-                bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path);
-                ZHTools.swapFragmentWithAnim(fragment, FilesFragment.class, FilesFragment.TAG, bundle);
-            });
-
-            binding.delete.setOnClickListener(v -> {
-                if (!profileItem.id.equals("default")) {
-                    Context context = binding.delete.getContext();
-                    new TipDialog.Builder(context)
-                            .setTitle(context.getString(R.string.profiles_path_delete_title))
-                            .setMessage(R.string.profiles_path_delete_message)
-                            .setCancelable(false)
-                            .setConfirmClickListener(() -> {
-                                if (Objects.equals(currentId, profileItem.id)) {
-                                    //如果删除的是当前选中的路径，那么将自动选择为默认路径
-                                    setPathId("default");
-                                }
-                                mData.remove(position);
-                                updateData(mData);
-                            }).buildDialog();
-                }
-            });
-
-            if (profileItem.id.equals("default")) {
-                binding.rename.setVisibility(View.GONE);
-                binding.delete.setVisibility(View.GONE);
+            val listView = popupView.findViewById<ListView>(R.id.listView)
+            val settings: MutableList<String> = ArrayList()
+            settings.add(context.getString(R.string.profiles_path_settings_goto))
+            if (!isDefault) {
+                settings.add(context.getString(R.string.generic_rename))
+                settings.add(context.getString(R.string.generic_delete))
             }
+            val adapter = ArrayAdapter(
+                context,
+                android.R.layout.simple_list_item_1,
+                settings.toTypedArray()
+            )
 
-            if (Objects.equals(currentId, profileItem.id)) {
-                updateRadioButtonState(profileItem.id);
-            }
+            listView.adapter = adapter
+            listView.onItemClickListener =
+                AdapterView.OnItemClickListener { _, _, position: Int, _ ->
+                    when (position) {
+                        1 -> {
+                            EditTextDialog.Builder(context)
+                                .setTitle(R.string.generic_rename)
+                                .setEditText(profileItem.title)
+                                .setConfirmListener { editBox: EditText ->
+                                    val string = editBox.text.toString()
+                                    if (string.isEmpty()) {
+                                        editBox.error =
+                                            context.getString(R.string.generic_error_field_empty)
+                                        return@setConfirmListener false
+                                    }
+
+                                    mData[position].title = string
+                                    refresh()
+                                    true
+                                }.buildDialog()
+                        }
+
+                        2 -> {
+                            TipDialog.Builder(context)
+                                .setTitle(context.getString(R.string.profiles_path_delete_title))
+                                .setMessage(R.string.profiles_path_delete_message)
+                                .setCancelable(false)
+                                .setConfirmClickListener {
+                                    if (currentId == profileItem.id) {
+                                        //如果删除的是当前选中的路径，那么将自动选择为默认路径
+                                        setPathId("default")
+                                    }
+                                    mData.removeAt(itemIndex)
+                                    refresh()
+                                }.buildDialog()
+                        }
+
+                        else -> {
+                            val bundle = Bundle()
+                            bundle.putString(
+                                FilesFragment.BUNDLE_LOCK_PATH,
+                                Environment.getExternalStorageDirectory().absolutePath
+                            )
+                            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path)
+                            ZHTools.swapFragmentWithAnim(
+                                fragment,
+                                FilesFragment::class.java, FilesFragment.TAG, bundle
+                            )
+                        }
+                    }
+                    popupWindow.dismiss()
+                }
+
+            popupWindow.showAsDropDown(anchorView)
         }
     }
 }

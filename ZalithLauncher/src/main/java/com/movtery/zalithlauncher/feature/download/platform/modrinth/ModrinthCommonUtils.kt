@@ -139,6 +139,25 @@ class ModrinthCommonUtils {
             )
         }
 
+        fun getInfo(api: ApiHandler, classify: Classify, projectId: String): InfoItem? {
+            searchModFromID(api, projectId)?.let { hit ->
+                return InfoItem(
+                    classify,
+                    Platform.MODRINTH,
+                    projectId,
+                    hit.get("slug").asString,
+                    null,
+                    hit.get("title").asString,
+                    hit.get("description").asString,
+                    hit.get("downloads").asLong,
+                    ZHTools.getDate(hit.get("published").asString),
+                    getIconUrl(hit),
+                    getAllCategories(hit).toList()
+                )
+            }
+            return null
+        }
+
         @Throws(Throwable::class)
         internal fun <T> getCommonVersions(
             api: ApiHandler,

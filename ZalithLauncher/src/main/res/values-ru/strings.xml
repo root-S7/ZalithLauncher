@@ -64,14 +64,10 @@
     <string name="customctrl_editor_exit_msg">Вы уверены, что хотите выйти?</string>
     <string name="customctrl_editor_exit">Выйти из редактора</string>
     <string name="global_save_and_exit">Сохранить и выйти</string>
-    <string name="unnamed">Без названия</string>
-    <string name="version_installed">Установлено</string>
     <string name="version_release">Релиз</string>
     <string name="version_snapshot">Снимок</string>
     <string name="version_alpha">Альфа</string>
     <string name="version_beta">Бета</string>
-    <string name="profiles_latest_snapshot">Последний снимок</string>
-    <string name="profiles_latest_release">Последний релиз</string>
     <string name="force_exit_confirm">Вы уверены, что хотите принудительно закрыть?</string>
     <string name="autoram_info_msg">Память установлена на %d МБ</string>
     <string name="memory_warning_msg">Доступная память (%d) ниже выделенной (%d), это может привести к сбою игры. Если игра закроется, измените конфигурацию!</string>
@@ -117,19 +113,7 @@
     <string name="mod_forge_searching">Поиск номера версии Forge</string>
     <string name="mod_neoforge_searching">Поиск номера версии NeoForge</string>
     <string name="mod_failed_to_load_list">Не удалось загрузить список версий!</string>
-    <string name="mod_no_installer">Извините, для этой версии %s нет установщика, поддержка пока не реализована</string>
-    <string name="mod_fabric_cant_read_meta">Не удалось прочитать метаданные загрузчика %s, пожалуйста, повторите попытку позже</string>
-    <string name="mod_optifine_failed_to_scrape">Не удалось собрать данные установки OptiFine</string>
     <string name="mod_optifine_progress">Загрузка %s</string>
-    <string name="create_profile">Создать новый экземпляр</string>
-    <string name="create_profile_vanilla_like_versions">Версии, похожие на ванильные</string>
-    <string name="create_profile_modded_versions">Модифицированные версии</string>
-    <string name="create_profile_vanilla">Создать ванильный экземпляр</string>
-    <string name="create_profile_optifine">Создать экземпляр OptiFine</string>
-    <string name="create_profile_forge">Создать экземпляр Forge</string>
-    <string name="create_profile_neoforge">Создать экземпляр NeoForge</string>
-    <string name="create_profile_fabric">Создать экземпляр Fabric</string>
-    <string name="create_profile_quilt">Создать экземпляр Quilt</string>
     <!-- Controls -->
     <string name="control_primary">Левая кнопка</string>
     <string name="control_secondary">Правая кнопка</string>
@@ -210,19 +194,40 @@
     <string name="controller_dpad_right">Правая кнопка D-pad</string>
     <string name="controller_remapper_operating_mode">Текущий режим</string>
     <string name="controller_remapper_expand_entry">Разверните, чтобы изменить код кнопки</string>
+    <!-- Version -->
+    <string name="version_manager_title">Управление версиями</string>
+    <string name="version_no_versions">Нет установленных версий</string>
+    <string name="version_install_new">Установить новую версию</string>
+    <string name="version_install_not_install">Не устанавливать</string>
+    <string name="version_install_incompatible">Не совместимо с %s</string>
+    <string name="version_install_exists">Версия с таким именем уже существует!</string>
+    <string name="version_install_no_versions">Нет доступных версий для выбора!</string>
+    <string name="version_install_cannot_use_mc_name">Выбран дополнительный контент, и необходимо обеспечить независимость оригинального ядра. Пожалуйста, не используйте оригинальное имя!</string>
+    <string name="version_manager_shortcuts">Ярлыки</string>
+    <string name="version_manager_shortcuts_mods">Управление модами</string>
+    <string name="version_manager_shortcuts_version_path">Папка пути версии</string>
+    <string name="version_manager_shortcuts_resource_path">Папка пакета ресурсов</string>
+    <string name="version_manager_shortcuts_world_path">Папка сохранений мира</string>
+    <string name="version_manager_shortcuts_shader_path">Папка пакета шейдеров</string>
+    <string name="version_manager_shortcuts_logs_path">Папка логов</string>
+    <string name="version_manager_shortcuts_crash_report_path">Папка отчетов об ошибках</string>
+    <string name="version_manager_edit">Редактировать версию</string>
+    <string name="version_manager_delete">Удалить версию</string>
+    <string name="version_manager_delete_tip">Если изоляция версий включена, ваши сохранения, пакеты ресурсов и моды будут удалены вместе с версией. Пожалуйста, сделайте резервную копию перед выполнением этой операции!</string>
+    <string name="version_manager_task_in_progress">Задача в процессе, управление версиями временно недоступно</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
     <string name="profiles_path_title">Управление путями игры</string>
     <string name="profiles_path_default">Путь по умолчанию</string>
+    <string name="profiles_path_settings">Открыть настройки пути</string>
+    <string name="profiles_path_settings_goto">Открыть эту директорию</string>
     <string name="profiles_path_create_new">Добавить новый путь</string>
     <string name="profiles_path_create_new_title">Назовите этот путь</string>
     <string name="profiles_path_delete_title">Удалить этот путь</string>
     <string name="profiles_path_delete_message">Лаунчер удалит этот путь, но не удалит файлы, сохраненные в соответствующем пути, после удаления этот путь все еще можно будет добавить снова</string>
-    <string name="profiles_path_task_in_progress">Задача выполняется, управление путями временно недоступно</string>
     <!-- Profile -->
-    <string name="pedit_profile_version">Версия</string>
+    <string name="pedit_isolation_enabled">Включить изоляцию версий</string>
     <string name="pedit_control">Раскладка управления</string>
-    <string name="pedit_custom_path">Пользовательский путь</string>
     <string name="pedit_default">(Использовать глобальное значение по умолчанию)</string>
     <string name="profile_mods_download_mod">Скачать мод</string>
     <string name="profile_mods_download_mod_release_version">Показывать только официальные версии Minecraft</string>
@@ -231,19 +236,6 @@
     <string name="profile_mods_disable">Отключить</string>
     <string name="profile_mods_enable">Включить</string>
     <string name="profile_mods_disable_or_enable">Отключить/Включить</string>
-    <string name="profile_manager_shortcuts">Быстрые функции</string>
-    <string name="profile_manager_shortcuts_mods">Управление модами</string>
-    <string name="profile_manager_shortcuts_instance_path">Папка с экземплярами</string>
-    <string name="profile_manager_shortcuts_resource_path">Папка с ресурс-паками</string>
-    <string name="profile_manager_shortcuts_world_path">Папка с сохранениями игры</string>
-    <string name="profile_manager_shortcuts_shader_path">Папка с пакетом шейдеров</string>
-    <string name="profile_manager_shortcuts_logs_path">Папка с логами</string>
-    <string name="profile_manager_shortcuts_crash_report_path">Папка с отчетами о сбоях</string>
-    <string name="profile_manager_edit">Редактировать экземпляр</string>
-    <string name="profile_manager_delete">Удалить экземпляр</string>
-    <string name="profile_manager_delete_message">Это действие удалит этот экземпляр, но не удалит связанные с ним файлы игры</string>
-    <string name="profile_manager_download_optifine">Установить OptiFine Mod</string>
-    <string name="profile_manager_download_optifine_message">Скачайте и установите OptiFine только как Mod. Убедитесь, что выбранный экземпляр поддерживает запуск OptiFine Mod</string>
     <!-- Account -->
     <string name="account_login_done">Вход выполнен</string>
     <string name="account_add">Добавить аккаунт</string>
@@ -471,7 +463,7 @@
     <string name="game_singnal_message">Приложение/игра было прервано из-за критического сигнала %d.</string>
     <string name="game_exit_note">Для получения подробностей об ошибке проверьте файл журнала или отчёт о сбое. Если вы не можете решить проблему самостоятельно, отправьте журнал или отчёт о сбое тому, кто может вам помочь!</string>
     <string name="game_exit_no_screenshot">Пожалуйста, не делайте просто скриншот текущего интерфейса приложения, иначе никто не узнает, что произошло. Поделитесь файлом журнала или отчётом о сбое!</string>
-    <string name="game_autopick_runtime_failed">Подходящая среда выполнения не найдена, установлено значение среды выполнения, выбранной для текущего экземпляра</string>
+    <string name="game_autopick_runtime_failed">Не найдена подходящая среда выполнения, установлено для выбранной среды выполнения текущей версии</string>
     <string name="game_tip">Игра запущена, вы можете включить вывод логов через меню, чтобы следить за её работой</string>
     <string name="game_tip_version">Текущая версия запускаемой игры:</string>
     <!-- Download -->
@@ -522,10 +514,6 @@
     <string name="modpack_download_downloading_mods">Загрузка модов (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Загрузка модов (загружено файлов: %d, всего файлов: %d)</string>
     <string name="modpack_download_applying_overrides">Применение переопределений (%d/%d)</string>
-    <string name="modpack_install_notification_title">Установщик модпака Zalith</string>
-    <string name="modpack_install_notification_success">Нажмите здесь, чтобы завершить установку модпака</string>
-    <string name="modpack_install_notification_data_not_available">Не удалось загрузить информацию о загрузчике модов</string>
-    <string name="modpack_install_modloader_download_failed">Не удалось загрузить файл загрузчика модов</string>
     <string name="modpack_install_download_failed">Не удалось загрузить файлы модпака</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Очистить кэш</string>
@@ -617,7 +605,6 @@
     <string name="newbie_guide_mod_search">Нажмите, чтобы вызвать панель поиска, с её помощью вы сможете быстро найти нужный вам мод.</string>
     <string name="newbie_guide_mod_import">Выберите файл мода в нативный файловом менеджере, чтобы импортировать его в текущую папку модов.</string>
     <string name="newbie_guide_mod_download">Нажмите, чтобы перейти на страницу загрузки модов, где вы можете искать и загружать моды онлайн.</string>
-    <string name="newbie_guide_profiles_path_create">Нажмите эту кнопку, чтобы создать новый путь к игре.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Поддержите мою разработку</string>
     <string name="request_sponsorship_message">Большую часть этого программного обеспечения разработал и поддерживаю только я. Если вы считаете, что это программное обеспечение полезно для вас и у вас есть возможность, пожалуйста, рассмотрите возможность поддержки меня, чтобы у меня было больше мотивации продолжать разработку и улучшение. Спасибо за вашу поддержку!</string>

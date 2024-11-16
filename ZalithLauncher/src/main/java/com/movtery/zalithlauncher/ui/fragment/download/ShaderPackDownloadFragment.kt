@@ -9,20 +9,19 @@ import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.Platform
+import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper.Companion.getShaderPackPath
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
-import java.io.File
 
 class ShaderPackDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
     parentFragment,
     Classify.SHADER_PACK,
     CategoryUtils.getShaderPackCategory(),
     false,
-    sShaderPackPath,
     Platform.MODRINTH
 ) {
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
@@ -34,7 +33,7 @@ class ShaderPackDownloadFragment(parentFragment: Fragment? = null) : AbstractRes
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireActivity(), uri, sShaderPackPath.absolutePath)
+                        copyFileInBackground(requireActivity(), uri, getShaderPackPath().absolutePath)
                     }
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
@@ -53,9 +52,5 @@ class ShaderPackDownloadFragment(parentFragment: Fragment? = null) : AbstractRes
             ).show()
             openDocumentLauncher?.launch(suffix)
         }
-    }
-
-    companion object {
-        private val sShaderPackPath = File(sGameDir, "/shaderpacks")
     }
 }
