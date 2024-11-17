@@ -39,6 +39,8 @@ class VersionAdapter(private val listener: OnVersionItemClickListener) : Recycle
         private val mContext = binding.root.context
 
         fun bind(version: Version?) {
+            binding.versionInfo.removeAllViews()
+
             version?.let {
                 binding.version.text = it.getVersionName()
 
