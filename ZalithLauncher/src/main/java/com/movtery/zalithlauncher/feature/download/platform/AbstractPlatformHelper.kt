@@ -12,6 +12,7 @@ import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.download.item.ScreenshotItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
+import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionFolderChecker
@@ -85,11 +86,13 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
                                 infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(string)) }
 
+                                val minecraftVersion = modloader.minecraftVersion
+
                                 modloader.getDownloadTask()?.let { downloadTask ->
                                     VersionFolderChecker.checkVersionsFolder(forceCheck = true, identifier = string)
 
                                     VersionInfo(
-                                        modloader.minecraftVersion,
+                                        minecraftVersion,
                                         arrayOf(
                                             VersionInfo.LoaderInfo(
                                                 modloader.modLoader.loaderName,
@@ -98,12 +101,15 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                                         )
                                     ).save(versionPath)
 
+                                    Logging.i("Install Version", "Installing ModLoader: ${modloader.modLoader.loaderName}")
                                     downloadTask.run()?.let { file ->
                                         return@runTask Pair(modloader, file)
                                     }
                                 }
 
-                                VersionInfo(modloader.minecraftVersion, emptyArray()).save(versionPath)
+                                if (string != minecraftVersion) {
+                                    VersionInfo(minecraftVersion, emptyArray()).save(versionPath)
+                                }
 
                                 return@runTask null
                             }.ended(TaskExecutors.getAndroidUI()) { filePair ->

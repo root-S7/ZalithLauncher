@@ -97,6 +97,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.Objects;
 import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
@@ -275,12 +276,13 @@ public class LauncherActivity extends BaseActivity {
                         if (modLoaderWrapper != null) {
                             InstallTask downloadTask = modLoaderWrapper.getDownloadTask();
                             File versionFolder = VersionsManager.INSTANCE.getVersionPath(string);
+                            String minecraftVersion = modLoaderWrapper.getMinecraftVersion();
 
                             if (downloadTask != null) {
                                 VersionFolderChecker.checkVersionsFolder(false, true, string);
 
                                 new VersionInfo(
-                                        modLoaderWrapper.getMinecraftVersion(),
+                                        minecraftVersion,
                                         new VersionInfo.LoaderInfo[]{
                                                 new VersionInfo.LoaderInfo(
                                                         modLoaderWrapper.getModLoader().getLoaderName(),
@@ -289,13 +291,16 @@ public class LauncherActivity extends BaseActivity {
                                         }
                                 ).save(versionFolder);
 
+                                Logging.i("Install Version", "Installing ModLoader: " + modLoaderWrapper.getModLoader().getLoaderName());
                                 File file = downloadTask.run();
                                 if (file != null) {
                                     return new kotlin.Pair<>(modLoaderWrapper, file);
                                 }
                             }
 
-                            new VersionInfo(modLoaderWrapper.getMinecraftVersion(), new VersionInfo.LoaderInfo[]{}).save(versionFolder);
+                            if (Objects.equals(minecraftVersion, string)) {
+                                new VersionInfo(minecraftVersion, new VersionInfo.LoaderInfo[]{}).save(versionFolder);
+                            }
                         }
                         return null;
                     }).beforeStart(TaskExecutors.getAndroidUI(), () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)).ended(TaskExecutors.getAndroidUI(), filePair -> {

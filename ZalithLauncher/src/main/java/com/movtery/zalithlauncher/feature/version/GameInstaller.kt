@@ -52,7 +52,7 @@ class GameInstaller(
                         }
 
                         modTask.forEach { task ->
-                            Logging.i("Install Version", "Installing Mod: " + task.selectedVersion)
+                            Logging.i("Install Version", "Installing Mod: ${task.selectedVersion}")
                             val file = task.task.run()
                             val endTask = task.endTask
                             file?.let { endTask?.endTask(activity, it) }
@@ -71,12 +71,14 @@ class GameInstaller(
                                 )
                             ).save(versionFolder)
 
-                            Logging.i("Install Version", "Installing ModLoader: " + taskPair.second.selectedVersion)
+                            Logging.i("Install Version", "Installing ModLoader: ${taskPair.second.selectedVersion}")
                             val file = taskPair.second.task.run()
                             return@runTask Pair(file, taskPair.second)
                         }
 
-                        VersionInfo(realVersion, emptyArray()).save(versionFolder)
+                        if (customVersionName != realVersion) {
+                            VersionInfo(realVersion, emptyArray()).save(versionFolder)
+                        }
                         null
                     }.onThrowable { e ->
                         Tools.showErrorRemote(e)
