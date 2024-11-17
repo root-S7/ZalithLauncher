@@ -559,7 +559,8 @@
     <string name="splash_screen_cacio">يوفر نظام GUI قابل للنقل لـ OpenJDK.</string>
     <string name="splash_screen_authlib_injector">يتم تعديل authlib عبر وقت التشغيل لتمكين تسجيل الدخول خارج اللعبة.</string>
     <string name="splash_screen_pro_grade">تقوم هذه المكتبة بتنفيذ مدير أمان Java مخصص وسياسة أمان تحتوي على قواعد الرفض.</string>
-    <string name="splash_screen_forge_installer">يساعد في التثبيت التلقائي لـ Forge و OptiFine.</string>
+    <string name="splash_screen_optifine_installer">يساعد في التثبيت التلقائي لـ OptiFine.</string>
+    <string name="splash_screen_forge_install_bootstrapper">يساعد في التثبيت التلقائي لـ Forge.</string>
     <string name="splash_screen_jre8">بيئة Java 8، يعتمد Minecraft 1.16- على Java 8.</string>
     <string name="splash_screen_jre17">بيئة Java 17، يعتمد Minecraft 1.17+ على Java 17.</string>
     <string name="splash_screen_jre21">بيئة Java 21، يعتمد Minecraft 1.20.5+ على Java 21.</string>
@@ -580,7 +581,7 @@
     <string name="about_VeraFirefly_desc">قدّم دعمًا تقنيًا في مجال العرض للمشغل</string>
     <string name="about_LingMuQiuZhu_desc">قدّم دعمًا تقنيًا للمشغل</string>
     <string name="about_ShirosakiMio_desc">قدّم دعمًا تقنيًا للمشغل وأصلح بعض الأخطاء</string>
-    <string name="about_bangbang93_desc">يستخدم المشغل مصدر المرآة BMCLAPI الذي أنشأه</string>
+    <string name="about_bangbang93_desc">المشغل يستخدم مصدر المرآة BMCLAPI الذي أنشأه، مع Forge Install Bootstrapper.</string>
     <string name="about_access_space">الوصول إلى المساحة</string>
     <string name="about_access_link">رابط الوصول</string>
     <string name="about_version_name">اسم إصدار البرنامج:</string>

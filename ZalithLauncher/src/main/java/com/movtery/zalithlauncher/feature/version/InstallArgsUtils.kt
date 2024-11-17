@@ -6,7 +6,7 @@ import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import java.io.File
 
-class InstallArgsUtils(val mcVersion: String, val loaderVersion: String) {
+class InstallArgsUtils(private val mcVersion: String, private val loaderVersion: String) {
     fun setFabric(intent: Intent, jarFile: File) {
         val args = "-jar ${jarFile.absolutePath} client -mcversion $mcVersion -loader $loaderVersion -dir ${ProfilePathHome.gameHome}"
         intent.putExtra("javaArgs", args)
@@ -22,7 +22,9 @@ class InstallArgsUtils(val mcVersion: String, val loaderVersion: String) {
     }
 
     fun setForge(intent: Intent, jarFile: File) {
-        val args = "-javaagent:${PathAndUrlManager.DIR_DATA}/forge_installer/forge_installer.jar=\"$loaderVersion\" -jar ${jarFile.absolutePath}"
+        val args = "-cp ${PathAndUrlManager.DIR_DATA}/forge_install_bootstrapper/forge-install-bootstrapper.jar:${jarFile.absolutePath} com.bangbang93.ForgeInstaller ${ProfilePathHome.gameHome}"
+        intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
+        intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true)
         intent.putExtra("javaArgs", args)
     }
 
@@ -34,7 +36,7 @@ class InstallArgsUtils(val mcVersion: String, val loaderVersion: String) {
     }
 
     fun setOptiFine(intent: Intent, jarFile: File) {
-        val args = "-javaagent:${PathAndUrlManager.DIR_DATA}/forge_installer/forge_installer.jar=OFNPS -jar ${jarFile.getAbsolutePath()}"
+        val args = "-javaagent:${PathAndUrlManager.DIR_DATA}/forge_installer/forge_installer.jar=OFNPS -jar ${jarFile.absolutePath}"
         intent.putExtra("javaArgs", args)
     }
 }
