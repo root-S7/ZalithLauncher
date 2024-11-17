@@ -214,6 +214,7 @@
     <string name="version_manager_shortcuts_logs_path">Protokolldatei-Ordner</string>
     <string name="version_manager_shortcuts_crash_report_path">Absturzbericht-Ordner</string>
     <string name="version_manager_edit">Version bearbeiten</string>
+    <string name="version_manager_rename">Version umbenennen</string>
     <string name="version_manager_delete">Version löschen</string>
     <string name="version_manager_delete_tip">Wenn die Versionsisolierung aktiviert ist, werden beim Löschen auch wichtige Daten wie Spielstände, Ressourcenpakete und Mods gelöscht. Bitte erstellen Sie vorher ein Backup!</string>
     <string name="version_manager_task_in_progress">Aufgabe wird ausgeführt, Versionsverwaltung ist vorübergehend nicht verfügbar</string>

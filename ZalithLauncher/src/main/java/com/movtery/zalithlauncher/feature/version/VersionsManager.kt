@@ -4,12 +4,14 @@ import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.utils.file.FileTools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import net.kdt.pojavlaunch.Tools
+import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.io.FileWriter
@@ -161,6 +163,31 @@ object VersionsManager {
                 FileWriter(this).use { it.write(versionName) }
             }.getOrElse { e -> Logging.e("Save Current Version", Tools.printToString(e)) }
         }
+    }
+
+    /**
+     * 重命名当前版本，但并不会在这里对即将重命名的名称，进行非法性判断
+     */
+    fun renameVersion(version: Version, name: String) {
+        val versionFolder = getVersionPath(version)
+        val renameFolder = File(ProfilePathHome.versionsHome, name)
+
+        val originalName = versionFolder.name
+
+        FileTools.renameFile(versionFolder, renameFolder)
+
+        val versionJsonFile = File(renameFolder, "$originalName.json")
+        val versionJarFile = File(renameFolder, "$originalName.jar")
+        val renameJsonFile = File(renameFolder, "$name.json")
+        val renameJarFile = File(renameFolder, "$name.jar")
+
+        FileTools.renameFile(versionJsonFile, renameJsonFile)
+        FileTools.renameFile(versionJarFile, renameJarFile)
+
+        FileUtils.deleteQuietly(versionFolder)
+
+        //重命名后，需要刷新列表
+        refresh()
     }
 
     /**

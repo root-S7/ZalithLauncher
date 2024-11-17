@@ -214,6 +214,7 @@
     <string name="version_manager_shortcuts_logs_path">Thư mục nhật ký</string>
     <string name="version_manager_shortcuts_crash_report_path">Thư mục báo cáo lỗi</string>
     <string name="version_manager_edit">Chỉnh sửa phiên bản</string>
+    <string name="version_manager_rename">Đổi tên phiên bản</string>
     <string name="version_manager_delete">Xóa phiên bản</string>
     <string name="version_manager_delete_tip">Nếu chức năng cách ly phiên bản được bật, khi xóa sẽ xóa luôn các dữ liệu quan trọng như lưu game, gói tài nguyên, mod. Vui lòng sao lưu trước khi thực hiện thao tác này!</string>
     <string name="version_manager_task_in_progress">Đang thực hiện tác vụ, quản lý phiên bản tạm thời không khả dụng</string>

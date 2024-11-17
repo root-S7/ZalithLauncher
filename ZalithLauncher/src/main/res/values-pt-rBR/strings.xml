@@ -214,6 +214,7 @@
     <string name="version_manager_shortcuts_logs_path">Pasta de logs</string>
     <string name="version_manager_shortcuts_crash_report_path">Pasta de relatórios de falha</string>
     <string name="version_manager_edit">Editar versão</string>
+    <string name="version_manager_rename">Renomear versão</string>
     <string name="version_manager_delete">Excluir versão</string>
     <string name="version_manager_delete_tip">Se o isolamento de versões estiver ativado, seus jogos salvos, pacotes de recursos e mods serão excluídos junto com a versão. Certifique-se de fazer um backup antes de realizar esta operação!</string>
     <string name="version_manager_task_in_progress">Tarefa em andamento, gerenciamento de versões temporariamente indisponível</string>

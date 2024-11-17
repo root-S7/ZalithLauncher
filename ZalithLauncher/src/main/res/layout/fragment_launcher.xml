@@ -173,7 +173,7 @@
                     android:id="@+id/manager_profile_button"
                     android:layout_width="@dimen/_38sdp"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside"

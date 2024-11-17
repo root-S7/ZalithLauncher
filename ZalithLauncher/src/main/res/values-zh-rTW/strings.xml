@@ -214,6 +214,7 @@
     <string name="version_manager_shortcuts_logs_path">日誌資料夾</string>
     <string name="version_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
     <string name="version_manager_edit">編輯版本</string>
+    <string name="version_manager_rename">重新命名版本</string>
     <string name="version_manager_delete">刪除版本</string>
     <string name="version_manager_delete_tip">如果開啟了版本隔離功能，刪除版本時會一併刪除你的遊戲存檔、資源包和 Mod 等重要資料，請務必先做好備份再進行此操作！</string>
     <string name="version_manager_task_in_progress">任務執行中，暫時無法使用版本管理功能</string>

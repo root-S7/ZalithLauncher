@@ -214,6 +214,7 @@
     <string name="version_manager_shortcuts_logs_path">Папка логов</string>
     <string name="version_manager_shortcuts_crash_report_path">Папка отчетов об ошибках</string>
     <string name="version_manager_edit">Редактировать версию</string>
+    <string name="version_manager_rename">Переименовать версию</string>
     <string name="version_manager_delete">Удалить версию</string>
     <string name="version_manager_delete_tip">Если изоляция версий включена, ваши сохранения, пакеты ресурсов и моды будут удалены вместе с версией. Пожалуйста, сделайте резервную копию перед выполнением этой операции!</string>
     <string name="version_manager_task_in_progress">Задача в процессе, управление версиями временно недоступно</string>

@@ -220,6 +220,7 @@
     <string name="version_manager_shortcuts_logs_path">Log Folder</string>
     <string name="version_manager_shortcuts_crash_report_path">Crash Report Folder</string>
     <string name="version_manager_edit">Edit Version</string>
+    <string name="version_manager_rename">Rename Version</string>
     <string name="version_manager_delete">Delete Version</string>
     <string name="version_manager_delete_tip">If version isolation is enabled, your game saves, resource packs, mods, and other important resources will be deleted along with the version. Please make sure to back up your data before performing this operation!</string>
     <string name="version_manager_task_in_progress">Task in progress, version management is temporarily unavailable</string>
