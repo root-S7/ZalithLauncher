@@ -23,6 +23,7 @@ class LaunchArgs(
     private val gameDirPath: File,
     private val versionId: String,
     private val versionInfo: Version,
+    private val versionFileName: String,
     private val runtime: Runtime,
     private val launchClassPath: String
 ) {
@@ -76,10 +77,14 @@ class LaunchArgs(
         varArgMap["natives_directory"] = PathAndUrlManager.DIR_NATIVE_LIB
 
         val minecraftArgs: MutableList<String> = java.util.ArrayList()
-        if (versionInfo.arguments != null) {
-            for (arg in versionInfo.arguments.jvm) {
+        versionInfo.arguments?.let {
+            fun String.addIgnoreListIfHas(): String {
+                if (startsWith("-DignoreList=")) return "$this,$versionFileName.jar"
+                return this
+            }
+            for (arg in it.jvm) {
                 if (arg is String) {
-                    minecraftArgs.add(arg)
+                    minecraftArgs.add(arg.addIgnoreListIfHas())
                 }
             }
         }

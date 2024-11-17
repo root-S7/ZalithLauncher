@@ -110,6 +110,7 @@ class LaunchGame {
                 gameDirPath,
                 versionId,
                 versionInfo,
+                minecraftVersion.getVersionName(),
                 runtime,
                 launchClassPath
             ).getAllArgs()
