@@ -24,7 +24,8 @@ class GameInstaller(
     private val customVersionName: String = installEvent.customVersionName
     private val taskMap: Map<Addon, InstallTaskItem> = installEvent.taskMap
     private val isolation = installEvent.isIsolation
-    private val versionFolder = File(ProfilePathHome.versionsHome, customVersionName)
+    private val targetVersionFolder = VersionsManager.getVersionPath(customVersionName)
+    private val vanillaVersionFolder = VersionsManager.getVersionPath(realVersion)
 
     fun installGame() {
         Logging.i("Minecraft Downloader", "Start downloading the version: $realVersion")
@@ -38,12 +39,24 @@ class GameInstaller(
                     val installModVersion = InstallingVersionEvent()
                     Task.runTask {
                         if (isolation) {
-                            if (!versionFolder.exists() && !versionFolder.mkdirs()) throw IOException("Failed to create version folder!")
-                            VersionConfig(versionFolder).saveWithThrowable() //保存版本隔离的特征文件
+                            if (!targetVersionFolder.exists() && !targetVersionFolder.mkdirs()) throw IOException("Failed to create version folder!")
+                            VersionConfig(targetVersionFolder).saveWithThrowable() //保存版本隔离的特征文件
                         }
 
                         if (taskMap.isNotEmpty()) EventBus.getDefault().postSticky(installModVersion)
+                        else {
+                            //如果附加附件是空的，则表明只需要安装原版，需要确保这个自定义的版本文件夹内必定有原版的.json文件
+                            if (VersionsManager.isVersionExists(realVersion)) {
+                                //找到原版的.json文件，在MinecraftDownloader开始时，已经下载了
+                                val vanillaJsonFile = File(vanillaVersionFolder, "${vanillaVersionFolder.name}.json")
+                                if (vanillaJsonFile.exists() && vanillaJsonFile.isFile) {
+                                    //如果原版的.json文件存在，则直接复制过来用
+                                    FileUtils.copyFile(vanillaJsonFile, File(targetVersionFolder, "$customVersionName.json"))
+                                }
+                            }
+                        }
 
+                        //将Mod与Modloader的任务分离出来，应该先安装Mod
                         val modTask: MutableList<InstallTaskItem> = ArrayList()
                         val modloaderTask = AtomicReference<Pair<Addon, InstallTaskItem>>() //暂时只允许同时安装一个ModLoader
                         taskMap.forEach { (addon, taskItem) ->
@@ -51,6 +64,7 @@ class GameInstaller(
                             else modloaderTask.set(Pair(addon, taskItem))
                         }
 
+                        //下载Mod文件
                         modTask.forEach { task ->
                             Logging.i("Install Version", "Installing Mod: ${task.selectedVersion}")
                             val file = task.task.run()
@@ -58,6 +72,7 @@ class GameInstaller(
                             file?.let { endTask?.endTask(activity, it) }
                         }
 
+                        //开始安装ModLoader，可能会创建新的版本文件夹，所以在这一步开始打个标记
                         VersionFolderChecker.checkVersionsFolder(forceCheck = true, identifier = customVersionName)
 
                         modloaderTask.get()?.let { taskPair ->
@@ -69,7 +84,7 @@ class GameInstaller(
                                         taskPair.second.selectedVersion
                                     )
                                 )
-                            ).save(versionFolder)
+                            ).save(targetVersionFolder)
 
                             Logging.i("Install Version", "Installing ModLoader: ${taskPair.second.selectedVersion}")
                             val file = taskPair.second.task.run()
@@ -77,7 +92,7 @@ class GameInstaller(
                         }
 
                         if (customVersionName != realVersion) {
-                            VersionInfo(realVersion, emptyArray()).save(versionFolder)
+                            VersionInfo(realVersion, emptyArray()).save(targetVersionFolder)
                         }
                         null
                     }.onThrowable { e ->
