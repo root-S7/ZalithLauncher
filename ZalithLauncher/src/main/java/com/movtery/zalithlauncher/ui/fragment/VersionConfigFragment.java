@@ -12,19 +12,16 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentVersionConfigBinding;
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
+import com.movtery.zalithlauncher.feature.version.VersionIconSetter;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
@@ -40,7 +37,6 @@ import net.kdt.pojavlaunch.multirt.Runtime;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -122,7 +118,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         binding.isolation.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                mTempConfig = new VersionConfig(new File(ProfilePathHome.getVersionsHome(), mTempVersion.getVersionName()));
+                mTempConfig = new VersionConfig(VersionsManager.INSTANCE.getVersionPath(mTempVersion.getVersionName()));
                 show();
                 loadValues(view.getContext());
             } else {
@@ -149,16 +145,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
     }
 
     private void refreshIcon() {
-        File iconFile = VersionsManager.INSTANCE.getVersionIconFile(mTempVersion);
-        if (iconFile.exists()) {
-            Glide.with(requireActivity())
-                    .load(iconFile)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(binding.icon);
-        } else {
-            binding.icon.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_minecraft));
-        }
+        new VersionIconSetter(binding.icon, mTempVersion).start();
     }
 
     private void setIsolationVisible(boolean visible) {

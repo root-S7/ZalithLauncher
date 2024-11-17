@@ -217,6 +217,7 @@
     <string name="version_manager_delete">Xóa phiên bản</string>
     <string name="version_manager_delete_tip">Nếu chức năng cách ly phiên bản được bật, khi xóa sẽ xóa luôn các dữ liệu quan trọng như lưu game, gói tài nguyên, mod. Vui lòng sao lưu trước khi thực hiện thao tác này!</string>
     <string name="version_manager_task_in_progress">Đang thực hiện tác vụ, quản lý phiên bản tạm thời không khả dụng</string>
+    <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
     <string name="profiles_path_title">Quản lý đường dẫn trò chơi</string>

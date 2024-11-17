@@ -8,10 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.R;
@@ -20,6 +17,7 @@ import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.event.single.LaunchGameEvent;
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent;
 import com.movtery.zalithlauncher.feature.version.Version;
+import com.movtery.zalithlauncher.feature.version.VersionIconSetter;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.ShareLogDialog;
@@ -39,8 +37,6 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.io.File;
 
 public class MainMenuFragment extends FragmentWithAnim {
     public static final String TAG = "MainMenuFragment";
@@ -113,17 +109,9 @@ public class MainMenuFragment extends FragmentWithAnim {
             if (version != null) {
                 binding.versionName.setText(version.getVersionName());
 
-                File iconFile = VersionsManager.INSTANCE.getVersionIconFile(version);
-                if (iconFile.exists()) {
-                    Glide.with(this)
-                            .load(iconFile)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(true)
-                            .into(binding.versionIcon);
-                }
+                new VersionIconSetter(binding.versionIcon, version).start();
                 binding.managerProfileButton.setVisibility(View.VISIBLE);
             } else {
-                binding.versionIcon.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_minecraft));
                 binding.versionName.setText(R.string.version_no_versions);
                 binding.managerProfileButton.setVisibility(View.GONE);
             }

@@ -10,6 +10,7 @@ import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
 import com.movtery.zalithlauncher.feature.mod.modpack.MCBBSModPack
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils.ModPackEnum
 import com.movtery.zalithlauncher.feature.version.VersionConfig
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
@@ -31,7 +32,7 @@ class InstallLocalModPack {
             try {
                 ZipFile(zipFile).use { modpackZipFile ->
                     val modLoader: ModLoaderWrapper?
-                    val versionPath = VersionConfig.getVersionPath(customVersionName)
+                    val versionPath = VersionsManager.getVersionPath(customVersionName)
 
                     when (type) {
                         ModPackEnum.CURSEFORGE -> {

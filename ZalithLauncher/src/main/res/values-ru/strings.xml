@@ -217,6 +217,7 @@
     <string name="version_manager_delete">Удалить версию</string>
     <string name="version_manager_delete_tip">Если изоляция версий включена, ваши сохранения, пакеты ресурсов и моды будут удалены вместе с версией. Пожалуйста, сделайте резервную копию перед выполнением этой операции!</string>
     <string name="version_manager_task_in_progress">Задача в процессе, управление версиями временно недоступно</string>
+    <string name="version_manager_invalid">Эта версия недействительна</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
     <string name="profiles_path_title">Управление путями игры</string>

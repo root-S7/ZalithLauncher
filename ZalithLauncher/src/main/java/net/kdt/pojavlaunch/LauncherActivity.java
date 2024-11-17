@@ -55,6 +55,7 @@ import com.movtery.zalithlauncher.feature.version.GameInstaller;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionFolderChecker;
+import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -273,13 +274,28 @@ public class LauncherActivity extends BaseActivity {
                         ModLoaderWrapper modLoaderWrapper = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, string);
                         if (modLoaderWrapper != null) {
                             InstallTask downloadTask = modLoaderWrapper.getDownloadTask();
+                            File versionFolder = VersionsManager.INSTANCE.getVersionPath(string);
+
                             if (downloadTask != null) {
                                 VersionFolderChecker.checkVersionsFolder(false, true, string);
+
+                                new VersionInfo(
+                                        modLoaderWrapper.getMinecraftVersion(),
+                                        new VersionInfo.LoaderInfo[]{
+                                                new VersionInfo.LoaderInfo(
+                                                        modLoaderWrapper.getModLoader().getLoaderName(),
+                                                        modLoaderWrapper.getModLoaderVersion()
+                                                )
+                                        }
+                                ).save(versionFolder);
+
                                 File file = downloadTask.run();
                                 if (file != null) {
                                     return new kotlin.Pair<>(modLoaderWrapper, file);
                                 }
                             }
+
+                            new VersionInfo(modLoaderWrapper.getMinecraftVersion(), new VersionInfo.LoaderInfo[]{}).save(versionFolder);
                         }
                         return null;
                     }).beforeStart(TaskExecutors.getAndroidUI(), () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)).ended(TaskExecutors.getAndroidUI(), filePair -> {

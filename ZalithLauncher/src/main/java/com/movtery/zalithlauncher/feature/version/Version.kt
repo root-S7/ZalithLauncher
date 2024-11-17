@@ -4,20 +4,25 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.setting.AllSettings
+import net.kdt.pojavlaunch.Tools
 import java.io.File
 
 /**
  * Minecraft 版本，由版本名称进行区分
  * @param versionName 版本的名称
  * @param versionConfig 独立版本的配置，如果为空则代表其未开启版本隔离
+ * @param isValid 版本的有效性
  */
 class Version(
     private val versionName: String,
-    private val versionConfig: VersionConfig?
+    private val versionConfig: VersionConfig?,
+    private val isValid: Boolean
 ) :Parcelable {
     fun getVersionName() = versionName
 
     fun getVersionConfig() = versionConfig
+
+    fun isValid() = isValid
 
     fun getGameDir(): File {
         versionConfig?.let {
@@ -54,6 +59,13 @@ class Version(
         return AllSettings.defaultCtrl!!
     }
 
+    fun getVersionInfo(): VersionInfo? {
+        return runCatching {
+            val infoFile = File(VersionsManager.getZalithVersionPath(this), "VersionInfo.json")
+            Tools.GLOBAL_GSON.fromJson(Tools.read(infoFile), VersionInfo::class.java)
+        }.getOrElse { null }
+    }
+
     override fun toString(): String {
         return "Version{versionName:'$versionName', versionConfig:'$versionConfig'}"
     }
@@ -63,13 +75,15 @@ class Version(
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeString(versionName)
         dest.writeParcelable(versionConfig, flags)
+        dest.writeInt(if (isValid) 1 else 0)
     }
 
     companion object CREATOR : Parcelable.Creator<Version> {
         override fun createFromParcel(parcel: Parcel): Version {
             val versionName = parcel.readString().orEmpty()
             val versionConfig = parcel.readParcelable<VersionConfig>(VersionConfig::class.java.classLoader)
-            return Version(versionName, versionConfig)
+            val isValid = parcel.readInt() != 0
+            return Version(versionName, versionConfig, isValid)
         }
 
         override fun newArray(size: Int): Array<Version?> {

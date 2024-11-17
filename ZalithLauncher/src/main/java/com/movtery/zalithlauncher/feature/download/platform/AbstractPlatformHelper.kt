@@ -15,6 +15,7 @@ import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionFolderChecker
+import com.movtery.zalithlauncher.feature.version.VersionInfo
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
@@ -79,17 +80,30 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                             Task.runTask {
                                 val modloader = installModPack(version, string) ?: return@runTask null
 
-                                val versionPath = VersionConfig.getVersionPath(string)
+                                val versionPath = VersionsManager.getVersionPath(string)
                                 VersionConfig(versionPath).save()
 
-                                infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, File(versionPath, "VersionIcon.png")) }
+                                infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(string)) }
 
                                 modloader.getDownloadTask()?.let { downloadTask ->
                                     VersionFolderChecker.checkVersionsFolder(forceCheck = true, identifier = string)
+
+                                    VersionInfo(
+                                        modloader.minecraftVersion,
+                                        arrayOf(
+                                            VersionInfo.LoaderInfo(
+                                                modloader.modLoader.loaderName,
+                                                modloader.modLoaderVersion
+                                            )
+                                        )
+                                    ).save(versionPath)
+
                                     downloadTask.run()?.let { file ->
                                         return@runTask Pair(modloader, file)
                                     }
                                 }
+
+                                VersionInfo(modloader.minecraftVersion, emptyArray()).save(versionPath)
 
                                 return@runTask null
                             }.ended(TaskExecutors.getAndroidUI()) { filePair ->

@@ -5,7 +5,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.feature.version.VersionConfig
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper
@@ -79,7 +79,7 @@ class InstallHelper {
                 }
 
                 // Install the modpack
-                modLoaderInfo = installFunction.install(modpackFile, VersionConfig.getVersionPath(customName))
+                modLoaderInfo = installFunction.install(modpackFile, VersionsManager.getVersionPath(customName))
             } finally {
                 FileUtils.deleteQuietly(modpackFile)
                 ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)

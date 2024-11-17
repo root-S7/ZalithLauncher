@@ -5,6 +5,7 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
+import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.Tools;
@@ -67,7 +68,7 @@ public class FabricLikeDownloadTask implements InstallTask, Tools.DownloaderFeed
         FileUtils.ensureDirectory(versionJsonDir);
         Tools.write(versionJsonFile.getAbsolutePath(), jsonString);
 
-        VersionConfig versionConfig = new VersionConfig(VersionConfig.getVersionPath(versionId));
+        VersionConfig versionConfig = new VersionConfig(VersionsManager.INSTANCE.getVersionPath(versionId));
         versionConfig.save();
     }
 

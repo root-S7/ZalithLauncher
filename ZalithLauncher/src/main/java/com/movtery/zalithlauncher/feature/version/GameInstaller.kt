@@ -45,10 +45,10 @@ class GameInstaller(
                         if (taskMap.isNotEmpty()) EventBus.getDefault().postSticky(installModVersion)
 
                         val modTask: MutableList<InstallTaskItem> = ArrayList()
-                        val modloaderTask = AtomicReference<InstallTaskItem>() //暂时只允许同时安装一个ModLoader
-                        taskMap.forEach { (_, taskItem) ->
+                        val modloaderTask = AtomicReference<Pair<Addon, InstallTaskItem>>() //暂时只允许同时安装一个ModLoader
+                        taskMap.forEach { (addon, taskItem) ->
                             if (taskItem.isMod) modTask.add(taskItem)
-                            else modloaderTask.set(taskItem)
+                            else modloaderTask.set(Pair(addon, taskItem))
                         }
 
                         modTask.forEach { task ->
@@ -60,11 +60,23 @@ class GameInstaller(
 
                         VersionFolderChecker.checkVersionsFolder(forceCheck = true, identifier = customVersionName)
 
-                        modloaderTask.get()?.let { task ->
-                            Logging.i("Install Version", "Installing ModLoader: " + task.selectedVersion)
-                            val file = task.task.run()
-                            return@runTask Pair(file, task)
+                        modloaderTask.get()?.let { taskPair ->
+                            VersionInfo(
+                                realVersion,
+                                arrayOf(
+                                    VersionInfo.LoaderInfo(
+                                        taskPair.first.addonName,
+                                        taskPair.second.selectedVersion
+                                    )
+                                )
+                            ).save(versionFolder)
+
+                            Logging.i("Install Version", "Installing ModLoader: " + taskPair.second.selectedVersion)
+                            val file = taskPair.second.task.run()
+                            return@runTask Pair(file, taskPair.second)
                         }
+
+                        VersionInfo(realVersion, emptyArray()).save(versionFolder)
                         null
                     }.onThrowable { e ->
                         Tools.showErrorRemote(e)

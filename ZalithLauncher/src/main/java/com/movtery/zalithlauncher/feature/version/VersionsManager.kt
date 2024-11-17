@@ -65,8 +65,8 @@ object VersionsManager {
                                 isVersion = true
                             }
 
-                            val configFile = File(versionFile, "ZalithVersion.cfg")
-                            if (fileList.contains(configFile)) versionConfig = runCatching {
+                            val configFile = File(getZalithVersionPath(versionFile), "ZalithVersion.cfg")
+                            if (configFile.exists()) versionConfig = runCatching {
                                 //读取此文件的内容，并解析为VersionConfig
                                 Tools.GLOBAL_GSON.fromJson(Tools.read(configFile), VersionConfig::class.java)
                             }.getOrElse { e ->
@@ -75,10 +75,11 @@ object VersionsManager {
                             }
                         }
 
-                        if (isVersion) versions.add(
+                        versions.add(
                             Version(
                                 versionFile.name,
-                                versionConfig
+                                versionConfig,
+                                isVersion
                             )
                         )
                     }
@@ -116,14 +117,39 @@ object VersionsManager {
     }
 
     /**
+     * @return 获取 Zalith 启动器版本标识文件夹
+     */
+    fun getZalithVersionPath(version: Version) = File(getVersionPath(version), "ZalithLauncher")
+
+    /**
+     * @return 通过目录获取 Zalith 启动器版本标识文件夹
+     */
+    fun getZalithVersionPath(folder: File) = File(folder, "ZalithLauncher")
+
+    /**
+     * @return 通过名称获取 Zalith 启动器版本标识文件夹
+     */
+    fun getZalithVersionPath(name: String) = File(getVersionPath(name), "ZalithLauncher")
+
+    /**
      * @return 获取当前版本设置的图标
      */
-    fun getVersionIconFile(version: Version) = File(getVersionPath(version), "VersionIcon.png")
+    fun getVersionIconFile(version: Version) = File(getZalithVersionPath(version), "VersionIcon.png")
+
+    /**
+     * @return 通过名称获取当前版本设置的图标
+     */
+    fun getVersionIconFile(name: String) = File(getZalithVersionPath(name), "VersionIcon.png")
 
     /**
      * @return 获取版本的文件夹路径
      */
     fun getVersionPath(version: Version) = File(ProfilePathHome.versionsHome, version.getVersionName())
+
+    /**
+     * @return 通过名称获取版本的文件夹路径
+     */
+    fun getVersionPath(name: String) = File(ProfilePathHome.versionsHome, name)
 
     /**
      * 保存当前选择的版本

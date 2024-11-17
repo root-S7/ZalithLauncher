@@ -217,6 +217,7 @@
     <string name="version_manager_delete">Supprimer la version</string>
     <string name="version_manager_delete_tip">Si l\'isolement des versions est activé, vos sauvegardes de jeux, packs de ressources et mods seront supprimés avec la version. Veuillez vous assurer de faire une sauvegarde avant d\'effectuer cette opération !</string>
     <string name="version_manager_task_in_progress">Tâche en cours, la gestion des versions est temporairement indisponible</string>
+    <string name="version_manager_invalid">Cette version est invalide</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher nécessite l\'autorisation de gérer tous les fichiers de l\'appareil pour fonctionner correctement. Veuillez activer les autorisations !</string>
     <string name="profiles_path_title">Gestion du chemin du jeu</string>

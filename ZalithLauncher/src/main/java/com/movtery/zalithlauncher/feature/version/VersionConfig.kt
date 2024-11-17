@@ -2,7 +2,6 @@ package com.movtery.zalithlauncher.feature.version
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
@@ -38,8 +37,9 @@ class VersionConfig(private val versionPath: File) : Parcelable {
 
     @Throws(Throwable::class)
     fun saveWithThrowable() {
-        val configFile = File(versionPath, "ZalithVersion.cfg")
-        if (!versionPath.exists()) versionPath.mkdirs()
+        val zalithVersionPath = VersionsManager.getZalithVersionPath(versionPath)
+        val configFile = File(zalithVersionPath, "ZalithVersion.cfg")
+        if (!zalithVersionPath.exists()) zalithVersionPath.mkdirs()
 
         FileWriter(configFile, false).use {
             val json = Tools.GLOBAL_GSON.toJson(this)
@@ -49,7 +49,7 @@ class VersionConfig(private val versionPath: File) : Parcelable {
 
     fun delete() {
         runCatching {
-            File(versionPath, "ZalithVersion.cfg").let {
+            File(VersionsManager.getZalithVersionPath(versionPath), "ZalithVersion.cfg").let {
                 if (it.exists()) FileUtils.deleteQuietly(it)
             }
         }
@@ -96,11 +96,6 @@ class VersionConfig(private val versionPath: File) : Parcelable {
 
         override fun newArray(size: Int): Array<VersionConfig?> {
             return arrayOfNulls(size)
-        }
-
-        @JvmStatic
-        fun getVersionPath(name: String): File {
-            return File(ProfilePathHome.versionsHome, name)
         }
     }
 }
