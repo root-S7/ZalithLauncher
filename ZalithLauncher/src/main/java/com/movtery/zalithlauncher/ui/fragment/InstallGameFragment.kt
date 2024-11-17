@@ -124,8 +124,10 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
             layout.isEnabled = false
             installText.text = getString(R.string.version_install_incompatible, incompatible.joinToString(", ", transform = { it.addonName }))
             versionText.visibility = View.GONE
+            imageView.visibility = View.GONE
         } else {
             layout.isEnabled = true
+            imageView.visibility = View.VISIBLE
             val version = addonMap[addon]?.first
 
             if (version != null) {
