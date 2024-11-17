@@ -11,7 +11,7 @@ import com.google.android.flexbox.FlexboxLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemVersionBinding
 import com.movtery.zalithlauncher.feature.version.Version
-import com.movtery.zalithlauncher.feature.version.VersionIconSetter
+import com.movtery.zalithlauncher.feature.version.VersionIconUtils
 import net.kdt.pojavlaunch.Tools
 
 class VersionAdapter(private val listener: OnVersionItemClickListener) : RecyclerView.Adapter<VersionAdapter.ViewHolder>() {
@@ -55,7 +55,7 @@ class VersionAdapter(private val listener: OnVersionItemClickListener) : Recycle
                     }
                 }
 
-                VersionIconSetter(binding.versionIcon, it).start()
+                VersionIconUtils(it).start(binding.versionIcon)
 
                 binding.root.setOnClickListener { _ ->
                     listener.onVersionClick(it)

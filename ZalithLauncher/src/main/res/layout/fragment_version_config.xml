@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="ContentDescription">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/editor_layout"
@@ -211,7 +212,6 @@
                     tools:src="@tools:sample/avatars" />
 
                 <ImageView
-                    android:id="@+id/edit"
                     android:layout_width="@dimen/_14sdp"
                     android:layout_height="@dimen/_14sdp"
                     android:background="@drawable/background_icon_edit"
@@ -220,6 +220,16 @@
                     app:layout_constraintEnd_toEndOf="@+id/icon" />
 
             </com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout>
+
+            <ImageView
+                android:id="@+id/icon_reset"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:src="@drawable/ic_reset"
+                app:layout_constraintTop_toBottomOf="@id/icon_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <com.movtery.zalithlauncher.ui.view.AnimButton
                 android:id="@+id/save_button"

@@ -230,6 +230,7 @@
     <string name="profiles_path_delete_message">Trình khởi động sẽ xóa đường dẫn này, nhưng không xóa các tệp được lưu trong đường dẫn tương ứng, sau khi xóa vẫn có thể thêm lại đường dẫn này</string>
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Bật cách ly phiên bản</string>
+    <string name="pedit_reset_icon">Điều này sẽ đặt lại biểu tượng tùy chỉnh bạn đã thiết lập và thao tác không thể hoàn tác. Bạn có chắc chắn muốn đặt lại biểu tượng phiên bản không?</string>
     <string name="pedit_control">Bố cục điều khiển</string>
     <string name="pedit_default">（Sử dụng giá trị mặc định toàn cục）</string>
     <string name="profile_mods_download_mod">Tải xuống Mod</string>

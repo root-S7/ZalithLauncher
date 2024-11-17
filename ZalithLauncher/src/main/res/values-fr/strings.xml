@@ -230,6 +230,7 @@
     <string name="profiles_path_delete_message">Le lanceur supprimera ce chemin, mais ne supprimera pas les fichiers enregistrés dans ce chemin. Vous pourrez ajouter ce chemin à nouveau après la suppression.</string>
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Activer l\'isolement des versions</string>
+    <string name="pedit_reset_icon">Cela réinitialisera l\'icône personnalisée que vous avez définie, et l\'opération est irréversible. Êtes-vous sûr de vouloir réinitialiser l\'icône de la version ?</string>
     <string name="pedit_control">Disposition de contrôle</string>
     <string name="pedit_default">(Utiliser la valeur par défaut globale)</string>
     <string name="profile_mods_download_mod">Télécharger le Mod</string>

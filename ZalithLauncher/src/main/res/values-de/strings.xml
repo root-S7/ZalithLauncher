@@ -230,6 +230,7 @@
     <string name="profiles_path_delete_message">Der Launcher wird diesen Pfad löschen, aber die darin gespeicherten Dateien nicht. Nach dem Löschen kann der Pfad erneut hinzugefügt werden.</string>
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Versionstrennung aktivieren</string>
+    <string name="pedit_reset_icon">Dadurch wird das benutzerdefinierte Symbol, das du festgelegt hast, zurückgesetzt, und der Vorgang ist nicht rückgängig zu machen. Bist du sicher, dass du das Versionssymbol zurücksetzen möchtest?</string>
     <string name="pedit_control">Steuerungsraster</string>
     <string name="pedit_default">(Globale Standardeinstellung verwenden)</string>
     <string name="profile_mods_download_mod">Mod herunterladen</string>

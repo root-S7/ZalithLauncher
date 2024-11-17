@@ -21,11 +21,12 @@ import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
-import com.movtery.zalithlauncher.feature.version.VersionIconSetter;
+import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
+import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
@@ -49,14 +50,16 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private Version mTempVersion = null;
     private VersionConfig mTempConfig = null;
     private List<String> mRenderNames;
+    private VersionIconUtils mVersionIconUtils;
 
-    private final AnimPlayer animPlayer = new AnimPlayer();
+    private final AnimPlayer isolationAnimPlayer = new AnimPlayer();
+    private final AnimPlayer resetIconAnimPlayer = new AnimPlayer();
     private final ActivityResultLauncher<String[]> openDocumentLauncher =
             registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
                 if (result != null) {
                     AlertDialog dialog = ZHTools.showTaskRunningDialog(requireActivity());
                     Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, VersionsManager.INSTANCE.getVersionIconFile(mTempVersion)))
-                            .ended(TaskExecutors.getAndroidUI(), file -> refreshIcon())
+                            .ended(TaskExecutors.getAndroidUI(), file -> refreshIcon(false))
                             .finallyTask(TaskExecutors.getAndroidUI(), dialog::dismiss)
                             .onThrowable(e -> Logging.e("Version Config Editor", Tools.printToString(e)))
                             .execute();
@@ -104,7 +107,10 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         binding.iconLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
 
+        binding.iconReset.setOnClickListener(v -> resetIcon());
+
         mTempVersion = Objects.requireNonNull(VersionsManager.INSTANCE.getCurrentVersion());
+        mVersionIconUtils = new VersionIconUtils(mTempVersion);
 
         if (mTempVersion.getVersionConfig() != null) {
             mTempConfig = mTempVersion.getVersionConfig();
@@ -130,7 +136,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
             closeSpinner();
         });
 
-        refreshIcon();
+        refreshIcon(true);
     }
 
     private void closeSpinner() {
@@ -144,8 +150,35 @@ public class VersionConfigFragment extends FragmentWithAnim {
         closeSpinner();
     }
 
-    private void refreshIcon() {
-        new VersionIconSetter(binding.icon, mTempVersion).start();
+    /**
+     * 刷新图标，并对重置图标的按钮播放显示或隐藏的动画
+     * @param init 首次刷新不需要对重置按钮播放动画
+     */
+    private void refreshIcon(boolean init) {
+        boolean isCustomIcon = mVersionIconUtils.start(binding.icon);
+        if (init) {
+            binding.iconReset.setVisibility(isCustomIcon ? View.VISIBLE : View.GONE);
+        } else {
+            resetIconAnimPlayer.clearEntries();
+            resetIconAnimPlayer.apply(new AnimPlayer.Entry(binding.iconReset, isCustomIcon ? Animations.BounceEnlarge : Animations.BounceShrink))
+                    .setOnStart(() -> {
+                        binding.iconReset.setVisibility(View.VISIBLE);
+                        binding.iconReset.setEnabled(false);
+                    })
+                    .setOnEnd(() -> {
+                        binding.iconReset.setVisibility(isCustomIcon ? View.VISIBLE : View.GONE);
+                        binding.iconReset.setEnabled(isCustomIcon);
+                    }).start();
+        }
+    }
+
+    private void resetIcon() {
+        new TipDialog.Builder(requireActivity())
+                .setMessage(R.string.pedit_reset_icon)
+                .setConfirmClickListener(() -> {
+                    mVersionIconUtils.resetIcon();
+                    refreshIcon(false);
+                }).buildDialog();
     }
 
     private void setIsolationVisible(boolean visible) {
@@ -155,8 +188,8 @@ public class VersionConfigFragment extends FragmentWithAnim {
     }
 
     private void show() {
-        animPlayer.clearEntries();
-        animPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.BounceInUp))
+        isolationAnimPlayer.clearEntries();
+        isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.BounceInUp))
                 .apply(new AnimPlayer.Entry(binding.saveButton, Animations.BounceEnlarge))
                 .duration(AllSettings.getAnimationSpeed() / 2)
                 .setOnStart(() -> {
@@ -172,8 +205,8 @@ public class VersionConfigFragment extends FragmentWithAnim {
     }
 
     private void hide() {
-        animPlayer.clearEntries();
-        animPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.FadeOutDown))
+        isolationAnimPlayer.clearEntries();
+        isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.FadeOutDown))
                 .apply(new AnimPlayer.Entry(binding.saveButton, Animations.FadeOut))
                 .duration(AllSettings.getAnimationSpeed() / 2)
                 .setOnStart(() -> {

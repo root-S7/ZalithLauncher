@@ -230,6 +230,7 @@
     <string name="profiles_path_delete_message">O launcher excluirá este caminho, mas não excluirá os arquivos salvos no caminho correspondente, você ainda pode adicionar este caminho novamente após a exclusão</string>
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Habilitar Isolamento de Versão</string>
+    <string name="pedit_reset_icon">Isso irá redefinir o ícone personalizado que você configurou, e a operação não pode ser desfeita. Tem certeza de que deseja redefinir o ícone da versão?</string>
     <string name="pedit_control">Layout de Controle</string>
     <string name="pedit_default">(Usar valor padrão global)</string>
     <string name="profile_mods_download_mod">Baixar Mod</string>

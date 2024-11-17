@@ -230,6 +230,7 @@
     <string name="profiles_path_delete_message">啟動器將刪除此路徑，但不會刪除對應路徑內保存的檔案，刪除之後仍然可以重新添加此路徑</string>
     <!-- Profile -->
     <string name="pedit_isolation_enabled">啟用版本隔離</string>
+    <string name="pedit_reset_icon">這將會重置你設定的自訂圖示，且操作不可逆，你確定要重置版本圖示嗎？</string>
     <string name="pedit_control">控制佈局</string>
     <string name="pedit_default">（使用全域預設值）</string>
     <string name="profile_mods_download_mod">下載 Mod</string>

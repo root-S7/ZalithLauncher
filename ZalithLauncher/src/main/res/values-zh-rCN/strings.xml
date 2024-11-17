@@ -242,6 +242,7 @@
 
     <!-- Profile -->
     <string name="pedit_isolation_enabled">启用版本隔离</string>
+    <string name="pedit_reset_icon">这将会重置你设置的自定义图标，且操作不可逆，你确定要重置版本图标吗？</string>
     <string name="pedit_control">控制布局</string>
     <string name="pedit_default">（使用全局默认值）</string>
 

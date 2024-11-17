@@ -17,7 +17,7 @@ import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.event.single.LaunchGameEvent;
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent;
 import com.movtery.zalithlauncher.feature.version.Version;
-import com.movtery.zalithlauncher.feature.version.VersionIconSetter;
+import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.ShareLogDialog;
@@ -109,7 +109,7 @@ public class MainMenuFragment extends FragmentWithAnim {
             if (version != null) {
                 binding.versionName.setText(version.getVersionName());
 
-                new VersionIconSetter(binding.versionIcon, version).start();
+                new VersionIconUtils(version).start(binding.versionIcon);
                 binding.managerProfileButton.setVisibility(View.VISIBLE);
             } else {
                 binding.versionName.setText(R.string.version_no_versions);
