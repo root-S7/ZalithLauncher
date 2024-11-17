@@ -88,13 +88,13 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
      */
     private fun checkIncompatible() {
         binding.apply {
-            checkIncompatible(Addon.OPTIFINE, optifineLayout, optifineInstall, optifineDelete)
-            checkIncompatible(Addon.FORGE, forgeLayout, forgeInstall, forgeDelete)
-            checkIncompatible(Addon.NEOFORGE, neoforgeLayout, neoforgeInstall, neoforgeDelete)
-            checkIncompatible(Addon.FABRIC, fabricLayout, fabricInstall, fabricDelete)
-            checkIncompatible(Addon.FABRIC_API, fabricApiLayout, fabricApiInstall, fabricApiDelete)
-            checkIncompatible(Addon.QUILT, quiltLayout, quiltInstall, quiltDelete)
-            checkIncompatible(Addon.QSL, quiltApiLayout, quiltApiInstall, quiltApiDelete)
+            checkIncompatible(Addon.OPTIFINE, optifineLayout, optifineVersion, optifineInstall, optifineDelete, addonMap.size > 1)
+            checkIncompatible(Addon.FORGE, forgeLayout, forgeVersion, forgeInstall, forgeDelete)
+            checkIncompatible(Addon.NEOFORGE, neoforgeLayout, neoforgeVersion, neoforgeInstall, neoforgeDelete)
+            checkIncompatible(Addon.FABRIC, fabricLayout, fabricVersion, fabricInstall, fabricDelete)
+            checkIncompatible(Addon.FABRIC_API, fabricApiLayout, fabricApiVersion, fabricApiInstall, fabricApiDelete, true)
+            checkIncompatible(Addon.QUILT, quiltLayout, quiltVersion, quiltInstall, quiltDelete)
+            checkIncompatible(Addon.QSL, quiltApiLayout, quiltApiVersion, quiltApiInstall, quiltApiDelete, true)
         }
     }
 
@@ -102,9 +102,17 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
      * 检查传入的Addon是否在AddonMap中有不兼容的Addon
      * @param addon 传入的Addon
      * @param layout Addon的layout
-     * @param installText Addon的安装信息
+     * @param versionText Addon的版本信息
+     * @param installText Addon的安装类型
      */
-    private fun checkIncompatible(addon: Addon, layout: View, installText: TextView, imageView: ImageView) {
+    private fun checkIncompatible(
+        addon: Addon,
+        layout: View,
+        versionText: TextView,
+        installText: TextView,
+        imageView: ImageView,
+        modInstallType: Boolean = false
+    ) {
         val incompatible: MutableSet<Addon> = HashSet()
         addonMap.keys.forEach { selectedAddon ->
             if (Addon.getCompatibles(addon)?.contains(selectedAddon) == false) {
@@ -115,9 +123,19 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
         if (incompatible.isNotEmpty()) {
             layout.isEnabled = false
             installText.text = getString(R.string.version_install_incompatible, incompatible.joinToString(", ", transform = { it.addonName }))
+            versionText.visibility = View.GONE
         } else {
             layout.isEnabled = true
-            installText.text = addonMap[addon]?.first ?: getString(R.string.version_install_not_install)
+            val version = addonMap[addon]?.first
+
+            if (version != null) {
+                versionText.visibility = View.VISIBLE
+                versionText.text = version
+                installText.setText(if (modInstallType) R.string.version_install_type_mod else R.string.version_install_type_version)
+            } else {
+                versionText.visibility = View.GONE
+                installText.setText(R.string.version_install_not_install)
+            }
         }
 
         val contains = addonMap.containsKey(addon)

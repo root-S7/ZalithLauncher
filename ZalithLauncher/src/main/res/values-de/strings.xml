@@ -203,6 +203,8 @@
     <string name="version_install_exists">Eine Version mit diesem Namen existiert bereits!</string>
     <string name="version_install_no_versions">Keine Versionen zur Auswahl!</string>
     <string name="version_install_cannot_use_mc_name">Zusätzliche Inhalte wurden ausgewählt, und die Unabhängigkeit des ursprünglichen Kerns muss gewährleistet sein. Bitte verwenden Sie nicht den Originalnamen!</string>
+    <string name="version_install_type_version">Als Version herunterladen und installieren</string>
+    <string name="version_install_type_mod">Als Mod herunterladen und installieren</string>
     <string name="version_manager_shortcuts">Verknüpfungen</string>
     <string name="version_manager_shortcuts_mods">Mod-Verwaltung</string>
     <string name="version_manager_shortcuts_version_path">Versionspfad-Ordner</string>

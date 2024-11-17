@@ -203,6 +203,8 @@
     <string name="version_install_exists">Đã có phiên bản với tên này!</string>
     <string name="version_install_no_versions">Không có phiên bản nào để chọn!</string>
     <string name="version_install_cannot_use_mc_name">Nội dung bổ sung đã được chọn, và cần đảm bảo tính độc lập của lõi gốc. Vui lòng không sử dụng tên gốc!</string>
+    <string name="version_install_type_version">Tải và cài đặt dưới dạng phiên bản</string>
+    <string name="version_install_type_mod">Tải và cài đặt dưới dạng Mod</string>
     <string name="version_manager_shortcuts">Phím tắt</string>
     <string name="version_manager_shortcuts_mods">Quản lý Mod</string>
     <string name="version_manager_shortcuts_version_path">Thư mục đường dẫn phiên bản</string>

@@ -203,6 +203,8 @@
     <string name="version_install_exists">此名稱的版本已存在！</string>
     <string name="version_install_no_versions">沒有可選擇的版本！</string>
     <string name="version_install_cannot_use_mc_name">已選擇附加內容，需確保原版核心的獨立性，請勿使用原版名稱！</string>
+    <string name="version_install_type_version">作為版本下載並安裝</string>
+    <string name="version_install_type_mod">作為 Mod 下載並安裝</string>
     <string name="version_manager_shortcuts">快捷功能</string>
     <string name="version_manager_shortcuts_mods">Mod 管理</string>
     <string name="version_manager_shortcuts_version_path">版本路徑資料夾</string>

@@ -203,6 +203,8 @@
     <string name="version_install_exists">هناك نسخة بالفعل بهذا الاسم!</string>
     <string name="version_install_no_versions">لا توجد إصدارات للاختيار من بينها!</string>
     <string name="version_install_cannot_use_mc_name">تم اختيار المحتوى الإضافي، ويجب ضمان استقلال النواة الأصلية. يُرجى عدم استخدام الاسم الأصلي!</string>
+    <string name="version_install_type_version">تحميل وتثبيت كإصدار</string>
+    <string name="version_install_type_mod">تحميل وتثبيت كـ Mod</string>
     <string name="version_manager_shortcuts">الاختصارات</string>
     <string name="version_manager_shortcuts_mods">إدارة Mod</string>
     <string name="version_manager_shortcuts_version_path">مجلد مسار الإصدار</string>

@@ -209,6 +209,8 @@
     <string name="version_install_exists">A version with this name already exists!</string>
     <string name="version_install_no_versions">No versions available to choose from!</string>
     <string name="version_install_cannot_use_mc_name">The additional content has been selected, and the independence of the original core must be ensured. Please do not use the original name!</string>
+    <string name="version_install_type_version">Download and install as a version</string>
+    <string name="version_install_type_mod">Download and install as a Mod</string>
     <string name="version_manager_shortcuts">Shortcuts</string>
     <string name="version_manager_shortcuts_mods">Mod Management</string>
     <string name="version_manager_shortcuts_version_path">Version Path Folder</string>
