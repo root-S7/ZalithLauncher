@@ -66,6 +66,7 @@ class VersionIconUtils(
         else if (name.equals("forge", true)) R.drawable.ic_anvil
         else if (name.equals("quilt", true)) R.drawable.ic_quilt
         else if (name.equals("neoforge", true)) R.drawable.ic_neoforge
+        else if (name.equals("optifine", true)) R.drawable.ic_optifine
         else null
     }
 }
