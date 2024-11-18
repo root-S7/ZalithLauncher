@@ -7,7 +7,8 @@
     android:layout_height="fill_parent"
     android:background="@android:color/transparent"
     android:gravity="top"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="ContentDescription">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/launcher_menu"
@@ -136,48 +137,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.kdt.mcgui.mcVersionSpinner
-                    android:id="@+id/mc_version_spinner"
+                <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
+                    android:id="@+id/version"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_38sdp"
-                    android:layout_marginStart="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
-                    android:background="?attr/selectableItemBackground"
-                    android:drawableEnd="@drawable/spinner_arrow"
-                    app:drawableEndPadding="@dimen/_1sdp"
-                    app:drawableEndSize="@dimen/_12sdp"
-                    app:drawableStartIntegerScaling="true"
-                    app:drawableStartSize="@dimen/_36sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/play_button"
-                    app:layout_constraintEnd_toStartOf="@+id/path_manager_button"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/path_manager_button"
-                    android:layout_width="@dimen/_38sdp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_list"
                     app:layout_constraintBottom_toTopOf="@+id/play_button"
                     app:layout_constraintEnd_toStartOf="@+id/manager_profile_button"
-                    app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:id="@+id/version_icon"
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_minecraft"/>
+
+                    <TextView
+                        android:id="@+id/version_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/version_icon"
+                        android:text="@string/version_no_versions" />
+
+                </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
                 <ImageButton
                     android:id="@+id/manager_profile_button"
                     android:layout_width="@dimen/_38sdp"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_setting"
                     app:layout_constraintBottom_toTopOf="@+id/play_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/mc_version_spinner" />
+                    app:layout_constraintTop_toTopOf="@id/version" />
 
                 <com.movtery.zalithlauncher.ui.view.AnimButton
                     android:id="@+id/play_button"
@@ -197,7 +200,7 @@
                     layout="@layout/view_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@+id/mc_version_spinner"
+                    app:layout_constraintBottom_toTopOf="@id/version"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

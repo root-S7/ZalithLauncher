@@ -23,8 +23,8 @@
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/image_buttons"
-        app:layout_constraintStart_toEndOf="@+id/radio_button"
+        app:layout_constraintEnd_toStartOf="@id/settings"
+        app:layout_constraintStart_toEndOf="@id/radio_button"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -37,49 +37,30 @@
 
         <TextView
             android:id="@+id/path"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
             android:text="Path"
+            android:singleLine="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
+            android:marqueeRepeatLimit="marquee_forever"
             tools:ignore="HardcodedText" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/image_buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/profiles_path_settings"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_setting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/rename"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_edit" />
-
-        <ImageButton
-            android:id="@+id/visit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_move" />
-
-        <ImageButton
-            android:id="@+id/delete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_menu_delete_forever" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout>

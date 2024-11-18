@@ -91,8 +91,8 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
     }
 
     @Throws(Throwable::class)
-    override fun installModPack(infoItem: InfoItem, version: VersionItem): ModLoaderWrapper? {
-        return ModrinthModPackInstallHelper.startInstall(infoItem.copy(), version)
+    override fun installModPack(version: VersionItem, customName: String): ModLoaderWrapper? {
+        return ModrinthModPackInstallHelper.startInstall(version, customName)
     }
 
     @Throws(Throwable::class)

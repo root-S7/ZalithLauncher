@@ -206,10 +206,6 @@ class AllSettings {
 
         // Other
         @JvmStatic
-        val currentProfile: String?
-            get() = Settings.Manager.getString("currentProfile", "")
-
-        @JvmStatic
         val currentAccount: String?
             get() = Settings.Manager.getString("currentAccount", "")
 

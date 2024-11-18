@@ -9,17 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemFileListViewBinding
+import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils
 import net.kdt.pojavlaunch.modloaders.FabricVersion
-import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
-import net.kdt.pojavlaunch.modloaders.ModloaderListenerProxy
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion
 
 class ModVersionListAdapter(
-    private val modloaderListenerProxy: ModloaderListenerProxy,
-    private val listener: ModloaderDownloadListener,
     private val iconDrawable: Int,
-    private val mData: List<*>?
+    private val mData: List<Any>
 ) :
     RecyclerView.Adapter<ModVersionListAdapter.ViewHolder>() {
     private var onItemClickListener: OnItemClickListener? = null
@@ -29,15 +26,14 @@ class ModVersionListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.setView(mData!![position])
+        holder.setView(mData[position])
     }
 
     override fun getItemCount(): Int {
-        return mData?.size ?: 0
+        return mData.size
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
-        modloaderListenerProxy.attachListener(this.listener)
         this.onItemClickListener = listener
     }
 
@@ -45,7 +41,7 @@ class ModVersionListAdapter(
         /**
          * @return 如果任务正在执行中，需要阻止这次的点击事件，则返回 false
          */
-        fun onClick(version: Any?): Boolean
+        fun onClick(version: Any): Boolean
     }
 
     inner class ViewHolder(private val binding: ItemFileListViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -56,13 +52,14 @@ class ModVersionListAdapter(
             binding.check.visibility = View.GONE
         }
 
-        fun setView(version: Any?) {
+        fun setView(version: Any) {
             when (version) {
                 is OptiFineVersion -> binding.name.text = version.versionName
                 is FabricVersion -> binding.name.text = version.version
+                is VersionItem -> binding.name.text = version.title
                 is String -> binding.name.text = version
             }
-            itemView.setOnClickListener { _: View? ->
+            itemView.setOnClickListener {
                 if (onItemClickListener?.onClick(version) == false) {
                     ViewAnimUtils.setViewAnim(itemView, Animations.Shake)
                     Toast.makeText(context, context.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT)

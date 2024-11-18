@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/profile_manager_shortcuts_mods"
+                    android:text="@string/version_manager_shortcuts_mods"
                     android:textColor="@color/primary_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -146,39 +146,10 @@
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:paddingStart="@dimen/_8sdp"
                     android:text="@string/file_multi_select_mode"
-                    app:layout_constraintBottom_toTopOf="@+id/download_optifine"
+                    app:layout_constraintBottom_toTopOf="@id/operate_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="RtlSymmetry" />
-
-                <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/download_optifine"
-                    android:layout_width="0dp"
-                    android:layout_height="42dp"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:background="?android:attr/selectableItemBackground"
-                    app:layout_constraintBottom_toTopOf="@+id/operate_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20sdp"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/profile_manager_download_optifine"
-                        android:src="@drawable/ic_download" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_12sdp"
-                        android:layout_toEndOf="@+id/imageView"
-                        android:singleLine="true"
-                        android:textColor="@color/black_or_white"
-                        android:text="@string/profile_manager_download_optifine" />
-                </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
                 <include
                     android:id="@+id/operate_view"

@@ -20,7 +20,6 @@ import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog.FilesButton
-import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileSelectedListener
@@ -221,21 +220,6 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 }
 
                 createFolderButton.setOnClickListener { goDownloadMod() }
-
-                downloadOptifine.setOnClickListener {
-                    TipDialog.Builder(requireContext())
-                        .setMessage(R.string.profile_manager_download_optifine_message)
-                        .setConfirmClickListener {
-                            val bundle = Bundle()
-                            bundle.putBoolean(DownloadOptiFineFragment.BUNDLE_DOWNLOAD_MOD, true)
-                            ZHTools.swapFragmentWithAnim(
-                                this@ModsFragment,
-                                DownloadOptiFineFragment::class.java,
-                                DownloadOptiFineFragment.TAG,
-                                bundle
-                            )
-                        }.buildDialog()
-                }
 
                 searchButton.setOnClickListener {
                     closeMultiSelect()

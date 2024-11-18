@@ -66,14 +66,10 @@
     <string name="customctrl_editor_exit_msg">你是否确认退出？</string>
     <string name="customctrl_editor_exit">退出编辑器</string>
     <string name="global_save_and_exit">保存并退出</string>
-    <string name="unnamed">未命名</string>
-    <string name="version_installed">已安装</string>
     <string name="version_release">正式版</string>
     <string name="version_snapshot">快照版</string>
     <string name="version_alpha">Alpha 版</string>
     <string name="version_beta">Beta 版</string>
-    <string name="profiles_latest_snapshot">最新快照版</string>
-    <string name="profiles_latest_release">最新正式版</string>
     <string name="force_exit_confirm">你确定要强制关闭吗?</string>
     <string name="autoram_info_msg">内存已设为 %d MB</string>
     <string name="memory_warning_msg">当前可用内存（%d）低于所分配的内存（%d），这可能会导致游戏崩溃，如果游戏崩溃请更改配置！</string>
@@ -121,20 +117,7 @@
     <string name="mod_forge_searching">正在搜索 Forge 版本号</string>
     <string name="mod_neoforge_searching">正在搜索 NeoForge 版本号</string>
     <string name="mod_failed_to_load_list">加载版本列表失败！</string>
-    <string name="mod_no_installer">抱歉，此版本的 %s 没有安装程序，尚不支持</string>
-    <string name="mod_fabric_cant_read_meta">读取 %s 加载器元数据失败，请稍后再试</string>
-    <string name="mod_optifine_failed_to_scrape">无法收集 OptiFine 安装数据</string>
     <string name="mod_optifine_progress">正在下载 %s</string>
-    
-    <string name="create_profile">创建新实例</string>
-    <string name="create_profile_vanilla_like_versions">类原版版本</string>
-    <string name="create_profile_modded_versions">已修改版本</string>
-    <string name="create_profile_vanilla">创建原版实例</string>
-    <string name="create_profile_optifine">创建 OptiFine 实例</string>
-    <string name="create_profile_forge">创建 Forge 实例</string>
-    <string name="create_profile_neoforge">创建 NeoForge 实例</string>
-    <string name="create_profile_fabric">创建 Fabric 实例</string>
-    <string name="create_profile_quilt">创建 Quilt 实例</string>
 
     <!-- Controls -->
     <string name="control_primary">左键</string>
@@ -221,20 +204,48 @@
     <string name="controller_remapper_operating_mode">当前模式</string>
     <string name="controller_remapper_expand_entry">展开以更改按键码</string>
 
+    <!-- Version -->
+    <string name="version_manager_title">版本管理</string>
+    <string name="version_no_versions">没有安装版本</string>
+    <string name="version_install_new">安装新版本</string>
+    <string name="version_install_not_install">不安装</string>
+    <string name="version_install_incompatible">与 %s 不兼容</string>
+    <string name="version_install_exists">此名称的版本已经存在！</string>
+    <string name="version_install_no_versions">没有可供选择的版本！</string>
+    <string name="version_install_cannot_use_mc_name">已选择附加内容，需要确保原版核心的独立性，请勿使用原版名称！</string>
+    <string name="version_install_type_version">作为版本下载并安装</string>
+    <string name="version_install_type_mod">作为 Mod 下载并安装</string>
+    <string name="version_manager_shortcuts">快捷功能</string>
+    <string name="version_manager_shortcuts_mods">Mod 管理</string>
+    <string name="version_manager_shortcuts_version_path">版本路径文件夹</string>
+    <string name="version_manager_shortcuts_resource_path">资源包文件夹</string>
+    <string name="version_manager_shortcuts_world_path">游戏存档文件夹</string>
+    <string name="version_manager_shortcuts_shader_path">光影包文件夹</string>
+    <string name="version_manager_shortcuts_logs_path">日志文件夹</string>
+    <string name="version_manager_shortcuts_crash_report_path">崩溃报告文件夹</string>
+    <string name="version_manager_edit">编辑版本</string>
+    <string name="version_manager_rename">重命名版本</string>
+    <string name="version_manager_delete">删除版本</string>
+    <string name="version_manager_delete_tip">如果开启了版本隔离，那么会在删除时会连带着你的游戏存档、资源包、Mod 等重要资源一并删除，请一定要做好备份后再进行此操作！</string>
+    <string name="version_manager_delete_tip_invalid">当前版本缺少版本 JSON 文件，所以被判定为无效的版本，所以你不能选择这个版本，点击确认，删除当前版本。</string>
+    <string name="version_manager_task_in_progress">任务执行中，暂时无法使用版本管理功能</string>
+    <string name="version_manager_invalid">该版本无效</string>
+
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>
     <string name="profiles_path_title">游戏路径管理</string>
     <string name="profiles_path_default">默认路径</string>
+    <string name="profiles_path_settings">打开路径设置</string>
+    <string name="profiles_path_settings_goto">打开该目录</string>
     <string name="profiles_path_create_new">添加新路径</string>
     <string name="profiles_path_create_new_title">为此路径命名</string>
     <string name="profiles_path_delete_title">删除此路径</string>
     <string name="profiles_path_delete_message">启动器将删除此路径，但不会删除对应路径内保存的文件，删除之后仍然可以重新添加此路径</string>
-    <string name="profiles_path_task_in_progress">任务执行中，暂时无法使用路径管理功能</string>
 
     <!-- Profile -->
-    <string name="pedit_profile_version">版本</string>
+    <string name="pedit_isolation_enabled">启用版本隔离</string>
+    <string name="pedit_reset_icon">这将会重置你设置的自定义图标，且操作不可逆，你确定要重置版本图标吗？</string>
     <string name="pedit_control">控制布局</string>
-    <string name="pedit_custom_path">自定义路径</string>
     <string name="pedit_default">（使用全局默认值）</string>
 
     <string name="profile_mods_download_mod">下载 Mod</string>
@@ -244,20 +255,6 @@
     <string name="profile_mods_disable">禁用</string>
     <string name="profile_mods_enable">启用</string>
     <string name="profile_mods_disable_or_enable">禁用/启用</string>
-
-    <string name="profile_manager_shortcuts">快捷功能</string>
-    <string name="profile_manager_shortcuts_mods">Mod 管理</string>
-    <string name="profile_manager_shortcuts_instance_path">实例路径文件夹</string>
-    <string name="profile_manager_shortcuts_resource_path">资源包文件夹</string>
-    <string name="profile_manager_shortcuts_world_path">游戏存档文件夹</string>
-    <string name="profile_manager_shortcuts_shader_path">光影包文件夹</string>
-    <string name="profile_manager_shortcuts_logs_path">日志文件夹</string>
-    <string name="profile_manager_shortcuts_crash_report_path">崩溃报告文件夹</string>
-    <string name="profile_manager_edit">编辑实例</string>
-    <string name="profile_manager_delete">删除实例</string>
-    <string name="profile_manager_delete_message">此操作将会删除此实例，但并不会删除实例关联的游戏文件</string>
-    <string name="profile_manager_download_optifine">安装 OptiFine Mod</string>
-    <string name="profile_manager_download_optifine_message">仅将 OptiFine 作为 Mod 下载并安装，请确保所选实例支持运行 OptiFine Mod</string>
 
     <!-- Account -->
     <string name="account_login_done">登录完成</string>
@@ -502,9 +499,10 @@
     <string name="game_singnal_message">应用程序/游戏因致命信号 %d 而中止。</string>
     <string name="game_exit_note">具体错误原因请查看日志文件或崩溃报告。如果你无法亲自解决此问题，请将日志文件或崩溃报告发送给有能力解决的人帮助你解决问题！</string>
     <string name="game_exit_no_screenshot">请不要只是截图当前应用界面，否则没人知道究竟发生了什么事，请分享你的日志文件或崩溃报告！</string>
-    <string name="game_autopick_runtime_failed">未找到合适的运行环境，已设置为当前实例选择的运行环境</string>
+    <string name="game_autopick_runtime_failed">未找到合适的运行环境，已设置为当前版本选择的运行环境</string>
     <string name="game_tip">游戏正在运行中，可以通过菜单开启日志输出，查看游戏运行状况</string>
     <string name="game_tip_version">当前启动的游戏版本:</string>
+    <string name="game_tip_mc_info">Minecraft 信息:</string>
 
     <!-- Download -->
     <string name="download_classify_mod">下载 Mod</string>
@@ -556,10 +554,6 @@
     <string name="modpack_download_downloading_mods">正在下载模组（%.2fMB / %.2fMB）</string>
     <string name="modpack_download_downloading_mods_fc">正在下载模组（已下载文件：%d, 总文件数：%d）</string>
     <string name="modpack_download_applying_overrides">正在应用覆盖（%d/%d）</string>
-    <string name="modpack_install_notification_title">Zalith 整合包安装器</string>
-    <string name="modpack_install_notification_success">点击此处完成整合包安装</string>
-    <string name="modpack_install_notification_data_not_available">模组加载器信息下载失败</string>
-    <string name="modpack_install_modloader_download_failed">模组加载器文件下载失败</string>
     <string name="modpack_install_download_failed">整合包文件下载失败</string>
 
     <!-- Clear Up -->
@@ -609,7 +603,8 @@
     <string name="splash_screen_cacio">为 OpenJDK 提供可移植的 GUI 后端。</string>
     <string name="splash_screen_authlib_injector">通过运行时修改 authlib 实现游戏外登录。</string>
     <string name="splash_screen_pro_grade">该库实现了自定义 Java 安全管理器和带拒绝规则的安全策略。</string>
-    <string name="splash_screen_forge_installer">帮助自动安装 Forge 与 OptiFine。</string>
+    <string name="splash_screen_optifine_installer">帮助自动安装 OptiFine。</string>
+    <string name="splash_screen_forge_install_bootstrapper">帮助自动安装 Forge。</string>
     <string name="splash_screen_jre8">Java 8 环境，Minecraft 1.16- 依赖 Java 8。</string>
     <string name="splash_screen_jre17">Java 17 环境，Minecraft 1.17+ 依赖 Java 17。</string>
     <string name="splash_screen_jre21">Java 21 环境，Minecraft 1.20.5+ 依赖 Java 21。</string>
@@ -631,7 +626,7 @@
     <string name="about_VeraFirefly_desc">为启动器提供渲染方面的技术支持</string>
     <string name="about_LingMuQiuZhu_desc">为启动器提供了技术支持</string>
     <string name="about_ShirosakiMio_desc">为启动器提供了技术支持，修复了一些漏洞</string>
-    <string name="about_bangbang93_desc">启动器使用了其创作的 BMCLAPI 镜像源</string>
+    <string name="about_bangbang93_desc">启动器使用了其创作的 BMCLAPI 镜像源，与 Forge Install Bootstrapper</string>
     <string name="about_access_space">访问空间</string>
     <string name="about_access_link">访问链接</string>
     <string name="about_version_name">软件版本名:</string>
@@ -657,7 +652,6 @@
     <string name="newbie_guide_mod_search">点击可召唤搜索框，使用它可以快速搜寻到你想要寻找的 Mod。</string>
     <string name="newbie_guide_mod_import">在原生的文件管理器内选择一个 Mod 文件，可将其导入当前 Mod 文件夹。</string>
     <string name="newbie_guide_mod_download">点击可以进入 Mod 下载页面，你可以在那里在线搜索与下载 Mod。</string>
-    <string name="newbie_guide_profiles_path_create">点击此按钮可创建新的游戏路径。</string>
 
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">支持我的开发</string>

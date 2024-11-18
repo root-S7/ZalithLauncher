@@ -64,14 +64,10 @@
     <string name="customctrl_editor_exit_msg">Tem certeza de que deseja sair?</string>
     <string name="customctrl_editor_exit">Sair do Editor</string>
     <string name="global_save_and_exit">Salvar e Sair</string>
-    <string name="unnamed">Sem Nome</string>
-    <string name="version_installed">Instalado</string>
     <string name="version_release">Versão Oficial</string>
     <string name="version_snapshot">Versão Snapshot</string>
     <string name="version_alpha">Versão Alpha</string>
     <string name="version_beta">Versão Beta</string>
-    <string name="profiles_latest_snapshot">Último Snapshot</string>
-    <string name="profiles_latest_release">Última Versão Oficial</string>
     <string name="force_exit_confirm">Tem certeza de que deseja fechar à força?</string>
     <string name="autoram_info_msg">Memória definida para %d MB</string>
     <string name="memory_warning_msg">A memória disponível atual (%d) é menor que a memória alocada (%d), o que pode causar falhas no jogo. Se o jogo falhar, altere a configuração!</string>
@@ -117,19 +113,7 @@
     <string name="mod_forge_searching">Procurando número de versão do Forge</string>
     <string name="mod_neoforge_searching">Procurando número de versão do NeoForge</string>
     <string name="mod_failed_to_load_list">Falha ao carregar lista de versões!</string>
-    <string name="mod_no_installer">Desculpe, esta versão de %s não possui um instalador, ainda não suportado</string>
-    <string name="mod_fabric_cant_read_meta">Falha ao ler metadados do carregador %s, tente novamente mais tarde</string>
-    <string name="mod_optifine_failed_to_scrape">Falha ao coletar dados de instalação do OptiFine</string>
     <string name="mod_optifine_progress">Baixando %s</string>
-    <string name="create_profile">Criar nova instância</string>
-    <string name="create_profile_vanilla_like_versions">Versões semelhantes à Vanilla</string>
-    <string name="create_profile_modded_versions">Versões modificadas</string>
-    <string name="create_profile_vanilla">Criar instância Vanilla</string>
-    <string name="create_profile_optifine">Criar instância OptiFine</string>
-    <string name="create_profile_forge">Criar instância Forge</string>
-    <string name="create_profile_neoforge">Criar instância NeoForge</string>
-    <string name="create_profile_fabric">Criar instância Fabric</string>
-    <string name="create_profile_quilt">Criar instância Quilt</string>
     <!-- Controls -->
     <string name="control_primary">Clique Esquerdo</string>
     <string name="control_secondary">Clique Direito</string>
@@ -210,19 +194,46 @@
     <string name="controller_dpad_right">D-Pad para Direita</string>
     <string name="controller_remapper_operating_mode">Modo Atual</string>
     <string name="controller_remapper_expand_entry">Expandir para alterar o código da tecla</string>
+    <!-- Version -->
+    <string name="version_manager_title">Gerenciamento de Versões</string>
+    <string name="version_no_versions">Nenhuma versão instalada</string>
+    <string name="version_install_new">Instalar nova versão</string>
+    <string name="version_install_not_install">Não instalar</string>
+    <string name="version_install_incompatible">Incompatível com %s</string>
+    <string name="version_install_exists">Já existe uma versão com este nome!</string>
+    <string name="version_install_no_versions">Nenhuma versão disponível para escolher!</string>
+    <string name="version_install_cannot_use_mc_name">Conteúdo adicional foi selecionado, e a independência do núcleo original deve ser garantida. Por favor, não use o nome original!</string>
+    <string name="version_install_type_version">Baixar e instalar como versão</string>
+    <string name="version_install_type_mod">Baixar e instalar como Mod</string>
+    <string name="version_manager_shortcuts">Atalhos</string>
+    <string name="version_manager_shortcuts_mods">Gerenciamento de Mods</string>
+    <string name="version_manager_shortcuts_version_path">Pasta do Caminho da Versão</string>
+    <string name="version_manager_shortcuts_resource_path">Pasta do pacote de recursos</string>
+    <string name="version_manager_shortcuts_world_path">Pasta de salvamento de mundos</string>
+    <string name="version_manager_shortcuts_shader_path">Pasta do pacote de shaders</string>
+    <string name="version_manager_shortcuts_logs_path">Pasta de logs</string>
+    <string name="version_manager_shortcuts_crash_report_path">Pasta de relatórios de falha</string>
+    <string name="version_manager_edit">Editar versão</string>
+    <string name="version_manager_rename">Renomear versão</string>
+    <string name="version_manager_delete">Excluir versão</string>
+    <string name="version_manager_delete_tip">Se o isolamento de versões estiver ativado, seus jogos salvos, pacotes de recursos e mods serão excluídos junto com a versão. Certifique-se de fazer um backup antes de realizar esta operação!</string>
+    <string name="version_manager_delete_tip_invalid">A versão atual está faltando o arquivo JSON da versão, por isso é considerada uma versão inválida. Portanto, você não pode selecionar essa versão. Clique em confirmar para excluir a versão atual.</string>
+    <string name="version_manager_task_in_progress">Tarefa em andamento, gerenciamento de versões temporariamente indisponível</string>
+    <string name="version_manager_invalid">Esta versão é inválida</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher precisa da permissão para gerenciar todos os arquivos do dispositivo para usar esta funcionalidade corretamente, por favor, habilite a permissão!</string>
     <string name="profiles_path_title">Gerenciamento de Caminho do Jogo</string>
     <string name="profiles_path_default">Caminho Padrão</string>
+    <string name="profiles_path_settings">Abrir configurações de caminho</string>
+    <string name="profiles_path_settings_goto">Abrir este diretório</string>
     <string name="profiles_path_create_new">Adicionar Novo Caminho</string>
     <string name="profiles_path_create_new_title">Nomear este Caminho</string>
     <string name="profiles_path_delete_title">Excluir este Caminho</string>
     <string name="profiles_path_delete_message">O launcher excluirá este caminho, mas não excluirá os arquivos salvos no caminho correspondente, você ainda pode adicionar este caminho novamente após a exclusão</string>
-    <string name="profiles_path_task_in_progress">Tarefa em andamento, o gerenciamento de caminho não está disponível no momento</string>
     <!-- Profile -->
-    <string name="pedit_profile_version">Versão</string>
+    <string name="pedit_isolation_enabled">Habilitar Isolamento de Versão</string>
+    <string name="pedit_reset_icon">Isso irá redefinir o ícone personalizado que você configurou, e a operação não pode ser desfeita. Tem certeza de que deseja redefinir o ícone da versão?</string>
     <string name="pedit_control">Layout de Controle</string>
-    <string name="pedit_custom_path">Caminho Personalizado</string>
     <string name="pedit_default">(Usar valor padrão global)</string>
     <string name="profile_mods_download_mod">Baixar Mod</string>
     <string name="profile_mods_download_mod_release_version">Mostrar apenas versões oficiais do Minecraft</string>
@@ -231,19 +242,6 @@
     <string name="profile_mods_disable">Desativar</string>
     <string name="profile_mods_enable">Ativar</string>
     <string name="profile_mods_disable_or_enable">Desativar/Ativar</string>
-    <string name="profile_manager_shortcuts">Funcionalidades de Atalho</string>
-    <string name="profile_manager_shortcuts_mods">Gerenciamento de Mods</string>
-    <string name="profile_manager_shortcuts_instance_path">Pasta do Caminho da Instância</string>
-    <string name="profile_manager_shortcuts_resource_path">Pasta de Pacotes de Recursos</string>
-    <string name="profile_manager_shortcuts_world_path">Pasta de Arquivos de Save do Jogo</string>
-    <string name="profile_manager_shortcuts_shader_path">Pasta do pacote de shaders</string>
-    <string name="profile_manager_shortcuts_logs_path">Pasta de Logs</string>
-    <string name="profile_manager_shortcuts_crash_report_path">Pasta de Relatórios de Crash</string>
-    <string name="profile_manager_edit">Editar Instância</string>
-    <string name="profile_manager_delete">Excluir Instância</string>
-    <string name="profile_manager_delete_message">Esta ação excluirá esta instância, mas não excluirá os arquivos de jogo associados à instância</string>
-    <string name="profile_manager_download_optifine">Instalar Mod OptiFine</string>
-    <string name="profile_manager_download_optifine_message">Baixe e instale o OptiFine apenas como um Mod. Certifique-se de que a instância selecionada suporta a execução do Mod OptiFine</string>
     <!-- Account -->
     <string name="account_login_done">Login concluído</string>
     <string name="account_add">Adicionar conta</string>
@@ -471,9 +469,10 @@
     <string name="game_singnal_message">O aplicativo/jogo foi abortado devido ao sinal fatal %d.</string>
     <string name="game_exit_note">Para detalhes sobre o erro, verifique o arquivo de log ou o relatório de falha. Se você não conseguir resolver o problema sozinho, envie o arquivo de log ou o relatório de falha para alguém que possa ajudá-lo a resolvê-lo!</string>
     <string name="game_exit_no_screenshot">Por favor, não tire apenas uma captura de tela da interface atual do aplicativo, pois ninguém saberá o que aconteceu. Compartilhe seu arquivo de log ou relatório de falha!</string>
-    <string name="game_autopick_runtime_failed">Nenhum ambiente de execução adequado foi encontrado. Foi definido o ambiente de execução selecionado para a instância atual</string>
+    <string name="game_autopick_runtime_failed">Nenhum ambiente de execução adequado encontrado, configurado para o ambiente de execução selecionado para a versão atual</string>
     <string name="game_tip">O jogo está em execução. Você pode abrir a saída de log através do menu para verificar o status do jogo</string>
     <string name="game_tip_version">Versão do jogo iniciada atualmente:</string>
+    <string name="game_tip_mc_info">Informações do Minecraft:</string>
     <!-- Download -->
     <string name="download_classify_mod">Baixar Mod</string>
     <string name="download_classify_modpack">Baixar Modpack</string>
@@ -522,10 +521,6 @@
     <string name="modpack_download_downloading_mods">Baixando mods (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Baixando mods (arquivos baixados: %d, total de arquivos: %d)</string>
     <string name="modpack_download_applying_overrides">Aplicando substituições (%d/%d)</string>
-    <string name="modpack_install_notification_title">Instalador de Modpack Zalith</string>
-    <string name="modpack_install_notification_success">Toque aqui para concluir a instalação do modpack</string>
-    <string name="modpack_install_notification_data_not_available">Falha ao baixar informações do carregador de mods</string>
-    <string name="modpack_install_modloader_download_failed">Falha ao baixar arquivos do carregador de mods</string>
     <string name="modpack_install_download_failed">Falha ao baixar arquivos do modpack</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Limpar Cache</string>
@@ -571,7 +566,8 @@
     <string name="splash_screen_cacio">Fornece um backend GUI portátil para o OpenJDK.</string>
     <string name="splash_screen_authlib_injector">Injeta authlib durante a execução para permitir o login fora do jogo.</string>
     <string name="splash_screen_pro_grade">Esta biblioteca implementa um gerenciador de segurança Java personalizado e uma política de segurança com regras de negação.</string>
-    <string name="splash_screen_forge_installer">Ajuda na instalação automática do Forge e OptiFine.</string>
+    <string name="splash_screen_optifine_installer">Ajuda a instalar o OptiFine automaticamente.</string>
+    <string name="splash_screen_forge_install_bootstrapper">Ajuda a instalar o Forge automaticamente.</string>
     <string name="splash_screen_jre8">Ambiente Java 8, Minecraft 1.16- depende do Java 8.</string>
     <string name="splash_screen_jre17">Ambiente Java 17, Minecraft 1.17+ depende do Java 17.</string>
     <string name="splash_screen_jre21">Ambiente Java 21, Minecraft 1.20.5+ depende do Java 21.</string>
@@ -592,7 +588,7 @@
     <string name="about_VeraFirefly_desc">Forneceu suporte técnico em renderização para o lançador</string>
     <string name="about_LingMuQiuZhu_desc">Forneceu suporte técnico para o lançador</string>
     <string name="about_ShirosakiMio_desc">Forneceu suporte técnico para o lançador e corrigiu alguns bugs</string>
-    <string name="about_bangbang93_desc">O lançador utiliza sua fonte de imagem BMCLAPI</string>
+    <string name="about_bangbang93_desc">O lançador usa sua fonte espelhada BMCLAPI criada, junto com o Forge Install Bootstrapper.</string>
     <string name="about_access_space">Espaço de Acesso</string>
     <string name="about_access_link">Link de Acesso</string>
     <string name="about_version_name">Nome da versão do software:</string>
@@ -617,7 +613,6 @@
     <string name="newbie_guide_mod_search">Clique para convocar a caixa de pesquisa e use-a para encontrar rapidamente o Mod que você deseja.</string>
     <string name="newbie_guide_mod_import">Selecione um arquivo Mod no gerenciador de arquivos nativo para importá-lo para a pasta de Mods atual.</string>
     <string name="newbie_guide_mod_download">Clique para acessar a página de download de Mods, onde você pode pesquisar e baixar Mods online.</string>
-    <string name="newbie_guide_profiles_path_create">Clique neste botão para criar um novo caminho de jogo.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Apoie o meu desenvolvimento</string>
     <string name="request_sponsorship_message">A maior parte deste software foi desenvolvida e mantida por mim sozinho. Se você acha que este software é útil para você e se suas condições permitirem, espero que considere me patrocinar para que eu possa ter mais motivação para continuar desenvolvendo e melhorando, obrigado pelo seu apoio!</string>

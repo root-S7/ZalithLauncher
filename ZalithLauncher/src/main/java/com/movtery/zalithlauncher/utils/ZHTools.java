@@ -31,12 +31,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.movtery.zalithlauncher.BuildConfig;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
-
-import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -121,16 +118,6 @@ public final class ZHTools {
 
     public static void killProcess() {
         android.os.Process.killProcess(android.os.Process.myPid());
-    }
-
-    public static File getGameDirPath(String gameDir) {
-        if (gameDir != null) {
-            if (gameDir.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX))
-                return new File(gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX, ProfilePathManager.getCurrentPath() + "/"));
-            else
-                return new File(ProfilePathManager.getCurrentPath(), gameDir);
-        }
-        return new File(PathAndUrlManager.DIR_GAME_DEFAULT);
     }
 
     public static int getVersionCode() {

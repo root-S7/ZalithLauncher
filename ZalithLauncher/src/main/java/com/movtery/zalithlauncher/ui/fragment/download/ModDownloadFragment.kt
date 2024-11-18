@@ -8,20 +8,19 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.enums.Classify
+import com.movtery.zalithlauncher.feature.download.platform.AbstractPlatformHelper.Companion.getModsPath
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
-import java.io.File
 
 class ModDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
     parentFragment,
     Classify.MOD,
     CategoryUtils.getModCategory(),
-    true,
-    sModPath
+    true
 ) {
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
 
@@ -32,7 +31,7 @@ class ModDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDo
                 val dialog = ZHTools.showTaskRunningDialog((requireContext()))
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireActivity(), uri, sModPath.absolutePath)
+                        copyFileInBackground(requireActivity(), uri, getModsPath().absolutePath)
                     }
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
@@ -51,9 +50,5 @@ class ModDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDo
             ).show()
             openDocumentLauncher?.launch(suffix)
         }
-    }
-
-    companion object {
-        private val sModPath = File(sGameDir, "/mods")
     }
 }

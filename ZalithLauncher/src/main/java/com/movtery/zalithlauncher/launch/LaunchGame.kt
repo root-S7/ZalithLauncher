@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.version.Version
+import com.movtery.zalithlauncher.feature.version.VersionInfo
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -19,14 +21,12 @@ import net.kdt.pojavlaunch.plugins.FFmpegPlugin
 import net.kdt.pojavlaunch.services.GameService.LocalBinder
 import net.kdt.pojavlaunch.utils.JREUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
-import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
 
 class LaunchGame {
     companion object {
         @Throws(Throwable::class)
         @JvmStatic
-        fun runGame(activity: AppCompatActivity, serverBinder: LocalBinder, minecraftProfile: MinecraftProfile, versionID: String, version: JMinecraftVersionList.Version) {
+        fun runGame(activity: AppCompatActivity, serverBinder: LocalBinder, minecraftVersion: Version, versionID: String, version: JMinecraftVersionList.Version) {
             Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer }
 
             if (!Tools.checkRendererCompatible(activity, Tools.LOCAL_RENDERER)) {
@@ -37,26 +37,27 @@ class LaunchGame {
                 Tools.releaseCache()
             }
 
-            val customArgs = minecraftProfile.javaArgs?.takeIf { it.isNotBlank() }
+            val customArgs = minecraftVersion.getJavaArgs().takeIf { it.isNotBlank() }
                 ?: AllSettings.javaArgs?.takeIf { it.isNotBlank() }
                 ?: ""
             val account = AccountsManager.getInstance().currentAccount
             printLauncherInfo(
+                minecraftVersion.getVersionInfo(),
                 versionID,
                 customArgs.takeIf { it.isNotBlank() } ?: "NONE",
-                minecraftProfile.javaDir ?: AllSettings.defaultRuntime?.takeIf { it.isNotBlank() } ?: "NONE",
+                minecraftVersion.getJavaDir().takeIf { it.isNotBlank() } ?: "NONE",
                 account
             )
             JREUtils.redirectAndPrintJRELog()
-            LauncherProfiles.load()
 
             val requiredJavaVersion = version.javaVersion?.majorVersion ?: 8
-            launch(activity, account, minecraftProfile, versionID, requiredJavaVersion, customArgs)
+            launch(activity, account, minecraftVersion, versionID, requiredJavaVersion, customArgs)
             //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
             activity.runOnUiThread { serverBinder.isActive = false }
         }
 
         private fun printLauncherInfo(
+            versionInfo: VersionInfo?,
             gameVersion: String,
             javaArguments: String,
             javaRuntime: String,
@@ -68,12 +69,18 @@ class LaunchGame {
                 else javaRuntime
             }
 
+            var mcInfo = gameVersion
+            versionInfo?.let { info ->
+                mcInfo = info.getInfoString()
+            }
+
             Logger.appendToLog("--------- Start launching the game")
             Logger.appendToLog("Info: Launcher version: ${ZHTools.getVersionName()} (${ZHTools.getVersionCode()})")
             Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
             Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
             Logger.appendToLog("Info: Selected Minecraft version: $gameVersion")
+            Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
             Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
             Logger.appendToLog("Info: Account: ${account.username} (${account.accountType})")
@@ -84,7 +91,7 @@ class LaunchGame {
         private fun launch(
             activity: AppCompatActivity,
             account: MinecraftAccount,
-            minecraftProfile: MinecraftProfile,
+            minecraftVersion: Version,
             versionId: String,
             versionJavaRequirement: Int,
             customArgs: String
@@ -93,13 +100,14 @@ class LaunchGame {
 
             val runtime = MultiRTUtils.forceReread(
                 Tools.pickRuntime(
-                activity,
-                minecraftProfile,
-                versionJavaRequirement))
+                    activity,
+                    minecraftVersion,
+                    versionJavaRequirement
+                )
+            )
 
             val versionInfo = Tools.getVersionInfo(versionId)
-            LauncherProfiles.load()
-            val gameDirPath = Tools.getGameDirPath(minecraftProfile)
+            val gameDirPath = minecraftVersion.getGameDir()
 
             //预处理
             Tools.disableSplash(gameDirPath)
@@ -111,6 +119,7 @@ class LaunchGame {
                 gameDirPath,
                 versionId,
                 versionInfo,
+                minecraftVersion.getVersionName(),
                 runtime,
                 launchClassPath
             ).getAllArgs()

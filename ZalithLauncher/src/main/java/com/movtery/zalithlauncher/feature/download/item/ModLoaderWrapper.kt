@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.Intent
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeDownloadTask
-import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.addAutoInstallArgs
+import com.movtery.zalithlauncher.feature.version.InstallTask
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
-import net.kdt.pojavlaunch.modloaders.FabriclikeUtils
-import net.kdt.pojavlaunch.modloaders.ForgeDownloadTask
-import net.kdt.pojavlaunch.modloaders.ForgeUtils
-import net.kdt.pojavlaunch.modloaders.ModloaderDownloadListener
+import com.movtery.zalithlauncher.feature.mod.modloader.FabricLikeUtils
+import com.movtery.zalithlauncher.feature.mod.modloader.ForgeDownloadTask
+import com.movtery.zalithlauncher.feature.version.InstallArgsUtils
 import java.io.File
 
 class ModLoaderWrapper(
@@ -44,32 +43,27 @@ class ModLoaderWrapper(
         }
 
     /**
-     * Get the Runnable that needs to run in order to download the mod loader.
+     * Get the Task that needs to run in order to download the mod loader.
      * The task will also install the mod loader if it does not require GUI installation
-     * @param listener the listener that gets notified of the installation status
      * @return the task Runnable that needs to be ran
      */
-    fun getDownloadTask(listener: ModloaderDownloadListener): Runnable? {
+    fun getDownloadTask(): InstallTask? {
         return when (modLoader) {
             ModLoader.FORGE -> ForgeDownloadTask(
-                listener,
                 minecraftVersion,
                 modLoaderVersion
             )
 
             ModLoader.NEOFORGE -> NeoForgeDownloadTask(
-                listener,
                 modLoaderVersion
             )
 
-            ModLoader.FABRIC -> FabriclikeUtils.FABRIC_UTILS.getDownloadTask(
-                listener,
+            ModLoader.FABRIC -> FabricLikeUtils.FABRIC_UTILS.getDownloadTask(
                 minecraftVersion,
                 modLoaderVersion
             )
 
-            ModLoader.QUILT -> FabriclikeUtils.QUILT_UTILS.getDownloadTask(
-                listener,
+            ModLoader.QUILT -> FabricLikeUtils.QUILT_UTILS.getDownloadTask(
                 minecraftVersion,
                 modLoaderVersion
             )
@@ -91,38 +85,22 @@ class ModLoaderWrapper(
         val baseIntent = Intent(context, JavaGUILauncherActivity::class.java)
         when (modLoader) {
             ModLoader.FORGE -> {
-                ForgeUtils.addAutoInstallArgs(baseIntent, modInstallerJar, versionId)
+                InstallArgsUtils(minecraftVersion, versionId!!).setForge(baseIntent, modInstallerJar)
                 return baseIntent
             }
 
             ModLoader.NEOFORGE -> {
-                addAutoInstallArgs(baseIntent, modInstallerJar)
+                InstallArgsUtils(minecraftVersion, versionId!!).setNeoForge(baseIntent, modInstallerJar)
                 return baseIntent
             }
 
             ModLoader.FABRIC -> {
-                FabriclikeUtils.addAutoInstallArgs(
-                    baseIntent, FabriclikeUtils.FABRIC_UTILS,
-                    minecraftVersion,
-                    modLoaderVersion, modInstallerJar
-                )
+                InstallArgsUtils(minecraftVersion, modLoaderVersion).setFabric(baseIntent, modInstallerJar)
                 return baseIntent
             }
 
             ModLoader.QUILT -> return null
             else -> return null
-        }
-    }
-
-    /**
-     * Check whether the mod loader this object denotes requires GUI installation
-     * @return true if mod loader requires GUI installation, false otherwise
-     */
-    fun requiresGuiInstallation(): Boolean {
-        return when (modLoader) {
-            ModLoader.FORGE, ModLoader.NEOFORGE, ModLoader.FABRIC -> true
-            ModLoader.QUILT -> false
-            else -> false
         }
     }
 }

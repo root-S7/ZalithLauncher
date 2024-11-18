@@ -15,15 +15,18 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentLauncherBinding;
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.event.single.LaunchGameEvent;
-import com.movtery.zalithlauncher.event.single.RefreshVersionSpinnerEvent;
+import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent;
+import com.movtery.zalithlauncher.feature.version.Version;
+import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
+import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.ShareLogDialog;
 import com.movtery.zalithlauncher.ui.fragment.AboutFragment;
 import com.movtery.zalithlauncher.ui.fragment.ControlButtonFragment;
 import com.movtery.zalithlauncher.ui.fragment.FilesFragment;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
-import com.movtery.zalithlauncher.ui.fragment.ProfileManagerFragment;
-import com.movtery.zalithlauncher.ui.fragment.ProfilePathManagerFragment;
+import com.movtery.zalithlauncher.ui.fragment.VersionManagerFragment;
+import com.movtery.zalithlauncher.ui.fragment.VersionsListFragment;
 import com.movtery.zalithlauncher.ui.subassembly.account.AccountViewWrapper;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -55,7 +58,6 @@ public class MainMenuFragment extends FragmentWithAnim {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.mcVersionSpinner.setParentFragment(this);
         binding.aboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
         binding.customControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
         binding.openMainDirButton.setOnClickListener(v -> {
@@ -73,20 +75,22 @@ public class MainMenuFragment extends FragmentWithAnim {
             shareLogDialog.show();
         });
 
-        binding.pathManagerButton.setOnClickListener(v -> {
+        binding.version.setOnClickListener(v -> {
             if (!isTaskRunning()) {
-                checkPermissions(R.string.profiles_path_title, () -> {
-                    ViewAnimUtils.setViewAnim(binding.pathManagerButton, Animations.Pulse);
-                    ZHTools.swapFragmentWithAnim(this, ProfilePathManagerFragment.class, ProfilePathManagerFragment.TAG, null);
-                });
+                ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
             } else {
-                ViewAnimUtils.setViewAnim(binding.pathManagerButton, Animations.Shake);
-                TaskExecutors.runInUIThread(() -> Toast.makeText(requireContext(), R.string.profiles_path_task_in_progress, Toast.LENGTH_SHORT).show());
+                ViewAnimUtils.setViewAnim(binding.version, Animations.Shake);
+                TaskExecutors.runInUIThread(() -> Toast.makeText(requireContext(), R.string.version_manager_task_in_progress, Toast.LENGTH_SHORT).show());
             }
         });
         binding.managerProfileButton.setOnClickListener(v -> {
-            ViewAnimUtils.setViewAnim(binding.managerProfileButton, Animations.Pulse);
-            ZHTools.swapFragmentWithAnim(this, ProfileManagerFragment.class, ProfileManagerFragment.TAG, null);
+            if (!isTaskRunning()) {
+                ViewAnimUtils.setViewAnim(binding.managerProfileButton, Animations.Pulse);
+                ZHTools.swapFragmentWithAnim(this, VersionManagerFragment.class, VersionManagerFragment.TAG, null);
+            } else {
+                ViewAnimUtils.setViewAnim(binding.managerProfileButton, Animations.Shake);
+                TaskExecutors.runInUIThread(() -> Toast.makeText(requireContext(), R.string.version_manager_task_in_progress, Toast.LENGTH_SHORT).show());
+            }
         });
 
         binding.playButton.setOnClickListener(v -> EventBus.getDefault().post(new LaunchGameEvent()));
@@ -95,12 +99,23 @@ public class MainMenuFragment extends FragmentWithAnim {
     @Override
     public void onResume() {
         super.onResume();
-        event(new RefreshVersionSpinnerEvent());
+        VersionsManager.INSTANCE.refresh();
     }
 
     @Subscribe()
-    public void event(RefreshVersionSpinnerEvent event) {
-        binding.mcVersionSpinner.reloadProfiles();
+    public void event(RefreshVersionsEvent event) {
+        TaskExecutors.runInUIThread(() -> {
+            Version version = VersionsManager.INSTANCE.getCurrentVersion();
+            if (version != null) {
+                binding.versionName.setText(version.getVersionName());
+
+                new VersionIconUtils(version).start(binding.versionIcon);
+                binding.managerProfileButton.setVisibility(View.VISIBLE);
+            } else {
+                binding.versionName.setText(R.string.version_no_versions);
+                binding.managerProfileButton.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Subscribe()

@@ -40,10 +40,8 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.skydoves.powerspinner.PowerSpinnerView
 import net.kdt.pojavlaunch.Tools
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.io.File
 import java.util.concurrent.Future
 
 abstract class AbstractResourceDownloadFragment(
@@ -51,7 +49,6 @@ abstract class AbstractResourceDownloadFragment(
     private val classify: Classify,
     private val categoryList: List<Category>,
     private val showModloader: Boolean,
-    targetPath: File?,
     private val recommendedPlatform: Platform = Platform.CURSEFORGE
 ) : FragmentWithAnim(R.layout.fragment_download_resource) {
     private lateinit var binding: FragmentDownloadResourceBinding
@@ -63,7 +60,7 @@ abstract class AbstractResourceDownloadFragment(
     private var mCurrentPlatform: Platform = Platform.CURSEFORGE
     private val mFilters: Filters = Filters()
 
-    private val mInfoAdapter = InfoAdapter(parentFragment, targetPath,
+    private val mInfoAdapter = InfoAdapter(parentFragment,
         object : InfoAdapter.CallSearchListener {
             override fun isLastPage() = mLastPage
 
@@ -382,19 +379,9 @@ abstract class AbstractResourceDownloadFragment(
 
     companion object {
         private val MOD_ITEMS_EMPTY: MutableList<InfoItem> = ArrayList()
-        @JvmField
-        val sGameDir: File = ZHTools.getGameDirPath(getDir())
 
         const val ERROR_INTERNAL: Int = 0
         const val ERROR_NO_RESULTS: Int = 1
         const val ERROR_PLATFORM_NOT_SUPPORTED: Int = 2
-
-        private fun getDir(): String? {
-            var dir: String? = LauncherProfiles.getCurrentProfile().gameDir
-            dir?.let {
-                if (it.startsWith("./")) dir = it.removePrefix("./")
-            }
-            return dir
-        }
     }
 }

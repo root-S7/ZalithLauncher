@@ -4,8 +4,6 @@ import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.install.InstallHelper
-import com.movtery.zalithlauncher.feature.download.install.OnInstallStartListener
-import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -22,14 +20,14 @@ import java.util.zip.ZipFile
 class ModrinthModPackInstallHelper {
     companion object {
         @Throws(IOException::class)
-        fun startInstall(infoItem: InfoItem, versionItem: VersionItem): ModLoaderWrapper? {
-            return InstallHelper.installModPack(infoItem, versionItem) { modpackFile, targetPath ->
+        fun startInstall(versionItem: VersionItem, customName: String): ModLoaderWrapper? {
+            return InstallHelper.installModPack(versionItem, customName) { modpackFile, targetPath ->
                 installZip(modpackFile, targetPath)
             }
         }
 
         @Throws(IOException::class)
-        fun installZip(packFile: File, targetPath: File, listener: OnInstallStartListener? = null): ModLoaderWrapper? {
+        fun installZip(packFile: File, targetPath: File): ModLoaderWrapper? {
             ZipFile(packFile).use { modpackZipFile ->
                 val modrinthIndex = Tools.GLOBAL_GSON.fromJson(
                     Tools.read(ZipUtils.getEntryStream(modpackZipFile, "modrinth.index.json")),
@@ -39,7 +37,6 @@ class ModrinthModPackInstallHelper {
                     Logging.i("ModrinthModPackInstallHelper", "manifest verification failed")
                     return null
                 }
-                listener?.onStart()
                 val modDownloader = ModDownloader(targetPath)
                 for (indexFile in modrinthIndex.files) {
                     modDownloader.submitDownload(

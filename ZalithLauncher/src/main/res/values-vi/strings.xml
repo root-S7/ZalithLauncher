@@ -64,14 +64,10 @@
     <string name="customctrl_editor_exit_msg">Bạn có chắc chắn muốn thoát?</string>
     <string name="customctrl_editor_exit">Thoát trình soạn thảo</string>
     <string name="global_save_and_exit">Lưu và thoát</string>
-    <string name="unnamed">Chưa đặt tên</string>
-    <string name="version_installed">Đã cài đặt</string>
     <string name="version_release">Phiên bản chính thức</string>
     <string name="version_snapshot">Phiên bản Snapshot</string>
     <string name="version_alpha">Phiên bản Alpha</string>
     <string name="version_beta">Phiên bản Beta</string>
-    <string name="profiles_latest_snapshot">Snapshot mới nhất</string>
-    <string name="profiles_latest_release">Phiên bản chính thức mới nhất</string>
     <string name="force_exit_confirm">Bạn có chắc chắn muốn tắt bằng cách ép buộc?</string>
     <string name="autoram_info_msg">Bộ nhớ đã được đặt là %d MB</string>
     <string name="memory_warning_msg">Bộ nhớ hiện có (%d) thấp hơn bộ nhớ được phân bổ (%d), điều này có thể gây ra sự cố trò chơi, nếu trò chơi bị sự cố, vui lòng thay đổi cấu hình!</string>
@@ -117,19 +113,7 @@
     <string name="mod_forge_searching">Đang tìm kiếm số phiên bản Forge</string>
     <string name="mod_neoforge_searching">Đang tìm kiếm số phiên bản NeoForge</string>
     <string name="mod_failed_to_load_list">Không thể tải danh sách phiên bản!</string>
-    <string name="mod_no_installer">Xin lỗi, phiên bản %s này không có trình cài đặt, chưa được hỗ trợ</string>
-    <string name="mod_fabric_cant_read_meta">Không thể đọc siêu dữ liệu trình nạp %s, vui lòng thử lại sau</string>
-    <string name="mod_optifine_failed_to_scrape">Không thể thu thập dữ liệu cài đặt OptiFine</string>
     <string name="mod_optifine_progress">Đang tải %s</string>
-    <string name="create_profile">Tạo thể hiện mới</string>
-    <string name="create_profile_vanilla_like_versions">Phiên bản Vanilla-like</string>
-    <string name="create_profile_modded_versions">Phiên bản đã chỉnh sửa</string>
-    <string name="create_profile_vanilla">Tạo thể hiện Vanilla</string>
-    <string name="create_profile_optifine">Tạo thể hiện OptiFine</string>
-    <string name="create_profile_forge">Tạo thể hiện Forge</string>
-    <string name="create_profile_neoforge">Tạo thể hiện NeoForge</string>
-    <string name="create_profile_fabric">Tạo thể hiện Fabric</string>
-    <string name="create_profile_quilt">Tạo thể hiện Quilt</string>
     <!-- Controls -->
     <string name="control_primary">Nhấp chuột trái</string>
     <string name="control_secondary">Nhấp chuột phải</string>
@@ -210,19 +194,46 @@
     <string name="controller_dpad_right">Nút mũi tên phải</string>
     <string name="controller_remapper_operating_mode">Chế độ hiện tại</string>
     <string name="controller_remapper_expand_entry">Mở rộng để thay đổi mã nút</string>
+    <!-- Version -->
+    <string name="version_manager_title">Quản lý Phiên bản</string>
+    <string name="version_no_versions">Chưa cài đặt phiên bản nào</string>
+    <string name="version_install_new">Cài đặt phiên bản mới</string>
+    <string name="version_install_not_install">Không cài đặt</string>
+    <string name="version_install_incompatible">Không tương thích với %s</string>
+    <string name="version_install_exists">Đã có phiên bản với tên này!</string>
+    <string name="version_install_no_versions">Không có phiên bản nào để chọn!</string>
+    <string name="version_install_cannot_use_mc_name">Nội dung bổ sung đã được chọn, và cần đảm bảo tính độc lập của lõi gốc. Vui lòng không sử dụng tên gốc!</string>
+    <string name="version_install_type_version">Tải và cài đặt dưới dạng phiên bản</string>
+    <string name="version_install_type_mod">Tải và cài đặt dưới dạng Mod</string>
+    <string name="version_manager_shortcuts">Phím tắt</string>
+    <string name="version_manager_shortcuts_mods">Quản lý Mod</string>
+    <string name="version_manager_shortcuts_version_path">Thư mục đường dẫn phiên bản</string>
+    <string name="version_manager_shortcuts_resource_path">Thư mục gói tài nguyên</string>
+    <string name="version_manager_shortcuts_world_path">Thư mục lưu trữ thế giới</string>
+    <string name="version_manager_shortcuts_shader_path">Thư mục gói shader</string>
+    <string name="version_manager_shortcuts_logs_path">Thư mục nhật ký</string>
+    <string name="version_manager_shortcuts_crash_report_path">Thư mục báo cáo lỗi</string>
+    <string name="version_manager_edit">Chỉnh sửa phiên bản</string>
+    <string name="version_manager_rename">Đổi tên phiên bản</string>
+    <string name="version_manager_delete">Xóa phiên bản</string>
+    <string name="version_manager_delete_tip">Nếu chức năng cách ly phiên bản được bật, khi xóa sẽ xóa luôn các dữ liệu quan trọng như lưu game, gói tài nguyên, mod. Vui lòng sao lưu trước khi thực hiện thao tác này!</string>
+    <string name="version_manager_delete_tip_invalid">Phiên bản hiện tại thiếu tệp JSON phiên bản, vì vậy nó được coi là phiên bản không hợp lệ. Do đó, bạn không thể chọn phiên bản này. Nhấn xác nhận để xóa phiên bản hiện tại.</string>
+    <string name="version_manager_task_in_progress">Đang thực hiện tác vụ, quản lý phiên bản tạm thời không khả dụng</string>
+    <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
     <string name="profiles_path_title">Quản lý đường dẫn trò chơi</string>
     <string name="profiles_path_default">Đường dẫn mặc định</string>
+    <string name="profiles_path_settings">Mở cài đặt đường dẫn</string>
+    <string name="profiles_path_settings_goto">Mở thư mục này</string>
     <string name="profiles_path_create_new">Thêm đường dẫn mới</string>
     <string name="profiles_path_create_new_title">Đặt tên cho đường dẫn này</string>
     <string name="profiles_path_delete_title">Xóa đường dẫn này</string>
     <string name="profiles_path_delete_message">Trình khởi động sẽ xóa đường dẫn này, nhưng không xóa các tệp được lưu trong đường dẫn tương ứng, sau khi xóa vẫn có thể thêm lại đường dẫn này</string>
-    <string name="profiles_path_task_in_progress">Công việc đang được thực hiện, không thể sử dụng tính năng quản lý đường dẫn</string>
     <!-- Profile -->
-    <string name="pedit_profile_version">Phiên bản</string>
+    <string name="pedit_isolation_enabled">Bật cách ly phiên bản</string>
+    <string name="pedit_reset_icon">Điều này sẽ đặt lại biểu tượng tùy chỉnh bạn đã thiết lập và thao tác không thể hoàn tác. Bạn có chắc chắn muốn đặt lại biểu tượng phiên bản không?</string>
     <string name="pedit_control">Bố cục điều khiển</string>
-    <string name="pedit_custom_path">Đường dẫn tùy chỉnh</string>
     <string name="pedit_default">（Sử dụng giá trị mặc định toàn cục）</string>
     <string name="profile_mods_download_mod">Tải xuống Mod</string>
     <string name="profile_mods_download_mod_release_version">Chỉ hiển thị phiên bản chính thức của Minecraft</string>
@@ -231,19 +242,6 @@
     <string name="profile_mods_disable">Vô hiệu hóa</string>
     <string name="profile_mods_enable">Kích hoạt</string>
     <string name="profile_mods_disable_or_enable">Vô hiệu hóa/Kích hoạt</string>
-    <string name="profile_manager_shortcuts">Chức năng nhanh</string>
-    <string name="profile_manager_shortcuts_mods">Quản lý Mod</string>
-    <string name="profile_manager_shortcuts_instance_path">Thư mục đường dẫn thể hiện</string>
-    <string name="profile_manager_shortcuts_resource_path">Thư mục gói tài nguyên</string>
-    <string name="profile_manager_shortcuts_world_path">Thư mục lưu trữ trò chơi</string>
-    <string name="profile_manager_shortcuts_shader_path">Thư mục gói shader</string>
-    <string name="profile_manager_shortcuts_logs_path">Thư mục nhật ký</string>
-    <string name="profile_manager_shortcuts_crash_report_path">Thư mục báo cáo sự cố</string>
-    <string name="profile_manager_edit">Chỉnh sửa thể hiện</string>
-    <string name="profile_manager_delete">Xóa thể hiện</string>
-    <string name="profile_manager_delete_message">Thao tác này sẽ xóa thể hiện này, nhưng không xóa các tệp trò chơi liên quan đến thể hiện</string>
-    <string name="profile_manager_download_optifine">Cài đặt OptiFine Mod</string>
-    <string name="profile_manager_download_optifine_message">Chỉ tải xuống và cài đặt OptiFine dưới dạng Mod, hãy đảm bảo rằng thể hiện đã chọn hỗ trợ chạy OptiFine Mod</string>
     <!-- Account -->
     <string name="account_login_done">Đăng nhập hoàn tất</string>
     <string name="account_add">Thêm tài khoản</string>
@@ -471,9 +469,10 @@
     <string name="game_singnal_message">Ứng dụng/trò chơi bị dừng do tín hiệu nghiêm trọng %d.</string>
     <string name="game_exit_note">Để biết chi tiết về lỗi, vui lòng kiểm tra tệp nhật ký hoặc báo cáo sự cố. Nếu bạn không thể tự giải quyết vấn đề, hãy gửi tệp nhật ký hoặc báo cáo sự cố cho người có thể giúp bạn giải quyết!</string>
     <string name="game_exit_no_screenshot">Vui lòng không chỉ chụp ảnh màn hình giao diện ứng dụng hiện tại, nếu không sẽ không ai biết điều gì đã xảy ra. Hãy chia sẻ tệp nhật ký hoặc báo cáo sự cố của bạn!</string>
-    <string name="game_autopick_runtime_failed">Không tìm thấy môi trường chạy phù hợp, đã đặt là môi trường chạy được chọn cho thể hiện hiện tại</string>
+    <string name="game_autopick_runtime_failed">Không tìm thấy môi trường chạy phù hợp, đã được thiết lập thành môi trường chạy được chọn cho phiên bản hiện tại</string>
     <string name="game_tip">Trò chơi đang chạy, có thể mở nhật ký đầu ra qua menu để xem tình trạng trò chơi</string>
     <string name="game_tip_version">Phiên bản trò chơi đang khởi động:</string>
+    <string name="game_tip_mc_info">Thông tin Minecraft:</string>
     <!-- Download -->
     <string name="download_classify_mod">Tải về Mod</string>
     <string name="download_classify_modpack">Tải về Modpack</string>
@@ -522,10 +521,6 @@
     <string name="modpack_download_downloading_mods">Đang tải mod (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">Đang tải mod (tệp đã tải: %d, tổng số tệp: %d)</string>
     <string name="modpack_download_applying_overrides">Đang áp dụng ghi đè (%d/%d)</string>
-    <string name="modpack_install_notification_title">Trình cài đặt gói Zalith</string>
-    <string name="modpack_install_notification_success">Nhấn vào đây để hoàn thành cài đặt gói tích hợp</string>
-    <string name="modpack_install_notification_data_not_available">Không thể tải thông tin trình nạp mod</string>
-    <string name="modpack_install_modloader_download_failed">Không thể tải tệp trình nạp mod</string>
     <string name="modpack_install_download_failed">Không thể tải tệp gói tích hợp</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Dọn dẹp bộ nhớ cache</string>
@@ -571,7 +566,8 @@
     <string name="splash_screen_cacio">Cung cấp backend GUI di động cho OpenJDK.</string>
     <string name="splash_screen_authlib_injector">Tiêm authlib qua thời gian chạy để cho phép đăng nhập ngoài trò chơi.</string>
     <string name="splash_screen_pro_grade">Thư viện này triển khai một trình quản lý bảo mật Java tùy chỉnh và một chính sách bảo mật với các quy tắc từ chối.</string>
-    <string name="splash_screen_forge_installer">Giúp cài đặt Forge và OptiFine tự động.</string>
+    <string name="splash_screen_optifine_installer">Giúp tự động cài đặt OptiFine.</string>
+    <string name="splash_screen_forge_install_bootstrapper">Giúp tự động cài đặt Forge.</string>
     <string name="splash_screen_jre8">Môi trường Java 8, Minecraft 1.16- phụ thuộc vào Java 8.</string>
     <string name="splash_screen_jre17">Môi trường Java 17, Minecraft 1.17+ phụ thuộc vào Java 17.</string>
     <string name="splash_screen_jre21">Môi trường Java 21, Minecraft 1.20.5+ phụ thuộc vào Java 21.</string>
@@ -592,7 +588,7 @@
     <string name="about_VeraFirefly_desc">Cung cấp hỗ trợ kỹ thuật về render cho launcher</string>
     <string name="about_LingMuQiuZhu_desc">Cung cấp hỗ trợ kỹ thuật cho launcher</string>
     <string name="about_ShirosakiMio_desc">Cung cấp hỗ trợ kỹ thuật cho launcher, đã sửa một số lỗi</string>
-    <string name="about_bangbang93_desc">Launcher sử dụng nguồn mirror BMCLAPI do họ tạo ra</string>
+    <string name="about_bangbang93_desc">Trình khởi động sử dụng nguồn gương BMCLAPI do nó tạo ra, cùng với Forge Install Bootstrapper.</string>
     <string name="about_access_space">Truy cập không gian</string>
     <string name="about_access_link">Truy cập liên kết</string>
     <string name="about_version_name">Tên phiên bản phần mềm:</string>
@@ -617,7 +613,6 @@
     <string name="newbie_guide_mod_search">Nhấp vào để triệu hồi hộp tìm kiếm, sử dụng nó để nhanh chóng tìm kiếm Mod bạn muốn tìm.</string>
     <string name="newbie_guide_mod_import">Chọn một tệp Mod trong trình quản lý tệp gốc, có thể nhập nó vào thư mục Mod hiện tại.</string>
     <string name="newbie_guide_mod_download">Nhấp vào để vào trang tải xuống Mod, bạn có thể tìm kiếm và tải xuống Mod trực tuyến ở đó.</string>
-    <string name="newbie_guide_profiles_path_create">Nhấp vào nút này để tạo đường dẫn trò chơi mới.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Hỗ trợ phát triển của tôi</string>
     <string name="request_sponsorship_message">Phần lớn nội dung của phần mềm này do một mình tôi phát triển và bảo trì. Nếu bạn thấy phần mềm này hữu ích và có điều kiện, mong bạn xem xét tài trợ cho tôi, để tôi có thêm động lực tiếp tục phát triển và cải tiến, cảm ơn sự ủng hộ của bạn!</string>

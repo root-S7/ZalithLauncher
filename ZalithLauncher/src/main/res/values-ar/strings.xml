@@ -64,14 +64,10 @@
     <string name="customctrl_editor_exit_msg">هل أنت متأكد من الخروج؟</string>
     <string name="customctrl_editor_exit">الخروج من المحرر</string>
     <string name="global_save_and_exit">حفظ والخروج</string>
-    <string name="unnamed">بدون اسم</string>
-    <string name="version_installed">تم التثبيت</string>
     <string name="version_release">الإصدار الرسمي</string>
     <string name="version_snapshot">الإصدار المبدئي</string>
     <string name="version_alpha">إصدار ألفا</string>
     <string name="version_beta">إصدار بيتا</string>
-    <string name="profiles_latest_snapshot">أحدث إصدار مبدئي</string>
-    <string name="profiles_latest_release">أحدث إصدار رسمي</string>
     <string name="force_exit_confirm">هل أنت متأكد من الإغلاق القسري؟</string>
     <string name="autoram_info_msg">تم تعيين الذاكرة إلى %d ميغابايت</string>
     <string name="memory_warning_msg">الذاكرة المتاحة حاليًا (%d) أقل من الذاكرة المخصصة (%d)، مما قد يؤدي إلى تعطل اللعبة، إذا تعطلت اللعبة، يرجى تغيير الإعدادات!</string>
@@ -117,19 +113,7 @@
     <string name="mod_forge_searching">جاري البحث عن رقم إصدار Forge</string>
     <string name="mod_neoforge_searching">جاري البحث عن رقم إصدار NeoForge</string>
     <string name="mod_failed_to_load_list">فشل في تحميل قائمة الإصدارات!</string>
-    <string name="mod_no_installer">عذرًا، لا يوجد مثبت لهذا الإصدار من %s، لا يزال غير مدعوم</string>
-    <string name="mod_fabric_cant_read_meta">فشل في قراءة بيانات محمل %s، يرجى المحاولة مرة أخرى لاحقًا</string>
-    <string name="mod_optifine_failed_to_scrape">تعذر جمع بيانات تثبيت OptiFine</string>
     <string name="mod_optifine_progress">جاري تنزيل %s</string>
-    <string name="create_profile">إنشاء مثيل جديد</string>
-    <string name="create_profile_vanilla_like_versions">إصدارات مشابهة للأصلي</string>
-    <string name="create_profile_modded_versions">إصدارات معدلة</string>
-    <string name="create_profile_vanilla">إنشاء مثيل أصلي</string>
-    <string name="create_profile_optifine">إنشاء مثيل OptiFine</string>
-    <string name="create_profile_forge">إنشاء مثيل Forge</string>
-    <string name="create_profile_neoforge">إنشاء مثيل NeoForge</string>
-    <string name="create_profile_fabric">إنشاء مثيل Fabric</string>
-    <string name="create_profile_quilt">إنشاء مثيل Quilt</string>
     <!-- Controls -->
     <string name="control_primary">النقر الأيسر</string>
     <string name="control_secondary">النقر الأيمن</string>
@@ -210,19 +194,46 @@
     <string name="controller_dpad_right">مؤشر الاتجاه لليمين</string>
     <string name="controller_remapper_operating_mode">الوضع الحالي</string>
     <string name="controller_remapper_expand_entry">قم بالتوسعة لتغيير رمز الزر</string>
+    <!-- Version -->
+    <string name="version_manager_title">إدارة الإصدارات</string>
+    <string name="version_no_versions">لا توجد إصدارات مثبتة</string>
+    <string name="version_install_new">تثبيت إصدار جديد</string>
+    <string name="version_install_not_install">لا تثبيت</string>
+    <string name="version_install_incompatible">غير متوافق مع %s</string>
+    <string name="version_install_exists">هناك نسخة بالفعل بهذا الاسم!</string>
+    <string name="version_install_no_versions">لا توجد إصدارات للاختيار من بينها!</string>
+    <string name="version_install_cannot_use_mc_name">تم اختيار المحتوى الإضافي، ويجب ضمان استقلال النواة الأصلية. يُرجى عدم استخدام الاسم الأصلي!</string>
+    <string name="version_install_type_version">تحميل وتثبيت كإصدار</string>
+    <string name="version_install_type_mod">تحميل وتثبيت كـ Mod</string>
+    <string name="version_manager_shortcuts">الاختصارات</string>
+    <string name="version_manager_shortcuts_mods">إدارة Mod</string>
+    <string name="version_manager_shortcuts_version_path">مجلد مسار الإصدار</string>
+    <string name="version_manager_shortcuts_resource_path">مجلد حزمة الموارد</string>
+    <string name="version_manager_shortcuts_world_path">مجلد حفظ اللعبة</string>
+    <string name="version_manager_shortcuts_shader_path">مجلد حزمة الظلال</string>
+    <string name="version_manager_shortcuts_logs_path">مجلد السجلات</string>
+    <string name="version_manager_shortcuts_crash_report_path">مجلد تقارير الأعطال</string>
+    <string name="version_manager_edit">تحرير الإصدار</string>
+    <string name="version_manager_rename">إعادة تسمية الإصدار</string>
+    <string name="version_manager_delete">حذف الإصدار</string>
+    <string name="version_manager_delete_tip">إذا تم تمكين العزل بين الإصدارات، سيتم حذف بياناتك المهمة مثل سجلات اللعبة وحزم الموارد وMod وما إلى ذلك. تأكد من أخذ نسخة احتياطية قبل القيام بهذا الإجراء!</string>
+    <string name="version_manager_delete_tip_invalid">الإصدار الحالي يفتقد إلى ملف JSON للإصدار، لذلك يعتبر إصدارًا غير صالح. لذلك، لا يمكنك اختيار هذا الإصدار. انقر على تأكيد لحذف الإصدار الحالي.</string>
+    <string name="version_manager_task_in_progress">المهمة قيد التنفيذ، وظيفة إدارة الإصدارات غير متاحة مؤقتًا</string>
+    <string name="version_manager_invalid">هذه النسخة غير صالحة</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher يحتاج إلى إمكانية التحكم في جميع ملفات الجهاز لاستخدام هذه الميزة بشكل صحيح، يرجى تمكين الإذن!</string>
     <string name="profiles_path_title">إدارة مسارات اللعبة</string>
     <string name="profiles_path_default">المسار الافتراضي</string>
+    <string name="profiles_path_settings">فتح إعدادات المسار</string>
+    <string name="profiles_path_settings_goto">فتح هذا الدليل</string>
     <string name="profiles_path_create_new">إضافة مسار جديد</string>
     <string name="profiles_path_create_new_title">تسمية هذا المسار</string>
     <string name="profiles_path_delete_title">حذف هذا المسار</string>
     <string name="profiles_path_delete_message">سيقوم المشغل بحذف هذا المسار، ولكن لن يحذف الملفات المحفوظة في المسار المقابل، ولا يزال من الممكن إعادة إضافة هذا المسار بعد الحذف</string>
-    <string name="profiles_path_task_in_progress">المهمة قيد التنفيذ، لا يمكن استخدام ميزة إدارة المسارات حاليًا</string>
     <!-- Profile -->
-    <string name="pedit_profile_version">الإصدار</string>
+    <string name="pedit_isolation_enabled">تمكين عزل الإصدارات</string>
+    <string name="pedit_reset_icon">سيتم إعادة تعيين الرمز المخصص الذي قمت بتحديده، وهذه العملية لا يمكن التراجع عنها. هل أنت متأكد أنك تريد إعادة تعيين رمز النسخة؟</string>
     <string name="pedit_control">تخطيط التحكم</string>
-    <string name="pedit_custom_path">مسار مخصص</string>
     <string name="pedit_default">(استخدام القيمة الافتراضية العامة)</string>
     <string name="profile_mods_download_mod">تنزيل Mod</string>
     <string name="profile_mods_download_mod_release_version">عرض إصدارات Minecraft الرسمية فقط</string>
@@ -231,19 +242,6 @@
     <string name="profile_mods_disable">تعطيل</string>
     <string name="profile_mods_enable">تفعيل</string>
     <string name="profile_mods_disable_or_enable">تعطيل/تفعيل</string>
-    <string name="profile_manager_shortcuts">وظائف سريعة</string>
-    <string name="profile_manager_shortcuts_mods">إدارة المود</string>
-    <string name="profile_manager_shortcuts_instance_path">مجلد مسار المثيل</string>
-    <string name="profile_manager_shortcuts_resource_path">مجلد حزم الموارد</string>
-    <string name="profile_manager_shortcuts_world_path">مجلد ملفات اللعبة</string>
-    <string name="profile_manager_shortcuts_shader_path">مجلد حزمة الظلال</string>
-    <string name="profile_manager_shortcuts_logs_path">مجلد السجلات</string>
-    <string name="profile_manager_shortcuts_crash_report_path">مجلد تقارير الانهيار</string>
-    <string name="profile_manager_edit">تعديل المثيل</string>
-    <string name="profile_manager_delete">حذف المثيل</string>
-    <string name="profile_manager_delete_message">سيتم حذف هذا المثيل، ولكن لن يتم حذف ملفات اللعبة المرتبطة به</string>
-    <string name="profile_manager_download_optifine">تثبيت مود OptiFine</string>
-    <string name="profile_manager_download_optifine_message">سيتم تنزيل وتثبيت OptiFine كمود فقط، يرجى التأكد من أن المثيل المحدد يدعم تشغيل مود OptiFine</string>
     <!-- Account -->
     <string name="account_login_done">اكتمل تسجيل الدخول</string>
     <string name="account_add">إضافة حساب</string>
@@ -471,9 +469,10 @@
     <string name="game_singnal_message">تم إنهاء التطبيق/اللعبة بسبب إشارة قاتلة %d.</string>
     <string name="game_exit_note">للحصول على تفاصيل حول الخطأ، يُرجى مراجعة ملف السجل أو تقرير التعطل. إذا لم تتمكن من حل المشكلة بنفسك، يُرجى إرسال ملف السجل أو تقرير التعطل لشخص يمكنه مساعدتك في حلها!</string>
     <string name="game_exit_no_screenshot">يرجى عدم الاكتفاء بأخذ لقطة للشاشة الحالية للتطبيق، وإلا فلن يعرف أحد ما حدث. شارك ملف السجل أو تقرير التعطل!</string>
-    <string name="game_autopick_runtime_failed">لم يتم العثور على بيئة تشغيل مناسبة، تم تعيينها على بيئة التشغيل المحددة للمثيل الحالي</string>
+    <string name="game_autopick_runtime_failed">لم يتم العثور على بيئة التشغيل المناسبة، تم تعيينها إلى بيئة التشغيل المحددة للإصدار الحالي</string>
     <string name="game_tip">اللعبة قيد التشغيل، يمكنك فتح إخراج السجل من خلال القائمة لمراقبة حالة تشغيل اللعبة</string>
     <string name="game_tip_version">الإصدار الحالي للعبة المُشغّلة:</string>
+    <string name="game_tip_mc_info">معلومات Minecraft:</string>
     <!-- Download -->
     <string name="download_classify_mod">تنزيل مود</string>
     <string name="download_classify_modpack">تنزيل حزمة مود</string>
@@ -522,10 +521,6 @@
     <string name="modpack_download_downloading_mods">جاري تنزيل الوحدات (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods_fc">جاري تنزيل الوحدات (الملفات المنزلة: %d, إجمالي الملفات: %d)</string>
     <string name="modpack_download_applying_overrides">جاري تطبيق التجاوزات (%d/%d)</string>
-    <string name="modpack_install_notification_title">مثبت حزمة Zalith</string>
-    <string name="modpack_install_notification_success">انقر هنا لإكمال تثبيت حزمة الوحدات</string>
-    <string name="modpack_install_notification_data_not_available">فشل في تنزيل معلومات محمل الوحدات</string>
-    <string name="modpack_install_modloader_download_failed">فشل في تنزيل ملفات محمل الوحدات</string>
     <string name="modpack_install_download_failed">فشل في تنزيل ملفات حزمة الوحدات</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">مسح الذاكرة المؤقتة</string>
@@ -571,7 +566,8 @@
     <string name="splash_screen_cacio">يوفر نظام GUI قابل للنقل لـ OpenJDK.</string>
     <string name="splash_screen_authlib_injector">يتم تعديل authlib عبر وقت التشغيل لتمكين تسجيل الدخول خارج اللعبة.</string>
     <string name="splash_screen_pro_grade">تقوم هذه المكتبة بتنفيذ مدير أمان Java مخصص وسياسة أمان تحتوي على قواعد الرفض.</string>
-    <string name="splash_screen_forge_installer">يساعد في التثبيت التلقائي لـ Forge و OptiFine.</string>
+    <string name="splash_screen_optifine_installer">يساعد في التثبيت التلقائي لـ OptiFine.</string>
+    <string name="splash_screen_forge_install_bootstrapper">يساعد في التثبيت التلقائي لـ Forge.</string>
     <string name="splash_screen_jre8">بيئة Java 8، يعتمد Minecraft 1.16- على Java 8.</string>
     <string name="splash_screen_jre17">بيئة Java 17، يعتمد Minecraft 1.17+ على Java 17.</string>
     <string name="splash_screen_jre21">بيئة Java 21، يعتمد Minecraft 1.20.5+ على Java 21.</string>
@@ -592,7 +588,7 @@
     <string name="about_VeraFirefly_desc">قدّم دعمًا تقنيًا في مجال العرض للمشغل</string>
     <string name="about_LingMuQiuZhu_desc">قدّم دعمًا تقنيًا للمشغل</string>
     <string name="about_ShirosakiMio_desc">قدّم دعمًا تقنيًا للمشغل وأصلح بعض الأخطاء</string>
-    <string name="about_bangbang93_desc">يستخدم المشغل مصدر المرآة BMCLAPI الذي أنشأه</string>
+    <string name="about_bangbang93_desc">المشغل يستخدم مصدر المرآة BMCLAPI الذي أنشأه، مع Forge Install Bootstrapper.</string>
     <string name="about_access_space">الوصول إلى المساحة</string>
     <string name="about_access_link">رابط الوصول</string>
     <string name="about_version_name">اسم إصدار البرنامج:</string>
@@ -617,7 +613,6 @@
     <string name="newbie_guide_mod_search">انقر لاستدعاء مربع البحث، واستخدمه للعثور على الوحدة النمطية التي تبحث عنها بسرعة.</string>
     <string name="newbie_guide_mod_import">حدد ملف وحدة نمطية في مدير الملفات الأصلي لاستيراده إلى مجلد الوحدات النمطية الحالي.</string>
     <string name="newbie_guide_mod_download">انقر للدخول إلى صفحة تنزيل الوحدات النمطية، حيث يمكنك البحث عن الوحدات النمطية وتنزيلها عبر الإنترنت.</string>
-    <string name="newbie_guide_profiles_path_create">انقر فوق هذا الزر لإنشاء مسار لعبة جديد.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">دعم تطويري</string>
     <string name="request_sponsorship_message">تم تطوير وصيانة معظم محتويات هذا البرنامج بواسطتي وحدي. إذا كنت تجد هذا البرنامج مفيدًا بالنسبة لك وكان بإمكانك، أرجو أن تفكر في رعايتي لإعطائي المزيد من الدافع لمواصلة التطوير والتحسين، شكرًا لدعمك!</string>

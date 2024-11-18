@@ -1,13 +1,9 @@
 package com.movtery.zalithlauncher.feature.mod.modloader
 
-import android.content.Intent
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
-import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.modloaders.ForgeVersionListHandler
 import net.kdt.pojavlaunch.utils.DownloadUtils
 import org.xml.sax.InputSource
 import org.xml.sax.SAXException
-import java.io.File
 import java.io.IOException
 import java.io.StringReader
 import javax.xml.parsers.SAXParserFactory
@@ -67,13 +63,6 @@ class NeoForgeUtils {
         @JvmStatic
         fun getNeoForgedForgeInstallerUrl(version: String?): String {
             return String.format(NEOFORGED_FORGE_INSTALLER_URL, version)
-        }
-
-        @JvmStatic
-        fun addAutoInstallArgs(intent: Intent, modInstallerJar: File) {
-            intent.putExtra("javaArgs", "-jar " + modInstallerJar.absolutePath + " --installClient " + ProfilePathHome.gameHome)
-            intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
-            intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true)
         }
 
         @JvmStatic

@@ -1,19 +1,14 @@
 package com.movtery.zalithlauncher.feature.mod.modpack.install
 
-import android.graphics.Bitmap
-import android.util.Base64
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.FutureTarget
-import com.movtery.zalithlauncher.context.ContextExecutor
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentProfile
+import android.app.Activity
+import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
+import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
+import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex
-import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles
-import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.zip.ZipFile
 
@@ -59,16 +54,6 @@ class ModPackUtils {
             return ModPackEnum.UNKNOWN
         }
 
-        fun createModPackProfiles(modpackName: String, profileName: String?, versionId: String?) {
-            val profile = MinecraftProfile()
-            profile.gameDir = "./modpack_instances/$modpackName"
-            profile.name = profileName
-            profile.lastVersionId = versionId
-
-            LauncherProfiles.mainProfileJson.profiles[modpackName] = profile
-            LauncherProfiles.write(currentProfile)
-        }
-
         @JvmStatic
         fun verifyManifest(manifest: CurseManifest): Boolean { //检测是否为curseforge整合包(通过manifest.json内的数据进行判断)
             if ("minecraftModpack" != manifest.manifestType) return false
@@ -95,23 +80,16 @@ class ModPackUtils {
         }
 
         @JvmStatic
-        fun getIcon(imageUrl: String?): String? {
-            runCatching {
-                val context = ContextExecutor.getApplication()
-                val futureTarget: FutureTarget<Bitmap> = Glide.with(context)
-                    .asBitmap()
-                    .load(imageUrl)
-                    .submit()
-                val bitmap: Bitmap = futureTarget.get()
-
-                val byteArrayOutputStream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-                val byteArray = byteArrayOutputStream.toByteArray()
-
-                return "data:image/png;base64,${Base64.encodeToString(byteArray, Base64.DEFAULT)}"
-            }.getOrElse { e -> Logging.e("Load Image To Base64", Tools.printToString(e)) }
-
-            return null
+        fun startModLoaderInstall(modLoader: ModLoaderWrapper, activity: Activity, modInstallFile: File) {
+            modLoader.getInstallationIntent(activity, modInstallFile)?.let { installIntent ->
+                val selectRuntimeDialog = SelectRuntimeDialog(activity)
+                selectRuntimeDialog.setListener { jreName: String? ->
+                    installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                    selectRuntimeDialog.dismiss()
+                    activity.startActivity(installIntent)
+                }
+                selectRuntimeDialog.show()
+            }
         }
     }
 

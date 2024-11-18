@@ -1,17 +1,14 @@
 package com.movtery.zalithlauncher.feature.customprofilepath
 
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.movtery.zalithlauncher.context.ContextExecutor
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.Tools
-import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 
@@ -22,6 +19,7 @@ class ProfilePathManager {
         @JvmStatic
         fun setCurrentPathId(id: String?) {
             Settings.Manager.put("launcherProfile", id).save()
+            VersionsManager.refresh()
         }
 
         @JvmStatic
@@ -39,8 +37,7 @@ class ProfilePathManager {
                             val read = Tools.read(this)
                             val jsonObject = JsonParser.parseString(read).asJsonObject
                             if (jsonObject.has(id)) {
-                                val profilePathJsonObject =
-                                    Gson().fromJson(jsonObject[id], ProfilePathJsonObject::class.java)
+                                val profilePathJsonObject = Tools.GLOBAL_GSON.fromJson(jsonObject[id], ProfilePathJsonObject::class.java)
                                 return profilePathJsonObject.path
                             }
                         }.getOrElse { e -> Logging.e("Read Profile", e.toString()) }
@@ -51,20 +48,6 @@ class ProfilePathManager {
             }
 
         @JvmStatic
-        val currentProfile: File
-            get() {
-                val file = File(gameHome, "launcher_profiles.json")
-                if (!file.exists()) {
-                    try {
-                        Tools.copyAssetFile(ContextExecutor.getApplication(), "launcher_profiles.json", gameHome, false)
-                    } catch (e: IOException) {
-                        return File(defaultPath, "launcher_profiles.json")
-                    }
-                }
-                return file
-            }
-
-        @JvmStatic
         fun save(items: List<ProfileItem>) {
             val jsonObject = JsonObject()
 
@@ -72,12 +55,12 @@ class ProfilePathManager {
                 if (item.id == "default") continue
 
                 val profilePathJsonObject = ProfilePathJsonObject(item.title, item.path)
-                jsonObject.add(item.id, Gson().toJsonTree(profilePathJsonObject))
+                jsonObject.add(item.id, Tools.GLOBAL_GSON.toJsonTree(profilePathJsonObject))
             }
 
             try {
                 FileWriter(PathAndUrlManager.FILE_PROFILE_PATH).use { fileWriter ->
-                    Gson().toJson(jsonObject, fileWriter)
+                    Tools.GLOBAL_GSON.toJson(jsonObject, fileWriter)
                 }
             } catch (e: IOException) {
                 Logging.e("Write Profile", e.toString())

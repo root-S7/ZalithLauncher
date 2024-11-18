@@ -3,7 +3,6 @@ package com.movtery.zalithlauncher.utils
 import android.content.Context
 import android.os.Environment
 import com.movtery.zalithlauncher.BuildConfig
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.gameHome
 import net.kdt.pojavlaunch.Tools
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -36,7 +35,6 @@ class PathAndUrlManager {
         lateinit var DIR_ACCOUNT_NEW: String
         lateinit var DIR_CACHE_STRING: String
 
-        lateinit var DIR_GAME_DEFAULT: String
         lateinit var DIR_CUSTOM_MOUSE: String
         lateinit var DIR_BACKGROUND: File
         lateinit var DIR_APP_CACHE: File
@@ -67,7 +65,6 @@ class PathAndUrlManager {
             FILE_NEWBIE_GUIDE = File(DIR_DATA, "/newbie_guide.json")
 
             FILE_SETTINGS = File(DIR_FILE, "/launcher_settings.json")
-            DIR_GAME_DEFAULT = "$gameHome/instance/default"
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir!!

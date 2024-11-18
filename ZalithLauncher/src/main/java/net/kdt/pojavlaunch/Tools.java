@@ -35,8 +35,8 @@ import com.google.gson.GsonBuilder;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
@@ -58,7 +58,6 @@ import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.value.DependentLibrary;
 import net.kdt.pojavlaunch.value.MinecraftLibraryArtifact;
-import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
@@ -109,16 +108,6 @@ public final class Tools {
         File externalFilesDir = new File(PathAndUrlManager.DIR_GAME_HOME);
         //externalFilesDir == null when the storage is not mounted if it was obtained with the context call
         return Environment.getExternalStorageState(externalFilesDir).equals(Environment.MEDIA_MOUNTED);
-    }
-
-    public static File getGameDirPath(@NonNull MinecraftProfile minecraftProfile){
-        if(minecraftProfile.gameDir != null){
-            if(minecraftProfile.gameDir.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX))
-                return new File(minecraftProfile.gameDir.replace(Tools.LAUNCHERPROFILES_RTPREFIX,ProfilePathManager.getCurrentPath() +"/"));
-            else
-                return new File(ProfilePathManager.getCurrentPath(),minecraftProfile.gameDir);
-        }
-        return new File(PathAndUrlManager.DIR_GAME_DEFAULT);
     }
 
     public static void buildNotificationChannel(Context context) {
@@ -800,30 +789,27 @@ public final class Tools {
         return prefixedName.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
     }
 
-    public static String getSelectedRuntime(MinecraftProfile minecraftProfile) {
+    public static String getSelectedRuntime(Version version) {
         String runtime = AllSettings.getDefaultRuntime();
-        String profileRuntime = getRuntimeName(minecraftProfile.javaDir);
-        if(profileRuntime != null) {
-            if(MultiRTUtils.forceReread(profileRuntime).versionString != null) {
-                runtime = profileRuntime;
+        String versionRuntime = getRuntimeName(version.getJavaDir());
+        if (versionRuntime != null) {
+            if (MultiRTUtils.forceReread(versionRuntime).versionString != null) {
+                runtime = versionRuntime;
             }
         }
         return runtime;
     }
 
-    public static @NonNull String pickRuntime(Activity activity, MinecraftProfile minecraftProfile, int targetJavaVersion) {
-        String runtime = getSelectedRuntime(minecraftProfile);
-        String profileRuntime = getRuntimeName(minecraftProfile.javaDir);
+    public static @NonNull String pickRuntime(Activity activity, Version version, int targetJavaVersion) {
+        String runtime = getSelectedRuntime(version);
         Runtime pickedRuntime = MultiRTUtils.read(runtime);
         if (pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
-            String preferredRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);
-            if (preferredRuntime == null) {
+            String settingsRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);
+            if (settingsRuntime == null) {
                 activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.game_autopick_runtime_failed), Toast.LENGTH_LONG).show());
                 return runtime; //返回选择的runtime
             }
-            if (profileRuntime != null)
-                minecraftProfile.javaDir = Tools.LAUNCHERPROFILES_RTPREFIX + preferredRuntime;
-            runtime = preferredRuntime;
+            runtime = settingsRuntime;
         }
         return runtime;
     }

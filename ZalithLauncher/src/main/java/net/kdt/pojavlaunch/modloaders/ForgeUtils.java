@@ -1,15 +1,10 @@
 package net.kdt.pojavlaunch.modloaders;
 
-import android.content.Intent;
-
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
-
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
@@ -39,16 +34,5 @@ public class ForgeUtils {
     }
     public static String getInstallerUrl(String version) {
         return String.format(FORGE_INSTALLER_URL, version);
-    }
-
-    public static void addAutoInstallArgs(Intent intent, File modInstallerJar, boolean createProfile) {
-        intent.putExtra("javaArgs", "-javaagent:"+ PathAndUrlManager.DIR_DATA+"/forge_installer/forge_installer.jar"
-                + (createProfile ? "=NPS" : "") + // No Profile Suppression
-                " -jar "+modInstallerJar.getAbsolutePath());
-    }
-    public static void addAutoInstallArgs(Intent intent, File modInstallerJar, String modpackFixupId) {
-        intent.putExtra("javaArgs", "-javaagent:"+ PathAndUrlManager.DIR_DATA+"/forge_installer/forge_installer.jar"
-                + "=\"" + modpackFixupId +"\"" +
-                " -jar "+modInstallerJar.getAbsolutePath());
     }
 }
