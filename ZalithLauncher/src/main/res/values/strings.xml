@@ -361,7 +361,6 @@
     <string name="setting_category_experimental">Experimental</string>
     <string name="setting_category_experimental_patches">Experimental Patches</string>
     <string name="setting_renderer_title">Renderer</string>
-    <string name="setting_renderer_name_gl4es">GL4ES (Only for 1.21.1-)</string>
     <string name="setting_renderer_name_ltw">LTW (Only for 1.17+)</string>
     <string name="setting_ignore_notch_title">Fullscreen Mode</string>
     <string name="setting_ignore_notch_desc">Ignore the notch and extend screen content to full screen for a more complete immersive experience</string>

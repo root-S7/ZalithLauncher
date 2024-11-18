@@ -355,7 +355,6 @@
     <string name="setting_category_experimental">實驗性</string>
     <string name="setting_category_experimental_patches">實驗性補丁</string>
     <string name="setting_renderer_title">渲染器</string>
-    <string name="setting_renderer_name_gl4es">GL4ES (僅限 1.21.1-)</string>
     <string name="setting_renderer_name_ltw">LTW (僅限 1.17+)</string>
     <string name="setting_ignore_notch_title">全螢幕模式</string>
     <string name="setting_ignore_notch_desc">忽略劉海屏並將螢幕內容擴展至全螢幕，給你更完整的沉浸感</string>

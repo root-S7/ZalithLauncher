@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="renderer">
-        <item name="1">@string/setting_renderer_name_gl4es</item>
+        <item name="1">GL4ES</item>
         <item name="2">Vulkan Zink</item>
         <item name="3">VirGLRenderer</item>
         <item name="4">Freedreno (Adreno)</item>
