@@ -472,6 +472,7 @@
     <string name="game_autopick_runtime_failed">未找到合適的執行環境，已設定為當前版本選擇的執行環境</string>
     <string name="game_tip">遊戲正在運行中，可以通過菜單開啟日誌輸出，查看遊戲運行狀況</string>
     <string name="game_tip_version">當前啟動的遊戲版本:</string>
+    <string name="game_tip_mc_info">Minecraft 資訊:</string>
     <!-- Download -->
     <string name="download_classify_mod">下載 Mod</string>
     <string name="download_classify_modpack">下載整合包</string>

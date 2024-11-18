@@ -45,6 +45,7 @@ import com.movtery.zalithlauncher.feature.background.BackgroundManager;
 import com.movtery.zalithlauncher.feature.background.BackgroundType;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
+import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.launch.LaunchGame;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -217,7 +218,18 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
             if (AllSettings.getEnableLogOutput()) openLogOutput();
 
-            String tipString = StringUtils.insertNewline(binding.gameTip.getText(), StringUtils.insertSpace(getString(R.string.game_tip_version), minecraftVersion.getVersionName()));
+            String mcInfo = "";
+            VersionInfo versionInfo = minecraftVersion.getVersionInfo();
+            if (versionInfo != null) {
+                mcInfo = versionInfo.getInfoString();
+            }
+            String tipString = StringUtils.insertNewline(
+                    binding.gameTip.getText(),
+                    StringUtils.insertSpace(getString(R.string.game_tip_version), minecraftVersion.getVersionName())
+            );
+            if (!mcInfo.isEmpty()) {
+                tipString = StringUtils.insertNewline(tipString, StringUtils.insertSpace(getString(R.string.game_tip_mc_info), mcInfo));
+            }
             binding.gameTip.setText(tipString);
             AnimUtils.setVisibilityAnim(binding.gameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
                 @Override

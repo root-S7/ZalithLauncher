@@ -6,6 +6,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.Version
+import com.movtery.zalithlauncher.feature.version.VersionInfo
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -41,6 +42,7 @@ class LaunchGame {
                 ?: ""
             val account = AccountsManager.getInstance().currentAccount
             printLauncherInfo(
+                minecraftVersion.getVersionInfo(),
                 versionID,
                 customArgs.takeIf { it.isNotBlank() } ?: "NONE",
                 minecraftVersion.getJavaDir().takeIf { it.isNotBlank() } ?: "NONE",
@@ -55,6 +57,7 @@ class LaunchGame {
         }
 
         private fun printLauncherInfo(
+            versionInfo: VersionInfo?,
             gameVersion: String,
             javaArguments: String,
             javaRuntime: String,
@@ -66,12 +69,18 @@ class LaunchGame {
                 else javaRuntime
             }
 
+            var mcInfo = gameVersion
+            versionInfo?.let { info ->
+                mcInfo = info.getInfoString()
+            }
+
             Logger.appendToLog("--------- Start launching the game")
             Logger.appendToLog("Info: Launcher version: ${ZHTools.getVersionName()} (${ZHTools.getVersionCode()})")
             Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
             Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
             Logger.appendToLog("Info: Selected Minecraft version: $gameVersion")
+            Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
             Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
             Logger.appendToLog("Info: Account: ${account.username} (${account.accountType})")

@@ -472,6 +472,7 @@
     <string name="game_autopick_runtime_failed">Не найдена подходящая среда выполнения, установлено для выбранной среды выполнения текущей версии</string>
     <string name="game_tip">Игра запущена, вы можете включить вывод логов через меню, чтобы следить за её работой</string>
     <string name="game_tip_version">Текущая версия запускаемой игры:</string>
+    <string name="game_tip_mc_info">Информация о Minecraft:</string>
     <!-- Download -->
     <string name="download_classify_mod">Скачать мод</string>
     <string name="download_classify_modpack">Скачать модпак</string>

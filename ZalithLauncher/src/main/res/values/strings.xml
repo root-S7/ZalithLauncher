@@ -478,6 +478,7 @@
     <string name="game_autopick_runtime_failed">No suitable runtime environment found, set to the runtime environment selected for the current version</string>
     <string name="game_tip">The game is currently running. You can enable log output via the menu to check the game\'s status.</string>
     <string name="game_tip_version">Currently launched game version:</string>
+    <string name="game_tip_mc_info">Minecraft Info:</string>
     <!-- Download -->
     <string name="download_classify_mod">Download Mod</string>
     <string name="download_classify_modpack">Download Modpack</string>

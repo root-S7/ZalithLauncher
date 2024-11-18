@@ -502,6 +502,7 @@
     <string name="game_autopick_runtime_failed">未找到合适的运行环境，已设置为当前版本选择的运行环境</string>
     <string name="game_tip">游戏正在运行中，可以通过菜单开启日志输出，查看游戏运行状况</string>
     <string name="game_tip_version">当前启动的游戏版本:</string>
+    <string name="game_tip_mc_info">Minecraft 信息:</string>
 
     <!-- Download -->
     <string name="download_classify_mod">下载 Mod</string>

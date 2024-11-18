@@ -472,6 +472,7 @@
     <string name="game_autopick_runtime_failed">Es wurde keine geeignete Laufzeitumgebung gefunden, die Laufzeitumgebung wurde auf die für die aktuelle Version ausgewählte festgelegt</string>
     <string name="game_tip">Das Spiel läuft gerade. Über das Menü kann die Protokollausgabe aktiviert werden, um den Spielstatus zu überwachen</string>
     <string name="game_tip_version">Aktuelle Spielversion:</string>
+    <string name="game_tip_mc_info">Minecraft-Informationen:</string>
     <!-- Download -->
     <string name="download_classify_mod">Mod herunterladen</string>
     <string name="download_classify_modpack">Modpack herunterladen</string>

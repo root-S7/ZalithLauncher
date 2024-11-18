@@ -472,6 +472,7 @@
     <string name="game_autopick_runtime_failed">Không tìm thấy môi trường chạy phù hợp, đã được thiết lập thành môi trường chạy được chọn cho phiên bản hiện tại</string>
     <string name="game_tip">Trò chơi đang chạy, có thể mở nhật ký đầu ra qua menu để xem tình trạng trò chơi</string>
     <string name="game_tip_version">Phiên bản trò chơi đang khởi động:</string>
+    <string name="game_tip_mc_info">Thông tin Minecraft:</string>
     <!-- Download -->
     <string name="download_classify_mod">Tải về Mod</string>
     <string name="download_classify_modpack">Tải về Modpack</string>

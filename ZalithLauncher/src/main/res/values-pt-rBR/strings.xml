@@ -472,6 +472,7 @@
     <string name="game_autopick_runtime_failed">Nenhum ambiente de execução adequado encontrado, configurado para o ambiente de execução selecionado para a versão atual</string>
     <string name="game_tip">O jogo está em execução. Você pode abrir a saída de log através do menu para verificar o status do jogo</string>
     <string name="game_tip_version">Versão do jogo iniciada atualmente:</string>
+    <string name="game_tip_mc_info">Informações do Minecraft:</string>
     <!-- Download -->
     <string name="download_classify_mod">Baixar Mod</string>
     <string name="download_classify_modpack">Baixar Modpack</string>

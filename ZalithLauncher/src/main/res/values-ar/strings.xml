@@ -472,6 +472,7 @@
     <string name="game_autopick_runtime_failed">لم يتم العثور على بيئة التشغيل المناسبة، تم تعيينها إلى بيئة التشغيل المحددة للإصدار الحالي</string>
     <string name="game_tip">اللعبة قيد التشغيل، يمكنك فتح إخراج السجل من خلال القائمة لمراقبة حالة تشغيل اللعبة</string>
     <string name="game_tip_version">الإصدار الحالي للعبة المُشغّلة:</string>
+    <string name="game_tip_mc_info">معلومات Minecraft:</string>
     <!-- Download -->
     <string name="download_classify_mod">تنزيل مود</string>
     <string name="download_classify_modpack">تنزيل حزمة مود</string>
