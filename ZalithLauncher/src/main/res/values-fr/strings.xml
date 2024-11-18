@@ -12,6 +12,7 @@
     <string name="generic_delete">Supprimer</string>
     <string name="generic_refresh">Actualiser</string>
     <string name="generic_rename">Renommer</string>
+    <string name="generic_more">Plus</string>
     <string name="generic_search">Rechercher</string>
     <string name="generic_tip">Astuce</string>
     <string name="generic_confirm">Confirmer</string>

@@ -12,6 +12,7 @@
     <string name="generic_delete">حذف</string>
     <string name="generic_refresh">تحديث</string>
     <string name="generic_rename">إعادة تسمية</string>
+    <string name="generic_more">المزيد</string>
     <string name="generic_search">بحث</string>
     <string name="generic_tip">تلميح</string>
     <string name="generic_confirm">تأكيد</string>

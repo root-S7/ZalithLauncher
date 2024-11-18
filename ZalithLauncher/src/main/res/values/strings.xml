@@ -13,6 +13,7 @@
     <string name="generic_delete">Delete</string>
     <string name="generic_refresh">Refresh</string>
     <string name="generic_rename">Rename</string>
+    <string name="generic_more">More</string>
     <string name="generic_search">Search</string>
     <string name="generic_tip">Tip</string>
     <string name="generic_confirm">Confirm</string>
