@@ -566,7 +566,6 @@
     <string name="splash_screen_pro_grade">Diese Bibliothek implementiert einen benutzerdefinierten Java-Sicherheitsmanager und eine Sicherheitsrichtlinie mit Ablehnungsregeln.</string>
     <string name="splash_screen_optifine_installer">Hilft bei der automatischen Installation von OptiFine.</string>
     <string name="splash_screen_forge_install_bootstrapper">Hilft bei der automatischen Installation von Forge.</string>
-    <string name="splash_screen_forge_installer">Hilft bei der automatischen Installation von Forge und OptiFine.</string>
     <string name="splash_screen_jre8">Java 8-Umgebung, Minecraft 1.16- benötigt Java 8.</string>
     <string name="splash_screen_jre17">Java 17-Umgebung, Minecraft 1.17+ benötigt Java 17.</string>
     <string name="splash_screen_jre21">Java 21-Umgebung, Minecraft 1.20.5+ benötigt Java 21.</string>

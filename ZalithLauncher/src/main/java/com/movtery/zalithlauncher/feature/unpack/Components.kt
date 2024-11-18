@@ -8,6 +8,6 @@ enum class Components(val component: String, val displayName: String, val summar
     CACIOCAVALLO17("caciocavallo17", "caciocavallo 17", R.string.splash_screen_cacio, false),
     LWJGL3("lwjgl3", "LWJGL 3", R.string.splash_screen_lwjgl, false),
     SECURITY("security", "Pro Grade", R.string.splash_screen_pro_grade, true),
-    FORGE_INSTALLER("forge_installer", "Forge Installer", R.string.splash_screen_forge_installer, true),
-//    FORGE_INSTALL_BOOTSTRAPPER("forge_install_bootstrapper", "Forge Install Bootstrapper", R.string.splash_screen_forge_install_bootstrapper, true),
+    OPTIFINE_INSTALLER("forge_installer", "OptiFine Installer", R.string.splash_screen_optifine_installer, true),
+    FORGE_INSTALL_BOOTSTRAPPER("forge_install_bootstrapper", "Forge Install Bootstrapper", R.string.splash_screen_forge_install_bootstrapper, true),
 }
