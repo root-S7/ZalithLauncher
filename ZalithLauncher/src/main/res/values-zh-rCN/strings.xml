@@ -603,6 +603,7 @@
     <string name="splash_screen_pro_grade">该库实现了自定义 Java 安全管理器和带拒绝规则的安全策略。</string>
     <string name="splash_screen_optifine_installer">帮助自动安装 OptiFine。</string>
     <string name="splash_screen_forge_install_bootstrapper">帮助自动安装 Forge。</string>
+    <string name="splash_screen_forge_installer">帮助自动安装 Forge 与 OptiFine。</string>
     <string name="splash_screen_jre8">Java 8 环境，Minecraft 1.16- 依赖 Java 8。</string>
     <string name="splash_screen_jre17">Java 17 环境，Minecraft 1.17+ 依赖 Java 17。</string>
     <string name="splash_screen_jre21">Java 21 环境，Minecraft 1.20.5+ 依赖 Java 21。</string>

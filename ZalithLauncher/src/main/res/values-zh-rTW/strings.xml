@@ -566,6 +566,7 @@
     <string name="splash_screen_pro_grade">該庫實現了自訂 Java 安全管理器和帶有拒絕規則的安全政策。</string>
     <string name="splash_screen_optifine_installer">幫助自動安裝 OptiFine。</string>
     <string name="splash_screen_forge_install_bootstrapper">幫助自動安裝 Forge。</string>
+    <string name="splash_screen_forge_installer">幫助自動安裝 Forge 和 OptiFine。</string>
     <string name="splash_screen_jre8">Java 8 環境，Minecraft 1.16- 依賴 Java 8。</string>
     <string name="splash_screen_jre17">Java 17 環境，Minecraft 1.17+ 依賴 Java 17。</string>
     <string name="splash_screen_jre21">Java 21 環境，Minecraft 1.20.5+ 依賴 Java 21。</string>
