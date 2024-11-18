@@ -217,6 +217,7 @@
     <string name="version_manager_rename">Đổi tên phiên bản</string>
     <string name="version_manager_delete">Xóa phiên bản</string>
     <string name="version_manager_delete_tip">Nếu chức năng cách ly phiên bản được bật, khi xóa sẽ xóa luôn các dữ liệu quan trọng như lưu game, gói tài nguyên, mod. Vui lòng sao lưu trước khi thực hiện thao tác này!</string>
+    <string name="version_manager_delete_tip_invalid">Phiên bản hiện tại thiếu tệp JSON phiên bản, vì vậy nó được coi là phiên bản không hợp lệ. Do đó, bạn không thể chọn phiên bản này. Nhấn xác nhận để xóa phiên bản hiện tại.</string>
     <string name="version_manager_task_in_progress">Đang thực hiện tác vụ, quản lý phiên bản tạm thời không khả dụng</string>
     <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>
     <!-- Profiles Path -->

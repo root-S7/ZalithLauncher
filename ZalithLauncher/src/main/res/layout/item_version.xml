@@ -22,10 +22,10 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/version_icon"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -48,5 +48,18 @@
             app:justifyContent="flex_start"/>
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_setting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 </com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout>

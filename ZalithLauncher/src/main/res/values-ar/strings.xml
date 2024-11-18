@@ -217,6 +217,7 @@
     <string name="version_manager_rename">إعادة تسمية الإصدار</string>
     <string name="version_manager_delete">حذف الإصدار</string>
     <string name="version_manager_delete_tip">إذا تم تمكين العزل بين الإصدارات، سيتم حذف بياناتك المهمة مثل سجلات اللعبة وحزم الموارد وMod وما إلى ذلك. تأكد من أخذ نسخة احتياطية قبل القيام بهذا الإجراء!</string>
+    <string name="version_manager_delete_tip_invalid">الإصدار الحالي يفتقد إلى ملف JSON للإصدار، لذلك يعتبر إصدارًا غير صالح. لذلك، لا يمكنك اختيار هذا الإصدار. انقر على تأكيد لحذف الإصدار الحالي.</string>
     <string name="version_manager_task_in_progress">المهمة قيد التنفيذ، وظيفة إدارة الإصدارات غير متاحة مؤقتًا</string>
     <string name="version_manager_invalid">هذه النسخة غير صالحة</string>
     <!-- Profiles Path -->

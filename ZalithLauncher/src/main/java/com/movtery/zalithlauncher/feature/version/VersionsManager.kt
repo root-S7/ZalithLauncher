@@ -106,9 +106,15 @@ object VersionsManager {
                 runCatching {
                     val string = Tools.read(this)
                     getVersion(string) ?: run {
-                        val version = versions[0]
-                        saveCurrentVersion(version.getVersionName())
-                        version
+                        versions.forEach { version ->
+                            if (version.isValid()) {
+                                //确保版本有效
+                                saveCurrentVersion(version.getVersionName())
+                                return version
+                            }
+                        }
+                        //如果所有版本都无效，或者没有版本，那么久返回空
+                        null
                     }
                 }.getOrElse { e ->
                     Logging.e("Get Current Version", Tools.printToString(e))

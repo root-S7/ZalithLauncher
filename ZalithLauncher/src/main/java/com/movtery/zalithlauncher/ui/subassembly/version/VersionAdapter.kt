@@ -2,19 +2,37 @@ package com.movtery.zalithlauncher.ui.subassembly.version
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemVersionBinding
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils
+import com.movtery.zalithlauncher.feature.version.VersionsManager
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
+import com.movtery.zalithlauncher.ui.dialog.TipDialog
+import com.movtery.zalithlauncher.ui.fragment.FilesFragment
+import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.file.FileDeletionHandler
 import net.kdt.pojavlaunch.Tools
 
-class VersionAdapter(private val listener: OnVersionItemClickListener) : RecyclerView.Adapter<VersionAdapter.ViewHolder>() {
+class VersionAdapter(
+    private val parentFragment: Fragment,
+    private val listener: OnVersionItemClickListener
+) : RecyclerView.Adapter<VersionAdapter.ViewHolder>() {
     private val versions: MutableList<Version?> = ArrayList()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -55,15 +73,26 @@ class VersionAdapter(private val listener: OnVersionItemClickListener) : Recycle
                     }
                 }
 
+                binding.settings.visibility = View.VISIBLE
+                binding.settings.setOnClickListener { _ ->
+                    showPopupWindow(binding.settings, it)
+                }
+
                 VersionIconUtils(it).start(binding.versionIcon)
 
                 binding.root.setOnClickListener { _ ->
-                    listener.onVersionClick(it)
+                    if (it.isValid()) {
+                        listener.onVersionClick(it)
+                    } else {
+                        //版本无效时，不能设置版本，默认点击就会提示用户删除
+                        deleteVersion(it, R.string.version_manager_delete_tip_invalid)
+                    }
                 }
                 return
             }
             binding.versionIcon.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_add))
             binding.version.setText(R.string.version_install_new)
+            binding.settings.visibility = View.GONE
             binding.root.setOnClickListener { listener.onCreateVersion() }
         }
 
@@ -80,7 +109,106 @@ class VersionAdapter(private val listener: OnVersionItemClickListener) : Recycle
             return textView
         }
 
+        private fun showPopupWindow(
+            anchorView: View,
+            version: Version
+        ) {
+            val context = parentFragment.requireActivity()
+            val popupView = LayoutInflater.from(context).inflate(R.layout.popup_layout, null)
 
+            val popupWindow = PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+            )
+
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+            val listView = popupView.findViewById<ListView>(R.id.listView)
+            val settings: MutableList<String> = ArrayList()
+            settings.add(context.getString(R.string.profiles_path_settings_goto))
+            settings.add(context.getString(R.string.version_manager_rename))
+            settings.add(context.getString(R.string.version_manager_delete))
+            val adapter = ArrayAdapter(
+                context,
+                android.R.layout.simple_list_item_1,
+                settings.toTypedArray()
+            )
+
+            listView.adapter = adapter
+            listView.onItemClickListener =
+                AdapterView.OnItemClickListener { _, _, position: Int, _ ->
+                    when (position) {
+                        1 -> {
+                            EditTextDialog.Builder(context)
+                                .setTitle(R.string.version_manager_rename)
+                                .setEditText(version.getVersionName())
+                                .setConfirmListener { editText ->
+                                    val string = editText.text.toString()
+
+                                    //与原始名称一致
+                                    if (string == version.getVersionName()) return@setConfirmListener true
+
+                                    if (VersionsManager.isVersionExists(string)) {
+                                        editText.error = context.getString(R.string.version_install_exists)
+                                        return@setConfirmListener false
+                                    }
+
+                                    version.getVersionInfo()?.let { info ->
+                                        //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
+                                        if (info.loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
+                                            editText.error = context.getString(R.string.version_install_cannot_use_mc_name)
+                                            return@setConfirmListener false
+                                        }
+                                    }
+
+                                    VersionsManager.renameVersion(version, string)
+
+                                    true
+                                }.buildDialog()
+                        }
+
+                        2 -> deleteVersion(version)
+
+                        else -> {
+                            val bundle = Bundle()
+                            bundle.putString(
+                                FilesFragment.BUNDLE_LOCK_PATH,
+                                Environment.getExternalStorageDirectory().absolutePath
+                            )
+                            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, VersionsManager.getVersionPath(version).absolutePath)
+                            ZHTools.swapFragmentWithAnim(
+                                parentFragment,
+                                FilesFragment::class.java, FilesFragment.TAG, bundle
+                            )
+                        }
+                    }
+                    popupWindow.dismiss()
+                }
+
+            popupWindow.showAsDropDown(anchorView)
+        }
+
+        //删除版本前提示用户，如果版本无效，那么默认点击事件就是删除版本
+        private fun deleteVersion(version: Version, deleteMessage: Int = R.string.version_manager_delete_tip) {
+            val context = parentFragment.requireActivity()
+
+            TipDialog.Builder(context)
+                .setTitle(context.getString(R.string.version_manager_delete))
+                .setMessage(deleteMessage)
+                .setCancelable(false)
+                .setConfirmClickListener {
+                    FileDeletionHandler(
+                        context,
+                        listOf(VersionsManager.getVersionPath(version)),
+                        Task.runTask {
+                            VersionsManager.refresh()
+                        }
+                    ).start()
+                }.buildDialog()
+        }
     }
 
     interface OnVersionItemClickListener {

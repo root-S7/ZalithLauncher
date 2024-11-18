@@ -217,6 +217,7 @@
     <string name="version_manager_rename">Version umbenennen</string>
     <string name="version_manager_delete">Version löschen</string>
     <string name="version_manager_delete_tip">Wenn die Versionsisolierung aktiviert ist, werden beim Löschen auch wichtige Daten wie Spielstände, Ressourcenpakete und Mods gelöscht. Bitte erstellen Sie vorher ein Backup!</string>
+    <string name="version_manager_delete_tip_invalid">Die aktuelle Version fehlt die Versions-JSON-Datei, daher wird sie als ungültige Version betrachtet. Sie können diese Version daher nicht auswählen. Klicken Sie auf Bestätigen, um die aktuelle Version zu löschen.</string>
     <string name="version_manager_task_in_progress">Aufgabe wird ausgeführt, Versionsverwaltung ist vorübergehend nicht verfügbar</string>
     <string name="version_manager_invalid">Diese Version ist ungültig</string>
     <!-- Profiles Path -->

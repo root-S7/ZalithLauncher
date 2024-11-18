@@ -77,7 +77,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
-            versionsAdapter = VersionAdapter(object : VersionAdapter.OnVersionItemClickListener {
+            versionsAdapter = VersionAdapter(this@VersionsListFragment, object : VersionAdapter.OnVersionItemClickListener {
                 override fun onVersionClick(version: Version) {
                     VersionsManager.saveCurrentVersion(version.getVersionName())
                     Tools.backToMainMenu(requireActivity())
