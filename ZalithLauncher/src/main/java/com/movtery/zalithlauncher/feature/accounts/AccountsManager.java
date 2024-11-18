@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountsManager {
+public final class AccountsManager {
     private final static int MAX_LOGIN_STEP = 5;
     @SuppressLint("StaticFieldLeak")
     private static volatile AccountsManager accountsManager;
@@ -40,7 +40,7 @@ public class AccountsManager {
     private DoneListener mDoneListener;
     private ErrorListener mErrorListener;
 
-    public AccountsManager() {
+    private AccountsManager() {
     }
 
     public static AccountsManager getInstance() {

@@ -462,6 +462,8 @@ public class LauncherActivity extends BaseActivity {
         super.onResume();
         ContextExecutor.setActivity(this);
         setPageOpacity();
+        //避免切换回来的时候，找不到账号，应该在这里刷新账户
+        accountsManager.reload();
     }
 
     @Override
