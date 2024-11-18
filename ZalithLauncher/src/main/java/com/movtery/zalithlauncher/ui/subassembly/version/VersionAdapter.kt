@@ -7,10 +7,8 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.PopupWindow
+import android.widget.ListPopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -74,7 +72,7 @@ class VersionAdapter(
 
                 binding.settings.visibility = View.VISIBLE
                 binding.settings.setOnClickListener { _ ->
-                    showPopupWindow(binding.settings, it)
+                    showPopupWindow(binding.root, it)
                 }
 
                 VersionIconUtils(it).start(binding.versionIcon)
@@ -113,19 +111,14 @@ class VersionAdapter(
             version: Version
         ) {
             val context = parentFragment.requireActivity()
-            val popupView = LayoutInflater.from(context).inflate(R.layout.popup_layout, null)
 
-            val popupWindow = PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                true
-            )
+            val popupWindow = ListPopupWindow(context).apply {
+                this.anchorView = anchorView
+                this.isModal = true
+                this.promptPosition = androidx.appcompat.widget.ListPopupWindow.POSITION_PROMPT_ABOVE
+                this.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.background_card))
+            }
 
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-
-            val listView = popupView.findViewById<ListView>(R.id.listView)
             val settings: MutableList<String> = ArrayList()
             settings.add(context.getString(R.string.profiles_path_settings_goto))
             settings.add(context.getString(R.string.version_manager_rename))
@@ -136,31 +129,30 @@ class VersionAdapter(
                 settings.toTypedArray()
             )
 
-            listView.adapter = adapter
-            listView.onItemClickListener =
-                AdapterView.OnItemClickListener { _, _, position: Int, _ ->
-                    when (position) {
-                        1 -> VersionsManager.openRenameDialog(context, version)
+            popupWindow.setAdapter(adapter)
+            popupWindow.setOnItemClickListener { _, _, position: Int, _ ->
+                when (position) {
+                    1 -> VersionsManager.openRenameDialog(context, version)
 
-                        2 -> deleteVersion(version)
+                    2 -> deleteVersion(version)
 
-                        else -> {
-                            val bundle = Bundle()
-                            bundle.putString(
-                                FilesFragment.BUNDLE_LOCK_PATH,
-                                Environment.getExternalStorageDirectory().absolutePath
-                            )
-                            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, VersionsManager.getVersionPath(version).absolutePath)
-                            ZHTools.swapFragmentWithAnim(
-                                parentFragment,
-                                FilesFragment::class.java, FilesFragment.TAG, bundle
-                            )
-                        }
+                    else -> {
+                        val bundle = Bundle()
+                        bundle.putString(
+                            FilesFragment.BUNDLE_LOCK_PATH,
+                            Environment.getExternalStorageDirectory().absolutePath
+                        )
+                        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, VersionsManager.getVersionPath(version).absolutePath)
+                        ZHTools.swapFragmentWithAnim(
+                            parentFragment,
+                            FilesFragment::class.java, FilesFragment.TAG, bundle
+                        )
                     }
-                    popupWindow.dismiss()
                 }
+                popupWindow.dismiss()
+            }
 
-            popupWindow.showAsDropDown(anchorView)
+            popupWindow.show()
         }
 
         //删除版本前提示用户，如果版本无效，那么默认点击事件就是删除版本

@@ -6,12 +6,11 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ListView
-import android.widget.PopupWindow
 import android.widget.RadioButton
+import androidx.appcompat.widget.ListPopupWindow
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemProfilePathBinding
@@ -95,7 +94,7 @@ class ProfilePathAdapter(
             binding.radioButton.setOnClickListener(onClickListener)
 
             binding.settings.setOnClickListener {
-                showPopupWindow(binding.settings, profileItem.id == "default", profileItem, position)
+                showPopupWindow(binding.root, profileItem.id == "default", profileItem, position)
             }
 
             if (currentId == profileItem.id) {
@@ -110,19 +109,14 @@ class ProfilePathAdapter(
             itemIndex: Int
         ) {
             val context = anchorView.context
-            val popupView = LayoutInflater.from(context).inflate(R.layout.popup_layout, null)
 
-            val popupWindow = PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                true
-            )
+            val popupWindow = ListPopupWindow(context).apply {
+                this.anchorView = anchorView
+                this.isModal = true
+                this.promptPosition = ListPopupWindow.POSITION_PROMPT_ABOVE
+                this.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.background_card))
+            }
 
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-
-            val listView = popupView.findViewById<ListView>(R.id.listView)
             val settings: MutableList<String> = ArrayList()
             settings.add(context.getString(R.string.profiles_path_settings_goto))
             if (!isDefault) {
@@ -135,60 +129,60 @@ class ProfilePathAdapter(
                 settings.toTypedArray()
             )
 
-            listView.adapter = adapter
-            listView.onItemClickListener =
-                AdapterView.OnItemClickListener { _, _, position: Int, _ ->
-                    when (position) {
-                        1 -> {
-                            EditTextDialog.Builder(context)
-                                .setTitle(R.string.generic_rename)
-                                .setEditText(profileItem.title)
-                                .setConfirmListener { editBox: EditText ->
-                                    val string = editBox.text.toString()
-                                    if (string.isEmpty()) {
-                                        editBox.error =
-                                            context.getString(R.string.generic_error_field_empty)
-                                        return@setConfirmListener false
-                                    }
+            popupWindow.setAdapter(adapter)
 
-                                    mData[position].title = string
-                                    refresh()
-                                    true
-                                }.buildDialog()
-                        }
+            popupWindow.setOnItemClickListener { _, _, position: Int, _ ->
+                when (position) {
+                    1 -> {
+                        EditTextDialog.Builder(context)
+                            .setTitle(R.string.generic_rename)
+                            .setEditText(profileItem.title)
+                            .setConfirmListener { editBox: EditText ->
+                                val string = editBox.text.toString()
+                                if (string.isEmpty()) {
+                                    editBox.error =
+                                        context.getString(R.string.generic_error_field_empty)
+                                    return@setConfirmListener false
+                                }
 
-                        2 -> {
-                            TipDialog.Builder(context)
-                                .setTitle(context.getString(R.string.profiles_path_delete_title))
-                                .setMessage(R.string.profiles_path_delete_message)
-                                .setCancelable(false)
-                                .setConfirmClickListener {
-                                    if (currentId == profileItem.id) {
-                                        //如果删除的是当前选中的路径，那么将自动选择为默认路径
-                                        setPathId("default")
-                                    }
-                                    mData.removeAt(itemIndex)
-                                    refresh()
-                                }.buildDialog()
-                        }
-
-                        else -> {
-                            val bundle = Bundle()
-                            bundle.putString(
-                                FilesFragment.BUNDLE_LOCK_PATH,
-                                Environment.getExternalStorageDirectory().absolutePath
-                            )
-                            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path)
-                            ZHTools.swapFragmentWithAnim(
-                                fragment,
-                                FilesFragment::class.java, FilesFragment.TAG, bundle
-                            )
-                        }
+                                mData[position].title = string
+                                refresh()
+                                true
+                            }.buildDialog()
                     }
-                    popupWindow.dismiss()
-                }
 
-            popupWindow.showAsDropDown(anchorView)
+                    2 -> {
+                        TipDialog.Builder(context)
+                            .setTitle(context.getString(R.string.profiles_path_delete_title))
+                            .setMessage(R.string.profiles_path_delete_message)
+                            .setCancelable(false)
+                            .setConfirmClickListener {
+                                if (currentId == profileItem.id) {
+                                    //如果删除的是当前选中的路径，那么将自动选择为默认路径
+                                    setPathId("default")
+                                }
+                                mData.removeAt(itemIndex)
+                                refresh()
+                            }.buildDialog()
+                    }
+
+                    else -> {
+                        val bundle = Bundle()
+                        bundle.putString(
+                            FilesFragment.BUNDLE_LOCK_PATH,
+                            Environment.getExternalStorageDirectory().absolutePath
+                        )
+                        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path)
+                        ZHTools.swapFragmentWithAnim(
+                            fragment,
+                            FilesFragment::class.java, FilesFragment.TAG, bundle
+                        )
+                    }
+                }
+                popupWindow.dismiss()
+            }
+
+            popupWindow.show()
         }
     }
 }
