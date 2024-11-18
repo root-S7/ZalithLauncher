@@ -1,9 +1,12 @@
 package com.movtery.zalithlauncher.feature.version
 
+import android.content.Context
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.utils.file.FileTools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -172,9 +175,43 @@ object VersionsManager {
     }
 
     /**
+     * 打开重命名版本的弹窗，需要确保在UI线程运行
+     * @param beforeRename 在重命名前一步的操作
+     */
+    fun openRenameDialog(context: Context, version: Version, beforeRename: (() -> Unit)? = null) {
+        EditTextDialog.Builder(context)
+            .setTitle(R.string.version_manager_rename)
+            .setEditText(version.getVersionName())
+            .setConfirmListener { editText ->
+                val string = editText.text.toString()
+
+                //与原始名称一致
+                if (string == version.getVersionName()) return@setConfirmListener true
+
+                if (isVersionExists(string)) {
+                    editText.error = context.getString(R.string.version_install_exists)
+                    return@setConfirmListener false
+                }
+
+                version.getVersionInfo()?.let { info ->
+                    //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
+                    if (info.loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
+                        editText.error = context.getString(R.string.version_install_cannot_use_mc_name)
+                        return@setConfirmListener false
+                    }
+                }
+
+                beforeRename?.invoke()
+                renameVersion(version, string)
+
+                true
+            }.buildDialog()
+    }
+
+    /**
      * 重命名当前版本，但并不会在这里对即将重命名的名称，进行非法性判断
      */
-    fun renameVersion(version: Version, name: String) {
+    private fun renameVersion(version: Version, name: String) {
         val versionFolder = getVersionPath(version)
         val renameFolder = File(ProfilePathHome.versionsHome, name)
 

@@ -11,7 +11,6 @@ import com.movtery.zalithlauncher.databinding.FragmentVersionManagerBinding
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
-import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileDeletionHandler
@@ -98,33 +97,9 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                 versionEdit -> ZHTools.swapFragmentWithAnim(this@VersionManagerFragment, VersionConfigFragment::class.java, VersionConfigFragment.TAG, null)
                 versionRename -> {
                     val activity = requireActivity()
-                    EditTextDialog.Builder(activity)
-                        .setTitle(R.string.version_manager_rename)
-                        .setEditText(version.getVersionName())
-                        .setConfirmListener { editText ->
-                            val string = editText.text.toString()
-
-                            //与原始名称一致
-                            if (string == version.getVersionName()) return@setConfirmListener true
-
-                            if (VersionsManager.isVersionExists(string)) {
-                                editText.error = getString(R.string.version_install_exists)
-                                return@setConfirmListener false
-                            }
-
-                            version.getVersionInfo()?.let { info ->
-                                //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
-                                if (info.loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
-                                    editText.error = getString(R.string.version_install_cannot_use_mc_name)
-                                    return@setConfirmListener false
-                                }
-                            }
-
-                            Tools.backToMainMenu(activity) //重命名前，为了不出现问题，需要退出当前Fragment
-                            VersionsManager.renameVersion(version, string)
-
-                            true
-                        }.buildDialog()
+                    VersionsManager.openRenameDialog(activity, version) {
+                        Tools.backToMainMenu(activity) //重命名前，为了不出现问题，需要退出当前Fragment
+                    }
                 }
                 versionDelete -> {
                     val activity = requireActivity()
