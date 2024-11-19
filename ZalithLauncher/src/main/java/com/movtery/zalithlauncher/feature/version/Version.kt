@@ -54,9 +54,9 @@ class Version(
     }
 
     fun getControl(): String? {
-        val control: String = (versionConfig?.getControl() ?: AllSettings.defaultCtrl!!).removeSuffix("./")
-        return if (control.isNotEmpty()) File(PathAndUrlManager.DIR_CTRLMAP_PATH, control).absolutePath
-        else null
+        val configControl = versionConfig?.getControl()?.removeSuffix("./") ?: ""
+        return if (configControl.isNotEmpty()) File(PathAndUrlManager.DIR_CTRLMAP_PATH, configControl).absolutePath
+        else File(AllSettings.defaultCtrl!!).absolutePath
     }
 
     fun getVersionInfo(): VersionInfo? {
