@@ -73,7 +73,9 @@ object VersionsManager {
                             val configFile = File(getZalithVersionPath(versionFile), "ZalithVersion.cfg")
                             if (configFile.exists()) versionConfig = runCatching {
                                 //读取此文件的内容，并解析为VersionConfig
-                                Tools.GLOBAL_GSON.fromJson(Tools.read(configFile), VersionConfig::class.java)
+                                val config = Tools.GLOBAL_GSON.fromJson(Tools.read(configFile), VersionConfig::class.java)
+                                config.setVersionPath(versionFile)
+                                config
                             }.getOrElse { e ->
                                 Logging.e("Refresh Versions", Tools.printToString(e))
                                 null

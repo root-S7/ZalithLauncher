@@ -38,6 +38,7 @@ import net.kdt.pojavlaunch.multirt.Runtime;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -111,9 +112,14 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         mTempVersion = Objects.requireNonNull(VersionsManager.INSTANCE.getCurrentVersion());
         mVersionIconUtils = new VersionIconUtils(mTempVersion);
+        File versionFolder = VersionsManager.INSTANCE.getVersionPath(mTempVersion);
 
         if (mTempVersion.getVersionConfig() != null) {
             mTempConfig = mTempVersion.getVersionConfig();
+            if (mTempConfig.getVersionPath() == null) {
+                //以防万一版本路径是空的，这里做个检查，是空的就会在这里赋值
+                mTempConfig.setVersionPath(versionFolder);
+            }
             binding.isolation.setChecked(true);
             setIsolationVisible(true);
             loadValues(view.getContext());
@@ -124,7 +130,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         binding.isolation.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                mTempConfig = new VersionConfig(VersionsManager.INSTANCE.getVersionPath(mTempVersion.getVersionName()));
+                mTempConfig = new VersionConfig(versionFolder);
                 show();
                 loadValues(view.getContext());
             } else {

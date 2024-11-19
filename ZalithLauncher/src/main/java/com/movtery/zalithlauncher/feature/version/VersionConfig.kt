@@ -8,11 +8,16 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.FileWriter
 
-class VersionConfig(private val versionPath: File) : Parcelable {
+class VersionConfig private constructor() : Parcelable {
+    private var versionPath: File? = null
     private var javaDir: String = ""
     private var javaArgs: String = ""
     private var renderer: String = ""
     private var control: String = ""
+
+    constructor(versionPath: File): this() {
+        this.versionPath = versionPath
+    }
 
     constructor(
         filePath: File,
@@ -31,13 +36,14 @@ class VersionConfig(private val versionPath: File) : Parcelable {
         runCatching {
             saveWithThrowable()
         }.getOrElse { e ->
-            Logging.e("Save Version Config", Tools.printToString(e))
+            Logging.e("Save Version Config", "$this\n${Tools.printToString(e)}")
         }
     }
 
     @Throws(Throwable::class)
     fun saveWithThrowable() {
-        val zalithVersionPath = VersionsManager.getZalithVersionPath(versionPath)
+        Logging.i("Save Version Config", "Trying to save: $this")
+        val zalithVersionPath = VersionsManager.getZalithVersionPath(versionPath!!)
         val configFile = File(zalithVersionPath, "ZalithVersion.cfg")
         if (!zalithVersionPath.exists()) zalithVersionPath.mkdirs()
 
@@ -45,14 +51,21 @@ class VersionConfig(private val versionPath: File) : Parcelable {
             val json = Tools.GLOBAL_GSON.toJson(this)
             it.write(json)
         }
+        Logging.i("Save Version Config", "Saved: $this")
     }
 
     fun delete() {
         runCatching {
-            File(VersionsManager.getZalithVersionPath(versionPath), "ZalithVersion.cfg").let {
+            File(VersionsManager.getZalithVersionPath(versionPath!!), "ZalithVersion.cfg").let {
                 if (it.exists()) FileUtils.deleteQuietly(it)
             }
         }
+    }
+
+    fun getVersionPath() = versionPath
+
+    fun setVersionPath(versionPath: File) {
+        this.versionPath = versionPath
     }
 
     fun getJavaDir() = javaDir
