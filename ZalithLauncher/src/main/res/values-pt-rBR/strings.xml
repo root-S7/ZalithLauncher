@@ -347,6 +347,7 @@
     <string name="setting_category_controller_settings">Configurações do controle</string>
     <string name="setting_category_java_tweaks">Ajustes do Java</string>
     <string name="setting_category_video">Configurações de vídeo</string>
+    <string name="setting_category_version">Versão</string>
     <string name="setting_category_language">Idioma</string>
     <string name="setting_category_personalization">Personalização</string>
     <string name="setting_category_download">Download</string>
@@ -426,6 +427,8 @@
     <string name="setting_resource_image_cache_desc">Quando ativado, o launcher armazenará em cache as imagens de capa e capturas de tela dos recursos para carregar mais rapidamente da próxima vez</string>
     <string name="setting_download_source_title">Fonte de Download do Jogo</string>
     <string name="setting_download_source_desc">Selecionar fonte de download em espelho em vez de usar a fonte oficial de download</string>
+    <string name="setting_version_isolation_title">Isolamento de versão padrão</string>
+    <string name="setting_version_isolation_desc">Ao instalar uma nova versão, deve-se selecionar o isolamento de versão por padrão?</string>
     <string name="setting_set_game_language_title">Definir Idioma do Jogo Automaticamente</string>
     <string name="setting_set_game_language_desc">Ao iniciar o jogo, definir automaticamente o idioma do jogo para o idioma selecionado</string>
     <string name="setting_set_game_language_list">Definir Idioma do Jogo</string>

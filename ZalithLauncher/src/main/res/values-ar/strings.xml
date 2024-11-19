@@ -347,6 +347,7 @@
     <string name="setting_category_controller_settings">إعدادات الجهاز التحكم</string>
     <string name="setting_category_java_tweaks">ضبط Java</string>
     <string name="setting_category_video">إعدادات الفيديو</string>
+    <string name="setting_category_version">الإصدار</string>
     <string name="setting_category_language">اللغة</string>
     <string name="setting_category_personalization">التخصيص</string>
     <string name="setting_category_download">التنزيل</string>
@@ -426,6 +427,8 @@
     <string name="setting_resource_image_cache_desc">عند التفعيل، سيقوم المشغل بتخزين صور غلاف الموارد ولقطات الشاشة مؤقتًا لتحميلها بشكل أسرع في المرة القادمة</string>
     <string name="setting_download_source_title">مصدر تنزيل اللعبة</string>
     <string name="setting_download_source_desc">اختيار مصدر تنزيل مرآة بدلاً من استخدام المصدر الرسمي</string>
+    <string name="setting_version_isolation_title">عزل الإصدار الافتراضي</string>
+    <string name="setting_version_isolation_desc">عند تثبيت إصدار جديد، هل يجب اختيار العزل الافتراضي للإصدار؟</string>
     <string name="setting_set_game_language_title">ضبط لغة اللعبة تلقائيًا</string>
     <string name="setting_set_game_language_desc">ضبط لغة اللعبة تلقائيًا على اللغة المحددة عند بدء تشغيل اللعبة</string>
     <string name="setting_set_game_language_list">ضبط لغة اللعبة</string>

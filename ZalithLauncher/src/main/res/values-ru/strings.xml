@@ -347,6 +347,7 @@
     <string name="setting_category_controller_settings">Настройки контроллера</string>
     <string name="setting_category_java_tweaks">Настройки Java</string>
     <string name="setting_category_video">Настройки видео</string>
+    <string name="setting_category_version">Версия</string>
     <string name="setting_category_language">Язык</string>
     <string name="setting_category_personalization">Персонализация</string>
     <string name="setting_category_download">Загрузки</string>
@@ -426,6 +427,8 @@
     <string name="setting_resource_image_cache_desc">При включении лаунчер будет кэшировать обложки и скриншоты ресурсов для более быстрого загрузки в следующий раз</string>
     <string name="setting_download_source_title">Источник загрузки игры</string>
     <string name="setting_download_source_desc">Выберите зеркальный источник загрузки вместо официального</string>
+    <string name="setting_version_isolation_title">Изоляция версии по умолчанию</string>
+    <string name="setting_version_isolation_desc">При установке новой версии следует ли по умолчанию выбирать изоляцию версии?</string>
     <string name="setting_set_game_language_title">Автоматическая настройка языка игры</string>
     <string name="setting_set_game_language_desc">При запуске игры автоматически устанавливать язык игры на выбранный</string>
     <string name="setting_set_game_language_list">Установить язык игры</string>

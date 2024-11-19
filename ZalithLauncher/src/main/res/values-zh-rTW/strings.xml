@@ -347,6 +347,7 @@
     <string name="setting_category_controller_settings">手把設定</string>
     <string name="setting_category_java_tweaks">Java 調整</string>
     <string name="setting_category_video">影片設定</string>
+    <string name="setting_category_version">版本</string>
     <string name="setting_category_language">語言</string>
     <string name="setting_category_personalization">個性化</string>
     <string name="setting_category_download">下載</string>
@@ -426,6 +427,8 @@
     <string name="setting_resource_image_cache_desc">啟用後，啟動器將會快取資源的封面圖片與截圖，方便下次更快速載入</string>
     <string name="setting_download_source_title">遊戲下載源</string>
     <string name="setting_download_source_desc">選擇鏡像下載源，而不是使用官方下載源</string>
+    <string name="setting_version_isolation_title">預設版本隔離</string>
+    <string name="setting_version_isolation_desc">安裝新版本時，是否預設選擇版本隔離</string>
     <string name="setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="setting_set_game_language_desc">在遊戲啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="setting_set_game_language_list">設定遊戲語言</string>

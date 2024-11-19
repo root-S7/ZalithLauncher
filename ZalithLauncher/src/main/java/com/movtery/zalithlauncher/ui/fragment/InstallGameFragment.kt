@@ -21,6 +21,7 @@ import com.movtery.zalithlauncher.feature.version.InstallArgsUtils
 import com.movtery.zalithlauncher.feature.version.InstallTask
 import com.movtery.zalithlauncher.feature.version.InstallTaskItem
 import com.movtery.zalithlauncher.feature.version.VersionsManager
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
@@ -79,6 +80,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
 
             back.setOnClickListener(clickListener)
             install.setOnClickListener(clickListener)
+            isolation.isChecked = AllSettings.versionIsolation
         }
 
         checkIncompatible()

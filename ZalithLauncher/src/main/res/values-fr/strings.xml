@@ -347,6 +347,7 @@
     <string name="setting_category_controller_settings">Paramètres de la manette</string>
     <string name="setting_category_java_tweaks">Réglages Java</string>
     <string name="setting_category_video">Paramètres vidéo</string>
+    <string name="setting_category_version">Version</string>
     <string name="setting_category_language">Langue</string>
     <string name="setting_category_personalization">Personnalisation</string>
     <string name="setting_category_download">Téléchargements</string>
@@ -426,6 +427,8 @@
     <string name="setting_resource_image_cache_desc">Une fois activé, le lanceur mettra en cache les images de couverture et les captures d\'écran des ressources pour un chargement plus rapide la prochaine fois</string>
     <string name="setting_download_source_title">Source de téléchargement du jeu</string>
     <string name="setting_download_source_desc">Choisir une source de téléchargement miroir au lieu d\'utiliser la source officielle</string>
+    <string name="setting_version_isolation_title">Isolation de version par défaut</string>
+    <string name="setting_version_isolation_desc">Lors de l\'installation d\'une nouvelle version, faut-il choisir l\'isolation de version par défaut ?</string>
     <string name="setting_set_game_language_title">Définir automatiquement la langue du jeu</string>
     <string name="setting_set_game_language_desc">Définir automatiquement la langue du jeu sur la langue sélectionnée au démarrage</string>
     <string name="setting_set_game_language_list">Définir la langue du jeu</string>

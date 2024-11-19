@@ -107,6 +107,10 @@ class AllSettings {
 
         // Game
         @JvmStatic
+        val versionIsolation: Boolean
+            get() = Settings.Manager.getBoolean("versionIsolation", false)
+
+        @JvmStatic
         val autoSetGameLanguage: Boolean
             get() = Settings.Manager.getBoolean("autoSetGameLanguage", true)
 

@@ -52,6 +52,14 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
 
         SwitchSettingsWrapper(
             context,
+            "versionIsolation",
+            AllSettings.versionIsolation,
+            binding.versionIsolationLayout,
+            binding.versionIsolation
+        )
+
+        SwitchSettingsWrapper(
+            context,
             "autoSetGameLanguage",
             AllSettings.autoSetGameLanguage,
             binding.autoSetGameLanguageLayout,

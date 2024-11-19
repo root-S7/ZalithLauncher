@@ -353,6 +353,7 @@
     <string name="setting_category_controller_settings">Controller settings</string>
     <string name="setting_category_java_tweaks">Java tweaks</string>
     <string name="setting_category_video">Video Settings</string>
+    <string name="setting_category_version">Version</string>
     <string name="setting_category_language">Language</string>
     <string name="setting_category_personalization">Personalization</string>
     <string name="setting_category_download">Downloads</string>
@@ -432,6 +433,8 @@
     <string name="setting_resource_image_cache_desc">When enabled, the launcher will cache the cover images and screenshots of resources for faster loading next time</string>
     <string name="setting_download_source_title">Game Download Source</string>
     <string name="setting_download_source_desc">Choose a mirror download source instead of using the official download source</string>
+    <string name="setting_version_isolation_title">Default Version Isolation</string>
+    <string name="setting_version_isolation_desc">When installing a new version, should version isolation be selected by default?</string>
     <string name="setting_set_game_language_title">Auto Set Game Language</string>
     <string name="setting_set_game_language_desc">Automatically set the game language to the selected language when the game starts</string>
     <string name="setting_set_game_language_list">Set Game Language</string>

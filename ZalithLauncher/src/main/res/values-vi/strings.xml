@@ -347,6 +347,7 @@
     <string name="setting_category_controller_settings">Cài đặt bộ điều khiển</string>
     <string name="setting_category_java_tweaks">Điều chỉnh Java</string>
     <string name="setting_category_video">Cài đặt video</string>
+    <string name="setting_category_version">Phiên bản</string>
     <string name="setting_category_language">Ngôn ngữ</string>
     <string name="setting_category_personalization">Cá nhân hóa</string>
     <string name="setting_category_download">Tải xuống</string>
@@ -426,6 +427,8 @@
     <string name="setting_resource_image_cache_desc">Khi bật, trình khởi chạy sẽ lưu trữ vào bộ nhớ đệm các ảnh bìa và ảnh chụp màn hình của tài nguyên để tải nhanh hơn lần sau</string>
     <string name="setting_download_source_title">Nguồn tải xuống trò chơi</string>
     <string name="setting_download_source_desc">Chọn nguồn tải xuống lậu thay vì sử dụng nguồn tải xuống chính thức</string>
+    <string name="setting_version_isolation_title">Cách ly phiên bản mặc định</string>
+    <string name="setting_version_isolation_desc">Khi cài đặt phiên bản mới, có nên mặc định chọn cách ly phiên bản không?</string>
     <string name="setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>
     <string name="setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi khởi động trò chơi</string>
     <string name="setting_set_game_language_list">Đặt ngôn ngữ trò chơi</string>
