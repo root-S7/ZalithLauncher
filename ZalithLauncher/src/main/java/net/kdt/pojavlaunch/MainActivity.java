@@ -352,7 +352,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             try {
-                binding.mainControlLayout.loadLayout(AllSettings.getDefaultCtrl());
+                binding.mainControlLayout.loadLayout((String) null);
             } catch (IOException e) {
                 Logging.e("LoadLayout", Tools.printToString(e));
             }

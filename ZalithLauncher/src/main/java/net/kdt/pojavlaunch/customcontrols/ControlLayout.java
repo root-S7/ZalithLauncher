@@ -71,18 +71,18 @@ public class ControlLayout extends FrameLayout {
 
 
 	public void loadLayout(String jsonPath) throws IOException, JsonSyntaxException {
-		File jsonFile = new File(jsonPath);
+		File jsonFile = jsonPath != null ? new File(jsonPath) : new File(AllSettings.getDefaultCtrl());
 
 		CustomControls layout;
 		if (jsonFile.exists()) {
-			layout = LayoutConverter.loadAndConvertIfNecessary(getContext(), jsonPath);
+			layout = LayoutConverter.loadAndConvertIfNecessary(getContext(), jsonFile.getAbsolutePath());
 		} else {
 			layout = LayoutConverter.loadFromAssets(getContext(), "default.json");
 		}
-		if(layout != null) {
+		if (layout != null) {
 			loadLayout(layout);
 			if (jsonFile.exists()) {
-				updateLoadedFileName(jsonPath);
+				updateLoadedFileName(jsonFile.getAbsolutePath());
 			} else {
 				mLayoutFileName = "default";
 			}
@@ -547,7 +547,7 @@ public class ControlLayout extends FrameLayout {
             try {
 				Settings.Manager.put("defaultCtrl", absolutePath).save();
 				loadLayout(absolutePath);
-            }catch (IOException|JsonSyntaxException e) {
+            } catch (IOException|JsonSyntaxException e) {
                 Tools.showError(getContext(), e);
             }
             dialog.dismiss();

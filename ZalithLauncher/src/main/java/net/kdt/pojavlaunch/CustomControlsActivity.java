@@ -64,7 +64,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		drawerNavigationView.addView(controlSettingsBinding.getRoot());
 		controlLayout.setModifiable(true);
 		try {
-			if (mControlPath == null) controlLayout.loadLayout(AllSettings.getDefaultCtrl());
+			if (mControlPath == null) controlLayout.loadLayout((String) null);
 			else controlLayout.loadLayout(mControlPath);
 		} catch (IOException e) {
 			Tools.showError(this, e);
