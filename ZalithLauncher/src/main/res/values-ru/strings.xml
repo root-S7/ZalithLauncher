@@ -218,7 +218,7 @@
     <string name="version_manager_rename">Переименовать версию</string>
     <string name="version_manager_delete">Удалить версию</string>
     <string name="version_manager_delete_tip">Если изоляция версий включена, ваши сохранения, пакеты ресурсов и моды будут удалены вместе с версией. Пожалуйста, сделайте резервную копию перед выполнением этой операции!</string>
-    <string name="version_manager_delete_tip_invalid">Текущая версия не имеет файла JSON версии, поэтому она считается недействительной. Следовательно, вы не можете выбрать эту версию. Нажмите "Подтвердить", чтобы удалить текущую версию.</string>
+    <string name="version_manager_delete_tip_invalid">Текущая версия не содержит файл JSON версии, поэтому она считается недействительной. Вы не можете выбрать эту версию. Нажмите «Подтвердить», чтобы удалить эту ошибочную версию.</string>
     <string name="version_manager_task_in_progress">Задача в процессе, управление версиями временно недоступно</string>
     <string name="version_manager_invalid">Эта версия недействительна</string>
     <!-- Profiles Path -->

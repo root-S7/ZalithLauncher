@@ -224,7 +224,7 @@
     <string name="version_manager_rename">Rename Version</string>
     <string name="version_manager_delete">Delete Version</string>
     <string name="version_manager_delete_tip">If version isolation is enabled, your game saves, resource packs, mods, and other important resources will be deleted along with the version. Please make sure to back up your data before performing this operation!</string>
-    <string name="version_manager_delete_tip_invalid">The current version is missing the version JSON file, so it is considered an invalid version. Therefore, you cannot select this version. Click confirm to delete the current version.</string>
+    <string name="version_manager_delete_tip_invalid">The current version is missing the version JSON file and is therefore considered an invalid version. You cannot select this version. Click Confirm to delete this erroneous version.</string>
     <string name="version_manager_task_in_progress">Task in progress, version management is temporarily unavailable</string>
     <string name="version_manager_invalid">This version is invalid</string>
     <!-- Profiles Path -->
