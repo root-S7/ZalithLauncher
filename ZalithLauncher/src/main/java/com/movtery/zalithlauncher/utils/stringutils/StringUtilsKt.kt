@@ -12,5 +12,8 @@ class StringUtilsKt {
 
         @JvmStatic
         fun isNotBlank(string: String?): Boolean = string?.isNotBlank() ?: false
+
+        @JvmStatic
+        fun removePrefix(string: String, prefix: String) = string.removePrefix(prefix)
     }
 }

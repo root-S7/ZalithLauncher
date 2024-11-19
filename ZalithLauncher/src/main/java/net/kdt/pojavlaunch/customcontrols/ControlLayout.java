@@ -25,6 +25,7 @@ import com.movtery.zalithlauncher.ui.dialog.SelectControlsDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
 import net.kdt.pojavlaunch.Tools;
@@ -71,17 +72,17 @@ public class ControlLayout extends FrameLayout {
 
 
 	public void loadLayout(String jsonPath) throws IOException, JsonSyntaxException {
-		File jsonFile = new File(jsonPath);
+		File jsonFile = jsonPath != null ? new File(PathAndUrlManager.DIR_CTRLMAP_PATH, StringUtilsKt.removePrefix(jsonPath, "./")) : null;
 
 		CustomControls layout;
-		if (jsonFile.exists()) {
-			layout = LayoutConverter.loadAndConvertIfNecessary(getContext(), jsonPath);
+		if (jsonFile != null && jsonFile.exists()) {
+			layout = LayoutConverter.loadAndConvertIfNecessary(getContext(), jsonFile.getAbsolutePath());
 		} else {
 			layout = LayoutConverter.loadFromAssets(getContext(), "default.json");
 		}
-		if(layout != null) {
+		if (layout != null) {
 			loadLayout(layout);
-			if (jsonFile.exists()) {
+			if (jsonFile != null && jsonFile.exists()) {
 				updateLoadedFileName(jsonPath);
 			} else {
 				mLayoutFileName = "default";
