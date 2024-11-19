@@ -27,6 +27,7 @@ import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfilePathAdapter
 import com.movtery.zalithlauncher.ui.subassembly.version.VersionAdapter
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
@@ -106,7 +107,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
             refreshButton.setOnClickListener { refresh() }
             createPathButton.setOnClickListener {
-                checkPermissions(R.string.profiles_path_create_new) {
+                StoragePermissionsUtils.checkPermissions(requireActivity(), R.string.profiles_path_create_new) {
                     val bundle = Bundle()
                     bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
                     bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)

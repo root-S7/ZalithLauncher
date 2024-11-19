@@ -26,6 +26,7 @@ import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileSelectedListener
 import com.movtery.zalithlauncher.ui.subassembly.view.SearchViewWrapper
 import com.movtery.zalithlauncher.utils.NewbieGuideUtils
+import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
@@ -152,7 +153,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     setVisibilityAnim(nothingText, isNoFile)
                     // 如果目录变更到了外部存储，则会检查权限
                     if (Objects.equals(fullPath.absolutePath, storageDirectory.absolutePath)) {
-                        checkPermissions(R.string.file_external_storage, null)
+                        StoragePermissionsUtils.checkPermissions(requireActivity(), R.string.file_external_storage, null)
                     }
                 }
             }

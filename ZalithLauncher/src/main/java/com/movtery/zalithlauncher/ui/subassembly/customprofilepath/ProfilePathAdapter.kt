@@ -21,6 +21,7 @@ import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.fragment.FilesFragment
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
+import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import java.util.TreeMap
 
@@ -31,11 +32,8 @@ class ProfilePathAdapter(
     RecyclerView.Adapter<ProfilePathAdapter.ViewHolder>() {
     private val mData: MutableList<ProfileItem> = ArrayList()
     private val radioButtonMap: MutableMap<String, RadioButton> = TreeMap()
-    private var currentId: String?
-
-    init {
-        this.currentId = launcherProfile
-    }
+    //如果没有存储权限，那么旧设置为默认路径
+    private var currentId: String? = if (StoragePermissionsUtils.checkPermissions(fragment.requireActivity())) launcherProfile else "default"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -89,7 +87,11 @@ class ProfilePathAdapter(
             binding.path.text = profileItem.path
             binding.path.isSelected = true
 
-            val onClickListener = View.OnClickListener { setPathId(profileItem.id) }
+            val onClickListener = View.OnClickListener {
+                StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
+                    setPathId(profileItem.id)
+                }
+            }
             itemView.setOnClickListener(onClickListener)
             binding.radioButton.setOnClickListener(onClickListener)
 
