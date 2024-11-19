@@ -5,6 +5,7 @@ import android.widget.EditText
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
+import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
@@ -14,6 +15,7 @@ import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
+import com.movtery.zalithlauncher.feature.version.GameInstaller
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionFolderChecker
 import com.movtery.zalithlauncher.feature.version.VersionInfo
@@ -24,6 +26,7 @@ import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.DownloadUtils
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 abstract class AbstractPlatformHelper(val api: ApiHandler) {
@@ -78,7 +81,9 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
                         if (!isTaskRunning()) {
                             ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
+                            val installingVersionEvent = InstallingVersionEvent()
                             Task.runTask {
+                                EventBus.getDefault().postSticky(installingVersionEvent)
                                 val modloader = installModPack(version, string) ?: return@runTask null
 
                                 val versionPath = VersionsManager.getVersionPath(string)
@@ -112,12 +117,20 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                                 }
 
                                 return@runTask null
-                            }.ended(TaskExecutors.getAndroidUI()) { filePair ->
+                            }.ended(TaskExecutors.getAndroidUI()) ended@{ filePair ->
                                 filePair?.let {
                                     ModPackUtils.startModLoaderInstall(it.first, ContextExecutor.getActivity(), it.second)
+                                    return@ended
                                 }
-                            }.onThrowable { e -> Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e) }
-                                .execute()
+                                //与GameInstaller那边处理一样，因为Quilt安装采用的旧的方式
+                                GameInstaller.moveVersionFiles()
+                                EventBus.getDefault().removeStickyEvent(installingVersionEvent)
+                                VersionsManager.refresh()
+                            }.onThrowable { e ->
+                                Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e)
+                            }.finallyTask {
+                                EventBus.getDefault().removeStickyEvent(installingVersionEvent)
+                            }.execute()
                         }
 
                         true

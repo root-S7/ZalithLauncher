@@ -77,6 +77,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
             quiltApiLayout.setOnClickListener(clickListener)
             quiltApiDelete.setOnClickListener(clickListener)
 
+            back.setOnClickListener(clickListener)
             install.setOnClickListener(clickListener)
         }
 
@@ -211,6 +212,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                     EventBus.getDefault().post(InstallGameEvent(mcVersion, string, isolation(), organizeInstallationTasks(string)))
                     Tools.backToMainMenu(requireActivity())
                 }
+                back -> ZHTools.onBackPressed(requireActivity())
                 else -> {}
             }
         }

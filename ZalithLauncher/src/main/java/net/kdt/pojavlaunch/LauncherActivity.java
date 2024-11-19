@@ -306,7 +306,12 @@ public class LauncherActivity extends BaseActivity {
                     }).beforeStart(TaskExecutors.getAndroidUI(), () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)).ended(TaskExecutors.getAndroidUI(), filePair -> {
                         if (filePair != null) {
                             ModPackUtils.startModLoaderInstall(filePair.getFirst(), LauncherActivity.this, filePair.getSecond());
+                            return;
                         }
+                        //与GameInstaller那边处理一样，因为Quilt安装采用的旧的方式
+                        GameInstaller.moveVersionFiles();
+                        EventBus.getDefault().removeStickyEvent(installingVersionEvent);
+                        VersionsManager.INSTANCE.refresh();
                     }).onThrowable(TaskExecutors.getAndroidUI(), e -> Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e))
                     .finallyTask(TaskExecutors.getAndroidUI(), () -> {
                         ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);

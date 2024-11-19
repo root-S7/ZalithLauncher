@@ -113,6 +113,8 @@ class GameInstaller(
 
                             //Quilt使用直接下载版本json文件的方式进行安装
                             moveVersionFiles()
+                            //在这里解除一下限制，刷新一下
+                            EventBus.getDefault().removeStickyEvent(installModVersion)
                             VersionsManager.refresh()
                         }
                     }.finallyTask {

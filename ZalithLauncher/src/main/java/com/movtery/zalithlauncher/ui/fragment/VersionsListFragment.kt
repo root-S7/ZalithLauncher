@@ -169,7 +169,11 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
-        VersionsManager.refresh()
+        versionsAdapter?.let {
+            //为了避免界面初始化的时候连续刷新两次（OnViewCreated最后会刷新一次）
+            //这里需要确保VersionAdapter已经完成初始化，才会刷新
+            VersionsManager.refresh()
+        }
     }
 
     override fun onStop() {
