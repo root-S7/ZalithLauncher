@@ -1,23 +1,23 @@
 {
-  "version_code": 137202,
-  "version_name": "1.3.7.2",
+  "version_code": 137300,
+  "version_name": "1.3.7.3",
   "title": {
-    "en_us": "1.3.7.2",
-    "zh_cn": "1.3.7.2",
-    "zh_tw": "1.3.7.2"
+    "en_us": "1.3.7.3",
+    "zh_cn": "1.3.7.3",
+    "zh_tw": "1.3.7.3"
   },
   "description": {
-    "en_us": "## Update Notes:\r\n- Fixed [Control Layout]: Issue where it couldn\u0027t load properly\r\n\r\n## 1.3.7.1\r\n- Fixed [Version Management]: Resolved version saving issue\r\n- Fixed [Startup]: Fixed some issues\r\n\r\n## 1.3.7:\r\n- **Updated [Version Management]: Replaced instance system with version management, enabled version isolation**\r\n- Updated [jre_launcher]: Displayed fatal signal on crash screen\r\n- Updated [Turnip]: Updated Turnip driver\r\n---\r\n- Adjusted [Renderer]: Adjusted GL4ES renderer name\r\n- Adjusted [Language]: Added reminder for users who haven\u0027t purchased Minecraft\r\n---\r\n- Fixed [Language]: \"More\" issue\r\n- Fixed [Account]: Resolved issue where account data was cleared when switching Activity\r\n",
-    "zh_cn": "## 更新内容：\n- 修复[控制布局]: 无法正常加载\n\n## 1.3.7.1：\n- 修复[版本管理]: 版本保存的异常\n- 修复[启动]: 一些问题\n\n## 1.3.7：\n- **更新[版本管理]: 使用版本管理代替实例系统，启用版本隔离**\n- 更新[jre_launcher]: 在崩溃界面展示致命信号\n- 更新[Turnip]: 更新 Turnip 驱动\n---\n- 调整[渲染器]: 调整 GL4ES 渲染器名称\n- 调整[语言]: 未购买 Minecraft 的提醒\n---\n- 修复[语言]: “更多”\n- 修复[账号]: 切换 Activity 导致账号数据被清空\n",
-    "zh_tw": "## 更新內容：\n- 修復[控制佈局]: 無法正常加載\n\n## 1.3.7.1：\n- 修复[版本管理]: 版本保存的异常\n- 修复[启动]: 一些问题\n\n## 1.3.7：\n- **更新[版本管理]: 使用版本管理代替实例系统，启用版本隔离**\n- 更新[jre_launcher]: 在崩溃界面展示致命信号\n- 更新[Turnip]: 更新 Turnip 驱动\n---\n- 调整[渲染器]: 调整 GL4ES 渲染器名称\n- 调整[语言]: 未购买 Minecraft 的提醒\n---\n- 修复[语言]: “更多”\n- 修复[账号]: 切换 Activity 导致账号数据被清空"
+    "en_us": "## Update Notes:\r\n- Updated [Settings]: Added default version isolation setting\r\n---\r\n- Adjusted [Forge]: Old installers use the previous installation method\r\n- Adjusted [Animation]: Tweaked the pop-up zoom animation effect\r\n- Adjusted [Language]: Refined description for \"Error Version\"\r\n- Adjusted [Permissions]: Implemented stricter storage permission restrictions\r\n\r\n## 1.3.7.2:\r\n- Fixed [Control Layout]: Unable to load properly\r\n\r\n## 1.3.7.1:\r\n- Fixed [Version Management]: Resolved version saving issue\r\n- Fixed [Startup]: Addressed some issues\r\n\r\n## 1.3.7:\r\n- **Updated [Version Management]: Replaced instance system with version management, enabled version isolation**\r\n- Updated [jre_launcher]: Displayed fatal signal on crash screen\r\n- Updated [Turnip]: Updated Turnip driver\r\n---\r\n- Adjusted [Renderer]: Adjusted GL4ES renderer name\r\n- Adjusted [Language]: Added reminder for users who haven\u0027t purchased Minecraft\r\n---\r\n- Fixed [Language]: \"More\" issue\r\n- Fixed [Account]: Resolved issue where account data was cleared when switching Activity\r\n",
+    "zh_cn": "## 更新内容：\n- 更新[设置]: 添加默认版本隔离设置\n---\n- 调整[Forge]: 旧的安装器使用旧的安装方式\n- 调整[动画]: 调整弹出放大的动画效果\n- 调整[语言]: “错误版本”的描述\n- 调整[权限]: 更加严格的存储权限限制\n\n## 1.3.7.2：\n- 修复[控制布局]: 无法正常加载\n\n## 1.3.7.1：\n- 修复[版本管理]: 版本保存的异常\n- 修复[启动]: 一些问题\n\n## 1.3.7：\n- **更新[版本管理]: 使用版本管理代替实例系统，启用版本隔离**\n- 更新[jre_launcher]: 在崩溃界面展示致命信号\n- 更新[Turnip]: 更新 Turnip 驱动\n---\n- 调整[渲染器]: 调整 GL4ES 渲染器名称\n- 调整[语言]: 未购买 Minecraft 的提醒\n---\n- 修复[语言]: “更多”\n- 修复[账号]: 切换 Activity 导致账号数据被清空\n",
+    "zh_tw": "## 更新內容：\n- 更新[設置]: 添加默認版本隔離設置\n---\n- 調整[Forge]: 舊的安裝器使用舊的安裝方式\n- 調整[動畫]: 調整彈出放大的動畫效果\n- 調整[語言]: 優化“錯誤版本”的描述\n- 調整[權限]: 實施更嚴格的存儲權限限制\n\n## 1.3.7.2：\n- 修復[控制佈局]: 無法正常加載\n\n## 1.3.7.1：\n- 修復[版本管理]: 解決版本保存異常問題\n- 修復[啟動]: 修復一些問題\n\n## 1.3.7：\n- **更新[版本管理]: 使用版本管理代替實例系統，啟用版本隔離**\n- 更新[jre_launcher]: 在崩潰界面展示致命信號\n- 更新[Turnip]: 更新 Turnip 驅動\n---\n- 調整[渲染器]: 調整 GL4ES 渲染器名稱\n- 調整[語言]: 未購買 Minecraft 的提醒\n---\n- 修復[語言]: “更多”問題\n- 修復[帳號]: 切換 Activity 時帳號數據被清空的問題\n"
   },
-  "published_at": "2024-11-19T06:36:00Z",
+  "published_at": "2024-11-19T13:45:35Z",
   "file_size": {
-    "all": 206954784,
-    "arm": 128364833,
-    "arm64": 119673078,
-    "x86": 122275813,
-    "x86_64": 123158585
+    "all": 206958676,
+    "arm": 128368717,
+    "arm64": 119676962,
+    "x86": 122279701,
+    "x86_64": 123162469
   },
   "pre_release": false
 }
