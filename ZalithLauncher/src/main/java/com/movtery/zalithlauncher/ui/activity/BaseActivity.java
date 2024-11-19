@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.movtery.zalithlauncher.context.LocaleHelper;
+import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
 
 import net.kdt.pojavlaunch.MissingStorageActivity;
 import net.kdt.pojavlaunch.Tools;
@@ -31,10 +32,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!Tools.checkStorageRoot()) {
+        if (!Tools.checkStorageRoot()) {
             startActivity(new Intent(this, MissingStorageActivity.class));
             finish();
         }
+        //检查所有文件管理权限
+        StoragePermissionsUtils.checkPermissions(this);
     }
 
     @Override

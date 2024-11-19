@@ -33,7 +33,7 @@ class ProfilePathAdapter(
     private val mData: MutableList<ProfileItem> = ArrayList()
     private val radioButtonMap: MutableMap<String, RadioButton> = TreeMap()
     //如果没有存储权限，那么旧设置为默认路径
-    private var currentId: String? = if (StoragePermissionsUtils.checkPermissions(fragment.requireActivity())) launcherProfile else "default"
+    private var currentId: String? = if (StoragePermissionsUtils.checkPermissions()) launcherProfile else "default"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

@@ -18,17 +18,25 @@ import com.movtery.zalithlauncher.ui.dialog.TipDialog
 class StoragePermissionsUtils {
     companion object {
         private const val REQUEST_CODE_PERMISSIONS: Int = 0
+        @JvmStatic
+        private var hasStoragePermission: Boolean = false
 
         /**
          * 检查存储权限，返回是否拥有存储权限
          */
-        fun checkPermissions(activity: Activity): Boolean {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @JvmStatic
+        fun checkPermissions(context: Context) {
+            hasStoragePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 checkPermissionsForAndroid11AndAbove()
             } else {
-                checkPermissions(activity)
+                hasStoragePermissions(context)
             }
         }
+
+        /**
+         * 获得提前检查好的存储权限
+         */
+        fun checkPermissions() = hasStoragePermission
 
         /**
          * 检查存储权限，如果没有存储权限，则弹出弹窗向用户申请
