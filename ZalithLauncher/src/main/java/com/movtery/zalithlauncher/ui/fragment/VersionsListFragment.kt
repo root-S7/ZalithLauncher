@@ -131,8 +131,8 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             val json: String
             if (PathAndUrlManager.FILE_PROFILE_PATH.exists()) {
                 json = Tools.read(PathAndUrlManager.FILE_PROFILE_PATH)
-                if (json.isEmpty()) return
-            } else return
+                if (json.isEmpty()) return@runCatching
+            } else return@runCatching
 
             val jsonObject = JsonParser.parseString(json).asJsonObject
 
