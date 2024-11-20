@@ -206,6 +206,7 @@
     <string name="version_install_cannot_use_mc_name">Le contenu supplémentaire a été sélectionné, et l\'indépendance du noyau d\'origine doit être assurée. Veuillez ne pas utiliser le nom d\'origine !</string>
     <string name="version_install_type_version">Télécharger et installer en tant que version</string>
     <string name="version_install_type_mod">Télécharger et installer en tant que Mod</string>
+    <string name="version_install_optifine_and_forge">Certaines versions d\'OptiFine peuvent ne pas fonctionner sur Forge, si vous rencontrez des plantages ou des problèmes de compatibilité, veuillez envisager de supprimer OptiFine en priorité !</string>
     <string name="version_manager_shortcuts">Raccourcis</string>
     <string name="version_manager_shortcuts_mods">Gestion des Mods</string>
     <string name="version_manager_shortcuts_version_path">Dossier du chemin de la version</string>

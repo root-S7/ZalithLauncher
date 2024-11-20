@@ -206,6 +206,7 @@
     <string name="version_install_cannot_use_mc_name">Выбран дополнительный контент, и необходимо обеспечить независимость оригинального ядра. Пожалуйста, не используйте оригинальное имя!</string>
     <string name="version_install_type_version">Загрузить и установить как версию</string>
     <string name="version_install_type_mod">Загрузить и установить как мод</string>
+    <string name="version_install_optifine_and_forge">Некоторые версии OptiFine могут не работать на Forge, если возникнут сбои или проблемы совместимости, пожалуйста, рассмотрите возможность удаления OptiFine в первую очередь!</string>
     <string name="version_manager_shortcuts">Ярлыки</string>
     <string name="version_manager_shortcuts_mods">Управление модами</string>
     <string name="version_manager_shortcuts_version_path">Папка пути версии</string>

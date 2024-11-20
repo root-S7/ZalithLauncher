@@ -23,6 +23,7 @@ import com.movtery.zalithlauncher.feature.version.InstallTaskItem
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
+import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.Tools
@@ -176,6 +177,8 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
     }
 
     override fun onClick(v: View) {
+        val activity = requireActivity()
+
         binding.apply {
             when (v) {
                 optifineLayout -> swapFragment(DownloadOptiFineFragment::class.java, DownloadOptiFineFragment.TAG)
@@ -211,10 +214,22 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                         return
                     }
 
-                    EventBus.getDefault().post(InstallGameEvent(mcVersion, string, isolation(), organizeInstallationTasks(string)))
-                    Tools.backToMainMenu(requireActivity())
+                    fun install() {
+                        EventBus.getDefault().post(InstallGameEvent(mcVersion, string, isolation(), organizeInstallationTasks(string)))
+                        Tools.backToMainMenu(activity)
+                    }
+
+                    //检查OptiFine与Forge附加包是否同时存在
+                    //最后告诉用户兼容性问题
+                    if (addonMap.containsKey(Addon.OPTIFINE) && addonMap.containsKey(Addon.FORGE)) {
+                        TipDialog.Builder(activity)
+                            .setTitle(R.string.generic_warning)
+                            .setMessage(R.string.version_install_optifine_and_forge)
+                            .setConfirmClickListener { install() }
+                            .buildDialog()
+                    } else install()
                 }
-                back -> ZHTools.onBackPressed(requireActivity())
+                back -> ZHTools.onBackPressed(activity)
                 else -> {}
             }
         }

@@ -216,6 +216,7 @@
     <string name="version_install_cannot_use_mc_name">已选择附加内容，需要确保原版核心的独立性，请勿使用原版名称！</string>
     <string name="version_install_type_version">作为版本下载并安装</string>
     <string name="version_install_type_mod">作为 Mod 下载并安装</string>
+    <string name="version_install_optifine_and_forge">OptiFine 的一些版本在 Forge 上可能无法运行，如果出现崩溃或兼容性问题，请优先考虑删除 OptiFine！</string>
     <string name="version_manager_shortcuts">快捷功能</string>
     <string name="version_manager_shortcuts_mods">Mod 管理</string>
     <string name="version_manager_shortcuts_version_path">版本路径文件夹</string>
