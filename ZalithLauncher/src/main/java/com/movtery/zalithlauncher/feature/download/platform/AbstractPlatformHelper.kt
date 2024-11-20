@@ -74,7 +74,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                             return@setConfirmListener false
                         }
 
-                        if (VersionsManager.isVersionExists(string)) {
+                        if (VersionsManager.isVersionExists(string, true)) {
                             editText.error = context.getString(R.string.version_install_exists)
                             return@setConfirmListener false
                         }

@@ -201,7 +201,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                         return
                     }
 
-                    if (VersionsManager.isVersionExists(string)) {
+                    if (VersionsManager.isVersionExists(string, true)) {
                         nameEdit.error = getString(R.string.version_install_exists)
                         return
                     }

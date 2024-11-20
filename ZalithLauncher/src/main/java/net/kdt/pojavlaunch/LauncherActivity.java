@@ -264,7 +264,7 @@ public class LauncherActivity extends BaseActivity {
                         return false;
                     }
 
-                    if (VersionsManager.INSTANCE.isVersionExists(string)) {
+                    if (VersionsManager.INSTANCE.isVersionExists(string, true)) {
                         editText.setError(getString(R.string.version_install_exists));
                         return false;
                     }
