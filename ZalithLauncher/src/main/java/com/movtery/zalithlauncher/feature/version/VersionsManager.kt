@@ -217,6 +217,10 @@ object VersionsManager {
         val versionFolder = version.getVersionPath()
         val renameFolder = File(ProfilePathHome.versionsHome, name)
 
+        //不管重命名之后的文件夹是什么，只要这个文件夹存在，那么就必须删除
+        //否则将出现问题
+        FileUtils.deleteQuietly(renameFolder)
+
         val originalName = versionFolder.name
 
         FileTools.renameFile(versionFolder, renameFolder)
