@@ -561,7 +561,7 @@ public class LauncherActivity extends BaseActivity {
         new MinecraftDownloader().start(
                 mcVersion,
                 versionName,
-                new ContextAwareDoneListener(this, versionName, version)
+                new ContextAwareDoneListener(this, version)
         );
     }
 

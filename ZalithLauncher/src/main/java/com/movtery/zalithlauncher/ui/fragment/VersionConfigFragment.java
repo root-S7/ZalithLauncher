@@ -112,7 +112,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         mTempVersion = Objects.requireNonNull(VersionsManager.INSTANCE.getCurrentVersion());
         mVersionIconUtils = new VersionIconUtils(mTempVersion);
-        File versionFolder = VersionsManager.INSTANCE.getVersionPath(mTempVersion);
+        File versionFolder = mTempVersion.getVersionPath();
 
         if (mTempVersion.getVersionConfig() != null) {
             mTempConfig = mTempVersion.getVersionConfig();

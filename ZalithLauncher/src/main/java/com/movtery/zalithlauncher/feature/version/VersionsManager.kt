@@ -58,7 +58,8 @@ object VersionsManager {
             try {
                 versions.clear()
 
-                File(ProfilePathHome.versionsHome).listFiles()?.forEach { versionFile ->
+                val versionsHome = ProfilePathHome.versionsHome
+                File(versionsHome).listFiles()?.forEach { versionFile ->
                     if (versionFile.exists() && versionFile.isDirectory) {
                         var isVersion = false
                         var versionConfig: VersionConfig? = null
@@ -84,7 +85,8 @@ object VersionsManager {
 
                         versions.add(
                             Version(
-                                versionFile.name,
+                                versionsHome,
+                                versionFile.absolutePath,
                                 versionConfig,
                                 isVersion
                             )
@@ -132,7 +134,7 @@ object VersionsManager {
     /**
      * @return 获取 Zalith 启动器版本标识文件夹
      */
-    fun getZalithVersionPath(version: Version) = File(getVersionPath(version), "ZalithLauncher")
+    fun getZalithVersionPath(version: Version) = File(version.getVersionPath(), "ZalithLauncher")
 
     /**
      * @return 通过目录获取 Zalith 启动器版本标识文件夹
@@ -153,11 +155,6 @@ object VersionsManager {
      * @return 通过名称获取当前版本设置的图标
      */
     fun getVersionIconFile(name: String) = File(getZalithVersionPath(name), "VersionIcon.png")
-
-    /**
-     * @return 获取版本的文件夹路径
-     */
-    fun getVersionPath(version: Version) = File(ProfilePathHome.versionsHome, version.getVersionName())
 
     /**
      * @return 通过名称获取版本的文件夹路径
@@ -214,7 +211,7 @@ object VersionsManager {
      * 重命名当前版本，但并不会在这里对即将重命名的名称，进行非法性判断
      */
     private fun renameVersion(version: Version, name: String) {
-        val versionFolder = getVersionPath(version)
+        val versionFolder = version.getVersionPath()
         val renameFolder = File(ProfilePathHome.versionsHome, name)
 
         val originalName = versionFolder.name

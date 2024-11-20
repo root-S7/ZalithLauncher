@@ -158,8 +158,8 @@ public final class Tools {
         return libInfos[0].replaceAll("\\.", "/") + "/" + libInfos[1] + "/" + libInfos[2] + "/" + libInfos[1] + "-" + libInfos[2] + ".jar";
     }
 
-    public static String getClientClasspath(String version) {
-        return ProfilePathHome.getVersionsHome() + "/" + version + "/" + version + ".jar";
+    public static String getClientClasspath(Version version) {
+        return new File(version.getVersionPath(), version.getVersionName() + ".jar").getAbsolutePath();
     }
 
     public static String getLWJGL3ClassPath() {
@@ -178,13 +178,13 @@ public final class Tools {
         return libStr.toString();
     }
 
-    public static String generateLaunchClassPath(JMinecraftVersionList.Version info, String actualname) {
+    public static String generateLaunchClassPath(JMinecraftVersionList.Version info, Version minecraftVersion) {
         StringBuilder finalClasspath = new StringBuilder(); //versnDir + "/" + version + "/" + version + ".jar:";
 
         String[] classpath = generateLibClasspath(info);
 
         if (isClientFirst) {
-            finalClasspath.append(getClientClasspath(actualname));
+            finalClasspath.append(getClientClasspath(minecraftVersion));
         }
         for (String jarFile : classpath) {
             if (!FileUtils.exists(jarFile)) {
@@ -194,7 +194,7 @@ public final class Tools {
             finalClasspath.append((isClientFirst ? ":" : "")).append(jarFile).append(!isClientFirst ? ":" : "");
         }
         if (!isClientFirst) {
-            finalClasspath.append(getClientClasspath(actualname));
+            finalClasspath.append(getClientClasspath(minecraftVersion));
         }
 
         return finalClasspath.toString();
@@ -456,23 +456,23 @@ public final class Tools {
         return libDir.toArray(new String[0]);
     }
 
-    public static JMinecraftVersionList.Version getVersionInfo(String versionName) {
-        return getVersionInfo(versionName, false);
+    public static JMinecraftVersionList.Version getVersionInfo(Version version) {
+        return getVersionInfo(version, false);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static JMinecraftVersionList.Version getVersionInfo(String versionName, boolean skipInheriting) {
+    public static JMinecraftVersionList.Version getVersionInfo(Version version, boolean skipInheriting) {
         try {
-            JMinecraftVersionList.Version customVer = Tools.GLOBAL_GSON.fromJson(read(ProfilePathHome.getVersionsHome() + "/" + versionName + "/" + versionName + ".json"), JMinecraftVersionList.Version.class);
+            JMinecraftVersionList.Version customVer = Tools.GLOBAL_GSON.fromJson(read(new File(version.getVersionPath(), version.getVersionName() + ".json")), JMinecraftVersionList.Version.class);
             if (skipInheriting || customVer.inheritsFrom == null || customVer.inheritsFrom.equals(customVer.id)) {
                 preProcessLibraries(customVer.libraries);
             } else {
                 JMinecraftVersionList.Version inheritsVer;
                 //If it won't download, just search for it
                 try {
-                    inheritsVer = Tools.GLOBAL_GSON.fromJson(read(ProfilePathHome.getVersionsHome() + "/" + customVer.inheritsFrom + "/" + customVer.inheritsFrom + ".json"), JMinecraftVersionList.Version.class);
+                    inheritsVer = Tools.GLOBAL_GSON.fromJson(read(version.getVersionsFolder() + "/" + customVer.inheritsFrom + "/" + customVer.inheritsFrom + ".json"), JMinecraftVersionList.Version.class);
                 } catch (IOException e) {
-                    throw new RuntimeException("Can't find the source version for " + versionName + " (req version=" + customVer.inheritsFrom + ")");
+                    throw new RuntimeException("Can't find the source version for " + version.getVersionName() + " (req version=" + customVer.inheritsFrom + ")");
                 }
                 //inheritsVer.inheritsFrom = inheritsVer.id;
                 insertSafety(inheritsVer, customVer,

@@ -6,7 +6,6 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.Version
-import com.movtery.zalithlauncher.feature.version.VersionInfo
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -26,7 +25,7 @@ class LaunchGame {
     companion object {
         @Throws(Throwable::class)
         @JvmStatic
-        fun runGame(activity: AppCompatActivity, serverBinder: LocalBinder, minecraftVersion: Version, versionID: String, version: JMinecraftVersionList.Version) {
+        fun runGame(activity: AppCompatActivity, serverBinder: LocalBinder, minecraftVersion: Version, version: JMinecraftVersionList.Version) {
             Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer }
 
             if (!Tools.checkRendererCompatible(activity, Tools.LOCAL_RENDERER)) {
@@ -42,8 +41,7 @@ class LaunchGame {
                 ?: ""
             val account = AccountsManager.getInstance().currentAccount
             printLauncherInfo(
-                minecraftVersion.getVersionInfo(),
-                versionID,
+                minecraftVersion,
                 customArgs.takeIf { it.isNotBlank() } ?: "NONE",
                 minecraftVersion.getJavaDir().takeIf { it.isNotBlank() } ?: "NONE",
                 account
@@ -51,14 +49,13 @@ class LaunchGame {
             JREUtils.redirectAndPrintJRELog()
 
             val requiredJavaVersion = version.javaVersion?.majorVersion ?: 8
-            launch(activity, account, minecraftVersion, versionID, requiredJavaVersion, customArgs)
+            launch(activity, account, minecraftVersion, requiredJavaVersion, customArgs)
             //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
             activity.runOnUiThread { serverBinder.isActive = false }
         }
 
         private fun printLauncherInfo(
-            versionInfo: VersionInfo?,
-            gameVersion: String,
+            minecraftVersion: Version,
             javaArguments: String,
             javaRuntime: String,
             account: MinecraftAccount
@@ -69,8 +66,8 @@ class LaunchGame {
                 else javaRuntime
             }
 
-            var mcInfo = gameVersion
-            versionInfo?.let { info ->
+            var mcInfo = minecraftVersion.getVersionName()
+            minecraftVersion.getVersionInfo()?.let { info ->
                 mcInfo = info.getInfoString()
             }
 
@@ -79,7 +76,7 @@ class LaunchGame {
             Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
             Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
-            Logger.appendToLog("Info: Selected Minecraft version: $gameVersion")
+            Logger.appendToLog("Info: Selected Minecraft version: ${minecraftVersion.getVersionName()}")
             Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
             Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
@@ -92,7 +89,6 @@ class LaunchGame {
             activity: AppCompatActivity,
             account: MinecraftAccount,
             minecraftVersion: Version,
-            versionId: String,
             versionJavaRequirement: Int,
             customArgs: String
         ) {
@@ -106,18 +102,18 @@ class LaunchGame {
                 )
             )
 
-            val versionInfo = Tools.getVersionInfo(versionId)
+            val versionInfo = Tools.getVersionInfo(minecraftVersion)
             val gameDirPath = minecraftVersion.getGameDir()
 
             //预处理
             Tools.disableSplash(gameDirPath)
-            val launchClassPath = Tools.generateLaunchClassPath(versionInfo, versionId)
+            val launchClassPath = Tools.generateLaunchClassPath(versionInfo, minecraftVersion)
 
             val launchArgs = LaunchArgs(
                 activity,
                 account,
                 gameDirPath,
-                versionId,
+                minecraftVersion,
                 versionInfo,
                 minecraftVersion.getVersionName(),
                 runtime,

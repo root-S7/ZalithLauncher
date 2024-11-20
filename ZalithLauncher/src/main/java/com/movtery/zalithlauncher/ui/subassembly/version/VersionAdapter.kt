@@ -142,7 +142,7 @@ class VersionAdapter(
                             FilesFragment.BUNDLE_LOCK_PATH,
                             Environment.getExternalStorageDirectory().absolutePath
                         )
-                        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, VersionsManager.getVersionPath(version).absolutePath)
+                        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, version.getVersionPath().absolutePath)
                         ZHTools.swapFragmentWithAnim(
                             parentFragment,
                             FilesFragment::class.java, FilesFragment.TAG, bundle
@@ -166,7 +166,7 @@ class VersionAdapter(
                 .setConfirmClickListener {
                     FileDeletionHandler(
                         context,
-                        listOf(VersionsManager.getVersionPath(version)),
+                        listOf(version.getVersionPath()),
                         Task.runTask {
                             VersionsManager.refresh()
                         }

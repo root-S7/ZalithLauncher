@@ -110,7 +110,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                             VersionsManager.getCurrentVersion()?.let {
                                 FileDeletionHandler(
                                     activity,
-                                    listOf(VersionsManager.getVersionPath(it)),
+                                    listOf(it.getVersionPath()),
                                     Task.runTask {
                                         VersionsManager.refresh()
                                     }.ended(TaskExecutors.getAndroidUI()) {

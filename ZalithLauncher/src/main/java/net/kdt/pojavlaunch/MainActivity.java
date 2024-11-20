@@ -91,7 +91,6 @@ import java.io.IOException;
 
 public class MainActivity extends BaseActivity implements ControlButtonMenuListener, EditorExitable, ServiceConnection {
     public static volatile ClipboardManager GLOBAL_CLIPBOARD;
-    public static final String INTENT_MINECRAFT_VERSION = "intent_minecraft_version";
     public static final String INTENT_VERSION = "intent_version";
 
     volatile public static boolean isInputStackCall;
@@ -181,11 +180,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             setTitle("Minecraft " + minecraftVersion.getVersionName());
 
             // Minecraft 1.13+
-
-            String version = getIntent().getStringExtra(INTENT_MINECRAFT_VERSION);
-            version = version == null ? minecraftVersion.getVersionName() : version;
-
-            JMinecraftVersionList.Version mVersionInfo = Tools.getVersionInfo(version);
+            JMinecraftVersionList.Version mVersionInfo = Tools.getVersionInfo(minecraftVersion);
             isInputStackCall = mVersionInfo.arguments != null;
             CallbackBridge.nativeSetUseInputStackQueue(isInputStackCall);
 
@@ -203,14 +198,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             binding.mainDrawerOptions.addDrawerListener(menuSettingsInitListener);
             binding.mainDrawerOptions.closeDrawers();
 
-            final String finalVersion = version;
             binding.mainGameRenderView.setSurfaceReadyListener(() -> {
                 try {
                     // Setup virtual mouse right before launching
                     if (AllSettings.getVirtualMouseStart()) {
                         binding.mainTouchpad.post(() -> binding.mainTouchpad.switchState());
                     }
-                    LaunchGame.runGame(this, mServiceBinder, minecraftVersion, finalVersion, mVersionInfo);
+                    LaunchGame.runGame(this, mServiceBinder, minecraftVersion, mVersionInfo);
                 } catch (Throwable e) {
                     Tools.showErrorRemote(e);
                 }

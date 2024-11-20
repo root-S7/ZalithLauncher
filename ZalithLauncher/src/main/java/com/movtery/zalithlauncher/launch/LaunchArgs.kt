@@ -6,10 +6,11 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.librariesHome
+import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.AWTCanvasView
-import net.kdt.pojavlaunch.JMinecraftVersionList.Version
+import net.kdt.pojavlaunch.JMinecraftVersionList
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.multirt.Runtime
 import net.kdt.pojavlaunch.utils.JSONUtils
@@ -21,8 +22,8 @@ class LaunchArgs(
     private val context: Context,
     private val account: MinecraftAccount,
     private val gameDirPath: File,
-    private val versionId: String,
-    private val versionInfo: Version,
+    private val minecraftVersion: Version,
+    private val versionInfo: JMinecraftVersionList.Version,
     private val versionFileName: String,
     private val runtime: Runtime,
     private val launchClassPath: String
@@ -63,7 +64,7 @@ class LaunchArgs(
     }
 
     private fun getMinecraftJVMArgs(): Array<String> {
-        val versionInfo = Tools.getVersionInfo(versionId, true)
+        val versionInfo = Tools.getVersionInfo(minecraftVersion, true)
 
         // Parse Forge 1.17+ additional JVM Arguments
         if (versionInfo.inheritsFrom == null || versionInfo.arguments == null || versionInfo.arguments.jvm == null) {
