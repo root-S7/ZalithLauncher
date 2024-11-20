@@ -26,7 +26,7 @@ import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
-import com.movtery.zalithlauncher.databinding.ActivityPojavLauncherBinding;
+import com.movtery.zalithlauncher.databinding.ActivityLauncherBinding;
 import com.movtery.zalithlauncher.event.single.LaunchGameEvent;
 import com.movtery.zalithlauncher.event.single.MainBackgroundChangeEvent;
 import com.movtery.zalithlauncher.event.single.PageOpacityChangeEvent;
@@ -110,7 +110,7 @@ public class LauncherActivity extends BaseActivity {
                 }
             });
 
-    private ActivityPojavLauncherBinding binding;
+    private ActivityLauncherBinding binding;
     private SettingsButtonWrapper mSettingsButtonWrapper;
     private ProgressServiceKeeper mProgressServiceKeeper;
     private NotificationManager mNotificationManager;
@@ -330,7 +330,7 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPojavLauncherBinding.inflate(getLayoutInflater());
+        binding = ActivityLauncherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         processFragment();

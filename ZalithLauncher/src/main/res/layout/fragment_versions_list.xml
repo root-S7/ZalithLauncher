@@ -87,7 +87,7 @@
                 android:id="@+id/profiles_path_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:text="@string/profiles_path_title"
                 android:textColor="@color/primary_text"
