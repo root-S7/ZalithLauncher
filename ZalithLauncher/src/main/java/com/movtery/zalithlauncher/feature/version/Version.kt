@@ -3,7 +3,6 @@ package com.movtery.zalithlauncher.feature.version
 import android.os.Parcel
 import android.os.Parcelable
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
-import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import net.kdt.pojavlaunch.Tools
@@ -25,33 +24,31 @@ class Version(
     /**
      * @return 获取版本所属的版本文件夹
      */
-    fun getVersionsFolder(): String {
-        Logging.d("Version", "Versions Folder is $versionsFolder")
-        return versionsFolder
-    }
+    fun getVersionsFolder(): String = versionsFolder
 
-    fun getVersionPath():File {
-        val path = File(versionPath)
-        Logging.d("Version", "Version Path is ${path.absolutePath}")
-        return path
-    }
+    /**
+     * @return 获取版本文件夹
+     */
+    fun getVersionPath(): File = File(versionPath)
 
-    fun getVersionName(): String {
-        val name = getVersionPath().name
-        Logging.d("Version", "Version Name is $name")
-        return name
-    }
+    /**
+     * @return 获取版本名称
+     */
+    fun getVersionName(): String = getVersionPath().name
 
-    fun getVersionConfig(): VersionConfig? {
-        Logging.d("Version", "Version Config is $versionConfig")
-        return versionConfig
-    }
+    /**
+     * @return 获取版本隔离配置
+     */
+    fun getVersionConfig() = versionConfig
 
-    fun isValid(): Boolean {
-        Logging.d("Version", "Version Valid: $isValid")
-        return isValid
-    }
+    /**
+     * @return 版本的有效性
+     */
+    fun isValid() = isValid
 
+    /**
+     * @return 获取版本的游戏里经（若开启了版本隔离，则路径为版本文件夹）
+     */
     fun getGameDir(): File {
         versionConfig?.let {
             return getVersionPath()
@@ -89,7 +86,6 @@ class Version(
     fun getVersionInfo(): VersionInfo? {
         return runCatching {
             val infoFile = File(VersionsManager.getZalithVersionPath(this), "VersionInfo.json")
-            Logging.d("Version", "Version Info file path : ${infoFile.absolutePath}")
             Tools.GLOBAL_GSON.fromJson(Tools.read(infoFile), VersionInfo::class.java)
         }.getOrElse { null }
     }
