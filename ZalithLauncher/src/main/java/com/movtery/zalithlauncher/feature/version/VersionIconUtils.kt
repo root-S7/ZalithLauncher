@@ -38,13 +38,13 @@ class VersionIconUtils(
         }
 
         version.getVersionInfo()?.let { versionInfo ->
-            versionInfo.loaderInfo?.let loaderInfo@{ loaderInfo ->
+            versionInfo.loaderInfo.forEach { loaderInfo ->
                 if (!isIconSet) {
                     getLoaderIcon(loaderInfo.name)?.let { icon ->
                         imageView.setImageDrawable(ContextCompat.getDrawable(context, icon))
                         isIconSet = true
                     }
-                } else return@loaderInfo
+                } else return@forEach
             }
         }
 

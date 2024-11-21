@@ -198,7 +198,7 @@ object VersionsManager {
 
                 version.getVersionInfo()?.let { info ->
                     //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
-                    if (info.loaderInfo != null && string == info.minecraftVersion) {
+                    if (info.loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
                         editText.error = context.getString(R.string.version_install_cannot_use_mc_name)
                         return@setConfirmListener false
                     }

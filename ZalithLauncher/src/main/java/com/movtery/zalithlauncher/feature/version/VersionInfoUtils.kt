@@ -63,8 +63,8 @@ class VersionInfoUtils {
                         val info = parseLoader(id)
                         Logging.i("Parse version info", info.toString())
                         id = jsonObject.get("inheritsFrom").asString
-                        info
-                    } else null
+                        arrayOf(info)
+                    } else emptyArray()
 
                     VersionInfo(
                         id,
