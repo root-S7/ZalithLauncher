@@ -26,7 +26,7 @@ public class PresentedException extends RuntimeException {
     public String toString(Context context) {
         String string = context.getString(localizationStringId, extraArgs);
         if (suspectedNoMinecraftPurchase) {
-            StringUtils.insertNewline(string, context.getString(R.string.no_minecraft_purchase));
+            string = StringUtils.insertNewline(string, context.getString(R.string.no_minecraft_purchase));
         }
         return string;
     }
