@@ -18,7 +18,6 @@ import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
 import com.movtery.zalithlauncher.feature.version.GameInstaller
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionFolderChecker
-import com.movtery.zalithlauncher.feature.version.VersionInfo
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
@@ -96,24 +95,10 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                                 modloader.getDownloadTask()?.let { downloadTask ->
                                     VersionFolderChecker.checkVersionsFolder(forceCheck = true, identifier = string)
 
-                                    VersionInfo(
-                                        minecraftVersion,
-                                        arrayOf(
-                                            VersionInfo.LoaderInfo(
-                                                modloader.modLoader.loaderName,
-                                                modloader.modLoaderVersion
-                                            )
-                                        )
-                                    ).save(versionPath)
-
                                     Logging.i("Install Version", "Installing ModLoader: ${modloader.modLoader.loaderName}")
                                     downloadTask.run()?.let { file ->
                                         return@runTask Pair(modloader, file)
                                     }
-                                }
-
-                                if (string != minecraftVersion) {
-                                    VersionInfo(minecraftVersion, emptyArray()).save(versionPath)
                                 }
 
                                 return@runTask null

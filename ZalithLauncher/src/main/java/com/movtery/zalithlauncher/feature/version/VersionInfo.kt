@@ -7,7 +7,7 @@ import java.io.FileWriter
 
 class VersionInfo(
     val minecraftVersion: String,
-    val loaderInfo: Array<LoaderInfo>
+    val loaderInfo: LoaderInfo?
 ) {
     /**
      * 拼接Minecraft的版本信息，包括ModLoader信息
@@ -17,7 +17,7 @@ class VersionInfo(
         val infoList: MutableList<String> = ArrayList()
 
         infoList.add(minecraftVersion)
-        loaderInfo.forEach { info ->
+        loaderInfo?.let { info ->
             infoList.add("${info.name} - ${info.version}")
         }
 
@@ -27,7 +27,11 @@ class VersionInfo(
     class LoaderInfo(
         val name: String,
         val version: String
-    )
+    ) {
+        override fun toString(): String {
+            return "LoaderInfo{name='$name', version='$version'}"
+        }
+    }
 
     fun save(versionFolder: File) {
         runCatching {

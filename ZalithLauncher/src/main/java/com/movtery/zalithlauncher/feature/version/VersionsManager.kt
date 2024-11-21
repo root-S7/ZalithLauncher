@@ -66,24 +66,25 @@ object VersionsManager {
                     if (versionFile.exists() && versionFile.isDirectory) {
                         var isVersion = false
                         var versionConfig: VersionConfig? = null
-                        versionFile.listFiles()?.let checkVersionFolder@{ fileArray ->
-                            val fileList = fileArray.toList()
 
-                            //通过判断是否存在版本的.json文件，来确定其是否为一个版本
-                            if (fileList.contains(File(versionFile, "${versionFile.name}.json"))) {
-                                isVersion = true
+                        //通过判断是否存在版本的.json文件，来确定其是否为一个版本
+                        val jsonFile = File(versionFile, "${versionFile.name}.json")
+                        if (jsonFile.exists() && jsonFile.isFile) {
+                            isVersion = true
+                            if (!File(getZalithVersionPath(versionFile), "VersionInfo.json").exists()) {
+                                VersionInfoUtils.parseJson(jsonFile)?.save(versionFile)
                             }
+                        }
 
-                            val configFile = File(getZalithVersionPath(versionFile), "ZalithVersion.cfg")
-                            if (configFile.exists()) versionConfig = runCatching {
-                                //读取此文件的内容，并解析为VersionConfig
-                                val config = Tools.GLOBAL_GSON.fromJson(Tools.read(configFile), VersionConfig::class.java)
-                                config.setVersionPath(versionFile)
-                                config
-                            }.getOrElse { e ->
-                                Logging.e("Refresh Versions", Tools.printToString(e))
-                                null
-                            }
+                        val configFile = File(getZalithVersionPath(versionFile), "ZalithVersion.cfg")
+                        if (configFile.exists() && configFile.isFile) versionConfig = runCatching {
+                            //读取此文件的内容，并解析为VersionConfig
+                            val config = Tools.GLOBAL_GSON.fromJson(Tools.read(configFile), VersionConfig::class.java)
+                            config.setVersionPath(versionFile)
+                            config
+                        }.getOrElse { e ->
+                            Logging.e("Refresh Versions", Tools.printToString(e))
+                            null
                         }
 
                         versions.add(
@@ -197,7 +198,7 @@ object VersionsManager {
 
                 version.getVersionInfo()?.let { info ->
                     //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
-                    if (info.loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
+                    if (info.loaderInfo != null && string == info.minecraftVersion) {
                         editText.error = context.getString(R.string.version_install_cannot_use_mc_name)
                         return@setConfirmListener false
                     }

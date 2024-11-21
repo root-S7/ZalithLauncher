@@ -55,7 +55,6 @@ import com.movtery.zalithlauncher.feature.version.GameInstaller;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionFolderChecker;
-import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -97,7 +96,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.Objects;
 import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
@@ -281,25 +279,11 @@ public class LauncherActivity extends BaseActivity {
                             if (downloadTask != null) {
                                 VersionFolderChecker.checkVersionsFolder(false, true, string);
 
-                                new VersionInfo(
-                                        minecraftVersion,
-                                        new VersionInfo.LoaderInfo[]{
-                                                new VersionInfo.LoaderInfo(
-                                                        modLoaderWrapper.getModLoader().getLoaderName(),
-                                                        modLoaderWrapper.getModLoaderVersion()
-                                                )
-                                        }
-                                ).save(versionFolder);
-
                                 Logging.i("Install Version", "Installing ModLoader: " + modLoaderWrapper.getModLoader().getLoaderName());
                                 File file = downloadTask.run();
                                 if (file != null) {
                                     return new kotlin.Pair<>(modLoaderWrapper, file);
                                 }
-                            }
-
-                            if (Objects.equals(minecraftVersion, string)) {
-                                new VersionInfo(minecraftVersion, new VersionInfo.LoaderInfo[]{}).save(versionFolder);
                             }
                         }
                         return null;

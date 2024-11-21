@@ -76,24 +76,11 @@ class GameInstaller(
                         VersionFolderChecker.checkVersionsFolder(forceCheck = true, identifier = customVersionName)
 
                         modloaderTask.get()?.let { taskPair ->
-                            VersionInfo(
-                                realVersion,
-                                arrayOf(
-                                    VersionInfo.LoaderInfo(
-                                        taskPair.first.addonName,
-                                        taskPair.second.selectedVersion
-                                    )
-                                )
-                            ).save(targetVersionFolder)
-
                             Logging.i("Install Version", "Installing ModLoader: ${taskPair.second.selectedVersion}")
                             val file = taskPair.second.task.run()
                             return@runTask Pair(file, taskPair.second)
                         }
 
-                        if (customVersionName != realVersion) {
-                            VersionInfo(realVersion, emptyArray()).save(targetVersionFolder)
-                        }
                         null
                     }.onThrowable { e ->
                         Tools.showErrorRemote(e)

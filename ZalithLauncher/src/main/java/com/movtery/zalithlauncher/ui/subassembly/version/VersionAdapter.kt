@@ -53,6 +53,12 @@ class VersionAdapter(
     inner class ViewHolder(val binding: ItemVersionBinding) : RecyclerView.ViewHolder(binding.root) {
         private val mContext = binding.root.context
 
+        private fun String.addInfoIfNotBlank(setRed: Boolean = false) {
+            takeIf { it.isNotBlank() }?.let { string ->
+                binding.versionInfo.addView(getInfoTextView(string, setRed))
+            }
+        }
+
         fun bind(version: Version?) {
             binding.versionInfo.removeAllViews()
 
@@ -60,13 +66,14 @@ class VersionAdapter(
                 binding.version.text = it.getVersionName()
 
                 if (!it.isValid()) {
-                    binding.versionInfo.addView(getInfoTextView(mContext.getString(R.string.version_manager_invalid), true))
+                    mContext.getString(R.string.version_manager_invalid).addInfoIfNotBlank(true)
                 }
 
                 it.getVersionInfo()?.let { versionInfo ->
                     binding.versionInfo.addView(getInfoTextView(versionInfo.minecraftVersion))
-                    versionInfo.loaderInfo.forEach { loaderInfo ->
-                        binding.versionInfo.addView(getInfoTextView("${loaderInfo.name} ${loaderInfo.version}"))
+                    versionInfo.loaderInfo?.let { loaderInfo ->
+                        loaderInfo.name.addInfoIfNotBlank()
+                        loaderInfo.version.addInfoIfNotBlank()
                     }
                 }
 
