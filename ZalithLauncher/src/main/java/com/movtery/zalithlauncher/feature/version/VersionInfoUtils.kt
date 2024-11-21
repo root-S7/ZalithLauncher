@@ -64,7 +64,7 @@ class VersionInfoUtils {
                         Logging.i("Parse version info", info.toString())
                         id = jsonObject.get("inheritsFrom").asString
                         arrayOf(info)
-                    } else emptyArray()
+                    } else null
 
                     VersionInfo(
                         id,

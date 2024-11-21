@@ -38,7 +38,7 @@ class VersionIconUtils(
         }
 
         version.getVersionInfo()?.let { versionInfo ->
-            versionInfo.loaderInfo.forEach { loaderInfo ->
+            versionInfo.loaderInfo?.forEach { loaderInfo ->
                 if (!isIconSet) {
                     getLoaderIcon(loaderInfo.name)?.let { icon ->
                         imageView.setImageDrawable(ContextCompat.getDrawable(context, icon))

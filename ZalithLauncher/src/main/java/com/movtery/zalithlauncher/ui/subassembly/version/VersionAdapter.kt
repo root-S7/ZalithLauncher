@@ -71,7 +71,7 @@ class VersionAdapter(
 
                 it.getVersionInfo()?.let { versionInfo ->
                     binding.versionInfo.addView(getInfoTextView(versionInfo.minecraftVersion))
-                    versionInfo.loaderInfo.forEach { loaderInfo ->
+                    versionInfo.loaderInfo?.forEach { loaderInfo ->
                         loaderInfo.name.addInfoIfNotBlank()
                         loaderInfo.version.addInfoIfNotBlank()
                     }
