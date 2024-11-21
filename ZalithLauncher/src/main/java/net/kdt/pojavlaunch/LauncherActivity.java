@@ -273,13 +273,12 @@ public class LauncherActivity extends BaseActivity {
                         ModLoaderWrapper modLoaderWrapper = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, string);
                         if (modLoaderWrapper != null) {
                             InstallTask downloadTask = modLoaderWrapper.getDownloadTask();
-                            File versionFolder = VersionsManager.INSTANCE.getVersionPath(string);
-                            String minecraftVersion = modLoaderWrapper.getMinecraftVersion();
 
                             if (downloadTask != null) {
-                                VersionFolderChecker.checkVersionsFolder(false, true, string);
+                                //开始安装ModLoader，可能会创建新的版本文件夹，所以在这一步开始打个标记
+                                VersionFolderChecker.markVersionsFolder(string, modLoaderWrapper.getModLoader().getLoaderName(), modLoaderWrapper.getModLoaderVersion());
 
-                                Logging.i("Install Version", "Installing ModLoader: " + modLoaderWrapper.getModLoader().getLoaderName());
+                                Logging.i("Install Version", "Installing ModLoader: " + modLoaderWrapper.getModLoaderVersion());
                                 File file = downloadTask.run();
                                 if (file != null) {
                                     return new kotlin.Pair<>(modLoaderWrapper, file);

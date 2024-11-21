@@ -25,6 +25,11 @@ class VersionInfoUtils {
                 val matchResult = "-forge-(.*)".toRegex().find(id)
                 matchResult?.groups?.get(1)?.value?.let { Pair("Forge", it) } ?: UNKNOWN
             },
+            // "1.7.10-Forge10.13.4.1614-1.7.10"    -> Pair("Forge", "10.13.4.1614")
+            "-Forge" to { id: String ->
+                val matchResult = "-Forge([^-]*)-.*".toRegex().find(id)
+                matchResult?.groups?.get(1)?.value?.let { Pair("Forge", it) } ?: UNKNOWN
+            },
             // "neoforge-21.1.8"                    -> Pair("NeoForge", "21.1.8")
             // "neoforge-21.3.36-beta"              -> Pair("NeoForge", "21.3.36-beta")
             "neoforge-" to { id: String ->
@@ -40,7 +45,7 @@ class VersionInfoUtils {
             // "quilt-loader-0.23.1-1.20.4"         -> Pair("Quilt", "0.23.1")
             // "quilt-loader-0.27.1-beta.1-1.21.3"  -> Pair("Quilt", "0.27.1-beta.1")
             "quilt-loader-" to { id: String ->
-                val matchResult = "quilt-loader-([^-]*)-.*".toRegex().find(id)
+                val matchResult = "quilt-loader-(.*?)-(?=[^-]+$|$)".toRegex().find(id)
                 matchResult?.groups?.get(1)?.value?.let { Pair("Quilt", it) } ?: UNKNOWN
             }
         )

@@ -63,6 +63,8 @@ class ProfileLanguageSelector {
                 "-OptiFine" to { id: String -> id.substringBefore('-') },
                 // "1.20.2-forge-48.1.0"            -> "1.20.2"
                 "-forge-" to { id: String -> id.substringBefore('-') },
+                // "1.7.10-Forge10.13.4.1614-1.7.10"-> "1.7.10"
+                "-Forge" to { id: String -> id.substringBefore('-') },
                 // "neoforge-21.1.8"                -> "1.21.1"
                 "neoforge-" to { id: String -> NeoForgeUtils.formatGameVersion(id.removePrefix("neoforge-")) },
                 // "fabric-loader-0.15.7-1.20.4"    -> "1.20.4"

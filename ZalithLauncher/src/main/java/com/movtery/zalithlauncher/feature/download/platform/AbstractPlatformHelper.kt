@@ -90,12 +90,11 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
                                 infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(string)) }
 
-                                val minecraftVersion = modloader.minecraftVersion
-
                                 modloader.getDownloadTask()?.let { downloadTask ->
-                                    VersionFolderChecker.checkVersionsFolder(forceCheck = true, identifier = string)
+                                    //开始安装ModLoader，可能会创建新的版本文件夹，所以在这一步开始打个标记
+                                    VersionFolderChecker.markVersionsFolder(string, modloader.modLoader.loaderName, modloader.modLoaderVersion)
 
-                                    Logging.i("Install Version", "Installing ModLoader: ${modloader.modLoader.loaderName}")
+                                    Logging.i("Install Version", "Installing ModLoader: ${modloader.modLoaderVersion}")
                                     downloadTask.run()?.let { file ->
                                         return@runTask Pair(modloader, file)
                                     }

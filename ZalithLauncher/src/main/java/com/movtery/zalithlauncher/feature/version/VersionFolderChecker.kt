@@ -7,33 +7,36 @@ import java.nio.file.Files
 
 class VersionFolderChecker {
     companion object {
-        private const val CACHE_FILE_NAME = "versions_cache.txt"
+        private const val CACHE_FILE_NAME = "folder_cache.txt"
 
         /**
-         * 通过缓存当前的版本文件夹内的文件夹情况，检查是否多出了文件夹，并记录标识信息
-         * @param read 仅读取模式，如果缓存文件不存在，则不检查
-         * @param forceCheck 强制检查，移除缓存文件并记录当前文件夹内文件夹的情况
-         * @param identifier 用于标识的字符串
-         * @return 返回检查出的，多出来的文件夹的 File 对象集合以及标识信息
+         * 标记当前版本文件夹内的文件夹情况
          */
         @JvmStatic
-        fun checkVersionsFolder(
-            read: Boolean = false,
-            forceCheck: Boolean = false,
-            identifier: String = ""
-        ): Pair<Set<File>, String> {
+        fun markVersionsFolder(
+            versionName: String,
+            loaderName: String,
+            loaderVersion: String
+        ) {
             val currentVersionsFolder = File(ProfilePathHome.versionsHome)
             val cacheFile = File(currentVersionsFolder, CACHE_FILE_NAME)
 
-            if (forceCheck) FileUtils.deleteQuietly(cacheFile)
+            FileUtils.deleteQuietly(cacheFile)
 
-            if (!cacheFile.exists()) {
-                //仅读取模式，如果缓存文件不存在，则不写入
-                if (!read) {
-                    val currentFolders = getCurrentFolders(currentVersionsFolder)
-                    writeCacheFile(currentFolders, cacheFile, identifier)
-                }
-            } else {
+            val currentFolders = getCurrentFolders(currentVersionsFolder)
+            writeCacheFile(currentFolders, cacheFile, "$versionName;&&;$loaderName;&&;$loaderVersion")
+        }
+
+        /**
+         * 通过缓存当前的版本文件夹内的文件夹情况，检查是否多出了文件夹
+         * @return 返回检查出的，多出来的文件夹的 File 对象集合以及信息
+         */
+        @JvmStatic
+        fun checkVersionsFolder(): Pair<Set<File>, LoaderInfo>? {
+            val currentVersionsFolder = File(ProfilePathHome.versionsHome)
+            val cacheFile = File(currentVersionsFolder, CACHE_FILE_NAME)
+
+            if (cacheFile.exists()) {
                 //读取缓存文件并检查新增的文件夹
                 val (cachedFolders, cachedIdentifier) = readCacheFile(cacheFile)
                 val currentFolders = getCurrentFolders(currentVersionsFolder)
@@ -41,9 +44,11 @@ class VersionFolderChecker {
 
                 FileUtils.deleteQuietly(cacheFile)
 
-                return Pair(newFolders, cachedIdentifier)
+                val (version, loaderName, loaderVersion) = cachedIdentifier.split(";&&;")
+
+                return Pair(newFolders, LoaderInfo(version, loaderName, loaderVersion))
             }
-            return Pair(emptySet(), identifier)
+            return null
         }
 
         /**
@@ -87,4 +92,10 @@ class VersionFolderChecker {
             cacheFile.writeText(content)
         }
     }
+
+    class LoaderInfo(
+        val customVersion: String,
+        val name: String,
+        val version: String
+    )
 }
