@@ -23,6 +23,7 @@ class InstallTaskItem(
          * @param activity 当前的Activity，用来调出jre选择弹窗、切换至JavaGUI界面
          * @param file 上一个任务执行完成后输出的文件
          */
+        @Throws(Throwable::class)
         fun endTask(activity: Activity, file: File)
     }
 }

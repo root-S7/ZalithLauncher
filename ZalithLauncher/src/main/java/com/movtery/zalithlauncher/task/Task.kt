@@ -116,7 +116,7 @@ abstract class Task<V>: TaskExecutionPhaseListener {
     override fun onEnded() {
         this.ended?.let { r ->
             r.second.execute {
-                r.first.onEnded(result)
+                runCatching { r.first.onEnded(result) }.getOrElse { t -> onThrowable(t) }
             }
         }
     }

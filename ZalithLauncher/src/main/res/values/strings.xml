@@ -114,6 +114,7 @@
     <string name="mod_download_progress">Downloading installer for %s</string>
     <string name="mod_forge_searching">Searching for Forge version number</string>
     <string name="mod_neoforge_searching">Searching for NeoForge version number</string>
+    <string name="mod_forge_custom_version">Modifying version name</string>
     <string name="mod_failed_to_load_list">Failed to load version list!</string>
     <string name="mod_optifine_progress">Downloading %s</string>
     <!-- Controls -->

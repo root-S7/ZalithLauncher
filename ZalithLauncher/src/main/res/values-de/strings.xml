@@ -113,6 +113,7 @@
     <string name="mod_download_progress">Lade Installationsprogramm für %s herunter</string>
     <string name="mod_forge_searching">Suche nach Forge-Versionsnummer</string>
     <string name="mod_neoforge_searching">Suche nach NeoForge-Versionsnummer</string>
+    <string name="mod_forge_custom_version">Versionname wird geändert</string>
     <string name="mod_failed_to_load_list">Fehler beim Laden der Versionsliste!</string>
     <string name="mod_optifine_progress">Lade %s herunter</string>
     <!-- Controls -->

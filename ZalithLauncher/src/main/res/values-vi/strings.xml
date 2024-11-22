@@ -113,6 +113,7 @@
     <string name="mod_download_progress">Đang tải trình cài đặt cho %s</string>
     <string name="mod_forge_searching">Đang tìm kiếm số phiên bản Forge</string>
     <string name="mod_neoforge_searching">Đang tìm kiếm số phiên bản NeoForge</string>
+    <string name="mod_forge_custom_version">Đang chỉnh sửa tên phiên bản</string>
     <string name="mod_failed_to_load_list">Không thể tải danh sách phiên bản!</string>
     <string name="mod_optifine_progress">Đang tải %s</string>
     <!-- Controls -->

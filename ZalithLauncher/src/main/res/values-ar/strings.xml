@@ -113,6 +113,7 @@
     <string name="mod_download_progress">جاري تنزيل مثبت %s</string>
     <string name="mod_forge_searching">جاري البحث عن رقم إصدار Forge</string>
     <string name="mod_neoforge_searching">جاري البحث عن رقم إصدار NeoForge</string>
+    <string name="mod_forge_custom_version">جار تعديل اسم النسخة</string>
     <string name="mod_failed_to_load_list">فشل في تحميل قائمة الإصدارات!</string>
     <string name="mod_optifine_progress">جاري تنزيل %s</string>
     <!-- Controls -->

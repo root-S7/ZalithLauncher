@@ -16,6 +16,7 @@ class FabricLikeApiModDownloadTask(private val fileName: String, private val ver
         ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.mod_download_progress, versionItem.fileName)
         val destinationFile = File(PathAndUrlManager.DIR_CACHE, "$fileName.jar")
         DownloadUtils.downloadFileMonitored(versionItem.fileUrl, destinationFile, ByteArray(8192), this)
+        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
         return destinationFile
     }
 

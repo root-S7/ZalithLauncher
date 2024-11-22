@@ -113,6 +113,7 @@
     <string name="mod_download_progress">Загрузка установщика для %s</string>
     <string name="mod_forge_searching">Поиск номера версии Forge</string>
     <string name="mod_neoforge_searching">Поиск номера версии NeoForge</string>
+    <string name="mod_forge_custom_version">Изменение имени версии</string>
     <string name="mod_failed_to_load_list">Не удалось загрузить список версий!</string>
     <string name="mod_optifine_progress">Загрузка %s</string>
     <!-- Controls -->

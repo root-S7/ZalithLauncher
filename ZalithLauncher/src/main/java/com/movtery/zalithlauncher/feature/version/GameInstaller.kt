@@ -88,16 +88,15 @@ class GameInstaller(
                         }
 
                         null
-                    }.onThrowable { e ->
-                        Tools.showErrorRemote(e)
                     }.ended ended@{ taskPair ->
                         taskPair?.let { pair ->
                             pair.first?.let {
                                 pair.second.endTask?.endTask(activity, it)
                             }
                         }
+                    }.onThrowable { e ->
+                        Tools.showErrorRemote(e)
                     }.finallyTask {
-                        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
                         EventBus.getDefault().removeStickyEvent(installModVersion)
                     }.execute()
                 }

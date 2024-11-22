@@ -30,6 +30,7 @@ class OptiFineDownloadTask(
             downloadUrl, mDestinationFile, ByteArray(8192),
             this
         )
+        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
 
         return mDestinationFile
     }

@@ -117,6 +117,7 @@
     <string name="mod_download_progress">正在下载 %s 的安装程序</string>
     <string name="mod_forge_searching">正在搜索 Forge 版本号</string>
     <string name="mod_neoforge_searching">正在搜索 NeoForge 版本号</string>
+    <string name="mod_forge_custom_version">正在修改版本名称</string>
     <string name="mod_failed_to_load_list">加载版本列表失败！</string>
     <string name="mod_optifine_progress">正在下载 %s</string>
 
