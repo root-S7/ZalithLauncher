@@ -18,7 +18,6 @@ import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
-import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
@@ -96,10 +95,9 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                                 }
 
                                 return@runTask null
-                            }.ended(TaskExecutors.getAndroidUI()) ended@{ filePair ->
+                            }.ended { filePair ->
                                 filePair?.let {
                                     ModPackUtils.startModLoaderInstall(it.first, ContextExecutor.getActivity(), it.second, customName)
-                                    return@ended
                                 }
                             }.onThrowable { e ->
                                 Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e)

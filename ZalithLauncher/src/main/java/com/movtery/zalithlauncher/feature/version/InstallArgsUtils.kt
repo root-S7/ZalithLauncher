@@ -32,6 +32,7 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
         intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true)
     }
 
+    @Throws(Throwable::class)
     fun setForge(intent: Intent, jarFile: File, customName: String) {
         forgeLikeCustomVersionName(jarFile, customName)
 
@@ -39,6 +40,7 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
         intent.putExtra("javaArgs", args)
     }
 
+    @Throws(Throwable::class)
     fun setNeoForge(intent: Intent, jarFile: File, customName: String) {
         forgeLikeCustomVersionName(jarFile, customName)
 
@@ -58,9 +60,11 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
      * Forge安装器会根据 version 这个值，来生成对应的版本文件夹
      * 这样做是为了自定义版本 json 的安装位置
      */
+    @Throws(Throwable::class)
     private fun forgeLikeCustomVersionName(jarFile: File, customName: String) {
         val zipFile = ZipFile(jarFile)
         val tempJarFile = File(jarFile.parentFile, "${jarFile.nameWithoutExtension}_temp.jar")
+        if (tempJarFile.exists()) FileUtils.deleteQuietly(tempJarFile)
 
         val entry: ZipEntry = zipFile.entries().asSequence()
             .firstOrNull { it.name == "install_profile.json" }
@@ -69,6 +73,7 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
         //解压出install_profile.json
         val profileJson = File(jarFile.parentFile, "install_profile.json")
         profileJson.parentFile?.mkdirs()
+        if (profileJson.exists()) FileUtils.deleteQuietly(profileJson)
 
         zipFile.getInputStream(entry).use { inputStream ->
             FileOutputStream(profileJson).use { outputStream ->
@@ -76,11 +81,23 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
             }
         }
 
-        //install_profile.json中，把version这个值改为customName，也就完成自定义版本名的效果
         val jsonObject = JsonParser.parseString(Tools.read(profileJson)).asJsonObject
-        if (!jsonObject.has("version")) throw IOException("Unable to find version key!")
+        //通过检查是否有spec这个键，来判断是否为新版本的Installer
+        if (jsonObject.has("spec")) { //新版安装器
+            if (!jsonObject.has("version")) throw IOException("Unable to find version key!")
 
-        jsonObject.addProperty("version", customName)
+            //install_profile.json中，把version这个值改为customName，也就完成自定义版本名的效果
+            jsonObject.addProperty("version", customName)
+        } else { //旧版安装器
+            if (!jsonObject.has("install")) throw IOException("Unable to find install key!")
+            val install = jsonObject.get("install").asJsonObject
+            if (!install.has("target")) throw IOException("Unable to find install-target key!")
+
+            //把target这个值改为customName，也就完成旧版自定义版本名的效果
+            install.addProperty("target", customName)
+            jsonObject.add("install", install)
+        }
+
 
         FileWriter(profileJson).use {
             it.write(Tools.GLOBAL_GSON.toJson(jsonObject))

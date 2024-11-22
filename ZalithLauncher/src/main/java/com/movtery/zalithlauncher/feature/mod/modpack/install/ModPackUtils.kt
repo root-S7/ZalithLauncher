@@ -4,6 +4,7 @@ import android.app.Activity
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.Tools
@@ -80,15 +81,18 @@ class ModPackUtils {
         }
 
         @JvmStatic
+        @Throws(Throwable::class)
         fun startModLoaderInstall(modLoader: ModLoaderWrapper, activity: Activity, modInstallFile: File, customName: String) {
             modLoader.getInstallationIntent(activity, modInstallFile, customName)?.let { installIntent ->
-                val selectRuntimeDialog = SelectRuntimeDialog(activity)
-                selectRuntimeDialog.setListener { jreName: String? ->
-                    installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                    selectRuntimeDialog.dismiss()
-                    activity.startActivity(installIntent)
+                TaskExecutors.runInUIThread {
+                    val selectRuntimeDialog = SelectRuntimeDialog(activity)
+                    selectRuntimeDialog.setListener { jreName: String? ->
+                        installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                        selectRuntimeDialog.dismiss()
+                        activity.startActivity(installIntent)
+                    }
+                    selectRuntimeDialog.show()
                 }
-                selectRuntimeDialog.show()
             }
         }
     }

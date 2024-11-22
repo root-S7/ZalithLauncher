@@ -35,7 +35,6 @@ class NeoForgeDownloadTask(neoforgeVersion: String) : InstallTask, DownloaderFee
         if (if (mLoaderVersion!!.contains("1.20.1")) determineNeoForgedForgeDownloadUrl() else determineNeoForgeDownloadUrl()) {
             outputFile = downloadNeoForge()
         }
-        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
         return outputFile
     }
 

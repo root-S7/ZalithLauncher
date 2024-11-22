@@ -82,6 +82,7 @@ class ModLoaderWrapper(
      * finishes.
      * @return the Intent which the launcher needs to start in order to install the mod loader
      */
+    @Throws(Throwable::class)
     fun getInstallationIntent(context: Context?, modInstallerJar: File, customName: String): Intent? {
         val baseIntent = Intent(context, JavaGUILauncherActivity::class.java)
         when (modLoader) {

@@ -38,7 +38,6 @@ public class ForgeDownloadTask implements InstallTask, Tools.DownloaderFeedback 
         if (determineDownloadUrl()) {
             outputFile = downloadForge();
         }
-        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
         return outputFile;
     }
 

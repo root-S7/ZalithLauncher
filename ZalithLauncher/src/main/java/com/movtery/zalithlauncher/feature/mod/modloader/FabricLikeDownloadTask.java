@@ -41,7 +41,6 @@ public class FabricLikeDownloadTask implements InstallTask, Tools.DownloaderFeed
             legacyInstall(customName);
             outputFile = null;
         }
-        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
         return outputFile;
     }
 

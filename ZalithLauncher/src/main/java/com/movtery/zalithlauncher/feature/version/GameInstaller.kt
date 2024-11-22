@@ -1,13 +1,15 @@
 package com.movtery.zalithlauncher.feature.version
 
 import android.app.Activity
+import com.kdt.mcgui.ProgressLayout
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent
 import com.movtery.zalithlauncher.event.value.InstallGameEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
-import com.movtery.zalithlauncher.task.TaskExecutors
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader
 import net.kdt.pojavlaunch.tasks.MinecraftDownloader
 import org.apache.commons.io.FileUtils
@@ -73,6 +75,8 @@ class GameInstaller(
                         }
 
                         modloaderTask.get()?.let { taskPair ->
+                            ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.mod_download_progress, taskPair.first.addonName)
+
                             //开始安装ModLoader，如果是OptiFine，则标记一下版本文件夹，因为没有好的自定义它的版本文件夹的办法
                             if (taskPair.first == Addon.OPTIFINE) {
                                 VersionFolderChecker.markVersionsFolder(customVersionName, taskPair.first.addonName, taskPair.second.selectedVersion)
@@ -88,19 +92,12 @@ class GameInstaller(
                         Tools.showErrorRemote(e)
                     }.ended ended@{ taskPair ->
                         taskPair?.let { pair ->
-                            val file = pair.first
-                            val taskItem = pair.second
-
-                            file?.let {
-                                taskItem.endTask?.let { endTask ->
-                                    TaskExecutors.runInUIThread {
-                                        endTask.endTask(activity, it)
-                                    }
-                                }
-                                return@ended
+                            pair.first?.let {
+                                pair.second.endTask?.endTask(activity, it)
                             }
                         }
                     }.finallyTask {
+                        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
                         EventBus.getDefault().removeStickyEvent(installModVersion)
                     }.execute()
                 }

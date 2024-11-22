@@ -282,9 +282,13 @@ public class LauncherActivity extends BaseActivity {
                             }
                         }
                         return null;
-                    }).beforeStart(TaskExecutors.getAndroidUI(), () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)).ended(TaskExecutors.getAndroidUI(), filePair -> {
+                    }).beforeStart(TaskExecutors.getAndroidUI(), () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)).ended(filePair -> {
                         if (filePair != null) {
-                            ModPackUtils.startModLoaderInstall(filePair.getFirst(), LauncherActivity.this, filePair.getSecond(), customName);
+                            try {
+                                ModPackUtils.startModLoaderInstall(filePair.getFirst(), LauncherActivity.this, filePair.getSecond(), customName);
+                            } catch (Throwable e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }).onThrowable(TaskExecutors.getAndroidUI(), e -> Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e))
                     .finallyTask(TaskExecutors.getAndroidUI(), () -> {
