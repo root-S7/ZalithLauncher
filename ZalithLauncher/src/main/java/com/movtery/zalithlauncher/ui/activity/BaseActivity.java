@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.movtery.zalithlauncher.context.LocaleHelper;
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
 
 import net.kdt.pojavlaunch.MissingStorageActivity;
@@ -38,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         //检查所有文件管理权限
         StoragePermissionsUtils.checkPermissions(this);
+        ProfilePathHome.checkForLauncherProfiles(this);
     }
 
     @Override
