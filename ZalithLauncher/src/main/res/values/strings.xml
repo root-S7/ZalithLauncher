@@ -216,7 +216,7 @@
     <string name="version_install_optifine_and_forge">Some versions of OptiFine may not work on Forge, and if you encounter crashes or compatibility issues, consider removing OptiFine first!</string>
     <string name="version_manager_shortcuts">Shortcuts</string>
     <string name="version_manager_shortcuts_mods">Mod Management</string>
-    <string name="version_manager_shortcuts_version_path">Version Path Folder</string>
+    <string name="version_manager_shortcuts_version_path">Game Path Folder</string>
     <string name="version_manager_shortcuts_resource_path">Resource Pack Folder</string>
     <string name="version_manager_shortcuts_world_path">World Save Folder</string>
     <string name="version_manager_shortcuts_shader_path">Shader Pack Folder</string>

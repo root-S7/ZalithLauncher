@@ -210,7 +210,7 @@
     <string name="version_install_optifine_and_forge">Certaines versions d\'OptiFine peuvent ne pas fonctionner sur Forge, si vous rencontrez des plantages ou des problèmes de compatibilité, veuillez envisager de supprimer OptiFine en priorité !</string>
     <string name="version_manager_shortcuts">Raccourcis</string>
     <string name="version_manager_shortcuts_mods">Gestion des Mods</string>
-    <string name="version_manager_shortcuts_version_path">Dossier du chemin de la version</string>
+    <string name="version_manager_shortcuts_version_path">Dossier du chemin du jeu</string>
     <string name="version_manager_shortcuts_resource_path">Dossier du pack de ressources</string>
     <string name="version_manager_shortcuts_world_path">Dossier des sauvegardes de monde</string>
     <string name="version_manager_shortcuts_shader_path">Dossier des packs de shaders</string>

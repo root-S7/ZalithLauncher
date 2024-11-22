@@ -210,7 +210,7 @@
     <string name="version_install_optifine_and_forge">Некоторые версии OptiFine могут не работать на Forge, если возникнут сбои или проблемы совместимости, пожалуйста, рассмотрите возможность удаления OptiFine в первую очередь!</string>
     <string name="version_manager_shortcuts">Ярлыки</string>
     <string name="version_manager_shortcuts_mods">Управление модами</string>
-    <string name="version_manager_shortcuts_version_path">Папка пути версии</string>
+    <string name="version_manager_shortcuts_version_path">Папка пути игры</string>
     <string name="version_manager_shortcuts_resource_path">Папка пакета ресурсов</string>
     <string name="version_manager_shortcuts_world_path">Папка сохранений мира</string>
     <string name="version_manager_shortcuts_shader_path">Папка пакета шейдеров</string>

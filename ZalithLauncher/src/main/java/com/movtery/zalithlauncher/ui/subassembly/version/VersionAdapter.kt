@@ -3,7 +3,6 @@ package com.movtery.zalithlauncher.ui.subassembly.version
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemVersionBinding
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils
 import com.movtery.zalithlauncher.feature.version.VersionsManager
@@ -128,6 +128,7 @@ class VersionAdapter(
 
             val settings: MutableList<String> = ArrayList()
             settings.add(context.getString(R.string.profiles_path_settings_goto))
+            settings.add(context.getString(R.string.version_manager_shortcuts_version_path))
             settings.add(context.getString(R.string.version_manager_rename))
             settings.add(context.getString(R.string.version_manager_delete))
             val adapter = ArrayAdapter(
@@ -139,22 +140,10 @@ class VersionAdapter(
             popupWindow.setAdapter(adapter)
             popupWindow.setOnItemClickListener { _, _, position: Int, _ ->
                 when (position) {
-                    1 -> VersionsManager.openRenameDialog(context, version)
-
-                    2 -> deleteVersion(version)
-
-                    else -> {
-                        val bundle = Bundle()
-                        bundle.putString(
-                            FilesFragment.BUNDLE_LOCK_PATH,
-                            Environment.getExternalStorageDirectory().absolutePath
-                        )
-                        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, version.getVersionPath().absolutePath)
-                        ZHTools.swapFragmentWithAnim(
-                            parentFragment,
-                            FilesFragment::class.java, FilesFragment.TAG, bundle
-                        )
-                    }
+                    1 -> swapPath(version.getGameDir().absolutePath)
+                    2 -> VersionsManager.openRenameDialog(context, version)
+                    3 -> deleteVersion(version)
+                    else -> swapPath(version.getVersionPath().absolutePath)
                 }
                 popupWindow.dismiss()
             }
@@ -179,6 +168,19 @@ class VersionAdapter(
                         }
                     ).start()
                 }.buildDialog()
+        }
+
+        private fun swapPath(path: String) {
+            val bundle = Bundle()
+            bundle.putString(
+                FilesFragment.BUNDLE_LOCK_PATH,
+                ProfilePathHome.gameHome
+            )
+            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, path)
+            ZHTools.swapFragmentWithAnim(
+                parentFragment,
+                FilesFragment::class.java, FilesFragment.TAG, bundle
+            )
         }
     }
 

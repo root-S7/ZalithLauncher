@@ -38,7 +38,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
         val fragment = this
         binding.apply {
             shortcutsMods.setOnClickListener(fragment)
-            versionPath.setOnClickListener(fragment)
+            gamePath.setOnClickListener(fragment)
             resourcePath.setOnClickListener(fragment)
             worldPath.setOnClickListener(fragment)
             shaderPath.setOnClickListener(fragment)
@@ -87,7 +87,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                     bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, modsPath.absolutePath)
                     ZHTools.swapFragmentWithAnim(this@VersionManagerFragment, ModsFragment::class.java, ModsFragment.TAG, bundle)
                 }
-                versionPath -> swapFilesFragment(gameDirPath, gameDirPath)
+                gamePath -> swapFilesFragment(gameDirPath, gameDirPath)
                 resourcePath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/resourcepacks"))
                 worldPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/saves"))
                 shaderPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/shaderpacks"))
