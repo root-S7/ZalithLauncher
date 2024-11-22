@@ -57,17 +57,19 @@ class Version(
     }
 
     fun getRenderer(): String {
-        versionConfig?.let {
-            return it.getRenderer()
+        val defaultValue = AllSettings.renderer!!
+        versionConfig?.let { config ->
+            return config.getRenderer().takeIf { it.isNotEmpty() } ?: defaultValue
         }
-        return AllSettings.renderer!!
+        return defaultValue
     }
 
     fun getJavaDir(): String {
-        versionConfig?.let {
-            return it.getJavaDir()
+        val defaultValue = AllSettings.defaultRuntime!!
+        versionConfig?.let { config ->
+            return config.getJavaDir().takeIf { it.isNotEmpty() } ?: defaultValue
         }
-        return AllSettings.defaultRuntime!!
+        return defaultValue
     }
 
     fun getJavaArgs(): String {
