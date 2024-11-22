@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.ui.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -52,7 +53,6 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
         EventBus.getDefault().getStickyEvent(SelectInstallTaskEvent::class.java)?.let { event ->
             addonMap[event.addon] = Pair(event.selectedVersion, event.task)
             EventBus.getDefault().removeStickyEvent(event)
-            checkIncompatible()
         }
 
         return binding.root
@@ -84,13 +84,17 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
             install.setOnClickListener(clickListener)
             isolation.isChecked = AllSettings.versionIsolation
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         checkIncompatible()
     }
 
     /**
      * 检查不兼容的Addon，并禁止用户选择该Addon版本
      */
+    @SuppressLint("SetTextI18n")
     private fun checkIncompatible() {
         binding.apply {
             checkIncompatible(Addon.OPTIFINE, optifineLayout, optifineVersion, optifineInstall, optifineDelete, addonMap.size > 1)
@@ -100,6 +104,12 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
             checkIncompatible(Addon.FABRIC_API, fabricApiLayout, fabricApiVersion, fabricApiInstall, fabricApiDelete, true)
             checkIncompatible(Addon.QUILT, quiltLayout, quiltVersion, quiltInstall, quiltDelete)
             checkIncompatible(Addon.QSL, quiltApiLayout, quiltApiVersion, quiltApiInstall, quiltApiDelete, true)
+
+            val loaderName = addonMap.keys
+                .firstOrNull { it != Addon.OPTIFINE || addonMap.size == 1 }
+                ?.addonName.orEmpty()
+
+            nameEdit.setText("$mcVersion $loaderName".trim())
         }
     }
 
