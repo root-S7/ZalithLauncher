@@ -1,5 +1,7 @@
 package com.movtery.zalithlauncher.feature.mod.modloader;
 
+import androidx.annotation.NonNull;
+
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
@@ -31,7 +33,7 @@ public class ForgeDownloadTask implements InstallTask, Tools.DownloaderFeedback 
     }
 
     @Override
-    public File run() throws Exception {
+    public File run(@NonNull String customName) throws Exception {
         File outputFile = null;
         if (determineDownloadUrl()) {
             outputFile = downloadForge();

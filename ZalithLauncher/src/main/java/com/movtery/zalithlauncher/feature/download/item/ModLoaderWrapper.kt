@@ -78,24 +78,25 @@ class ModLoaderWrapper(
      * This method returns null if the mod loader does not require GUI installation
      * @param context the package resolving Context (can be the base context)
      * @param modInstallerJar the JAR file of the mod installer, provided by ModloaderDownloadListener after the installation
+     * @param customName 自定义安装的版本名称
      * finishes.
      * @return the Intent which the launcher needs to start in order to install the mod loader
      */
-    fun getInstallationIntent(context: Context?, modInstallerJar: File): Intent? {
+    fun getInstallationIntent(context: Context?, modInstallerJar: File, customName: String): Intent? {
         val baseIntent = Intent(context, JavaGUILauncherActivity::class.java)
         when (modLoader) {
             ModLoader.FORGE -> {
-                InstallArgsUtils(minecraftVersion, versionId!!).setForge(baseIntent, modInstallerJar)
+                InstallArgsUtils(minecraftVersion, versionId!!).setForge(baseIntent, modInstallerJar, customName)
                 return baseIntent
             }
 
             ModLoader.NEOFORGE -> {
-                InstallArgsUtils(minecraftVersion, versionId!!).setNeoForge(baseIntent, modInstallerJar)
+                InstallArgsUtils(minecraftVersion, versionId!!).setNeoForge(baseIntent, modInstallerJar, customName)
                 return baseIntent
             }
 
             ModLoader.FABRIC -> {
-                InstallArgsUtils(minecraftVersion, modLoaderVersion).setFabric(baseIntent, modInstallerJar)
+                InstallArgsUtils(minecraftVersion, modLoaderVersion).setFabric(baseIntent, modInstallerJar, customName)
                 return baseIntent
             }
 

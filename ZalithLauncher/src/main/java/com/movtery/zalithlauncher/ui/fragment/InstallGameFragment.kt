@@ -267,21 +267,21 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                 Addon.FORGE -> {
                     taskMap[addon] = InstallTaskItem(taskPair.first, false, taskPair.second) {  activity, file ->
                         installInGUITask(activity, taskPair.first) { intent, argUtils ->
-                            argUtils.setForge(intent, file)
+                            argUtils.setForge(intent, file, customVersionName)
                         }
                     }
                 }
                 Addon.NEOFORGE -> {
                     taskMap[addon] = InstallTaskItem(taskPair.first, false, taskPair.second) {  activity, file ->
                         installInGUITask(activity, taskPair.first) { intent, argUtils ->
-                            argUtils.setNeoForge(intent, file)
+                            argUtils.setNeoForge(intent, file, customVersionName)
                         }
                     }
                 }
                 Addon.FABRIC -> {
                     taskMap[addon] = InstallTaskItem(taskPair.first, false, taskPair.second) {  activity, file ->
                         installInGUITask(activity, taskPair.first) { intent, argUtils ->
-                            argUtils.setFabric(intent, file)
+                            argUtils.setFabric(intent, file, customVersionName)
                         }
                     }
                 }

@@ -280,10 +280,41 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         return null;
     }
 
+    private List<String> splitPreservingQuotes(String str) {
+        List<String> result = new ArrayList<>();
+        StringBuilder currentPart = new StringBuilder();
+        boolean inQuotes = false;
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+
+            if (c == '"' && (i == 0 || str.charAt(i - 1) != '\\')) {
+                // 切换引号状态（忽略转义引号）
+                inQuotes = !inQuotes;
+            } else if (Character.isWhitespace(c) && !inQuotes) {
+                // 如果不在引号内且遇到空格，则结束当前部分并添加到结果中
+                if (currentPart.length() > 0) {
+                    result.add(currentPart.toString());
+                    currentPart.setLength(0); // 清空当前部分
+                }
+            } else {
+                // 将字符添加到当前部分
+                currentPart.append(c);
+            }
+        }
+
+        // 添加最后一部分（如果有的话）
+        if (currentPart.length() > 0) {
+            result.add(currentPart.toString());
+        }
+
+        return result;
+    }
+
     private void startModInstaller(File modFile, String javaArgs, String jreName) {
         new Thread(() -> {
             // Maybe replace with more advanced arg parsing logic later
-            List<String> argList = javaArgs != null ? Arrays.asList(javaArgs.split(" ")) : null;
+            List<String> argList = javaArgs != null ? splitPreservingQuotes(javaArgs) : null;
             File selectedMod = modFile;
             if (selectedMod == null && argList != null) {
                 // If modFile is not specified directly, try to extract the -jar argument from the javaArgs
@@ -430,7 +461,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
             Logger.appendToLog("Info: Java arguments: " + Arrays.toString(javaArgList.toArray(new String[0])));
 
-            JREUtils.launchJavaVM(this, runtime,null,javaArgList, AllSettings.getJavaArgs());
+            JREUtils.launchJavaVM(this, runtime,null, javaArgList, AllSettings.getJavaArgs());
         } catch (Throwable th) {
             Tools.showError(this, th, true);
         }

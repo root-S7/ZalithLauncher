@@ -576,8 +576,7 @@
     <string name="splash_screen_cacio">Provides a portable GUI backend for OpenJDK.</string>
     <string name="splash_screen_authlib_injector">Injects authlib via runtime to enable login outside the game.</string>
     <string name="splash_screen_pro_grade">This library implements a custom Java security manager and a security policy with deny rules.</string>
-    <string name="splash_screen_optifine_installer">Helps automatically install OptiFine.</string>
-    <string name="splash_screen_forge_install_bootstrapper">Helps automatically install Forge.</string>
+    <string name="splash_screen_loader_installers">Helps automatically install Forge, Fabric, and OptiFine.</string>
     <string name="splash_screen_jre8">Java 8 environment, Minecraft 1.16- depends on Java 8.</string>
     <string name="splash_screen_jre17">Java 17 environment, Minecraft 1.17+ depends on Java 17.</string>
     <string name="splash_screen_jre21">Java 21 environment, Minecraft 1.20.5+ depends on Java 21.</string>
@@ -598,7 +597,7 @@
     <string name="about_VeraFirefly_desc">Provided technical support for rendering in the launcher</string>
     <string name="about_LingMuQiuZhu_desc">Provided technical support for the launcher</string>
     <string name="about_ShirosakiMio_desc">Provided technical support for the launcher and fixed some bugs</string>
-    <string name="about_bangbang93_desc">The launcher uses its created BMCLAPI mirror source, along with the Forge Install Bootstrapper.</string>
+    <string name="about_bangbang93_desc">The launcher uses the BMCLAPI mirror source created by them</string>
     <string name="about_access_space">Access Space</string>
     <string name="about_access_link">Access Link</string>
     <string name="about_version_name">Software Version Name:</string>

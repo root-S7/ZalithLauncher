@@ -54,7 +54,6 @@ import com.movtery.zalithlauncher.feature.update.UpdateUtils;
 import com.movtery.zalithlauncher.feature.version.GameInstaller;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
 import com.movtery.zalithlauncher.feature.version.Version;
-import com.movtery.zalithlauncher.feature.version.VersionFolderChecker;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -255,14 +254,14 @@ public class LauncherActivity extends BaseActivity {
                 .setTitle(R.string.version_install_new)
                 .setEditText(dirGameModpackFile.getName())
                 .setConfirmListener(editText -> {
-                    String string = editText.getText().toString();
+                    String customName = editText.getText().toString();
 
-                    if (string.contains("/")) {
+                    if (customName.contains("/")) {
                         editText.setError(getString(R.string.generic_input_invalid_character, "/"));
                         return false;
                     }
 
-                    if (VersionsManager.INSTANCE.isVersionExists(string, true)) {
+                    if (VersionsManager.INSTANCE.isVersionExists(customName, true)) {
                         editText.setError(getString(R.string.version_install_exists));
                         return false;
                     }
@@ -270,16 +269,13 @@ public class LauncherActivity extends BaseActivity {
                     InstallingVersionEvent installingVersionEvent = new InstallingVersionEvent();
                     Task.runTask(() -> {
                         EventBus.getDefault().postSticky(installingVersionEvent);
-                        ModLoaderWrapper modLoaderWrapper = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, string);
+                        ModLoaderWrapper modLoaderWrapper = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, customName);
                         if (modLoaderWrapper != null) {
                             InstallTask downloadTask = modLoaderWrapper.getDownloadTask();
 
                             if (downloadTask != null) {
-                                //开始安装ModLoader，可能会创建新的版本文件夹，所以在这一步开始打个标记
-                                VersionFolderChecker.markVersionsFolder(string, modLoaderWrapper.getModLoader().getLoaderName(), modLoaderWrapper.getModLoaderVersion());
-
                                 Logging.i("Install Version", "Installing ModLoader: " + modLoaderWrapper.getModLoaderVersion());
-                                File file = downloadTask.run();
+                                File file = downloadTask.run(customName);
                                 if (file != null) {
                                     return new kotlin.Pair<>(modLoaderWrapper, file);
                                 }
@@ -288,13 +284,8 @@ public class LauncherActivity extends BaseActivity {
                         return null;
                     }).beforeStart(TaskExecutors.getAndroidUI(), () -> ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)).ended(TaskExecutors.getAndroidUI(), filePair -> {
                         if (filePair != null) {
-                            ModPackUtils.startModLoaderInstall(filePair.getFirst(), LauncherActivity.this, filePair.getSecond());
-                            return;
+                            ModPackUtils.startModLoaderInstall(filePair.getFirst(), LauncherActivity.this, filePair.getSecond(), customName);
                         }
-                        //与GameInstaller那边处理一样，因为Quilt安装采用的旧的方式
-                        GameInstaller.moveVersionFiles();
-                        EventBus.getDefault().removeStickyEvent(installingVersionEvent);
-                        VersionsManager.INSTANCE.refresh();
                     }).onThrowable(TaskExecutors.getAndroidUI(), e -> Tools.showErrorRemote(this, R.string.modpack_install_download_failed, e))
                     .finallyTask(TaskExecutors.getAndroidUI(), () -> {
                         ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);

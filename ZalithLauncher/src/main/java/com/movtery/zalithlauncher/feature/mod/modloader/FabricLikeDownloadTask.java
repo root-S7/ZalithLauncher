@@ -1,19 +1,17 @@
 package com.movtery.zalithlauncher.feature.mod.modloader;
 
+import androidx.annotation.NonNull;
+
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
-import com.movtery.zalithlauncher.feature.version.VersionConfig;
-import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
-
-import org.json.JSONObject;
 
 import java.io.File;
 
@@ -33,14 +31,14 @@ public class FabricLikeDownloadTask implements InstallTask, Tools.DownloaderFeed
     }
 
     @Override
-    public File run() throws Exception {
+    public File run(@NonNull String customName) throws Exception {
         ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.mod_download_progress, mUtils.getName());
         File outputFile;
         if (mGameVersion == null && mLoaderVersion == null) {
             outputFile = downloadInstaller();
         }
         else {
-            legacyInstall();
+            legacyInstall(customName);
             outputFile = null;
         }
         ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE);
@@ -59,19 +57,13 @@ public class FabricLikeDownloadTask implements InstallTask, Tools.DownloaderFeed
 
     //因为Quilt要用Jre17去跑，跑完之后JVM不会自动退出
     //为了自动化处理，所以暂时这么做
-    private void legacyInstall() throws Exception {
+    private void legacyInstall(String customName) throws Exception {
         String jsonString = DownloadUtils.downloadString(mUtils.createJsonDownloadUrl(mGameVersion, mLoaderVersion));
 
-        JSONObject jsonObject = new JSONObject(jsonString);
-        String versionId = jsonObject.getString("id");
-
-        File versionJsonDir = new File(ProfilePathHome.getVersionsHome(), versionId);
-        File versionJsonFile = new File(versionJsonDir, versionId+".json");
+        File versionJsonDir = new File(ProfilePathHome.getVersionsHome(), customName);
+        File versionJsonFile = new File(versionJsonDir, customName + ".json");
         FileUtils.ensureDirectory(versionJsonDir);
         Tools.write(versionJsonFile.getAbsolutePath(), jsonString);
-
-        VersionConfig versionConfig = new VersionConfig(VersionsManager.INSTANCE.getVersionPath(versionId));
-        versionConfig.save();
     }
 
     @Override

@@ -80,8 +80,8 @@ class ModPackUtils {
         }
 
         @JvmStatic
-        fun startModLoaderInstall(modLoader: ModLoaderWrapper, activity: Activity, modInstallFile: File) {
-            modLoader.getInstallationIntent(activity, modInstallFile)?.let { installIntent ->
+        fun startModLoaderInstall(modLoader: ModLoaderWrapper, activity: Activity, modInstallFile: File, customName: String) {
+            modLoader.getInstallationIntent(activity, modInstallFile, customName)?.let { installIntent ->
                 val selectRuntimeDialog = SelectRuntimeDialog(activity)
                 selectRuntimeDialog.setListener { jreName: String? ->
                     installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)

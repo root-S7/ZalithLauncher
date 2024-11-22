@@ -67,17 +67,19 @@ class GameInstaller(
                         //下载Mod文件
                         modTask.forEach { task ->
                             Logging.i("Install Version", "Installing Mod: ${task.selectedVersion}")
-                            val file = task.task.run()
+                            val file = task.task.run(customVersionName)
                             val endTask = task.endTask
                             file?.let { endTask?.endTask(activity, it) }
                         }
 
                         modloaderTask.get()?.let { taskPair ->
-                            //开始安装ModLoader，可能会创建新的版本文件夹，所以在这一步开始打个标记
-                            VersionFolderChecker.markVersionsFolder(customVersionName, taskPair.first.addonName, taskPair.second.selectedVersion)
+                            //开始安装ModLoader，如果是OptiFine，则标记一下版本文件夹，因为没有好的自定义它的版本文件夹的办法
+                            if (taskPair.first == Addon.OPTIFINE) {
+                                VersionFolderChecker.markVersionsFolder(customVersionName, taskPair.first.addonName, taskPair.second.selectedVersion)
+                            }
 
                             Logging.i("Install Version", "Installing ModLoader: ${taskPair.second.selectedVersion}")
-                            val file = taskPair.second.task.run()
+                            val file = taskPair.second.task.run(customVersionName)
                             return@runTask Pair(file, taskPair.second)
                         }
 
@@ -97,12 +99,6 @@ class GameInstaller(
                                 }
                                 return@ended
                             }
-
-                            //Quilt使用直接下载版本json文件的方式进行安装
-                            moveVersionFiles()
-                            //在这里解除一下限制，刷新一下
-                            EventBus.getDefault().removeStickyEvent(installModVersion)
-                            VersionsManager.refresh()
                         }
                     }.finallyTask {
                         EventBus.getDefault().removeStickyEvent(installModVersion)
@@ -127,6 +123,8 @@ class GameInstaller(
             val versionFolder = File(ProfilePathHome.versionsHome, foldersPair.second.customVersion)
 
             val loaderInfo = foldersPair.second
+            if (!loaderInfo.name.equals("OptiFine", true)) return //仅用于OptiFine
+
             if (foldersPair.first.isNotEmpty()) {
                 //如果有多出来的文件夹，则查找哪一个文件夹可能是新安装的版本
                 foldersPair.first.forEach { folder ->
@@ -185,22 +183,11 @@ class GameInstaller(
          * @param loaderVersion 需要符合的版本
          */
         private fun checkVersion(loaderName: String, loaderVersion: String, jsonVersion: VersionInfo.LoaderInfo): Boolean {
-            val normalizedLoaderName = if (loaderName.equals("NeoForge", true)) {
-                //1.20.1的NeoForge比较特殊，因为其json文件里记录的名称实际上是Forge
-                if (loaderVersion.startsWith("1.20.1")) "forge"
-                else loaderName.lowercase()
-            } else loaderName.lowercase()
-            val normalizedLoaderVersion = when (normalizedLoaderName) {
-                // OptiFine HD U J2 pre6 -> HD_U_J2_pre6
-                "optifine" -> loaderVersion.removePrefix("OptiFine").trim().replace(" ", "_")
-                // 1.21.3-53.0.23 -> 53.0.23
-                // 1.7.10-10.13.4.1614-1.7.10 -> 10.13.4.1614
-                "forge" -> {
-                    val (_, version) = loaderVersion.split("-")
-                    version
-                }
-                else -> loaderVersion
-            }
+            val normalizedLoaderName = loaderName.lowercase()
+
+            // OptiFine HD U J2 pre6 -> HD_U_J2_pre6
+            val normalizedLoaderVersion = loaderVersion.removePrefix("OptiFine").trim().replace(" ", "_")
+
             Logging.i("Check Version", "loaderName='$normalizedLoaderVersion', jsonName='${jsonVersion.name}', jsonVersion='${jsonVersion.version}'")
             return normalizedLoaderName.equals(jsonVersion.name, true) && jsonVersion.version.contains(normalizedLoaderVersion)
         }
