@@ -13,7 +13,6 @@ import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getLatestFile
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.shareFile
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 
@@ -33,7 +32,7 @@ class ErrorActivity : BaseActivity() {
 
         binding.errorConfirm.setOnClickListener { finish() }
         binding.errorRestart.setOnClickListener {
-            startActivity(Intent(this@ErrorActivity, LauncherActivity::class.java))
+            startActivity(Intent(this@ErrorActivity, SplashActivity::class.java))
         }
 
         if (extras.getBoolean(BUNDLE_IS_ERROR, true)) {

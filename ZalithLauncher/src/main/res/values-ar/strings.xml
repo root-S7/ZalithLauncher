@@ -225,6 +225,7 @@
     <string name="version_manager_invalid">هذه النسخة غير صالحة</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher يحتاج إلى إمكانية التحكم في جميع ملفات الجهاز لاستخدام هذه الميزة بشكل صحيح، يرجى تمكين الإذن!</string>
+    <string name="permissions_write_external_storage">يتطلب Zalith Launcher إذن إدارة التخزين. إذا لم يتم تمكين الإذن، فقد يؤدي ذلك إلى مشاكل مثل فشل حفظ ملفات اللعبة أو فك ضغطها بشكل صحيح. يرجى منح الإذن لضمان عمل الوظائف بشكل صحيح.</string>
     <string name="profiles_path_title">إدارة مسارات اللعبة</string>
     <string name="profiles_path_default">المسار الافتراضي</string>
     <string name="profiles_path_settings">فتح إعدادات المسار</string>

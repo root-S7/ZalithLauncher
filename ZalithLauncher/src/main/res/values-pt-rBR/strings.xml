@@ -225,6 +225,7 @@
     <string name="version_manager_invalid">Esta versão é inválida</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher precisa da permissão para gerenciar todos os arquivos do dispositivo para usar esta funcionalidade corretamente, por favor, habilite a permissão!</string>
+    <string name="permissions_write_external_storage">O Zalith Launcher requer permissão de gerenciamento de armazenamento. Se a permissão não estiver ativada, podem ocorrer problemas como falha ao salvar ou descompactar os arquivos do jogo. Conceda a permissão para garantir o funcionamento correto.</string>
     <string name="profiles_path_title">Gerenciamento de Caminho do Jogo</string>
     <string name="profiles_path_default">Caminho Padrão</string>
     <string name="profiles_path_settings">Abrir configurações de caminho</string>

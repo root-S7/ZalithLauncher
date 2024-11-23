@@ -225,6 +225,7 @@
     <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
+    <string name="permissions_write_external_storage">Zalith Launcher yêu cầu quyền quản lý bộ nhớ. Nếu quyền này không được bật, có thể gây ra các vấn đề như tệp trò chơi không thể lưu hoặc giải nén đúng cách. Vui lòng cấp quyền để đảm bảo các chức năng hoạt động đúng.</string>
     <string name="profiles_path_title">Quản lý đường dẫn trò chơi</string>
     <string name="profiles_path_default">Đường dẫn mặc định</string>
     <string name="profiles_path_settings">Mở cài đặt đường dẫn</string>

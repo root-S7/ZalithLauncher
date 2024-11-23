@@ -49,6 +49,14 @@ class StoragePermissionsUtils {
             }
         }
 
+        /**
+         * 适用于安卓10及一下的存储权限检查
+         */
+        fun hasStoragePermissions(context: Context): Boolean {
+            return ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        }
+
         @RequiresApi(api = Build.VERSION_CODES.R)
         private fun checkPermissionsForAndroid11AndAbove() = Environment.isExternalStorageManager()
 
@@ -79,11 +87,6 @@ class StoragePermissionsUtils {
             } else {
                 permissionGranted?.granted()
             }
-        }
-
-        private fun hasStoragePermissions(context: Context): Boolean {
-            return ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         }
 
         private fun showPermissionRequestDialog(context: Context, title: Int, requestPermissions: RequestPermissions) {

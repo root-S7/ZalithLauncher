@@ -225,6 +225,7 @@
     <string name="version_manager_invalid">該版本無效</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher 需要管理裝置所有檔案的權限，以便正常使用這個功能，請開啟權限！</string>
+    <string name="permissions_write_external_storage">Zalith Launcher 需要授予存儲管理權限。如果未開啟權限，可能會導致遊戲文件無法正常保存、解壓等問題。請授予權限，以確保功能正常運行。</string>
     <string name="profiles_path_title">遊戲路徑管理</string>
     <string name="profiles_path_default">預設路徑</string>
     <string name="profiles_path_settings">打開路徑設定</string>

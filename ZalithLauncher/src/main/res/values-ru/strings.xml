@@ -225,6 +225,7 @@
     <string name="version_manager_invalid">Эта версия недействительна</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
+    <string name="permissions_write_external_storage">Для работы Zalith Launcher требуется разрешение на управление хранилищем. Если разрешение не предоставлено, могут возникнуть проблемы, такие как невозможность сохранения или распаковки игровых файлов. Пожалуйста, предоставьте разрешение для обеспечения корректной работы.</string>
     <string name="profiles_path_title">Управление путями игры</string>
     <string name="profiles_path_default">Путь по умолчанию</string>
     <string name="profiles_path_settings">Открыть настройки пути</string>

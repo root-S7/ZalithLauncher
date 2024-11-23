@@ -236,6 +236,7 @@
 
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>
+    <string name="permissions_write_external_storage">Zalith Launcher 需要授予存储管理权限。如果权限未开启，可能会导致游戏文件无法正常保存、解压等问题。请授予权限，以确保功能正常运行。</string>
     <string name="profiles_path_title">游戏路径管理</string>
     <string name="profiles_path_default">默认路径</string>
     <string name="profiles_path_settings">打开路径设置</string>
