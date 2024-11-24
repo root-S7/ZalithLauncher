@@ -33,7 +33,6 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -88,32 +87,37 @@ public final class ZHTools {
         return new File(PathAndUrlManager.DIR_CUSTOM_MOUSE, customMouse);
     }
 
-    public static void swapFragmentWithAnim(Fragment fragment, Class<? extends Fragment> fragmentClass,
-                                            @Nullable String fragmentTag, @Nullable Bundle bundle) {
-        FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
-
-        boolean animation = AllSettings.getAnimation();
-        if (animation) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-
-        transaction.setReorderingAllowed(true).replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag);
-        transaction.addToBackStack(fragmentClass.getName());
-        if (animation && fragment instanceof FragmentWithAnim) {
-            ((FragmentWithAnim) fragment).slideOut();
-        }
-        transaction.commit();
+    public static void swapFragmentWithAnim(
+            Fragment fragment,
+            Class<? extends Fragment> fragmentClass,
+            @Nullable String fragmentTag,
+            @Nullable Bundle bundle
+    ) {
+        getTransaction(fragment)
+                .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
+                .addToBackStack(fragmentClass.getName())
+                .commit();
     }
 
-    public static void addFragment(Fragment fragment, Class<? extends Fragment> fragmentClass,
-                                   @Nullable String fragmentTag, @Nullable Bundle bundle) {
-        FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
-
-        if (AllSettings.getAnimation()) transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-
-        transaction.setReorderingAllowed(true)
+    public static void addFragment(
+            Fragment fragment,
+            Class<? extends Fragment> fragmentClass,
+            @Nullable String fragmentTag,
+            @Nullable Bundle bundle
+    ) {
+        getTransaction(fragment)
                 .addToBackStack(fragmentClass.getName())
                 .add(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
                 .hide(fragment)
                 .commit();
+    }
+
+    private static FragmentTransaction getTransaction(Fragment fragment) {
+        FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
+        if (AllSettings.getAnimation()) {
+            transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+        }
+        return transaction.setReorderingAllowed(true);
     }
 
     public static void killProcess() {
