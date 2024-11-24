@@ -14,6 +14,7 @@ import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
+import com.movtery.zalithlauncher.feature.version.NoVersionException
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
@@ -51,78 +52,82 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
     @Throws(Throwable::class)
     fun install(context: Context, infoItem: InfoItem, version: VersionItem, isTaskRunning: () -> Boolean) {
-        when (infoItem.classify) {
-            Classify.ALL -> throw IllegalArgumentException("Cannot be the enum value ${Classify.ALL}")
-            Classify.MOD -> {
-                customPath(context, version, getModsPath(), taskRunning = isTaskRunning, install = { targetPath ->
-                    installMod(infoItem, version, targetPath)
-                })
-            }
-            Classify.MODPACK -> {
-                EditTextDialog.Builder(context)
-                    .setTitle(R.string.version_install_new)
-                    .setEditText(infoItem.title)
-                    .setConfirmListener { editText, _ ->
-                        val customName = editText.text.toString()
-                        if (customName.contains("/")) {
-                            editText.error = context.getString(R.string.generic_input_invalid_character, "/")
-                            return@setConfirmListener false
-                        }
+        try {
+            when (infoItem.classify) {
+                Classify.ALL -> throw IllegalArgumentException("Cannot be the enum value ${Classify.ALL}")
+                Classify.MOD -> {
+                    customPath(context, version, getModsPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                        installMod(infoItem, version, targetPath)
+                    })
+                }
+                Classify.MODPACK -> {
+                    EditTextDialog.Builder(context)
+                        .setTitle(R.string.version_install_new)
+                        .setEditText(infoItem.title)
+                        .setConfirmListener { editText, _ ->
+                            val customName = editText.text.toString()
+                            if (customName.contains("/")) {
+                                editText.error = context.getString(R.string.generic_input_invalid_character, "/")
+                                return@setConfirmListener false
+                            }
 
-                        if (VersionsManager.isVersionExists(customName, true)) {
-                            editText.error = context.getString(R.string.version_install_exists)
-                            return@setConfirmListener false
-                        }
+                            if (VersionsManager.isVersionExists(customName, true)) {
+                                editText.error = context.getString(R.string.version_install_exists)
+                                return@setConfirmListener false
+                            }
 
-                        if (!isTaskRunning()) {
-                            ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
-                            val installingVersionEvent = InstallingVersionEvent()
-                            Task.runTask {
-                                EventBus.getDefault().postSticky(installingVersionEvent)
-                                val modloader = installModPack(version, customName) ?: return@runTask null
+                            if (!isTaskRunning()) {
+                                ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
+                                val installingVersionEvent = InstallingVersionEvent()
+                                Task.runTask {
+                                    EventBus.getDefault().postSticky(installingVersionEvent)
+                                    val modloader = installModPack(version, customName) ?: return@runTask null
 
-                                val versionPath = VersionsManager.getVersionPath(customName)
-                                VersionConfig(versionPath).save()
+                                    val versionPath = VersionsManager.getVersionPath(customName)
+                                    VersionConfig(versionPath).save()
 
-                                infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(customName)) }
+                                    infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(customName)) }
 
-                                modloader.getDownloadTask()?.let { downloadTask ->
-                                    Logging.i("Install Version", "Installing ModLoader: ${modloader.modLoaderVersion}")
-                                    downloadTask.run(customName)?.let { file ->
-                                        return@runTask Pair(modloader, file)
+                                    modloader.getDownloadTask()?.let { downloadTask ->
+                                        Logging.i("Install Version", "Installing ModLoader: ${modloader.modLoaderVersion}")
+                                        downloadTask.run(customName)?.let { file ->
+                                            return@runTask Pair(modloader, file)
+                                        }
                                     }
-                                }
 
-                                return@runTask null
-                            }.ended { filePair ->
-                                filePair?.let {
-                                    ModPackUtils.startModLoaderInstall(it.first, ContextExecutor.getActivity(), it.second, customName)
-                                }
-                            }.onThrowable { e ->
-                                Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e)
-                            }.finallyTask {
-                                EventBus.getDefault().removeStickyEvent(installingVersionEvent)
-                            }.execute()
-                        }
+                                    return@runTask null
+                                }.ended { filePair ->
+                                    filePair?.let {
+                                        ModPackUtils.startModLoaderInstall(it.first, ContextExecutor.getActivity(), it.second, customName)
+                                    }
+                                }.onThrowable { e ->
+                                    Tools.showErrorRemote(context, R.string.modpack_install_download_failed, e)
+                                }.finallyTask {
+                                    EventBus.getDefault().removeStickyEvent(installingVersionEvent)
+                                }.execute()
+                            }
 
-                        true
-                    }.buildDialog()
+                            true
+                        }.buildDialog()
+                }
+                Classify.RESOURCE_PACK -> {
+                    customPath(context, version, getResourcePackPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                        installResourcePack(infoItem, version, targetPath)
+                    })
+                }
+                Classify.WORLD -> {
+                    customPath(context, version, getWorldPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                        installWorld(infoItem, version, targetPath)
+                    })
+                }
+                Classify.SHADER_PACK -> {
+                    customPath(context, version, getShaderPackPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                        installShaderPack(infoItem, version, targetPath)
+                    })
+                }
             }
-            Classify.RESOURCE_PACK -> {
-                customPath(context, version, getResourcePackPath(), taskRunning = isTaskRunning, install = { targetPath ->
-                    installResourcePack(infoItem, version, targetPath)
-                })
-            }
-            Classify.WORLD -> {
-                customPath(context, version, getWorldPath(), taskRunning = isTaskRunning, install = { targetPath ->
-                    installWorld(infoItem, version, targetPath)
-                })
-            }
-            Classify.SHADER_PACK -> {
-                customPath(context, version, getShaderPackPath(), taskRunning = isTaskRunning, install = { targetPath ->
-                    installShaderPack(infoItem, version, targetPath)
-                })
-            }
+        } catch (e: NoVersionException) {
+            Tools.showError(context, context.getString(R.string.version_manager_no_installed_version), e)
         }
     }
 
@@ -179,7 +184,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
     companion object {
         @JvmStatic
         fun getDir(): File {
-            return VersionsManager.getCurrentVersion()?.getGameDir() ?: throw RuntimeException("There is no installed version")
+            return VersionsManager.getCurrentVersion()?.getGameDir() ?: throw NoVersionException("There is no installed version")
         }
 
         @JvmStatic

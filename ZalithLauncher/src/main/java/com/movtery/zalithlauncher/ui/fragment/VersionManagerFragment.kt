@@ -8,6 +8,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionManagerBinding
+import com.movtery.zalithlauncher.feature.version.NoVersionException
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
@@ -75,7 +76,10 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
 
     override fun onClick(v: View) {
         val activity = requireActivity()
-        val version: Version = VersionsManager.getCurrentVersion() ?: throw RuntimeException("There is no installed version")
+        val version: Version = VersionsManager.getCurrentVersion() ?: run {
+            Tools.showError(activity, getString(R.string.version_manager_no_installed_version), NoVersionException("There is no installed version"))
+            return
+        }
         val gameDirPath = version.getGameDir()
 
         binding.apply {
@@ -109,17 +113,15 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                         .setTitle(R.string.generic_warning)
                         .setMessage(R.string.version_manager_delete_tip)
                         .setConfirmClickListener {
-                            VersionsManager.getCurrentVersion()?.let {
-                                FileDeletionHandler(
-                                    activity,
-                                    listOf(it.getVersionPath()),
-                                    Task.runTask {
-                                        VersionsManager.refresh()
-                                    }.ended(TaskExecutors.getAndroidUI()) {
-                                        Tools.backToMainMenu(activity)
-                                    }
-                                ).start()
-                            }
+                            FileDeletionHandler(
+                                activity,
+                                listOf(version.getVersionPath()),
+                                Task.runTask {
+                                    VersionsManager.refresh()
+                                }.ended(TaskExecutors.getAndroidUI()) {
+                                    Tools.backToMainMenu(activity)
+                                }
+                            ).start()
                         }
                         .buildDialog()
                 }

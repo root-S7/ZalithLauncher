@@ -226,6 +226,7 @@
     <string name="version_manager_delete_tip_invalid">當前版本缺少版本 JSON 檔案，因此被判定為無效的版本，無法選擇此版本！點擊確認，刪除這個錯誤的版本。</string>
     <string name="version_manager_task_in_progress">任務執行中，暫時無法使用版本管理功能</string>
     <string name="version_manager_invalid">該版本無效</string>
+    <string name="version_manager_no_installed_version">啟動器未找到已安裝的 Minecraft！</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher 需要管理裝置所有檔案的權限，以便正常使用這個功能，請開啟權限！</string>
     <string name="permissions_write_external_storage">Zalith Launcher 需要授予存儲管理權限。如果未開啟權限，可能會導致遊戲文件無法正常保存、解壓等問題。請授予權限，以確保功能正常運行。</string>

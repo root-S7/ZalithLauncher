@@ -226,6 +226,7 @@
     <string name="version_manager_delete_tip_invalid">A versão atual está faltando o arquivo JSON da versão e, portanto, é considerada uma versão inválida. Você não pode selecionar esta versão. Clique em Confirmar para excluir esta versão errônea.</string>
     <string name="version_manager_task_in_progress">Tarefa em andamento, gerenciamento de versões temporariamente indisponível</string>
     <string name="version_manager_invalid">Esta versão é inválida</string>
+    <string name="version_manager_no_installed_version">O lançador não encontrou nenhum Minecraft instalado!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher precisa da permissão para gerenciar todos os arquivos do dispositivo para usar esta funcionalidade corretamente, por favor, habilite a permissão!</string>
     <string name="permissions_write_external_storage">O Zalith Launcher requer permissão de gerenciamento de armazenamento. Se a permissão não estiver ativada, podem ocorrer problemas como falha ao salvar ou descompactar os arquivos do jogo. Conceda a permissão para garantir o funcionamento correto.</string>

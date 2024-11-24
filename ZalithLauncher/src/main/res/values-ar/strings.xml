@@ -226,6 +226,7 @@
     <string name="version_manager_delete_tip_invalid">الإصدار الحالي يفتقر إلى ملف JSON للإصدار، ولذلك يُعتبر إصدارًا غير صالح. لا يمكنك اختيار هذا الإصدار. اضغط على تأكيد لحذف هذا الإصدار الخاطئ.</string>
     <string name="version_manager_task_in_progress">المهمة قيد التنفيذ، وظيفة إدارة الإصدارات غير متاحة مؤقتًا</string>
     <string name="version_manager_invalid">هذه النسخة غير صالحة</string>
+    <string name="version_manager_no_installed_version">المُحَرّك لم يجد أي Minecraft مُثبّت!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher يحتاج إلى إمكانية التحكم في جميع ملفات الجهاز لاستخدام هذه الميزة بشكل صحيح، يرجى تمكين الإذن!</string>
     <string name="permissions_write_external_storage">يتطلب Zalith Launcher إذن إدارة التخزين. إذا لم يتم تمكين الإذن، فقد يؤدي ذلك إلى مشاكل مثل فشل حفظ ملفات اللعبة أو فك ضغطها بشكل صحيح. يرجى منح الإذن لضمان عمل الوظائف بشكل صحيح.</string>

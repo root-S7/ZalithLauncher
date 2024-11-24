@@ -19,6 +19,7 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentVersionConfigBinding;
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.feature.version.NoVersionException;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
@@ -42,7 +43,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class VersionConfigFragment extends FragmentWithAnim {
     public static final String TAG = "VersionConfigFragment";
@@ -110,7 +110,9 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         binding.iconReset.setOnClickListener(v -> resetIcon());
 
-        mTempVersion = Objects.requireNonNull(VersionsManager.INSTANCE.getCurrentVersion());
+        Version version = VersionsManager.INSTANCE.getCurrentVersion();
+        if (version == null) Tools.showError(requireActivity(), getString(R.string.version_manager_no_installed_version), new NoVersionException("There is no installed version"));
+        mTempVersion = version;
         mVersionIconUtils = new VersionIconUtils(mTempVersion);
         File versionFolder = mTempVersion.getVersionPath();
 

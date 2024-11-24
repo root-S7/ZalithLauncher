@@ -226,6 +226,7 @@
     <string name="version_manager_delete_tip_invalid">Phiên bản hiện tại thiếu tệp JSON phiên bản và vì vậy được coi là phiên bản không hợp lệ. Bạn không thể chọn phiên bản này. Nhấn Xác nhận để xóa phiên bản sai này.</string>
     <string name="version_manager_task_in_progress">Đang thực hiện tác vụ, quản lý phiên bản tạm thời không khả dụng</string>
     <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>
+    <string name="version_manager_no_installed_version">Khởi động không tìm thấy bất kỳ phiên bản Minecraft nào đã được cài đặt!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
     <string name="permissions_write_external_storage">Zalith Launcher yêu cầu quyền quản lý bộ nhớ. Nếu quyền này không được bật, có thể gây ra các vấn đề như tệp trò chơi không thể lưu hoặc giải nén đúng cách. Vui lòng cấp quyền để đảm bảo các chức năng hoạt động đúng.</string>

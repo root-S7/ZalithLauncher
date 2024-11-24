@@ -236,6 +236,7 @@
     <string name="version_manager_delete_tip_invalid">当前版本缺少版本 JSON 文件，所以被判定为无效的版本，因此你不能选择这个版本！点击确认，删除这个错误的版本。</string>
     <string name="version_manager_task_in_progress">任务执行中，暂时无法使用版本管理功能</string>
     <string name="version_manager_invalid">该版本无效</string>
+    <string name="version_manager_no_installed_version">启动器没有找到已安装的 Minecraft！</string>
 
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">Zalith Launcher 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>
