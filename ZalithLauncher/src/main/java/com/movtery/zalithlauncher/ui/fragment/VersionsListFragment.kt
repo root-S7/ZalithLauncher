@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
-import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.JsonParser
@@ -57,7 +56,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 if (path.isNotEmpty() && !isAddedPath(path)) {
                     EditTextDialog.Builder(requireContext())
                         .setTitle(R.string.profiles_path_create_new_title)
-                        .setConfirmListener { editBox: EditText ->
+                        .setConfirmListener { editBox, _ ->
                             val string = editBox.text.toString()
                             if (string.isEmpty()) {
                                 editBox.error = getString(R.string.generic_error_field_empty)

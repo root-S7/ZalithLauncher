@@ -230,7 +230,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
         EditTextDialog.Builder(requireActivity())
             .setTitle(R.string.account_login_local_name)
             .setConfirmText(R.string.generic_login)
-            .setConfirmListener { editText ->
+            .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
 
                 if (!checkEditText(string, editText)) return@setConfirmListener false
@@ -304,7 +304,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     private fun showServerTypeSelectDialog(stringId: Int, type: Int) {
         EditTextDialog.Builder(requireActivity())
             .setTitle(stringId)
-            .setConfirmListener { editText ->
+            .setConfirmListener { editText, _ ->
                 if (editText.text.toString().isEmpty()) {
                     editText.error = getString(R.string.generic_error_field_empty)
                     return@setConfirmListener false

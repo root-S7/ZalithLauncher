@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
-import android.widget.EditText
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
@@ -125,7 +124,7 @@ class FileTools {
             EditTextDialog.Builder(context)
                 .setTitle(R.string.generic_rename)
                 .setEditText(getFileNameWithoutExtension(fileName, suffix))
-                .setConfirmListener(ConfirmListener { editBox: EditText ->
+                .setConfirmListener(ConfirmListener { editBox, _ ->
                     val newName = editBox.text.toString().replace("/", "")
                     if (fileName == newName) {
                         return@ConfirmListener true
@@ -159,7 +158,7 @@ class FileTools {
             EditTextDialog.Builder(context)
                 .setTitle(R.string.generic_rename)
                 .setEditText(fileName)
-                .setConfirmListener(ConfirmListener { editBox: EditText ->
+                .setConfirmListener(ConfirmListener { editBox, _ ->
                     val newName = editBox.text.toString().replace("/", "")
                     if (fileName == newName) {
                         return@ConfirmListener true

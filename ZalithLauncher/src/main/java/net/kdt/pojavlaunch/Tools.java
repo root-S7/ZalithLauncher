@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -709,7 +708,7 @@ public final class Tools {
         new EditTextDialog.Builder(activity)
                 .setTitle(R.string.dialog_select_jar)
                 .setHintText("-jar/-cp /path/to/file.jar ...")
-                .setConfirmListener(editBox -> {
+                .setConfirmListener((editBox, checked) -> {
                     if (editBox.getText().toString().isEmpty()) {
                         editBox.setError(activity.getString(R.string.generic_error_field_empty));
                         return false;
@@ -727,17 +726,6 @@ public final class Tools {
 
                     return true;
                 }).buildDialog();
-    }
-
-    /** Display and return a progress dialog, instructing to wait */
-    public static ProgressDialog getWaitingDialog(Context ctx, int message){
-        final ProgressDialog barrier = new ProgressDialog(ctx);
-        barrier.setMessage(ctx.getString(message));
-        barrier.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        barrier.setCancelable(false);
-        barrier.show();
-
-        return barrier;
     }
 
     /** Launch the mod installer activity. The Uri must be from our own content provider or

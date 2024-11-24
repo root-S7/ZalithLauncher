@@ -130,6 +130,7 @@ class VersionAdapter(
             settings.add(context.getString(R.string.profiles_path_settings_goto))
             settings.add(context.getString(R.string.version_manager_shortcuts_version_path))
             settings.add(context.getString(R.string.version_manager_rename))
+            settings.add(context.getString(R.string.version_manager_copy))
             settings.add(context.getString(R.string.version_manager_delete))
             val adapter = ArrayAdapter(
                 context,
@@ -142,7 +143,8 @@ class VersionAdapter(
                 when (position) {
                     1 -> swapPath(version.getGameDir().absolutePath)
                     2 -> VersionsManager.openRenameDialog(context, version)
-                    3 -> deleteVersion(version)
+                    3 -> VersionsManager.openCopyDialog(context, version)
+                    4 -> deleteVersion(version)
                     else -> swapPath(version.getVersionPath().absolutePath)
                 }
                 popupWindow.dismiss()

@@ -273,11 +273,37 @@
                 app:layout_constraintTop_toBottomOf="@+id/version_edit" />
 
             <ImageView
+                android:id="@+id/copy_version_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:scaleType="centerInside"
+                android:scaleX="0.86"
+                android:scaleY="0.86"
+                app:layout_constraintBottom_toBottomOf="@+id/version_copy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/version_copy"
+                app:srcCompat="@drawable/ic_copy" />
+
+            <com.movtery.zalithlauncher.ui.view.AnimButton
+                android:id="@+id/version_copy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@string/version_manager_copy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/copy_version_icon"
+                app:layout_constraintTop_toBottomOf="@+id/version_rename" />
+
+            <ImageView
                 android:id="@+id/delete_version_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
+                android:scaleX="0.9"
+                android:scaleY="0.9"
                 app:layout_constraintBottom_toBottomOf="@+id/version_delete"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/version_delete"
@@ -292,7 +318,7 @@
                 android:text="@string/version_manager_delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/delete_version_icon"
-                app:layout_constraintTop_toBottomOf="@+id/version_rename" />
+                app:layout_constraintTop_toBottomOf="@+id/version_copy" />
             
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

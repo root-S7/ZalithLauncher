@@ -1,7 +1,6 @@
 package com.movtery.zalithlauncher.feature.download.platform
 
 import android.content.Context
-import android.widget.EditText
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
@@ -63,7 +62,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                 EditTextDialog.Builder(context)
                     .setTitle(R.string.version_install_new)
                     .setEditText(infoItem.title)
-                    .setConfirmListener { editText: EditText ->
+                    .setConfirmListener { editText, _ ->
                         val customName = editText.text.toString()
                         if (customName.contains("/")) {
                             editText.error = context.getString(R.string.generic_input_invalid_character, "/")
@@ -133,7 +132,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
         EditTextDialog.Builder(context)
             .setTitle(R.string.download_install_custom_name)
             .setEditText(file.nameWithoutExtension)
-            .setConfirmListener { editText: EditText ->
+            .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
                 if (string.contains("/")) {
                     editText.error = context.getString(R.string.generic_input_invalid_character, "/")

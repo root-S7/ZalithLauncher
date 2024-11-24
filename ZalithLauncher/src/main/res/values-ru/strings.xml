@@ -218,6 +218,9 @@
     <string name="version_manager_shortcuts_crash_report_path">Папка отчетов об ошибках</string>
     <string name="version_manager_edit">Редактировать версию</string>
     <string name="version_manager_rename">Переименовать версию</string>
+    <string name="version_manager_copy">Копировать версию</string>
+    <string name="version_manager_copy_tip">Скопировать текущую версию как новую с включенной изоляцией версий по умолчанию. Если включена опция «Копировать все файлы» ниже, будут скопированы все файлы, созданные текущей версией (ресурсы, сохранения, настройки игры и т. д.).</string>
+    <string name="version_manager_copy_all">Копировать все файлы</string>
     <string name="version_manager_delete">Удалить версию</string>
     <string name="version_manager_delete_tip">Если изоляция версий включена, ваши сохранения, пакеты ресурсов и моды будут удалены вместе с версией. Пожалуйста, сделайте резервную копию перед выполнением этой операции!</string>
     <string name="version_manager_delete_tip_invalid">Текущая версия не содержит файл JSON версии, поэтому она считается недействительной. Вы не можете выбрать эту версию. Нажмите «Подтвердить», чтобы удалить эту ошибочную версию.</string>

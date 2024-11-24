@@ -32,6 +32,8 @@ class VersionConfig private constructor() : Parcelable {
         this.control = control
     }
 
+    fun copy(): VersionConfig = VersionConfig(versionPath!!, javaDir, javaArgs, renderer, control)
+
     fun save() {
         runCatching {
             saveWithThrowable()

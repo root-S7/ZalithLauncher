@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.InputType
 import android.view.View
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
@@ -81,7 +80,7 @@ class SeekBarSettingsWrapper(
                 .setInputType(InputType.TYPE_CLASS_NUMBER)
                 .setTitle(titleView.text.toString())
                 .setMessage(summaryView.text.toString())
-            builder.setConfirmListener { editBox: EditText ->
+            builder.setConfirmListener { editBox, _ ->
                 val string = editBox.text.toString()
 
                 if (string.isEmpty()) {

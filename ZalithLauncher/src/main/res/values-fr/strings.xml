@@ -218,6 +218,9 @@
     <string name="version_manager_shortcuts_crash_report_path">Dossier des rapports de plantage</string>
     <string name="version_manager_edit">Éditer la version</string>
     <string name="version_manager_rename">Renommer la version</string>
+    <string name="version_manager_copy">Copier la version</string>
+    <string name="version_manager_copy_tip">Copiez la version actuelle en tant que nouvelle version avec l\'isolement de version activé par défaut. Si « Copier tous les fichiers » ci-dessous est activé, tous les fichiers générés par la version actuelle (ressources, sauvegardes, paramètres de jeu, etc.) seront également copiés.</string>
+    <string name="version_manager_copy_all">Copier tous les fichiers</string>
     <string name="version_manager_delete">Supprimer la version</string>
     <string name="version_manager_delete_tip">Si l\'isolement des versions est activé, vos sauvegardes de jeux, packs de ressources et mods seront supprimés avec la version. Veuillez vous assurer de faire une sauvegarde avant d\'effectuer cette opération !</string>
     <string name="version_manager_delete_tip_invalid">La version actuelle manque du fichier JSON de la version et est donc considérée comme une version invalide. Vous ne pouvez pas sélectionner cette version. Cliquez sur Confirmer pour supprimer cette version erronée.</string>

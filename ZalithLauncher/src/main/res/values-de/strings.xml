@@ -218,6 +218,9 @@
     <string name="version_manager_shortcuts_crash_report_path">Absturzbericht-Ordner</string>
     <string name="version_manager_edit">Version bearbeiten</string>
     <string name="version_manager_rename">Version umbenennen</string>
+    <string name="version_manager_copy">Version kopieren</string>
+    <string name="version_manager_copy_tip">Kopieren Sie die aktuelle Version als eine neue Version mit standardmäßig aktivierter Versionstrennung. Wenn „Alle Dateien kopieren“ unten aktiviert ist, werden alle von der aktuellen Version erzeugten Dateien (Ressourcen, Speicherstände, Spieleinstellungen usw.) ebenfalls kopiert.</string>
+    <string name="version_manager_copy_all">Alle Dateien kopieren</string>
     <string name="version_manager_delete">Version löschen</string>
     <string name="version_manager_delete_tip">Wenn die Versionsisolierung aktiviert ist, werden beim Löschen auch wichtige Daten wie Spielstände, Ressourcenpakete und Mods gelöscht. Bitte erstellen Sie vorher ein Backup!</string>
     <string name="version_manager_delete_tip_invalid">Die aktuelle Version fehlt die Versions-JSON-Datei und wird daher als ungültige Version betrachtet. Sie können diese Version nicht auswählen. Klicken Sie auf Bestätigen, um diese fehlerhafte Version zu löschen.</string>

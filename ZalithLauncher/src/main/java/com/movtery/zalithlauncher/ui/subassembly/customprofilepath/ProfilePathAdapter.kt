@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.RadioButton
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.content.ContextCompat
@@ -139,7 +138,7 @@ class ProfilePathAdapter(
                         EditTextDialog.Builder(context)
                             .setTitle(R.string.generic_rename)
                             .setEditText(profileItem.title)
-                            .setConfirmListener { editBox: EditText ->
+                            .setConfirmListener { editBox, _ ->
                                 val string = editBox.text.toString()
                                 if (string.isEmpty()) {
                                     editBox.error =

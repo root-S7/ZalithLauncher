@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.ClipboardManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -15,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 
 import com.kdt.LoggerView;
 import com.movtery.zalithlauncher.R;
@@ -191,11 +191,11 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             if (javaArgs != null) {
                 startModInstaller(null, javaArgs, jreName);
             }else if(resourceUri != null) {
-                ProgressDialog barrierDialog = Tools.getWaitingDialog(this, R.string.multirt_progress_caching);
+                AlertDialog dialog = ZHTools.showTaskRunningDialog(this, getString(R.string.multirt_progress_caching));
                 Task.runTask(() -> {
                     startModInstallerWithUri(resourceUri, jreName);
                     return null;
-                }).ended(TaskExecutors.getAndroidUI(), r -> barrierDialog.dismiss())
+                }).ended(TaskExecutors.getAndroidUI(), r -> dialog.dismiss())
                         .execute();
             }
         } catch (Throwable th) {

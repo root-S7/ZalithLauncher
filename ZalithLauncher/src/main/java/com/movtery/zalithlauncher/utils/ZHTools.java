@@ -14,10 +14,12 @@ import android.opengl.GLES20;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -191,14 +193,32 @@ public final class ZHTools {
     }
 
     public static AlertDialog createTaskRunningDialog(Context context) {
+        return createTaskRunningDialog(context, null);
+    }
+
+    public static AlertDialog createTaskRunningDialog(Context context, String message) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View dialogView = inflater.inflate(R.layout.view_task_running, null);
+
+        TextView textView = dialogView.findViewById(R.id.text_view);
+        if (textView != null && message != null) {
+            textView.setText(message);
+        }
+
         return new AlertDialog.Builder(context, R.style.CustomAlertDialogTheme)
-                .setView(R.layout.view_task_running)
+                .setView(dialogView)
                 .setCancelable(false)
                 .create();
     }
 
     public static AlertDialog showTaskRunningDialog(Context context) {
         AlertDialog dialog = createTaskRunningDialog(context);
+        dialog.show();
+        return dialog;
+    }
+
+    public static AlertDialog showTaskRunningDialog(Context context, String message) {
+        AlertDialog dialog = createTaskRunningDialog(context, message);
         dialog.show();
         return dialog;
     }

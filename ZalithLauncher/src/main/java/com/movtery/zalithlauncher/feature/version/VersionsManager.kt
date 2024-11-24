@@ -7,7 +7,9 @@ import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
+import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -190,11 +192,16 @@ object VersionsManager {
         EditTextDialog.Builder(context)
             .setTitle(R.string.version_manager_rename)
             .setEditText(version.getVersionName())
-            .setConfirmListener { editText ->
+            .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
 
                 //与原始名称一致
                 if (string == version.getVersionName()) return@setConfirmListener true
+
+                if (string.isEmpty() || string.isBlank()) {
+                    editText.error = context.getString(R.string.generic_error_field_empty)
+                    return@setConfirmListener false
+                }
 
                 if (isVersionExists(string, true)) {
                     editText.error = context.getString(R.string.version_install_exists)
@@ -245,6 +252,99 @@ object VersionsManager {
 
         //重命名后，需要刷新列表
         refresh()
+    }
+
+    /**
+     * 打开复制版本的名称输入框，将选中的版本复制为一个新的版本
+     */
+    fun openCopyDialog(context: Context, version: Version) {
+        val dialog = ZHTools.createTaskRunningDialog(context)
+        EditTextDialog.Builder(context)
+            .setTitle(R.string.version_manager_copy)
+            .setMessage(R.string.version_manager_copy_tip)
+            .setCheckBoxText(R.string.version_manager_copy_all)
+            .setShowCheckBox(true)
+            .setEditText(version.getVersionName())
+            .setConfirmListener { editText, checked ->
+                val string = editText.text.toString()
+                //与原始名称一致
+                if (string == version.getVersionName()) return@setConfirmListener true
+
+                if (string.isEmpty() || string.isBlank()) {
+                    editText.error = context.getString(R.string.generic_error_field_empty)
+                    return@setConfirmListener false
+                }
+
+                if (isVersionExists(string, true)) {
+                    editText.error = context.getString(R.string.version_install_exists)
+                    return@setConfirmListener false
+                }
+
+                version.getVersionInfo()?.let { info ->
+                    //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
+                    info.loaderInfo?.let { loaderInfo ->
+                        if (loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
+                            editText.error = context.getString(R.string.version_install_cannot_use_mc_name)
+                            return@setConfirmListener false
+                        }
+                    }
+                }
+
+                Task.runTask {
+                    copyVersion(version, string, checked)
+                }.beforeStart(TaskExecutors.getAndroidUI()) {
+                    dialog.show()
+                }.ended(TaskExecutors.getAndroidUI()) {
+                    dialog.dismiss()
+                    refresh()
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
+                }.execute()
+                true
+            }.buildDialog()
+    }
+
+    /**
+     * 将选中的版本复制为一个新的版本
+     * @param version 选中的版本
+     * @param name 新的版本的名称
+     * @param copyAllFile 是否复制全部文件
+     */
+    private fun copyVersion(version: Version, name: String, copyAllFile: Boolean) {
+        val versionsFolder = version.getVersionsFolder()
+        val newVersion = File(versionsFolder, name)
+
+        val originalName = version.getVersionName()
+
+        //新版本的json与jar文件
+        val newJsonFile = File(newVersion, "$name.json")
+        val newJarFile = File(newVersion, "$name.jar")
+
+        val originalVersionFolder = version.getVersionPath()
+        if (copyAllFile) {
+            //启用复制所有文件时，直接将原文件夹整体复制到新版本
+            FileUtils.copyDirectory(originalVersionFolder, newVersion)
+            //重命名json、jar文件
+            val jsonFile = File(newVersion, "$originalName.json")
+            val jarFile = File(newVersion, "$originalName.jar")
+            if (jsonFile.exists()) jsonFile.renameTo(newJsonFile)
+            if (jarFile.exists()) jarFile.renameTo(newJarFile)
+        } else {
+            //不复制所有文件时，仅复制并重命名json、jar文件
+            val originalJsonFile = File(originalVersionFolder, "$originalName.json")
+            val originalJarFile = File(originalVersionFolder, "$originalName.jar")
+            newVersion.mkdirs()
+            // versions/1.21.3/1.21.3.json -> versions/name/name.json
+            if (originalJsonFile.exists()) originalJsonFile.copyTo(newJsonFile)
+            // versions/1.21.3/1.21.3.jar -> versions/name/name.jar
+            if (originalJarFile.exists()) originalJarFile.copyTo(newJarFile)
+        }
+
+        //保存版本隔离特征文件，如果当前版本开启了版本隔离，那么将复制当前版本的设置，在新的版本里保存
+        (version.getVersionConfig()?.copy() ?: VersionConfig(newVersion)).let { config ->
+            config.setVersionPath(newVersion)
+            config.saveWithThrowable()
+        }
     }
 
     /**

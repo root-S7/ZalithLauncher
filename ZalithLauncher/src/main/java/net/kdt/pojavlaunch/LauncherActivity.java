@@ -253,7 +253,7 @@ public class LauncherActivity extends BaseActivity {
         new EditTextDialog.Builder(this)
                 .setTitle(R.string.version_install_new)
                 .setEditText(dirGameModpackFile.getName())
-                .setConfirmListener(editText -> {
+                .setConfirmListener((editText, checked) -> {
                     String customName = editText.getText().toString();
 
                     if (customName.contains("/")) {

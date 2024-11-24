@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -162,7 +161,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                 val builder = EditTextDialog.Builder(requireContext())
                 builder.setTitle(R.string.file_jump_to_path)
                 builder.setEditText(fileRecyclerView.fullPath.absolutePath)
-                builder.setConfirmListener { editBox: EditText ->
+                builder.setConfirmListener { editBox, _ ->
                     val path = editBox.text.toString()
                     if (path.isEmpty()) {
                         editBox.error = getString(R.string.generic_error_field_empty)
@@ -225,7 +224,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                 closeMultiSelect()
                 EditTextDialog.Builder(requireContext())
                     .setTitle(R.string.file_folder_dialog_insert_name)
-                    .setConfirmListener { editBox: EditText ->
+                    .setConfirmListener { editBox, _ ->
                         val name = editBox.text.toString().replace("/", "")
                         if (name.isEmpty()) {
                             editBox.error = getString(R.string.file_rename_empty)

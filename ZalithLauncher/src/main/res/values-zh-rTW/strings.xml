@@ -218,6 +218,9 @@
     <string name="version_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
     <string name="version_manager_edit">編輯版本</string>
     <string name="version_manager_rename">重新命名版本</string>
+    <string name="version_manager_copy">複製版本</string>
+    <string name="version_manager_copy_tip">將當前版本複製為一個新的版本，並且默認開啟版本隔離。若開啟下方的「複製所有文件」，那麼將同時複製當前版本產生的所有文件（資源版、存檔、遊戲設定等）。</string>
+    <string name="version_manager_copy_all">複製所有文件</string>
     <string name="version_manager_delete">刪除版本</string>
     <string name="version_manager_delete_tip">如果開啟了版本隔離功能，刪除版本時會一併刪除你的遊戲存檔、資源包和 Mod 等重要資料，請務必先做好備份再進行此操作！</string>
     <string name="version_manager_delete_tip_invalid">當前版本缺少版本 JSON 檔案，因此被判定為無效的版本，無法選擇此版本！點擊確認，刪除這個錯誤的版本。</string>
