@@ -17,8 +17,8 @@ import java.util.List;
 public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecyclerAdapter.Holder> {
     private final List<SponsorItemBean> mData;
 
-    public SponsorRecyclerAdapter(List<SponsorItemBean> mData) {
-        this.mData = mData;
+    public SponsorRecyclerAdapter(List<SponsorItemBean> items) {
+        this.mData = items;
     }
 
     @NonNull
@@ -38,6 +38,13 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
             return mData.size();
         }
         return 0;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateItems(List<SponsorItemBean> items) {
+        mData.clear();
+        mData.addAll(items);
+        notifyDataSetChanged();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {

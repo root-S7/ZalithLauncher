@@ -34,6 +34,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
 
     private lateinit var binding: FragmentAboutBinding
     private val mAboutData: MutableList<AboutItemBean> = ArrayList()
+    private var mSponsorAdapter: SponsorRecyclerAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,28 +49,36 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         loadSponsorData()
         loadAboutData(requireContext().resources)
 
-        binding.appInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.about_version_name), ZHTools.getVersionName()),
-            StringUtils.insertSpace(getString(R.string.about_version_code), ZHTools.getVersionCode()),
-            StringUtils.insertSpace(getString(R.string.about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
-            StringUtils.insertSpace(getString(R.string.about_version_status), ZHTools.getVersionStatus(requireContext())))
-        binding.appInfo.setOnClickListener{ StringUtils.copyText("text", binding.appInfo.text.toString(), requireContext()) }
+        binding.apply {
+            appInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.about_version_name), ZHTools.getVersionName()),
+                StringUtils.insertSpace(getString(R.string.about_version_code), ZHTools.getVersionCode()),
+                StringUtils.insertSpace(getString(R.string.about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
+                StringUtils.insertSpace(getString(R.string.about_version_status), ZHTools.getVersionStatus(requireContext())))
+            appInfo.setOnClickListener{ StringUtils.copyText("text", appInfo.text.toString(), requireContext()) }
 
-        binding.returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-        binding.githubButton.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
-        binding.licenseButton.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
-        binding.supportDevelopment.setOnClickListener {
-            TipDialog.Builder(requireActivity())
-                .setTitle(R.string.request_sponsorship_title)
-                .setMessage(R.string.request_sponsorship_message)
-                .setConfirm(R.string.about_button_support_development)
-                .setConfirmClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
-                .buildDialog()
-        }
+            returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+            githubButton.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
+            licenseButton.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
+            supportDevelopment.setOnClickListener {
+                TipDialog.Builder(requireActivity())
+                    .setTitle(R.string.request_sponsorship_title)
+                    .setMessage(R.string.request_sponsorship_message)
+                    .setConfirm(R.string.about_button_support_development)
+                    .setConfirmClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
+                    .buildDialog()
+            }
 
-        val aboutAdapter = AboutRecyclerAdapter(this.mAboutData)
-        binding.aboutRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = aboutAdapter
+            val aboutAdapter = AboutRecyclerAdapter(this@AboutFragment.mAboutData)
+            aboutRecycler.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = aboutAdapter
+            }
+            sponsorAll.setOnClickListener { _ ->
+                mSponsorAdapter?.let {
+                    it.updateItems(getSponsorData())
+                    sponsorAll.visibility = View.GONE
+                }
+            }
         }
     }
 
@@ -167,13 +176,14 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
 
     private fun setSponsorVisible(visible: Boolean) {
         TaskExecutors.runInUIThread {
+            mSponsorAdapter = SponsorRecyclerAdapter(getSponsorData()?.take(8))
             try {
                 binding.sponsorLayout.visibility = if (visible) View.VISIBLE else View.GONE
 
                 if (visible) {
                     binding.sponsorRecycler.apply {
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = SponsorRecyclerAdapter(getSponsorData())
+                        adapter = mSponsorAdapter
                     }
                 }
             } catch (e: Exception) {
