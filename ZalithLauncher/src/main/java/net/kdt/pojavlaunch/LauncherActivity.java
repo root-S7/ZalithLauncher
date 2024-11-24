@@ -191,7 +191,10 @@ public class LauncherActivity extends BaseActivity {
                 if (!AllSettings.getLocalAccountReminders()) {
                     launchGame(version);
                 } else {
-                    LocalAccountUtils.openDialog(LauncherActivity.this, () -> launchGame(version),
+                    LocalAccountUtils.openDialog(LauncherActivity.this, checked -> {
+                                LocalAccountUtils.saveReminders(checked);
+                                launchGame(version);
+                            },
                             getString(R.string.account_no_microsoft_account) + getString(R.string.account_purchase_minecraft_account_tip),
                             R.string.account_continue_to_launch_the_game);
                 }
@@ -575,7 +578,7 @@ public class LauncherActivity extends BaseActivity {
         new TipDialog.Builder(this)
                 .setTitle(R.string.notification_permission_dialog_title)
                 .setMessage(R.string.notification_permission_dialog_text)
-                .setConfirmClickListener(() -> askForNotificationPermission(null))
+                .setConfirmClickListener(checked -> askForNotificationPermission(null))
                 .setCancelClickListener(this::handleNoNotificationPermission)
                 .buildDialog();
     }

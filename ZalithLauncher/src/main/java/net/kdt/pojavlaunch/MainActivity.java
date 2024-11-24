@@ -401,7 +401,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     public static void dialogForceClose(Context ctx) {
         new TipDialog.Builder(ctx)
                 .setMessage(R.string.force_exit_confirm)
-                .setConfirmClickListener(() -> {
+                .setConfirmClickListener(checked -> {
                     try {
                         ZHTools.killProcess();
                     } catch (Throwable th) {

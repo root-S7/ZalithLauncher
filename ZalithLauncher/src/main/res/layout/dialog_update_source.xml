@@ -29,6 +29,7 @@
             android:id="@+id/github_release"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:layout_weight="1"
             android:text="Github Release"
             android:textAllCaps="false"
@@ -38,7 +39,7 @@
             android:id="@+id/ghproxy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_2sdp"
             android:layout_weight="1"
             android:textAllCaps="false"
             android:text="@string/update_update_source_ghproxy" />

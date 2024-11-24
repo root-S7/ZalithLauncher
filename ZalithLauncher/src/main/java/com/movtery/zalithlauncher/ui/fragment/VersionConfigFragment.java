@@ -181,7 +181,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private void resetIcon() {
         new TipDialog.Builder(requireActivity())
                 .setMessage(R.string.pedit_reset_icon)
-                .setConfirmClickListener(() -> {
+                .setConfirmClickListener(checked -> {
                     mVersionIconUtils.resetIcon();
                     refreshIcon(false);
                 }).buildDialog();

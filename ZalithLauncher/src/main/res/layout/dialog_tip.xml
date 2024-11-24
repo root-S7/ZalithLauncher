@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:minWidth="@dimen/_450sdp"
     android:orientation="vertical"
     android:padding="@dimen/_8sdp">
@@ -29,31 +30,33 @@
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_view" />
+        app:layout_constraintTop_toBottomOf="@+id/title_view"
+        tools:text="test some message"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/more_view"
-        android:layout_width="0dp"
+    <CheckBox
+        android:id="@+id/check_box"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message_view" />
+        android:layout_marginTop="@dimen/_4sdp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/message_view"
+        tools:text="test some message"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/more_view">
+        app:layout_constraintTop_toBottomOf="@id/check_box">
 
         <com.movtery.zalithlauncher.ui.view.AnimButton
             android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:layout_weight="1"
             android:text="@android:string/cancel" />
 
@@ -61,6 +64,7 @@
             android:id="@+id/confirm_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
             android:layout_weight="1"
             android:text="@string/generic_confirm" />
 

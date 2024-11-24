@@ -77,6 +77,7 @@
             android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:layout_weight="1"
             android:text="@android:string/cancel" />
 
@@ -84,7 +85,7 @@
             android:id="@+id/ignore_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_2sdp"
             android:layout_weight="1"
             android:text="@string/update_dialog_ignore" />
 
@@ -92,7 +93,7 @@
             android:id="@+id/update_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_2sdp"
             android:layout_weight="1"
             android:text="@string/update_dialog_yes" />
 

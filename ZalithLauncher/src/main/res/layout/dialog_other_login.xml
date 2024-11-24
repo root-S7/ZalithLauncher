@@ -80,6 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:text="@android:string/cancel" />
 
         <com.movtery.zalithlauncher.ui.view.AnimButton
@@ -87,6 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="@dimen/_2sdp"
             android:text="@string/generic_login" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

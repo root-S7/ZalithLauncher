@@ -343,7 +343,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 .setTitle(R.string.generic_error)
                 .setMessage(msg.toString())
                 .setCenterMessage(false)
-                .setConfirmClickListener(this::finish)
+                .setConfirmClickListener(checked -> finish())
                 .setCancelable(false)
                 .buildDialog());
     }

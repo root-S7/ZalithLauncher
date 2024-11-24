@@ -22,6 +22,7 @@ import com.movtery.zalithlauncher.event.value.LocalLoginEvent
 import com.movtery.zalithlauncher.event.value.OtherLoginEvent
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
+import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils.CheckResultListener
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils.Companion.checkUsageAllowed
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils.Companion.openDialog
@@ -156,7 +157,10 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                             } else {
                                 openDialog(
                                     context,
-                                    TipDialog.OnConfirmClickListener { login() },
+                                    TipDialog.OnConfirmClickListener { checked ->
+                                        LocalAccountUtils.saveReminders(checked)
+                                        login()
+                                    },
                                     getString(message) + getString(
                                         R.string.account_purchase_minecraft_account_tip
                                     ),

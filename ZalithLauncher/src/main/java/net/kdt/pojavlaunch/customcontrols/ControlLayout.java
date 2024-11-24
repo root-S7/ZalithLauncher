@@ -559,7 +559,7 @@ public class ControlLayout extends FrameLayout {
 		new TipDialog.Builder(getContext())
 				.setTitle(R.string.customctrl_editor_exit_title)
 				.setMessage(R.string.customctrl_editor_exit_msg)
-				.setConfirmClickListener(exitListener::exitEditor)
+				.setConfirmClickListener(checked -> exitListener.exitEditor())
 				.buildDialog();
 	}
 
