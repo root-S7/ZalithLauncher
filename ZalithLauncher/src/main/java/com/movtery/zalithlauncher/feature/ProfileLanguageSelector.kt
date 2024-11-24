@@ -1,17 +1,13 @@
 package com.movtery.zalithlauncher.feature
 
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.MCVersionRegex
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.JMinecraftVersionList
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.utils.MCOptionUtils
 import org.jackhuang.hmcl.util.versioning.VersionNumber
 import org.jackhuang.hmcl.util.versioning.VersionRange
-import java.io.File
 
 class ProfileLanguageSelector {
     companion object {
@@ -28,22 +24,12 @@ class ProfileLanguageSelector {
         private fun getLanguage(minecraftVersion: Version, rawLang: String): String {
             val lang = if (rawLang == "system") ZHTools.getSystemLanguage() else rawLang
 
-            val version: String = runCatching {
-                val versionObject = Tools.GLOBAL_GSON.fromJson(
-                    Tools.read(File(minecraftVersion.getVersionPath(), "${minecraftVersion.getVersionName()}.json")),
-                    JMinecraftVersionList.Version::class.java
-                )
-                versionObject.id
-            }.getOrElse { e ->
-                Logging.e("ProfileLanguageSelector", "Failed to read version data : \n ${Tools.printToString(e)}")
-                "1.11"
-            }
+            val version: String = minecraftVersion.getVersionInfo()?.minecraftVersion ?: "1.11"
 
             val versionId = VersionNumber.asVersion(version).canonical
             Logging.i("ProfileLanguageSelector", "Version Id : $versionId")
 
             return when {
-                versionId.contains('-') -> otherVersion(versionId, lang) // Mod加载器或者其他
                 versionId.contains('.') -> {
                     if (isOlderVersionRelease(versionId)) getOlderLanguage(lang) // 1.10 -
                     else lang
@@ -54,33 +40,6 @@ class ProfileLanguageSelector {
                 }
                 else -> lang
             }
-        }
-
-        private fun otherVersion(versionId: String, lang: String): String {
-            // 定义关键词，以及相应的版本名称处理逻辑
-            val suffixes = mapOf(
-                // "1.20.4-OptiFine_HD_U_I7_pre3"   -> "1.20.4"
-                "-OptiFine" to { id: String -> id.substringBefore('-') },
-                // "1.20.2-forge-48.1.0"            -> "1.20.2"
-                "-forge-" to { id: String -> id.substringBefore('-') },
-                // "1.7.10-Forge10.13.4.1614-1.7.10"-> "1.7.10"
-                "-Forge" to { id: String -> id.substringBefore('-') },
-                // "neoforge-21.1.8"                -> "1.21.1"
-                "neoforge-" to { id: String -> NeoForgeUtils.formatGameVersion(id.removePrefix("neoforge-")) },
-                // "fabric-loader-0.15.7-1.20.4"    -> "1.20.4"
-                "fabric-loader-" to { id: String -> id.substringAfterLast('-') },
-                // "quilt-loader-0.23.1-1.20.4"     -> "1.20.4"
-                "quilt-loader-" to { id: String -> id.substringAfterLast('-') }
-            )
-
-            val versionName = suffixes.entries
-                .firstOrNull { versionId.contains(it.key, true) }
-                ?.value?.invoke(versionId)
-                ?: versionId //其他情况，命名规则千变万化，故不做检测
-
-            Logging.i("ProfileLanguageSelector", "Version Name: $versionName")
-
-            return if (isOlderVersionRelease(versionName)) getOlderLanguage(lang) else lang
         }
 
         private fun isOlderVersionRelease(versionName: String): Boolean {
