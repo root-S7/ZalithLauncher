@@ -35,6 +35,7 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -118,6 +119,9 @@ public final class ZHTools {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
         if (AllSettings.getAnimation()) {
             transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
+            if (fragment instanceof FragmentWithAnim) {
+                ((FragmentWithAnim) fragment).slideOut();
+            }
         }
         return transaction.setReorderingAllowed(true);
     }
