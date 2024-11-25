@@ -229,7 +229,7 @@
     <string name="version_manager_edit">编辑版本</string>
     <string name="version_manager_rename">重命名版本</string>
     <string name="version_manager_copy">复制版本</string>
-    <string name="version_manager_copy_tip">将当前版本复制为一个新的版本，且默认开启版本隔离，若开启下方的“复制所有文件”，那么将同时复制当前版本产生的所有文件（资源版、存档、游戏设置等）。</string>
+    <string name="version_manager_copy_tip">将当前版本复制为一个新的版本，且默认开启版本隔离，若开启下方的“复制所有文件”，那么将同时复制当前版本产生的所有文件（资源包、存档、游戏设置等）。</string>
     <string name="version_manager_copy_all">复制所有文件</string>
     <string name="version_manager_delete">删除版本</string>
     <string name="version_manager_delete_tip">如果开启了版本隔离，那么会在删除时会连带着你的游戏存档、资源包、Mod 等重要资源一并删除，请一定要做好备份后再进行此操作！</string>

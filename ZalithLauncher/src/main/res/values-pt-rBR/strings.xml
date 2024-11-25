@@ -219,8 +219,8 @@
     <string name="version_manager_edit">Editar versão</string>
     <string name="version_manager_rename">Renomear versão</string>
     <string name="version_manager_copy">Copiar versão</string>
-    <string name="version_manager_copy_tip">Copie a versão atual como uma nova versão com o isolamento de versão ativado por padrão. Se "Copiar Todos os Arquivos" abaixo estiver ativado, todos os arquivos gerados pela versão atual (recursos, salvamentos, configurações do jogo, etc.) também serão copiados.</string>
-    <string name="version_manager_copy_all">Copiar Todos os Arquivos</string>
+    <string name="version_manager_copy_tip">Copiar a versão atual como uma nova, com isolamento de versão ativado por padrão. Se "Copiar todos os arquivos" abaixo estiver ativado, todos os arquivos gerados pela versão atual (pacotes de recursos, arquivos salvos, configurações do jogo, etc.) também serão copiados.</string>
+    <string name="version_manager_copy_all">Copiar todos os arquivos</string>
     <string name="version_manager_delete">Excluir versão</string>
     <string name="version_manager_delete_tip">Se o isolamento de versões estiver ativado, seus jogos salvos, pacotes de recursos e mods serão excluídos junto com a versão. Certifique-se de fazer um backup antes de realizar esta operação!</string>
     <string name="version_manager_delete_tip_invalid">A versão atual está faltando o arquivo JSON da versão e, portanto, é considerada uma versão inválida. Você não pode selecionar esta versão. Clique em Confirmar para excluir esta versão errônea.</string>

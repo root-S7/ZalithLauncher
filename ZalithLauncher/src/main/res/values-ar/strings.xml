@@ -219,7 +219,7 @@
     <string name="version_manager_edit">تحرير الإصدار</string>
     <string name="version_manager_rename">إعادة تسمية الإصدار</string>
     <string name="version_manager_copy">نسخ النسخة</string>
-    <string name="version_manager_copy_tip">نسخ النسخة الحالية كنسخة جديدة مع تمكين العزل الافتراضي للنسخة. إذا تم تمكين "نسخ جميع الملفات" أدناه، فسيتم نسخ جميع الملفات التي تم إنشاؤها بواسطة النسخة الحالية (الموارد، الحفظ، إعدادات اللعبة، إلخ).</string>
+    <string name="version_manager_copy_tip">نسخ الإصدار الحالي كإصدار جديد مع تفعيل عزل الإصدارات بشكل افتراضي. إذا تم تفعيل "نسخ جميع الملفات" في الأسفل، فسيتم نسخ جميع الملفات التي تم إنشاؤها بواسطة الإصدار الحالي (حزم الموارد، الملفات المحفوظة، إعدادات اللعبة، إلخ.) أيضًا.</string>
     <string name="version_manager_copy_all">نسخ جميع الملفات</string>
     <string name="version_manager_delete">حذف الإصدار</string>
     <string name="version_manager_delete_tip">إذا تم تمكين العزل بين الإصدارات، سيتم حذف بياناتك المهمة مثل سجلات اللعبة وحزم الموارد وMod وما إلى ذلك. تأكد من أخذ نسخة احتياطية قبل القيام بهذا الإجراء!</string>
