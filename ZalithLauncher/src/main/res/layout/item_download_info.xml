@@ -20,6 +20,7 @@
         tools:src="@mipmap/ic_launcher_foreground" />
 
     <LinearLayout
+        android:id="@+id/platform_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/background_mod_category"
@@ -56,7 +57,7 @@
         android:textColor="@color/primary_text"
         android:textSize="11sp"
         android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@+id/platform_imageview"
+        app:layout_constraintEnd_toStartOf="@+id/platform_layout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/thumbnail_imageview"
         app:layout_constraintTop_toTopOf="parent"
