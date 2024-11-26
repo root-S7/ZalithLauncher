@@ -525,7 +525,7 @@
     <string name="download_install_unpack_world_error">Impossible de reconnaître la structure du fichier, l\'extraction automatique a échoué, veuillez traiter le fichier manuellement !</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Veuillez sélectionner un fichier de pack compatible avec l\'importation du lanceur !</string>
-    <string name="select_modpack_local_not_supported">Ce fichier n\'est pas pris en charge par le lanceur !</string>
+    <string name="select_modpack_local_not_supported">Ce modpack n\'est pas pris en charge par le lanceur! Le lanceur ne supporte que l\'importation de modpacks au format Modrinth, CurseForge et MCBBS. Veuillez vérifier si votre modpack est créé selon les formats spécifiés!</string>
     <string name="select_modpack_local_installing_files">Installation des fichiers du jeu… (%d / %d)</string>
     <string name="modpack_download_downloading_metadata">Téléchargement des métadonnées du modpack (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Téléchargement des mods (%.2fMB / %.2fMB)</string>

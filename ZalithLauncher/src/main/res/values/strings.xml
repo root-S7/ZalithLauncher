@@ -531,7 +531,7 @@
     <string name="download_install_unpack_world_error">Unable to recognize file structure, automatic unpacking failed, please handle the file manually!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Please select a modpack file that the launcher supports importing!</string>
-    <string name="select_modpack_local_not_supported">This file is not supported by the launcher!</string>
+    <string name="select_modpack_local_not_supported">This modpack is not supported by the launcher! The launcher only supports importing modpacks in Modrinth, CurseForge, and MCBBS formats. Please check if your modpack is made according to the specified formats!</string>
     <string name="select_modpack_local_installing_files">Installing game files… (%d / %d)</string>
     <string name="modpack_download_downloading_metadata">Downloading modpack metadata (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Downloading mods (%.2fMB / %.2fMB)</string>

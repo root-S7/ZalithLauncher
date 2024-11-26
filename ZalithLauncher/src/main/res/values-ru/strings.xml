@@ -525,7 +525,7 @@
     <string name="download_install_unpack_world_error">Не удалось распознать структуру файла, автоматическая распаковка не удалась, пожалуйста, обработайте файл вручную!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Пожалуйста, выберите файл модпака, который поддерживается лаунчером для импорта!</string>
-    <string name="select_modpack_local_not_supported">Этот файл не поддерживается лаунчером!</string>
+    <string name="select_modpack_local_not_supported">Этот модпак не поддерживается лаунчером! Лаунчер поддерживает только импорт модпаков в формате Modrinth, CurseForge и MCBBS. Пожалуйста, проверьте, соответствует ли ваш модпак указанным форматам!</string>
     <string name="select_modpack_local_installing_files">Установка игровых файлов… (%d / %d)</string>
     <string name="modpack_download_downloading_metadata">Загрузка метаданных модпака (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Загрузка модов (%.2fMB / %.2fMB)</string>

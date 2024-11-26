@@ -216,10 +216,10 @@
     <string name="version_install_no_versions">没有可供选择的版本！</string>
     <string name="version_install_cannot_use_mc_name">已选择附加内容，需要确保原版核心的独立性，请勿使用原版名称！</string>
     <string name="version_install_type_version">作为版本下载并安装</string>
-    <string name="version_install_type_mod">作为 Mod 下载并安装</string>
+    <string name="version_install_type_mod">作为模组下载并安装</string>
     <string name="version_install_optifine_and_forge">OptiFine 的一些版本在 Forge 上可能无法运行，如果出现崩溃或兼容性问题，请优先考虑删除 OptiFine！</string>
     <string name="version_manager_shortcuts">快捷功能</string>
-    <string name="version_manager_shortcuts_mods">Mod 管理</string>
+    <string name="version_manager_shortcuts_mods">模组管理</string>
     <string name="version_manager_shortcuts_version_path">游戏路径文件夹</string>
     <string name="version_manager_shortcuts_resource_path">资源包文件夹</string>
     <string name="version_manager_shortcuts_world_path">游戏存档文件夹</string>
@@ -232,7 +232,7 @@
     <string name="version_manager_copy_tip">将当前版本复制为一个新的版本，且默认开启版本隔离，若开启下方的“复制所有文件”，那么将同时复制当前版本产生的所有文件（资源包、存档、游戏设置等）。</string>
     <string name="version_manager_copy_all">复制所有文件</string>
     <string name="version_manager_delete">删除版本</string>
-    <string name="version_manager_delete_tip">如果开启了版本隔离，那么会在删除时会连带着你的游戏存档、资源包、Mod 等重要资源一并删除，请一定要做好备份后再进行此操作！</string>
+    <string name="version_manager_delete_tip">如果开启了版本隔离，那么会在删除时会连带着你的游戏存档、资源包、模组等重要资源一并删除，请一定要做好备份后再进行此操作！</string>
     <string name="version_manager_delete_tip_invalid">当前版本缺少版本 JSON 文件，所以被判定为无效的版本，因此你不能选择这个版本！点击确认，删除这个错误的版本。</string>
     <string name="version_manager_task_in_progress">任务执行中，暂时无法使用版本管理功能</string>
     <string name="version_manager_invalid">该版本无效</string>
@@ -256,10 +256,10 @@
     <string name="pedit_control">控制布局</string>
     <string name="pedit_default">（使用全局默认值）</string>
 
-    <string name="profile_mods_download_mod">下载 Mod</string>
+    <string name="profile_mods_download_mod">下载模组</string>
     <string name="profile_mods_download_mod_release_version">仅展示 Minecraft 正式版本</string>
-    <string name="profile_mods_add_mod">添加 Mod</string>
-    <string name="profile_mods_added_mod">成功添加 Mod</string>
+    <string name="profile_mods_add_mod">添加模组</string>
+    <string name="profile_mods_added_mod">成功添加模组</string>
     <string name="profile_mods_disable">禁用</string>
     <string name="profile_mods_enable">启用</string>
     <string name="profile_mods_disable_or_enable">禁用/启用</string>
@@ -273,7 +273,7 @@
     <string name="account_microsoft_xerr_unauthorized">你的微软账号登录信息貌似已经过期，这种情况常出现在账户密码被修改之后，请移除当前帐号并重新登录你的账号，以重置的你的登录信息。</string>
     <string name="account_local_account">离线账号</string>
     <string name="account_local_account_empty">用户名不能为空！</string>
-    <string name="account_local_account_invalid">正常的用户名称仅支持英文字母（大小写均可）、数字以及下划线作为用户名，长度不允许少于 3 字符，超过 16 字符\n正确的用户名举例：Name、Name_、Name123\n错误的用户名举例：Name@、N ame、name_name_name_name\n但如果你使用了相关 Mod 或者插件能够解除这一机制，那么你可以继续使用这个名字，否则请重新命名！</string>
+    <string name="account_local_account_invalid">正常的用户名称仅支持英文字母（大小写均可）、数字以及下划线作为用户名，长度不允许少于 3 字符，超过 16 字符\n正确的用户名举例：Name、Name_、Name123\n错误的用户名举例：Name@、N ame、name_name_name_name\n但如果你使用了相关模组或者插件能够解除这一机制，那么你可以继续使用这个名字，否则请重新命名！</string>
     <string name="account_login_local_name">用户名</string>
     <string name="account_login_start">开始登录！</string>
     <string name="account_no_microsoft_account">请至少登录一个 Minecraft 正版账号，我们不提倡用户在没有正版账号的情况下启动 Minecraft。</string>
@@ -515,7 +515,7 @@
     <string name="game_tip_mc_info">Minecraft 信息:</string>
 
     <!-- Download -->
-    <string name="download_classify_mod">下载 Mod</string>
+    <string name="download_classify_mod">下载模组</string>
     <string name="download_classify_modpack">下载整合包</string>
     <string name="download_classify_resource_pack">下载资源包</string>
     <string name="download_classify_world">下载世界</string>
@@ -526,7 +526,7 @@
     <string name="download_ui_platform">搜索平台</string>
     <string name="download_ui_sort_by">排序方式</string>
     <string name="download_ui_category">类别筛选</string>
-    <string name="download_ui_modloader">Mod 加载器</string>
+    <string name="download_ui_modloader">模组加载器</string>
     <string name="download_ui_sort_by_relevant">相关性</string>
     <string name="download_ui_sort_by_total_downloads">总下载量</string>
     <string name="download_ui_sort_by_popularity">人气</string>
@@ -544,8 +544,8 @@
     <string name="download_search_platform_not_supported">当前平台不支持下载这类资源，或不支持此类别筛选！</string>
     <string name="download_install_custom_name">自定义文件名称</string>
     <string name="download_install_download_file">正在下载资源文件（%.2fMB / %.2fMB）</string>
-    <string name="download_install_dependencies">%s 有以下的依赖 Mod</string>
-    <string name="download_install_dependencies_tip">请根据需求下载对应的依赖 Mod，缺少必要的依赖 Mod 将导致游戏无法运行！</string>
+    <string name="download_install_dependencies">%s 有以下的依赖模组</string>
+    <string name="download_install_dependencies_tip">请根据需求下载对应的依赖模组，缺少必要的依赖模组将导致游戏无法运行！</string>
     <string name="download_install_dependencies_required">需装</string>
     <string name="download_install_dependencies_optional">可选</string>
     <string name="download_install_dependencies_incompatible">不兼容</string>
@@ -557,7 +557,7 @@
 
     <!-- ModPack -->
     <string name="select_modpack_local_tip">请选择一个启动器支持导入的整合包文件！</string>
-    <string name="select_modpack_local_not_supported">此文件不受启动器支持！</string>
+    <string name="select_modpack_local_not_supported">此整合包不受启动器支持！启动器仅支持导入 Modrinth、CurseForge、MCBBS 格式的整合包，请检查你的整合包是否按照规定的格式制作！</string>
     <string name="select_modpack_local_installing_files">安装游戏文件中… (%d / %d)</string>
 
     <string name="modpack_download_downloading_metadata">正在下载整合包元数据（%.2fMB / %.2fMB）</string>
@@ -631,7 +631,7 @@
     <string name="about_button_support_development">赞助开发</string>
     <string name="about_MovTery_desc">启动器的主要作者</string>
     <string name="about_PojavLauncher_desc">PojavLauncher 的开发团队，开发并开源了 PojavLauncher</string>
-    <string name="about_mcmod_desc">启动器使用了来自 MC 百科的 Mod 以及整合包中文翻译</string>
+    <string name="about_mcmod_desc">启动器使用了来自 MC 百科的模组以及整合包中文翻译</string>
     <string name="about_VeraFirefly_desc">为启动器提供渲染方面的技术支持</string>
     <string name="about_LingMuQiuZhu_desc">为启动器提供了技术支持</string>
     <string name="about_ShirosakiMio_desc">为启动器提供了技术支持，修复了一些漏洞</string>
@@ -658,9 +658,9 @@
     <string name="newbie_guide_file_import">点击可进入 Android 的文件管理器，选择你想要导入的文件，即可导入进入启动器！</string>
     <string name="newbie_guide_file_create_folder">点击此按钮，可以在当前所在的目录内新建一个文件夹。</string>
     <string name="newbie_guide_file_select">点击以确认选择为此目录。</string>
-    <string name="newbie_guide_mod_search">点击可召唤搜索框，使用它可以快速搜寻到你想要寻找的 Mod。</string>
-    <string name="newbie_guide_mod_import">在原生的文件管理器内选择一个 Mod 文件，可将其导入当前 Mod 文件夹。</string>
-    <string name="newbie_guide_mod_download">点击可以进入 Mod 下载页面，你可以在那里在线搜索与下载 Mod。</string>
+    <string name="newbie_guide_mod_search">点击可召唤搜索框，使用它可以快速搜寻到你想要寻找的模组。</string>
+    <string name="newbie_guide_mod_import">在原生的文件管理器内选择一个模组文件，可将其导入当前模组文件夹。</string>
+    <string name="newbie_guide_mod_download">点击可以进入模组下载页面，你可以在那里在线搜索与下载模组。</string>
 
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">支持我的开发</string>

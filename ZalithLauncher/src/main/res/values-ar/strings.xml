@@ -525,7 +525,7 @@
     <string name="download_install_unpack_world_error">تعذر التعرف على هيكل الملف، فشل فك الضغط التلقائي، يرجى معالجة الملف يدويًا!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">الرجاء تحديد ملف حزمة يدعمه المشغل للاستيراد!</string>
-    <string name="select_modpack_local_not_supported">هذا الملف غير مدعوم من قبل المشغل!</string>
+    <string name="select_modpack_local_not_supported">!هذه الحزمة غير مدعومة من قبل المشغل! المشغل يدعم فقط استيراد الحزمات في تنسيقات Modrinth, CurseForge, وMCBBS. يرجى التحقق من أن حزمة التعديلات الخاصة بك تمت طبقا للتنسيقات المحددة!</string>
     <string name="select_modpack_local_installing_files">جاري تثبيت ملفات اللعبة… (%d / %d)</string>
     <string name="modpack_download_downloading_metadata">جاري تنزيل بيانات حزمة الوحدات (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">جاري تنزيل الوحدات (%.2fMB / %.2fMB)</string>

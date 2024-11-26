@@ -525,7 +525,7 @@
     <string name="download_install_unpack_world_error">Không thể nhận dạng cấu trúc tệp, giải nén tự động thất bại, vui lòng xử lý tệp thủ công!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Vui lòng chọn một tệp gói tích hợp được hỗ trợ bởi trình khởi chạy!</string>
-    <string name="select_modpack_local_not_supported">Tệp này không được hỗ trợ bởi trình khởi chạy!</string>
+    <string name="select_modpack_local_not_supported">Gói mod này không được hỗ trợ bởi trình khởi chạy! Trình khởi chạy chỉ hỗ trợ nhập gói mod ở định dạng Modrinth, CurseForge và MCBBS. Vui lòng kiểm tra xem gói mod của bạn có tuân thủ định dạng quy định không!</string>
     <string name="select_modpack_local_installing_files">Đang cài đặt tệp trò chơi… (%d / %d)</string>
     <string name="modpack_download_downloading_metadata">Đang tải siêu dữ liệu gói tích hợp (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Đang tải mod (%.2fMB / %.2fMB)</string>

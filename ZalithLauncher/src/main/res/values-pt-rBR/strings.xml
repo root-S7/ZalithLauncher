@@ -525,7 +525,7 @@
     <string name="download_install_unpack_world_error">Não foi possível reconhecer a estrutura do arquivo, falha ao descompactar automaticamente, por favor, manuseie o arquivo manualmente!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Por favor, selecione um arquivo de pacote compatível com o launcher para importação!</string>
-    <string name="select_modpack_local_not_supported">Este arquivo não é suportado pelo launcher!</string>
+    <string name="select_modpack_local_not_supported">Este modpack não é suportado pelo lançador! O lançador apenas suporta a importação de modpacks nos formatos Modrinth, CurseForge e MCBBS. Por favor, verifique se o seu modpack foi criado conforme os formatos especificados!</string>
     <string name="select_modpack_local_installing_files">Instalando arquivos do jogo… (%d / %d)</string>
     <string name="modpack_download_downloading_metadata">Baixando metadados do modpack (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Baixando mods (%.2fMB / %.2fMB)</string>

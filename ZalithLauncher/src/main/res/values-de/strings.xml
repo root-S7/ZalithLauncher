@@ -525,7 +525,7 @@
     <string name="download_install_unpack_world_error">Dateistruktur konnte nicht erkannt werden, automatisches Entpacken fehlgeschlagen, bitte bearbeiten Sie die Datei manuell!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Bitte wählen Sie eine Modpack-Datei aus, die der Launcher unterstützt!</string>
-    <string name="select_modpack_local_not_supported">Diese Datei wird vom Launcher nicht unterstützt!</string>
+    <string name="select_modpack_local_not_supported">Dieses Modpack wird nicht von dem Launcher unterstützt! Der Launcher nur Modpacks in Modrinth, CurseForge und MCBBS Format unterstützt. Bitte überprüfen Sie, ob Ihr Modpack gemäß der vorgeschriebenen Formatierung erstellt wurde!</string>
     <string name="select_modpack_local_installing_files">Installiere Spieldateien… (%d / %d)</string>
     <string name="modpack_download_downloading_metadata">Lade Modpack-Metadaten herunter (%.2fMB / %.2fMB)</string>
     <string name="modpack_download_downloading_mods">Lade Mods herunter (%.2fMB / %.2fMB)</string>
