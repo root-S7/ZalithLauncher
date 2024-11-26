@@ -347,7 +347,7 @@
     <string name="main_share_log_title">Выберите тип файла логов</string>
     <string name="main_share_launcher_log">Лог запуска программы</string>
     <string name="main_share_game_log">Лог последнего запуска игры</string>
-    <string name="main_play">Запустить игру</string>
+    <string name="main_launch">Запустить игру</string>
     <string name="setting_category_control">Настройки управления</string>
     <string name="setting_category_virtual_mouse">Виртуальная мышь</string>
     <string name="setting_category_gyro_controls">Гироскоп</string>

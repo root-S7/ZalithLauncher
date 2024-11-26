@@ -353,7 +353,7 @@
     <string name="main_share_log_title">Please select log file type</string>
     <string name="main_share_launcher_log">Launcher log file</string>
     <string name="main_share_game_log">Last game run log</string>
-    <string name="main_play">Start game</string>
+    <string name="main_launch">Launch Game</string>
     <string name="setting_category_control">Control settings</string>
     <string name="setting_category_virtual_mouse">Virtual mouse</string>
     <string name="setting_category_gyro_controls">Gyro controls</string>
