@@ -61,10 +61,11 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
             binding.timeView.setText(itemBean.getTime());
             binding.amountView.setText(String.format("￥%s", itemBean.getAmount()));
 
+            Drawable background = itemView.getBackground();
             if (itemBean.getAmount() >= 12.0f) {
-                Drawable background = itemView.getBackground();
                 background.setTint(ContextCompat.getColor(itemView.getContext(), R.color.background_sponsor_advanced));
-                itemView.setBackground(background);
+            } else {
+                background.setTintList(null);
             }
         }
     }
