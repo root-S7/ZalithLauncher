@@ -96,7 +96,10 @@ public final class ZHTools {
             @Nullable String fragmentTag,
             @Nullable Bundle bundle
     ) {
-        getTransaction(fragment, true)
+        if (fragment instanceof FragmentWithAnim) {
+            ((FragmentWithAnim) fragment).slideOut();
+        }
+        getFragmentTransaction(fragment)
                 .replace(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
                 .addToBackStack(fragmentClass.getName())
                 .commit();
@@ -108,20 +111,17 @@ public final class ZHTools {
             @Nullable String fragmentTag,
             @Nullable Bundle bundle
     ) {
-        getTransaction(fragment, false)
+        getFragmentTransaction(fragment)
                 .addToBackStack(fragmentClass.getName())
                 .add(R.id.container_fragment, fragmentClass, bundle, fragmentTag)
                 .hide(fragment)
                 .commit();
     }
 
-    private static FragmentTransaction getTransaction(Fragment fragment, boolean exitAnim) {
+    private static FragmentTransaction getFragmentTransaction(Fragment fragment) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
         if (AllSettings.getAnimation()) {
             transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
-            if (exitAnim && fragment instanceof FragmentWithAnim) {
-                ((FragmentWithAnim) fragment).slideOut();
-            }
         }
         return transaction.setReorderingAllowed(true);
     }

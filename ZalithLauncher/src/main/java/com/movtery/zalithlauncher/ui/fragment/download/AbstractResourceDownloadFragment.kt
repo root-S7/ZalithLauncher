@@ -18,6 +18,8 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentDownloadResourceBinding
 import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.IN
+import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.OUT
 import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
@@ -320,7 +322,13 @@ abstract class AbstractResourceDownloadFragment(
 
     @Subscribe
     fun event(event: DownloadPageSwapEvent) {
-        if (event.index == classify.type) slideIn()
+        if (event.index == classify.type) {
+            when (event.classify) {
+                IN -> slideIn()
+                OUT -> slideOut()
+                else -> {}
+            }
+        }
     }
 
     private inner class SearchApiTask(

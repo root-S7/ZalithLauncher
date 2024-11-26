@@ -110,7 +110,7 @@ class InfoAdapter(
                         infoViewModel.infoItem = item.copy()
                         infoViewModel.platformHelper = item.platform.helper.copy()
 
-                        ZHTools.addFragment(fragment, DownloadModFragment::class.java, DownloadModFragment.TAG, null)
+                        ZHTools.swapFragmentWithAnim(fragment, DownloadModFragment::class.java, DownloadModFragment.TAG, null)
                     }
                 }
 

@@ -13,6 +13,8 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentDownloadBinding
 import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.IN
+import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.OUT
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
 import com.movtery.zalithlauncher.ui.fragment.download.ModDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.ModPackDownloadFragment
@@ -56,7 +58,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     onFragmentSelect(position)
-                    EventBus.getDefault().post(DownloadPageSwapEvent(position))
+                    EventBus.getDefault().post(DownloadPageSwapEvent(position, IN))
                 }
             })
         }
@@ -77,11 +79,12 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(binding.classifyLayout, Animations.BounceInLeft))
+        animPlayer.apply(AnimPlayer.Entry(binding.classifyLayout, Animations.BounceInRight))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(binding.classifyLayout, Animations.FadeOutRight))
+        animPlayer.apply(AnimPlayer.Entry(binding.classifyLayout, Animations.FadeOutLeft))
+        EventBus.getDefault().post(DownloadPageSwapEvent(binding.classifyTab.currentItemIndex, OUT))
     }
 
     private class ViewPagerAdapter(private val fragment: Fragment): FragmentStateAdapter(fragment.requireActivity()) {
