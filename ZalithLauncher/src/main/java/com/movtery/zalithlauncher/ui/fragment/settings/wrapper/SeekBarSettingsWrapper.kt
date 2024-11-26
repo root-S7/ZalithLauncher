@@ -75,45 +75,42 @@ class SeekBarSettingsWrapper(
         })
 
         mainView.setOnClickListener {
-            val builder = EditTextDialog.Builder(context)
+            EditTextDialog.Builder(context)
                 .setEditText(seekbarView.progress.toString())
                 .setInputType(InputType.TYPE_CLASS_NUMBER)
                 .setTitle(titleView.text.toString())
                 .setMessage(summaryView.text.toString())
-            builder.setConfirmListener { editBox, _ ->
-                val string = editBox.text.toString()
+                .setAsRequired()
+                .setConfirmListener { editBox, _ ->
+                    val string = editBox.text.toString()
 
-                if (string.isEmpty()) {
-                    editBox.error = context.getString(R.string.generic_error_field_empty)
-                    return@setConfirmListener false
-                }
+                    val value: Int
+                    try {
+                        value = string.toInt()
+                    } catch (e: NumberFormatException) {
+                        e("Custom Seek Bar", e.toString())
 
-                val value: Int
-                try {
-                    value = string.toInt()
-                } catch (e: NumberFormatException) {
-                    e("Custom Seek Bar", e.toString())
+                        editBox.error = context.getString(R.string.generic_input_invalid)
+                        return@setConfirmListener false
+                    }
 
-                    editBox.error = context.getString(R.string.generic_input_invalid)
-                    return@setConfirmListener false
-                }
+                    if (value < seekbarView.min) {
+                        val minValue =
+                            String.format("%s %s", seekbarView.min, suffix)
+                        editBox.error =
+                            context.getString(R.string.generic_input_too_small, minValue)
+                        return@setConfirmListener false
+                    }
+                    if (value > seekbarView.max) {
+                        val maxValue =
+                            String.format("%s %s", seekbarView.max, suffix)
+                        editBox.error = context.getString(R.string.generic_input_too_big, maxValue)
+                        return@setConfirmListener false
+                    }
 
-                if (value < seekbarView.min) {
-                    val minValue =
-                        String.format("%s %s", seekbarView.min, suffix)
-                    editBox.error = context.getString(R.string.generic_input_too_small, minValue)
-                    return@setConfirmListener false
-                }
-                if (value > seekbarView.max) {
-                    val maxValue =
-                        String.format("%s %s", seekbarView.max, suffix)
-                    editBox.error = context.getString(R.string.generic_input_too_big, maxValue)
-                    return@setConfirmListener false
-                }
-
-                seekbarView.progress = value
-                true
-            }.buildDialog()
+                    seekbarView.progress = value
+                    true
+                }.buildDialog()
         }
     }
 

@@ -158,27 +158,23 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             }
 
             currentPath.setOnClickListener {
-                val builder = EditTextDialog.Builder(requireContext())
-                builder.setTitle(R.string.file_jump_to_path)
-                builder.setEditText(fileRecyclerView.fullPath.absolutePath)
-                builder.setConfirmListener { editBox, _ ->
-                    val path = editBox.text.toString()
-                    if (path.isEmpty()) {
-                        editBox.error = getString(R.string.generic_error_field_empty)
-                        return@setConfirmListener false
-                    }
+                EditTextDialog.Builder(requireContext())
+                    .setTitle(R.string.file_jump_to_path)
+                    .setEditText(fileRecyclerView.fullPath.absolutePath)
+                    .setAsRequired()
+                    .setConfirmListener { editBox, _ ->
+                        val path = editBox.text.toString()
 
-                    val file = File(path)
-                    //检查路径是否符合要求：最少为最顶部路径、路径是一个文件夹、这个路径存在
-                    if (!path.contains(mLockPath!!) || !file.isDirectory || !file.exists()) {
-                        editBox.error = getString(R.string.file_does_not_exist)
-                        return@setConfirmListener false
-                    }
+                        val file = File(path)
+                        //检查路径是否符合要求：最少为最顶部路径、路径是一个文件夹、这个路径存在
+                        if (!path.contains(mLockPath!!) || !file.isDirectory || !file.exists()) {
+                            editBox.error = getString(R.string.file_does_not_exist)
+                            return@setConfirmListener false
+                        }
 
-                    fileRecyclerView.listFileAt(file)
-                    true
-                }
-                builder.buildDialog()
+                        fileRecyclerView.listFileAt(file)
+                        true
+                    }.buildDialog()
             }
 
             externalStorage.setOnClickListener {

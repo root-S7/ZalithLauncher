@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.ui.dialog;
 
 import android.content.Context;
+import android.text.Editable;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -8,20 +9,27 @@ import android.widget.EditText;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.DialogEditTextBinding;
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt;
 
 public class EditTextDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
+    private final Context context;
     private final DialogEditTextBinding binding = DialogEditTextBinding.inflate(getLayoutInflater());
     private final String title, message, editText, hintText, checkBox, confirm;
     private final View.OnClickListener cancelListener;
     private final ConfirmListener confirmListener;
     private final boolean showCheckBox;
     private final int inputType;
+    private final boolean required;
 
     private EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText, String checkBox, String confirm,
                            boolean showCheckBox, int inputType,
-                           View.OnClickListener cancelListener, ConfirmListener confirmListener) {
+                           View.OnClickListener cancelListener, ConfirmListener confirmListener,
+                           boolean required) {
         super(context);
+
+        this.context = context;
 
         this.setCancelable(false);
         this.setContentView(binding.getRoot());
@@ -38,6 +46,9 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
 
         this.cancelListener = cancelListener;
         this.confirmListener = confirmListener;
+
+        this.required = required;
+
         init();
         DraggableDialog.initDialog(this);
     }
@@ -53,6 +64,8 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
 
         if (editText != null) binding.textEdit.setText(editText);
         if (hintText != null) binding.textEdit.setHint(hintText);
+        else if (required) binding.textEdit.setHint(R.string.generic_required);
+
         if (confirm != null) binding.confirmButton.setText(confirm);
 
         if (showCheckBox) {
@@ -63,6 +76,14 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
 
         if (this.confirmListener != null) {
             binding.confirmButton.setOnClickListener(v -> {
+                if (required) {
+                    Editable text = binding.textEdit.getText();
+                    boolean empty = text == null || StringUtilsKt.isEmptyOrBlank(text.toString());
+                    if (empty) {
+                        binding.textEdit.setError(context.getString(R.string.generic_error_field_empty));
+                        return;
+                    }
+                }
                 boolean dismissDialog = confirmListener.onConfirm(binding.textEdit, binding.checkBox.isChecked());
                 if (dismissDialog) this.dismiss();
             });
@@ -87,6 +108,7 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         private int inputType = -1;
         private View.OnClickListener cancelListener;
         private ConfirmListener confirmListener;
+        private boolean required = false;
 
         public Builder(Context context) {
             this.context = context;
@@ -121,14 +143,13 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
         }
 
         @CheckResult
-        public Builder setHintText(String hintText) {
-            this.hintText = hintText;
-            return this;
+        public Builder setHintText(int hintText) {
+            return setHintText(context.getString(hintText));
         }
 
         @CheckResult
-        public Builder setHintText(int hintText) {
-            this.hintText = context.getString(hintText);
+        public Builder setHintText(String hintText) {
+            this.hintText = hintText;
             return this;
         }
 
@@ -178,10 +199,21 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
             return this;
         }
 
+        /**
+         * 设置为必填，当用户点击确认时，将检查输入框的内容是否为空（包括空格检查）
+         * 如果是，那么拦截点击事件并告知用户
+         */
+        @CheckResult
+        public Builder setAsRequired() {
+            this.required = true;
+            return this;
+        }
+
         public void buildDialog() {
             new EditTextDialog(this.context, this.title, this.message, this.editText, this.hintText, this.checkBox, this.confirm,
                     showCheckBox, inputType,
-                    this.cancelListener, this.confirmListener).show();
+                    this.cancelListener, this.confirmListener,
+                    this.required).show();
         }
     }
 }

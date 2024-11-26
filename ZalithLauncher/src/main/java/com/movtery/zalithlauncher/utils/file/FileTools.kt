@@ -158,15 +158,11 @@ class FileTools {
             EditTextDialog.Builder(context)
                 .setTitle(R.string.generic_rename)
                 .setEditText(fileName)
+                .setAsRequired()
                 .setConfirmListener(ConfirmListener { editBox, _ ->
                     val newName = editBox.text.toString().replace("/", "")
                     if (fileName == newName) {
                         return@ConfirmListener true
-                    }
-
-                    if (newName.isEmpty()) {
-                        editBox.error = context.getString(R.string.file_rename_empty)
-                        return@ConfirmListener false
                     }
 
                     val newFile = File(fileParent, newName)

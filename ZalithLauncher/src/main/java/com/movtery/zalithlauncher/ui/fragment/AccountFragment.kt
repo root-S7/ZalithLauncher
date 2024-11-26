@@ -308,12 +308,8 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     private fun showServerTypeSelectDialog(stringId: Int, type: Int) {
         EditTextDialog.Builder(requireActivity())
             .setTitle(stringId)
+            .setAsRequired()
             .setConfirmListener { editText, _ ->
-                if (editText.text.toString().isEmpty()) {
-                    editText.error = getString(R.string.generic_error_field_empty)
-                    return@setConfirmListener false
-                }
-
                 addOtherServer(editText, type)
                 true
             }.buildDialog()

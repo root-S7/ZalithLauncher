@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp">
+        android:layout_marginHorizontal="@dimen/_4sdp">
 
         <TextView
             android:id="@+id/textView_file_name"
@@ -77,7 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp">
+        android:layout_marginHorizontal="@dimen/_4sdp">
 
         <TextView
             android:id="@+id/textView_version"
@@ -128,7 +128,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
         android:id="@+id/desc_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_4sdp"
         android:autofillHints="name"
         android:singleLine="false"
         android:background="@drawable/background_edit_box"
@@ -149,8 +149,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_4sdp"
-        android:layout_marginVertical="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 

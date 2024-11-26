@@ -49,6 +49,7 @@
             android:background="@drawable/background_edit_box"
             android:paddingHorizontal="@dimen/_8sdp"
             android:autofillHints="name"
+            android:hint="@string/generic_required"
             android:inputType="text"
             app:layout_constraintEnd_toStartOf="@id/isolation"
             app:layout_constraintStart_toEndOf="@id/name_title"

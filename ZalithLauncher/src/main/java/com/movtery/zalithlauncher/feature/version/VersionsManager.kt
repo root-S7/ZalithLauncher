@@ -192,16 +192,12 @@ object VersionsManager {
         EditTextDialog.Builder(context)
             .setTitle(R.string.version_manager_rename)
             .setEditText(version.getVersionName())
+            .setAsRequired()
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
 
                 //与原始名称一致
                 if (string == version.getVersionName()) return@setConfirmListener true
-
-                if (string.isEmpty() || string.isBlank()) {
-                    editText.error = context.getString(R.string.generic_error_field_empty)
-                    return@setConfirmListener false
-                }
 
                 if (isVersionExists(string, true)) {
                     editText.error = context.getString(R.string.version_install_exists)
@@ -265,15 +261,11 @@ object VersionsManager {
             .setCheckBoxText(R.string.version_manager_copy_all)
             .setShowCheckBox(true)
             .setEditText(version.getVersionName())
+            .setAsRequired()
             .setConfirmListener { editText, checked ->
                 val string = editText.text.toString()
                 //与原始名称一致
                 if (string == version.getVersionName()) return@setConfirmListener true
-
-                if (string.isEmpty() || string.isBlank()) {
-                    editText.error = context.getString(R.string.generic_error_field_empty)
-                    return@setConfirmListener false
-                }
 
                 if (isVersionExists(string, true)) {
                     editText.error = context.getString(R.string.version_install_exists)

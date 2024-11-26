@@ -56,12 +56,9 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 if (path.isNotEmpty() && !isAddedPath(path)) {
                     EditTextDialog.Builder(requireContext())
                         .setTitle(R.string.profiles_path_create_new_title)
+                        .setAsRequired()
                         .setConfirmListener { editBox, _ ->
                             val string = editBox.text.toString()
-                            if (string.isEmpty()) {
-                                editBox.error = getString(R.string.generic_error_field_empty)
-                                return@setConfirmListener false
-                            }
 
                             profilePathData.add(ProfileItem(UUID.randomUUID().toString(), string, path))
                             val nomediaFile = File(path, ".nomedia")

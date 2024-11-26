@@ -138,13 +138,9 @@ class ProfilePathAdapter(
                         EditTextDialog.Builder(context)
                             .setTitle(R.string.generic_rename)
                             .setEditText(profileItem.title)
+                            .setAsRequired()
                             .setConfirmListener { editBox, _ ->
                                 val string = editBox.text.toString()
-                                if (string.isEmpty()) {
-                                    editBox.error =
-                                        context.getString(R.string.generic_error_field_empty)
-                                    return@setConfirmListener false
-                                }
 
                                 mData[position].title = string
                                 refresh()
