@@ -100,6 +100,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             binding.getRoot().getBackground().setTint(infoItem.getDependencyType().getColor());
 
             binding.sourceImageview.setImageDrawable(getPlatformIcon(infoItem.getPlatform()));
+            binding.sourceTextview.setText(infoItem.getPlatform().getPName());
 
             String title;
             if (ZHTools.areaChecks("zh")) {
