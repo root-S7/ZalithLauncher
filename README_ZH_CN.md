@@ -4,6 +4,7 @@
 
 [![Android CI](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml)
 ![Downloads](https://img.shields.io/github/downloads/MovTery/ZalithLauncher/total)
+[![QQ](https://img.shields.io/badge/QQ-blue)](https://qm.qq.com/q/2MVxS0B29y)
 [![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
 
 - <a href="/README.md">English</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
