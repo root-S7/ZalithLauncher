@@ -681,12 +681,12 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             } else if (s == binding.hotbarWidth) {
                 Settings.Manager.put("hotbarWidth", progress).save();
 
-                binding.hotbarWidthValue.setText(String.valueOf(progress));
+                updateSeekbarValue(progress, binding.hotbarWidthValue, "px");
                 EventBus.getDefault().post(new HotbarChangeEvent(progress, binding.hotbarHeight.getProgress()));
             } else if (s == binding.hotbarHeight) {
                 Settings.Manager.put("hotbarHeight", progress).save();
 
-                binding.hotbarHeightValue.setText(String.valueOf(progress));
+                updateSeekbarValue(progress, binding.hotbarHeightValue, "px");
                 EventBus.getDefault().post(new HotbarChangeEvent(binding.hotbarWidth.getProgress(), progress));
             }
         }
