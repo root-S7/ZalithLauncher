@@ -201,6 +201,7 @@
     <string name="version_manager_title">Gestion des versions</string>
     <string name="version_no_versions">Aucune version installée</string>
     <string name="version_install_new">Installer une nouvelle version</string>
+    <string name="version_install_new_modloader">Installer %s pour la nouvelle version</string>
     <string name="version_install_not_install">Ne pas installer</string>
     <string name="version_install_incompatible">Incompatible avec %s</string>
     <string name="version_install_exists">Une version avec ce nom existe déjà !</string>

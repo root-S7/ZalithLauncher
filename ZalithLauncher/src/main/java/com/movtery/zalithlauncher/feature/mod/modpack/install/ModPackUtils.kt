@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.mod.modpack.install
 
 import android.app.Activity
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
@@ -85,13 +86,14 @@ class ModPackUtils {
         fun startModLoaderInstall(modLoader: ModLoaderWrapper, activity: Activity, modInstallFile: File, customName: String) {
             modLoader.getInstallationIntent(activity, modInstallFile, customName)?.let { installIntent ->
                 TaskExecutors.runInUIThread {
-                    val selectRuntimeDialog = SelectRuntimeDialog(activity)
-                    selectRuntimeDialog.setListener { jreName: String? ->
-                        installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                        selectRuntimeDialog.dismiss()
-                        activity.startActivity(installIntent)
-                    }
-                    selectRuntimeDialog.show()
+                    SelectRuntimeDialog(activity).apply {
+                        setListener { jreName: String? ->
+                            installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                            dismiss()
+                            activity.startActivity(installIntent)
+                        }
+                        setTitleText(activity.getString(R.string.version_install_new_modloader, modLoader.modLoader.loaderName))
+                    }.show()
                 }
             }
         }

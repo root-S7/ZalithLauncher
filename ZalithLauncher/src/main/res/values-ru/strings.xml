@@ -201,6 +201,7 @@
     <string name="version_manager_title">Управление версиями</string>
     <string name="version_no_versions">Нет установленных версий</string>
     <string name="version_install_new">Установить новую версию</string>
+    <string name="version_install_new_modloader">Установить %s для новой версии</string>
     <string name="version_install_not_install">Не устанавливать</string>
     <string name="version_install_incompatible">Не совместимо с %s</string>
     <string name="version_install_exists">Версия с таким именем уже существует!</string>

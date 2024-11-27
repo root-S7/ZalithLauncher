@@ -201,6 +201,7 @@
     <string name="version_manager_title">Quản lý Phiên bản</string>
     <string name="version_no_versions">Chưa cài đặt phiên bản nào</string>
     <string name="version_install_new">Cài đặt phiên bản mới</string>
+    <string name="version_install_new_modloader">Cài đặt %s cho phiên bản mới</string>
     <string name="version_install_not_install">Không cài đặt</string>
     <string name="version_install_incompatible">Không tương thích với %s</string>
     <string name="version_install_exists">Đã có phiên bản với tên này!</string>

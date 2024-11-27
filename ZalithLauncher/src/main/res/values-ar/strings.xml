@@ -201,6 +201,7 @@
     <string name="version_manager_title">إدارة الإصدارات</string>
     <string name="version_no_versions">لا توجد إصدارات مثبتة</string>
     <string name="version_install_new">تثبيت إصدار جديد</string>
+    <string name="version_install_new_modloader">قم بتنصيب %s للإصدار الجديد</string>
     <string name="version_install_not_install">لا تثبيت</string>
     <string name="version_install_incompatible">غير متوافق مع %s</string>
     <string name="version_install_exists">هناك نسخة بالفعل بهذا الاسم!</string>

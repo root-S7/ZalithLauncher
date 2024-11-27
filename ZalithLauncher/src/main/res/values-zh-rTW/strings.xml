@@ -201,6 +201,7 @@
     <string name="version_manager_title">版本管理</string>
     <string name="version_no_versions">沒有安裝版本</string>
     <string name="version_install_new">安裝新版本</string>
+    <string name="version_install_new_modloader">為新版本安裝 %s</string>
     <string name="version_install_not_install">不安裝</string>
     <string name="version_install_incompatible">與 %s 不相容</string>
     <string name="version_install_exists">此名稱的版本已存在！</string>
