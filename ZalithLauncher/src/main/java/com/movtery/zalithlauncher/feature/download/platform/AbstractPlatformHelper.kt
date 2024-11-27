@@ -19,10 +19,12 @@ import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
+import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.DownloadUtils
 import org.greenrobot.eventbus.EventBus
+import org.jackhuang.hmcl.ui.versions.ModTranslations
 import java.io.File
 
 abstract class AbstractPlatformHelper(val api: ApiHandler) {
@@ -56,7 +58,9 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
             when (infoItem.classify) {
                 Classify.ALL -> throw IllegalArgumentException("Cannot be the enum value ${Classify.ALL}")
                 Classify.MOD -> {
-                    customPath(context, version, getModsPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                    val mod = ModTranslations.getTranslationsByRepositoryType(infoItem.classify)
+                        .getModByCurseForgeId(infoItem.slug)
+                    customPath(context, version, getModsPath(), infoItem.title, translatedName = mod?.name, taskRunning = isTaskRunning, install = { targetPath ->
                         installMod(infoItem, version, targetPath)
                     })
                 }
@@ -111,17 +115,17 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                         }.buildDialog()
                 }
                 Classify.RESOURCE_PACK -> {
-                    customPath(context, version, getResourcePackPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                    customPath(context, version, getResourcePackPath(), infoItem.title, taskRunning = isTaskRunning, install = { targetPath ->
                         installResourcePack(infoItem, version, targetPath)
                     })
                 }
                 Classify.WORLD -> {
-                    customPath(context, version, getWorldPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                    customPath(context, version, getWorldPath(), infoItem.title, taskRunning = isTaskRunning, install = { targetPath ->
                         installWorld(infoItem, version, targetPath)
                     })
                 }
                 Classify.SHADER_PACK -> {
-                    customPath(context, version, getShaderPackPath(), taskRunning = isTaskRunning, install = { targetPath ->
+                    customPath(context, version, getShaderPackPath(), infoItem.title, taskRunning = isTaskRunning, install = { targetPath ->
                         installShaderPack(infoItem, version, targetPath)
                     })
                 }
@@ -131,12 +135,13 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
         }
     }
 
-    private fun customPath(context: Context, version: VersionItem, targetPath: File, taskRunning: () -> Boolean, install: (File) -> Unit) {
+    private fun customPath(context: Context, version: VersionItem, targetPath: File, name: String, translatedName: String? = null, taskRunning: () -> Boolean, install: (File) -> Unit) {
         val file = File(version.fileName)
+        val fileName = "[${if (ZHTools.areaChecks("zh") && translatedName?.isNotEmpty() == true) translatedName else name}] "
 
         EditTextDialog.Builder(context)
             .setTitle(R.string.download_install_custom_name)
-            .setEditText(file.nameWithoutExtension)
+            .setEditText("$fileName${file.nameWithoutExtension}")
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
                 if (string.contains("/")) {
