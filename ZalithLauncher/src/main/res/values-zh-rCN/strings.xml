@@ -53,11 +53,13 @@
     <string name="error_show_less">关闭详细信息</string>
 
     <!-- Launcher -->
+    <string name="option_category_debug">调试</string>
+    <string name="option_category_control">控制</string>
+    <string name="option_category_hotbar">快捷栏判定框</string>
     <string name="option_force_close">强制关闭</string>
     <string name="option_log_out">日志输出</string>
     <string name="option_send_custom_key">发送自定义键码</string>
     <string name="option_edit_controls">编辑控制布局</string>
-    <string name="option_hotbar">快捷栏判定框</string>
     <string name="option_hotbar_type">快捷栏判定模式</string>
     <string name="option_hotbar_type_auto">自适应 (可能不精准)</string>
     <string name="option_hotbar_type_manually">手动调整</string>
@@ -82,7 +84,6 @@
     <string name="notification_game_runs">游戏正在运行！</string>
     <string name="tasks_ongoing">任务正在执行中，请稍候</string>
     <string name="mc_download_failed">下载 Minecraft 失败！这可能是由于网络连接不良、文件放置错误等</string>
-    <string name="toast_turn_on_gyro">需要先启用陀螺仪控制才能使用！</string>
     <string name="microsoft_login_retry_later">你的操作过于频繁，请稍后再试</string>
     <string name="storage_required">Zalith Launcher 需要连接外部存储，请重新连接并重启软件</string>
     <string name="dialog_select_jar">选择 Jar 文件</string>
@@ -308,7 +309,6 @@
     <string name="multirt_delete_runtime">删除运行环境</string>
 
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">虚拟鼠标设置</string>
     <string name="mouse_settings_speed_name">虚拟鼠标速度</string>
     <string name="mouse_settings_scale_name">虚拟鼠标缩放</string>
     <string name="custom_mouse_add">添加虚拟鼠标</string>

@@ -82,8 +82,8 @@ class AllSettings {
             get() = Settings.Manager.getBoolean("enableGyro", false)
 
         @JvmStatic
-        val gyroSensitivity: Float
-            get() = Settings.Manager.getInt("gyroSensitivity", 100) / 100f
+        val gyroSensitivity: Int
+            get() = Settings.Manager.getInt("gyroSensitivity", 100)
 
         @JvmStatic
         val gyroSampleRate: Int

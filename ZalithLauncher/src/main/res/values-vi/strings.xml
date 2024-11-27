@@ -51,11 +51,13 @@
     <string name="error_show_more">Hiển thị chi tiết</string>
     <string name="error_show_less">Đóng chi tiết</string>
     <!-- Launcher -->
+    <string name="option_category_debug">Điều chỉnh</string>
+    <string name="option_category_control">Kiểm soát</string>
+    <string name="option_category_hotbar">Hộp kiểm tra thanh công cụ</string>
     <string name="option_force_close">Buộc đóng</string>
     <string name="option_log_out">Ghi log ra</string>
     <string name="option_send_custom_key">Gửi mã phím tùy chỉnh</string>
     <string name="option_edit_controls">Chỉnh sửa bố cục điều khiển</string>
-    <string name="option_hotbar">Hộp kiểm tra thanh công cụ</string>
     <string name="option_hotbar_type">Chế độ kiểm tra thanh công cụ</string>
     <string name="option_hotbar_type_auto">Tự động (có thể không chính xác)</string>
     <string name="option_hotbar_type_manually">Điều chỉnh thủ công</string>
@@ -80,7 +82,6 @@
     <string name="notification_game_runs">Trò chơi đang chạy!</string>
     <string name="tasks_ongoing">Nhiệm vụ đang được thực hiện, vui lòng chờ</string>
     <string name="mc_download_failed">Tải xuống Minecraft thất bại! Điều này có thể do kết nối mạng kém, đặt tệp sai vị trí, v.v.</string>
-    <string name="toast_turn_on_gyro">Cần bật điều khiển con quay hồi chuyển trước khi sử dụng!</string>
     <string name="microsoft_login_retry_later">Hoạt động của bạn quá nhiều, vui lòng thử lại sau</string>
     <string name="storage_required">Zalith Launcher yêu cầu kết nối bộ nhớ ngoài, vui lòng kết nối lại và khởi động lại phần mềm</string>
     <string name="dialog_select_jar">Chọn tệp Jar</string>
@@ -290,7 +291,6 @@
     <string name="multirt_nojava8rt">Không thể tìm thấy Java 8, để sử dụng tùy chọn này, bạn phải cài đặt Java 8</string>
     <string name="multirt_delete_runtime">Xóa môi trường thực thi</string>
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">Cài đặt chuột ảo</string>
     <string name="mouse_settings_speed_name">Tốc độ chuột ảo</string>
     <string name="mouse_settings_scale_name">Tỷ lệ chuột ảo</string>
     <string name="custom_mouse_add">Thêm chuột ảo</string>

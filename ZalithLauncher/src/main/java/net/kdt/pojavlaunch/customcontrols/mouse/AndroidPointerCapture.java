@@ -5,6 +5,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
+
 import net.kdt.pojavlaunch.MinecraftGLSurface;
 import net.kdt.pojavlaunch.Tools;
 
@@ -19,21 +21,14 @@ public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChan
     private final Scroller mScroller = new Scroller(TOUCHPAD_SCROLL_THRESHOLD);
     private final float[] mVector = mPointerTracker.getMotionVector();
 
-    private float mScaleFactor;
     private int mInputDeviceIdentifier;
     private boolean mDeviceSupportsRelativeAxis;
 
-    public AndroidPointerCapture(AbstractTouchpad touchpad, View hostView, float scaleFactor) {
-        this.mScaleFactor = scaleFactor;
+    public AndroidPointerCapture(AbstractTouchpad touchpad, View hostView) {
         this.mTouchpad = touchpad;
         this.mHostView = hostView;
         hostView.setOnCapturedPointerListener(this);
         hostView.getViewTreeObserver().addOnWindowFocusChangeListener(this);
-    }
-
-    public void refreshScaleFactor(float scaleFactor) {
-        this.mScaleFactor = scaleFactor;
-        this.mTouchpad.refreshScaleFactor(scaleFactor);
     }
 
     private void enableTouchpadIfNecessary() {
@@ -87,8 +82,8 @@ public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChan
             }
         } else {
             // Position is updated by many events, hence it is send regardless of the event value
-            CallbackBridge.mouseX += (mVector[0] * mScaleFactor);
-            CallbackBridge.mouseY += (mVector[1] * mScaleFactor);
+            CallbackBridge.mouseX += (mVector[0] * AllStaticSettings.scaleFactor);
+            CallbackBridge.mouseY += (mVector[1] * AllStaticSettings.scaleFactor);
             CallbackBridge.sendCursorPos(CallbackBridge.mouseX, CallbackBridge.mouseY);
         }
 

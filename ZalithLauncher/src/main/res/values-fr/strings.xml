@@ -51,11 +51,13 @@
     <string name="error_show_more">Afficher les détails</string>
     <string name="error_show_less">Masquer les détails</string>
     <!-- Launcher -->
+    <string name="option_category_debug">Débogage</string>
+    <string name="option_category_control">Contrôle</string>
+    <string name="option_category_hotbar">Boîte de détection du hotbar</string>
     <string name="option_force_close">Forcer la fermeture</string>
     <string name="option_log_out">Journaliser</string>
     <string name="option_send_custom_key">Envoyer une touche personnalisée</string>
     <string name="option_edit_controls">Modifier la disposition des contrôles</string>
-    <string name="option_hotbar">Boîte de détection du hotbar</string>
     <string name="option_hotbar_type">Mode de détection du hotbar</string>
     <string name="option_hotbar_type_auto">Adaptatif (peut être inexact)</string>
     <string name="option_hotbar_type_manually">Ajustement manuel</string>
@@ -80,7 +82,6 @@
     <string name="notification_game_runs">Le jeu est en cours d\'exécution !</string>
     <string name="tasks_ongoing">Tâches en cours d\'exécution, veuillez patienter</string>
     <string name="mc_download_failed">Échec du téléchargement de Minecraft ! Cela pourrait être dû à une mauvaise connexion réseau, à un mauvais placement des fichiers, etc.</string>
-    <string name="toast_turn_on_gyro">Vous devez d\'abord activer le contrôle gyroscopique pour l\'utiliser !</string>
     <string name="microsoft_login_retry_later">Vous avez effectué trop d\'opérations, veuillez réessayer plus tard</string>
     <string name="storage_required">Zalith Launcher nécessite une connexion à un stockage externe, veuillez reconnecter et redémarrer l\'application</string>
     <string name="dialog_select_jar">Sélectionner un fichier Jar</string>
@@ -290,7 +291,6 @@
     <string name="multirt_nojava8rt">Impossible de trouver Java 8, pour utiliser cette option, vous devez installer Java 8</string>
     <string name="multirt_delete_runtime">Supprimer l\'environnement d\'exécution</string>
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">Paramètres de la souris virtuelle</string>
     <string name="mouse_settings_speed_name">Vitesse de la souris virtuelle</string>
     <string name="mouse_settings_scale_name">Échelle de la souris virtuelle</string>
     <string name="custom_mouse_add">Ajouter une souris virtuelle</string>

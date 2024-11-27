@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
@@ -65,8 +66,6 @@ public class MinecraftGLSurface extends View implements GrabListener {
             .remapRightTrigger(true)
             .remapDpad(true));
 
-    /* Resolution scaler option, allow downsizing a window */
-    private float mScaleFactor = AllSettings.getResolutionRatio() / 100f;
     /* Sensitivity, adjusted according to screen size */
     private final double mSensitivityFactor = (1.4 * (1080f/ Tools.getDisplayMetrics((BaseActivity) getContext()).heightPixels));
 
@@ -77,7 +76,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
     View mSurface;
 
     private final InGameEventProcessor mIngameProcessor = new InGameEventProcessor(mSensitivityFactor);
-    private final InGUIEventProcessor mInGUIProcessor = new InGUIEventProcessor(mScaleFactor);
+    private final InGUIEventProcessor mInGUIProcessor = new InGUIEventProcessor();
     private TouchEventProcessor mCurrentTouchProcessor = mInGUIProcessor;
     private AndroidPointerCapture mPointerCapture;
     private boolean mLastGrabState = false;
@@ -91,17 +90,9 @@ public class MinecraftGLSurface extends View implements GrabListener {
         setFocusable(true);
     }
 
-    public void refreshSize(int value) {
-        mScaleFactor = value / 100f;
-        mInGUIProcessor.refreshScaleFactor(mScaleFactor);
-        if (mPointerCapture != null) mPointerCapture.refreshScaleFactor(mScaleFactor);
-        if (mGamepad != null) mGamepad.refreshScaleFactor(mScaleFactor);
-        refreshSize();
-    }
-
     private void setUpPointerCapture(AbstractTouchpad touchpad) {
         if(mPointerCapture != null) mPointerCapture.detach();
-        mPointerCapture = new AndroidPointerCapture(touchpad, this, mScaleFactor);
+        mPointerCapture = new AndroidPointerCapture(touchpad, this);
     }
 
     /** Initialize the view and all its settings
@@ -202,7 +193,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
 
             // Mouse found
             if(CallbackBridge.isGrabbing()) return false;
-            CallbackBridge.sendCursorPos(   e.getX(i) * mScaleFactor, e.getY(i) * mScaleFactor);
+            CallbackBridge.sendCursorPos(   e.getX(i) * AllStaticSettings.scaleFactor, e.getY(i) * AllStaticSettings.scaleFactor);
             return true; //mouse event handled successfully
         }
         if (mIngameProcessor == null || mInGUIProcessor == null) return true;
@@ -241,8 +232,8 @@ public class MinecraftGLSurface extends View implements GrabListener {
 
         switch(event.getActionMasked()) {
             case MotionEvent.ACTION_HOVER_MOVE:
-                CallbackBridge.mouseX = (event.getX(mouseCursorIndex) * mScaleFactor);
-                CallbackBridge.mouseY = (event.getY(mouseCursorIndex) * mScaleFactor);
+                CallbackBridge.mouseX = (event.getX(mouseCursorIndex) * AllStaticSettings.scaleFactor);
+                CallbackBridge.mouseY = (event.getY(mouseCursorIndex) * AllStaticSettings.scaleFactor);
                 CallbackBridge.sendCursorPos(CallbackBridge.mouseX, CallbackBridge.mouseY);
                 return true;
             case MotionEvent.ACTION_SCROLL:
@@ -337,8 +328,8 @@ public class MinecraftGLSurface extends View implements GrabListener {
 
     /** Called when the size need to be set at any point during the surface lifecycle **/
     public void refreshSize(){
-        windowWidth = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.widthPixels, mScaleFactor);
-        windowHeight = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.heightPixels, mScaleFactor);
+        windowWidth = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.widthPixels, AllStaticSettings.scaleFactor);
+        windowHeight = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.heightPixels, AllStaticSettings.scaleFactor);
         if(mSurface == null){
             Logging.w("MGLSurface", "Attempt to refresh size on null surface");
             return;

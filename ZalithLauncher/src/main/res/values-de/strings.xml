@@ -51,11 +51,13 @@
     <string name="error_show_more">Mehr Details anzeigen</string>
     <string name="error_show_less">Details ausblenden</string>
     <!-- Launcher -->
+    <string name="option_category_debug">Debuggen</string>
+    <string name="option_category_control">Steuerung</string>
+    <string name="option_category_hotbar">Hotbar Erkennungsbox</string>
     <string name="option_force_close">Zwangsschluss</string>
     <string name="option_log_out">Protokoll ausgeben</string>
     <string name="option_send_custom_key">Benutzerdefinierten Tastenbefehl senden</string>
     <string name="option_edit_controls">Steuerungseinstellungen</string>
-    <string name="option_hotbar">Hotbar Erkennungsbox</string>
     <string name="option_hotbar_type">Hotbar Erkennungsmodus</string>
     <string name="option_hotbar_type_auto">Adaptiv (kann ungenau sein)</string>
     <string name="option_hotbar_type_manually">Manuelle Anpassung</string>
@@ -80,7 +82,6 @@
     <string name="notification_game_runs">Das Spiel läuft!</string>
     <string name="tasks_ongoing">Aufgaben werden ausgeführt, bitte warten</string>
     <string name="mc_download_failed">Herunterladen von Minecraft fehlgeschlagen! Dies könnte auf eine schlechte Netzwerkverbindung, falsche Dateipositionierung usw. zurückzuführen sein</string>
-    <string name="toast_turn_on_gyro">Gyroskop-Steuerung muss zuerst aktiviert werden, um sie zu verwenden!</string>
     <string name="microsoft_login_retry_later">Deine Aktionen sind zu häufig, bitte versuche es später erneut</string>
     <string name="storage_required">Zalith Launcher benötigt eine externe Speicherverbindung, bitte erneut verbinden und die Software neu starten</string>
     <string name="dialog_select_jar">Jar-Datei auswählen</string>
@@ -290,7 +291,6 @@
     <string name="multirt_nojava8rt">Java 8 konnte nicht gefunden werden, um diese Option zu verwenden, müssen Sie Java 8 installieren</string>
     <string name="multirt_delete_runtime">Laufzeitumgebung löschen</string>
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">Virtuelle Maus-Einstellungen</string>
     <string name="mouse_settings_speed_name">Virtuelle Mausgeschwindigkeit</string>
     <string name="mouse_settings_scale_name">Virtuelle Mausskalierung</string>
     <string name="custom_mouse_add">Virtuelle Maus hinzufügen</string>

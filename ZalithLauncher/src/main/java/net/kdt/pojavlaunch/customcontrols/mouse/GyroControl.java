@@ -11,6 +11,7 @@ import android.view.Surface;
 import android.view.WindowManager;
 
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 
 import net.kdt.pojavlaunch.GrabListener;
 
@@ -22,6 +23,9 @@ public class GyroControl implements SensorEventListener, GrabListener {
     /* How much distance has to be moved before taking into account the gyro */
     private static final float SINGLE_AXIS_LOW_PASS_THRESHOLD = 1.13F;
     private static final float MULTI_AXIS_LOW_PASS_THRESHOLD = 1.3F;
+    // Warmup period of 2 since the first read from the sensor seems to produce a bogus value,
+    // which creates a far too large of a difference on the Y axis once actual sensor data comes in
+    private static final int ROTATION_VECTOR_WARMUP_PERIOD = 2;
 
     private final WindowManager mWindowManager;
     private int mSurfaceRotation;
@@ -29,7 +33,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
     private final Sensor mSensor;
     private final OrientationCorrectionListener mCorrectionListener;
     private boolean mShouldHandleEvents;
-    private boolean mFirstPass;
+    private int mWarmup;
     private float xFactor; // -1 or 1 depending on device orientation
     private float yFactor;
     private boolean mSwapXY;
@@ -65,7 +69,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
 
     public void enable() {
         if(mSensor == null) return;
-        mFirstPass = true;
+        mWarmup = ROTATION_VECTOR_WARMUP_PERIOD;
         mSensorManager.registerListener(this, mSensor, 1000 * AllSettings.getGyroSampleRate());
         mCorrectionListener.enable();
         mShouldHandleEvents = CallbackBridge.isGrabbing();
@@ -76,6 +80,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
         if(mSensor == null) return;
         mSensorManager.unregisterListener(this);
         mCorrectionListener.disable();
+        mStoredX = mStoredY = 0;
         resetDamper();
         CallbackBridge.removeGrabListener(this);
     }
@@ -88,14 +93,14 @@ public class GyroControl implements SensorEventListener, GrabListener {
         SensorManager.getRotationMatrixFromVector(mCurrentRotation, sensorEvent.values);
 
 
-        if(mFirstPass){  // Setup initial position
-            mFirstPass = false;
+        if(mWarmup > 0){  // Setup initial position
+            mWarmup--;
             return;
         }
         SensorManager.getAngleChange(mAngleDifference, mCurrentRotation, mPreviousRotation);
         damperValue(mAngleDifference);
-        mStoredX += xAverage * 1000 * AllSettings.getGyroSensitivity();
-        mStoredY += yAverage * 1000 * AllSettings.getGyroSensitivity();
+        mStoredX += xAverage * 10 * AllStaticSettings.gyroSensitivity;
+        mStoredY += yAverage * 10 * AllStaticSettings.gyroSensitivity;
 
         boolean updatePosition = false;
         float absX = Math.abs(mStoredX);
@@ -153,8 +158,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
                 break;
         }
 
-        if(AllSettings.getGyroInvertX()) xFactor *= -1;
-        if(AllSettings.getGyroInvertY()) yFactor *= -1;
+        if(AllStaticSettings.gyroInvertX) xFactor *= -1;
+        if(AllStaticSettings.gyroInvertY) yFactor *= -1;
     }
 
     @Override
@@ -162,7 +167,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
 
     @Override
     public void onGrabState(boolean isGrabbing) {
-        mFirstPass = true;
+        mWarmup = ROTATION_VECTOR_WARMUP_PERIOD;
         mShouldHandleEvents = isGrabbing;
     }
 
@@ -244,8 +249,8 @@ public class GyroControl implements SensorEventListener, GrabListener {
                     break;
             }
 
-            if(AllSettings.getGyroInvertX()) xFactor *= -1;
-            if(AllSettings.getGyroInvertY()) yFactor *= -1;
+            if(AllStaticSettings.gyroInvertX) xFactor *= -1;
+            if(AllStaticSettings.gyroInvertY) yFactor *= -1;
         }
     }
 }

@@ -14,7 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.databinding.ActivityCustomControlsBinding;
-import com.movtery.zalithlauncher.databinding.ViewControlSettingsBinding;
+import com.movtery.zalithlauncher.databinding.ViewControlMenuBinding;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
 import com.movtery.zalithlauncher.feature.background.BackgroundType;
 import com.movtery.zalithlauncher.setting.AllSettings;
@@ -58,10 +58,10 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 		drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 		drawerLayout.setScrimColor(Color.TRANSPARENT);
 
-		ViewControlSettingsBinding controlSettingsBinding = ViewControlSettingsBinding.inflate(getLayoutInflater());
-		new ControlSettingsClickListener(controlSettingsBinding, controlLayout);
+		ViewControlMenuBinding controlMenuBinding = ViewControlMenuBinding.inflate(getLayoutInflater());
+		new ControlSettingsClickListener(controlMenuBinding, controlLayout);
 
-		drawerNavigationView.addView(controlSettingsBinding.getRoot());
+		drawerNavigationView.addView(controlMenuBinding.getRoot());
 		controlLayout.setModifiable(true);
 		try {
 			if (mControlPath == null) controlLayout.loadLayout((String) null);
@@ -102,10 +102,10 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 	}
 
 	private class ControlSettingsClickListener implements View.OnClickListener {
-		private final ViewControlSettingsBinding binding;
+		private final ViewControlMenuBinding binding;
 		private final ControlLayout controlLayout;
 
-		public ControlSettingsClickListener(ViewControlSettingsBinding binding, ControlLayout controlLayout) {
+		public ControlSettingsClickListener(ViewControlMenuBinding binding, ControlLayout controlLayout) {
 			this.binding = binding;
 			this.controlLayout = controlLayout;
 			this.binding.addButton.setOnClickListener(this);

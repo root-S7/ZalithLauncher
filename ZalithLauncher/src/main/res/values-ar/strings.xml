@@ -51,11 +51,13 @@
     <string name="error_show_more">عرض التفاصيل</string>
     <string name="error_show_less">إغلاق التفاصيل</string>
     <!-- Launcher -->
+    <string name="option_category_debug">التصحيح</string>
+    <string name="option_category_control">التحكم</string>
+    <string name="option_category_hotbar">إطار تحديد شريط الأدوات</string>
     <string name="option_force_close">إغلاق إجباري</string>
     <string name="option_log_out">تسجيل الخروج</string>
     <string name="option_send_custom_key">إرسال رمز المفتاح المخصص</string>
     <string name="option_edit_controls">تحرير تخطيط التحكم</string>
-    <string name="option_hotbar">إطار تحديد شريط الأدوات</string>
     <string name="option_hotbar_type">وضع تحديد شريط الأدوات</string>
     <string name="option_hotbar_type_auto">تلقائي (قد لا يكون دقيقًا)</string>
     <string name="option_hotbar_type_manually">تعديل يدوي</string>
@@ -80,7 +82,6 @@
     <string name="notification_game_runs">اللعبة تعمل!</string>
     <string name="tasks_ongoing">المهام قيد التنفيذ، يرجى الانتظار</string>
     <string name="mc_download_failed">فشل تنزيل Minecraft! قد يكون هذا بسبب اتصال شبكة ضعيف أو وضع الملفات بشكل خاطئ</string>
-    <string name="toast_turn_on_gyro">يجب تفعيل التحكم بالجيروسكوب أولاً لاستخدامه!</string>
     <string name="microsoft_login_retry_later">لقد قمت بالكثير من المحاولات، يرجى المحاولة مرة أخرى لاحقًا</string>
     <string name="storage_required">Zalith Launcher يتطلب الاتصال بالتخزين الخارجي، يرجى إعادة الاتصال وإعادة تشغيل البرنامج</string>
     <string name="dialog_select_jar">اختيار ملف Jar</string>
@@ -290,7 +291,6 @@
     <string name="multirt_nojava8rt">تعذر العثور على Java 8، لاستخدام هذا الخيار، يجب عليك تثبيت Java 8</string>
     <string name="multirt_delete_runtime">حذف بيئة التشغيل</string>
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">إعدادات الماوس الافتراضي</string>
     <string name="mouse_settings_speed_name">سرعة الماوس الافتراضي</string>
     <string name="mouse_settings_scale_name">مقياس الماوس الافتراضي</string>
     <string name="custom_mouse_add">إضافة ماوس افتراضي</string>

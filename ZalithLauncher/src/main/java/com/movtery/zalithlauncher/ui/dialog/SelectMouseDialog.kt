@@ -13,8 +13,7 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import java.io.File
 
-class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
-    private var mouseSelectedListener: MouseSelectedListener? = null
+class SelectMouseDialog(context: Context, private val listener: MouseSelectedListener) : AbstractSelectDialog(context) {
 
     override fun initDialog(recyclerView: RecyclerView) {
         initView(recyclerView)
@@ -30,13 +29,13 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
                 file?.apply {
                     if (exists() && isImage(this)) {
                         Settings.Manager.put("custom_mouse", name).save()
-                        mouseSelectedListener!!.onSelectedListener()
+                        listener.onSelectedListener()
                         dismiss()
                     }
                 }
                 if (position == 0) {
                     Settings.Manager.put("custom_mouse", null).save()
-                    mouseSelectedListener!!.onSelectedListener()
+                    listener.onSelectedListener()
                     this.dismiss()
                 }
             },
@@ -65,10 +64,6 @@ class SelectMouseDialog(context: Context) : AbstractSelectDialog(context) {
         val path = File(PathAndUrlManager.DIR_CUSTOM_MOUSE)
         if (!path.exists()) mkdirs(path)
         return path
-    }
-
-    fun setOnSelectedListener(mouseSelectedListener: MouseSelectedListener?) {
-        this.mouseSelectedListener = mouseSelectedListener
     }
 
     interface MouseSelectedListener {

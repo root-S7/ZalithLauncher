@@ -51,11 +51,13 @@
     <string name="error_show_more">Mostrar detalhes</string>
     <string name="error_show_less">Ocultar detalhes</string>
     <!-- Launcher -->
+    <string name="option_category_debug">Depuração</string>
+    <string name="option_category_control">Controle</string>
+    <string name="option_category_hotbar">Caixa de Detecção da Barra de Atalhos</string>
     <string name="option_force_close">Forçar fechamento</string>
     <string name="option_log_out">Registro de saída</string>
     <string name="option_send_custom_key">Enviar código de tecla personalizado</string>
     <string name="option_edit_controls">Editar Layout de Controles</string>
-    <string name="option_hotbar">Caixa de Detecção da Barra de Atalhos</string>
     <string name="option_hotbar_type">Modo de Detecção da Barra de Atalhos</string>
     <string name="option_hotbar_type_auto">Adaptativo (pode ser impreciso)</string>
     <string name="option_hotbar_type_manually">Ajuste Manual</string>
@@ -80,7 +82,6 @@
     <string name="notification_game_runs">O jogo está em execução!</string>
     <string name="tasks_ongoing">Tarefas em andamento, aguarde</string>
     <string name="mc_download_failed">Falha ao baixar o Minecraft! Isso pode ser devido a uma conexão de rede ruim, localização incorreta do arquivo, etc.</string>
-    <string name="toast_turn_on_gyro">É necessário ativar o controle de giroscópio primeiro para usar!</string>
     <string name="microsoft_login_retry_later">Suas ações estão sendo realizadas com muita frequência, tente novamente mais tarde</string>
     <string name="storage_required">O Zalith Launcher requer armazenamento externo, reconecte e reinicie o software</string>
     <string name="dialog_select_jar">Selecionar Arquivo Jar</string>
@@ -290,7 +291,6 @@
     <string name="multirt_nojava8rt">Java 8 não encontrado, para usar esta opção, você deve instalar o Java 8</string>
     <string name="multirt_delete_runtime">Excluir ambiente de execução</string>
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">Configurações do Mouse Virtual</string>
     <string name="mouse_settings_speed_name">Velocidade do Mouse Virtual</string>
     <string name="mouse_settings_scale_name">Escala do Mouse Virtual</string>
     <string name="custom_mouse_add">Adicionar Mouse Virtual</string>

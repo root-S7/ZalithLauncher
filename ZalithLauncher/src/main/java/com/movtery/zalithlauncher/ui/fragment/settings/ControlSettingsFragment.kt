@@ -144,7 +144,7 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
         SeekBarSettingsWrapper(
             context,
             "gyroSensitivity",
-            (AllSettings.gyroSensitivity * 100).toInt(),
+            AllSettings.gyroSensitivity,
             binding.gyroSensitivityLayout,
             binding.gyroSensitivityTitle,
             binding.gyroSensitivitySummary,

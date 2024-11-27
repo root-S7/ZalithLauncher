@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.customcontrols.mouse;
 import android.view.MotionEvent;
 
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.Tools;
@@ -19,15 +20,9 @@ public class InGUIEventProcessor implements TouchEventProcessor {
     private boolean mIsMouseDown = false;
     private float mStartX, mStartY;
     private final Scroller mScroller = new Scroller(FINGER_SCROLL_THRESHOLD);
-    private float mScaleFactor;
 
-    public InGUIEventProcessor(float scaleFactor) {
+    public InGUIEventProcessor() {
         mSingleTapDetector = new TapDetector(1, TapDetector.DETECTION_METHOD_BOTH);
-        mScaleFactor = scaleFactor;
-    }
-
-    public void refreshScaleFactor(float scaleFactor) {
-        this.mScaleFactor = scaleFactor;
     }
 
     @Override
@@ -94,7 +89,7 @@ public class InGUIEventProcessor implements TouchEventProcessor {
     }
 
     private void sendTouchCoordinates(float x, float y) {
-        CallbackBridge.sendCursorPos( x * mScaleFactor, y * mScaleFactor);
+        CallbackBridge.sendCursorPos( x * AllStaticSettings.scaleFactor, y * AllStaticSettings.scaleFactor);
     }
 
     private void enableMouse() {
@@ -108,8 +103,8 @@ public class InGUIEventProcessor implements TouchEventProcessor {
     }
 
     private void setGestureStart(MotionEvent event) {
-        mStartX = event.getX() * mScaleFactor;
-        mStartY = event.getY() * mScaleFactor;
+        mStartX = event.getX() * AllStaticSettings.scaleFactor;
+        mStartY = event.getY() * AllStaticSettings.scaleFactor;
     }
 
     private void resetGesture() {

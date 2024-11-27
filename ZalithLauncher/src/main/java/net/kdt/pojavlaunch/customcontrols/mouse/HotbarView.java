@@ -17,6 +17,7 @@ import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
 import com.movtery.zalithlauncher.event.single.RefreshHotbarEvent;
 import com.movtery.zalithlauncher.event.value.HotbarChangeEvent;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarType;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarUtils;
 
@@ -37,7 +38,6 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
             LwjglGlfwKeycode.GLFW_KEY_4, LwjglGlfwKeycode.GLFW_KEY_5,   LwjglGlfwKeycode.GLFW_KEY_6,
             LwjglGlfwKeycode.GLFW_KEY_7, LwjglGlfwKeycode.GLFW_KEY_8, LwjglGlfwKeycode.GLFW_KEY_9};
     private final DropGesture mDropGesture = new DropGesture(new Handler(Looper.getMainLooper()));
-    private float mScaleFactor = AllSettings.getResolutionRatio() / 100f;
     private int mWidth;
     private int mLastIndex;
     private int mGuiScale;
@@ -64,10 +64,6 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
     public HotbarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
-    }
-
-    public void refreshScaleFactor(float scaleFactor) {
-        this.mScaleFactor = scaleFactor;
     }
 
     private void init() {
@@ -171,7 +167,7 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
         // Check if the slot changed and we need to make a key press
         if(hotbarIndex == mLastIndex) {
             // Only check for doubletapping if the slot has not changed
-            if(hasDoubleTapped && !AllSettings.getDisableDoubleTap()) CallbackBridge.sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_F);
+            if (hasDoubleTapped && !AllStaticSettings.disableDoubleTap) CallbackBridge.sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_F);
             return true;
         }
         mLastIndex = hotbarIndex;
@@ -189,7 +185,7 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
     }
 
     private int mcScale(int input) {
-        return (int)((mGuiScale * input)/ mScaleFactor);
+        return (int)((mGuiScale * input)/ AllStaticSettings.scaleFactor);
     }
 
     @Override

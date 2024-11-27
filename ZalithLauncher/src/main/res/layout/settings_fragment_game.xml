@@ -485,7 +485,7 @@
 
             <include
                 android:id="@+id/game_menu_preview"
-                layout="@layout/view_game_menu"
+                layout="@layout/view_game_menu_window"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />

@@ -24,7 +24,7 @@ class GameMenuViewWrapper(
     private var showMemory: Boolean = false
 
     private val scopeFx by createFx {
-        setLayout(R.layout.view_game_menu)
+        setLayout(R.layout.view_game_menu_window)
         setOnClickListener(0L, listener)
         setOnLongClickListener {
             showMemory = !showMemory
@@ -75,11 +75,11 @@ class GameMenuViewWrapper(
                 timer = Timer()
                 timer?.schedule(object : TimerTask() {
                     override fun run() {
-                        val memoryText =
+                        val string =
                             "${AllSettings.gameMenuMemoryText} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
                                 formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))
                             }".trim()
-                        TaskExecutors.runInUIThread { text = memoryText }
+                        TaskExecutors.runInUIThread { text = string }
                     }
                 }, 0, 2000)
                 View.VISIBLE

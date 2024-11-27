@@ -52,11 +52,13 @@
     <string name="error_show_more">Show details</string>
     <string name="error_show_less">Hide details</string>
     <!-- Launcher -->
+    <string name="option_category_debug">Debug</string>
+    <string name="option_category_control">Control</string>
+    <string name="option_category_hotbar">Hotbar Detection Box</string>
     <string name="option_force_close">Force Close</string>
     <string name="option_log_out">Log Output</string>
     <string name="option_send_custom_key">Send Custom Key Code</string>
     <string name="option_edit_controls">Edit Control Layout</string>
-    <string name="option_hotbar">Hotbar Detection Box</string>
     <string name="option_hotbar_type">Hotbar Detection Mode</string>
     <string name="option_hotbar_type_auto">Adaptive (may be inaccurate)</string>
     <string name="option_hotbar_type_manually">Manual Adjustment</string>
@@ -81,7 +83,6 @@
     <string name="notification_game_runs">The game is running!</string>
     <string name="tasks_ongoing">Tasks are being executed, please wait</string>
     <string name="mc_download_failed">Failed to download Minecraft! This may be due to poor network connection, incorrect file placement, etc.</string>
-    <string name="toast_turn_on_gyro">Gyro control needs to be enabled first to use!</string>
     <string name="microsoft_login_retry_later">Your actions are too frequent, please try again later</string>
     <string name="storage_required">Zalith Launcher requires external storage, please reconnect and restart the software</string>
     <string name="dialog_select_jar">Select Jar File</string>
@@ -296,7 +297,6 @@
     <string name="multirt_nojava8rt">Java 8 not found, to use this option, you must install Java 8</string>
     <string name="multirt_delete_runtime">Delete Runtime Environment</string>
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">Virtual Mouse Settings</string>
     <string name="mouse_settings_speed_name">Virtual Mouse Speed</string>
     <string name="mouse_settings_scale_name">Virtual Mouse Scale</string>
     <string name="custom_mouse_add">Add Virtual Mouse</string>

@@ -4,7 +4,7 @@ import static org.lwjgl.glfw.CallbackBridge.sendMouseButton;
 
 import android.os.Handler;
 
-import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.Tools;
@@ -18,7 +18,12 @@ public class LeftClickGesture extends ValidatorGesture {
     private boolean mMouseActivated;
 
     public LeftClickGesture(Handler handler) {
-        super(handler, AllSettings.getTimeLongPressTrigger());
+        super(handler);
+    }
+
+    @Override
+    protected int getDelayValue() {
+        return AllStaticSettings.timeLongPressTrigger;
     }
 
     public final void inputEvent() {

@@ -37,6 +37,7 @@ import androidx.core.math.MathUtils;
 
 import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.GrabListener;
@@ -50,10 +51,6 @@ import fr.spse.gamepad_remapper.GamepadHandler;
 import fr.spse.gamepad_remapper.Settings;
 
 public class Gamepad implements GrabListener, GamepadHandler {
-
-    /* Resolution scaler option, allow downsizing a window */
-    private float mScaleFactor = AllSettings.getResolutionRatio() / 100f;
-
     /* Sensitivity, adjusted according to screen size */
     private final double mSensitivityFactor = (1.4 * (1080f/ currentDisplayMetrics.heightPixels));
 
@@ -112,7 +109,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
         mPointerImageView.setImageDrawable(ZHTools.customMouse(ctx));
         mPointerImageView.getDrawable().setFilterBitmap(false);
 
-        int size = (int) ((22 * getMcScale()) / mScaleFactor);
+        int size = (int) ((22 * getMcScale()) / AllStaticSettings.scaleFactor);
         mPointerImageView.setLayoutParams(new FrameLayout.LayoutParams(size, size));
 
         mMapProvider = mapProvider;
@@ -128,10 +125,6 @@ public class Gamepad implements GrabListener, GamepadHandler {
 
         reloadGamepadMaps();
         mMapProvider.attachGrabListener(this);
-    }
-
-    public void refreshScaleFactor(float scaleFactor) {
-        this.mScaleFactor = scaleFactor;
     }
 
     public void reloadGamepadMaps() {
@@ -159,7 +152,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
 
     public void notifyGUISizeChange(int newSize){
         //Change the pointer size to match UI
-        int size = (int) ((22 * newSize) / mScaleFactor);
+        int size = (int) ((22 * newSize) / AllStaticSettings.scaleFactor);
         mPointerImageView.post(() -> mPointerImageView.setLayoutParams(new FrameLayout.LayoutParams(size, size)));
 
     }
@@ -232,7 +225,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
             if(!isGrabbing){
                 CallbackBridge.mouseX = MathUtils.clamp(CallbackBridge.mouseX, 0, CallbackBridge.windowWidth);
                 CallbackBridge.mouseY = MathUtils.clamp(CallbackBridge.mouseY, 0, CallbackBridge.windowHeight);
-                placePointerView((int) (CallbackBridge.mouseX / mScaleFactor), (int) (CallbackBridge.mouseY/ mScaleFactor));
+                placePointerView((int) (CallbackBridge.mouseX / AllStaticSettings.scaleFactor), (int) (CallbackBridge.mouseY/ AllStaticSettings.scaleFactor));
             }
 
             //Send the mouse to the game
@@ -344,7 +337,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
         placePointerView(CallbackBridge.physicalWidth/2, CallbackBridge.physicalHeight/2);
         mPointerImageView.setVisibility(View.VISIBLE);
         // Sensitivity in menu is MC and HARDWARE resolution dependent
-        mMouseSensitivity = 19 * mScaleFactor / mSensitivityFactor;
+        mMouseSensitivity = 19 * AllStaticSettings.scaleFactor / mSensitivityFactor;
     }
 
     @Override

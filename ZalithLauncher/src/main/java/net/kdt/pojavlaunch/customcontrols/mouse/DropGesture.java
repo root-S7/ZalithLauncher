@@ -4,7 +4,7 @@ import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 
 import android.os.Handler;
 
-import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 
@@ -19,7 +19,7 @@ public class DropGesture implements Runnable{
     public void submit() {
         if(!mActive) {
             mActive = true;
-            mHandler.postDelayed(this, AllSettings.getTimeLongPressTrigger());
+            mHandler.postDelayed(this, AllStaticSettings.timeLongPressTrigger);
         }
     }
 

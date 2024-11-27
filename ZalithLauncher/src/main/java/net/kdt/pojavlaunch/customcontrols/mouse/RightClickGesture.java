@@ -11,7 +11,12 @@ public class RightClickGesture extends ValidatorGesture{
     private boolean mGestureValid = true;
     private float mGestureStartX, mGestureStartY;
     public RightClickGesture(Handler mHandler) {
-        super(mHandler, 150);
+        super(mHandler);
+    }
+
+    @Override
+    protected int getDelayValue() {
+        return 150;
     }
 
     public final void inputEvent() {

@@ -51,11 +51,13 @@
     <string name="error_show_more">Показать подробности</string>
     <string name="error_show_less">Скрыть подробности</string>
     <!-- Launcher -->
+    <string name="option_category_debug">Отладка</string>
+    <string name="option_category_control">Управление</string>
+    <string name="option_category_hotbar">Коробка обнаружения панели быстрого доступа</string>
     <string name="option_force_close">Принудительное закрытие</string>
     <string name="option_log_out">Выход из системы</string>
     <string name="option_send_custom_key">Отправить пользовательский код клавиши</string>
     <string name="option_edit_controls">Редактировать раскладку управления</string>
-    <string name="option_hotbar">Коробка обнаружения панели быстрого доступа</string>
     <string name="option_hotbar_type">Режим обнаружения панели быстрого доступа</string>
     <string name="option_hotbar_type_auto">Адаптивный (может быть неточным)</string>
     <string name="option_hotbar_type_manually">Ручная настройка</string>
@@ -80,7 +82,6 @@
     <string name="notification_game_runs">Игра запущена!</string>
     <string name="tasks_ongoing">Задачи выполняются, пожалуйста, подождите</string>
     <string name="mc_download_failed">Не удалось загрузить Minecraft! Это может быть связано с плохим подключением к интернету, неправильным размещением файлов и т.д.</string>
-    <string name="toast_turn_on_gyro">Необходимо включить гироскопический контроль для использования!</string>
     <string name="microsoft_login_retry_later">Ваши действия слишком часты, попробуйте позже</string>
     <string name="storage_required">Zalith Launcher требует подключения внешнего хранилища, пожалуйста, подключите его и перезапустите программу</string>
     <string name="dialog_select_jar">Выбрать файл Jar</string>
@@ -290,7 +291,6 @@
     <string name="multirt_nojava8rt">Не удалось найти Java 8, для использования этой опции необходимо установить Java 8</string>
     <string name="multirt_delete_runtime">Удалить среду выполнения</string>
     <!-- Custom Mouse & Background -->
-    <string name="mouse_settings_title">Настройки виртуальной мыши</string>
     <string name="mouse_settings_speed_name">Скорость виртуальной мыши</string>
     <string name="mouse_settings_scale_name">Масштаб виртуальной мыши</string>
     <string name="custom_mouse_add">Добавить виртуальную мышь</string>
