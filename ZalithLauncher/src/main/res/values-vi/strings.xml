@@ -111,6 +111,7 @@
     <string name="log_view_label_log_output">Đầu ra nhật ký:</string>
     <string name="execute_jar_failed_to_read_file">Không thể đọc tệp .jar</string>
     <string name="execute_jar_incompatible_runtime">Chức năng thực thi .jar không tương thích với Java %d</string>
+    <string name="open_link">Sẽ truy cập vào liên kết này trong trình duyệt:</string>
     <string name="mod_download_progress">Đang tải trình cài đặt cho %s</string>
     <string name="mod_forge_searching">Đang tìm kiếm số phiên bản Forge</string>
     <string name="mod_neoforge_searching">Đang tìm kiếm số phiên bản NeoForge</string>

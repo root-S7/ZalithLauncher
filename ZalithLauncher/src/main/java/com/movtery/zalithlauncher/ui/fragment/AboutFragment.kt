@@ -25,7 +25,6 @@ import com.movtery.zalithlauncher.ui.subassembly.about.SponsorRecyclerAdapter
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.Tools
 
 class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     companion object {
@@ -57,14 +56,14 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             appInfo.setOnClickListener{ StringUtils.copyText("text", appInfo.text.toString(), requireContext()) }
 
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-            githubButton.setOnClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_HOME) }
-            licenseButton.setOnClickListener { Tools.openURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
+            githubButton.setOnClickListener { ZHTools.openLink(requireActivity(), PathAndUrlManager.URL_HOME) }
+            licenseButton.setOnClickListener { ZHTools.openLink(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
             supportDevelopment.setOnClickListener {
                 TipDialog.Builder(requireActivity())
                     .setTitle(R.string.request_sponsorship_title)
                     .setMessage(R.string.request_sponsorship_message)
                     .setConfirm(R.string.about_button_support_development)
-                    .setConfirmClickListener { Tools.openURL(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
+                    .setConfirmClickListener { ZHTools.openLink(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
                     .buildDialog()
             }
 

@@ -111,6 +111,7 @@
     <string name="log_view_label_log_output">Вывод журнала:</string>
     <string name="execute_jar_failed_to_read_file">Не удалось прочитать файл .jar</string>
     <string name="execute_jar_incompatible_runtime">Выполнение функции .jar несовместимо с Java %d</string>
+    <string name="open_link">Открыть этот ссылку в браузере:</string>
     <string name="mod_download_progress">Загрузка установщика для %s</string>
     <string name="mod_forge_searching">Поиск номера версии Forge</string>
     <string name="mod_neoforge_searching">Поиск номера версии NeoForge</string>

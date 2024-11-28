@@ -23,7 +23,6 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.playVisibilityAnim
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.Tools
 import java.util.concurrent.Future
 
 
@@ -203,7 +202,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     protected fun setLink(link: String?) {
         link?.let { uri ->
             binding.launchLink.apply {
-                this.setOnClickListener { Tools.openURL(fragmentActivity, uri) }
+                this.setOnClickListener { ZHTools.openLink(fragmentActivity, uri) }
                 AnimUtils.setVisibilityAnim(this, true)
             }
         }
@@ -215,7 +214,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
                 binding.mcmodLink.apply {
                     this.visibility = View.VISIBLE
                     this.paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                    this.setOnClickListener { Tools.openURL(fragmentActivity, uri) }
+                    this.setOnClickListener { ZHTools.openLink(fragmentActivity, uri) }
                 }
             }
         }

@@ -114,7 +114,8 @@
     <string name="log_view_label_log_output">日志输出:</string>
     <string name="execute_jar_failed_to_read_file">读取 .jar 文件失败</string>
     <string name="execute_jar_incompatible_runtime">执行 .jar 功能与 Java %d 不兼容</string>
-    
+    <string name="open_link">将在浏览器内访问此链接:</string>
+
     <string name="mod_download_progress">正在下载 %s 的安装程序</string>
     <string name="mod_forge_searching">正在搜索 Forge 版本号</string>
     <string name="mod_neoforge_searching">正在搜索 NeoForge 版本号</string>

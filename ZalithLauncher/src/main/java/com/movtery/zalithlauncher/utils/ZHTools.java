@@ -2,10 +2,12 @@ package com.movtery.zalithlauncher.utils;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.opengl.EGL14;
 import android.opengl.EGLConfig;
 import android.opengl.EGLContext;
@@ -102,6 +104,20 @@ public final class ZHTools {
                     } catch (Throwable th) {
                         Logging.w(Tools.APP_NAME, "Could not enable System.exit() method!", th);
                     }
+                }).buildDialog();
+    }
+
+    /**
+     * 展示一个提示弹窗，告知用户接下来将要在浏览器内访问的链接，用户可以选择不进行访问
+     * @param link 要访问的链接
+     */
+    public static void openLink(Context context, String link) {
+        new TipDialog.Builder(context)
+                .setTitle(R.string.open_link)
+                .setMessage(link)
+                .setConfirmClickListener(checked -> {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    context.startActivity(browserIntent);
                 }).buildDialog();
     }
 

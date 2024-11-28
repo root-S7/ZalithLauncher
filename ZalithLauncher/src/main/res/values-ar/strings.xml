@@ -111,6 +111,7 @@
     <string name="log_view_label_log_output">إخراج السجل:</string>
     <string name="execute_jar_failed_to_read_file">فشل في قراءة ملف .jar</string>
     <string name="execute_jar_incompatible_runtime">تنفيذ وظيفة .jar غير متوافق مع Java %d</string>
+    <string name="open_link">سيتمكن من الوصول إلى هذا الرابط في المتصفح:</string>
     <string name="mod_download_progress">جاري تنزيل مثبت %s</string>
     <string name="mod_forge_searching">جاري البحث عن رقم إصدار Forge</string>
     <string name="mod_neoforge_searching">جاري البحث عن رقم إصدار NeoForge</string>

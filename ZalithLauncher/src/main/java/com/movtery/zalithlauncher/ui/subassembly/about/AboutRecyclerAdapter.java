@@ -8,8 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.zalithlauncher.databinding.ItemAboutViewBinding;
-
-import net.kdt.pojavlaunch.Tools;
+import com.movtery.zalithlauncher.utils.ZHTools;
 
 import java.util.List;
 
@@ -60,7 +59,7 @@ public class AboutRecyclerAdapter extends RecyclerView.Adapter<AboutRecyclerAdap
 
                 binding.buttonView.setOnClickListener(v -> {
                     String url = buttonBean.getUrl();
-                    Tools.openURL(buttonBean.getActivity(), url);
+                    ZHTools.openLink(buttonBean.getActivity(), url);
                 });
             } else {
                 binding.buttonView.setVisibility(View.GONE);

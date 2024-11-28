@@ -88,7 +88,7 @@ class VersionAdapter(
             }
             binding.tagsLayout.addView(getTagTextView(getDownloadTypeText(versionItem.versionType)))
 
-            binding.downloadLink.setOnClickListener { Tools.openURL(mContext, versionItem.fileUrl) }
+            binding.downloadLink.setOnClickListener { ZHTools.openLink(mContext, versionItem.fileUrl) }
 
             itemView.setOnClickListener {
                 if (versionItem is ModVersionItem && versionItem.dependencies.isNotEmpty()) {

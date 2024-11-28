@@ -111,6 +111,7 @@
     <string name="log_view_label_log_output">Protokollausgabe:</string>
     <string name="execute_jar_failed_to_read_file">Fehler beim Lesen der .jar-Datei</string>
     <string name="execute_jar_incompatible_runtime">Die Ausführung der .jar-Funktion ist nicht kompatibel mit Java %d</string>
+    <string name="open_link">Diesen Link wird in der Browser öffnen:</string>
     <string name="mod_download_progress">Lade Installationsprogramm für %s herunter</string>
     <string name="mod_forge_searching">Suche nach Forge-Versionsnummer</string>
     <string name="mod_neoforge_searching">Suche nach NeoForge-Versionsnummer</string>
