@@ -82,13 +82,13 @@ class DownloadOptiFineFragment : ModListFragment() {
 
             optiFineVersionList.forEach(Consumer Consumer2@{ optiFineVersion: OptiFineVersion ->
                 currentTask?.apply { if (isCancelled) return@Consumer2 }
-                addIfAbsent(mOptiFineVersions, optiFineVersion.minecraftVersion, optiFineVersion)
+                addIfAbsent(mOptiFineVersions, optiFineVersion.minecraftVersion.removePrefix("Minecraft").trim(), optiFineVersion)
             })
         })
 
         if (currentTask!!.isCancelled) return
 
-        val mcOptiFineVersions = mOptiFineVersions["Minecraft $mcVersion"] ?: mOptiFineVersions[mcVersion] ?: run {
+        val mcOptiFineVersions = mOptiFineVersions[mcVersion] ?: mOptiFineVersions[mcVersion] ?: run {
             empty()
             return
         }

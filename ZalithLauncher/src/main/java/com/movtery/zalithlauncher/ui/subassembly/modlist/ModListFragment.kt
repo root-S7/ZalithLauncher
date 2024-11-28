@@ -109,8 +109,8 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         cancelTask()
 
         binding.apply {
-            refreshButton.isClickable = !hide
-            releaseVersion.isClickable = !hide
+            refreshButton.isEnabled = !hide
+            releaseVersion.isEnabled = !hide
 
             parentElementAnimPlayer.clearEntries()
             parentElementAnimPlayer
@@ -154,8 +154,8 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         binding.apply {
             playVisibilityAnim(loadingLayout, state)
             recyclerView.visibility = if (state) View.GONE else View.VISIBLE
-            refreshButton.isClickable = !state
-            releaseVersion.isClickable = !state
+            refreshButton.isEnabled = !state
+            releaseVersion.isEnabled = !state
         }
     }
 
@@ -248,6 +248,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
                 .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
                 .apply(AnimPlayer.Entry(icon, Animations.Wobble))
                 .apply(AnimPlayer.Entry(title, Animations.FadeInLeft))
+                .apply(AnimPlayer.Entry(description, Animations.FadeInLeft))
                 .apply(AnimPlayer.Entry(returnButton, Animations.FadeInLeft))
                 .apply(AnimPlayer.Entry(refreshButton, Animations.FadeInLeft))
                 .apply(AnimPlayer.Entry(releaseVersion, Animations.FadeInLeft))

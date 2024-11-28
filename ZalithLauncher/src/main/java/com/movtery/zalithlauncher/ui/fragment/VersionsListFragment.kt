@@ -156,7 +156,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     private fun refreshVersions() {
         versionsAdapter?.let {
             val versions = VersionsManager.getVersions()
-            versions.add(null)
+            versions.add(0, null)
             it.refreshVersions(versions)
             binding.versions.scheduleLayoutAnimation()
         }

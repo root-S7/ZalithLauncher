@@ -144,7 +144,7 @@ class DownloadModFragment : ModListFragment() {
 
                 mData.add(
                     ModListItemBean(
-                        "Minecraft " + entry.key.first,
+                        entry.key.first,
                         entry.key.second,
                         VersionAdapter(this, mInfoItem, platformHelper, entry.value)
                     )
