@@ -59,7 +59,6 @@ import com.movtery.zalithlauncher.ui.dialog.ControlSettingsDialog;
 import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectControlsDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectMouseDialog;
-import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.settings.VideoSettingsFragment;
 import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarType;
@@ -111,6 +110,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private ViewGameMenuBinding mGameMenuBinding;
     private ViewControlMenuBinding mControlSettingsBinding;
     private GameService.LocalBinder mServiceBinder;
+    boolean isInEditor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -260,6 +260,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         binding.mainControlLayout.toggleControlVisible();
     }
 
+    private void openLogOutput() {
+        MainActivity.binding.mainLoggerView.setVisibilityWithAnim(true);
+    }
+
     @Override
     public void onAttachedToWindow() {
         LauncherPreferences.computeNotchSize(this);
@@ -340,36 +344,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         return AllSettings.getIgnoreNotch();
     }
 
-    private void dialogSendCustomKey() {
-        keyboardDialog.setOnKeycodeSelectListener(EfficientAndroidLWJGLKeycode::execKeyIndex).show();
-    }
-
-    private void replacementCustomControls() {
-        SelectControlsDialog dialog = new SelectControlsDialog(this);
-        dialog.setOnSelectedListener(file -> {
-            try {
-                binding.mainControlLayout.loadLayout(file.getAbsolutePath());
-                //刷新：是否隐藏菜单按钮
-                mGameMenuWrapper.setVisibility(!binding.mainControlLayout.hasMenuButton());
-            } catch (IOException ignored) {}
-            dialog.dismiss();
-        });
-        dialog.show();
-    }
-
-    boolean isInEditor;
-    private void openCustomControls() {
-        binding.mainControlLayout.setModifiable(true);
-        binding.mainNavigationView.removeAllViews();
-        binding.mainNavigationView.addView(mControlSettingsBinding.getRoot());
-        mGameMenuWrapper.setVisibility(true);
-        isInEditor = true;
-    }
-
-    private void openLogOutput() {
-        binding.mainLoggerView.setVisibilityWithAnim(true);
-    }
-
     public static void toggleMouse(Context ctx) {
         if (CallbackBridge.isGrabbing()) return;
 
@@ -378,18 +352,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                             ? R.string.control_mouseon : R.string.control_mouseoff,
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public static void dialogForceClose(Context ctx) {
-        new TipDialog.Builder(ctx)
-                .setMessage(R.string.force_exit_confirm)
-                .setConfirmClickListener(checked -> {
-                    try {
-                        ZHTools.killProcess();
-                    } catch (Throwable th) {
-                        Logging.w(Tools.APP_NAME, "Could not enable System.exit() method!", th);
-                    }
-                }).buildDialog();
     }
 
     @Override
@@ -624,8 +586,33 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             this.binding.hotbarWidthAdd.setOnClickListener(this);
         }
 
+        private void dialogSendCustomKey() {
+            keyboardDialog.setOnKeycodeSelectListener(EfficientAndroidLWJGLKeycode::execKeyIndex).show();
+        }
+
+        private void replacementCustomControls() {
+            SelectControlsDialog dialog = new SelectControlsDialog(MainActivity.this);
+            dialog.setOnSelectedListener(file -> {
+                try {
+                    MainActivity.binding.mainControlLayout.loadLayout(file.getAbsolutePath());
+                    //刷新：是否隐藏菜单按钮
+                    mGameMenuWrapper.setVisibility(!MainActivity.binding.mainControlLayout.hasMenuButton());
+                } catch (IOException ignored) {}
+                dialog.dismiss();
+            });
+            dialog.show();
+        }
+
+        private void openCustomControls() {
+            MainActivity.binding.mainControlLayout.setModifiable(true);
+            MainActivity.binding.mainNavigationView.removeAllViews();
+            MainActivity.binding.mainNavigationView.addView(mControlSettingsBinding.getRoot());
+            mGameMenuWrapper.setVisibility(true);
+            isInEditor = true;
+        }
+
         @Override public void onClick(View v) {
-            if (v == binding.forceClose) dialogForceClose(MainActivity.this);
+            if (v == binding.forceClose) ZHTools.dialogForceClose(MainActivity.this);
             else if (v == binding.logOutput) openLogOutput();
             else if (v == binding.sendCustomKey) dialogSendCustomKey();
             else if (v == binding.resolutionScalerRemove) adjustSeekbar(binding.resolutionScaler, -1);

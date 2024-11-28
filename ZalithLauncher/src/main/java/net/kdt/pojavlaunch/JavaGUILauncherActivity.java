@@ -423,7 +423,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     public void forceClose() {
-        MainActivity.dialogForceClose(this);
+        ZHTools.dialogForceClose(this);
     }
 
     public void openLogOutput(View v) {

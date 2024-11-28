@@ -35,7 +35,10 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
+
+import net.kdt.pojavlaunch.Tools;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -88,6 +91,18 @@ public final class ZHTools {
             return null;
         }
         return new File(PathAndUrlManager.DIR_CUSTOM_MOUSE, customMouse);
+    }
+
+    public static void dialogForceClose(Context ctx) {
+        new TipDialog.Builder(ctx)
+                .setMessage(R.string.force_exit_confirm)
+                .setConfirmClickListener(checked -> {
+                    try {
+                        ZHTools.killProcess();
+                    } catch (Throwable th) {
+                        Logging.w(Tools.APP_NAME, "Could not enable System.exit() method!", th);
+                    }
+                }).buildDialog();
     }
 
     public static void swapFragmentWithAnim(
