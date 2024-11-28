@@ -384,9 +384,9 @@ public final class Tools {
                 .buildDialog();
     }
 
-    public static void openURL(Activity act, String url) {
+    public static void openURL(Context context, String url) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        act.startActivity(browserIntent);
+        context.startActivity(browserIntent);
     }
 
     private static boolean checkRules(JMinecraftVersionList.Arguments.ArgValue.ArgRules[] rules) {

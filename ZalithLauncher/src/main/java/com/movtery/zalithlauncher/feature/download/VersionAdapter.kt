@@ -88,6 +88,8 @@ class VersionAdapter(
             }
             binding.tagsLayout.addView(getTagTextView(getDownloadTypeText(versionItem.versionType)))
 
+            binding.downloadLink.setOnClickListener { Tools.openURL(mContext, versionItem.fileUrl) }
+
             itemView.setOnClickListener {
                 if (versionItem is ModVersionItem && versionItem.dependencies.isNotEmpty()) {
                     ModDependenciesDialog(parentFragment, infoItem, versionItem.dependencies) {
