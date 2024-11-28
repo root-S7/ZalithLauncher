@@ -20,13 +20,10 @@ import com.movtery.zalithlauncher.feature.download.utils.DependencyUtils
 import com.movtery.zalithlauncher.feature.download.utils.ModLoaderUtils
 import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
-import com.movtery.zalithlauncher.feature.log.Logging.e
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.GsonJsonUtils
-import java.io.IOException
 import java.util.TreeSet
 
 class CurseForgeModHelper {
@@ -95,16 +92,9 @@ class CurseForgeModHelper {
                 dependencies: List<DependenciesInfoItem>?
             ) -> T
         ): List<T>? {
-            if (!force && cache.containsKey(infoItem.projectId))
-                return cache.get(infoItem.projectId)
+            if (!force && cache.containsKey(infoItem.projectId)) return cache.get(infoItem.projectId)
 
-            val allModData: List<JsonObject>
-            try {
-                allModData = CurseForgeCommonUtils.getPaginatedData(api, infoItem.projectId)
-            } catch (e: IOException) {
-                e("CurseForgeModHelper", Tools.printToString(e))
-                return null
-            }
+            val allModData = CurseForgeCommonUtils.getPaginatedData(api, infoItem.projectId)
 
             val versionItems: MutableList<T> = ArrayList()
             val invalidDependencies: MutableList<String> = ArrayList()

@@ -5,18 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/_4sdp"
-    android:background="@drawable/background_item">
+    android:background="@drawable/background_item"
+    android:padding="@dimen/_8sdp">
+
+    <LinearLayout
+        android:id="@+id/modloader_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/background_mod_category"
+        android:padding="@dimen/_4sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/modloader_icon"
+            android:layout_width="18sp"
+            android:layout_height="18sp"
+            android:scaleType="centerInside"
+            tools:src="@drawable/ic_neoforge"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/modloader_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:textColor="@color/primary_text"
+            android:textSize="11sp"
+            tools:text="NeoForge"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/mod_version_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_12sdp"
         android:text="Version ID"
         android:textColor="@color/primary_text"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/modloader_layout"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="HardcodedText" />
 
 </com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout>

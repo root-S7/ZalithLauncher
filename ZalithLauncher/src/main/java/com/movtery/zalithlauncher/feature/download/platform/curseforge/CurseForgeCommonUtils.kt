@@ -18,7 +18,6 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.GsonJsonUtils
 import java.io.IOException
@@ -128,15 +127,9 @@ class CurseForgeCommonUtils {
 
         @Throws(Throwable::class)
         internal fun getVersions(api: ApiHandler, infoItem: InfoItem, force: Boolean): List<VersionItem>? {
-            if (!force && InfoCache.VersionCache.containsKey(infoItem.projectId))
-                return InfoCache.VersionCache.get(infoItem.projectId)
+            if (!force && InfoCache.VersionCache.containsKey(infoItem.projectId)) return InfoCache.VersionCache.get(infoItem.projectId)
 
-            val allData: List<JsonObject> = runCatching {
-                getPaginatedData(api, infoItem.projectId)
-            }.getOrElse { e ->
-                Logging.e("CurseForgeCommonHelper", Tools.printToString(e))
-                return null
-            }
+            val allData = getPaginatedData(api, infoItem.projectId)
 
             val versionsItem: MutableList<VersionItem> = ArrayList()
             for (data in allData) {
