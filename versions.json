@@ -1,23 +1,23 @@
 {
-  "version_code": 137601,
-  "version_name": "1.3.7.6",
+  "version_code": 137700,
+  "version_name": "1.3.7.7",
   "title": {
-    "en_us": "1.3.7.6",
-    "zh_cn": "1.3.7.6",
-    "zh_tw": "1.3.7.6"
+    "en_us": "1.3.7.7",
+    "zh_cn": "1.3.7.7",
+    "zh_tw": "1.3.7.7"
   },
   "description": {
-    "en_us": "## Update Notes:\r\n- Updated [Version Management]: Copy version\r\n---\r\n- Adjusted [Application Interface]: Adjust UI\r\n- Adjusted [Game Language]: Adjust game version handling logic\r\n- Adjusted [About]: Do not load the full sponsors list to avoid lag\r\n---\r\n- Fixed [Forge]: Some versions fail to install properly\r\n- Fixed [Download]: Some crash issues for games not installed\r\n- Fixed [Language]: Prompt for copying version",
-    "zh_cn": "## 更新内容：\r\n- 更新[版本管理]: 复制版本\r\n---\r\n- 调整[应用界面]: 调整UI\r\n- 调整[游戏语言]: 调整游戏版本处理逻辑\r\n- 调整[关于]: 不加载完整赞助者列表，避免卡顿\r\n---\r\n- 修复[Forge]: 一些版本无法正常安装\r\n- 修复[下载]: 未安装游戏的一些崩溃问题\r\n- 修复[语言]: 复制版本的提示",
-    "zh_tw": "## 更新內容：\r\n- 更新[版本管理]：復製版本\r\n---\r\n- 調整[應用界面]：調整UI\r\n- 調整[遊戲語言]：調整遊戲版本處理邏輯\r\n- 調整[關於]：不加載完整贊助者列表，避免卡頓\r\n---\r\n- 修復[Forge]：部分版本無法正常安裝\r\n- 修復[下載]：未安裝遊戲的部分崩毀問題\r\n- 修復[語言]: 複製版本的提示"
+    "en_us": "## Update Notes:\r\n- Updated [Game Menu]: Added more settings options\r\n---\r\n- Adjusted [App Interface]: UI details adjustments\r\n- Adjusted [Language]: Prompt when mod packs are unsupported\r\n- Adjusted [Downloads]: Display of platform information\r\n---\r\n- Fixed [Downloads]: Abnormal exit animation",
+    "zh_cn": "## 更新内容：\n- 更新[游戏菜单]: 添加更多设置选项\n---\n- 调整[应用界面]: 调整UI细节\n- 调整[语言]: 整合包不支持时的提示\n- 调整[下载]: 平台信息的显示\n---\n- 修复[下载]: 异常的退出动画",
+    "zh_tw": "## 更新內容：\n- 更新[遊戲選單]：新增更多設置選項\n---\n- 調整[應用界面]：調整UI細節\n- 調整[語言]：模組包不支援時的提示\n- 調整[下載]：平台資訊的顯示\n---\n- 修正[下載]：異常的退出動畫"
   },
-  "published_at": "2024-11-25T07:26:06Z",
+  "published_at": "2024-11-28T10:02:11Z",
   "file_size": {
-    "all": 206959425,
-    "arm": 128438118,
-    "arm64": 119677499,
-    "x86": 122349126,
-    "x86_64": 123231886
+    "all": 206963237,
+    "arm": 128441938,
+    "arm64": 119681311,
+    "x86": 122352914,
+    "x86_64": 123235698
   },
   "pre_release": false
 }
