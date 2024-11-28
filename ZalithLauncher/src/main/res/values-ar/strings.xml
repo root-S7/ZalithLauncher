@@ -298,6 +298,7 @@
     <string name="custom_mouse_added">تم تعيين الماوس الافتراضي بنجاح:</string>
     <string name="custom_mouse_default">الماوس الافتراضي الافتراضي</string>
     <string name="custom_mouse_title">الماوس الافتراضي المخصص</string>
+    <string name="custom_mouse_dialog">يمكنك إضافة صور للماوس في (إعدادات المُطلق - %s - %s)</string>
     <string name="custom_mouse_desc">افتح واجهة إدارة الماوس الافتراضي، يمكنك إضافة الماوس الافتراضي الذي تفضله واستخدامه</string>
     <string name="custom_mouse_message_default">الماوس الافتراضي المحدد حاليًا هو الماوس الافتراضي الافتراضي، لا يدعم المشاركة، إعادة تسمية، حذف العمليات</string>
     <string name="custom_background_add">إضافة صورة خلفية</string>

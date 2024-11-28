@@ -298,6 +298,7 @@
     <string name="custom_mouse_added">Souris virtuelle définie avec succès :</string>
     <string name="custom_mouse_default">Souris virtuelle par défaut</string>
     <string name="custom_mouse_title">Souris virtuelle personnalisée</string>
+    <string name="custom_mouse_dialog">Vous pouvez ajouter des images de souris dans (Paramètres du lanceur - %s - %s)</string>
     <string name="custom_mouse_desc">Ouvrir l\'interface de gestion de la souris virtuelle, vous pouvez ajouter vos propres textures de souris virtuelles préférées et les utiliser</string>
     <string name="custom_mouse_message_default">La souris virtuelle actuellement sélectionnée est la souris virtuelle par défaut, les opérations de partage, de renommage et de suppression ne sont pas prises en charge</string>
     <string name="custom_background_add">Ajouter une image de fond</string>

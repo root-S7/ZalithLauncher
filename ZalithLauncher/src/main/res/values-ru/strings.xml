@@ -298,6 +298,7 @@
     <string name="custom_mouse_added">Виртуальная мышь успешно установлена:</string>
     <string name="custom_mouse_default">Виртуальная мышь по умолчанию</string>
     <string name="custom_mouse_title">Пользовательская виртуальная мышь</string>
+    <string name="custom_mouse_dialog">Вы можете добавить изображения мыши в (Настройки запуска - %s - %s)</string>
     <string name="custom_mouse_desc">Откройте интерфейс управления виртуальной мышью, где вы сможете добавить свои любимые текстуры мыши и использовать их</string>
     <string name="custom_mouse_message_default">Выбранная виртуальная мышь является мышью по умолчанию, её нельзя делиться, переименовывать или удалять</string>
     <string name="custom_background_add">Добавить фоновое изображение</string>

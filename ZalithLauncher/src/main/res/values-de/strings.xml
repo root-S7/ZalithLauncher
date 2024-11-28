@@ -298,6 +298,7 @@
     <string name="custom_mouse_added">Virtuelle Maus erfolgreich eingestellt:</string>
     <string name="custom_mouse_default">Standard-Virtuelle Maus</string>
     <string name="custom_mouse_title">Benutzerdefinierte virtuelle Maus</string>
+    <string name="custom_mouse_dialog">Sie können Mausbilder in (Startereinstellungen - %s - %s) hinzufügen</string>
     <string name="custom_mouse_desc">Öffnen Sie die virtuelle Maus-Verwaltungsoberfläche, um Ihre bevorzugten virtuellen Maus-Grafiken hinzuzufügen und zu verwenden</string>
     <string name="custom_mouse_message_default">Die aktuell ausgewählte virtuelle Maus ist die Standard-Virtuelle Maus, die nicht für die Freigabe, Umbenennung oder Löschung unterstützt wird</string>
     <string name="custom_background_add">Hintergrundbild hinzufügen</string>

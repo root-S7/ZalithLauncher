@@ -298,6 +298,7 @@
     <string name="custom_mouse_added">Mouse Virtual configurado com sucesso:</string>
     <string name="custom_mouse_default">Mouse Virtual Padrão</string>
     <string name="custom_mouse_title">Mouse Virtual Personalizado</string>
+    <string name="custom_mouse_dialog">Você pode adicionar imagens de mouse em (Configurações do Iniciador - %s - %s)</string>
     <string name="custom_mouse_desc">Abra a interface de gerenciamento do mouse virtual, onde você pode adicionar suas próprias texturas de mouse virtual e usá-las</string>
     <string name="custom_mouse_message_default">O mouse virtual selecionado atualmente é o padrão, não suporta compartilhamento, renomeação ou exclusão</string>
     <string name="custom_background_add">Adicionar Imagem de Fundo</string>

@@ -298,6 +298,7 @@
     <string name="custom_mouse_added">Đã thiết lập thành công chuột ảo:</string>
     <string name="custom_mouse_default">Chuột ảo mặc định</string>
     <string name="custom_mouse_title">Tùy chỉnh chuột ảo</string>
+    <string name="custom_mouse_dialog">Bạn có thể thêm hình ảnh chuột trong (Cài đặt khởi động - %s - %s)</string>
     <string name="custom_mouse_desc">Mở giao diện quản lý chuột ảo, bạn có thể tự thêm các hình ảnh chuột ảo yêu thích của mình và sử dụng chúng</string>
     <string name="custom_mouse_message_default">Chuột ảo hiện đang chọn là chuột ảo mặc định, không hỗ trợ chia sẻ, đổi tên, xóa</string>
     <string name="custom_background_add">Thêm hình nền</string>

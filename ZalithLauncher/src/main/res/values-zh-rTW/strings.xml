@@ -298,6 +298,7 @@
     <string name="custom_mouse_added">成功設定虛擬滑鼠:</string>
     <string name="custom_mouse_default">預設虛擬滑鼠</string>
     <string name="custom_mouse_title">自訂虛擬滑鼠</string>
+    <string name="custom_mouse_dialog">您可以在（啟動器設定 - %s- %s）內加入滑鼠圖片</string>
     <string name="custom_mouse_desc">打開虛擬滑鼠管理介面，你可以自行添加喜歡的虛擬滑鼠貼圖，並使用它們</string>
     <string name="custom_mouse_message_default">當前選中的虛擬滑鼠為預設虛擬滑鼠，不支援分享、重新命名或刪除操作</string>
     <string name="custom_background_add">添加背景圖片</string>

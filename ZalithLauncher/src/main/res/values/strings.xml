@@ -304,6 +304,7 @@
     <string name="custom_mouse_added">Successfully set virtual mouse:</string>
     <string name="custom_mouse_default">Default Virtual Mouse</string>
     <string name="custom_mouse_title">Custom Virtual Mouse</string>
+    <string name="custom_mouse_dialog">You can add mouse images in (Launcher Settings - %s - %s)</string>
     <string name="custom_mouse_desc">Open the virtual mouse management interface, where you can add your favorite virtual mouse icons and use them</string>
     <string name="custom_mouse_message_default">The currently selected virtual mouse is the default virtual mouse, sharing, renaming, and deleting operations are not supported</string>
     <string name="custom_background_add">Add Background Image</string>

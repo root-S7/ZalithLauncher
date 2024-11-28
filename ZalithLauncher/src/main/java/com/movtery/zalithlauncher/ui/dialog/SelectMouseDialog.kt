@@ -18,6 +18,12 @@ class SelectMouseDialog(context: Context, private val listener: MouseSelectedLis
     override fun initDialog(recyclerView: RecyclerView) {
         initView(recyclerView)
         setTitleText(R.string.custom_mouse_title)
+        setMessageText(
+            context.getString(R.string.custom_mouse_dialog,
+                context.getString(R.string.setting_category_control),
+                context.getString(R.string.custom_mouse_title)
+            )
+        )
     }
 
     private fun initView(mMouseListView: RecyclerView) {
