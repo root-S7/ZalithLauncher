@@ -572,6 +572,7 @@
     <string name="other_login_select_role_title">Rolle auswählen</string>
     <string name="other_login_select_role_message">Ihr aktueller Account hat mehrere Rollen. Bitte wählen Sie die Rolle aus, die Sie verwenden möchten.</string>
     <string name="other_login_registry_now">Kein Konto? Klicken Sie hier, um sich zu registrieren!</string>
+    <string name="other_login_role_not_found">Rolle, die dem aktuellen Konto entspricht, nicht gefunden. Bitte überprüfen Sie, ob diese Rolle auf dem von Ihnen verwendeten Server vorhanden ist!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">Der Launcher benötigt diese Inhalte, um sicherzustellen, dass Minecraft ordnungsgemäß gestartet werden kann. Diese Inhalte sind in der Anwendung enthalten und müssen entpackt werden, bevor sie verwendet werden können. Klicken Sie auf die Schaltfläche unten, um den Entpackvorgang zu starten und diese Inhalte zu aktualisieren.</string>
     <string name="splash_screen_installing">Der Launcher entpackt diese Inhalte. Nach dem Entpacken gelangen Sie automatisch zur Hauptoberfläche. Bitte haben Sie einen Moment Geduld.</string>

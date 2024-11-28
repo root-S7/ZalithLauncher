@@ -11,7 +11,6 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
-import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.authenticator.listener.DoneListener;
@@ -63,7 +62,6 @@ public class MicrosoftBackgroundLogin {
     public String mcToken;
     public String mcUuid;
     public boolean doesOwnGame;
-    public long expiresAt;
 
     public MicrosoftBackgroundLogin(boolean isRefresh, String authCode){
         mIsRefresh = isRefresh;
@@ -106,7 +104,6 @@ public class MicrosoftBackgroundLogin {
                 acc.username = mcName;
                 acc.profileId = mcUuid;
                 acc.msaRefreshToken = msRefreshToken;
-                acc.expiresAt = expiresAt;
                 acc.accountType = "Microsoft";
                 acc.updateSkin();
             }
@@ -120,7 +117,7 @@ public class MicrosoftBackgroundLogin {
             Logging.e("MicroAuth", "Exception thrown during authentication", e);
             if(errorListener != null) errorListener.onLoginError(e);
         }).finallyTask(() -> {
-            ProgressLayout.clearProgress(ProgressLayout.AUTHENTICATE_MICROSOFT);
+            ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT);
         }).execute();
     }
 
@@ -248,7 +245,6 @@ public class MicrosoftBackgroundLogin {
         }
 
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
-            expiresAt = ZHTools.getCurrentTimeMillis() + 86400000;
             JSONObject jo = new JSONObject(Tools.read(conn.getInputStream()));
             conn.disconnect();
             mcToken = jo.getString("access_token");
@@ -309,7 +305,7 @@ public class MicrosoftBackgroundLogin {
         if (listener != null) {
             TaskExecutors.runInUIThread(() -> listener.onLoginProgress(step));
         }
-        ProgressLayout.setProgress(ProgressLayout.AUTHENTICATE_MICROSOFT, step * 20);
+        ProgressLayout.setProgress(ProgressLayout.LOGIN_ACCOUNT, step * 20);
     }
 
 

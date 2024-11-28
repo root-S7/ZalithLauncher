@@ -572,6 +572,7 @@
     <string name="other_login_select_role_title">اختر شخصية</string>
     <string name="other_login_select_role_message">الحساب الحالي يحتوي على عدة شخصيات، يرجى اختيار الشخصية التي ترغب في استخدامها</string>
     <string name="other_login_registry_now">ليس لديك حساب؟ اضغط هنا للتسجيل!</string>
+    <string name="other_login_role_not_found">لم يتم العثور على دور مطابق لحسابك الحالي، يرجى التحقق من وجود هذا دور في الخادم الذي تستخدمه!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">يحتاج المُشغّل إلى تثبيت هذه المحتويات لضمان تشغيل Minecraft بشكل صحيح. هذه المحتويات مضمنة بالفعل في التطبيق، ويجب فك ضغطها لاستخدامها بشكل صحيح. انقر على الزر أدناه لبدء فك الضغط وتحديث هذه المحتويات.</string>
     <string name="splash_screen_installing">يقوم المُشغّل حاليًا بفك ضغط هذه المحتويات، سيتم الدخول إلى الواجهة الرئيسية تلقائيًا بعد الانتهاء من فك الضغط، يرجى الانتظار بصبر.</string>

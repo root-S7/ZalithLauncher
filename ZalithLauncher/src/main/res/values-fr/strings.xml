@@ -572,6 +572,7 @@
     <string name="other_login_select_role_title">Sélectionner un rôle</string>
     <string name="other_login_select_role_message">Ce compte possède plusieurs rôles, veuillez sélectionner le rôle que vous souhaitez utiliser</string>
     <string name="other_login_registry_now">Pas de compte ? Cliquez ici pour vous inscrire !</string>
+    <string name="other_login_role_not_found">Rôle correspondant au compte actuel non trouvé, veuillez vérifier l\'existence de ce rôle sur le serveur que vous utilisez!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">Le lanceur a besoin d\'installer ces éléments pour garantir le bon démarrage de Minecraft. Ces éléments sont inclus dans l\'application et doivent être décompressés pour être utilisés. Cliquez sur le bouton ci-dessous pour commencer la décompression et la mise à jour de ces éléments.</string>
     <string name="splash_screen_installing">Le lanceur est en train de décompresser ces éléments, l\'interface principale s\'ouvrira automatiquement une fois la décompression terminée, veuillez patienter.</string>

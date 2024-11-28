@@ -572,6 +572,7 @@
     <string name="other_login_select_role_title">Chọn vai trò</string>
     <string name="other_login_select_role_message">Tài khoản hiện tại có nhiều vai trò, vui lòng chọn vai trò bạn muốn sử dụng</string>
     <string name="other_login_registry_now">Chưa có tài khoản? Nhấn vào đây để đăng ký!</string>
+    <string name="other_login_role_not_found">Không tìm thấy vai trò phù hợp với tài khoản hiện tại, vui lòng kiểm tra vai trò này có tồn tại trên máy chủ mà bạn đang sử dụng không!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">Trình khởi chạy cần cài đặt những nội dung này để đảm bảo Minecraft có thể khởi chạy bình thường. Những nội dung này đã được bao gồm trong ứng dụng và cần được giải nén trước khi có thể sử dụng bình thường, hãy nhấp vào nút bên dưới để bắt đầu giải nén và cập nhật những nội dung này.</string>
     <string name="splash_screen_installing">Trình khởi chạy đang giải nén những nội dung này, sau khi giải nén xong sẽ tự động vào giao diện chính, vui lòng chờ đợi.</string>

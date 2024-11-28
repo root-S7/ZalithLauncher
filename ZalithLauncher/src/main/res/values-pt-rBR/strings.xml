@@ -572,6 +572,7 @@
     <string name="other_login_select_role_title">Selecionar Personagem</string>
     <string name="other_login_select_role_message">A conta atual possui vários personagens, selecione o personagem que deseja usar</string>
     <string name="other_login_registry_now">Não tem uma conta? Clique aqui para se registrar!</string>
+    <string name="other_login_role_not_found">Não foi encontrada uma função correspondente à conta atual, por favor, verifique se essa função existe no servidor que você está usando!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">O lançador precisa instalar esses conteúdos para garantir que o Minecraft inicie corretamente. Esses conteúdos já estão incluídos no aplicativo e precisam ser descompactados para uso adequado. Clique no botão abaixo para começar a descompactar e atualizar esses conteúdos.</string>
     <string name="splash_screen_installing">O lançador está descompactando esses conteúdos. Após a descompactação, você será levado automaticamente à tela principal, por favor, aguarde.</string>

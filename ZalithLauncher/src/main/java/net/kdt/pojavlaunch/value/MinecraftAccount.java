@@ -27,9 +27,9 @@ public class MinecraftAccount {
     public String username = "Steve";
     public String msaRefreshToken = "0";
     public String xuid;
-    public long expiresAt;
     public String otherBaseUrl;
     public String otherAccount;
+    public String otherPassword;
     public String accountType;
     private final String uniqueUUID = UUID.randomUUID().toString().toLowerCase(Locale.ROOT);
 

@@ -183,17 +183,17 @@ public class LauncherActivity extends BaseActivity {
         LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
             @Override
             public void onUsageAllowed() {
-                launchGame(version);
+                loginAndLaunchGame(version);
             }
 
             @Override
             public void onUsageDenied() {
                 if (!AllSettings.getLocalAccountReminders()) {
-                    launchGame(version);
+                    loginAndLaunchGame(version);
                 } else {
                     LocalAccountUtils.openDialog(LauncherActivity.this, checked -> {
                                 LocalAccountUtils.saveReminders(checked);
-                                launchGame(version);
+                                loginAndLaunchGame(version);
                             },
                             getString(R.string.account_no_microsoft_account) + getString(R.string.account_purchase_minecraft_account_tip),
                             R.string.account_continue_to_launch_the_game);
@@ -408,7 +408,7 @@ public class LauncherActivity extends BaseActivity {
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_MINECRAFT);
         binding.progressLayout.observe(ProgressLayout.UNPACK_RUNTIME);
         binding.progressLayout.observe(ProgressLayout.INSTALL_RESOURCE);
-        binding.progressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
+        binding.progressLayout.observe(ProgressLayout.LOGIN_ACCOUNT);
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
         binding.noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> {
@@ -536,13 +536,24 @@ public class LauncherActivity extends BaseActivity {
         BackgroundManager.setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
     }
 
-    private void launchGame(Version version) {
-        String versionName = version.getVersionName();
-        JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName);
-        new MinecraftDownloader().start(
-                mcVersion,
-                versionName,
-                new ContextAwareDoneListener(this, version)
+    /**
+     * 改为启动游戏前进行登录，同时也能及时的刷新账号的信息（这明显更合理不是吗，PojavLauncher？）
+     * @param version 选择的版本
+     */
+    private void loginAndLaunchGame(Version version) {
+        accountsManager.performLogin(
+                accountsManager.getCurrentAccount(),
+                account -> {
+                    Toast.makeText(this, getString(R.string.account_login_done), Toast.LENGTH_SHORT).show();
+                    //登录完成，正式启动游戏！
+                    String versionName = version.getVersionName();
+                    JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName);
+                    new MinecraftDownloader().start(
+                            mcVersion,
+                            versionName,
+                            new ContextAwareDoneListener(this, version)
+                    );
+                }
         );
     }
 

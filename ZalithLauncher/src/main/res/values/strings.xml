@@ -578,6 +578,7 @@
     <string name="other_login_select_role_title">Select Role</string>
     <string name="other_login_select_role_message">Multiple roles exist for the current account, please select the role you want to use</string>
     <string name="other_login_registry_now">No account? Click here to register one!</string>
+    <string name="other_login_role_not_found">Role matching the current account not found, please check if this role exists on the server you are using!</string>
     <!-- Splash -->
     <string name="splash_screen_desc">The launcher needs to install these contents to ensure Minecraft can start properly. These contents are included in the app and need to be extracted before they can be used. Click the button below to start extracting and updating these contents.</string>
     <string name="splash_screen_installing">The launcher is extracting these contents. The main interface will automatically open after extraction is complete. Please wait patiently.</string>

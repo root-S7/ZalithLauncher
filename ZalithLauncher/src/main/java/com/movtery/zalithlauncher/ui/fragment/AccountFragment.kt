@@ -26,6 +26,7 @@ import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils.CheckResultListener
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils.Companion.checkUsageAllowed
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils.Companion.openDialog
+import com.movtery.zalithlauncher.feature.accounts.OtherLoginHelper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.login.OtherLoginApi
 import com.movtery.zalithlauncher.feature.login.Servers
@@ -110,7 +111,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
             override fun onRefresh(account: MinecraftAccount) {
                 if (!isTaskRunning()) {
-                    mAccountManager.performLogin(account, true)
+                    mAccountManager.performLogin(account)
                 } else {
                     Toast.makeText(context, R.string.tasks_ongoing, Toast.LENGTH_SHORT).show()
                 }
@@ -257,7 +258,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     private fun otherLogin(index: Int) {
         val server = mOtherServerList[index]
         OtherLoginDialog(requireActivity(), server,
-            object : OtherLoginDialog.OnLoginListener {
+            object : OtherLoginHelper.OnLoginListener {
                 override fun onLoading() {
                     mProgressDialog.show()
                 }

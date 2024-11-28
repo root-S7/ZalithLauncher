@@ -1,15 +1,14 @@
 package com.movtery.zalithlauncher.feature.accounts
 
 import android.content.Context
-import com.movtery.zalithlauncher.event.value.OtherLoginEvent
+import com.kdt.mcgui.ProgressLayout
+import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.feature.login.AuthResult
-import com.movtery.zalithlauncher.feature.login.OtherLoginApi
 import com.movtery.zalithlauncher.task.Task
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.authenticator.listener.DoneListener
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin
 import net.kdt.pojavlaunch.value.MinecraftAccount
-import org.greenrobot.eventbus.EventBus
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Locale
@@ -18,7 +17,7 @@ import java.util.Objects
 class AccountUtils {
     companion object {
         @JvmStatic
-        fun microsoftLogin(account: MinecraftAccount) {
+        fun microsoftLogin(account: MinecraftAccount, doneListener: DoneListener) {
             val accountsManager = AccountsManager.getInstance()
 
             // Perform login only if needed
@@ -26,27 +25,36 @@ class AccountUtils {
                 .performLogin(
                     account,
                     accountsManager.progressListener,
-                    accountsManager.doneListener,
+                    doneListener,
                     accountsManager.errorListener
                 )
         }
 
         @JvmStatic
-        fun otherLogin(context: Context, account: MinecraftAccount) {
+        fun otherLogin(context: Context, account: MinecraftAccount, doneListener: DoneListener) {
             val errorListener = AccountsManager.getInstance().errorListener
 
-            OtherLoginApi.setBaseUrl(account.otherBaseUrl)
             Task.runTask {
-                OtherLoginApi.refresh(context, account, false, object : OtherLoginApi.Listener {
-                    override fun onSuccess(authResult: AuthResult) {
-                        account.accessToken = authResult.accessToken
-                        EventBus.getDefault().post(OtherLoginEvent(account))
-                    }
+                OtherLoginHelper(account.otherBaseUrl, account.accountType, account.otherAccount, account.otherPassword,
+                    object : OtherLoginHelper.OnLoginListener {
+                        override fun onLoading() {
+                            ProgressLayout.setProgress(ProgressLayout.LOGIN_ACCOUNT, 0, R.string.account_login_start)
+                        }
 
-                    override fun onFailed(error: String) {
-                        errorListener.onLoginError(Throwable(error))
-                    }
-                })
+                        override fun unLoading() {
+                            ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT)
+                        }
+
+                        override fun onSuccess(account: MinecraftAccount) {
+                            account.save()
+                            doneListener.onLoginDone(account)
+                        }
+
+                        override fun onFailed(error: String) {
+                            errorListener.onLoginError(RuntimeException(error))
+                            ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT)
+                        }
+                    }).justLogin(context, account)
             }.onThrowable { t -> errorListener.onLoginError(t) }.execute()
         }
 

@@ -608,6 +608,7 @@
     <string name="other_login_select_role_title">选择角色</string>
     <string name="other_login_select_role_message">当前账号存在多个角色，请选择想要使用的角色</string>
     <string name="other_login_registry_now">没有账号？点我跳转注册一个！</string>
+    <string name="other_login_role_not_found">未找到与当前账号相匹配的角色，请在你使用的服务器上检查这个角色是否存在！</string>
 
     <!-- Splash -->
     <string name="splash_screen_desc">启动器需要安装这些内容，才能够确保 Minecraft 能够正常启动。这些内容已经包含在应用中，需要解压之后才能正常使用，点击下方按钮，开始解压并更新这些内容。</string>

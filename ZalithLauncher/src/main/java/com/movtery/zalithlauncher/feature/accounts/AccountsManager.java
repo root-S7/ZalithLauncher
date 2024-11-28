@@ -14,7 +14,6 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
-import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.authenticator.listener.DoneListener;
@@ -48,10 +47,9 @@ public final class AccountsManager {
             synchronized (AccountsManager.class) {
                 if (accountsManager == null) {
                     accountsManager = new AccountsManager();
-                    //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新与登录操作
+                    //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新操作
                     accountsManager.initListener();
                     accountsManager.reload();
-                    accountsManager.performLogin(accountsManager.getCurrentAccount(), false);
                 }
                 return accountsManager;
             }
@@ -102,20 +100,23 @@ public final class AccountsManager {
         };
     }
 
-    public void performLogin(MinecraftAccount minecraftAccount, boolean force) {
-        if (AccountUtils.isNoLoginRequired(minecraftAccount)) return;
+    public void performLogin(MinecraftAccount minecraftAccount) {
+        performLogin(minecraftAccount, getDoneListener());
+    }
+
+    public void performLogin(MinecraftAccount minecraftAccount, DoneListener doneListener) {
+        if (AccountUtils.isNoLoginRequired(minecraftAccount)) {
+            doneListener.onLoginDone(minecraftAccount);
+            return;
+        }
 
         if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
-            if (force || ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
-                AccountUtils.otherLogin(ContextExecutor.getApplication(), minecraftAccount);
-                return;
-            }
+            AccountUtils.otherLogin(ContextExecutor.getApplication(), minecraftAccount, doneListener);
+            return;
         }
 
         if (AccountUtils.isMicrosoftAccount(minecraftAccount)) {
-            if (force || ZHTools.getCurrentTimeMillis() > minecraftAccount.expiresAt) {
-                AccountUtils.microsoftLogin(minecraftAccount);
-            }
+            AccountUtils.microsoftLogin(minecraftAccount, doneListener);
         }
     }
 
