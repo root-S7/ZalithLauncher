@@ -5,6 +5,7 @@ import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.authenticator.listener.DoneListener
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin
@@ -34,6 +35,8 @@ class AccountUtils {
         fun otherLogin(context: Context, account: MinecraftAccount, doneListener: DoneListener) {
             val errorListener = AccountsManager.getInstance().errorListener
 
+            fun clearProgress() = ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT)
+
             Task.runTask {
                 OtherLoginHelper(account.otherBaseUrl, account.accountType, account.otherAccount, account.otherPassword,
                     object : OtherLoginHelper.OnLoginListener {
@@ -41,19 +44,20 @@ class AccountUtils {
                             ProgressLayout.setProgress(ProgressLayout.LOGIN_ACCOUNT, 0, R.string.account_login_start)
                         }
 
-                        override fun unLoading() {
-                            ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT)
-                        }
+                        override fun unLoading() {}
 
                         override fun onSuccess(account: MinecraftAccount) {
-                            account.save()
-                            doneListener.onLoginDone(account)
                             Task.runTask {
+                                account.save()
                                 account.updateOtherSkin()
+                            }.finallyTask(TaskExecutors.getAndroidUI()) {
+                                clearProgress()
+                                doneListener.onLoginDone(account)
                             }.execute()
                         }
 
                         override fun onFailed(error: String) {
+                            clearProgress()
                             errorListener.onLoginError(RuntimeException(error))
                             ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT)
                         }
