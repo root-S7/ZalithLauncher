@@ -79,6 +79,17 @@ class AccountUtils {
             return account == null || account.accountType == "Local"
         }
 
+        @JvmStatic
+        fun getAccountTypeName(context: Context, account: MinecraftAccount): String {
+            return if (isMicrosoftAccount(account)) {
+                context.getString(R.string.account_microsoft_account)
+            } else if (isOtherLoginAccount(account)) {
+                account.accountType
+            } else {
+                context.getString(R.string.account_local_account)
+            }
+        }
+
         //修改自源代码：https://github.com/HMCL-dev/HMCL/blob/main/HMCLCore/src/main/java/org/jackhuang/hmcl/auth/authlibinjector/AuthlibInjectorServer.java#L60-#L76
         //原项目版权归原作者所有，遵循GPL v3协议
         fun tryGetFullServerUrl(baseUrl: String): String {
