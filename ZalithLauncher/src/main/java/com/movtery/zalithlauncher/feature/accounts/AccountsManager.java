@@ -76,7 +76,10 @@ public final class AccountsManager {
             ContextExecutor.showToast(R.string.account_login_done, Toast.LENGTH_SHORT);
 
             //检查账号是否已存在
-            if (getAllAccount().contains(account)) return;
+            if (getAllAccount().contains(account)) {
+                EventBus.getDefault().post(new AccountUpdateEvent());
+                return;
+            }
 
             reload();
 

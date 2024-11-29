@@ -46,8 +46,11 @@ class AccountUtils {
                         }
 
                         override fun onSuccess(account: MinecraftAccount) {
-                            account.save()
-                            doneListener.onLoginDone(account)
+                            Task.runTask {
+                                account.save()
+                            }.ended {
+                                doneListener.onLoginDone(account)
+                            }.execute()
                         }
 
                         override fun onFailed(error: String) {

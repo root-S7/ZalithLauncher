@@ -422,8 +422,10 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
     @Subscribe
     fun event(event: AccountUpdateEvent) {
-        mAccountViewWrapper.refreshAccountInfo()
-        reloadRecyclerView()
+        TaskExecutors.runInUIThread {
+            mAccountViewWrapper.refreshAccountInfo()
+            reloadRecyclerView()
+        }
     }
 
     override fun onClick(v: View) {

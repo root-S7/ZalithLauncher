@@ -120,7 +120,9 @@ public class MainMenuFragment extends FragmentWithAnim {
 
     @Subscribe()
     public void event(AccountUpdateEvent event) {
-        if (accountViewWrapper != null) accountViewWrapper.refreshAccountInfo();
+        TaskExecutors.runInUIThread(() -> {
+            if (accountViewWrapper != null) accountViewWrapper.refreshAccountInfo();
+        });
     }
 
     @Override

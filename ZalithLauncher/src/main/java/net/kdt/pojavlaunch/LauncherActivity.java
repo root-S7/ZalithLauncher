@@ -214,13 +214,13 @@ public class LauncherActivity extends BaseActivity {
 
     @Subscribe()
     public void event(OtherLoginEvent event) {
-        try {
-            event.getAccount().save();
-            Logging.i("Account", "Saved the account : " + event.getAccount().username);
-        } catch (IOException e) {
-            Logging.e("Account", "Failed to save the account : " + e);
-        }
-        accountsManager.getDoneListener().onLoginDone(event.getAccount());
+        Task.runTask(() -> {
+                    event.getAccount().save();
+                    Logging.i("Account", "Saved the account : " + event.getAccount().username);
+                    return null;
+                }).onThrowable(e -> Logging.e("Account", "Failed to save the account : " + e))
+                .finallyTask(() -> accountsManager.getDoneListener().onLoginDone(event.getAccount()))
+                .execute();
     }
 
     @Subscribe()

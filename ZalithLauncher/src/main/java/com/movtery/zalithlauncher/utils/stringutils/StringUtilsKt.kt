@@ -15,5 +15,11 @@ class StringUtilsKt {
 
         @JvmStatic
         fun isEmptyOrBlank(string: String): Boolean = string.isEmpty() || string.isBlank()
+
+        @JvmStatic
+        fun removeSuffix(string: String, suffix: String) = string.removeSuffix(suffix)
+
+        @JvmStatic
+        fun removePrefix(string: String, prefix: String) = string.removePrefix(prefix)
     }
 }

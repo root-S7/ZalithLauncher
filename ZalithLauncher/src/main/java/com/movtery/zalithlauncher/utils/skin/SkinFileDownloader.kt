@@ -16,8 +16,8 @@ class SkinFileDownloader {
 
         @Throws(Exception::class)
         @JvmStatic
-        fun microsoft(skinFile: File, uuid: String) {
-            val profileJson = DownloadUtils.downloadString("https://sessionserver.mojang.com/session/minecraft/profile/$uuid")
+        fun yggdrasil(url: String, skinFile: File, uuid: String) {
+            val profileJson = DownloadUtils.downloadString("${url.removeSuffix("/")}/session/minecraft/profile/$uuid")
             val profileObject = GSON.fromJson(profileJson, JsonObject::class.java)
             val properties = profileObject.get("properties").asJsonArray
             val rawValue = properties.get(0).asJsonObject.get("value").asString
