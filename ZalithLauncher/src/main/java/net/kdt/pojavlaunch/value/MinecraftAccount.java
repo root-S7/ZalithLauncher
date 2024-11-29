@@ -4,7 +4,6 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import com.google.gson.JsonSyntaxException;
-import com.movtery.zalithlauncher.feature.accounts.AccountUtils;
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
@@ -54,13 +53,8 @@ public class MinecraftAccount {
         }
     }
 
-    /**
-     * 保存账号信息结束后，将开始获取皮肤，由于设计网络访问，请勿在UI线程运行！
-     */
     public void save() throws IOException {
         Tools.write(PathAndUrlManager.DIR_ACCOUNT_NEW + "/" + uniqueUUID, Tools.GLOBAL_GSON.toJson(this));
-        if (AccountUtils.isMicrosoftAccount(this)) updateMicrosoftSkin();
-        else if (AccountUtils.isOtherLoginAccount(this)) updateOtherSkin();
     }
     
     public static MinecraftAccount parse(String content) throws JsonSyntaxException {

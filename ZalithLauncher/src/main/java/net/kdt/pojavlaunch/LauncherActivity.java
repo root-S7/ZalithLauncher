@@ -216,6 +216,7 @@ public class LauncherActivity extends BaseActivity {
     public void event(OtherLoginEvent event) {
         Task.runTask(() -> {
                     event.getAccount().save();
+                    event.getAccount().updateOtherSkin();
                     Logging.i("Account", "Saved the account : " + event.getAccount().username);
                     return null;
                 }).onThrowable(e -> Logging.e("Account", "Failed to save the account : " + e))
