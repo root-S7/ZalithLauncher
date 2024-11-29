@@ -76,6 +76,7 @@ import com.movtery.zalithlauncher.utils.stringutils.ShiftDirection;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
+import net.kdt.pojavlaunch.authenticator.microsoft.PresentedException;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
@@ -557,12 +558,19 @@ public class LauncherActivity extends BaseActivity {
                     //登录完成，正式启动游戏！
                     launchGame(version);
                 },
-                e -> new TipDialog.Builder(this)
-                        .setTitle(R.string.generic_error)
-                        .setMessage(getString(R.string.account_login_skip) + "\r\n" + e.getMessage())
-                        .setConfirmClickListener(checked -> launchGame(version))
-                        .setCenterMessage(false)
-                        .buildDialog()
+                e -> {
+                    String errorMessage;
+                    if (e instanceof PresentedException) {
+                        errorMessage = ((PresentedException) e).toString(this);
+                    } else errorMessage = e.getMessage();
+
+                    new TipDialog.Builder(this)
+                            .setTitle(R.string.generic_error)
+                            .setMessage(getString(R.string.account_login_skip) + "\r\n" + errorMessage)
+                            .setConfirmClickListener(checked -> launchGame(version))
+                            .setCenterMessage(false)
+                            .buildDialog();
+                }
         );
     }
 
