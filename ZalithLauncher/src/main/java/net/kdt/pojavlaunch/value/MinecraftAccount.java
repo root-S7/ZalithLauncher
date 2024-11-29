@@ -42,9 +42,9 @@ public class MinecraftAccount {
         updateSkin(StringUtilsKt.removeSuffix(otherBaseUrl, "/") + "/sessionserver/");
     }
 
-    public void updateSkin(String url) {
+    private void updateSkin(String url) {
         File skinFile = new File(PathAndUrlManager.DIR_USER_SKIN, uniqueUUID + ".png");
-        if(skinFile.exists()) FileUtils.deleteQuietly(skinFile); //清除一次皮肤文件
+        if (skinFile.exists()) FileUtils.deleteQuietly(skinFile); //清除一次皮肤文件
         try {
             SkinFileDownloader.yggdrasil(url, skinFile, profileId);
             Logging.i("SkinLoader", "Update skin success");
