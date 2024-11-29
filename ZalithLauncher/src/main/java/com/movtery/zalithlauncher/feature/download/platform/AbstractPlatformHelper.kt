@@ -67,7 +67,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                 Classify.MODPACK -> {
                     EditTextDialog.Builder(context)
                         .setTitle(R.string.version_install_new)
-                        .setEditText(infoItem.title)
+                        .setEditText(infoItem.title.replace("/", "-"))
                         .setConfirmListener { editText, _ ->
                             val customName = editText.text.toString()
                             if (customName.contains("/")) {
@@ -141,7 +141,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
         EditTextDialog.Builder(context)
             .setTitle(R.string.download_install_custom_name)
-            .setEditText("$fileName${file.nameWithoutExtension}")
+            .setEditText("$fileName${file.nameWithoutExtension}".replace("/", "-"))
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
                 if (string.contains("/")) {
