@@ -3,7 +3,6 @@ package com.movtery.zalithlauncher.ui.dialog;
 import android.content.Context;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -101,8 +100,7 @@ public class EditControlInfoDialog extends FullScreenDialog implements Draggable
 
     @Override
     public void show() {
-        TextView titleView = findViewById(R.id.zh_edit_control_info_title);
-        if (title != null && !title.isEmpty()) titleView.setText(title);
+        if (title != null && !title.isEmpty()) binding.title.setText(title);
         super.show();
     }
 
