@@ -104,22 +104,22 @@ public final class AccountsManager {
     }
 
     public void performLogin(MinecraftAccount minecraftAccount) {
-        performLogin(minecraftAccount, getDoneListener());
+        performLogin(minecraftAccount, getDoneListener(), getErrorListener());
     }
 
-    public void performLogin(MinecraftAccount minecraftAccount, DoneListener doneListener) {
+    public void performLogin(MinecraftAccount minecraftAccount, DoneListener doneListener, ErrorListener errorListener) {
         if (AccountUtils.isNoLoginRequired(minecraftAccount)) {
             doneListener.onLoginDone(minecraftAccount);
             return;
         }
 
         if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
-            AccountUtils.otherLogin(ContextExecutor.getApplication(), minecraftAccount, doneListener);
+            AccountUtils.otherLogin(ContextExecutor.getApplication(), minecraftAccount, doneListener, errorListener);
             return;
         }
 
         if (AccountUtils.isMicrosoftAccount(minecraftAccount)) {
-            AccountUtils.microsoftLogin(minecraftAccount, doneListener);
+            AccountUtils.microsoftLogin(minecraftAccount, doneListener, errorListener);
         }
     }
 

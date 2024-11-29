@@ -8,6 +8,7 @@ import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.authenticator.listener.DoneListener
+import net.kdt.pojavlaunch.authenticator.listener.ErrorListener
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import java.net.HttpURLConnection
@@ -18,7 +19,7 @@ import java.util.Objects
 class AccountUtils {
     companion object {
         @JvmStatic
-        fun microsoftLogin(account: MinecraftAccount, doneListener: DoneListener) {
+        fun microsoftLogin(account: MinecraftAccount, doneListener: DoneListener, errorListener: ErrorListener) {
             val accountsManager = AccountsManager.getInstance()
 
             // Perform login only if needed
@@ -27,14 +28,12 @@ class AccountUtils {
                     account,
                     accountsManager.progressListener,
                     doneListener,
-                    accountsManager.errorListener
+                    errorListener
                 )
         }
 
         @JvmStatic
-        fun otherLogin(context: Context, account: MinecraftAccount, doneListener: DoneListener) {
-            val errorListener = AccountsManager.getInstance().errorListener
-
+        fun otherLogin(context: Context, account: MinecraftAccount, doneListener: DoneListener, errorListener: ErrorListener) {
             fun clearProgress() = ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT)
 
             Task.runTask {
@@ -62,7 +61,7 @@ class AccountUtils {
                             ProgressLayout.clearProgress(ProgressLayout.LOGIN_ACCOUNT)
                         }
                     }).justLogin(context, account)
-            }.onThrowable { t -> errorListener.onLoginError(t) }.execute()
+            }.onThrowable { t -> errorListener.onLoginError(RuntimeException(t.message)) }.execute()
         }
 
         @JvmStatic

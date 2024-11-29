@@ -265,6 +265,8 @@
     <string name="account_local_account_invalid">Ein gültiger Benutzername unterstützt nur englische Buchstaben (Groß- und Kleinschreibung sind erlaubt), Zahlen und Unterstriche. Die Länge darf nicht weniger als 3 Zeichen und nicht mehr als 16 Zeichen betragen.\nBeispiele für korrekte Benutzernamen: Name, Name_, Name123\nBeispiele für falsche Benutzernamen: Name@, N ame, name_name_name_name\nWenn du jedoch relevante Mods oder Plugins verwendest, die diese Einschränkung umgehen können, kannst du diesen Namen weiter verwenden. Andernfalls benenne ihn bitte um!</string>
     <string name="account_login_local_name">Benutzername</string>
     <string name="account_login_start">Anmeldung starten!</string>
+    <string name="account_login_no_network">Nicht mit dem Internet verbunden, Login übersprungen!</string>
+    <string name="account_login_skip">Anmeldung fehlgeschlagen, möchten Sie den Anmeldeschritt überspringen?</string>
     <string name="account_no_microsoft_account">Bitte melde dich mindestens mit einem offiziellen Minecraft-Konto an. Wir empfehlen nicht, Minecraft ohne offizielles Konto zu starten.</string>
     <string name="account_no_microsoft_account_local">Du scheinst kein offizielles Konto angemeldet zu haben! Offline-Konten sind eine Notlösung für Spieler, die nicht online sein können, und nicht für Spieler ohne offizielles Konto.</string>
     <string name="account_no_microsoft_account_other">Du scheinst kein offizielles Konto angemeldet zu haben! Bist du sicher, dass du ohne offizielles Konto eine externe Anmeldung verwenden möchtest?</string>

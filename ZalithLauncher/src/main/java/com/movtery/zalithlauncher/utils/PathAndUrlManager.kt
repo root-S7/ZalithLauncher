@@ -12,11 +12,12 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
+import java.util.concurrent.TimeUnit
 
 class PathAndUrlManager {
     companion object {
-        private const val TIME_OUT = 8000
         private const val URL_USER_AGENT: String = "ZalithLauncher/${BuildConfig.VERSION_NAME}"
+        val TIME_OUT = Pair(8000L, TimeUnit.MILLISECONDS)
         const val URL_GITHUB_UPDATE: String = "https://api.github.com/repos/MovTery/ZalithLauncher/contents/versions.json"
         const val URL_GITHUB_HOME: String = "https://api.github.com/repos/MovTery/Zalith-Info/contents/"
         const val URL_MCMOD: String = "https://www.mcmod.cn/"
@@ -81,8 +82,8 @@ class PathAndUrlManager {
         fun createConnection(url: URL): URLConnection {
             val connection = url.openConnection()
             connection.setRequestProperty("User-Agent", URL_USER_AGENT)
-            connection.setConnectTimeout(TIME_OUT)
-            connection.setReadTimeout(TIME_OUT)
+            connection.setConnectTimeout(TIME_OUT.first.toInt())
+            connection.setReadTimeout(TIME_OUT.first.toInt())
 
             return connection
         }

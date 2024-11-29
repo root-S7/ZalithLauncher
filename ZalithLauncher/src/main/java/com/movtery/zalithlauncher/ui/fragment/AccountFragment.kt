@@ -44,6 +44,7 @@ import com.movtery.zalithlauncher.ui.subassembly.account.AccountViewWrapper
 import com.movtery.zalithlauncher.ui.subassembly.account.SelectAccountListener
 import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.http.NetworkUtils
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment
@@ -112,6 +113,10 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
             override fun onRefresh(account: MinecraftAccount) {
                 if (!isTaskRunning()) {
+                    if (!NetworkUtils.isNetworkAvailable(context)) {
+                        Toast.makeText(context, R.string.account_login_no_network, Toast.LENGTH_SHORT).show()
+                        return
+                    }
                     mAccountManager.performLogin(account)
                 } else {
                     Toast.makeText(context, R.string.tasks_ongoing, Toast.LENGTH_SHORT).show()

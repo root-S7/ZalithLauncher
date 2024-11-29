@@ -265,6 +265,8 @@
     <string name="account_local_account_invalid">اسم المستخدم الصالح يدعم فقط الحروف الإنجليزية (غير حساس لحالة الحروف)، الأرقام، والشرطات السفلية. يجب أن تكون الطول بين 3 و 16 حرفًا.\nأمثلة على أسماء المستخدمين الصحيحة: Name، Name_، Name123\nأمثلة على أسماء المستخدمين غير الصحيحة: Name@، N ame، name_name_name_name\nولكن إذا كنت تستخدم المودات أو الإضافات ذات الصلة التي يمكنها تجاوز هذه الآلية، يمكنك الاستمرار في استخدام هذا الاسم، وإلا يرجى إعادة التسمية!</string>
     <string name="account_login_local_name">اسم المستخدم</string>
     <string name="account_login_start">بدء تسجيل الدخول!</string>
+    <string name="account_login_no_network">غير متصل إلى الإنترنت، تم تخطي تسجيل الدخول!</string>
+    <string name="account_login_skip">فشل الدخول إلى الحساب، هل تريد تجاوز خطوة الدخول؟</string>
     <string name="account_no_microsoft_account">يرجى تسجيل الدخول إلى حساب Minecraft الأصلي على الأقل، لا نشجع المستخدمين على تشغيل Minecraft بدون حساب أصلي.</string>
     <string name="account_no_microsoft_account_local">يبدو أنك لم تسجل الدخول إلى حساب أصلي! حساب في وضع عدم الاتصال هو خيار بديل للاعبين لا يمكنهم الاتصال بالإنترنت، وليس للاعبين الذين ليس لديهم حساب أصلي.</string>
     <string name="account_no_microsoft_account_other">يبدو أنك لم تسجل الدخول إلى حساب أصلي! هل أنت متأكد من الاستمرار في استخدام تسجيل الدخول الخارجي بدون تسجيل الدخول إلى حساب أصلي؟</string>

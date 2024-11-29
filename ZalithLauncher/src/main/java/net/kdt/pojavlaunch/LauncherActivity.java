@@ -71,6 +71,7 @@ import com.movtery.zalithlauncher.ui.subassembly.view.DraggableViewWrapper;
 import com.movtery.zalithlauncher.ui.view.AnimButton;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
+import com.movtery.zalithlauncher.utils.http.NetworkUtils;
 import com.movtery.zalithlauncher.utils.stringutils.ShiftDirection;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
@@ -542,19 +543,36 @@ public class LauncherActivity extends BaseActivity {
      * @param version 选择的版本
      */
     private void loginAndLaunchGame(Version version) {
+        if (!NetworkUtils.isNetworkAvailable(this)) {
+            //网络未链接，无法登录，但是依旧允许玩家启动游戏
+            Toast.makeText(this, getString(R.string.account_login_no_network), Toast.LENGTH_SHORT).show();
+            launchGame(version);
+            return;
+        }
+
         accountsManager.performLogin(
                 accountsManager.getCurrentAccount(),
                 account -> {
                     Toast.makeText(this, getString(R.string.account_login_done), Toast.LENGTH_SHORT).show();
                     //登录完成，正式启动游戏！
-                    String versionName = version.getVersionName();
-                    JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName);
-                    new MinecraftDownloader().start(
-                            mcVersion,
-                            versionName,
-                            new ContextAwareDoneListener(this, version)
-                    );
-                }
+                    launchGame(version);
+                },
+                e -> new TipDialog.Builder(this)
+                        .setTitle(R.string.generic_error)
+                        .setMessage(getString(R.string.account_login_skip) + "\r\n" + e.getMessage())
+                        .setConfirmClickListener(checked -> launchGame(version))
+                        .setCenterMessage(false)
+                        .buildDialog()
+        );
+    }
+
+    private void launchGame(Version version) {
+        String versionName = version.getVersionName();
+        JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName);
+        new MinecraftDownloader().start(
+                mcVersion,
+                versionName,
+                new ContextAwareDoneListener(this, version)
         );
     }
 

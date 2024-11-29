@@ -271,6 +271,8 @@
     <string name="account_local_account_invalid">A valid username only supports English letters (case-insensitive), numbers, and underscores. The length must be between 3 and 16 characters.\nExamples of correct usernames: Name, Name_, Name123\nExamples of incorrect usernames: Name@, N ame, name_name_name_name\nHowever, if you are using relevant Mods or plugins that can bypass this restriction, you may continue using this name. Otherwise, please rename it!</string>
     <string name="account_login_local_name">Username</string>
     <string name="account_login_start">Start Login!</string>
+    <string name="account_login_no_network">Not connected to the internet, login skipped!</string>
+    <string name="account_login_skip">Login failed, do you want to skip the login step?</string>
     <string name="account_no_microsoft_account">Please log in with at least one Minecraft premium account, we do not encourage launching Minecraft without a premium account.</string>
     <string name="account_no_microsoft_account_local">It seems you are not logged in with a premium account! Offline accounts are a backup solution for players who cannot connect to the internet, not for players without a premium account.</string>
     <string name="account_no_microsoft_account_other">It seems you are not logged in with a premium account! Are you sure you want to use third-party login without logging in with a premium account?</string>

@@ -265,6 +265,8 @@
     <string name="account_local_account_invalid">正常的使用者名稱僅支持英文字母（大小寫皆可）、數字以及底線作為使用者名稱，長度不允許少於 3 個字元，超過 16 個字元。\n正確的使用者名稱範例：Name、Name_、Name123\n錯誤的使用者名稱範例：Name@、N ame、name_name_name_name\n但如果你使用了相關的模組或者插件能夠解除這一機制，那麼你可以繼續使用這個名稱，否則請重新命名！</string>
     <string name="account_login_local_name">使用者名稱</string>
     <string name="account_login_start">開始登入！</string>
+    <string name="account_login_no_network">未連接到網路，登入已跳過！</string>
+    <string name="account_login_skip">帳號登入失敗，是否要跳過登入步驟？</string>
     <string name="account_no_microsoft_account">請至少登入一個 Minecraft 正版帳號，我們不提倡用戶在沒有正版帳號的情況下啟動 Minecraft。</string>
     <string name="account_no_microsoft_account_local">你似乎沒有登入正版帳號！離線帳號是為玩家在無法連線時提供的一種備用方案，而不是給沒有正版帳號的玩家使用的。</string>
     <string name="account_no_microsoft_account_other">你似乎沒有登入正版帳號！你確定要在沒有登入正版帳號的情況下使用外部登入嗎？</string>

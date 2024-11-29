@@ -265,6 +265,8 @@
     <string name="account_local_account_invalid">Un nom d\'utilisateur valide ne prend en charge que les lettres anglaises (en minuscules ou majuscules), les chiffres et les underscores. La longueur ne doit pas être inférieure à 3 caractères et ne doit pas dépasser 16 caractères.\nExemples de noms d\'utilisateurs corrects : Name, Name_, Name123\nExemples de noms d\'utilisateurs incorrects : Name@, N ame, name_name_name_name\nCependant, si vous utilisez des mods ou des plugins pertinents qui peuvent contourner cette restriction, vous pouvez continuer à utiliser ce nom. Sinon, veuillez le renommer !</string>
     <string name="account_login_local_name">Nom d\'utilisateur</string>
     <string name="account_login_start">Commencer la connexion !</string>
+    <string name="account_login_no_network">Pas connecté à Internet, connexion sautée!</string>
+    <string name="account_login_skip">Échec de la connexion au compte, souhaitez-vous sauter l\'étape de connexion ?</string>
     <string name="account_no_microsoft_account">Veuillez vous connecter avec au moins un compte Minecraft officiel. Nous déconseillons de lancer Minecraft sans compte officiel.</string>
     <string name="account_no_microsoft_account_local">Il semble que vous n\'êtes pas connecté avec un compte officiel ! Le compte hors ligne est une solution de secours pour les joueurs qui ne peuvent pas se connecter à Internet, et non pour ceux qui n\'ont pas de compte officiel.</string>
     <string name="account_no_microsoft_account_other">Il semble que vous n\'êtes pas connecté avec un compte officiel ! Êtes-vous sûr de vouloir utiliser une connexion externe sans compte officiel ?</string>

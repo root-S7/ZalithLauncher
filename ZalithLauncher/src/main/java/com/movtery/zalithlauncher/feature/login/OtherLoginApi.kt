@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
+import com.movtery.zalithlauncher.utils.PathAndUrlManager.Companion.TIME_OUT
 import com.movtery.zalithlauncher.utils.PathAndUrlManager.Companion.createRequestBuilder
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.value.MinecraftAccount
@@ -15,13 +16,13 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.Objects
 import java.util.UUID
-import java.util.concurrent.TimeUnit
 
 object OtherLoginApi {
     private var client: OkHttpClient = OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
+        .callTimeout(TIME_OUT.first, TIME_OUT.second)
+        .connectTimeout(TIME_OUT.first, TIME_OUT.second)
+        .readTimeout(TIME_OUT.first, TIME_OUT.second)
+        .writeTimeout(TIME_OUT.first, TIME_OUT.second)
         .build()
     private var baseUrl: String? = null
 
