@@ -37,6 +37,7 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class MainMenuFragment extends FragmentWithAnim {
     public static final String TAG = "MainMenuFragment";
@@ -118,11 +119,9 @@ public class MainMenuFragment extends FragmentWithAnim {
         });
     }
 
-    @Subscribe()
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void event(AccountUpdateEvent event) {
-        TaskExecutors.runInUIThread(() -> {
-            if (accountViewWrapper != null) accountViewWrapper.refreshAccountInfo();
-        });
+        if (accountViewWrapper != null) accountViewWrapper.refreshAccountInfo();
     }
 
     @Override

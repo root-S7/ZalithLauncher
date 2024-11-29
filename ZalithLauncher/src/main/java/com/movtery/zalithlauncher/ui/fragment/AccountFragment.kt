@@ -51,6 +51,7 @@ import net.kdt.pojavlaunch.value.MinecraftAccount
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 import java.io.File
 import java.util.regex.Pattern
@@ -420,12 +421,10 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
         EventBus.getDefault().unregister(this)
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun event(event: AccountUpdateEvent) {
-        TaskExecutors.runInUIThread {
-            mAccountViewWrapper.refreshAccountInfo()
-            reloadRecyclerView()
-        }
+        mAccountViewWrapper.refreshAccountInfo()
+        reloadRecyclerView()
     }
 
     override fun onClick(v: View) {
