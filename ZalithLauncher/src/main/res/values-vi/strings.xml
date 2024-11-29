@@ -225,7 +225,7 @@
     <string name="version_manager_copy_tip">Sao chép phiên bản hiện tại thành một phiên bản mới với cách ly phiên bản được kích hoạt mặc định. Nếu "Sao chép tất cả tệp" bên dưới được kích hoạt, tất cả tệp được tạo bởi phiên bản hiện tại (gói tài nguyên, lưu trữ, thiết lập trò chơi, v.v.) cũng sẽ được sao chép.</string>
     <string name="version_manager_copy_all">Sao chép tất cả tệp</string>
     <string name="version_manager_delete">Xóa phiên bản</string>
-    <string name="version_manager_delete_tip">Nếu chức năng cách ly phiên bản được bật, khi xóa sẽ xóa luôn các dữ liệu quan trọng như lưu game, gói tài nguyên, mod. Vui lòng sao lưu trước khi thực hiện thao tác này!</string>
+    <string name="version_manager_delete_tip">Xóa phiên bản sẽ đồng thời xóa tất cả các tệp trong thư mục \"./versions/%s\", bao gồm các tài nguyên quan trọng như lưu trữ trò chơi, gói tài nguyên, mô-đun vv, ngay cả khi không bật cách ly phiên bản. Vì vậy, vui lòng chắc chắn đã sao lưu trước khi thực hiện thao tác này!</string>
     <string name="version_manager_delete_tip_invalid">Phiên bản hiện tại thiếu tệp JSON phiên bản và vì vậy được coi là phiên bản không hợp lệ. Bạn không thể chọn phiên bản này. Nhấn Xác nhận để xóa phiên bản sai này.</string>
     <string name="version_manager_task_in_progress">Đang thực hiện tác vụ, quản lý phiên bản tạm thời không khả dụng</string>
     <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>

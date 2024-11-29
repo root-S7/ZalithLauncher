@@ -235,7 +235,7 @@
     <string name="version_manager_copy_tip">将当前版本复制为一个新的版本，且默认开启版本隔离，若开启下方的“复制所有文件”，那么将同时复制当前版本产生的所有文件（资源包、存档、游戏设置等）。</string>
     <string name="version_manager_copy_all">复制所有文件</string>
     <string name="version_manager_delete">删除版本</string>
-    <string name="version_manager_delete_tip">如果开启了版本隔离，那么会在删除时会连带着你的游戏存档、资源包、模组等重要资源一并删除，请一定要做好备份后再进行此操作！</string>
+    <string name="version_manager_delete_tip">删除版本时会一并删除\"./versions/%s\"目录内的所有文件，包括游戏存档、资源包、模组等重要资源，尽管未开启版本隔离，所以请一定要做好备份后再进行此操作！</string>
     <string name="version_manager_delete_tip_invalid">当前版本缺少版本 JSON 文件，所以被判定为无效的版本，因此你不能选择这个版本！点击确认，删除这个错误的版本。</string>
     <string name="version_manager_task_in_progress">任务执行中，暂时无法使用版本管理功能</string>
     <string name="version_manager_invalid">该版本无效</string>

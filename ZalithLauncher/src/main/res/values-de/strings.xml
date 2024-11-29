@@ -225,7 +225,7 @@
     <string name="version_manager_copy_tip">Die aktuelle Version als neue kopieren und Versionsisolation standardmäßig aktivieren. Wenn "Alle Dateien kopieren" unten aktiviert ist, werden auch alle von der aktuellen Version erzeugte Dateien (Ressourcenpakete, Spielstände, Spieleinstellungen etc.) kopiert.</string>
     <string name="version_manager_copy_all">Alle Dateien kopieren</string>
     <string name="version_manager_delete">Version löschen</string>
-    <string name="version_manager_delete_tip">Wenn die Versionsisolierung aktiviert ist, werden beim Löschen auch wichtige Daten wie Spielstände, Ressourcenpakete und Mods gelöscht. Bitte erstellen Sie vorher ein Backup!</string>
+    <string name="version_manager_delete_tip">Beim Löschen einer Version werden auch alle Dateien in dem Verzeichnis \"./versions/%s\" gelöscht, einschließlich wichtiger Ressourcen wie Spielstandsicherungen, Ressourcenpakete, Mods usw., auch wenn die Versionsisolation nicht aktiviert ist. Daher sollten Sie unbedingt eine Sicherung vornehmen, bevor Sie diese Operation ausführen!</string>
     <string name="version_manager_delete_tip_invalid">Die aktuelle Version fehlt die Versions-JSON-Datei und wird daher als ungültige Version betrachtet. Sie können diese Version nicht auswählen. Klicken Sie auf Bestätigen, um diese fehlerhafte Version zu löschen.</string>
     <string name="version_manager_task_in_progress">Aufgabe wird ausgeführt, Versionsverwaltung ist vorübergehend nicht verfügbar</string>
     <string name="version_manager_invalid">Diese Version ist ungültig</string>

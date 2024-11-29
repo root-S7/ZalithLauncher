@@ -111,7 +111,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                 versionDelete -> {
                     TipDialog.Builder(activity)
                         .setTitle(R.string.generic_warning)
-                        .setMessage(R.string.version_manager_delete_tip)
+                        .setMessage(activity.getString(R.string.version_manager_delete_tip, version.getVersionName()))
                         .setConfirmClickListener {
                             FileDeletionHandler(
                                 activity,

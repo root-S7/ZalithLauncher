@@ -225,7 +225,7 @@
     <string name="version_manager_copy_tip">Copiar a versão atual como uma nova, com isolamento de versão ativado por padrão. Se "Copiar todos os arquivos" abaixo estiver ativado, todos os arquivos gerados pela versão atual (pacotes de recursos, arquivos salvos, configurações do jogo, etc.) também serão copiados.</string>
     <string name="version_manager_copy_all">Copiar todos os arquivos</string>
     <string name="version_manager_delete">Excluir versão</string>
-    <string name="version_manager_delete_tip">Se o isolamento de versões estiver ativado, seus jogos salvos, pacotes de recursos e mods serão excluídos junto com a versão. Certifique-se de fazer um backup antes de realizar esta operação!</string>
+    <string name="version_manager_delete_tip">Excluir uma versão também excluirá todos os arquivos no diretório \"./versions/%s\", incluindo recursos importantes como salvamentos de jogos, pacotes de recursos, mods, etc., mesmo se a isolamento de versão não estiver ativado. Portanto, certifique-se de fazer um backup antes de executar essa operação!</string>
     <string name="version_manager_delete_tip_invalid">A versão atual está faltando o arquivo JSON da versão e, portanto, é considerada uma versão inválida. Você não pode selecionar esta versão. Clique em Confirmar para excluir esta versão errônea.</string>
     <string name="version_manager_task_in_progress">Tarefa em andamento, gerenciamento de versões temporariamente indisponível</string>
     <string name="version_manager_invalid">Esta versão é inválida</string>

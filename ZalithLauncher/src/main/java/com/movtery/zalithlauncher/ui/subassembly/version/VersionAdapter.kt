@@ -96,7 +96,7 @@ class VersionAdapter(
                         listener.onVersionClick(it)
                     } else {
                         //版本无效时，不能设置版本，默认点击就会提示用户删除
-                        deleteVersion(it, R.string.version_manager_delete_tip_invalid)
+                        deleteVersion(it, mContext.getString(R.string.version_manager_delete_tip_invalid))
                     }
                 }
                 return
@@ -142,7 +142,7 @@ class VersionAdapter(
                         gamePath -> swapPath(version.getGameDir().absolutePath)
                         rename -> VersionsManager.openRenameDialog(context, version)
                         copy -> VersionsManager.openCopyDialog(context, version)
-                        delete -> deleteVersion(version)
+                        delete -> deleteVersion(version, context.getString(R.string.version_manager_delete_tip, version.getVersionName()))
                         else -> {}
                     }
                     popupWindow.dismiss()
@@ -164,7 +164,7 @@ class VersionAdapter(
         }
 
         //删除版本前提示用户，如果版本无效，那么默认点击事件就是删除版本
-        private fun deleteVersion(version: Version, deleteMessage: Int = R.string.version_manager_delete_tip) {
+        private fun deleteVersion(version: Version, deleteMessage: String) {
             val context = parentFragment.requireActivity()
 
             TipDialog.Builder(context)
