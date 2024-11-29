@@ -182,6 +182,12 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         EventBus.getDefault().unregister(this)
     }
 
+    override fun onPause() {
+        super.onPause()
+        versionsAdapter?.closeAllPopupWindow()
+        profilePathAdapter?.closeAllPopupWindow()
+    }
+
     override fun slideIn(animPlayer: AnimPlayer) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(versionLayout, Animations.BounceInDown))

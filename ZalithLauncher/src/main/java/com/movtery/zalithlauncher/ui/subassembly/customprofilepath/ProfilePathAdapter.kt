@@ -6,13 +6,12 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.PopupWindow
 import android.widget.RadioButton
-import androidx.appcompat.widget.ListPopupWindow
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemProfilePathBinding
+import com.movtery.zalithlauncher.databinding.ViewPathManagerBinding
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.save
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.setCurrentPathId
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.launcherProfile
@@ -33,6 +32,7 @@ class ProfilePathAdapter(
     private val radioButtonMap: MutableMap<String, RadioButton> = TreeMap()
     //如果没有存储权限，那么旧设置为默认路径
     private var currentId: String? = if (StoragePermissionsUtils.checkPermissions()) launcherProfile else "default"
+    private val popupWindowMap: MutableMap<ProfileItem, PopupWindow> = HashMap()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -53,8 +53,12 @@ class ProfilePathAdapter(
     fun updateData(data: MutableList<ProfileItem>) {
         this.mData.clear()
         this.mData.addAll(data)
-
+        this.popupWindowMap.clear()
         refresh()
+    }
+
+    fun closeAllPopupWindow() {
+        popupWindowMap.forEach { (_, popupWindow) -> popupWindow.dismiss() }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -109,77 +113,79 @@ class ProfilePathAdapter(
             profileItem: ProfileItem,
             itemIndex: Int
         ) {
+            popupWindowMap[profileItem]?.let {
+                it.showAsDropDown(anchorView, anchorView.measuredWidth, 0)
+                return
+            }
             val context = anchorView.context
 
-            val popupWindow = ListPopupWindow(context).apply {
-                this.anchorView = anchorView
-                this.isModal = true
-                this.promptPosition = ListPopupWindow.POSITION_PROMPT_ABOVE
-                this.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.background_card))
+            val popupWindow = PopupWindow().apply {
+                isFocusable = true
+                isOutsideTouchable = true
             }
 
-            val settings: MutableList<String> = ArrayList()
-            settings.add(context.getString(R.string.profiles_path_settings_goto))
-            if (!isDefault) {
-                settings.add(context.getString(R.string.generic_rename))
-                settings.add(context.getString(R.string.generic_delete))
-            }
-            val adapter = ArrayAdapter(
-                context,
-                android.R.layout.simple_list_item_1,
-                settings.toTypedArray()
-            )
+            val viewBinding = ViewPathManagerBinding.inflate(LayoutInflater.from(context)).apply {
+                val onClickListener = View.OnClickListener { v ->
+                    when (v) {
+                        gotoView -> {
+                            val bundle = Bundle()
+                            bundle.putString(
+                                FilesFragment.BUNDLE_LOCK_PATH,
+                                Environment.getExternalStorageDirectory().absolutePath
+                            )
+                            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path)
+                            ZHTools.swapFragmentWithAnim(
+                                fragment,
+                                FilesFragment::class.java, FilesFragment.TAG, bundle
+                            )
+                        }
+                        rename -> {
+                            EditTextDialog.Builder(context)
+                                .setTitle(R.string.generic_rename)
+                                .setEditText(profileItem.title)
+                                .setAsRequired()
+                                .setConfirmListener { editBox, _ ->
+                                    val string = editBox.text.toString()
 
-            popupWindow.setAdapter(adapter)
-
-            popupWindow.setOnItemClickListener { _, _, position: Int, _ ->
-                when (position) {
-                    1 -> {
-                        EditTextDialog.Builder(context)
-                            .setTitle(R.string.generic_rename)
-                            .setEditText(profileItem.title)
-                            .setAsRequired()
-                            .setConfirmListener { editBox, _ ->
-                                val string = editBox.text.toString()
-
-                                mData[position].title = string
-                                refresh()
-                                true
-                            }.buildDialog()
+                                    mData[itemIndex].title = string
+                                    refresh()
+                                    true
+                                }.buildDialog()
+                        }
+                        delete -> {
+                            TipDialog.Builder(context)
+                                .setTitle(context.getString(R.string.profiles_path_delete_title))
+                                .setMessage(R.string.profiles_path_delete_message)
+                                .setCancelable(false)
+                                .setConfirmClickListener {
+                                    if (currentId == profileItem.id) {
+                                        //如果删除的是当前选中的路径，那么将自动选择为默认路径
+                                        setPathId("default")
+                                    }
+                                    mData.removeAt(itemIndex)
+                                    refresh()
+                                }.buildDialog()
+                        }
+                        else -> {}
                     }
-
-                    2 -> {
-                        TipDialog.Builder(context)
-                            .setTitle(context.getString(R.string.profiles_path_delete_title))
-                            .setMessage(R.string.profiles_path_delete_message)
-                            .setCancelable(false)
-                            .setConfirmClickListener {
-                                if (currentId == profileItem.id) {
-                                    //如果删除的是当前选中的路径，那么将自动选择为默认路径
-                                    setPathId("default")
-                                }
-                                mData.removeAt(itemIndex)
-                                refresh()
-                            }.buildDialog()
-                    }
-
-                    else -> {
-                        val bundle = Bundle()
-                        bundle.putString(
-                            FilesFragment.BUNDLE_LOCK_PATH,
-                            Environment.getExternalStorageDirectory().absolutePath
-                        )
-                        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path)
-                        ZHTools.swapFragmentWithAnim(
-                            fragment,
-                            FilesFragment::class.java, FilesFragment.TAG, bundle
-                        )
-                    }
+                    popupWindow.dismiss()
                 }
-                popupWindow.dismiss()
+                gotoView.setOnClickListener(onClickListener)
+                rename.setOnClickListener(onClickListener)
+                delete.setOnClickListener(onClickListener)
+                if (isDefault) {
+                    renameLayout.visibility = View.GONE
+                    deleteLayout.visibility = View.GONE
+                }
             }
-
-            popupWindow.show()
+            popupWindow.apply {
+                viewBinding.root.measure(0, 0)
+                this.contentView = viewBinding.root
+                this.width = viewBinding.root.measuredWidth
+                this.height = viewBinding.root.measuredHeight
+            }
+            popupWindowMap[profileItem] = popupWindow
+            popupWindow.showAsDropDown(anchorView, anchorView.measuredWidth, 0)
         }
     }
 }
