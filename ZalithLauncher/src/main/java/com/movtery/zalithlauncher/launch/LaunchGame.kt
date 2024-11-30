@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.Version
@@ -60,6 +61,12 @@ class LaunchGame {
             }
 
             val accountsManager = AccountsManager.getInstance()
+
+            if (AccountUtils.isNoLoginRequired(accountsManager.currentAccount)) {
+                launch()
+                return
+            }
+
             accountsManager.performLogin(
                 accountsManager.currentAccount,
                 { _ ->
@@ -73,12 +80,14 @@ class LaunchGame {
                     val errorMessage = if (exception is PresentedException) exception.toString(context)
                     else exception.message
 
-                    TipDialog.Builder(context)
-                        .setTitle(R.string.generic_error)
-                        .setMessage("${context.getString(R.string.account_login_skip)}\r\n$errorMessage")
-                        .setConfirmClickListener { launch() }
-                        .setCenterMessage(false)
-                        .buildDialog()
+                    TaskExecutors.runInUIThread {
+                        TipDialog.Builder(context)
+                            .setTitle(R.string.generic_error)
+                            .setMessage("${context.getString(R.string.account_login_skip)}\r\n$errorMessage")
+                            .setConfirmClickListener { launch() }
+                            .setCenterMessage(false)
+                            .buildDialog()
+                    }
 
                     setGameProgress(false)
                 }

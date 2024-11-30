@@ -13,6 +13,7 @@ import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 
 import net.kdt.pojavlaunch.Tools;
@@ -73,7 +74,7 @@ public final class AccountsManager {
         };
 
         mDoneListener = account -> {
-            ContextExecutor.showToast(R.string.account_login_done, Toast.LENGTH_SHORT);
+            TaskExecutors.runInUIThread(() -> ContextExecutor.showToast(R.string.account_login_done, Toast.LENGTH_SHORT));
 
             //检查账号是否已存在
             if (getAllAccount().contains(account)) {
@@ -87,7 +88,7 @@ public final class AccountsManager {
             else EventBus.getDefault().post(new AccountUpdateEvent());
         };
 
-        mErrorListener = errorMessage -> {
+        mErrorListener = errorMessage -> TaskExecutors.runInUIThread(() -> {
             Activity activity = ContextExecutor.getActivity();
             if (errorMessage instanceof PresentedException) {
                 PresentedException exception = (PresentedException) errorMessage;
@@ -100,7 +101,7 @@ public final class AccountsManager {
             } else {
                 Tools.showError(activity, errorMessage);
             }
-        };
+        });
     }
 
     public void performLogin(MinecraftAccount minecraftAccount) {
