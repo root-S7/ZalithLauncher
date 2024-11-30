@@ -268,7 +268,7 @@
     <string name="account_microsoft_xerr_unauthorized">Your Microsoft account login information seems to be expired, this often happens after the account password is changed. Please remove the current account and log in again to reset your login information.</string>
     <string name="account_local_account">Offline Account</string>
     <string name="account_local_account_empty">Username cannot be empty!</string>
-    <string name="account_local_account_invalid">A valid username only supports English letters (case-insensitive), numbers, and underscores. The length must be between 3 and 16 characters.\nExamples of correct usernames: Name, Name_, Name123\nExamples of incorrect usernames: Name@, N ame, name_name_name_name\nHowever, if you are using relevant Mods or plugins that can bypass this restriction, you may continue using this name. Otherwise, please rename it!</string>
+    <string name="account_local_account_invalid">Valid usernames only support English letters (both uppercase and lowercase), numbers, and underscores. The length must be between 3 and 16 characters, otherwise the game may not run properly.\nExamples of correct usernames: Name, Name_, Name123\nExamples of incorrect usernames: Name@, N ame, name_name_name_name\nHowever, if you have used relevant mods or plugins to bypass this restriction, you can continue using this name. Otherwise, please rename it!</string>
     <string name="account_login_local_name">Username</string>
     <string name="account_login_start">Start Login!</string>
     <string name="account_login_no_network">Not connected to the internet, login skipped!</string>
