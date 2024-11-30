@@ -112,11 +112,27 @@ public final class ZHTools {
      * @param link 要访问的链接
      */
     public static void openLink(Context context, String link) {
+        openLink(context, link, null);
+    }
+
+    /**
+     * 展示一个提示弹窗，告知用户接下来将要在浏览器内访问的链接，用户可以选择不进行访问
+     * @param link 要访问的链接
+     * @param dataType 设置 intent 的数据以及显式 MIME 数据类型
+     */
+    public static void openLink(Context context, String link, String dataType) {
         new TipDialog.Builder(context)
                 .setTitle(R.string.open_link)
                 .setMessage(link)
                 .setConfirmClickListener(checked -> {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    Uri uri = Uri.parse(link);
+                    Intent browserIntent;
+                    if (dataType != null) {
+                        browserIntent = new Intent(Intent.ACTION_VIEW);
+                        browserIntent.setDataAndType(uri, dataType);
+                    } else {
+                        browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+                    }
                     context.startActivity(browserIntent);
                 }).buildDialog();
     }

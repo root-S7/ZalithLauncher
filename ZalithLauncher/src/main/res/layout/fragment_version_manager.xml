@@ -214,13 +214,13 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/title_edit_textview"
+                android:id="@+id/title_manage_textview"
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/version_manager_edit"
+                android:text="@string/version_manager_title"
 
                 android:textColor="@color/primary_text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -248,7 +248,7 @@
                 android:text="@string/version_manager_edit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_version_icon"
-                app:layout_constraintTop_toBottomOf="@+id/title_edit_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/title_manage_textview" />
 
             <ImageView
                 android:id="@+id/rename_version_icon"

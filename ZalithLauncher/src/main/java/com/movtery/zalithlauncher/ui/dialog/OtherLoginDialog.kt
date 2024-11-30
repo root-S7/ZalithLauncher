@@ -1,8 +1,6 @@
 package com.movtery.zalithlauncher.ui.dialog
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.view.Window
 import android.widget.Toast
@@ -11,6 +9,7 @@ import com.movtery.zalithlauncher.databinding.DialogOtherLoginBinding
 import com.movtery.zalithlauncher.feature.accounts.OtherLoginHelper
 import com.movtery.zalithlauncher.feature.login.Servers.Server
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
+import com.movtery.zalithlauncher.utils.ZHTools
 
 class OtherLoginDialog(
     context: Context,
@@ -55,12 +54,8 @@ class OtherLoginDialog(
             when (v) {
                 cancelButton -> dismiss()
                 registryText -> {
-                    server.register.takeIf { it.isNotEmpty() }?.let {
-                        val intent = Intent()
-                        intent.setAction("android.intent.action.VIEW")
-                        val uri = Uri.parse(it)
-                        intent.setData(uri)
-                        context.startActivity(intent)
+                    server.register.takeIf { it.isNotEmpty() }?.let { link ->
+                        ZHTools.openLink(context, link)
                         dismiss()
                     }
                 }

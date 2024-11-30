@@ -2,8 +2,8 @@ package com.movtery.zalithlauncher.ui.subassembly.account;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -99,9 +99,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
             binding.loginType.setText(loginType);
         }
 
-        private void setButtonClickable(ImageButton button, boolean clickable) {
+        private void setButtonClickable(View button, boolean clickable) {
             button.setAlpha(clickable ? 1.0f : 0.5f);
-            button.setClickable(clickable);
+            button.setEnabled(clickable);
         }
     }
 }

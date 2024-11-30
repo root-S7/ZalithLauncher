@@ -16,7 +16,6 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.InputDevice;
@@ -213,7 +212,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 }
             });
 
-            if (AllSettings.getEnableLogOutput()) openLogOutput();
+            if (AllSettings.getEnableLogOutput()) binding.mainLoggerView.setVisibilityWithAnim(true);
 
             String mcInfo = "";
             VersionInfo versionInfo = minecraftVersion.getVersionInfo();
@@ -258,10 +257,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
         mGameMenuWrapper.setVisibility(!binding.mainControlLayout.hasMenuButton());
         binding.mainControlLayout.toggleControlVisible();
-    }
-
-    private void openLogOutput() {
-        MainActivity.binding.mainLoggerView.setVisibilityWithAnim(true);
     }
 
     @Override
@@ -389,9 +384,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             FileTools.shareFile(context, inputFile);
             Logging.i("In-game Share File/Folder", "Start!");
         } else {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.parse(input), "*/*");
-            context.startActivity(intent);
+            ZHTools.openLink(context, input, "*/*");
         }
     }
 
@@ -613,7 +606,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         @Override public void onClick(View v) {
             if (v == binding.forceClose) ZHTools.dialogForceClose(MainActivity.this);
-            else if (v == binding.logOutput) openLogOutput();
+            else if (v == binding.logOutput) MainActivity.binding.mainLoggerView.toggleViewWithAnim();
             else if (v == binding.sendCustomKey) dialogSendCustomKey();
             else if (v == binding.resolutionScalerRemove) adjustSeekbar(binding.resolutionScaler, -1);
             else if (v == binding.resolutionScalerAdd) adjustSeekbar(binding.resolutionScaler, 1);

@@ -47,6 +47,10 @@ public class LoggerView extends ConstraintLayout {
         mLogToggle.setChecked(visibility == VISIBLE);
     }
 
+    public void toggleViewWithAnim() {
+        setVisibilityWithAnim(!isShowing);
+    }
+
     public void setVisibilityWithAnim(boolean visibility) {
         if (isShowing == visibility) return;
         isShowing = visibility;
