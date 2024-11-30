@@ -32,6 +32,10 @@ class GameInstaller(
     fun installGame() {
         Logging.i("Minecraft Downloader", "Start downloading the version: $realVersion")
 
+        if (taskMap.isNotEmpty()) {
+            ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.download_install_download_file, 0, 0)
+        }
+
         val mcVersion = AsyncMinecraftDownloader.getListedVersion(realVersion)
         MinecraftDownloader().start(
             mcVersion,
@@ -107,6 +111,9 @@ class GameInstaller(
 
                 override fun onDownloadFailed(throwable: Throwable) {
                     Tools.showErrorRemote(throwable)
+                    if (taskMap.isNotEmpty()) {
+                        ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
+                    }
                 }
             }
         )

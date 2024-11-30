@@ -1,28 +1,91 @@
 package com.movtery.zalithlauncher.launch
 
+import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.http.NetworkUtils
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.JMinecraftVersionList
 import net.kdt.pojavlaunch.Logger
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.authenticator.microsoft.PresentedException
+import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin
+import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.services.GameService.LocalBinder
+import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader
+import net.kdt.pojavlaunch.tasks.MinecraftDownloader
 import net.kdt.pojavlaunch.utils.JREUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
 
 class LaunchGame {
     companion object {
+        /**
+         * 改为启动游戏前进行登录，同时也能及时的刷新账号的信息（这明显更合理不是吗，PojavLauncher？）
+         * @param version 选择的版本
+         */
+        @JvmStatic
+        fun preLaunch(context: Context, version: Version) {
+            fun launch() {
+                val versionName = version.getVersionName()
+                val mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName)
+                MinecraftDownloader().start(
+                    mcVersion, versionName, ContextAwareDoneListener(context, version)
+                )
+            }
+
+            fun setGameProgress(pull: Boolean) {
+                if (pull) ProgressKeeper.submitProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_downloading_game_files, 0, 0, 0)
+                else ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT)
+            }
+
+            if (!NetworkUtils.isNetworkAvailable(context)) {
+                //网络未链接，无法登录，但是依旧允许玩家启动游戏
+                Toast.makeText(context, context.getString(R.string.account_login_no_network), Toast.LENGTH_SHORT).show()
+                launch()
+                return
+            }
+
+            val accountsManager = AccountsManager.getInstance()
+            accountsManager.performLogin(
+                accountsManager.currentAccount,
+                { _ ->
+                    TaskExecutors.runInUIThread {
+                        Toast.makeText(context, context.getString(R.string.account_login_done), Toast.LENGTH_SHORT).show()
+                    }
+                    //登录完成，正式启动游戏！
+                    launch()
+                },
+                { exception ->
+                    val errorMessage = if (exception is PresentedException) exception.toString(context)
+                    else exception.message
+
+                    TipDialog.Builder(context)
+                        .setTitle(R.string.generic_error)
+                        .setMessage("${context.getString(R.string.account_login_skip)}\r\n$errorMessage")
+                        .setConfirmClickListener { launch() }
+                        .setCenterMessage(false)
+                        .buildDialog()
+
+                    setGameProgress(false)
+                }
+            )
+            setGameProgress(true)
+        }
+
         @Throws(Throwable::class)
         @JvmStatic
         fun runGame(activity: AppCompatActivity, serverBinder: LocalBinder, minecraftVersion: Version, version: JMinecraftVersionList.Version) {

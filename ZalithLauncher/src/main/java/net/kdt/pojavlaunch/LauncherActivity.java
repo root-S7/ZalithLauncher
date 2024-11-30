@@ -1,5 +1,6 @@
 package net.kdt.pojavlaunch;
 
+import static com.movtery.zalithlauncher.launch.LaunchGame.preLaunch;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
 import android.Manifest;
@@ -71,23 +72,18 @@ import com.movtery.zalithlauncher.ui.subassembly.view.DraggableViewWrapper;
 import com.movtery.zalithlauncher.ui.view.AnimButton;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
-import com.movtery.zalithlauncher.utils.http.NetworkUtils;
 import com.movtery.zalithlauncher.utils.stringutils.ShiftDirection;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
-import net.kdt.pojavlaunch.authenticator.microsoft.PresentedException;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
-import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 import net.kdt.pojavlaunch.services.ProgressServiceKeeper;
-import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader;
 import net.kdt.pojavlaunch.tasks.AsyncVersionList;
-import net.kdt.pojavlaunch.tasks.MinecraftDownloader;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
@@ -185,17 +181,17 @@ public class LauncherActivity extends BaseActivity {
         LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
             @Override
             public void onUsageAllowed() {
-                loginAndLaunchGame(version);
+                preLaunch(LauncherActivity.this, version);
             }
 
             @Override
             public void onUsageDenied() {
                 if (!AllSettings.getLocalAccountReminders()) {
-                    loginAndLaunchGame(version);
+                    preLaunch(LauncherActivity.this, version);
                 } else {
                     LocalAccountUtils.openDialog(LauncherActivity.this, checked -> {
                                 LocalAccountUtils.saveReminders(checked);
-                                loginAndLaunchGame(version);
+                                preLaunch(LauncherActivity.this, version);
                             },
                             getString(R.string.account_no_microsoft_account) + getString(R.string.account_purchase_minecraft_account_tip),
                             R.string.account_continue_to_launch_the_game);
@@ -537,51 +533,6 @@ public class LauncherActivity extends BaseActivity {
 
     private void refreshBackground() {
         BackgroundManager.setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
-    }
-
-    /**
-     * 改为启动游戏前进行登录，同时也能及时的刷新账号的信息（这明显更合理不是吗，PojavLauncher？）
-     * @param version 选择的版本
-     */
-    private void loginAndLaunchGame(Version version) {
-        if (!NetworkUtils.isNetworkAvailable(this)) {
-            //网络未链接，无法登录，但是依旧允许玩家启动游戏
-            Toast.makeText(this, getString(R.string.account_login_no_network), Toast.LENGTH_SHORT).show();
-            launchGame(version);
-            return;
-        }
-
-        accountsManager.performLogin(
-                accountsManager.getCurrentAccount(),
-                account -> {
-                    Toast.makeText(this, getString(R.string.account_login_done), Toast.LENGTH_SHORT).show();
-                    //登录完成，正式启动游戏！
-                    launchGame(version);
-                },
-                e -> {
-                    String errorMessage;
-                    if (e instanceof PresentedException) {
-                        errorMessage = ((PresentedException) e).toString(this);
-                    } else errorMessage = e.getMessage();
-
-                    new TipDialog.Builder(this)
-                            .setTitle(R.string.generic_error)
-                            .setMessage(getString(R.string.account_login_skip) + "\r\n" + errorMessage)
-                            .setConfirmClickListener(checked -> launchGame(version))
-                            .setCenterMessage(false)
-                            .buildDialog();
-                }
-        );
-    }
-
-    private void launchGame(Version version) {
-        String versionName = version.getVersionName();
-        JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName);
-        new MinecraftDownloader().start(
-                mcVersion,
-                versionName,
-                new ContextAwareDoneListener(this, version)
-        );
     }
 
     @SuppressWarnings("SameParameterValue")
