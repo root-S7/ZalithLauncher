@@ -581,8 +581,7 @@
     <string name="splash_screen_lwjgl">Lightweight Java Game Library, die Minecraft zum Ausführen des Spiels benötigt.</string>
     <string name="splash_screen_cacio">Bietet einen portablen GUI-Backend für OpenJDK.</string>
     <string name="splash_screen_authlib_injector">Ändert authlib zur Laufzeit, um eine Anmeldung außerhalb des Spiels zu ermöglichen.</string>
-    <string name="splash_screen_pro_grade">Diese Bibliothek implementiert einen benutzerdefinierten Java-Sicherheitsmanager und eine Sicherheitsrichtlinie mit Ablehnungsregeln.</string>
-    <string name="splash_screen_loader_installers">Hilft beim automatischen Installieren von Forge, Fabric und OptiFine.</string>
+    <string name="splash_screen_components">Einige Komponenten, von denen der Launcher abhängt.</string>
     <string name="splash_screen_jre8">Java 8-Umgebung, Minecraft 1.16- benötigt Java 8.</string>
     <string name="splash_screen_jre17">Java 17-Umgebung, Minecraft 1.17+ benötigt Java 17.</string>
     <string name="splash_screen_jre21">Java 21-Umgebung, Minecraft 1.20.5+ benötigt Java 21.</string>

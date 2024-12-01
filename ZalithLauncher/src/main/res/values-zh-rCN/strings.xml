@@ -618,8 +618,7 @@
     <string name="splash_screen_lwjgl">轻量级 Java 游戏库，Minecraft 依赖它运行游戏。</string>
     <string name="splash_screen_cacio">为 OpenJDK 提供可移植的 GUI 后端。</string>
     <string name="splash_screen_authlib_injector">通过运行时修改 authlib 实现游戏外登录。</string>
-    <string name="splash_screen_pro_grade">该库实现了自定义 Java 安全管理器和带拒绝规则的安全策略。</string>
-    <string name="splash_screen_loader_installers">帮助自动安装 Forge、Fabric、OptiFine。</string>
+    <string name="splash_screen_components">启动器依赖的一些组件。</string>
     <string name="splash_screen_jre8">Java 8 环境，Minecraft 1.16- 依赖 Java 8。</string>
     <string name="splash_screen_jre17">Java 17 环境，Minecraft 1.17+ 依赖 Java 17。</string>
     <string name="splash_screen_jre21">Java 21 环境，Minecraft 1.20.5+ 依赖 Java 21。</string>

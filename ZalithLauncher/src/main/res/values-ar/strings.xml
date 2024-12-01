@@ -581,8 +581,7 @@
     <string name="splash_screen_lwjgl">مكتبة الألعاب الخفيفة الخاصة بـ Java، يعتمد Minecraft عليها لتشغيل اللعبة.</string>
     <string name="splash_screen_cacio">يوفر نظام GUI قابل للنقل لـ OpenJDK.</string>
     <string name="splash_screen_authlib_injector">يتم تعديل authlib عبر وقت التشغيل لتمكين تسجيل الدخول خارج اللعبة.</string>
-    <string name="splash_screen_pro_grade">تقوم هذه المكتبة بتنفيذ مدير أمان Java مخصص وسياسة أمان تحتوي على قواعد الرفض.</string>
-    <string name="splash_screen_loader_installers">يساعد على تثبيت Forge وFabric وOptiFine تلقائيًا.</string>
+    <string name="splash_screen_components">بعض المكونات التي يعتمد عليها المشغل.</string>
     <string name="splash_screen_jre8">بيئة Java 8، يعتمد Minecraft 1.16- على Java 8.</string>
     <string name="splash_screen_jre17">بيئة Java 17، يعتمد Minecraft 1.17+ على Java 17.</string>
     <string name="splash_screen_jre21">بيئة Java 21، يعتمد Minecraft 1.20.5+ على Java 21.</string>

@@ -7,6 +7,5 @@ enum class Components(val component: String, val displayName: String, val summar
     CACIOCAVALLO("caciocavallo", "caciocavallo", R.string.splash_screen_cacio, false),
     CACIOCAVALLO17("caciocavallo17", "caciocavallo 17", R.string.splash_screen_cacio, false),
     LWJGL3("lwjgl3", "LWJGL 3", R.string.splash_screen_lwjgl, false),
-    SECURITY("security", "Pro Grade", R.string.splash_screen_pro_grade, true),
-    LOADER_INSTALLERS("installer", "Loader Installers", R.string.splash_screen_loader_installers, true),
+    COMPONENTS("components", "Launcher Components", R.string.splash_screen_components, true)
 }
