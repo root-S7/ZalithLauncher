@@ -25,7 +25,7 @@ import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfilePathAdapter
 import com.movtery.zalithlauncher.ui.subassembly.version.VersionAdapter
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
@@ -125,12 +125,12 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         VersionsManager.refresh()
 
         profilePathData.clear()
-        profilePathData.add(ProfileItem("default", getString(R.string.profiles_path_default), PathAndUrlManager.DIR_GAME_HOME))
+        profilePathData.add(ProfileItem("default", getString(R.string.profiles_path_default), PathManager.DIR_GAME_HOME))
 
         runCatching {
             val json: String
-            if (PathAndUrlManager.FILE_PROFILE_PATH.exists()) {
-                json = Tools.read(PathAndUrlManager.FILE_PROFILE_PATH)
+            if (PathManager.FILE_PROFILE_PATH.exists()) {
+                json = Tools.read(PathManager.FILE_PROFILE_PATH)
                 if (json.isEmpty()) return@runCatching
             } else return@runCatching
 

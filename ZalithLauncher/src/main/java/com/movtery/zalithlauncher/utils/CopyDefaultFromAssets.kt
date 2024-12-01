@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.utils
 
 import android.content.Context
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 import java.io.IOException
@@ -11,8 +12,8 @@ class CopyDefaultFromAssets {
         @Throws(IOException::class)
         fun copyFromAssets(context: Context?) {
             //默认控制布局
-            if (checkDirectoryEmpty(PathAndUrlManager.DIR_CTRLMAP_PATH)) {
-                Tools.copyAssetFile(context, "default.json", PathAndUrlManager.DIR_CTRLMAP_PATH, false)
+            if (checkDirectoryEmpty(PathManager.DIR_CTRLMAP_PATH)) {
+                Tools.copyAssetFile(context, "default.json", PathManager.DIR_CTRLMAP_PATH, false)
             }
         }
 

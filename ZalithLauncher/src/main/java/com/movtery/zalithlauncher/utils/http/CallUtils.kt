@@ -1,6 +1,6 @@
 package com.movtery.zalithlauncher.utils.http
 
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.UrlManager
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Interceptor
@@ -25,7 +25,7 @@ class CallUtils(
         .addInterceptor(tokenInterceptor)
         .build()
 
-    private val newCall: Call = client.newCall(PathAndUrlManager.createRequestBuilder(url).build())
+    private val newCall: Call = client.newCall(UrlManager.createRequestBuilder(url).build())
 
     fun enqueue() {
         newCall.enqueue(object : Callback {

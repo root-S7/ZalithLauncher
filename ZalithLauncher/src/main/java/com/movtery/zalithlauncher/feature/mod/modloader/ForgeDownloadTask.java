@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.ForgeUtils;
@@ -50,7 +50,7 @@ public class ForgeDownloadTask implements InstallTask, Tools.DownloaderFeedback 
 
     private File downloadForge() throws Exception {
         ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.mod_download_progress, mFullVersion);
-        File destinationFile = new File(PathAndUrlManager.DIR_CACHE, "forge-installer.jar");
+        File destinationFile = new File(PathManager.DIR_CACHE, "forge-installer.jar");
         byte[] buffer = new byte[8192];
         DownloadUtils.downloadFileMonitored(mDownloadUrl, destinationFile, buffer, this);
         return destinationFile;

@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 
@@ -81,7 +81,7 @@ class Version(
 
     fun getControl(): String? {
         val configControl = versionConfig?.getControl()?.removeSuffix("./") ?: ""
-        return if (configControl.isNotEmpty()) File(PathAndUrlManager.DIR_CTRLMAP_PATH, configControl).absolutePath
+        return if (configControl.isNotEmpty()) File(PathManager.DIR_CTRLMAP_PATH, configControl).absolutePath
         else File(AllSettings.defaultCtrl!!).absolutePath
     }
 

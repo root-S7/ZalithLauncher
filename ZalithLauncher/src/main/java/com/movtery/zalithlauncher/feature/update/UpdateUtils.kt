@@ -13,10 +13,11 @@ import com.movtery.zalithlauncher.setting.AllSettings.Companion.ignoreUpdate
 import com.movtery.zalithlauncher.task.TaskExecutors.Companion.runInUIThread
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.dialog.UpdateDialog
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
+import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.Tools
@@ -30,7 +31,7 @@ import java.io.IOException
 class UpdateUtils {
     companion object {
         @JvmField
-        val sApkFile: File = File(PathAndUrlManager.DIR_APP_CACHE, "cache.apk")
+        val sApkFile: File = File(PathManager.DIR_APP_CACHE, "cache.apk")
         private var LAST_UPDATE_CHECK_TIME: Long = 0
 
         @JvmStatic
@@ -109,7 +110,7 @@ class UpdateUtils {
                         }
                     }
                 }
-            }, PathAndUrlManager.URL_GITHUB_UPDATE, if (token == "DUMMY") null else token).enqueue()
+            }, UrlManager.URL_GITHUB_UPDATE, if (token == "DUMMY") null else token).enqueue()
         }
 
         @JvmStatic

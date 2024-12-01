@@ -6,6 +6,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.file.FileTools
+import com.movtery.zalithlauncher.utils.path.PathManager
 import org.apache.commons.io.FileUtils
 import java.io.File
 
@@ -22,13 +23,13 @@ class CleanUpCache {
             var fileCount = 0
             try {
                 Task.runTask {
-                    val list = PathAndUrlManager.DIR_CACHE.listFiles()?.let {
-                        PathAndUrlManager.DIR_APP_CACHE.listFiles()?.let { it1 ->
+                    val list = PathManager.DIR_CACHE.listFiles()?.let {
+                        PathManager.DIR_APP_CACHE.listFiles()?.let { it1 ->
                             getList(it, it1)
                         }
                     }
 
-                    PathAndUrlManager.FILE_VERSION_LIST.let {
+                    PathManager.FILE_VERSION_LIST.let {
                         val file = File(it)
                         if (file.exists()) list?.add(file)
                     }

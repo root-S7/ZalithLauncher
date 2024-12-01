@@ -5,8 +5,8 @@ import android.app.Activity
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.path.UrlManager
 
 class LocalAccountUtils {
     companion object {
@@ -39,7 +39,7 @@ class LocalAccountUtils {
                 .setCheckBox(R.string.generic_no_more_reminders)
                 .setConfirmClickListener(confirmClickListener)
                 .setConfirm(confirm)
-                .setCancelClickListener { ZHTools.openLink(activity, PathAndUrlManager.URL_MINECRAFT) }
+                .setCancelClickListener { ZHTools.openLink(activity, UrlManager.URL_MINECRAFT) }
                 .setCancel(R.string.account_purchase_minecraft_account)
                 .buildDialog()
         }

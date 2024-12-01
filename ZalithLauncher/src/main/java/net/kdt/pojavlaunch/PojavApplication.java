@@ -21,7 +21,7 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.LegacySettingsSync;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -42,7 +42,7 @@ public class PojavApplication extends Application {
 
 		Thread.setDefaultUncaughtExceptionHandler((thread, th) -> {
 			boolean storagePermAllowed = (Build.VERSION.SDK_INT >= 29 || ActivityCompat.checkSelfPermission(PojavApplication.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) && Tools.checkStorageRoot();
-			File crashFile = new File(storagePermAllowed ? PathAndUrlManager.DIR_LAUNCHER_LOG : PathAndUrlManager.DIR_DATA, "latestcrash.txt");
+			File crashFile = new File(storagePermAllowed ? PathManager.DIR_LAUNCHER_LOG : PathManager.DIR_DATA, "latestcrash.txt");
 			try {
 				// Write to file, since some devices may not able to show error
 				FileUtils.ensureParentDirectory(crashFile);
@@ -67,9 +67,9 @@ public class PojavApplication extends Application {
 		try {
 			super.onCreate();
 			
-			PathAndUrlManager.DIR_DATA = getDir("files", MODE_PRIVATE).getParent();
-			PathAndUrlManager.DIR_CACHE = getCacheDir();
-			PathAndUrlManager.DIR_ACCOUNT_NEW = PathAndUrlManager.DIR_DATA + "/accounts";
+			PathManager.DIR_DATA = getDir("files", MODE_PRIVATE).getParent();
+			PathManager.DIR_CACHE = getCacheDir();
+			PathManager.DIR_ACCOUNT_NEW = PathManager.DIR_DATA + "/accounts";
 			Tools.DEVICE_ARCHITECTURE = Architecture.getDeviceArchitecture();
 			//Force x86 lib directory for Asus x86 based zenfones
 			if(Architecture.isx86Device() && Architecture.is32BitsDevice()){

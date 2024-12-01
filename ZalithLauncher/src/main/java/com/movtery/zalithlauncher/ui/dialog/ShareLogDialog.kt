@@ -9,7 +9,7 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.file.FileTools
 import net.kdt.pojavlaunch.Tools
 import java.io.File
@@ -17,11 +17,11 @@ import java.io.File
 class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitializationListener {
     //启动器的日志文件集合，这里只会提取带有"log"名称的日志文件
     private val mLauncherLogFiles: Array<File>
-        get() = PathAndUrlManager.DIR_LAUNCHER_LOG.let { logDir ->
+        get() = PathManager.DIR_LAUNCHER_LOG.let { logDir ->
             File(logDir).listFiles()?.filter { it.name.contains("log") }?.toTypedArray()
         } ?: emptyArray()
 
-    private val mGameLogFile = File(PathAndUrlManager.DIR_GAME_HOME, "/latestlog.txt")
+    private val mGameLogFile = File(PathManager.DIR_GAME_HOME, "/latestlog.txt")
 
     init {
         setContentView(R.layout.dialog_share_log)
@@ -32,7 +32,7 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
             setOnClickListener {
                 if (launcherLogFiles.isNotEmpty()) {
                     Task.runTask {
-                        val zipFile = File(PathAndUrlManager.DIR_APP_CACHE, "logs.zip")
+                        val zipFile = File(PathManager.DIR_APP_CACHE, "logs.zip")
                         FileTools.packZip(launcherLogFiles, zipFile)
                         zipFile
                     }.ended(TaskExecutors.getAndroidUI()) { zipFile ->
@@ -47,7 +47,7 @@ class ShareLogDialog(context: Context) : FullScreenDialog(context), DialogInitia
             if (launcherLogFiles.isEmpty()) {
                 setUnClickable(this)
                 mLauncherLogFilesPath.setText(R.string.file_does_not_exist)
-            } else mLauncherLogFilesPath.text = PathAndUrlManager.DIR_LAUNCHER_LOG
+            } else mLauncherLogFilesPath.text = PathManager.DIR_LAUNCHER_LOG
         }
 
         findViewById<View>(R.id.zh_game_log)?.apply {

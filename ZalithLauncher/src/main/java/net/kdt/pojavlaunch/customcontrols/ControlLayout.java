@@ -24,7 +24,7 @@ import com.movtery.zalithlauncher.ui.dialog.EditControlInfoDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectControlsDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
 import net.kdt.pojavlaunch.Tools;
@@ -486,13 +486,13 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void updateLoadedFileName(String path) {
-		path = path.replace(PathAndUrlManager.DIR_CTRLMAP_PATH, ".");
+		path = path.replace(PathManager.DIR_CTRLMAP_PATH, ".");
 		path = path.substring(0, path.length() - 5);
 		mLayoutFileName = path;
 	}
 
 	public String saveToDirectory(String name) throws Exception{
-		String jsonPath = PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + name + ".json";
+		String jsonPath = PathManager.DIR_CTRLMAP_PATH + "/" + name + ".json";
 		saveLayout(jsonPath);
 		return jsonPath;
 	}

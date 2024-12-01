@@ -42,7 +42,7 @@ import com.movtery.zalithlauncher.ui.subassembly.account.AccountAdapter
 import com.movtery.zalithlauncher.ui.subassembly.account.AccountAdapter.AccountUpdateListener
 import com.movtery.zalithlauncher.ui.subassembly.account.AccountViewWrapper
 import com.movtery.zalithlauncher.ui.subassembly.account.SelectAccountListener
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.NetworkUtils
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
@@ -86,7 +86,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
     private val mLocalNamePattern = Pattern.compile("[^a-zA-Z0-9_]")
     private var mOtherServerConfig: Servers? = null
-    private val mOtherServerConfigFile = File(PathAndUrlManager.DIR_GAME_HOME, "servers.json")
+    private val mOtherServerConfigFile = File(PathManager.DIR_GAME_HOME, "servers.json")
     private val mOtherServerList: MutableList<Server> = ArrayList()
     private val mOtherServerViewList: MutableList<View> = ArrayList()
 
@@ -129,9 +129,9 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                     .setConfirm(R.string.generic_delete)
                     .setConfirmClickListener {
                         val accountFile =
-                            File(PathAndUrlManager.DIR_ACCOUNT_NEW, account.uniqueUUID)
+                            File(PathManager.DIR_ACCOUNT_NEW, account.uniqueUUID)
                         val userSkinFile =
-                            File(PathAndUrlManager.DIR_USER_SKIN, account.uniqueUUID + ".png")
+                            File(PathManager.DIR_USER_SKIN, account.uniqueUUID + ".png")
                         if (accountFile.exists()) FileUtils.deleteQuietly(accountFile)
                         if (userSkinFile.exists()) FileUtils.deleteQuietly(userSkinFile)
                         reloadAccounts()

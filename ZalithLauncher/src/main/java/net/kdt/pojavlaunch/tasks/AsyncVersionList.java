@@ -9,7 +9,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.Task;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
@@ -27,7 +27,7 @@ public class AsyncVersionList {
 
     public void getVersionList(@Nullable VersionDoneListener listener, boolean secondPass){
         Task.runTask(() -> {
-            File versionFile = new File(PathAndUrlManager.FILE_VERSION_LIST);
+            File versionFile = new File(PathManager.FILE_VERSION_LIST);
             JMinecraftVersionList versionList = null;
             try {
                 if (!versionFile.exists() || (ZHTools.getCurrentTimeMillis() > versionFile.lastModified() + 86400000)) {
@@ -68,7 +68,7 @@ public class AsyncVersionList {
 
             // Then save the version list
             //TODO make it not save at times ?
-            FileOutputStream fos = new FileOutputStream(PathAndUrlManager.FILE_VERSION_LIST);
+            FileOutputStream fos = new FileOutputStream(PathManager.FILE_VERSION_LIST);
             fos.write(jsonString.getBytes());
             fos.close();
 

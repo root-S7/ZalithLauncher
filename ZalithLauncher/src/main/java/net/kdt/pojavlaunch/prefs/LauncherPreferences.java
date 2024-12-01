@@ -14,7 +14,7 @@ import com.movtery.zalithlauncher.feature.unpack.Jre;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
@@ -26,7 +26,7 @@ public class LauncherPreferences {
 
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
-        PathAndUrlManager.initContextConstants(ctx);
+        PathManager.initContextConstants(ctx);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         String javaArgs = AllSettings.getJavaArgs();

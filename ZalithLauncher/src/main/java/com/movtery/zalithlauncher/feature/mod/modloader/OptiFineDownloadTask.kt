@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.feature.mod.modloader
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.version.InstallTask
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools.DownloaderFeedback
 import net.kdt.pojavlaunch.modloaders.OFDownloadPageScraper
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion
@@ -15,7 +15,7 @@ import java.io.IOException
 class OptiFineDownloadTask(
     private val mOptiFineVersion: OptiFineVersion
 ) : InstallTask, DownloaderFeedback {
-    private val mDestinationFile = File(PathAndUrlManager.DIR_CACHE, "optifine-installer.jar")
+    private val mDestinationFile = File(PathManager.DIR_CACHE, "optifine-installer.jar")
 
     @Throws(IOException::class)
     override fun run(customName: String): File? {

@@ -11,7 +11,7 @@ import com.movtery.zalithlauncher.databinding.DialogControlInfoBinding;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.EditControlData;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
 
@@ -44,7 +44,7 @@ public class ControlInfoDialog extends FullScreenDialog implements DraggableDial
             EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, controlInfoData.fileName, controlInfoData);
             editControlInfoDialog.setTitle(context.getString(R.string.generic_edit));
             editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
-                File controlFile = new File(PathAndUrlManager.DIR_CTRLMAP_PATH, fileName);
+                File controlFile = new File(PathManager.DIR_CTRLMAP_PATH, fileName);
 
                 CustomControls customControls = EditControlData.loadCustomControlsFromFile(context, controlFile);
 

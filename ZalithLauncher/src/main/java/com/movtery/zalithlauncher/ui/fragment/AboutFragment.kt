@@ -22,8 +22,8 @@ import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean.AboutItemBu
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutRecyclerAdapter
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorRecyclerAdapter
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 
 class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
@@ -56,14 +56,14 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             appInfo.setOnClickListener{ StringUtils.copyText("text", appInfo.text.toString(), requireContext()) }
 
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-            githubButton.setOnClickListener { ZHTools.openLink(requireActivity(), PathAndUrlManager.URL_HOME) }
+            githubButton.setOnClickListener { ZHTools.openLink(requireActivity(), UrlManager.URL_HOME) }
             licenseButton.setOnClickListener { ZHTools.openLink(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
             supportDevelopment.setOnClickListener {
                 TipDialog.Builder(requireActivity())
                     .setTitle(R.string.request_sponsorship_title)
                     .setMessage(R.string.request_sponsorship_message)
                     .setConfirm(R.string.about_button_support_development)
-                    .setConfirmClickListener { ZHTools.openLink(requireActivity(), PathAndUrlManager.URL_SUPPORT) }
+                    .setConfirmClickListener { ZHTools.openLink(requireActivity(), UrlManager.URL_SUPPORT) }
                     .buildDialog()
             }
 
@@ -113,7 +113,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                 AboutItemButtonBean(
                     requireActivity(),
                     getString(R.string.about_access_link),
-                    PathAndUrlManager.URL_MCMOD)
+                    UrlManager.URL_MCMOD)
             )
         )
         mAboutData.add(

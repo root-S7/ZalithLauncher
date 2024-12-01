@@ -8,7 +8,7 @@ import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgeInstallerUrl
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgedForgeInstallerUrl
 import com.movtery.zalithlauncher.feature.version.InstallTask
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools.DownloaderFeedback
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.utils.DownloadUtils
@@ -57,7 +57,7 @@ class NeoForgeDownloadTask(neoforgeVersion: String) : InstallTask, DownloaderFee
             R.string.mod_download_progress,
             mLoaderVersion
         )
-        val destinationFile = File(PathAndUrlManager.DIR_CACHE, "neoforge-installer.jar")
+        val destinationFile = File(PathManager.DIR_CACHE, "neoforge-installer.jar")
         val buffer = ByteArray(8192)
         DownloadUtils.downloadFileMonitored(mDownloadUrl, destinationFile, buffer, this)
         return destinationFile

@@ -27,7 +27,7 @@ import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.image.Dimension;
 import com.movtery.zalithlauncher.utils.image.ImageUtils;
@@ -78,7 +78,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         setContentView(R.layout.activity_java_gui_launcher);
 
         try {
-            File latestLogFile = new File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt");
+            File latestLogFile = new File(PathManager.DIR_GAME_HOME, "latestlog.txt");
             if (!latestLogFile.exists() && !latestLogFile.createNewFile())
                 throw new IOException("Failed to create a new log file");
             Logger.begin(latestLogFile.getAbsolutePath());
@@ -453,9 +453,9 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             
             if (AllSettings.getJavaSandbox()) {
                 Collections.reverse(javaArgList);
-                javaArgList.add("-Xbootclasspath/a:" + PathAndUrlManager.DIR_DATA + "/security/pro-grade.jar");
+                javaArgList.add("-Xbootclasspath/a:" + PathManager.DIR_DATA + "/security/pro-grade.jar");
                 javaArgList.add("-Djava.security.manager=net.sourceforge.prograde.sm.ProGradeJSM");
-                javaArgList.add("-Djava.security.policy=" + PathAndUrlManager.DIR_DATA + "/security/java_sandbox.policy");
+                javaArgList.add("-Djava.security.policy=" + PathManager.DIR_DATA + "/security/java_sandbox.policy");
                 Collections.reverse(javaArgList);
             }
 

@@ -1,6 +1,6 @@
 package net.kdt.pojavlaunch.utils;
 
-import static com.movtery.zalithlauncher.utils.PathAndUrlManager.DIR_NATIVE_LIB;
+import static com.movtery.zalithlauncher.utils.path.PathManager.DIR_NATIVE_LIB;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
 import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
@@ -23,7 +23,7 @@ import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.oracle.dalvik.VMLauncher;
 
 import net.kdt.pojavlaunch.Architecture;
@@ -191,8 +191,8 @@ public class JREUtils {
 
         envMap.put("POJAV_NATIVEDIR", DIR_NATIVE_LIB);
         envMap.put("JAVA_HOME", jreHome);
-        envMap.put("HOME", PathAndUrlManager.DIR_GAME_HOME);
-        envMap.put("TMPDIR", PathAndUrlManager.DIR_CACHE.getAbsolutePath());
+        envMap.put("HOME", PathManager.DIR_GAME_HOME);
+        envMap.put("TMPDIR", PathManager.DIR_CACHE.getAbsolutePath());
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
         envMap.put("PATH", jreHome + "/bin:" + Os.getenv("PATH"));
         envMap.put("FORCE_VSYNC", String.valueOf(AllSettings.getForceVsync()));
@@ -243,11 +243,11 @@ public class JREUtils {
         }
 
         if (LOCAL_RENDERER.equals("gallium_virgl"))
-            envMap.put("VTEST_SOCKET_NAME", new File(PathAndUrlManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
+            envMap.put("VTEST_SOCKET_NAME", new File(PathManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
 
         if (!LOCAL_RENDERER.startsWith("opengles")) {
             envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
-            envMap.put("MESA_GLSL_CACHE_DIR", PathAndUrlManager.DIR_CACHE.getAbsolutePath());
+            envMap.put("MESA_GLSL_CACHE_DIR", PathManager.DIR_CACHE.getAbsolutePath());
             envMap.put("force_glsl_extensions_warn", "true");
             envMap.put("allow_higher_compat_version", "true");
             envMap.put("allow_glsl_extension_directive_midshader", "true");
@@ -285,7 +285,7 @@ public class JREUtils {
 
     private static void setCustomEnv() throws Throwable {
         Map<String, String> envMap = new ArrayMap<>();
-        File customEnvFile = new File(PathAndUrlManager.DIR_GAME_HOME, "custom_env.txt");
+        File customEnvFile = new File(PathManager.DIR_GAME_HOME, "custom_env.txt");
         if (customEnvFile.exists() && customEnvFile.isFile()) {
             BufferedReader reader = new BufferedReader(new FileReader(customEnvFile));
             String line;
@@ -369,18 +369,18 @@ public class JREUtils {
     public static List<String> getJavaArgs(String runtimeHome, String userArgumentsString) {
         List<String> userArguments = parseJavaArguments(userArgumentsString);
         String resolvFile;
-        resolvFile = new File(PathAndUrlManager.DIR_DATA,"resolv.conf").getAbsolutePath();
+        resolvFile = new File(PathManager.DIR_DATA,"resolv.conf").getAbsolutePath();
 
         ArrayList<String> overridableArguments = new ArrayList<>(Arrays.asList(
                 "-Djava.home=" + runtimeHome,
-                "-Djava.io.tmpdir=" + PathAndUrlManager.DIR_CACHE.getAbsolutePath(),
+                "-Djava.io.tmpdir=" + PathManager.DIR_CACHE.getAbsolutePath(),
                 "-Djna.boot.library.path=" + DIR_NATIVE_LIB,
                 "-Duser.home=" + ProfilePathManager.getCurrentPath(),
                 "-Duser.language=" + System.getProperty("user.language"),
                 "-Dos.name=Linux",
                 "-Dos.version=Android-" + Build.VERSION.RELEASE,
                 "-Dpojav.path.minecraft=" + ProfilePathHome.getGameHome(),
-                "-Dpojav.path.private.account=" + PathAndUrlManager.DIR_ACCOUNT_NEW,
+                "-Dpojav.path.private.account=" + PathManager.DIR_ACCOUNT_NEW,
                 "-Duser.timezone=" + TimeZone.getDefault().getID(),
 
                 "-Dorg.lwjgl.vulkan.libname=libvulkan.so",

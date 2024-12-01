@@ -42,7 +42,7 @@ import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
@@ -104,7 +104,7 @@ public final class Tools {
      * @return true if storage is fine, false if storage is not accessible
      */
     public static boolean checkStorageRoot() {
-        File externalFilesDir = new File(PathAndUrlManager.DIR_GAME_HOME);
+        File externalFilesDir = new File(PathManager.DIR_GAME_HOME);
         //externalFilesDir == null when the storage is not mounted if it was obtained with the context call
         return Environment.getExternalStorageState(externalFilesDir).equals(Environment.MEDIA_MOUNTED);
     }
@@ -163,7 +163,7 @@ public final class Tools {
 
     public static String getLWJGL3ClassPath() {
         StringBuilder libStr = new StringBuilder();
-        File lwjgl3Folder = new File(PathAndUrlManager.DIR_GAME_HOME, "lwjgl3");
+        File lwjgl3Folder = new File(PathManager.DIR_GAME_HOME, "lwjgl3");
         File[] lwjgl3Files = lwjgl3Folder.listFiles();
         if (lwjgl3Files != null) {
             for (File file: lwjgl3Files) {
@@ -739,7 +739,7 @@ public final class Tools {
         Task.runTask(() -> {
             String name = getFileName(context, uri);
             MultiRTUtils.installRuntimeNamed(
-                    PathAndUrlManager.DIR_NATIVE_LIB,
+                    PathManager.DIR_NATIVE_LIB,
                     context.getContentResolver().openInputStream(uri),
                     name);
 
@@ -797,7 +797,7 @@ public final class Tools {
      * Triggers the share intent chooser, with the latestlog file attached to it
      */
     public static void shareLog(Context context) {
-        FileTools.shareFile(context, "latestlog.txt", PathAndUrlManager.DIR_GAME_HOME + "/latestlog.txt");
+        FileTools.shareFile(context, "latestlog.txt", PathManager.DIR_GAME_HOME + "/latestlog.txt");
     }
 
     /** Mesure the textview height, given its current parameters */

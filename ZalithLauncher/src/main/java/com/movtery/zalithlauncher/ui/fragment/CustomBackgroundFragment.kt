@@ -28,7 +28,7 @@ import com.movtery.zalithlauncher.ui.dialog.FilesDialog.FilesButton
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileSelectedListener
 import com.movtery.zalithlauncher.utils.NewbieGuideUtils
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
@@ -187,7 +187,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     }
 
     private fun backgroundPath(): File {
-        val dirBackground = PathAndUrlManager.DIR_BACKGROUND
+        val dirBackground = PathManager.DIR_BACKGROUND
         if (!dirBackground.exists()) mkdirs(dirBackground)
         return dirBackground
     }

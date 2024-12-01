@@ -8,7 +8,7 @@ import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerViewCreator
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import java.io.File
@@ -67,7 +67,7 @@ class SelectMouseDialog(context: Context, private val listener: MouseSelectedLis
     }
 
     private fun mousePath(): File {
-        val path = File(PathAndUrlManager.DIR_CUSTOM_MOUSE)
+        val path = File(PathManager.DIR_CUSTOM_MOUSE)
         if (!path.exists()) mkdirs(path)
         return path
     }

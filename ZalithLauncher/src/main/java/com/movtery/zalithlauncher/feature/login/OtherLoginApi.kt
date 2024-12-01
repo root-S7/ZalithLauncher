@@ -4,8 +4,8 @@ import android.content.Context
 import com.google.gson.Gson
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
-import com.movtery.zalithlauncher.utils.PathAndUrlManager.Companion.TIME_OUT
-import com.movtery.zalithlauncher.utils.PathAndUrlManager.Companion.createRequestBuilder
+import com.movtery.zalithlauncher.utils.path.UrlManager.Companion.TIME_OUT
+import com.movtery.zalithlauncher.utils.path.UrlManager.Companion.createRequestBuilder
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

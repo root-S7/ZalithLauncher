@@ -63,7 +63,7 @@ import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarType;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarUtils;
 import com.movtery.zalithlauncher.ui.subassembly.view.GameMenuViewWrapper;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.AnimUtils;
 import com.movtery.zalithlauncher.utils.file.FileTools;
@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         binding.mainDrawerOptions.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         try {
-            File latestLogFile = new File(PathAndUrlManager.DIR_GAME_HOME, "latestlog.txt");
+            File latestLogFile = new File(PathManager.DIR_GAME_HOME, "latestlog.txt");
             if(!latestLogFile.exists() && !latestLogFile.createNewFile())
                 throw new IOException("Failed to create a new log file");
             Logger.begin(latestLogFile.getAbsolutePath());

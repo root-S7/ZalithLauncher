@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.feature.unpack
 import android.content.Context
 import android.content.res.AssetManager
 import com.movtery.zalithlauncher.feature.log.Logging.i
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import java.io.File
@@ -20,7 +20,7 @@ class UnpackComponentsTask(val context: Context, val component: Components) : Ab
     init {
         runCatching {
             am = context.assets
-            rootDir = if (component.privateDirectory) PathAndUrlManager.DIR_DATA else PathAndUrlManager.DIR_GAME_HOME
+            rootDir = if (component.privateDirectory) PathManager.DIR_DATA else PathManager.DIR_GAME_HOME
             versionFile = File("$rootDir/${component.component}/version")
             input = am.open("components/${component.component}/version")
         }.getOrElse {

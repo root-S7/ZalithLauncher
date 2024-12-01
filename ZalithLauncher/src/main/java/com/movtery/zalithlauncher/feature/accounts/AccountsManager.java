@@ -14,7 +14,7 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.authenticator.listener.DoneListener;
@@ -126,7 +126,7 @@ public final class AccountsManager {
 
     public void reload() {
         accounts.clear();
-        File accountsPath = new File(PathAndUrlManager.DIR_ACCOUNT_NEW);
+        File accountsPath = new File(PathManager.DIR_ACCOUNT_NEW);
         if (accountsPath.exists() && accountsPath.isDirectory()) {
             File[] files = accountsPath.listFiles();
             if (files != null) {

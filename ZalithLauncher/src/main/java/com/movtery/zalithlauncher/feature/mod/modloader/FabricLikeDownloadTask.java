@@ -6,7 +6,7 @@ import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.version.InstallTask;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -46,7 +46,7 @@ public class FabricLikeDownloadTask implements InstallTask, Tools.DownloaderFeed
     }
 
     private File downloadInstaller() throws Exception {
-        File outputFile = new File(PathAndUrlManager.DIR_CACHE, "fabric-installer.jar");
+        File outputFile = new File(PathManager.DIR_CACHE, "fabric-installer.jar");
 
         String installerDownloadUrl = mUtils.getInstallerDownloadUrl();
         byte[] buffer = new byte[8192];

@@ -15,7 +15,7 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.TaskExecutors;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.utils.FileUtils;
 
@@ -45,7 +45,7 @@ public class ImportControlActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PathAndUrlManager.initContextConstants(getApplicationContext());
+        PathManager.initContextConstants(getApplicationContext());
 
         setContentView(R.layout.activity_import_control);
         mEditText = findViewById(R.id.editText_import_control_file_name);
@@ -122,7 +122,7 @@ public class ImportControlActivity extends Activity {
             return;
         }
 
-        new File(PathAndUrlManager.DIR_CTRLMAP_PATH + "/TMP_IMPORT_FILE.json").renameTo(new File(PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + fileName + ".json"));
+        new File(PathManager.DIR_CTRLMAP_PATH + "/TMP_IMPORT_FILE.json").renameTo(new File(PathManager.DIR_CTRLMAP_PATH + "/" + fileName + ".json"));
         Toast.makeText(getApplicationContext(), getText(R.string.import_control_done), Toast.LENGTH_SHORT).show();
         finishAndRemoveTask();
     }
@@ -134,7 +134,7 @@ public class ImportControlActivity extends Activity {
         InputStream is;
         try {
             is = getContentResolver().openInputStream(mUriData);
-            OutputStream os = new FileOutputStream(PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + "TMP_IMPORT_FILE" + ".json");
+            OutputStream os = new FileOutputStream(PathManager.DIR_CTRLMAP_PATH + "/" + "TMP_IMPORT_FILE" + ".json");
             IOUtils.copy(is, os);
 
             os.close();
@@ -153,7 +153,7 @@ public class ImportControlActivity extends Activity {
         fileName = trimFileName(fileName);
 
         if(fileName.isEmpty()) return false;
-        return !FileUtils.exists(PathAndUrlManager.DIR_CTRLMAP_PATH + "/" + fileName + ".json");
+        return !FileUtils.exists(PathManager.DIR_CTRLMAP_PATH + "/" + fileName + ".json");
     }
 
     /**
@@ -187,7 +187,7 @@ public class ImportControlActivity extends Activity {
      */
     private static boolean verify(){
         try{
-            String jsonLayoutData = Tools.read(PathAndUrlManager.DIR_CTRLMAP_PATH + "/TMP_IMPORT_FILE.json");
+            String jsonLayoutData = Tools.read(PathManager.DIR_CTRLMAP_PATH + "/TMP_IMPORT_FILE.json");
             JSONObject layoutJobj = new JSONObject(jsonLayoutData);
             return layoutJobj.has("version") && layoutJobj.has("mControlDataList");
         }catch (JSONException | IOException e) {

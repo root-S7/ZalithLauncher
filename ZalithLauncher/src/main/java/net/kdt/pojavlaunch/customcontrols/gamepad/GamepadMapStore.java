@@ -3,7 +3,7 @@ package net.kdt.pojavlaunch.customcontrols.gamepad;
 import android.util.Log;
 
 import com.google.gson.JsonParseException;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class GamepadMapStore {
-    private static final File STORE_FILE = new File(PathAndUrlManager.DIR_DATA, "gamepad_map.json");
+    private static final File STORE_FILE = new File(PathManager.DIR_DATA, "gamepad_map.json");
     private static GamepadMapStore sMapStore;
     private GamepadMap mInMenuMap;
     private GamepadMap mInGameMap;

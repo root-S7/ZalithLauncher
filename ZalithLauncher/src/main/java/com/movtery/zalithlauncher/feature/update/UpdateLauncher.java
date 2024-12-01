@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
+import com.movtery.zalithlauncher.utils.path.UrlManager;
 
 import org.apache.commons.io.FileUtils;
 
@@ -42,7 +42,7 @@ public final class UpdateLauncher {
 
         this.destinationFilePath = UpdateUtils.sApkFile.getAbsolutePath();
         this.call = new OkHttpClient().newCall(
-                PathAndUrlManager.createRequestBuilder(UpdateUtils.getDownloadUrl(launcherVersion, updateSource)).build()
+                UrlManager.createRequestBuilder(UpdateUtils.getDownloadUrl(launcherVersion, updateSource)).build()
         ); //获取请求对象
     }
 

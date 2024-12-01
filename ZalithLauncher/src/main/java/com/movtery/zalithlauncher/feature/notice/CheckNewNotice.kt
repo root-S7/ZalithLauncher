@@ -3,10 +3,10 @@ package com.movtery.zalithlauncher.feature.notice
 import android.content.Context
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
+import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import okhttp3.Call
@@ -69,7 +69,7 @@ class CheckNewNotice {
                     }
                     isChecking = false
                 }
-            }, PathAndUrlManager.URL_GITHUB_HOME + "launcher_notice.json", if (token == "DUMMY") null else token).enqueue()
+            }, UrlManager.URL_GITHUB_HOME + "launcher_notice.json", if (token == "DUMMY") null else token).enqueue()
         }
 
         private fun getLanguageText(language: String, text: NoticeJsonObject.Text): String {

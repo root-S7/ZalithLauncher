@@ -15,7 +15,7 @@ import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.DeleteDialog;
 import com.movtery.zalithlauncher.ui.subassembly.filelist.RefreshListener;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.StringFilter;
 
@@ -32,7 +32,7 @@ public class ControlsListViewCreator {
     private ControlListAdapter controlListAdapter;
     private ControlSelectedListener selectedListener;
     private RefreshListener refreshListener;
-    private File fullPath = new File(PathAndUrlManager.DIR_CTRLMAP_PATH);
+    private File fullPath = new File(PathManager.DIR_CTRLMAP_PATH);
     private String filterString = "";
     private boolean showSearchResultsOnly = false;
     private boolean caseSensitive = false;
@@ -162,7 +162,7 @@ public class ControlsListViewCreator {
     }
 
     private File controlPath() {
-        File ctrlPath = new File(PathAndUrlManager.DIR_CTRLMAP_PATH);
+        File ctrlPath = new File(PathManager.DIR_CTRLMAP_PATH);
         if (!ctrlPath.exists()) FileTools.mkdirs(ctrlPath);
         return ctrlPath;
     }

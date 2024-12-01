@@ -39,6 +39,7 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -92,7 +93,7 @@ public final class ZHTools {
         if (customMouse == null) {
             return null;
         }
-        return new File(PathAndUrlManager.DIR_CUSTOM_MOUSE, customMouse);
+        return new File(PathManager.DIR_CUSTOM_MOUSE, customMouse);
     }
 
     public static void dialogForceClose(Context ctx) {

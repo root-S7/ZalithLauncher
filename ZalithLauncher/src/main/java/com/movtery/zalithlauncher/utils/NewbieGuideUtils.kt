@@ -10,6 +10,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import java.io.FileWriter
 
@@ -21,7 +22,7 @@ class NewbieGuideUtils {
         private val NEWBIE_TAGS: MutableList<String> = ArrayList()
 
         init {
-            PathAndUrlManager.FILE_NEWBIE_GUIDE.apply {
+            PathManager.FILE_NEWBIE_GUIDE.apply {
                 runCatching {
                     if (!exists()) createNewFile()
 
@@ -55,7 +56,7 @@ class NewbieGuideUtils {
                 jsonArray.add(tag)
             }
             runCatching {
-                FileWriter(PathAndUrlManager.FILE_NEWBIE_GUIDE).use { fileWriter ->
+                FileWriter(PathManager.FILE_NEWBIE_GUIDE).use { fileWriter ->
                     println(jsonArray)
                     Gson().toJson(jsonArray, fileWriter)
                 }

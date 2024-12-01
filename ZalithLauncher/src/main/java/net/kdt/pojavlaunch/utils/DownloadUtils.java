@@ -3,8 +3,9 @@ package net.kdt.pojavlaunch.utils;
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
+import com.movtery.zalithlauncher.utils.path.UrlManager;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -31,7 +32,7 @@ public class DownloadUtils {
     public static void download(URL url, OutputStream os) throws IOException {
         InputStream is = null;
         try {
-            HttpURLConnection conn = PathAndUrlManager.createHttpConnection(url);
+            HttpURLConnection conn = UrlManager.createHttpConnection(url);
             conn.setDoInput(true);
             conn.connect();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -91,7 +92,7 @@ public class DownloadUtils {
     }
 
     public static <T> T downloadStringCached(String url, String cacheName, boolean force, ParseCallback<T> parseCallback) throws IOException, ParseException{
-        File cacheDestination = new File(PathAndUrlManager.DIR_CACHE_STRING, cacheName);
+        File cacheDestination = new File(PathManager.DIR_CACHE_STRING, cacheName);
         if (force && cacheDestination.exists()) org.apache.commons.io.FileUtils.deleteQuietly(cacheDestination);
         if (cacheDestination.isFile() && cacheDestination.canRead() &&
                 ZHTools.getCurrentTimeMillis() < (cacheDestination.lastModified() + 86400000)) {

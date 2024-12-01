@@ -4,7 +4,7 @@ import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.version.InstallTask
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.utils.DownloadUtils
@@ -14,7 +14,7 @@ class FabricLikeApiModDownloadTask(private val fileName: String, private val ver
     @Throws(Exception::class)
     override fun run(customName: String): File {
         ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.mod_download_progress, versionItem.fileName)
-        val destinationFile = File(PathAndUrlManager.DIR_CACHE, "$fileName.jar")
+        val destinationFile = File(PathManager.DIR_CACHE, "$fileName.jar")
         DownloadUtils.downloadFileMonitored(versionItem.fileUrl, destinationFile, ByteArray(8192), this)
         ProgressLayout.clearProgress(ProgressLayout.INSTALL_RESOURCE)
         return destinationFile

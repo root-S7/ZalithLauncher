@@ -2,7 +2,7 @@ package com.movtery.zalithlauncher.feature.log
 
 import android.util.Log
 import com.movtery.zalithlauncher.BuildConfig
-import com.movtery.zalithlauncher.utils.PathAndUrlManager.Companion.DIR_LAUNCHER_LOG
+import com.movtery.zalithlauncher.utils.path.PathManager.Companion.DIR_LAUNCHER_LOG
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils

@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.setting
 
 import com.movtery.zalithlauncher.context.ContextExecutor
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 
@@ -219,7 +219,7 @@ class AllSettings {
 
         @JvmStatic
         val defaultCtrl: String?
-            get() = Settings.Manager.getString("defaultCtrl", PathAndUrlManager.FILE_CTRLDEF_FILE)
+            get() = Settings.Manager.getString("defaultCtrl", PathManager.FILE_CTRLDEF_FILE)
 
         @JvmStatic
         val defaultRuntime: String?

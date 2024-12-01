@@ -4,7 +4,7 @@ import android.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.movtery.zalithlauncher.feature.log.Logging;
-import com.movtery.zalithlauncher.utils.PathAndUrlManager;
+import com.movtery.zalithlauncher.utils.path.UrlManager;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -62,7 +62,7 @@ public class ApiHandler {
         Logging.d("ApiHandler", url);
         HttpURLConnection conn = null;
         try {
-            conn = PathAndUrlManager.createHttpConnection(new URL(url));
+            conn = UrlManager.createHttpConnection(new URL(url));
             addHeaders(conn, headers);
             InputStream inputStream = new BufferedInputStream(conn.getInputStream());
             String data = Tools.read(inputStream);
@@ -91,7 +91,7 @@ public class ApiHandler {
 
     public static String postRaw(Map<String, String> headers, String url, String body) {
         try {
-            HttpURLConnection conn = PathAndUrlManager.createHttpConnection(new URL(url));
+            HttpURLConnection conn = UrlManager.createHttpConnection(new URL(url));
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");

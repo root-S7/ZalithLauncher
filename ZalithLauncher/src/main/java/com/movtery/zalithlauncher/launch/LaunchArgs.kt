@@ -7,7 +7,7 @@ import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.librariesHome
 import com.movtery.zalithlauncher.feature.version.Version
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.AWTCanvasView
 import net.kdt.pojavlaunch.JMinecraftVersionList
@@ -47,17 +47,17 @@ class LaunchArgs(
 
         if (AccountUtils.isOtherLoginAccount(account)) {
             if (account.otherBaseUrl.contains("auth.mc-user.com")) {
-                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/nide8auth.jar=${account.otherBaseUrl.replace("https://auth.mc-user.com:233/", "")}")
+                argsList.add("-javaagent:${PathManager.DIR_GAME_HOME}/other_login/nide8auth.jar=${account.otherBaseUrl.replace("https://auth.mc-user.com:233/", "")}")
                 argsList.add("-Dnide8auth.client=true")
             } else {
-                argsList.add("-javaagent:${PathAndUrlManager.DIR_GAME_HOME}/other_login/authlib-injector.jar=${account.otherBaseUrl}")
+                argsList.add("-javaagent:${PathManager.DIR_GAME_HOME}/other_login/authlib-injector.jar=${account.otherBaseUrl}")
             }
         }
 
         argsList.addAll(getCacioJavaArgs(runtime.javaVersion == 8))
 
         val is7 = VersionNumber.compare(VersionNumber.asVersion(versionInfo.id ?: "0.0").canonical, "1.12") < 0
-        val configFilePath = "${PathAndUrlManager.DIR_DATA}/security/log4j-rce-patch-${if (is7) "1.7" else "1.12"}.xml"
+        val configFilePath = "${PathManager.DIR_DATA}/security/log4j-rce-patch-${if (is7) "1.7" else "1.12"}.xml"
         argsList.add("-Dlog4j.configurationFile=$configFilePath")
 
         return argsList
@@ -75,7 +75,7 @@ class LaunchArgs(
         varArgMap["classpath_separator"] = ":"
         varArgMap["library_directory"] = librariesHome
         varArgMap["version_name"] = versionInfo.id
-        varArgMap["natives_directory"] = PathAndUrlManager.DIR_NATIVE_LIB
+        varArgMap["natives_directory"] = PathManager.DIR_NATIVE_LIB
 
         val minecraftArgs: MutableList<String> = java.util.ArrayList()
         versionInfo.arguments?.let {
@@ -180,7 +180,7 @@ class LaunchArgs(
 
             val cacioClassPath = StringBuilder()
             cacioClassPath.append("-Xbootclasspath/").append(if (isJava8) "p" else "a")
-            val cacioFiles = File(PathAndUrlManager.DIR_GAME_HOME, "/caciocavallo${if (isJava8) "" else "17"}")
+            val cacioFiles = File(PathManager.DIR_GAME_HOME, "/caciocavallo${if (isJava8) "" else "17"}")
             cacioFiles.listFiles()?.onEach {
                 if (it.name.endsWith(".jar")) cacioClassPath.append(":").append(it.absolutePath)
             }

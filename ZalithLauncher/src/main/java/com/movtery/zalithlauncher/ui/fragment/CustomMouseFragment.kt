@@ -26,7 +26,7 @@ import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerViewCreator
 import com.movtery.zalithlauncher.utils.NewbieGuideUtils
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
@@ -117,7 +117,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     }
 
     private fun mousePath(): File {
-        val path = File(PathAndUrlManager.DIR_CUSTOM_MOUSE)
+        val path = File(PathManager.DIR_CUSTOM_MOUSE)
         if (!path.exists()) mkdirs(path)
         return path
     }

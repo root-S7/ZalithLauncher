@@ -5,9 +5,9 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorMeta
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
 import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
+import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import okhttp3.Call
@@ -85,7 +85,7 @@ class CheckSponsor {
                     }
                     isChecking = false
                 }
-            }, PathAndUrlManager.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).enqueue()
+            }, UrlManager.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).enqueue()
         }
     }
 

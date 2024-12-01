@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.movtery.zalithlauncher.event.single.SettingsChangeEvent
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.utils.PathAndUrlManager
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
@@ -20,7 +20,7 @@ class Settings {
         private var settings: List<SettingAttribute> = refresh()
 
         private fun refresh(): List<SettingAttribute> {
-            return PathAndUrlManager.FILE_SETTINGS.takeIf { it.exists() }?.let { file ->
+            return PathManager.FILE_SETTINGS.takeIf { it.exists() }?.let { file ->
                 try {
                     val jsonString = Tools.read(file)
                     val listType: Type = object : TypeToken<List<SettingAttribute>>() {}.type
@@ -92,7 +92,7 @@ class Settings {
             }
 
             fun save() {
-                val settingsFile = PathAndUrlManager.FILE_SETTINGS
+                val settingsFile = PathManager.FILE_SETTINGS
                 if (!settingsFile.exists()) settingsFile.createNewFile()
 
                 val currentSettings = settings.toMutableList()
