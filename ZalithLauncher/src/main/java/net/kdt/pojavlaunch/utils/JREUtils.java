@@ -322,8 +322,6 @@ public class JREUtils {
         if (LOCAL_RENDERER != null) setRendererEnv();
 
         List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
-        //禁用flite缺失、lwjgl兼容性警告的日志输出
-        userArgs.add("-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
         //Remove arguments that can interfere with the good working of the launcher
         purgeArg(userArgs,"-Xms");
         purgeArg(userArgs,"-Xmx");
@@ -336,6 +334,9 @@ public class JREUtils {
         purgeArg(userArgs, "-Dorg.lwjgl.opengl.libname");
         // Don't let the user specify a custom Freetype library (as the user is unlikely to specify a version compiled for Android)
         purgeArg(userArgs, "-Dorg.lwjgl.freetype.libname");
+
+        //禁用flite缺失、lwjgl兼容性警告的日志输出
+        userArgs.add("-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
 
         //Add automatically generated args
         userArgs.add("-Xms" + AllSettings.getRamAllocation() + "M");
