@@ -323,7 +323,7 @@ public class JREUtils {
 
         List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
         //禁用flite缺失、lwjgl兼容性警告的日志输出
-        purgeArg(userArgs,"-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
+        userArgs.add("-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
         //Remove arguments that can interfere with the good working of the launcher
         purgeArg(userArgs,"-Xms");
         purgeArg(userArgs,"-Xmx");
