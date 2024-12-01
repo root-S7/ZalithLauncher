@@ -5,7 +5,7 @@ import com.google.gson.JsonParser
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
-import com.movtery.zalithlauncher.utils.path.PathManager
+import com.movtery.zalithlauncher.utils.path.LibPath
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import java.io.File
@@ -16,7 +16,7 @@ import java.util.zip.ZipOutputStream
 
 class InstallArgsUtils(private val mcVersion: String, private val loaderVersion: String) {
     fun setFabric(intent: Intent, jarFile: File, customName: String) {
-        val args = "-DprofileName=\"$customName\" -javaagent:${PathManager.DIR_DATA}/installer/MioFabricAgent.jar" +
+        val args = "-DprofileName=\"$customName\" -javaagent:${LibPath.MIO_FABRIC_AGENT.absolutePath}" +
                 " -jar ${jarFile.absolutePath} client -mcversion \"$mcVersion\" -loader \"$loaderVersion\" -dir \"${ProfilePathHome.gameHome}\""
         intent.putExtra("javaArgs", args)
         intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
@@ -34,7 +34,7 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
     fun setForge(intent: Intent, jarFile: File, customName: String) {
         forgeLikeCustomVersionName(jarFile, customName)
 
-        val args = "-javaagent:${PathManager.DIR_DATA}/installer/forge_installer.jar=\"$loaderVersion\" -jar ${jarFile.absolutePath}"
+        val args = "-javaagent:${LibPath.FORGE_INSTALLER.absolutePath}=\"$loaderVersion\" -jar ${jarFile.absolutePath}"
         intent.putExtra("javaArgs", args)
     }
 
@@ -49,7 +49,7 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
     }
 
     fun setOptiFine(intent: Intent, jarFile: File) {
-        val args = "-javaagent:${PathManager.DIR_DATA}/installer/forge_installer.jar=OFNPS -jar ${jarFile.absolutePath}"
+        val args = "-javaagent:${LibPath.FORGE_INSTALLER.absolutePath}=OFNPS -jar ${jarFile.absolutePath}"
         intent.putExtra("javaArgs", args)
     }
 
