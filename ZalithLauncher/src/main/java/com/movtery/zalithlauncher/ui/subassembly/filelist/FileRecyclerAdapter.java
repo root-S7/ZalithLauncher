@@ -31,12 +31,12 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
     @NonNull
     @Override
-    public FileRecyclerAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new InnerHolder(ItemFileListViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FileRecyclerAdapter.InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         holder.setData(mData.get(position), position);
     }
 

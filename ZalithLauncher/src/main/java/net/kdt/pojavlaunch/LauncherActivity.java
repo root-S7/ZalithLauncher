@@ -478,7 +478,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void checkNotice() {
-        checkNotice = TaskExecutors.getDefault().submit(() -> CheckNewNotice.checkNewNotice(this, noticeInfo -> {
+        checkNotice = TaskExecutors.getDefault().submit(() -> CheckNewNotice.checkNewNotice(noticeInfo -> {
             if (checkNotice.isCancelled() || noticeInfo == null) {
                 return;
             }

@@ -13,13 +13,12 @@ class UrlManager {
     companion object {
         private const val URL_USER_AGENT: String = "ZalithLauncher/${BuildConfig.VERSION_NAME}"
         val TIME_OUT = Pair(8000L, TimeUnit.MILLISECONDS)
-        const val URL_GITHUB_UPDATE: String = "https://api.github.com/repos/MovTery/ZalithLauncher/contents/versions.json"
-        const val URL_GITHUB_HOME: String = "https://api.github.com/repos/MovTery/Zalith-Info/contents/"
+        const val URL_GITHUB_HOME: String = "https://api.github.com/repos/ZalithLauncher/Zalith-Info/contents/"
         const val URL_MCMOD: String = "https://www.mcmod.cn/"
         const val URL_MINECRAFT: String = "https://www.minecraft.net/"
         const val URL_MINECRAFT_VERSION_REPOS: String = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
         const val URL_SUPPORT: String = "https://afdian.com/a/MovTery"
-        const val URL_HOME: String = "https://github.com/MovTery/ZalithLauncher"
+        const val URL_HOME: String = "https://github.com/ZalithLauncher/ZalithLauncher"
 
         @JvmStatic
         fun createConnection(url: URL): URLConnection {

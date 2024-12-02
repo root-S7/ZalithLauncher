@@ -80,7 +80,6 @@ class UpdateUtils {
             if (ZHTools.getCurrentTimeMillis() - LAST_UPDATE_CHECK_TIME <= 5000) return
             LAST_UPDATE_CHECK_TIME = ZHTools.getCurrentTimeMillis()
 
-            val token = context.getString(R.string.api_token)
             CallUtils(object : CallbackListener {
                 override fun onFailure(call: Call?) {
                     showFailToast(context, context.getString(R.string.update_fail))
@@ -124,7 +123,7 @@ class UpdateUtils {
                         }
                     }
                 }
-            }, UrlManager.URL_GITHUB_UPDATE, if (token == "DUMMY") null else token).enqueue()
+            }, "${UrlManager.URL_GITHUB_HOME}launcher_version.json", null).enqueue()
         }
 
         @JvmStatic
@@ -159,7 +158,7 @@ class UpdateUtils {
         fun getDownloadUrl(launcherVersion: LauncherVersion, updateSource: UpdateSource): String {
             val fileUrl: String
             val archModel = getArchModel()
-            val githubUrl = "github.com/MovTery/ZalithLauncher/releases/download/" +
+            val githubUrl = "github.com/ZalithLauncher/ZalithLauncher/releases/download/" +
                     "${launcherVersion.versionCode}/ZalithLauncher-${launcherVersion.versionName}" +
                     "${(if (archModel != null) String.format("-%s", archModel) else "")}.apk"
             fileUrl = when (updateSource) {

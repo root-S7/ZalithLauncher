@@ -3,28 +3,15 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '2.0.21'
 }
 
-static def getEnvOrDefault(String envVar, String defaultValue) {
-    def value = System.getenv(envVar)
-    return value ?: defaultValue
-}
-
 def getCFApiKey = {
     String key = System.getenv("CURSEFORGE_API_KEY")
-    if(key != null) return key
+    if (key != null) return key
     File curseforgeKeyFile = new File("./curseforge_key.txt")
-    if(curseforgeKeyFile.canRead() && curseforgeKeyFile.isFile()) {
+    if (curseforgeKeyFile.canRead() && curseforgeKeyFile.isFile()) {
         return curseforgeKeyFile.text
     }
     logger.warn('BUILD: You have no CurseForge key, the curseforge api will get disabled !')
     return "DUMMY"
-}
-
-def getApiToken = {
-    getEnvOrDefault('MY_API_TOKEN', 'DUMMY')
-}
-
-def getPrivateApiToken = {
-    getEnvOrDefault('MY_PRIVATE_API_TOKEN', 'DUMMY')
 }
 
 configurations {
@@ -67,8 +54,6 @@ android {
         versionName "1.3.7.8"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
-        resValue 'string', 'api_token', getApiToken()
-        resValue 'string', 'private_api_token', getPrivateApiToken()
     }
 
     buildTypes {

@@ -23,12 +23,12 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
 
     @NonNull
     @Override
-    public SponsorRecyclerAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new Holder(ItemSponsorViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SponsorRecyclerAdapter.Holder holder, int position) {
+    public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.setData(mData.get(position));
     }
 

@@ -2,7 +2,7 @@
     <img width="256" src="ZalithLauncher/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
-[![Android CI](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/MovTery/ZalithLauncher/actions/workflows/android.yml)
+[![Android CI](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml)
 ![Downloads](https://img.shields.io/github/downloads/MovTery/ZalithLauncher/total)
 [![QQ](https://img.shields.io/badge/QQ-blue)](https://qm.qq.com/q/2MVxS0B29y)
 [![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
@@ -33,8 +33,8 @@
 
 <h2 align="center">下載</h2>
 
-- 前往 [Release](https://github.com/MovTery/ZalithLauncher/releases) 查看最新且經過測試的穩定版本（更新並不頻繁）。
-- (並不推薦) 前往 [Actions](https://github.com/MovTery/ZalithLauncher/actions) 查看最新的版本 ( 主線：main，其他任何支線均可忽略！)，  
+- 前往 [Release](https://github.com/ZalithLauncher/ZalithLauncher/releases) 查看最新且經過測試的穩定版本（更新並不頻繁）。
+- (並不推薦) 前往 [Actions](https://github.com/ZalithLauncher/ZalithLauncher/actions) 查看最新的版本 ( 主線：main，其他任何支線均可忽略！)，  
   進入後，點擊 **ZalithLauncher** 下載 (Debug 為測試構建版本，Release 為發行構建版本)。
 
 <h2 align="center">協議</h2>

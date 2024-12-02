@@ -167,7 +167,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     }
 
     private fun loadSponsorData() {
-        check(requireContext(), object : CheckSponsor.CheckListener {
+        check(object : CheckSponsor.CheckListener {
             override fun onFailure() { setSponsorVisible(false) }
             override fun onSuccessful(data: List<SponsorItemBean>?) { setSponsorVisible(true) }
         })

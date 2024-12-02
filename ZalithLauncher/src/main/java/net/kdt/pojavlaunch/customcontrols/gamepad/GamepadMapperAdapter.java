@@ -138,14 +138,14 @@ public class GamepadMapperAdapter extends RecyclerView.Adapter<GamepadMapperAdap
     private static class RebinderButton extends GamepadButton {
         public int iconResourceId;
         public final int localeResourceId;
-        private GamepadMapperAdapter.ViewHolder mButtonHolder;
+        private ViewHolder mButtonHolder;
 
         public RebinderButton(int iconResourceId, int localeResourceId) {
             this.iconResourceId = iconResourceId;
             this.localeResourceId = localeResourceId;
         }
 
-        public void changeViewHolder(GamepadMapperAdapter.ViewHolder viewHolder) {
+        public void changeViewHolder(ViewHolder viewHolder) {
             mButtonHolder = viewHolder;
             if(mButtonHolder != null) mButtonHolder.setPressed(mIsDown);
         }

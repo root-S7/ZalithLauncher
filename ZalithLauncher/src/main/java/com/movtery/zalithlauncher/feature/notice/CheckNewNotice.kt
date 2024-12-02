@@ -1,7 +1,5 @@
 package com.movtery.zalithlauncher.feature.notice
 
-import android.content.Context
-import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -27,7 +25,7 @@ class CheckNewNotice {
         }
 
         @JvmStatic
-        fun checkNewNotice(context: Context, listener: CheckNoticeListener) {
+        fun checkNewNotice(listener: CheckNoticeListener) {
             if (isChecking) {
                 return
             }
@@ -45,7 +43,6 @@ class CheckNewNotice {
                 AllSettings.noticeCheck.put(ZHTools.getCurrentTimeMillis()).save()
             }
 
-            val token = context.getString(R.string.private_api_token)
             CallUtils(object : CallbackListener {
                 override fun onFailure(call: Call?) {
                     isChecking = false
@@ -80,7 +77,7 @@ class CheckNewNotice {
                     }
                     isChecking = false
                 }
-            }, UrlManager.URL_GITHUB_HOME + "launcher_notice.json", if (token == "DUMMY") null else token).enqueue()
+            }, "${UrlManager.URL_GITHUB_HOME}launcher_notice.json", null).enqueue()
         }
 
         private fun getLanguageText(language: String, text: NoticeJsonObject.Text): String {
