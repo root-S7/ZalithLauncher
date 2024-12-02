@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.setting
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
@@ -21,11 +22,12 @@ class LegacySettingsSync {
             }
         }
 
+        @SuppressLint("CheckResult")
         private fun start(pref: SharedPreferences) {
             Logging.i("LegacySettingsSync", "Start syncing legacy settings data!")
             val builder = Settings.Manager.SettingBuilder()
             pref.all.forEach { (key, value) ->
-                builder.put(key, value)
+                value?.let { builder.put(key, it) }
             }
             builder.save()
 

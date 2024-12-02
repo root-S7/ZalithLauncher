@@ -79,24 +79,24 @@ class Settings {
 
             @JvmStatic
             @CheckResult
-            fun put(key: String, value: Any?) = SettingBuilder().put(key, value)
+            fun put(key: String, value: Any) = SettingBuilder().put(key, value)
 
             @JvmStatic
             @CheckResult
-            fun put(unit: SettingUnit<*>, value: Any?) = SettingBuilder().put(unit, value)
+            fun put(unit: SettingUnit<*>, value: Any) = SettingBuilder().put(unit, value)
         }
 
         class SettingBuilder {
             private val valueMap: MutableMap<String, Any?> = HashMap()
 
             @CheckResult
-            fun put(key: String, value: Any?): SettingBuilder {
+            fun put(key: String, value: Any): SettingBuilder {
                 valueMap[key] = value
                 return this
             }
 
             @CheckResult
-            fun put(unit: SettingUnit<*>, value: Any?): SettingBuilder {
+            fun put(unit: SettingUnit<*>, value: Any): SettingBuilder {
                 valueMap[unit.key] = value
                 return this
             }
@@ -106,27 +106,20 @@ class Settings {
                 if (!settingsFile.exists()) settingsFile.createNewFile()
 
                 val currentSettings = settings.toMutableList()
-                val nullValueList: MutableSet<SettingAttribute> = HashSet()
 
                 valueMap.forEach { (key, value) ->
                     val attribute = currentSettings.find { it.key == key }
 
-                    if (value == null) {
-                        attribute?.apply { nullValueList.add(this) }
+                    if (attribute != null) {
+                        attribute.value = value.toString()
                     } else {
-                        if (attribute != null) {
-                            attribute.value = value.toString()
-                        } else {
-                            val newAttribute = SettingAttribute().apply {
-                                this.key = key
-                                this.value = value.toString()
-                            }
-                            currentSettings.add(newAttribute)
+                        val newAttribute = SettingAttribute().apply {
+                            this.key = key
+                            this.value = value.toString()
                         }
+                        currentSettings.add(newAttribute)
                     }
                 }
-
-                currentSettings.removeAll(nullValueList)
 
                 val json = GSON.toJson(currentSettings)
 
