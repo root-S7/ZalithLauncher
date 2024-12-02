@@ -11,10 +11,10 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
+import com.movtery.zalithlauncher.utils.path.UrlManager;
 
 import net.kdt.pojavlaunch.JMinecraftVersionList;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,7 +31,7 @@ public class AsyncVersionList {
             JMinecraftVersionList versionList = null;
             try {
                 if (!versionFile.exists() || (ZHTools.getCurrentTimeMillis() > versionFile.lastModified() + 86400000)) {
-                    versionList = downloadVersionList(LauncherPreferences.PREF_VERSION_REPOS);
+                    versionList = downloadVersionList(UrlManager.URL_MINECRAFT_VERSION_REPOS);
                 }
             } catch (Exception e) {
                 Logging.e("AsyncVersionList", "Refreshing version list failed :" + e);

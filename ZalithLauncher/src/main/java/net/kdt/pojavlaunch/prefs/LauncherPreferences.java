@@ -12,6 +12,7 @@ import android.os.Build;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.unpack.Jre;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.utils.path.PathManager;
@@ -21,9 +22,6 @@ import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.utils.JREUtils;
 
 public class LauncherPreferences {
-	public static int PREF_NOTCH_SIZE = 0;
-    public static final String PREF_VERSION_REPOS = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json";
-
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
         PathManager.initContextConstants(ctx);
@@ -85,13 +83,13 @@ public class LauncherPreferences {
 
             // Notch values are rotation sensitive, handle all cases
             int orientation = activity.getResources().getConfiguration().orientation;
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) LauncherPreferences.PREF_NOTCH_SIZE = cutout.height();
-            else if (orientation == Configuration.ORIENTATION_LANDSCAPE) LauncherPreferences.PREF_NOTCH_SIZE = cutout.width();
-            else LauncherPreferences.PREF_NOTCH_SIZE = Math.min(cutout.width(), cutout.height());
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) AllStaticSettings.notchSize = cutout.height();
+            else if (orientation == Configuration.ORIENTATION_LANDSCAPE) AllStaticSettings.notchSize = cutout.width();
+            else AllStaticSettings.notchSize = Math.min(cutout.width(), cutout.height());
 
         }catch (Exception e){
             Logging.i("NOTCH DETECTION", "No notch detected, or the device if in split screen mode");
-            LauncherPreferences.PREF_NOTCH_SIZE = -1;
+            AllStaticSettings.notchSize = -1;
         }
         Tools.updateWindowSize(activity);
     }

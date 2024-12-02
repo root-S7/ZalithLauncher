@@ -2,7 +2,7 @@ package net.kdt.pojavlaunch;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.P;
-import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_NOTCH_SIZE;
+import static com.movtery.zalithlauncher.setting.AllStaticSettings.notchSize;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -215,9 +215,9 @@ public final class Tools {
             if (!activity.shouldIgnoreNotch()) {
                 //Remove notch width when it isn't ignored.
                 if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-                    displayMetrics.heightPixels -= PREF_NOTCH_SIZE;
+                    displayMetrics.heightPixels -= notchSize;
                 else
-                    displayMetrics.widthPixels -= PREF_NOTCH_SIZE;
+                    displayMetrics.widthPixels -= notchSize;
             }
         }
         currentDisplayMetrics = displayMetrics;

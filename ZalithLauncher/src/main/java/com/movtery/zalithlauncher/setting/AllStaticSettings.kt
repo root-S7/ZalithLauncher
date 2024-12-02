@@ -7,6 +7,11 @@ package com.movtery.zalithlauncher.setting
 class AllStaticSettings {
     companion object {
         /**
+         * 刘海屏缺口宽度 Int
+         */
+        @JvmField var notchSize = 0
+
+        /**
          * 缩放因子 Float
          */
         @JvmField var scaleFactor = AllSettings.resolutionRatio / 100f
