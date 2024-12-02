@@ -159,7 +159,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             context,
             binding.checkUpdateLayout
         ) {
-            UpdateUtils.checkDownloadedPackage(context, false)
+            UpdateUtils.checkDownloadedPackage(context, force = true, ignore = false)
         }
 
         val notificationPermissionRequest = SwitchSettingsWrapper(

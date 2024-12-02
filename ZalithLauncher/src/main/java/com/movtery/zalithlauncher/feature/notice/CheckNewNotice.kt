@@ -3,6 +3,8 @@ package com.movtery.zalithlauncher.feature.notice
 import android.content.Context
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
@@ -21,6 +23,10 @@ class CheckNewNotice {
         var noticeInfo: NoticeInfo? = null
         private var isChecking = false
 
+        private fun checkCooling(): Boolean {
+            return ZHTools.getCurrentTimeMillis() - AllSettings.noticeCheck > 2 * 60 * 1000 //2分钟冷却
+        }
+
         @JvmStatic
         fun checkNewNotice(context: Context, listener: CheckNoticeListener) {
             if (isChecking) {
@@ -32,6 +38,12 @@ class CheckNewNotice {
                 listener.onSuccessful(noticeInfo)
                 isChecking = false
                 return
+            }
+
+            if (!checkCooling()) {
+                return
+            } else {
+                Settings.Manager.put("noticeCheck", ZHTools.getCurrentTimeMillis()).save()
             }
 
             val token = context.getString(R.string.private_api_token)

@@ -234,8 +234,16 @@ class AllSettings {
             get() = Settings.Manager.getBoolean("localAccountReminders", true)
 
         @JvmStatic
+        val updateCheck: Long
+            get() = Settings.Manager.getLong("updateCheck", 0)
+
+        @JvmStatic
         val ignoreUpdate: String?
             get() = Settings.Manager.getString("ignoreUpdate", null)
+
+        @JvmStatic
+        val noticeCheck: Long
+            get() = Settings.Manager.getLong("noticeCheck", 0)
 
         @JvmStatic
         val noticeNumbering: Int

@@ -342,7 +342,7 @@ public class LauncherActivity extends BaseActivity {
 
         //检查已经下载后的包，或者检查更新
         Task.runTask(() -> {
-            UpdateUtils.checkDownloadedPackage(this, true);
+            UpdateUtils.checkDownloadedPackage(this, false, true);
             return null;
         }).execute();
     }
