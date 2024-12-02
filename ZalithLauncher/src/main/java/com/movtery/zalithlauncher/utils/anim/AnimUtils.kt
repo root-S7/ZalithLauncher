@@ -39,7 +39,7 @@ class AnimUtils {
             if (view.visibility == targetVisibility) return
 
             setViewAnim(view, if (visible) Animations.FadeIn else Animations.FadeOut,
-                (AllSettings.animationSpeed * 0.7).toLong(),
+                (AllSettings.animationSpeed.getValue() * 0.7).toLong(),
                 { view.visibility = View.VISIBLE },
                 { view.visibility = if (visible) View.VISIBLE else View.GONE })
         }

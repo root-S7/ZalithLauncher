@@ -7,7 +7,7 @@ import android.text.Html;
 import androidx.appcompat.app.AlertDialog;
 
 import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.setting.AllSettings;
 
 import net.kdt.pojavlaunch.ShowErrorActivity;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
@@ -26,14 +26,9 @@ public class MirrorTamperedException extends Exception implements ContextExecuto
     }
 
     private void addButtons(AlertDialog.Builder builder) {
-        builder.setPositiveButton(R.string.dl_switch_to_official_site,(d,w)->{
-            Settings.Manager.put("downloadSource", "default").save();
-
-        });
-        builder.setNegativeButton(R.string.dl_turn_off_manifest_checks,(d,w)->{
-            Settings.Manager.put("verifyManifest", false).save();
-        });
-        builder.setNeutralButton(android.R.string.cancel, (d,w)->{});
+        builder.setPositiveButton(R.string.dl_switch_to_official_site,(d,w) -> AllSettings.getDownloadSource().reset());
+        builder.setNegativeButton(R.string.dl_turn_off_manifest_checks,(d,w) -> AllSettings.getVerifyManifest().put(false).save());
+        builder.setNeutralButton(android.R.string.cancel, (d,w) -> {} );
     }
 
     @Override

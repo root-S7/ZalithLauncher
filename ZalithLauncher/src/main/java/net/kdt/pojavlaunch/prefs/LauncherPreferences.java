@@ -27,12 +27,12 @@ public class LauncherPreferences {
         PathManager.initContextConstants(ctx);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
-        String javaArgs = AllSettings.getJavaArgs();
+        String javaArgs = AllSettings.getJavaArgs().getValue();
         if (javaArgs != null) {
             for (String arg : JREUtils.parseJavaArguments(javaArgs)) {
                 if (arg.startsWith(argLwjglLibname)) {
                     // purge arg
-                    Settings.Manager.put("javaArgs", javaArgs.replace(arg, "")).save();
+                    AllSettings.getJavaArgs().put(javaArgs.replace(arg, "")).save();
                 }
             }
         }
@@ -43,7 +43,7 @@ public class LauncherPreferences {
     public static void reloadRuntime() {
         if (!Settings.Manager.contains("defaultRuntime") && !MultiRTUtils.getRuntimes().isEmpty()) {
             //设置默认运行环境
-            Settings.Manager.put("defaultRuntime", Jre.JRE_8.getJreName()).save();
+            AllSettings.getDefaultRuntime().put(Jre.JRE_8.getJreName()).save();
         }
     }
 

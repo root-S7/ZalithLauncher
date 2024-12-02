@@ -104,7 +104,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
     public void start(boolean isAlreadyRunning, AbstractTouchpad touchpad){
         setUpPointerCapture(touchpad);
         mInGUIProcessor.setAbstractTouchpad(touchpad);
-        if(AllSettings.getAlternateSurface()){
+        if(AllSettings.getAlternateSurface().getValue()){
             SurfaceView surfaceView = new SurfaceView(getContext());
             mSurface = surfaceView;
 
@@ -334,7 +334,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
             Logging.w("MGLSurface", "Attempt to refresh size on null surface");
             return;
         }
-        if(AllSettings.getAlternateSurface()){
+        if(AllSettings.getAlternateSurface().getValue()){
             SurfaceView view = (SurfaceView) mSurface;
             if(view.getHolder() != null){
                 view.getHolder().setFixedSize(windowWidth, windowHeight);

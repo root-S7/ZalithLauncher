@@ -93,7 +93,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 
 	@Override
 	public boolean shouldIgnoreNotch() {
-		return AllSettings.getIgnoreNotch();
+		return AllSettings.getIgnoreNotch().getValue();
 	}
 
 	@Override

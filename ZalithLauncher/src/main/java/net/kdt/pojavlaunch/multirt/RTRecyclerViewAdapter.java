@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
@@ -77,7 +76,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public boolean isDefaultRuntime(Runtime rt) {
-        return Objects.equals(AllSettings.getDefaultRuntime(), rt.name);
+        return Objects.equals(AllSettings.getDefaultRuntime().getValue(), rt.name);
     }
 
     @Override
@@ -86,8 +85,8 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @SuppressLint("NotifyDataSetChanged") //not a problem, given the typical size of the list
-    public void setDefault(Runtime rt){
-        Settings.Manager.put("defaultRuntime", rt.name).save();
+    public void setDefault(Runtime rt) {
+        AllSettings.getDefaultRuntime().put(rt.name).save();
         notifyDataSetChanged();
     }
 

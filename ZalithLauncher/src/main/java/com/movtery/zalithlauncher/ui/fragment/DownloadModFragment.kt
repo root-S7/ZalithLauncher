@@ -198,7 +198,7 @@ class DownloadModFragment : ModListFragment() {
 
             iconUrl?.apply {
                 Glide.with(fragmentActivity!!).load(this).apply {
-                    if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
+                    if (!AllSettings.resourceImageCache.getValue()) diskCacheStrategy(DiskCacheStrategy.NONE)
                 }.into(getIconView())
             }
         }

@@ -155,7 +155,7 @@ class InfoAdapter(
 
                 item.iconUrl?.apply {
                     Glide.with(mContext).load(this).apply {
-                        if (!AllSettings.resourceImageCache) diskCacheStrategy(DiskCacheStrategy.NONE)
+                        if (!AllSettings.resourceImageCache.getValue()) diskCacheStrategy(DiskCacheStrategy.NONE)
                     }.into(thumbnailImageview)
                 }
             }

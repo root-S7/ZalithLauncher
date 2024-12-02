@@ -16,7 +16,7 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentControlManagerBinding
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
-import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditControlInfoDialog
@@ -104,7 +104,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                         .setMessage(R.string.controls_set_default_message)
                         .setConfirmClickListener {
                             val absolutePath = file.absolutePath
-                            Settings.Manager.put("defaultCtrl", absolutePath).save()
+                            AllSettings.defaultCtrl.put(absolutePath).save()
                         }.buildDialog()
                 }
             })

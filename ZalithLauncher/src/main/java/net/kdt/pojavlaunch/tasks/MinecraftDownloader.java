@@ -142,7 +142,7 @@ public class MinecraftDownloader {
             return targetFile;
         FileUtils.ensureParentDirectory(targetFile);
         try {
-            DownloadUtils.ensureSha1(targetFile, AllSettings.getVerifyManifest() ? verInfo.sha1 : null, () -> {
+            DownloadUtils.ensureSha1(targetFile, AllSettings.getVerifyManifest().getValue() ? verInfo.sha1 : null, () -> {
                 ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0,
                         R.string.newdl_downloading_metadata, targetFile.getName());
                 DownloadMirror.downloadFileMirrored(DownloadMirror.DOWNLOAD_CLASS_METADATA, verInfo.url, targetFile);
@@ -251,7 +251,7 @@ public class MinecraftDownloader {
                         : dependentLibrary.url.replace("http://","https://")) + libArtifactPath;
                 skipIfFailed = true;
             }
-            if(!AllSettings.getCheckLibraries()) sha1 = null;
+            if(!AllSettings.getCheckLibraries().getValue()) sha1 = null;
             scheduleDownload(new File(ProfilePathHome.getLibrariesHome(), libArtifactPath),
                     DownloadMirror.DOWNLOAD_CLASS_LIBRARIES,
                     url, sha1, size, skipIfFailed
@@ -275,7 +275,7 @@ public class MinecraftDownloader {
             } else {
                 targetFile = new File(basePath, "objects" + File.separator + hashedPath);
             }
-            String sha1 = AllSettings.getCheckLibraries() ? assetInfo.hash : null;
+            String sha1 = AllSettings.getCheckLibraries().getValue() ? assetInfo.hash : null;
             scheduleDownload(targetFile,
                     DownloadMirror.DOWNLOAD_CLASS_ASSETS,
                     MINECRAFT_RES + hashedPath,
@@ -287,7 +287,7 @@ public class MinecraftDownloader {
 
     private void scheduleGameJarDownload(MinecraftClientInfo minecraftClientInfo, String versionName) throws IOException {
         File clientJar = createGameJarPath(versionName);
-        String clientSha1 = AllSettings.getCheckLibraries() ?
+        String clientSha1 = AllSettings.getCheckLibraries().getValue() ?
                 minecraftClientInfo.sha1 : null;
         growDownloadList(1);
         scheduleDownload(clientJar,

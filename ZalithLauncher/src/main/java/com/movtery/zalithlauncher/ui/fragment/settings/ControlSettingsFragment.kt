@@ -41,7 +41,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
         val context = requireContext()
         SwitchSettingsWrapper(
             context,
-            "disableGestures",
             AllSettings.disableGestures,
             binding.disableGesturesLayout,
             binding.disableGestures
@@ -49,7 +48,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SwitchSettingsWrapper(
             context,
-            "disableDoubleTap",
             AllSettings.disableDoubleTap,
             binding.disableDoubleTapLayout,
             binding.disableDoubleTap
@@ -57,7 +55,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SeekBarSettingsWrapper(
             context,
-            "timeLongPressTrigger",
             AllSettings.timeLongPressTrigger,
             binding.timeLongPressTriggerLayout,
             binding.timeLongPressTriggerTitle,
@@ -69,8 +66,7 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SeekBarSettingsWrapper(
             context,
-            "buttonscale",
-            AllSettings.buttonscale,
+            AllSettings.buttonScale,
             binding.buttonscaleLayout,
             binding.buttonscaleTitle,
             binding.buttonscaleSummary,
@@ -81,7 +77,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SwitchSettingsWrapper(
             context,
-            "buttonAllCaps",
             AllSettings.buttonAllCaps,
             binding.buttonAllCapsLayout,
             binding.buttonAllCaps
@@ -89,7 +84,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SeekBarSettingsWrapper(
             context,
-            "mousescale",
             AllSettings.mouseScale,
             binding.mousescaleLayout,
             binding.mousescaleTitle,
@@ -101,7 +95,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SeekBarSettingsWrapper(
             context,
-            "mousespeed",
             AllSettings.mouseSpeed,
             binding.mousespeedLayout,
             binding.mousespeedTitle,
@@ -113,7 +106,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SwitchSettingsWrapper(
             context,
-            "mouse_start",
             AllSettings.virtualMouseStart,
             binding.mouseStartLayout,
             binding.mouseStart
@@ -135,7 +127,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SwitchSettingsWrapper(
             context,
-            "enableGyro",
             AllSettings.enableGyro,
             binding.enableGyroLayout,
             binding.enableGyro
@@ -143,7 +134,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SeekBarSettingsWrapper(
             context,
-            "gyroSensitivity",
             AllSettings.gyroSensitivity,
             binding.gyroSensitivityLayout,
             binding.gyroSensitivityTitle,
@@ -155,7 +145,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SeekBarSettingsWrapper(
             context,
-            "gyroSampleRate",
             AllSettings.gyroSampleRate,
             binding.gyroSampleRateLayout,
             binding.gyroSampleRateTitle,
@@ -167,7 +156,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SwitchSettingsWrapper(
             context,
-            "gyroSmoothing",
             AllSettings.gyroSmoothing,
             binding.gyroSmoothingLayout,
             binding.gyroSmoothing
@@ -175,7 +163,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SwitchSettingsWrapper(
             context,
-            "gyroInvertX",
             AllSettings.gyroInvertX,
             binding.gyroInvertXLayout,
             binding.gyroInvertX
@@ -183,7 +170,6 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SwitchSettingsWrapper(
             context,
-            "gyroInvertY",
             AllSettings.gyroInvertY,
             binding.gyroInvertYLayout,
             binding.gyroInvertY
@@ -214,8 +200,7 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
 
         SeekBarSettingsWrapper(
             context,
-            "gamepad_deadzone_scale",
-            (AllSettings.deadzoneScale * 100F).toInt(),
+            AllSettings.deadZoneScale,
             binding.gamepadDeadzoneScaleLayout,
             binding.gamepadDeadzoneScaleTitle,
             binding.gamepadDeadzoneScaleSummary,
@@ -242,13 +227,13 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
         binding.apply {
             setViewVisibility(
                 timeLongPressTriggerLayout,
-                !AllSettings.disableGestures
+                !AllSettings.disableGestures.getValue()
             )
-            setViewVisibility(gyroSensitivityLayout, AllSettings.enableGyro)
-            setViewVisibility(gyroSampleRateLayout, AllSettings.enableGyro)
-            setViewVisibility(gyroInvertXLayout, AllSettings.enableGyro)
-            setViewVisibility(gyroInvertYLayout, AllSettings.enableGyro)
-            setViewVisibility(gyroSmoothingLayout, AllSettings.enableGyro)
+            setViewVisibility(gyroSensitivityLayout, AllSettings.enableGyro.getValue())
+            setViewVisibility(gyroSampleRateLayout, AllSettings.enableGyro.getValue())
+            setViewVisibility(gyroInvertXLayout, AllSettings.enableGyro.getValue())
+            setViewVisibility(gyroInvertYLayout, AllSettings.enableGyro.getValue())
+            setViewVisibility(gyroSmoothingLayout, AllSettings.enableGyro.getValue())
         }
     }
 

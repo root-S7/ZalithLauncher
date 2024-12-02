@@ -14,7 +14,7 @@ import com.movtery.zalithlauncher.databinding.DialogUpdateBinding;
 import com.movtery.zalithlauncher.feature.update.LauncherVersion;
 import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
 import com.movtery.zalithlauncher.feature.update.UpdateUtils;
-import com.movtery.zalithlauncher.setting.Settings;
+import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
@@ -68,7 +68,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
         });
         binding.cancelButton.setOnClickListener(view -> this.dismiss());
         binding.ignoreButton.setOnClickListener(view -> {
-            Settings.Manager.put("ignoreUpdate", launcherVersion.getVersionName()).save();
+            AllSettings.getIgnoreUpdate().put(launcherVersion.getVersionName()).save();
             this.dismiss();
         });
     }

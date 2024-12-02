@@ -48,7 +48,7 @@ public class ContextAwareDoneListener implements AsyncMinecraftDownloader.DoneLi
         try {
             Intent gameStartIntent = createGameStartIntent(activity);
             activity.startActivity(gameStartIntent);
-            if (AllSettings.getQuitLauncher()) {
+            if (AllSettings.getQuitLauncher().getValue()) {
                 activity.finish();
                 android.os.Process.killProcess(android.os.Process.myPid()); //You should kill yourself, NOW!
             }

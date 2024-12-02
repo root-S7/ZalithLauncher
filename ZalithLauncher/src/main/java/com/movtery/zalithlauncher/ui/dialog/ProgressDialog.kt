@@ -41,7 +41,7 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
 
         binding.progressBar.apply {
             visibility = if (doubleValue > 0) View.VISIBLE else View.GONE
-            setProgress(intValue, AllSettings.animation)
+            setProgress(intValue, AllSettings.animation.getValue())
         }
     }
 

@@ -36,8 +36,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
         val renderers = Tools.getCompatibleRenderers(context)
         ListSettingsWrapper(
             context,
-            "renderer",
-            "opengles2",
+            AllSettings.renderer,
             binding.rendererLayout,
             binding.rendererTitle,
             binding.rendererValue,
@@ -47,7 +46,6 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
         val ignoreNotch = SwitchSettingsWrapper(
             context,
-            "ignoreNotch",
             AllSettings.ignoreNotch,
             binding.ignoreNotchLayout,
             binding.ignoreNotch
@@ -57,7 +55,6 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
         SeekBarSettingsWrapper(
             context,
-            "resolutionRatio",
             AllSettings.resolutionRatio,
             binding.resolutionRatioLayout,
             binding.resolutionRatioTitle,
@@ -71,7 +68,6 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
         SwitchSettingsWrapper(
             context,
-            "sustainedPerformance",
             AllSettings.sustainedPerformance,
             binding.sustainedPerformanceLayout,
             binding.sustainedPerformance
@@ -79,7 +75,6 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
         SwitchSettingsWrapper(
             context,
-            "alternate_surface",
             AllSettings.alternateSurface,
             binding.alternateSurfaceLayout,
             binding.alternateSurface
@@ -87,7 +82,6 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
         SwitchSettingsWrapper(
             context,
-            "force_vsync",
             AllSettings.forceVsync,
             binding.forceVsyncLayout,
             binding.forceVsync
@@ -95,7 +89,6 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
         SwitchSettingsWrapper(
             context,
-            "vsync_in_zink",
             AllSettings.vsyncInZink,
             binding.vsyncInZinkLayout,
             binding.vsyncInZink
@@ -103,7 +96,6 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
         val zinkPreferSystemDriver = SwitchSettingsWrapper(
             context,
-            "zinkPreferSystemDriver",
             AllSettings.zinkPreferSystemDriver,
             binding.zinkPreferSystemDriverLayout,
             binding.zinkPreferSystemDriver
@@ -126,7 +118,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             }
         }
 
-        changeResolutionRatioPreview(AllSettings.resolutionRatio)
+        changeResolutionRatioPreview(AllSettings.resolutionRatio.getValue())
         computeVisibility()
     }
 
@@ -141,7 +133,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
 
     private fun computeVisibility() {
         binding.apply {
-            binding.forceVsyncLayout.visibility = if (AllSettings.alternateSurface) View.VISIBLE else View.GONE
+            binding.forceVsyncLayout.visibility = if (AllSettings.alternateSurface.getValue()) View.VISIBLE else View.GONE
         }
     }
 

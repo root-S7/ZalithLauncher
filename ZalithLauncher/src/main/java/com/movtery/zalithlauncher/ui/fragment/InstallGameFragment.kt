@@ -82,7 +82,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
 
             back.setOnClickListener(clickListener)
             install.setOnClickListener(clickListener)
-            isolation.isChecked = AllSettings.versionIsolation
+            isolation.isChecked = AllSettings.versionIsolation.getValue()
         }
     }
 

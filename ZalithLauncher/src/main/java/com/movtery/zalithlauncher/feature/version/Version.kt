@@ -57,7 +57,7 @@ class Version(
     }
 
     fun getRenderer(): String {
-        val defaultValue = AllSettings.renderer!!
+        val defaultValue = AllSettings.renderer.getValue()
         versionConfig?.let { config ->
             return config.getRenderer().takeIf { it.isNotEmpty() } ?: defaultValue
         }
@@ -65,7 +65,7 @@ class Version(
     }
 
     fun getJavaDir(): String {
-        val defaultValue = AllSettings.defaultRuntime!!
+        val defaultValue = AllSettings.defaultRuntime.getValue()
         versionConfig?.let { config ->
             return config.getJavaDir().takeIf { it.isNotEmpty() } ?: defaultValue
         }
@@ -76,13 +76,13 @@ class Version(
         versionConfig?.let {
             return it.getJavaArgs()
         }
-        return AllSettings.javaArgs!!
+        return AllSettings.javaArgs.getValue()
     }
 
     fun getControl(): String? {
         val configControl = versionConfig?.getControl()?.removeSuffix("./") ?: ""
         return if (configControl.isNotEmpty()) File(PathManager.DIR_CTRLMAP_PATH, configControl).absolutePath
-        else File(AllSettings.defaultCtrl!!).absolutePath
+        else File(AllSettings.defaultCtrl.getValue()).absolutePath
     }
 
     fun getVersionInfo(): VersionInfo? {

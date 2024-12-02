@@ -27,7 +27,6 @@ class ExperimentalSettingsFragment :
 
         SwitchSettingsWrapper(
             context,
-            "dump_shaders",
             AllSettings.dumpShaders,
             binding.dumpShadersLayout,
             binding.dumpShaders
@@ -35,7 +34,6 @@ class ExperimentalSettingsFragment :
 
         SwitchSettingsWrapper(
             context,
-            "bigCoreAffinity",
             AllSettings.bigCoreAffinity,
             binding.bigCoreAffinityLayout,
             binding.bigCoreAffinity

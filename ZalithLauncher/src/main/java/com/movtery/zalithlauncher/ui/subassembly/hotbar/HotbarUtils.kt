@@ -6,7 +6,7 @@ class HotbarUtils {
     companion object {
         @JvmStatic
         fun getCurrentType(): HotbarType {
-            val hotbarType = hotbarType ?: return HotbarType.AUTO
+            val hotbarType = hotbarType.getValue()
             return when (hotbarType) {
                 "manually" -> HotbarType.MANUALLY
                 "auto" -> HotbarType.AUTO
@@ -16,7 +16,7 @@ class HotbarUtils {
 
         @JvmStatic
         fun getCurrentTypeIndex(): Int {
-            val hotbarType = hotbarType ?: return 0
+            val hotbarType = hotbarType.getValue()
             return when (hotbarType) {
                 "manually" -> 1
                 "auto" -> 0

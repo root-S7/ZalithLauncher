@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileIcon
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileItemBean
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerViewCreator
@@ -34,13 +34,13 @@ class SelectMouseDialog(context: Context, private val listener: MouseSelectedLis
                 val file = fileItemBean.file
                 file?.apply {
                     if (exists() && isImage(this)) {
-                        Settings.Manager.put("custom_mouse", name).save()
+                        AllSettings.customMouse.put(name).save()
                         listener.onSelectedListener()
                         dismiss()
                     }
                 }
                 if (position == 0) {
-                    Settings.Manager.put("custom_mouse", null).save()
+                    AllSettings.customMouse.put("").save()
                     listener.onSelectedListener()
                     this.dismiss()
                 }

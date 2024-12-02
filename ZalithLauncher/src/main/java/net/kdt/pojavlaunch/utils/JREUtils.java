@@ -196,17 +196,17 @@ public class JREUtils {
         envMap.put("TMPDIR", PathManager.DIR_CACHE.getAbsolutePath());
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
         envMap.put("PATH", jreHome + "/bin:" + Os.getenv("PATH"));
-        envMap.put("FORCE_VSYNC", String.valueOf(AllSettings.getForceVsync()));
+        envMap.put("FORCE_VSYNC", String.valueOf(AllSettings.getForceVsync().getValue()));
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
 
-        if (AllSettings.getDumpShaders())
+        if (AllSettings.getDumpShaders().getValue())
             envMap.put("LIBGL_VGPU_DUMP", "1");
-        if (AllSettings.getZinkPreferSystemDriver())
+        if (AllSettings.getZinkPreferSystemDriver().getValue())
             envMap.put("POJAV_ZINK_PREFER_SYSTEM_DRIVER", "1");
-        if (AllSettings.getVsyncInZink())
+        if (AllSettings.getVsyncInZink().getValue())
             envMap.put("POJAV_VSYNC_IN_ZINK", "1");
-        if (AllSettings.getBigCoreAffinity())
+        if (AllSettings.getBigCoreAffinity().getValue())
             envMap.put("POJAV_BIG_CORE_AFFINITY", "1");
         if (FFmpegPlugin.isAvailable)
             envMap.put("PATH", FFmpegPlugin.libraryPath+":"+envMap.get("PATH"));
@@ -339,8 +339,8 @@ public class JREUtils {
         userArgs.add("-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
 
         //Add automatically generated args
-        userArgs.add("-Xms" + AllSettings.getRamAllocation() + "M");
-        userArgs.add("-Xmx" + AllSettings.getRamAllocation() + "M");
+        userArgs.add("-Xms" + AllSettings.getRamAllocation().getValue().getValue() + "M");
+        userArgs.add("-Xmx" + AllSettings.getRamAllocation().getValue().getValue() + "M");
         if (LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + loadGraphicsLibrary());
 
         // Force LWJGL to use the Freetype library intended for it, instead of using the one
@@ -348,7 +348,7 @@ public class JREUtils {
         userArgs.add("-Dorg.lwjgl.freetype.libname="+ DIR_NATIVE_LIB +"/libfreetype.so");
 
         userArgs.addAll(JVMArgs);
-        activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.autoram_info_msg,AllSettings.getRamAllocation()), Toast.LENGTH_SHORT).show());
+        activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.autoram_info_msg, AllSettings.getRamAllocation().getValue().getValue()), Toast.LENGTH_SHORT).show());
         System.out.println(JVMArgs);
 
         initJavaRuntime(runtimeHome);
@@ -393,8 +393,8 @@ public class JREUtils {
                 //"-Dorg.lwjgl.util.DebugFunctions=true",
                 //"-Dorg.lwjgl.util.DebugLoader=true",
                 // GLFW Stub width height
-                "-Dglfwstub.windowWidth=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.widthPixels, AllSettings.getResolutionRatio() / 100F),
-                "-Dglfwstub.windowHeight=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.heightPixels, AllSettings.getResolutionRatio() / 100F),
+                "-Dglfwstub.windowWidth=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.widthPixels, AllSettings.getResolutionRatio().getValue() / 100F),
+                "-Dglfwstub.windowHeight=" + Tools.getDisplayFriendlyRes(currentDisplayMetrics.heightPixels, AllSettings.getResolutionRatio().getValue() / 100F),
                 "-Dglfwstub.initEgl=false",
                 "-Dext.net.resolvPath=" +resolvFile,
                 "-Dlog4j2.formatMsgNoLookups=true", //Log4j RCE mitigation

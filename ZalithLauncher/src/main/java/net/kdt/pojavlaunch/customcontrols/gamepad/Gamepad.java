@@ -87,7 +87,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
             EventBus.getDefault().register(this);
         }
 
-        Settings.setDeadzoneScale(AllSettings.getDeadzoneScale());
+        Settings.setDeadzoneScale((float) AllSettings.getDeadZoneScale().getValue() / 100f);
 
         mScreenChoreographer = Choreographer.getInstance();
         Choreographer.FrameCallback frameCallback = new Choreographer.FrameCallback() {

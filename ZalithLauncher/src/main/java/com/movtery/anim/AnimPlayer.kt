@@ -49,7 +49,7 @@ class AnimPlayer {
         }
 
         mAnimatorSet.apply {
-            duration = mDuration ?: AllSettings.animationSpeed.toLong()
+            duration = mDuration ?: AllSettings.animationSpeed.getValue().toLong()
             startDelay = mDelay ?: 0
 
             removeAllListeners()

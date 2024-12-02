@@ -111,7 +111,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();
             Drawable drawable = mMousePointerImageView.getDrawable();
             Dimension mousescale = ImageUtils.resizeWithRatio(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
-                    AllSettings.getMouseScale());
+                    AllSettings.getMouseScale().getValue());
             params.width = (int) (mousescale.width * 0.5);
             params.height = (int) (mousescale.height * 0.5);
         });
@@ -325,7 +325,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             if (jreName == null) {
                 if (selectedMod == null) {
                     // We were unable to find out the path to the mod. In that case, use the default runtime.
-                    selectedRuntime = MultiRTUtils.forceReread(AllSettings.getDefaultRuntime());
+                    selectedRuntime = MultiRTUtils.forceReread(AllSettings.getDefaultRuntime().getValue());
                 } else {
                     // Autoselect it properly in the other case.
                     selectedRuntime = selectRuntime(selectedMod);
@@ -452,7 +452,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 javaArgList.add(modFile.getAbsolutePath());
             }
             
-            if (AllSettings.getJavaSandbox()) {
+            if (AllSettings.getJavaSandbox().getValue()) {
                 Collections.reverse(javaArgList);
                 javaArgList.add("-Xbootclasspath/a:" + LibPath.PRO_GRADE.getAbsolutePath());
                 javaArgList.add("-Djava.security.manager=net.sourceforge.prograde.sm.ProGradeJSM");
@@ -462,7 +462,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
 
             Logger.appendToLog("Info: Java arguments: " + Arrays.toString(javaArgList.toArray(new String[0])));
 
-            JREUtils.launchJavaVM(this, runtime,null, javaArgList, AllSettings.getJavaArgs());
+            JREUtils.launchJavaVM(this, runtime,null, javaArgList, AllSettings.getJavaArgs().getValue());
         } catch (Throwable th) {
             Tools.showError(this, th, true);
         }

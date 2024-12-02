@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.feature.accounts
 import android.annotation.SuppressLint
 import android.app.Activity
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.path.UrlManager
@@ -21,7 +21,7 @@ class LocalAccountUtils {
 
         @JvmStatic
         fun saveReminders(checked: Boolean) {
-            Settings.Manager.put("localAccountReminders", !checked).save()
+            AllSettings.localAccountReminders.put(!checked).save()
         }
 
         @JvmStatic

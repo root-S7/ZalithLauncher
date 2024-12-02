@@ -42,7 +42,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SwitchSettingsWrapper(
             context,
-            "checkLibraries",
             AllSettings.checkLibraries,
             binding.checkLibrariesLayout,
             binding.checkLibraries
@@ -50,7 +49,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SwitchSettingsWrapper(
             context,
-            "verifyManifest",
             AllSettings.verifyManifest,
             binding.verifyManifestLayout,
             binding.verifyManifest
@@ -58,7 +56,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SwitchSettingsWrapper(
             context,
-            "resourceImageCache",
             AllSettings.resourceImageCache,
             binding.resourceImageCacheLayout,
             binding.resourceImageCache
@@ -66,8 +63,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         ListSettingsWrapper(
             context,
-            "downloadSource",
-            "default",
+            AllSettings.downloadSource,
             binding.downloadSourceLayout,
             binding.downloadSourceTitle,
             binding.downloadSourceValue,
@@ -76,8 +72,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         ListSettingsWrapper(
             context,
-            "launcherTheme",
-            "system",
+            AllSettings.launcherTheme,
             binding.launcherThemeLayout,
             binding.launcherThemeTitle,
             binding.launcherThemeValue,
@@ -100,7 +95,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SwitchSettingsWrapper(
             context,
-            "animation",
             AllSettings.animation,
             binding.animationLayout,
             binding.animation
@@ -108,7 +102,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SeekBarSettingsWrapper(
             context,
-            "animationSpeed",
             AllSettings.animationSpeed,
             binding.animationSpeedLayout,
             binding.animationSpeedTitle,
@@ -120,7 +113,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SeekBarSettingsWrapper(
             context,
-            "pageOpacity",
             AllSettings.pageOpacity,
             binding.pageOpacityLayout,
             binding.pageOpacityTitle,
@@ -134,7 +126,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SwitchSettingsWrapper(
             context,
-            "enableLogOutput",
             AllSettings.enableLogOutput,
             binding.enableLogOutputLayout,
             binding.enableLogOutput
@@ -142,7 +133,6 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         SwitchSettingsWrapper(
             context,
-            "quitLauncher",
             AllSettings.quitLauncher,
             binding.quitLauncherLayout,
             binding.quitLauncher
@@ -164,8 +154,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
 
         val notificationPermissionRequest = SwitchSettingsWrapper(
             context,
-            "notification_permission_request",
-            false,
+            AllSettings.notificationPermissionRequest,
             binding.notificationPermissionRequestLayout,
             binding.notificationPermissionRequest
         )

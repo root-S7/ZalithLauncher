@@ -41,7 +41,7 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation, TaskCountListener {
     }
 
     private fun playAnimation(animationAction: (AnimPlayer) -> Unit) {
-        if (AllSettings.animation) {
+        if (AllSettings.animation.getValue()) {
             animPlayer.clearEntries()
             animPlayer.apply {
                 animationAction(this)

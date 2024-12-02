@@ -11,7 +11,6 @@ import com.movtery.zalithlauncher.feature.update.LauncherVersion.FileSize
 import com.movtery.zalithlauncher.feature.update.UpdateLauncher.UpdateSource
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.ignoreUpdate
-import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.task.TaskExecutors.Companion.runInUIThread
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.dialog.UpdateDialog
@@ -63,7 +62,7 @@ class UpdateUtils {
                 }
             } else {
                 if (isRelease && (force || checkCooling())) {
-                    Settings.Manager.put("updateCheck", ZHTools.getCurrentTimeMillis()).save()
+                    AllSettings.updateCheck.put(ZHTools.getCurrentTimeMillis()).save()
                     Logging.i("Check Update", "Checking new update!")
 
                     //如果安装包不存在，那么将自动获取更新
@@ -73,7 +72,7 @@ class UpdateUtils {
         }
 
         private fun checkCooling(): Boolean {
-            return ZHTools.getCurrentTimeMillis() - AllSettings.updateCheck > 5 * 60 * 1000 //5分钟冷却
+            return ZHTools.getCurrentTimeMillis() - AllSettings.updateCheck.getValue() > 5 * 60 * 1000 //5分钟冷却
         }
 
         @Synchronized
@@ -101,7 +100,7 @@ class UpdateUtils {
                             val launcherVersion = Tools.GLOBAL_GSON.fromJson(rawJson, LauncherVersion::class.java)
 
                             val versionName = launcherVersion.versionName
-                            if (ignore && versionName == ignoreUpdate) return  //忽略此版本
+                            if (ignore && versionName == ignoreUpdate.getValue()) return  //忽略此版本
 
                             val versionCode = launcherVersion.versionCode
                             if (ZHTools.getVersionCode() < versionCode) {

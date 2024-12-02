@@ -57,7 +57,6 @@ import com.movtery.zalithlauncher.feature.version.InstallTask;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
@@ -186,7 +185,7 @@ public class LauncherActivity extends BaseActivity {
 
             @Override
             public void onUsageDenied() {
-                if (!AllSettings.getLocalAccountReminders()) {
+                if (!AllSettings.getLocalAccountReminders().getValue()) {
                     preLaunch(LauncherActivity.this, version);
                 } else {
                     LocalAccountUtils.openDialog(LauncherActivity.this, checked -> {
@@ -411,8 +410,7 @@ public class LauncherActivity extends BaseActivity {
 
         binding.noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> {
             setNotice(false);
-            Settings.Manager.put("noticeDefault", false)
-                    .save();
+            AllSettings.getNoticeDefault().put(false).save();
         });
         new DraggableViewWrapper(binding.noticeLayout, new DraggableViewWrapper.AttributesFetcher() {
             @NonNull
@@ -485,11 +483,11 @@ public class LauncherActivity extends BaseActivity {
                 return;
             }
             //当偏好设置内是开启通知栏 或者 检测到通知编号不为偏好设置里保存的值时，显示通知栏
-            if (AllSettings.getNoticeDefault() ||
-                    (noticeInfo.numbering != AllSettings.getNoticeNumbering())) {
+            if (AllSettings.getNoticeDefault().getValue() ||
+                    (noticeInfo.numbering != AllSettings.getNoticeNumbering().getValue())) {
                 TaskExecutors.runInUIThread(() -> setNotice(true));
-                Settings.Manager.put("noticeDefault", true)
-                        .put("noticeNumbering", noticeInfo.numbering)
+                AllSettings.getNoticeDefault().put(true)
+                        .put(AllSettings.getNoticeNumbering(), noticeInfo.numbering)
                         .save();
             }
         }));
@@ -551,7 +549,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void checkNotificationPermission() {
-        if (AllSettings.getSkipNotificationPermissionCheck() || ZHTools.checkForNotificationPermission()) {
+        if (AllSettings.getSkipNotificationPermissionCheck().getValue() || ZHTools.checkForNotificationPermission()) {
             return;
         }
 
@@ -572,7 +570,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void handleNoNotificationPermission() {
-        Settings.Manager.put("skipNotificationPermissionCheck", true).save();
+        AllSettings.getSkipNotificationPermissionCheck().put(true).save();
         Toast.makeText(this, R.string.notification_permission_toast, Toast.LENGTH_LONG).show();
     }
 
@@ -585,7 +583,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setPageOpacity() {
-        float v = (float) AllSettings.getPageOpacity() / 100;
+        float v = (float) AllSettings.getPageOpacity().getValue() / 100;
         if (binding.containerFragment.getAlpha() != v) binding.containerFragment.setAlpha(v);
     }
 }

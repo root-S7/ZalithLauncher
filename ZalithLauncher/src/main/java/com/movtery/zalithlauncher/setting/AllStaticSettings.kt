@@ -14,36 +14,36 @@ class AllStaticSettings {
         /**
          * 缩放因子 Float
          */
-        @JvmField var scaleFactor = AllSettings.resolutionRatio / 100f
+        @JvmField var scaleFactor = AllSettings.resolutionRatio.getValue() / 100f
 
         /**
          * 禁用双击交换手中物品 Boolean
          */
-        @JvmField var disableDoubleTap = AllSettings.disableDoubleTap
+        @JvmField var disableDoubleTap = AllSettings.disableDoubleTap.getValue()
 
         /**
          * 触发长按延迟 Int
          */
-        @JvmField var timeLongPressTrigger = AllSettings.timeLongPressTrigger
+        @JvmField var timeLongPressTrigger = AllSettings.timeLongPressTrigger.getValue()
 
         /**
          * 启用陀螺仪控制 Boolean
          */
-        @JvmField var enableGyro = AllSettings.enableGyro
+        @JvmField var enableGyro = AllSettings.enableGyro.getValue()
 
         /**
          * 陀螺仪控制灵敏度 Int
          */
-        @JvmField var gyroSensitivity = AllSettings.gyroSensitivity
+        @JvmField var gyroSensitivity = AllSettings.gyroSensitivity.getValue()
 
         /**
          * 陀螺仪反转X轴 Boolean
          */
-        @JvmField var gyroInvertX = AllSettings.gyroInvertX
+        @JvmField var gyroInvertX = AllSettings.gyroInvertX.getValue()
 
         /**
          * 陀螺仪反转Y轴 Boolean
          */
-        @JvmField var gyroInvertY = AllSettings.gyroInvertY
+        @JvmField var gyroInvertY = AllSettings.gyroInvertY.getValue()
     }
 }

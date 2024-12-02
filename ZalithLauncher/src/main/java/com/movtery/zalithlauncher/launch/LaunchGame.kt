@@ -101,7 +101,7 @@ class LaunchGame {
         @Throws(Throwable::class)
         @JvmStatic
         fun runGame(activity: AppCompatActivity, serverBinder: LocalBinder, minecraftVersion: Version, version: JMinecraftVersionList.Version) {
-            Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer }
+            Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer.getValue() }
 
             if (!Tools.checkRendererCompatible(activity, Tools.LOCAL_RENDERER)) {
                 val renderersList = Tools.getCompatibleRenderers(activity)
@@ -112,7 +112,7 @@ class LaunchGame {
             }
 
             val customArgs = minecraftVersion.getJavaArgs().takeIf { it.isNotBlank() }
-                ?: AllSettings.javaArgs?.takeIf { it.isNotBlank() }
+                ?: AllSettings.javaArgs.getValue().takeIf { it.isNotBlank() }
                 ?: ""
             val account = AccountsManager.getInstance().currentAccount
             printLauncherInfo(
@@ -213,10 +213,10 @@ class LaunchGame {
                 R.string.address_memory_warning_msg
             } else R.string.memory_warning_msg
 
-            if (AllSettings.ramAllocation > freeDeviceMemory) {
+            if (AllSettings.ramAllocation.value.getValue() > freeDeviceMemory) {
                 val builder = TipDialog.Builder(activity)
                     .setTitle(R.string.generic_warning)
-                    .setMessage(activity.getString(stringId, freeDeviceMemory, AllSettings.ramAllocation))
+                    .setMessage(activity.getString(stringId, freeDeviceMemory, AllSettings.ramAllocation.value.getValue()))
                     .setCenterMessage(false)
                     .setShowCancel(false)
                 if (LifecycleAwareTipDialog.haltOnDialog(activity.lifecycle, builder)) return

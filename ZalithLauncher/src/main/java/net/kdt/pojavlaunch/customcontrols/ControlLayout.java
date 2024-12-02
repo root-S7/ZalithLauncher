@@ -17,7 +17,6 @@ import com.google.gson.JsonSyntaxException;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.EditControlInfoDialog;
@@ -71,7 +70,7 @@ public class ControlLayout extends FrameLayout {
 
 
 	public void loadLayout(String jsonPath) throws IOException, JsonSyntaxException {
-		File jsonFile = jsonPath != null ? new File(jsonPath) : new File(AllSettings.getDefaultCtrl());
+		File jsonFile = jsonPath != null ? new File(jsonPath) : new File(AllSettings.getDefaultCtrl().getValue());
 
 		CustomControls layout;
 		if (jsonFile.exists()) {
@@ -131,7 +130,7 @@ public class ControlLayout extends FrameLayout {
 			if(mModifiable) drawer.areButtonsVisible = true;
 		}
 
-		mLayout.scaledAt = AllSettings.getButtonscale();
+		mLayout.scaledAt = AllSettings.getButtonScale().getValue();
 
 		setModified(false);
 		mButtons = null;
@@ -545,7 +544,7 @@ public class ControlLayout extends FrameLayout {
 		dialog.setOnSelectedListener(file -> {
             String absolutePath = file.getAbsolutePath();
             try {
-				Settings.Manager.put("defaultCtrl", absolutePath).save();
+				AllSettings.getDefaultCtrl().put(absolutePath).save();
 				loadLayout(absolutePath);
             } catch (IOException|JsonSyntaxException e) {
                 Tools.showError(getContext(), e);

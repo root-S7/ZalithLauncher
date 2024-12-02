@@ -10,14 +10,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
+import com.movtery.zalithlauncher.setting.SettingUnit
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 
 @SuppressLint("UseSwitchCompatOrMaterialCode", "StringFormatInvalid")
 class SeekBarSettingsWrapper(
     val context: Context,
-    val key: String,
-    val value: Int,
+    val unit: SettingUnit<Int>,
     val mainView: View,
     val titleView: TextView,
     val summaryView: TextView,
@@ -30,8 +30,7 @@ class SeekBarSettingsWrapper(
 
     constructor(
         context: Context,
-        key: String,
-        value: Int,
+        unit: SettingUnit<Int>,
         mainView: View,
         titleView: TextView,
         summaryView: TextView,
@@ -40,8 +39,7 @@ class SeekBarSettingsWrapper(
         suffix: String,
     ) : this(
         context,
-        key,
-        value,
+        unit,
         mainView,
         titleView,
         summaryView,
@@ -54,14 +52,14 @@ class SeekBarSettingsWrapper(
     init {
         onStartListener?.onStart(this)
 
-        seekbarView.progress = value
+        seekbarView.progress = unit.getValue()
         valueView.background = ContextCompat.getDrawable(context, R.drawable.background_text)
         setSeekBarValueTextView()
 
         seekbarView.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 listener?.onChange(progress)
-                Settings.Manager.put(key, progress).save()
+                Settings.Manager.put(unit, progress).save()
                 setSeekBarValueTextView()
                 checkShowRebootDialog(context)
             }

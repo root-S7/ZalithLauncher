@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 
 import com.movtery.zalithlauncher.databinding.DialogControlSettingsBinding;
 import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.setting.Settings;
 
 public class ControlSettingsDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogControlSettingsBinding binding = DialogControlSettingsBinding.inflate(getLayoutInflater());
@@ -26,17 +25,17 @@ public class ControlSettingsDialog extends FullScreenDialog implements Draggable
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private void init() {
         //设置值
-        binding.snappingSwitch.setChecked(AllSettings.getButtonSnapping());
-        binding.snappingDistanceSeek.setProgress(AllSettings.getButtonSnappingDistance());
-        String text = AllSettings.getButtonSnappingDistance() + "dp";
+        binding.snappingSwitch.setChecked(AllSettings.getButtonSnapping().getValue());
+        binding.snappingDistanceSeek.setProgress(AllSettings.getButtonSnappingDistance().getValue());
+        String text = AllSettings.getButtonSnappingDistance().getValue() + "dp";
         binding.snappingDistanceText.setText(text);
 
         binding.confirmButton.setOnClickListener(v -> this.dismiss());
-        binding.snappingSwitch.setOnCheckedChangeListener((compoundButton, b) -> Settings.Manager.put("buttonSnapping", b).save());
+        binding.snappingSwitch.setOnCheckedChangeListener((compoundButton, b) -> AllSettings.getButtonSnapping().put(b).save());
         binding.snappingDistanceSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                Settings.Manager.put("buttonSnappingDistance", i).save();
+                AllSettings.getButtonSnappingDistance().put(i).save();
                 String text = i + "dp";
                 binding.snappingDistanceText.setText(text);
             }

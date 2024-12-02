@@ -46,7 +46,7 @@ class ScreenshotAdapter(private val screenshotItems: List<ScreenshotItem>) : Rec
             binding.apply {
                 setLoading(true)
                 val requestBuilder = Glide.with(screenshot).load(imageUrl)
-                if (!AllSettings.resourceImageCache) requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
+                if (!AllSettings.resourceImageCache.getValue()) requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE)
                 requestBuilder.fitCenter()
                     .addListener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(

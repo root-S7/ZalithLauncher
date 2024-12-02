@@ -79,8 +79,8 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
      */
     default ControlData preProcessProperties(ControlData properties, ControlLayout layout) {
         //Size
-        properties.setWidth(properties.getWidth() / layout.getLayoutScale() * AllSettings.getButtonscale());
-        properties.setHeight(properties.getHeight() / layout.getLayoutScale() * AllSettings.getButtonscale());
+        properties.setWidth(properties.getWidth() / layout.getLayoutScale() * AllSettings.getButtonScale().getValue());
+        properties.setHeight(properties.getHeight() / layout.getLayoutScale() * AllSettings.getButtonScale().getValue());
 
         //Visibility
         properties.isHideable = !properties.containsKeycode(ControlData.SPECIALBTN_TOGGLECTRL) && !properties.containsKeycode(ControlData.SPECIALBTN_VIRTUALMOUSE);
@@ -194,8 +194,8 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
         return equation
                 .replace("${right}", "(${screen_width} - ${width})")
                 .replace("${bottom}", "(${screen_height} - ${height})")
-                .replace("${height}", "(px(" + Tools.pxToDp(button.getProperties().getHeight()) + ") /" + AllSettings.getButtonscale() + " * ${preferred_scale})")
-                .replace("${width}", "(px(" + Tools.pxToDp(button.getProperties().getWidth()) + ") / " + AllSettings.getButtonscale() + " * ${preferred_scale})");
+                .replace("${height}", "(px(" + Tools.pxToDp(button.getProperties().getHeight()) + ") /" + AllSettings.getButtonScale().getValue() + " * ${preferred_scale})")
+                .replace("${width}", "(px(" + Tools.pxToDp(button.getProperties().getWidth()) + ") / " + AllSettings.getButtonScale().getValue() + " * ${preferred_scale})");
     }
 
 
@@ -239,14 +239,14 @@ public interface ControlInterface extends View.OnLongClickListener, GrabListener
      * @param y Coordinate on the y axis
      */
     default void snapAndAlign(float x, float y) {
-        float MIN_DISTANCE = Tools.dpToPx(AllSettings.getButtonSnappingDistance());
+        float MIN_DISTANCE = Tools.dpToPx(AllSettings.getButtonSnappingDistance().getValue());
         String dynamicX = generateDynamicX(x);
         String dynamicY = generateDynamicY(y);
 
         getControlView().setX(x);
         getControlView().setY(y);
 
-        if (AllSettings.getButtonSnapping()) { //可开关按键吸附功能
+        if (AllSettings.getButtonSnapping().getValue()) { //可开关按键吸附功能
             for (ControlInterface button : ((ControlLayout) getControlView().getParent()).getButtonChildren()) {
                 //Step 1: Filter unwanted buttons
                 if (!canSnap(button)) continue;

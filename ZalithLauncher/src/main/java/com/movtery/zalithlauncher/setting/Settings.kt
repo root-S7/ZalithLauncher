@@ -68,7 +68,7 @@ class Settings {
                 return getValue(key, defaultValue) { it.toBoolean() }
             }
 
-            fun getString(key: String, defaultValue: String?): String? {
+            fun getString(key: String, defaultValue: String): String {
                 return getValue(key, defaultValue) { it }
             }
 
@@ -80,6 +80,10 @@ class Settings {
             @JvmStatic
             @CheckResult
             fun put(key: String, value: Any?) = SettingBuilder().put(key, value)
+
+            @JvmStatic
+            @CheckResult
+            fun put(unit: SettingUnit<*>, value: Any?) = SettingBuilder().put(unit, value)
         }
 
         class SettingBuilder {
@@ -88,6 +92,12 @@ class Settings {
             @CheckResult
             fun put(key: String, value: Any?): SettingBuilder {
                 valueMap[key] = value
+                return this
+            }
+
+            @CheckResult
+            fun put(unit: SettingUnit<*>, value: Any?): SettingBuilder {
+                valueMap[unit.key] = value
                 return this
             }
 

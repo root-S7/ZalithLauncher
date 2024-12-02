@@ -11,7 +11,7 @@ class ModMirror {
 
         @JvmStatic
         fun replaceMirrorInfoUrl(baseUrl: String): String {
-            return when (AllSettings.modInfoSource) {
+            return when (AllSettings.modInfoSource.getValue()) {
                 Source.ORIGINAL.name.lowercase() -> baseUrl
                 Source.MCIM.name.lowercase() -> replaceMCIM(baseUrl)
                 else -> baseUrl
@@ -20,7 +20,7 @@ class ModMirror {
 
         @JvmStatic
         fun replaceMirrorDownloadUrl(baseUrl: String): String {
-            return when(AllSettings.modDownloadSource) {
+            return when(AllSettings.modDownloadSource.getValue()) {
                 Source.ORIGINAL.name.lowercase() -> baseUrl
                 Source.MCIM.name.lowercase() -> replaceMCIM(baseUrl)
                 else -> baseUrl
@@ -29,7 +29,7 @@ class ModMirror {
 
         @JvmStatic
         fun isInfoMirrored(): Boolean {
-            return when (AllSettings.modInfoSource) {
+            return when (AllSettings.modInfoSource.getValue()) {
                 Source.ORIGINAL.name.lowercase() -> false
                 else -> true
             }
@@ -37,7 +37,7 @@ class ModMirror {
 
         @JvmStatic
         fun isDownloadUrlMirrored(): Boolean {
-            return when (AllSettings.modDownloadSource) {
+            return when (AllSettings.modDownloadSource.getValue()) {
                 Source.ORIGINAL.name.lowercase() -> false
                 else -> true
             }

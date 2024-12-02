@@ -142,7 +142,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
 
             binding.thumbnailImageview.setImageDrawable(null);
             RequestBuilder<Drawable> builder = Glide.with(context).load(infoItem.getIconUrl());
-            if (!AllSettings.getResourceImageCache()) builder.diskCacheStrategy(DiskCacheStrategy.NONE);
+            if (!AllSettings.getResourceImageCache().getValue()) builder.diskCacheStrategy(DiskCacheStrategy.NONE);
             builder.into(binding.thumbnailImageview);
 
             itemView.setOnClickListener(v -> {

@@ -17,7 +17,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentCustomMouseBinding
-import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.FilesDialog
@@ -170,7 +170,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
 
                 val filesDialog = FilesDialog(requireActivity(), filesButton, Task.runTask { loadData() }, mousePath(), file)
                 filesDialog.setMoreButtonClick {
-                    Settings.Manager.put("custom_mouse", fileName).save()
+                    AllSettings.customMouse.put(fileName ?: "").save()
                     refreshIcon()
                     Toast.makeText(requireActivity(),
                         StringUtils.insertSpace(getString(R.string.custom_mouse_added), (fileName ?: getString(R.string.custom_mouse_default))),

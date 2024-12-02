@@ -1,6 +1,10 @@
 package com.movtery.zalithlauncher.setting
 
 import com.movtery.zalithlauncher.context.ContextExecutor
+import com.movtery.zalithlauncher.setting.Settings.Manager.Companion.getBoolean
+import com.movtery.zalithlauncher.setting.Settings.Manager.Companion.getInt
+import com.movtery.zalithlauncher.setting.Settings.Manager.Companion.getLong
+import com.movtery.zalithlauncher.setting.Settings.Manager.Companion.getString
 import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
@@ -9,268 +13,213 @@ class AllSettings {
     companion object {
         // Video
         @JvmStatic
-        val renderer: String?
-            get() = Settings.Manager.getString("renderer", "opengles2")
+        val renderer = SettingUnit("renderer", "opengles2") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val ignoreNotch: Boolean
-            get() = Settings.Manager.getBoolean("ignoreNotch", true)
+        val ignoreNotch = SettingUnit("ignoreNotch", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val resolutionRatio: Int
-            get() = Settings.Manager.getInt("resolutionRatio", 100)
+        val resolutionRatio = SettingUnit("resolutionRatio", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val sustainedPerformance: Boolean
-            get() = Settings.Manager.getBoolean("sustainedPerformance", false)
+        val sustainedPerformance = SettingUnit("sustainedPerformance", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val alternateSurface: Boolean
-            get() = Settings.Manager.getBoolean("alternate_surface", false)
+        val alternateSurface = SettingUnit("alternate_surface", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val forceVsync: Boolean
-            get() = Settings.Manager.getBoolean("force_vsync", false)
+        val forceVsync = SettingUnit("force_vsync", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val vsyncInZink: Boolean
-            get() = Settings.Manager.getBoolean("vsync_in_zink", false)
+        val vsyncInZink = SettingUnit("vsync_in_zink", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val zinkPreferSystemDriver: Boolean
-            get() = Settings.Manager.getBoolean("zinkPreferSystemDriver", false)
+        val zinkPreferSystemDriver = SettingUnit("zinkPreferSystemDriver", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         // Control
         @JvmStatic
-        val disableGestures: Boolean
-            get() = Settings.Manager.getBoolean("disableGestures", false)
+        val disableGestures = SettingUnit("disableGestures", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val disableDoubleTap: Boolean
-            get() = Settings.Manager.getBoolean("disableDoubleTap", false)
+        val disableDoubleTap = SettingUnit("disableDoubleTap", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val timeLongPressTrigger: Int
-            get() = Settings.Manager.getInt("timeLongPressTrigger", 300)
+        val timeLongPressTrigger = SettingUnit("timeLongPressTrigger", 300) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val buttonscale: Int
-            get() = Settings.Manager.getInt("buttonscale", 100)
+        val buttonScale = SettingUnit("buttonscale", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val buttonAllCaps: Boolean
-            get() = Settings.Manager.getBoolean("buttonAllCaps", true)
+        val buttonAllCaps = SettingUnit("buttonAllCaps", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val mouseScale: Int
-            get() = Settings.Manager.getInt("mousescale", 100)
+        val mouseScale = SettingUnit("mousescale", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val mouseSpeed: Int
-            get() = Settings.Manager.getInt("mousespeed", 100)
+        val mouseSpeed = SettingUnit("mousespeed", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val virtualMouseStart: Boolean
-            get() = Settings.Manager.getBoolean("mouse_start", true)
+        val virtualMouseStart = SettingUnit("mouse_start", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val customMouse: String?
-            get() = Settings.Manager.getString("custom_mouse", null)
+        val customMouse = SettingUnit("custom_mouse", "") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val enableGyro: Boolean
-            get() = Settings.Manager.getBoolean("enableGyro", false)
+        val enableGyro = SettingUnit("enableGyro", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val gyroSensitivity: Int
-            get() = Settings.Manager.getInt("gyroSensitivity", 100)
+        val gyroSensitivity = SettingUnit("gyroSensitivity", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val gyroSampleRate: Int
-            get() = Settings.Manager.getInt("gyroSampleRate", 16)
+        val gyroSampleRate = SettingUnit("gyroSampleRate", 16) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val gyroSmoothing: Boolean
-            get() = Settings.Manager.getBoolean("gyroSmoothing", true)
+        val gyroSmoothing = SettingUnit("gyroSmoothing", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val gyroInvertX: Boolean
-            get() = Settings.Manager.getBoolean("gyroInvertX", false)
+        val gyroInvertX = SettingUnit("gyroInvertX", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val gyroInvertY: Boolean
-            get() = Settings.Manager.getBoolean("gyroInvertY", false)
+        val gyroInvertY = SettingUnit("gyroInvertY", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val deadzoneScale: Float
-            get() = Settings.Manager.getInt("gamepad_deadzone_scale", 100) / 100f
+        val deadZoneScale = SettingUnit("gamepad_deadzone_scale", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         // Game
         @JvmStatic
-        val versionIsolation: Boolean
-            get() = Settings.Manager.getBoolean("versionIsolation", false)
+        val versionIsolation = SettingUnit("versionIsolation", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val autoSetGameLanguage: Boolean
-            get() = Settings.Manager.getBoolean("autoSetGameLanguage", true)
+        val autoSetGameLanguage = SettingUnit("autoSetGameLanguage", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val gameLanguageOverridden: Boolean
-            get() = Settings.Manager.getBoolean("gameLanguageOverridden", false)
+        val gameLanguageOverridden = SettingUnit("gameLanguageOverridden", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val setGameLanguage: String?
-            get() = Settings.Manager.getString("setGameLanguage", "system")
+        val setGameLanguage = SettingUnit("setGameLanguage", "system") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val javaArgs: String?
-            get() = Settings.Manager.getString("javaArgs", "")
+        val javaArgs = SettingUnit("javaArgs", "") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val ramAllocation: Int
-            get() = Settings.Manager.getInt("allocation", LauncherPreferences.findBestRAMAllocation(ContextExecutor.getApplication()))
+        val ramAllocation = lazy {
+            //涉及到Context初始化，需要进行懒加载
+            SettingUnit("allocation", LauncherPreferences.findBestRAMAllocation(ContextExecutor.getApplication())) { key, defaultValue -> getInt(key, defaultValue) }
+        }
 
         @JvmStatic
-        val javaSandbox: Boolean
-            get() = Settings.Manager.getBoolean("java_sandbox", true)
+        val javaSandbox = SettingUnit("java_sandbox", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val gameMenuShowMemory: Boolean
-            get() = Settings.Manager.getBoolean("gameMenuShowMemory", false)
+        val gameMenuShowMemory = SettingUnit("gameMenuShowMemory", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val gameMenuMemoryText: String?
-            get() = Settings.Manager.getString("gameMenuMemoryText", "M:")
+        val gameMenuMemoryText = SettingUnit("gameMenuMemoryText", "M:") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val gameMenuLocation: String?
-            get() = Settings.Manager.getString("gameMenuLocation", "center")
+        val gameMenuLocation = SettingUnit("gameMenuLocation", "center") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val gameMenuAlpha: Int
-            get() = Settings.Manager.getInt("gameMenuAlpha", 100)
+        val gameMenuAlpha = SettingUnit("gameMenuAlpha", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         // Launcher
         @JvmStatic
-        val checkLibraries: Boolean
-            get() = Settings.Manager.getBoolean("checkLibraries", true)
+        val checkLibraries = SettingUnit("checkLibraries", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val verifyManifest: Boolean
-            get() = Settings.Manager.getBoolean("verifyManifest", true)
+        val verifyManifest = SettingUnit("verifyManifest", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val resourceImageCache: Boolean
-            get() = Settings.Manager.getBoolean("resourceImageCache", false)
+        val resourceImageCache = SettingUnit("resourceImageCache", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val downloadSource: String?
-            get() = Settings.Manager.getString("downloadSource", "default")
+        val downloadSource = SettingUnit("downloadSource", "default") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val modInfoSource: String?
-            get() = Settings.Manager.getString("modInfoSource", "original")
+        val modInfoSource = SettingUnit("modInfoSource", "original") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val modDownloadSource: String?
-            get() = Settings.Manager.getString("modDownloadSource", "original")
+        val modDownloadSource = SettingUnit("modDownloadSource", "original") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val launcherTheme: String?
-            get() = Settings.Manager.getString("launcherTheme", "system")
+        val launcherTheme = SettingUnit("launcherTheme", "system") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val animation: Boolean
-            get() = Settings.Manager.getBoolean("animation", true)
+        val animation = SettingUnit("animation", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val animationSpeed: Int
-            get() = Settings.Manager.getInt("animationSpeed", 600)
+        val animationSpeed = SettingUnit("animationSpeed", 600) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val pageOpacity: Int
-            get() = Settings.Manager.getInt("pageOpacity", 100)
+        val pageOpacity = SettingUnit("pageOpacity", 100) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val enableLogOutput: Boolean
-            get() = Settings.Manager.getBoolean("enableLogOutput", false)
+        val enableLogOutput = SettingUnit("enableLogOutput", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val quitLauncher: Boolean
-            get() = Settings.Manager.getBoolean("quitLauncher", true)
+        val quitLauncher = SettingUnit("quitLauncher", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         // Experimental
         @JvmStatic
-        val dumpShaders: Boolean
-            get() = Settings.Manager.getBoolean("dump_shaders", false)
+        val dumpShaders = SettingUnit("dump_shaders", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val bigCoreAffinity: Boolean
-            get() = Settings.Manager.getBoolean("bigCoreAffinity", false)
+        val bigCoreAffinity = SettingUnit("bigCoreAffinity", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         // Other
         @JvmStatic
-        val currentAccount: String?
-            get() = Settings.Manager.getString("currentAccount", "")
+        val currentAccount = SettingUnit("currentAccount", "") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val launcherProfile: String?
-            get() = Settings.Manager.getString("launcherProfile", "default")
+        val launcherProfile = SettingUnit("launcherProfile", "default") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val defaultCtrl: String?
-            get() = Settings.Manager.getString("defaultCtrl", PathManager.FILE_CTRLDEF_FILE)
+        val defaultCtrl = SettingUnit("defaultCtrl", PathManager.FILE_CTRLDEF_FILE) { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val defaultRuntime: String?
-            get() = Settings.Manager.getString("defaultRuntime", "")
+        val defaultRuntime = SettingUnit("defaultRuntime", "") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val skipNotificationPermissionCheck: Boolean
-            get() = Settings.Manager.getBoolean("skipNotificationPermissionCheck", false)
+        val notificationPermissionRequest = SettingUnit("notification_permission_request", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val localAccountReminders: Boolean
-            get() = Settings.Manager.getBoolean("localAccountReminders", true)
+        val skipNotificationPermissionCheck = SettingUnit("skipNotificationPermissionCheck", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val updateCheck: Long
-            get() = Settings.Manager.getLong("updateCheck", 0)
+        val localAccountReminders = SettingUnit("localAccountReminders", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val ignoreUpdate: String?
-            get() = Settings.Manager.getString("ignoreUpdate", null)
+        val updateCheck = SettingUnit("updateCheck", 0L) { key, defaultValue -> getLong(key, defaultValue) }
 
         @JvmStatic
-        val noticeCheck: Long
-            get() = Settings.Manager.getLong("noticeCheck", 0)
+        val ignoreUpdate = SettingUnit("ignoreUpdate", "") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val noticeNumbering: Int
-            get() = Settings.Manager.getInt("noticeNumbering", 0)
+        val noticeCheck = SettingUnit("noticeCheck", 0L) { key, defaultValue -> getLong(key, defaultValue) }
 
         @JvmStatic
-        val noticeDefault: Boolean
-            get() = Settings.Manager.getBoolean("noticeDefault", false)
+        val noticeNumbering = SettingUnit("noticeNumbering", 0) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val buttonSnapping: Boolean
-            get() = Settings.Manager.getBoolean("buttonSnapping", true)
+        val noticeDefault = SettingUnit("noticeDefault", false) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val buttonSnappingDistance: Int
-            get() = Settings.Manager.getInt("buttonSnappingDistance", 8)
+        val buttonSnapping = SettingUnit("buttonSnapping", true) { key, defaultValue -> getBoolean(key, defaultValue) }
 
         @JvmStatic
-        val hotbarType: String?
-            get() = Settings.Manager.getString("hotbarType", "auto")
+        val buttonSnappingDistance = SettingUnit("buttonSnappingDistance", 8) { key, defaultValue -> getInt(key, defaultValue) }
 
         @JvmStatic
-        val hotbarWidth: Int
-            get() = Settings.Manager.getInt("hotbarWidth", Tools.currentDisplayMetrics.widthPixels / 3)
+        val hotbarType = SettingUnit("hotbarType", "auto") { key, defaultValue -> getString(key, defaultValue) }
 
         @JvmStatic
-        val hotbarHeight: Int
-            get() = Settings.Manager.getInt("hotbarHeight", Tools.currentDisplayMetrics.heightPixels / 4)
+        val hotbarWidth = lazy {
+            SettingUnit("hotbarWidth", Tools.currentDisplayMetrics.widthPixels / 3) { key, defaultValue -> getInt(key, defaultValue) }
+        }
+
+        @JvmStatic
+        val hotbarHeight = lazy {
+            SettingUnit("hotbarHeight", Tools.currentDisplayMetrics.heightPixels / 4) { key, defaultValue -> getInt(key, defaultValue) }
+        }
     }
 }

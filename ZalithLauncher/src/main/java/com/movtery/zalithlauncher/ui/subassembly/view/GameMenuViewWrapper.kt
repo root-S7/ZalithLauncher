@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.TextView
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.formatFileSize
 import com.movtery.zalithlauncher.utils.platform.MemoryUtils
@@ -28,15 +27,15 @@ class GameMenuViewWrapper(
         setOnClickListener(0L, listener)
         setOnLongClickListener {
             showMemory = !showMemory
-            Settings.Manager.put("gameMenuShowMemory", showMemory).save()
+            AllSettings.gameMenuShowMemory.put(showMemory).save()
             setShowMemory()
             true
         }
         setEnableEdgeAdsorption(false)
         addViewLifecycle(object : IFxViewLifecycle {
             override fun initView(holder: FxViewHolder) {
-                holder.view.alpha = AllSettings.gameMenuAlpha.toFloat() / 100f
-                showMemory = AllSettings.gameMenuShowMemory
+                holder.view.alpha = AllSettings.gameMenuAlpha.getValue().toFloat() / 100f
+                showMemory = AllSettings.gameMenuShowMemory.getValue()
 
                 holder.getView<TextView>(R.id.memory_text).apply {
                     updateMemoryText(this)
@@ -76,7 +75,7 @@ class GameMenuViewWrapper(
                 timer?.schedule(object : TimerTask() {
                     override fun run() {
                         val string =
-                            "${AllSettings.gameMenuMemoryText} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
+                            "${AllSettings.gameMenuMemoryText.getValue()} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
                                 formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))
                             }".trim()
                         TaskExecutors.runInUIThread { text = string }
@@ -95,7 +94,7 @@ class GameMenuViewWrapper(
     }
 
     private fun getCurrentGravity(): FxGravity {
-        return when(AllSettings.gameMenuLocation) {
+        return when(AllSettings.gameMenuLocation.getValue()) {
             "left_or_top" -> FxGravity.LEFT_OR_TOP
             "left_or_bottom" -> FxGravity.LEFT_OR_BOTTOM
             "right_or_top" -> FxGravity.RIGHT_OR_TOP

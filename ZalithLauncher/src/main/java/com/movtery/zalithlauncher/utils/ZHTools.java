@@ -89,10 +89,8 @@ public final class ZHTools {
     }
 
     public static File getCustomMouse() {
-        String customMouse = AllSettings.getCustomMouse();
-        if (customMouse == null) {
-            return null;
-        }
+        String customMouse = AllSettings.getCustomMouse().getValue();
+        if (customMouse.isEmpty()) return null;
         return new File(PathManager.DIR_CUSTOM_MOUSE, customMouse);
     }
 
@@ -168,7 +166,7 @@ public final class ZHTools {
 
     private static FragmentTransaction getFragmentTransaction(Fragment fragment) {
         FragmentTransaction transaction = fragment.requireActivity().getSupportFragmentManager().beginTransaction();
-        if (AllSettings.getAnimation()) {
+        if (AllSettings.getAnimation().getValue()) {
             transaction.setCustomAnimations(R.anim.cut_into, R.anim.cut_out, R.anim.cut_into, R.anim.cut_out);
         }
         return transaction.setReorderingAllowed(true);

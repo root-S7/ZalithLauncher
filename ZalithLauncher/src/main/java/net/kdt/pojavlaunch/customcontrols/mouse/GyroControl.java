@@ -45,7 +45,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
 
     /* Used to average the last values, if smoothing is enabled */
     private final float[][] mAngleBuffer = new float[
-            AllSettings.getGyroSmoothing() ? 2 : 1
+            AllSettings.getGyroSmoothing().getValue() ? 2 : 1
             ][3];
     private float xTotal = 0;
     private float yTotal = 0;
@@ -70,7 +70,7 @@ public class GyroControl implements SensorEventListener, GrabListener {
     public void enable() {
         if(mSensor == null) return;
         mWarmup = ROTATION_VECTOR_WARMUP_PERIOD;
-        mSensorManager.registerListener(this, mSensor, 1000 * AllSettings.getGyroSampleRate());
+        mSensorManager.registerListener(this, mSensor, 1000 * AllSettings.getGyroSampleRate().getValue());
         mCorrectionListener.enable();
         mShouldHandleEvents = CallbackBridge.isGrabbing();
         CallbackBridge.addGrabListener(this);

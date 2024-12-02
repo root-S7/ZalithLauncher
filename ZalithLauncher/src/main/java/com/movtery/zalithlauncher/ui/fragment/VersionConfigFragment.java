@@ -199,7 +199,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
         isolationAnimPlayer.clearEntries();
         isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.BounceInUp))
                 .apply(new AnimPlayer.Entry(binding.saveButton, Animations.BounceEnlarge))
-                .duration(AllSettings.getAnimationSpeed() / 2)
+                .duration(AllSettings.getAnimationSpeed().getValue() / 2)
                 .setOnStart(() -> {
                     setIsolationVisible(true);
                     binding.isolationConfig.setEnabled(false);
@@ -216,7 +216,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
         isolationAnimPlayer.clearEntries();
         isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.FadeOutDown))
                 .apply(new AnimPlayer.Entry(binding.saveButton, Animations.FadeOut))
-                .duration(AllSettings.getAnimationSpeed() / 2)
+                .duration(AllSettings.getAnimationSpeed().getValue() / 2)
                 .setOnStart(() -> {
                     setIsolationVisible(true);
                     binding.isolationConfig.setEnabled(false);

@@ -86,7 +86,7 @@ public class PojavApplication extends Application {
 		}
 
 		//设置主题
-		String launcherTheme = AllSettings.getLauncherTheme();
+		String launcherTheme = AllSettings.getLauncherTheme().getValue();
 		Objects.requireNonNull(launcherTheme);
 		if (!Objects.equals(launcherTheme, "system")) {
 			switch (launcherTheme) {
@@ -108,8 +108,8 @@ public class PojavApplication extends Application {
 
 	@Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocaleHelper.Companion.setLocale(base));
 		ContextExecutor.setApplication(this);
+        super.attachBaseContext(LocaleHelper.Companion.setLocale(base));
     }
 
     @Override

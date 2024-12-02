@@ -5,7 +5,6 @@ import com.google.gson.JsonParser
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
@@ -18,8 +17,8 @@ class ProfilePathManager {
         private val defaultPath: String = PathManager.DIR_GAME_HOME
 
         @JvmStatic
-        fun setCurrentPathId(id: String?) {
-            Settings.Manager.put("launcherProfile", id).save()
+        fun setCurrentPathId(id: String) {
+            AllSettings.launcherProfile.put(id).save()
             VersionsManager.refresh()
         }
 
@@ -28,7 +27,7 @@ class ProfilePathManager {
             get() {
                 if (StoragePermissionsUtils.checkPermissions()) {
                     //通过选中的id来获取当前路径
-                    val id = AllSettings.launcherProfile
+                    val id = AllSettings.launcherProfile.getValue()
                     if (id == "default") return defaultPath
 
                     PathManager.FILE_PROFILE_PATH.apply {

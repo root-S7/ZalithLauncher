@@ -159,7 +159,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                         }
 
                         override fun onUsageDenied() {
-                            if (!AllSettings.localAccountReminders) {
+                            if (!AllSettings.localAccountReminders.getValue()) {
                                 login()
                             } else {
                                 openDialog(

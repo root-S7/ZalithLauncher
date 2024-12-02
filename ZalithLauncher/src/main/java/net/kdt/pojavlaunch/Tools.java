@@ -769,7 +769,7 @@ public final class Tools {
     }
 
     public static String getSelectedRuntime(Version version) {
-        String runtime = AllSettings.getDefaultRuntime();
+        String runtime = AllSettings.getDefaultRuntime().getValue();
         String versionRuntime = getRuntimeName(version.getJavaDir());
         if (versionRuntime != null) {
             if (MultiRTUtils.forceReread(versionRuntime).versionString != null) {

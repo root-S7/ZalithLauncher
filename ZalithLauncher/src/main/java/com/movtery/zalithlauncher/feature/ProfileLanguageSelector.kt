@@ -53,7 +53,7 @@ class ProfileLanguageSelector {
         @JvmStatic
         fun setGameLanguage(version: Version, overridden: Boolean) {
             if (MCOptionUtils.containsKey("lang") && !overridden) return
-            val language = getLanguage(version, AllSettings.setGameLanguage!!)
+            val language = getLanguage(version, AllSettings.setGameLanguage.getValue())
             Logging.i("ProfileLanguageSelector", "The game language has been set to: $language")
             MCOptionUtils.set("lang", language)
         }
