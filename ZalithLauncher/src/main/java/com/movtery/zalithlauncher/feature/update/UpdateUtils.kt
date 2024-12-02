@@ -62,7 +62,7 @@ class UpdateUtils {
                     FileUtils.deleteQuietly(sApkFile)
                 }
             } else {
-                if ((force && isRelease) || checkCooling()) {
+                if (isRelease && (force || checkCooling())) {
                     Settings.Manager.put("updateCheck", ZHTools.getCurrentTimeMillis()).save()
                     Logging.i("Check Update", "Checking new update!")
 
