@@ -1,3 +1,6 @@
+## The project has been migrated to the [ZalithLauncher organization](https://github.com/ZalithLauncher/ZalithLauncher). The current repository is archived, and future updates will be made within the new organization! For details, please refer to: [Instructions for Migrating the Zalith Launcher Project](https://github.com/ZalithLauncher/About/blob/main/notice/migrate_en_us.md)
+
+
 <div align="center">
     <img width="256" src="ZalithLauncher/src/main/res/drawable/app_name_title.png"></img>
 </div>
@@ -12,7 +15,6 @@
 - Zalith Launcher aims to enhance user experience by redesigning the app interface, adding more practical features, and lowering the barrier to entry, making it easier for more people to enjoy Minecraft.
 
 **Note! This project is just a community rework, similar to how PojavLauncher is developed based on [Boardwalk](https://github.com/zhuowei/Boardwalk).**
-**This project is soon to be migrated to an organization I have founded: ZalithLauncher. For the reasons behind this migration, please refer to the [Instructions for Migrating the Zalith Launcher Project](https://github.com/ZalithLauncher/About/blob/main/notice/migrate_en_us.md).**
 
 <h2 align="center">New Features</h2>
 
