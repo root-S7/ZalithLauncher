@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.event.single.AccountUpdateEvent
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -31,6 +32,7 @@ import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader
 import net.kdt.pojavlaunch.tasks.MinecraftDownloader
 import net.kdt.pojavlaunch.utils.JREUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
+import org.greenrobot.eventbus.EventBus
 
 class LaunchGame {
     companion object {
@@ -70,6 +72,7 @@ class LaunchGame {
             accountsManager.performLogin(
                 accountsManager.currentAccount,
                 { _ ->
+                    EventBus.getDefault().post(AccountUpdateEvent())
                     TaskExecutors.runInUIThread {
                         Toast.makeText(context, context.getString(R.string.account_login_done), Toast.LENGTH_SHORT).show()
                     }

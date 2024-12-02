@@ -57,7 +57,8 @@ class OtherLoginHelper(
         account: MinecraftAccount,
         authResult: AuthResult,
         userName: String,
-        profileId: String
+        profileId: String,
+        updateSkin: Boolean = true,
     ) {
         account.apply {
             this.accessToken = authResult.accessToken
@@ -69,6 +70,7 @@ class OtherLoginHelper(
             this.username = userName
             this.profileId = profileId
         }
+        if (updateSkin) account.updateOtherSkin()
     }
 
     /**
@@ -95,7 +97,7 @@ class OtherLoginHelper(
                     selectRoleDialog.setOnSelectedListener { selectedProfile ->
                         val profileId = selectedProfile.id
                         val account: MinecraftAccount = MinecraftAccount.loadFromProfileID(profileId) ?: MinecraftAccount()
-                        writeAccount(account, authResult, selectedProfile.name, profileId)
+                        writeAccount(account, authResult, selectedProfile.name, profileId, updateSkin = false)
                         refresh(context, account)
                     }
                     listener.unLoading()
@@ -153,6 +155,7 @@ class OtherLoginHelper(
             OtherLoginApi.refresh(context, account, true, object : OtherLoginApi.Listener {
                 override fun onSuccess(authResult: AuthResult) {
                     account.accessToken = authResult.accessToken
+                    account.updateOtherSkin()
                     TaskExecutors.runInUIThread {
                         listener.unLoading()
                         listener.onSuccess(account)

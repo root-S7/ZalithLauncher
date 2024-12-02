@@ -45,13 +45,9 @@ class AccountUtils {
                         override fun unLoading() {}
 
                         override fun onSuccess(account: MinecraftAccount) {
-                            Task.runTask {
-                                account.save()
-                                account.updateOtherSkin()
-                            }.finallyTask {
-                                clearProgress()
-                                doneListener.onLoginDone(account)
-                            }.execute()
+                            account.save()
+                            clearProgress()
+                            doneListener.onLoginDone(account)
                         }
 
                         override fun onFailed(error: String) {

@@ -221,9 +221,12 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     }
 
     private fun reloadAccounts() {
-        mAccountManager.reload()
-        reloadRecyclerView()
-        mAccountViewWrapper.refreshAccountInfo()
+        Task.runTask {
+            mAccountManager.reload()
+        }.ended(TaskExecutors.getAndroidUI()) {
+            reloadRecyclerView()
+            mAccountViewWrapper.refreshAccountInfo()
+        }.execute()
     }
 
     private fun localLogin() {
@@ -295,21 +298,51 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     }
 
     private fun refreshOtherServer() {
-        mOtherServerList.clear()
-        if (mOtherServerConfigFile.exists()) {
-            runCatching {
-                val serverConfig = Tools.GLOBAL_GSON.fromJson(
-                    Tools.read(mOtherServerConfigFile.absolutePath),
-                    Servers::class.java
-                )
-                mOtherServerConfig = serverConfig
-                serverConfig.server.forEach { server ->
-                    mOtherServerList.add(server)
+        Task.runTask {
+            mOtherServerList.clear()
+            if (mOtherServerConfigFile.exists()) {
+                runCatching {
+                    val serverConfig = Tools.GLOBAL_GSON.fromJson(
+                        Tools.read(mOtherServerConfigFile.absolutePath),
+                        Servers::class.java
+                    )
+                    mOtherServerConfig = serverConfig
+                    serverConfig.server.forEach { server ->
+                        mOtherServerList.add(server)
+                    }
                 }
             }
-        }
+        }.ended(TaskExecutors.getAndroidUI()) {
+            //将外置服务器添加到账号类别选择栏上
+            mOtherServerViewList.forEach { view ->
+                binding.accountTypeTab.removeView(view)
+            }
+            mOtherServerViewList.clear()
 
-        addOtherServerView()
+            val activity = requireActivity()
+            val layoutInflater = activity.layoutInflater
+
+            fun createView(server: Server): AnimRelativeLayout {
+                val p8 = Tools.dpToPx(8f).toInt()
+                val view = ItemOtherServerBinding.inflate(layoutInflater)
+                view.text.text = server.serverName
+                view.delete.setOnClickListener { deleteOtherServer(server) }
+                view.root.layoutParams = DslTabLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                return view.root.apply {
+                    setPadding(p8, 0, p8, 0)
+                }
+            }
+
+            mOtherServerList.forEach { server ->
+                val view = createView(server)
+                mOtherServerViewList.add(view)
+            }
+
+            mOtherServerViewList.forEach { view -> binding.accountTypeTab.addView(view) }
+        }.execute()
     }
 
     private fun showServerTypeSelectDialog(stringId: Int, type: Int) {
@@ -382,38 +415,6 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
             Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
         )
         refreshOtherServer()
-    }
-
-    //将外置服务器添加到账号类别选择栏上
-    private fun addOtherServerView() {
-        mOtherServerViewList.forEach { view ->
-            binding.accountTypeTab.removeView(view)
-        }
-        mOtherServerViewList.clear()
-
-        val activity = requireActivity()
-        val layoutInflater = activity.layoutInflater
-
-        fun createView(server: Server): AnimRelativeLayout {
-            val p8 = Tools.dpToPx(8f).toInt()
-            val view = ItemOtherServerBinding.inflate(layoutInflater)
-            view.text.text = server.serverName
-            view.delete.setOnClickListener { deleteOtherServer(server) }
-            view.root.layoutParams = DslTabLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            return view.root.apply {
-                setPadding(p8, 0, p8, 0)
-            }
-        }
-
-        mOtherServerList.forEach { server ->
-            val view = createView(server)
-            mOtherServerViewList.add(view)
-        }
-
-        mOtherServerViewList.forEach { view -> binding.accountTypeTab.addView(view) }
     }
 
     override fun onStart() {
