@@ -11,7 +11,8 @@
 - Zalith Launcher 是一款基于 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) 开发的 Minecraft 启动器，它能够在 Android 设备上运行 [Minecraft: Java Edition](https://www.minecraft.net/)。
 - Zalith Launcher 致力于优化用户体验，重新设计了应用界面，新增了更多实用的功能，旨在最大程度地降低游玩门槛，让更多人能够轻松体验 Minecraft 的乐趣。
 
-**注意！此项目只是一个社区改版，就像 PojavLauncher 是基于 [Boardwalk](https://github.com/zhuowei/Boardwalk) 开发的一样。**
+**注意！此项目只是一个社区改版，就像 PojavLauncher 是基于 [Boardwalk](https://github.com/zhuowei/Boardwalk) 开发的一样。**  
+**该项目即将迁移至我自行创立的组织：[ZalithLauncher](https://github.com/ZalithLauncher)，原因请见[Zalith Launcher 项目迁移说明](https://github.com/ZalithLauncher/About/blob/main/notice/migrate_zh_cn.md)。**
 
 <h2 align="center">新增功能</h2>
 

@@ -12,6 +12,7 @@
 - Zalith Launcher 致力於優化用戶體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。
 
 **注意！此專案只是一個社區改版，就像 PojavLauncher 是基於 [Boardwalk](https://github.com/zhuowei/Boardwalk) 開發的一樣。**
+**該專案即將遷移至我自行創立的組織：ZalithLauncher，原因請見[Zalith Launcher 项目迁移说明](https://github.com/ZalithLauncher/About/blob/main/notice/migrate_zh_cn.md)。**
 
 <h2 align="center">新增功能</h2>
 
