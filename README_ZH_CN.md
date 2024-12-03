@@ -1,11 +1,9 @@
-## 该项目已经迁移至 [ZalithLauncher 组织](https://github.com/ZalithLauncher/ZalithLauncher)，当前仓库已存档，接下来的更新将在新的组织内进行！详情请查阅：[Zalith Launcher 项目迁移说明](https://github.com/ZalithLauncher/About/blob/main/notice/migrate_zh_cn.md)
-
 <div align="center">
     <img width="256" src="ZalithLauncher/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
 [![Android CI](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml)
-![Downloads](https://img.shields.io/github/downloads/MovTery/ZalithLauncher/total)
+![Downloads](https://img.shields.io/github/downloads/ZalithLauncher/ZalithLauncher/total)
 [![QQ](https://img.shields.io/badge/QQ-blue)](https://qm.qq.com/q/2MVxS0B29y)
 [![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
 
