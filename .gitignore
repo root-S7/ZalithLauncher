@@ -1,10 +1,10 @@
 /.gradle
 /build
 /*/build
-ZalithLauncher/src/main/assets/components/jre
 local.properties
 .idea/
-ZalithLauncher/.cxx/
 .vs/
 /curseforge_key.txt
+/ZalithLauncher/.cxx/
+/ZalithLauncher/src/main/assets/components/lwjgl3/
 /ZalithLauncher/release/

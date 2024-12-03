@@ -21,7 +21,5 @@
  -keepclassmembers class net.objecthunter.exp4j.ExpressionBuilder** {
     *;
  }
-# Option screens
- -keep class net.kdt.pojavlaunch.prefs.screens** {*;}
 
 
