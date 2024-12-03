@@ -7,7 +7,7 @@ on:
 
 jobs:
   BuildRelease:
-    if: github.repository_owner == 'MovTery' && !startsWith(github.ref, 'refs/pull/')
+    if: github.repository_owner == 'ZalithLauncher' && !startsWith(github.ref, 'refs/pull/')
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -49,7 +49,7 @@ jobs:
           path: ZalithLauncher/build/outputs/apk/release/*
 
   BuildDebug:
-    if: github.repository_owner != 'MovTery' || startsWith(github.ref, 'refs/pull/')
+    if: github.repository_owner != 'ZalithLauncher' || startsWith(github.ref, 'refs/pull/')
     runs-on: ubuntu-22.04
     strategy:
       matrix:
