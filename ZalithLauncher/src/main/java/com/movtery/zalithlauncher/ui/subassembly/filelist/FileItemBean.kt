@@ -3,25 +3,26 @@ package com.movtery.zalithlauncher.ui.subassembly.filelist
 import android.graphics.drawable.Drawable
 import com.movtery.zalithlauncher.utils.stringutils.SortStrings.Companion.compareChar
 import java.io.File
+import java.util.Date
 
 class FileItemBean(
-    @JvmField
-    val name: String
+    @JvmField val name: String,
+    @JvmField val date: Date?
 ) : Comparable<FileItemBean?> {
-    @JvmField
-    var image: Drawable? = null
-    @JvmField
-    var file: File? = null
-    @JvmField
-    var isHighlighted: Boolean = false
-    @JvmField
-    var isCanCheck: Boolean = true
+    @JvmField var image: Drawable? = null
+    @JvmField var file: File? = null
+    @JvmField var isHighlighted: Boolean = false
+    @JvmField var isCanCheck: Boolean = true
 
-    constructor(file: File) : this(file.name) {
+    constructor(file: File) : this(file.name, Date(file.lastModified())) {
         this.file = file
     }
 
-    constructor(name: String, image: Drawable?) : this(name) {
+    constructor(name: String, image: Drawable?) : this(name, null as Date?) {
+        this.image = image
+    }
+
+    constructor(name: String, date: Date, image: Drawable?) : this(name, date) {
         this.image = image
     }
 

@@ -16,10 +16,13 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.ItemFileListViewBinding;
 import com.movtery.zalithlauncher.utils.image.ImageUtils;
+import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapter.InnerHolder> {
     private final List<FileItemBean> mData = new ArrayList<>();
@@ -161,6 +164,11 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
             File file = fileItemBean.file;
 
             binding.name.setText(fileItemBean.name);
+            if (fileItemBean.date != null) {
+                String date = StringUtils.formatDate(fileItemBean.date, Locale.getDefault(), TimeZone.getDefault());
+                binding.time.setText(date);
+                binding.time.setVisibility(View.VISIBLE);
+            } else binding.time.setVisibility(View.GONE);
 
             if (fileItemBean.isHighlighted) {
                 binding.name.setTextColor(Color.rgb(69, 179, 162)); //设置高亮

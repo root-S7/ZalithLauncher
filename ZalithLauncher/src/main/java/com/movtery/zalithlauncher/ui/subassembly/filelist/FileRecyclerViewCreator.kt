@@ -14,6 +14,7 @@ import com.movtery.zalithlauncher.feature.mod.ModUtils
 import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerAdapter.OnMultiSelectListener
 import com.movtery.zalithlauncher.utils.stringutils.StringFilter.Companion.containsSubstring
 import java.io.File
+import java.util.Date
 import java.util.concurrent.atomic.AtomicInteger
 
 class FileRecyclerViewCreator(
@@ -138,12 +139,10 @@ class FileRecyclerViewCreator(
         }
 
         @JvmStatic
-        fun loadItemBean(drawable: Drawable?, names: Array<String>?): List<FileItemBean> {
+        fun loadItemBean(drawable: Drawable, namesPair: Array<Pair<String, Date>>): List<FileItemBean> {
             val itemBeans: MutableList<FileItemBean> = ArrayList()
-            names?.apply {
-                for (name in this) {
-                    itemBeans.add(FileItemBean(name, drawable))
-                }
+            for (pair in namesPair) {
+                itemBeans.add(FileItemBean(pair.first, pair.second, drawable))
             }
             return itemBeans
         }
