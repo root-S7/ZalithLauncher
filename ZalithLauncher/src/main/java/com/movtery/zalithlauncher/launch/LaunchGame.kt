@@ -70,7 +70,7 @@ class LaunchGame {
             }
 
             accountsManager.performLogin(
-                accountsManager.currentAccount,
+                context, accountsManager.currentAccount,
                 { _ ->
                     EventBus.getDefault().post(AccountUpdateEvent())
                     TaskExecutors.runInUIThread {

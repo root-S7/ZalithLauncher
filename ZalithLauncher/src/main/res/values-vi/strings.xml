@@ -265,6 +265,12 @@
     <string name="account_local_account_invalid">Tên người dùng hợp lệ chỉ hỗ trợ các chữ cái Anh (đại chữ và thường chữ), số và dấu gạch dưới. Độ dài phải trong khoảng 3 đến 16 ký tự, nếu không, trò chơi có thể không chạy đúng.\nVí dụ tên người dùng đúng: Name, Name_, Name123\nVí dụ tên người dùng sai: Name@, N ame, name_name_name_name\nNhưng nếu bạn đã sử dụng các mô-đun hoặc plugin liên quan để bỏ qua cơ chế này, thì bạn có thể tiếp tục sử dụng tên này. Nếu không, vui lòng đổi tên lại!</string>
     <string name="account_login_local_name">Tên người dùng</string>
     <string name="account_login_start">Bắt đầu đăng nhập!</string>
+    <string name="account_login_microsoft_progress">Đang đăng nhập vào tài khoản Microsoft: %s</string>
+    <string name="account_login_progress_access_token">Đang lấy mã truy cập</string>
+    <string name="account_login_progress_xbl_token">Đang lấy mã Xbox Live</string>
+    <string name="account_login_progress_xsts_token">Đang lấy Mã Bảo mật Dịch vụ Xbox</string>
+    <string name="account_login_progress_minecraft_token">Đang lấy mã Minecraft</string>
+    <string name="account_login_progress_checking">Đang kiểm tra mã</string>
     <string name="account_login_no_network">Không kết nối đến internet, đăng nhập đã bỏ qua!</string>
     <string name="account_login_skip">Đăng nhập tài khoản thất bại, bạn có muốn bỏ qua bước đăng nhập không?</string>
     <string name="account_no_microsoft_account">Vui lòng đăng nhập ít nhất một tài khoản Minecraft bản quyền, chúng tôi không khuyến khích người dùng khởi động Minecraft mà không có tài khoản bản quyền.</string>

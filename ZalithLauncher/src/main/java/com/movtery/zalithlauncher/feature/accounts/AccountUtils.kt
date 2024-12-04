@@ -18,16 +18,10 @@ import java.util.Objects
 class AccountUtils {
     companion object {
         @JvmStatic
-        fun microsoftLogin(account: MinecraftAccount, doneListener: DoneListener, errorListener: ErrorListener) {
-            val accountsManager = AccountsManager.getInstance()
-
+        fun microsoftLogin(context: Context, account: MinecraftAccount, doneListener: DoneListener, errorListener: ErrorListener) {
             // Perform login only if needed
             MicrosoftBackgroundLogin(true, account.msaRefreshToken)
-                .performLogin(
-                    account,
-                    doneListener,
-                    errorListener
-                )
+                .performLogin(context, account, doneListener, errorListener)
         }
 
         @JvmStatic

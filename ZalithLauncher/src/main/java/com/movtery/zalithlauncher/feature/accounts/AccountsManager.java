@@ -2,6 +2,7 @@ package com.movtery.zalithlauncher.feature.accounts;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -85,23 +86,23 @@ public final class AccountsManager {
         });
     }
 
-    public void performLogin(MinecraftAccount minecraftAccount) {
-        performLogin(minecraftAccount, getDoneListener(), getErrorListener());
+    public void performLogin(final Context context, MinecraftAccount minecraftAccount) {
+        performLogin(context, minecraftAccount, getDoneListener(), getErrorListener());
     }
 
-    public void performLogin(MinecraftAccount minecraftAccount, DoneListener doneListener, ErrorListener errorListener) {
+    public void performLogin(final Context context, MinecraftAccount minecraftAccount, DoneListener doneListener, ErrorListener errorListener) {
         if (AccountUtils.isNoLoginRequired(minecraftAccount)) {
             doneListener.onLoginDone(minecraftAccount);
             return;
         }
 
         if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
-            AccountUtils.otherLogin(ContextExecutor.getApplication(), minecraftAccount, doneListener, errorListener);
+            AccountUtils.otherLogin(context, minecraftAccount, doneListener, errorListener);
             return;
         }
 
         if (AccountUtils.isMicrosoftAccount(minecraftAccount)) {
-            AccountUtils.microsoftLogin(minecraftAccount, doneListener, errorListener);
+            AccountUtils.microsoftLogin(context, minecraftAccount, doneListener, errorListener);
         }
     }
 

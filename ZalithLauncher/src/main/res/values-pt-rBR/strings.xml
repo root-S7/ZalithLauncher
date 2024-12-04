@@ -265,6 +265,12 @@
     <string name="account_local_account_invalid">Nomes de usuário válidos só podem conter letras inglesas (maiúsculas e minúsculas), números e underscores. Seu comprimento deve ser entre 3 e 16 caracteres, caso contrário, o jogo pode não funcionar corretamente.\nExemplos de nomes de usuário corretos: Name, Name_, Name123\nExemplos de nomes de usuário incorretos: Name@, N ame, name_name_name_name\nMas, se você usou mods ou plugins relevantes para ignorar essa regra, pode continuar usando esse nome. Caso contrário, por favor, renomeie-o!</string>
     <string name="account_login_local_name">Nome de usuário</string>
     <string name="account_login_start">Iniciar login!</string>
+    <string name="account_login_microsoft_progress">Fazendo login na conta Microsoft: %s</string>
+    <string name="account_login_progress_access_token">Obtendo token de acesso</string>
+    <string name="account_login_progress_xbl_token">Obtendo token do Xbox Live</string>
+    <string name="account_login_progress_xsts_token">Obtendo token de segurança do serviço Xbox</string>
+    <string name="account_login_progress_minecraft_token">Obtendo token do Minecraft</string>
+    <string name="account_login_progress_checking">Verificando token</string>
     <string name="account_login_no_network">Não conectado à internet, login ignorado!</string>
     <string name="account_login_skip">Falha na login da conta, você deseja ignorar o passo de login?</string>
     <string name="account_no_microsoft_account">Por favor, faça login em pelo menos uma conta oficial do Minecraft. Não incentivamos os usuários a iniciarem o Minecraft sem uma conta oficial.</string>

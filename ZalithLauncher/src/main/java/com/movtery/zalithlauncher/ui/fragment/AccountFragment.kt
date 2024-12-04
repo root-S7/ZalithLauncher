@@ -117,7 +117,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                         Toast.makeText(context, R.string.account_login_no_network, Toast.LENGTH_SHORT).show()
                         return
                     }
-                    mAccountManager.performLogin(account)
+                    mAccountManager.performLogin(context, account)
                 } else {
                     Toast.makeText(context, R.string.tasks_ongoing, Toast.LENGTH_SHORT).show()
                 }

@@ -265,6 +265,12 @@
     <string name="account_local_account_invalid">Допустимые имена пользователей поддерживают только английские буквы (большие и малые), цифры и подчеркивания. Длина должна быть не менее 3 и не более 16 символов, иначе игра может не запуститься.\nПримеры правильных имен: Name, Name_, Name123\nПримеры неправильных имен: Name@, N ame, name_name_name_name\nОднако, если вы использовали соответствующие моды или плагины, чтобы обойти этот механизм, то можете продолжать использовать это имя. В противном случае, попробуйте переименовать!</string>
     <string name="account_login_local_name">Имя пользователя</string>
     <string name="account_login_start">Начать вход!</string>
+    <string name="account_login_microsoft_progress">Вход в учетную запись Microsoft: %s</string>
+    <string name="account_login_progress_access_token">Получение доступа к токен</string>
+    <string name="account_login_progress_xbl_token">Получение токена Xbox Live</string>
+    <string name="account_login_progress_xsts_token">Получение токена безопасности службы Xbox</string>
+    <string name="account_login_progress_minecraft_token">Получение токена Minecraft</string>
+    <string name="account_login_progress_checking">Проверка токена</string>
     <string name="account_login_no_network">Не подключен к Интернету, вход пропущен!</string>
     <string name="account_login_skip">Авторизация на учетную запись не удалась, хотите ли вы пропустить шаг авторизации?</string>
     <string name="account_no_microsoft_account">Пожалуйста, войдите хотя бы в один лицензионный аккаунт Minecraft, мы не рекомендуем запускать Minecraft без лицензионного аккаунта.</string>

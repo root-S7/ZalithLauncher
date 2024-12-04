@@ -265,6 +265,12 @@
     <string name="account_local_account_invalid">الأسماء صحيحة للمستخدمين تدعم فقط الحروف الإنجليزية (كبيرة وصغيرة) والأرقام والخطوط السفلية. يجب أن يكون طولها بين 3 و 16 حرفا، وإلا فقد يفشل تشغيل اللعبة.\nأمثلة على الأسماء صحيحة: Name, Name_, Name123\nأمثلة على أسماء خاطئة: Name@, N ame, name_name_name_name\nلكن إذا كنت قد استخدمت مودز أو إضافات ذات صلة لتفويض هذا القيد، فيمكنك الاستمرار في استخدام هذا الاسم. وإلا، يرجى إعادة التسمية!</string>
     <string name="account_login_local_name">اسم المستخدم</string>
     <string name="account_login_start">بدء تسجيل الدخول!</string>
+    <string name="account_login_microsoft_progress">جاري تسجيل الدخول إلى حساب Microsoft: %s</string>
+    <string name="account_login_progress_access_token">جاري الحصول على رمز الوصول</string>
+    <string name="account_login_progress_xbl_token">جاري الحصول على رمز Xbox Live</string>
+    <string name="account_login_progress_xsts_token">جاري الحصول على رمز الأمان لخدمة Xbox</string>
+    <string name="account_login_progress_minecraft_token">جاري الحصول على رمز Minecraft</string>
+    <string name="account_login_progress_checking">جاري التحقق من الرمز</string>
     <string name="account_login_no_network">غير متصل إلى الإنترنت، تم تخطي تسجيل الدخول!</string>
     <string name="account_login_skip">فشل الدخول إلى الحساب، هل تريد تجاوز خطوة الدخول؟</string>
     <string name="account_no_microsoft_account">يرجى تسجيل الدخول إلى حساب Minecraft الأصلي على الأقل، لا نشجع المستخدمين على تشغيل Minecraft بدون حساب أصلي.</string>

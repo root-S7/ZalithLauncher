@@ -265,6 +265,12 @@
     <string name="account_local_account_invalid">有效的使用者名稱僅支援英文大小寫字母、數字及下劃線。長度需在3至16個字元之間，否則遊戲可能無法正常運行。\n正確的使用者名稱範例：Name、Name_、Name123\n錯誤的使用者名稱範例：Name@、N ame、name_name_name_name\n但如果您已使用相關模組或插件來解除這項限制，則可繼續使用該名稱。否則，請重新命名！</string>
     <string name="account_login_local_name">使用者名稱</string>
     <string name="account_login_start">開始登入！</string>
+    <string name="account_login_microsoft_progress">正在登入 Microsoft 帳號：%s</string>
+    <string name="account_login_progress_access_token">正在取得存取權杖</string>
+    <string name="account_login_progress_xbl_token">正在取得 Xbox Live 權杖</string>
+    <string name="account_login_progress_xsts_token">正在取得 Xbox 服務安全權杖</string>
+    <string name="account_login_progress_minecraft_token">正在取得 Minecraft 權杖</string>
+    <string name="account_login_progress_checking">正在檢查權杖</string>
     <string name="account_login_no_network">未連接到網路，登入已跳過！</string>
     <string name="account_login_skip">帳號登入失敗，是否要跳過登入步驟？</string>
     <string name="account_no_microsoft_account">請至少登入一個 Minecraft 正版帳號，我們不提倡用戶在沒有正版帳號的情況下啟動 Minecraft。</string>

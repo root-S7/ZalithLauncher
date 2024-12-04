@@ -279,6 +279,12 @@
     <string name="account_local_account_invalid">正常的用户名称仅支持英文字母（大小写均可）、数字以及下划线作为用户名，长度不允许少于 3 字符，超过 16 字符，否则可能将导致游戏无法正常运行。\n正确的用户名举例：Name、Name_、Name123\n错误的用户名举例：Name@、N ame、name_name_name_name\n但如果你使用了相关模组或者插件能够解除这一机制，那么你可以继续使用这个名字，否则请重新命名！</string>
     <string name="account_login_local_name">用户名</string>
     <string name="account_login_start">开始登录！</string>
+    <string name="account_login_microsoft_progress">登录微软账号中：%s</string>
+    <string name="account_login_progress_access_token">获取访问令牌</string>
+    <string name="account_login_progress_xbl_token">获取 Xbox Live 令牌</string>
+    <string name="account_login_progress_xsts_token">获取 Xbox 服务安全令牌</string>
+    <string name="account_login_progress_minecraft_token">获取 Minecraft 令牌</string>
+    <string name="account_login_progress_checking">检查令牌中</string>
     <string name="account_login_no_network">未连接到互联网，登录已跳过！</string>
     <string name="account_login_skip">账号登录失败，是否跳过登录步骤？</string>
     <string name="account_no_microsoft_account">请至少登录一个 Minecraft 正版账号，我们不提倡用户在没有正版账号的情况下启动 Minecraft。</string>

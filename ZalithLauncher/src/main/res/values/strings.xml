@@ -271,6 +271,12 @@
     <string name="account_local_account_invalid">Valid usernames only support English letters (both uppercase and lowercase), numbers, and underscores. The length must be between 3 and 16 characters, otherwise the game may not run properly.\nExamples of correct usernames: Name, Name_, Name123\nExamples of incorrect usernames: Name@, N ame, name_name_name_name\nHowever, if you have used relevant mods or plugins to bypass this restriction, you can continue using this name. Otherwise, please rename it!</string>
     <string name="account_login_local_name">Username</string>
     <string name="account_login_start">Start Login!</string>
+    <string name="account_login_microsoft_progress">Logging in to Microsoft account: %s</string>
+    <string name="account_login_progress_access_token">Fetching access token</string>
+    <string name="account_login_progress_xbl_token">Fetching Xbox Live token</string>
+    <string name="account_login_progress_xsts_token">Fetching Xbox Service Security Token</string>
+    <string name="account_login_progress_minecraft_token">Fetching Minecraft token</string>
+    <string name="account_login_progress_checking">Checking token</string>
     <string name="account_login_no_network">Not connected to the internet, login skipped!</string>
     <string name="account_login_skip">Login failed, do you want to skip the login step?</string>
     <string name="account_no_microsoft_account">Please log in with at least one Minecraft premium account, we do not encourage launching Minecraft without a premium account.</string>
