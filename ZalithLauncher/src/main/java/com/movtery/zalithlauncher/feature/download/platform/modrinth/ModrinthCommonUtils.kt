@@ -175,10 +175,15 @@ class ModrinthCommonUtils {
             //如果第一次获取依赖信息失败，则记录其id，之后不再尝试获取
             val invalidDependencies: MutableList<String> = ArrayList()
             for (element in response) {
-                val versionObject = element.asJsonObject
-                val filesJsonObject: JsonObject = versionObject.getAsJsonArray("files").get(0).asJsonObject
+                try {
+                    val versionObject = element.asJsonObject
+                    val filesJsonObject: JsonObject = versionObject.getAsJsonArray("files").get(0).asJsonObject
 
-                items.add(createItem(versionObject, filesJsonObject, invalidDependencies))
+                    items.add(createItem(versionObject, filesJsonObject, invalidDependencies))
+                } catch (e: Exception) {
+                    Logging.e("ModrinthHelper", Tools.printToString(e))
+                    continue
+                }
             }
 
             cache.put(infoItem.projectId, items)

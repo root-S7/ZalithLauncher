@@ -20,8 +20,10 @@ import com.movtery.zalithlauncher.feature.download.utils.DependencyUtils
 import com.movtery.zalithlauncher.feature.download.utils.ModLoaderUtils
 import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
+import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.zalithlauncher.utils.ZHTools
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.GsonJsonUtils
 import java.util.TreeSet
@@ -99,78 +101,83 @@ class CurseForgeModHelper {
             val versionItems: MutableList<T> = ArrayList()
             val invalidDependencies: MutableList<String> = ArrayList()
             for (modData in allModData) {
-                // 获取版本信息
-                val mcVersions: MutableSet<String> = TreeSet()
-                for (gameVersionElement in modData.getAsJsonArray("gameVersions")) {
-                    val gameVersion = gameVersionElement.asString
-                    mcVersions.add(gameVersion)
-                }
-
-                val modloaders: MutableList<ModLoader> = ArrayList()
-                mcVersions.forEach { ModLoaderUtils.addModLoaderToList(modloaders, it) }
-
-                // 过滤非MC版本的元素
-                val releaseRegex = RELEASE_REGEX
-                val nonMCVersion: MutableSet<String> = TreeSet()
-                mcVersions.forEach { string: String ->
-                    if (!releaseRegex.matcher(string).find()) nonMCVersion.add(string)
-                }
-                if (nonMCVersion.isNotEmpty()) mcVersions.removeAll(nonMCVersion)
-
-                val dependencies = modData.get("dependencies")?.asJsonArray
-                val dependencyInfoList: MutableList<DependenciesInfoItem> = ArrayList()
-                if (dependencies != null && dependencies.size() != 0) {
-                    for (dependency in dependencies) {
-                        val dObject = dependency.asJsonObject
-                        val modId = dObject.get("modId").asString
-                        if (invalidDependencies.contains(modId)) continue
-
-                        if (!InfoCache.DependencyInfoCache.containsKey(modId)) {
-                            val response = CurseForgeCommonUtils.searchModFromID(api, modId)
-                            val hit = GsonJsonUtils.getJsonObjectSafe(response, "data")
-
-                            if (hit != null) {
-                                val dModLoaders = getModLoaders(hit.getAsJsonArray("latestFilesIndexes"))
-                                InfoCache.DependencyInfoCache.put(
-                                    modId, DependenciesInfoItem(
-                                        infoItem.classify,
-                                        Platform.CURSEFORGE,
-                                        modId,
-                                        hit.get("slug").asString,
-                                        CurseForgeCommonUtils.getAuthors(hit.get("authors").asJsonArray).toTypedArray(),
-                                        hit.get("name").asString,
-                                        hit.get("summary").asString,
-                                        hit.get("downloadCount").asLong,
-                                        ZHTools.getDate(hit.get("dateCreated").asString),
-                                        CurseForgeCommonUtils.getIconUrl(hit),
-                                        CurseForgeCommonUtils.getAllCategories(hit).toList(),
-                                        dModLoaders,
-                                        DependencyUtils.getDependencyType(dObject.get("relationType").asString)
-                                    )
-                                )
-                            } else invalidDependencies.add(modId)
-                        }
-
-                        val cacheItem = InfoCache.DependencyInfoCache.get(modId)
-                        cacheItem?.let { dependencyInfoList.add(it) }
+                try {
+                    // 获取版本信息
+                    val mcVersions: MutableSet<String> = TreeSet()
+                    for (gameVersionElement in modData.getAsJsonArray("gameVersions")) {
+                        val gameVersion = gameVersionElement.asString
+                        mcVersions.add(gameVersion)
                     }
-                }
 
-                versionItems.add(
-                    createVersionItem(
-                        infoItem.projectId,
-                        modData.get("displayName").asString,
-                        modData.get("downloadCount").asLong,
-                        modData.get("fileDate").asString,
-                        mcVersions.toList(),
-                        modData.get("releaseType").asString,
-                        CurseForgeCommonUtils.getSha1FromData(modData),
-                        modData.get("downloadUrl").asString,
-                        modloaders,
-                        modData.get("fileName").asString,
-                        dependencyInfoList.ifEmpty { null }
+                    val modloaders: MutableList<ModLoader> = ArrayList()
+                    mcVersions.forEach { ModLoaderUtils.addModLoaderToList(modloaders, it) }
+
+                    // 过滤非MC版本的元素
+                    val releaseRegex = RELEASE_REGEX
+                    val nonMCVersion: MutableSet<String> = TreeSet()
+                    mcVersions.forEach { string: String ->
+                        if (!releaseRegex.matcher(string).find()) nonMCVersion.add(string)
+                    }
+                    if (nonMCVersion.isNotEmpty()) mcVersions.removeAll(nonMCVersion)
+
+                    val dependencies = modData.get("dependencies")?.asJsonArray
+                    val dependencyInfoList: MutableList<DependenciesInfoItem> = ArrayList()
+                    if (dependencies != null && dependencies.size() != 0) {
+                        for (dependency in dependencies) {
+                            val dObject = dependency.asJsonObject
+                            val modId = dObject.get("modId").asString
+                            if (invalidDependencies.contains(modId)) continue
+
+                            if (!InfoCache.DependencyInfoCache.containsKey(modId)) {
+                                val response = CurseForgeCommonUtils.searchModFromID(api, modId)
+                                val hit = GsonJsonUtils.getJsonObjectSafe(response, "data")
+
+                                if (hit != null) {
+                                    val dModLoaders = getModLoaders(hit.getAsJsonArray("latestFilesIndexes"))
+                                    InfoCache.DependencyInfoCache.put(
+                                        modId, DependenciesInfoItem(
+                                            infoItem.classify,
+                                            Platform.CURSEFORGE,
+                                            modId,
+                                            hit.get("slug").asString,
+                                            CurseForgeCommonUtils.getAuthors(hit.get("authors").asJsonArray).toTypedArray(),
+                                            hit.get("name").asString,
+                                            hit.get("summary").asString,
+                                            hit.get("downloadCount").asLong,
+                                            ZHTools.getDate(hit.get("dateCreated").asString),
+                                            CurseForgeCommonUtils.getIconUrl(hit),
+                                            CurseForgeCommonUtils.getAllCategories(hit).toList(),
+                                            dModLoaders,
+                                            DependencyUtils.getDependencyType(dObject.get("relationType").asString)
+                                        )
+                                    )
+                                } else invalidDependencies.add(modId)
+                            }
+
+                            val cacheItem = InfoCache.DependencyInfoCache.get(modId)
+                            cacheItem?.let { dependencyInfoList.add(it) }
+                        }
+                    }
+
+                    versionItems.add(
+                        createVersionItem(
+                            infoItem.projectId,
+                            modData.get("displayName").asString,
+                            modData.get("downloadCount").asLong,
+                            modData.get("fileDate").asString,
+                            mcVersions.toList(),
+                            modData.get("releaseType").asString,
+                            CurseForgeCommonUtils.getSha1FromData(modData),
+                            modData.get("downloadUrl").asString,
+                            modloaders,
+                            modData.get("fileName").asString,
+                            dependencyInfoList.ifEmpty { null }
+                        )
                     )
-                )
+                } catch (e: Exception) {
+                    Logging.e("CurseForgeHelper", Tools.printToString(e))
+                    continue
+                }
             }
 
             cache.put(infoItem.projectId, versionItems)

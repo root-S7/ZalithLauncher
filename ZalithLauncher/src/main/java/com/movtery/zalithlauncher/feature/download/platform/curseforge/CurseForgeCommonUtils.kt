@@ -18,6 +18,7 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.GsonJsonUtils
 import java.io.IOException
@@ -133,33 +134,38 @@ class CurseForgeCommonUtils {
 
             val versionsItem: MutableList<VersionItem> = ArrayList()
             for (data in allData) {
-                //获取版本信息
-                val mcVersions: MutableSet<String> = TreeSet()
-                for (gameVersionElement in data.getAsJsonArray("gameVersions")) {
-                    val gameVersion = gameVersionElement.asString
-                    mcVersions.add(gameVersion)
-                }
-                //过滤非MC版本的元素
-                val releaseRegex = RELEASE_REGEX
-                val nonMCVersion: MutableSet<String> = TreeSet()
-                mcVersions.forEach(Consumer { string: String ->
-                    if (!releaseRegex.matcher(string).find()) nonMCVersion.add(string)
-                })
-                if (nonMCVersion.isNotEmpty()) mcVersions.removeAll(nonMCVersion)
+                try {
+                    //获取版本信息
+                    val mcVersions: MutableSet<String> = TreeSet()
+                    for (gameVersionElement in data.getAsJsonArray("gameVersions")) {
+                        val gameVersion = gameVersionElement.asString
+                        mcVersions.add(gameVersion)
+                    }
+                    //过滤非MC版本的元素
+                    val releaseRegex = RELEASE_REGEX
+                    val nonMCVersion: MutableSet<String> = TreeSet()
+                    mcVersions.forEach(Consumer { string: String ->
+                        if (!releaseRegex.matcher(string).find()) nonMCVersion.add(string)
+                    })
+                    if (nonMCVersion.isNotEmpty()) mcVersions.removeAll(nonMCVersion)
 
-                versionsItem.add(
-                    VersionItem(
-                        infoItem.projectId,
-                        data.get("displayName").asString,
-                        data.get("downloadCount").asLong,
-                        ZHTools.getDate(data.get("fileDate").asString),
-                        mcVersions.toList(),
-                        VersionTypeUtils.getVersionType(data.get("releaseType").asString),
-                        data.get("fileName").asString,
-                        getSha1FromData(data),
-                        data.get("downloadUrl").asString
+                    versionsItem.add(
+                        VersionItem(
+                            infoItem.projectId,
+                            data.get("displayName").asString,
+                            data.get("downloadCount").asLong,
+                            ZHTools.getDate(data.get("fileDate").asString),
+                            mcVersions.toList(),
+                            VersionTypeUtils.getVersionType(data.get("releaseType").asString),
+                            data.get("fileName").asString,
+                            getSha1FromData(data),
+                            data.get("downloadUrl").asString
+                        )
                     )
-                )
+                } catch (e: Exception) {
+                    Logging.e("CurseForgeHelper", Tools.printToString(e))
+                    continue
+                }
             }
 
             InfoCache.VersionCache.put(infoItem.projectId, versionsItem)
