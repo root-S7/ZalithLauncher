@@ -93,7 +93,7 @@ public class VersionListView extends LinearLayout {
             Date date;
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-                ZonedDateTime zonedDateTime = ZonedDateTime.parse(version.time, formatter);
+                ZonedDateTime zonedDateTime = ZonedDateTime.parse(version.releaseTime, formatter);
                 date = Date.from(zonedDateTime.toInstant());
             } catch (Exception e) {
                 Logging.e("Version List", Tools.printToString(e));
