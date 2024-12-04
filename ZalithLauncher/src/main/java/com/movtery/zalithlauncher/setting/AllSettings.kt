@@ -139,12 +139,6 @@ class AllSettings {
         val maxDownloadThreads = IntSettingUnit("maxDownloadThreads", 64)
 
         @JvmStatic
-        val modInfoSource = StringSettingUnit("modInfoSource", "original")
-
-        @JvmStatic
-        val modDownloadSource = StringSettingUnit("modDownloadSource", "original")
-
-        @JvmStatic
         val launcherTheme = StringSettingUnit("launcherTheme", "system")
 
         @JvmStatic
