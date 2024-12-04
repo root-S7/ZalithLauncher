@@ -76,6 +76,10 @@ class VersionAdapter(
                     mContext.getString(R.string.version_manager_invalid).addInfoIfNotBlank(true)
                 }
 
+                it.getVersionConfig()?.let {
+                    mContext.getString(R.string.pedit_isolation_enabled).addInfoIfNotBlank()
+                }
+
                 it.getVersionInfo()?.let { versionInfo ->
                     binding.versionInfo.addView(getInfoTextView(versionInfo.minecraftVersion))
                     versionInfo.loaderInfo?.forEach { loaderInfo ->
