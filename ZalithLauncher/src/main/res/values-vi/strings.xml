@@ -445,6 +445,8 @@
     <string name="setting_resource_image_cache_desc">Khi bật, trình khởi chạy sẽ lưu trữ vào bộ nhớ đệm các ảnh bìa và ảnh chụp màn hình của tài nguyên để tải nhanh hơn lần sau</string>
     <string name="setting_download_source_title">Nguồn tải xuống trò chơi</string>
     <string name="setting_download_source_desc">Chọn nguồn tải xuống lậu thay vì sử dụng nguồn tải xuống chính thức</string>
+    <string name="setting_max_download_threads_title">Số luồng tải xuống tối đa</string>
+    <string name="setting_max_download_threads_desc">Số luồng đồng thời tối đa khi tải xuống nhiều tệp đồng thời, nhưng quá nhiều luồng sẽ khiến trình khởi động trệ. 64 luồng đã đủ!</string>
     <string name="setting_version_isolation_title">Cách ly phiên bản mặc định</string>
     <string name="setting_version_isolation_desc">Khi cài đặt phiên bản mới, có nên mặc định chọn cách ly phiên bản không?</string>
     <string name="setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>

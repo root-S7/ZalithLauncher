@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch.modloaders.modpacks.api;
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.setting.AllSettings;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
@@ -19,8 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class ModDownloader {
     private static final ThreadLocal<byte[]> sThreadLocalBuffer = new ThreadLocal<>();
-    private final ThreadPoolExecutor mDownloadPool = new ThreadPoolExecutor(4,4,100, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<>());
+    private final ThreadPoolExecutor mDownloadPool;
     private final AtomicBoolean mTerminator = new AtomicBoolean(false);
     private final AtomicLong mDownloadSize = new AtomicLong(0);
     private final Object mExceptionSyncPoint = new Object();
@@ -34,6 +34,15 @@ public class ModDownloader {
     }
 
     public ModDownloader(File destinationDirectory, boolean useFileCount) {
+        int maxThreads = AllSettings.getMaxDownloadThreads().getValue();
+        this.mDownloadPool = new ThreadPoolExecutor(
+                Math.max(1, (int) (maxThreads / 2)),
+                maxThreads,
+                100,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>()
+        );
+
         this.mDownloadPool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
         this.mDestinationDirectory = destinationDirectory;
         this.mUseFileCount = useFileCount;

@@ -82,10 +82,7 @@ public class MinecraftDownloader {
 
         downloadAndProcessMetadata(verInfo, versionName);
 
-        ArrayBlockingQueue<Runnable> taskQueue =
-                new ArrayBlockingQueue<>(mScheduledDownloadTasks.size(), false);
-        ThreadPoolExecutor downloaderPool =
-                new ThreadPoolExecutor(4, 4, 500, TimeUnit.MILLISECONDS, taskQueue);
+        ThreadPoolExecutor downloaderPool = createThreadPoolExecutor();
 
         // I have tried pre-filling the queue directly instead of doing this, but it didn't work.
         // What a shame.
@@ -112,6 +109,21 @@ public class MinecraftDownloader {
             // Kill all downloading threads immediately, and ignore any exceptions thrown by them
             downloaderPool.shutdownNow();
         }
+    }
+
+    @NonNull
+    private ThreadPoolExecutor createThreadPoolExecutor() {
+        int maxThreads = AllSettings.getMaxDownloadThreads().getValue();
+        if (mScheduledDownloadTasks.size() <= maxThreads) {
+            maxThreads = mScheduledDownloadTasks.size();
+        }
+        return new ThreadPoolExecutor(
+                Math.max(1, (int) (maxThreads / 2)),
+                maxThreads,
+                500,
+                TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<>(mScheduledDownloadTasks.size(), false)
+        );
     }
 
     private File createGameJsonPath(String versionId) {

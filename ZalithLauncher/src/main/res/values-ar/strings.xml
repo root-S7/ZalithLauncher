@@ -445,6 +445,8 @@
     <string name="setting_resource_image_cache_desc">عند التفعيل، سيقوم المشغل بتخزين صور غلاف الموارد ولقطات الشاشة مؤقتًا لتحميلها بشكل أسرع في المرة القادمة</string>
     <string name="setting_download_source_title">مصدر تنزيل اللعبة</string>
     <string name="setting_download_source_desc">اختيار مصدر تنزيل مرآة بدلاً من استخدام المصدر الرسمي</string>
+    <string name="setting_max_download_threads_title">عدد الحلقات الأقصى لتنزيل الملفات</string>
+    <string name="setting_max_download_threads_desc">عدد الحد الأقصى لتنزيلات متزامنة عند تنزيل عدة ملفات في وقت واحد، لكن الكثير من الخيوط سيؤدي إلى تباطؤ البداية. 64 خيط كافية!</string>
     <string name="setting_version_isolation_title">عزل الإصدار الافتراضي</string>
     <string name="setting_version_isolation_desc">عند تثبيت إصدار جديد، هل يجب اختيار العزل الافتراضي للإصدار؟</string>
     <string name="setting_set_game_language_title">ضبط لغة اللعبة تلقائيًا</string>

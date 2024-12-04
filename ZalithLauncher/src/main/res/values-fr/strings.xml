@@ -445,6 +445,8 @@
     <string name="setting_resource_image_cache_desc">Une fois activé, le lanceur mettra en cache les images de couverture et les captures d\'écran des ressources pour un chargement plus rapide la prochaine fois</string>
     <string name="setting_download_source_title">Source de téléchargement du jeu</string>
     <string name="setting_download_source_desc">Choisir une source de téléchargement miroir au lieu d\'utiliser la source officielle</string>
+    <string name="setting_max_download_threads_title">Nombre maximal de threads de téléchargement</string>
+    <string name="setting_max_download_threads_desc">Nombre maximal de téléchargements concurrents lors du téléchargement simultané de plusieurs fichiers, mais trop de threads peuvent ralentir le lanceur. 64 threads sont suffisants!</string>
     <string name="setting_version_isolation_title">Isolation de version par défaut</string>
     <string name="setting_version_isolation_desc">Lors de l\'installation d\'une nouvelle version, faut-il choisir l\'isolation de version par défaut ?</string>
     <string name="setting_set_game_language_title">Définir automatiquement la langue du jeu</string>

@@ -70,6 +70,17 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             R.array.download_source_names, R.array.download_source_values
         )
 
+        SeekBarSettingsWrapper(
+            context,
+            AllSettings.maxDownloadThreads,
+            binding.maxDownloadThreadsLayout,
+            binding.maxDownloadThreadsTitle,
+            binding.maxDownloadThreadsSummary,
+            binding.maxDownloadThreadsValue,
+            binding.maxDownloadThreads,
+            ""
+        )
+
         ListSettingsWrapper(
             context,
             AllSettings.launcherTheme,

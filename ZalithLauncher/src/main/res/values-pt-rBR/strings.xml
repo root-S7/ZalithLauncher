@@ -445,6 +445,8 @@
     <string name="setting_resource_image_cache_desc">Quando ativado, o launcher armazenará em cache as imagens de capa e capturas de tela dos recursos para carregar mais rapidamente da próxima vez</string>
     <string name="setting_download_source_title">Fonte de Download do Jogo</string>
     <string name="setting_download_source_desc">Selecionar fonte de download em espelho em vez de usar a fonte oficial de download</string>
+    <string name="setting_max_download_threads_title">Número máximo de threads de download</string>
+    <string name="setting_max_download_threads_desc">Número máximo de downloads concorrentes ao baixar vários arquivos simultaneamente, mas muitos threads podem causar lentidão no lançador. 64 threads são suficientes!</string>
     <string name="setting_version_isolation_title">Isolamento de versão padrão</string>
     <string name="setting_version_isolation_desc">Ao instalar uma nova versão, deve-se selecionar o isolamento de versão por padrão?</string>
     <string name="setting_set_game_language_title">Definir Idioma do Jogo Automaticamente</string>

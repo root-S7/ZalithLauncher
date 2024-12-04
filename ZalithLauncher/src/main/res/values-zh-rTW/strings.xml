@@ -445,6 +445,8 @@
     <string name="setting_resource_image_cache_desc">啟用後，啟動器將會快取資源的封面圖片與截圖，方便下次更快速載入</string>
     <string name="setting_download_source_title">遊戲下載源</string>
     <string name="setting_download_source_desc">選擇鏡像下載源，而不是使用官方下載源</string>
+    <string name="setting_max_download_threads_title">檔案下載最大執行緒數</string>
+    <string name="setting_max_download_threads_desc">同時下載多個檔案時的最大並發數，但線程數量過多將會導致啟動器卡頓，64 個線程已經足夠使用囉！</string>
     <string name="setting_version_isolation_title">預設版本隔離</string>
     <string name="setting_version_isolation_desc">安裝新版本時，是否預設選擇版本隔離</string>
     <string name="setting_set_game_language_title">自動設定遊戲語言</string>

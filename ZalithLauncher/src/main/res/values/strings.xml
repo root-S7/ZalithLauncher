@@ -451,6 +451,8 @@
     <string name="setting_resource_image_cache_desc">When enabled, the launcher will cache the cover images and screenshots of resources for faster loading next time</string>
     <string name="setting_download_source_title">Game Download Source</string>
     <string name="setting_download_source_desc">Choose a mirror download source instead of using the official download source</string>
+    <string name="setting_max_download_threads_title">Max Download Threads</string>
+    <string name="setting_max_download_threads_desc">Maximum number of concurrent downloads when downloading multiple files simultaneously, but too many threads will cause launcher lag. 64 threads are sufficient!</string>
     <string name="setting_version_isolation_title">Default Version Isolation</string>
     <string name="setting_version_isolation_desc">When installing a new version, should version isolation be selected by default?</string>
     <string name="setting_set_game_language_title">Auto Set Game Language</string>
