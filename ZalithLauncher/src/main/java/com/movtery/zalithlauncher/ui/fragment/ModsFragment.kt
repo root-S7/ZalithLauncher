@@ -289,8 +289,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     }
 
     private fun parseBundle() {
-        val bundle = arguments ?: return
-        mRootPath = bundle.getString(BUNDLE_ROOT_PATH, mRootPath)
+        val bundle = arguments ?: throw NullPointerException("The argument is null!")
+        mRootPath = bundle.getString(BUNDLE_ROOT_PATH) ?: throw IllegalStateException("root path is not set！")
     }
 
     private fun initViews() {
