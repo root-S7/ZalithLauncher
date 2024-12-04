@@ -6,11 +6,10 @@ import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.widget.EditText
-import com.movtery.zalithlauncher.setting.SettingUnit
-import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.setting.unit.StringSettingUnit
 
 class EditTextSettingsWrapper(
-    private val unit: SettingUnit<String>,
+    private val unit: StringSettingUnit,
     val mainView: View,
     editText: EditText
 ) : AbstractSettingsWrapper(mainView) {
@@ -44,7 +43,7 @@ class EditTextSettingsWrapper(
                 }
 
                 override fun afterTextChanged(s: Editable) {
-                    Settings.Manager.put(unit, s).save()
+                    unit.put(s.toString()).save()
                     listener?.onChanged(s.toString())
                 }
             })

@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.movtery.zalithlauncher.event.single.SettingsChangeEvent
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.setting.unit.AbstractSettingUnit
 import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
@@ -39,37 +40,13 @@ class Settings {
 
     class Manager {
         companion object {
-            private fun <T> getValue(key: String, defaultValue: T, parser: (String) -> T?): T {
+            fun <T> getValue(key: String, defaultValue: T, parser: (String) -> T?): T {
                 settings.forEach {
                     if (Objects.equals(it.key, key)) {
                         return it.value?.let { value -> parser(value) } ?: defaultValue
                     }
                 }
                 return defaultValue
-            }
-
-            fun getInt(key: String, defaultValue: Int): Int {
-                return getValue(key, defaultValue) { it.toIntOrNull() }
-            }
-
-            fun getFloat(key: String, defaultValue: Float): Float {
-                return getValue(key, defaultValue) { it.toFloatOrNull() }
-            }
-
-            fun getDouble(key: String, defaultValue: Double): Double {
-                return getValue(key, defaultValue) { it.toDoubleOrNull() }
-            }
-
-            fun getLong(key: String, defaultValue: Long): Long {
-                return getValue(key, defaultValue) { it.toLongOrNull() }
-            }
-
-            fun getBoolean(key: String, defaultValue: Boolean): Boolean {
-                return getValue(key, defaultValue) { it.toBoolean() }
-            }
-
-            fun getString(key: String, defaultValue: String): String {
-                return getValue(key, defaultValue) { it }
             }
 
             @JvmStatic
@@ -80,10 +57,6 @@ class Settings {
             @JvmStatic
             @CheckResult
             fun put(key: String, value: Any) = SettingBuilder().put(key, value)
-
-            @JvmStatic
-            @CheckResult
-            fun put(unit: SettingUnit<*>, value: Any) = SettingBuilder().put(unit, value)
         }
 
         class SettingBuilder {
@@ -96,7 +69,7 @@ class Settings {
             }
 
             @CheckResult
-            fun put(unit: SettingUnit<*>, value: Any): SettingBuilder {
+            fun put(unit: AbstractSettingUnit<*>, value: Any): SettingBuilder {
                 valueMap[unit.key] = value
                 return this
             }

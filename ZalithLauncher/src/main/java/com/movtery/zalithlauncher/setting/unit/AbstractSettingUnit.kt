@@ -1,16 +1,16 @@
-package com.movtery.zalithlauncher.setting
+package com.movtery.zalithlauncher.setting.unit
 
 import androidx.annotation.CheckResult
+import com.movtery.zalithlauncher.setting.Settings
 
-class SettingUnit<V>(
+abstract class AbstractSettingUnit<V>(
     val key: String,
-    val defaultValue: V,
-    private val getValueFunc: (key: String, defaultValue: V) -> V
+    val defaultValue: V
 ) {
     /**
      * @return 获取当前的设置值
      */
-    fun getValue() = getValueFunc(key, defaultValue)
+    abstract fun getValue(): V
 
     /**
      * @return 存入值，并返回一个设置构建器

@@ -5,13 +5,12 @@ import android.content.Context
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Switch
-import com.movtery.zalithlauncher.setting.SettingUnit
-import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.setting.unit.BooleanSettingUnit
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class SwitchSettingsWrapper(
     private val context: Context,
-    private val unit: SettingUnit<Boolean>,
+    private val unit: BooleanSettingUnit,
     val mainView: View,
     val switchView: Switch
 ) : AbstractSettingsWrapper(mainView) {
@@ -22,7 +21,7 @@ class SwitchSettingsWrapper(
 
         switchView.setOnCheckedChangeListener { buttonView, isChecked ->
             val switchChangeListener = OnSwitchSaveListener {
-                Settings.Manager.put(unit, isChecked).save()
+                unit.put(isChecked).save()
                 checkShowRebootDialog(context)
             }
             listener?.onChange(buttonView, isChecked, switchChangeListener) ?: switchChangeListener.onSave()

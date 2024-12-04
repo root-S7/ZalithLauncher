@@ -6,13 +6,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.setting.SettingUnit
-import com.movtery.zalithlauncher.setting.Settings
+import com.movtery.zalithlauncher.setting.unit.StringSettingUnit
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class ListSettingsWrapper(
     val context: Context,
-    val unit: SettingUnit<String>,
+    val unit: StringSettingUnit,
     val mainView: View,
     val titleView: TextView,
     val valueView: TextView,
@@ -22,7 +21,7 @@ class ListSettingsWrapper(
 
     constructor(
         context: Context,
-        unit: SettingUnit<String>,
+        unit: StringSettingUnit,
         mainView: View,
         titleView: TextView,
         valueView: TextView,
@@ -40,13 +39,13 @@ class ListSettingsWrapper(
     }
 
     private fun createAListDialog() {
-        val index = entryValues.indexOf(Settings.Manager.getString(unit.key, unit.defaultValue))
+        val index = entryValues.indexOf(unit.getValue())
         AlertDialog.Builder(context, R.style.CustomAlertDialogTheme)
             .setTitle(titleView.text)
             .setSingleChoiceItems(entries, index) { dialog, which ->
                 if (which != index) {
                     val selectedValue = entryValues[which]
-                    Settings.Manager.put(unit, selectedValue).save()
+                    unit.put(selectedValue).save()
                     updateListViewValue()
                     checkShowRebootDialog(context)
                 }
@@ -57,9 +56,8 @@ class ListSettingsWrapper(
     }
 
     private fun updateListViewValue() {
-        val value = Settings.Manager.getString(unit.key, unit.defaultValue)
-        val index = entryValues.indexOf(value).takeIf { it in entryValues.indices } ?: run {
-            Settings.Manager.put(unit, unit.defaultValue).save()
+        val index = entryValues.indexOf(unit.getValue()).takeIf { it in entryValues.indices } ?: run {
+            unit.reset()
             0
         }
         valueView.text = entries[index]
