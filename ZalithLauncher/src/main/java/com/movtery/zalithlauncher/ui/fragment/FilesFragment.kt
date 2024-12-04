@@ -28,7 +28,7 @@ import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.file.PasteFile
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
@@ -69,11 +69,13 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                 val dialog = ZHTools.showTaskRunningDialog((requireContext()))
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireContext(), uri, binding.fileRecyclerView.fullPath.absolutePath)
+                        FileTools.copyFileInBackground(requireContext(), uri, binding.fileRecyclerView.fullPath.absolutePath)
                     }
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.refreshPath()
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

@@ -15,7 +15,8 @@ import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.ZHTools
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 
 class WorldDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
@@ -33,12 +34,14 @@ class WorldDownloadFragment(parentFragment: Fragment? = null) : AbstractResource
                 uriList[0].let { result ->
                     val dialog = ZHTools.showTaskRunningDialog(requireContext())
                     Task.runTask {
-                        val worldFile = copyFileInBackground(requireContext(), result, getWorldPath().absolutePath)
+                        val worldFile = FileTools.copyFileInBackground(requireContext(), result, getWorldPath().absolutePath)
                         runCatching {
                             UnpackWorldZipHelper.unpackFile(worldFile, getWorldPath())
                         }.getOrElse {
                             ContextExecutor.showToast(R.string.download_install_unpack_world_error, Toast.LENGTH_SHORT)
                         }
+                    }.onThrowable { e ->
+                        Tools.showErrorRemote(e)
                     }.finallyTask(TaskExecutors.getAndroidUI()) {
                         dialog.dismiss()
                     }.execute()

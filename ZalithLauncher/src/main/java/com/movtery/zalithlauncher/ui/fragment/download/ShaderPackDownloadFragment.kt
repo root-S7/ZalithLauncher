@@ -14,7 +14,8 @@ import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.ZHTools
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 
 class ShaderPackDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
@@ -33,8 +34,10 @@ class ShaderPackDownloadFragment(parentFragment: Fragment? = null) : AbstractRes
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireActivity(), uri, getShaderPackPath().absolutePath)
+                        FileTools.copyFileInBackground(requireActivity(), uri, getShaderPackPath().absolutePath)
                     }
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

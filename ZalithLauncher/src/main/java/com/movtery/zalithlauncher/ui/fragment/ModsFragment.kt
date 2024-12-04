@@ -28,8 +28,9 @@ import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.movtery.zalithlauncher.utils.file.FileCopyHandler
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.file.PasteFile
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import java.io.File
 import java.util.function.Consumer
@@ -42,8 +43,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
     private lateinit var binding: FragmentModsBinding
     private lateinit var mSearchViewWrapper: SearchViewWrapper
+    private lateinit var mRootPath: String
     private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
-    private var mRootPath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +53,13 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireContext(), uri, mRootPath)
+                        FileTools.copyFileInBackground(requireContext(), uri, mRootPath)
                     }
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.profile_mods_added_mod), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.refreshPath()
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()
@@ -234,7 +237,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
 
             goDownloadText.setOnClickListener{ goDownloadMod() }
 
-            fileRecyclerView.lockAndListAt(mRootPath?.let { File(it) }, mRootPath?.let { File(it) })
+            fileRecyclerView.lockAndListAt(File(mRootPath), File(mRootPath))
         }
 
         startNewbieGuide()

@@ -17,7 +17,8 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import org.greenrobot.eventbus.EventBus
 
@@ -37,11 +38,13 @@ class ModPackDownloadFragment(parentFragment: Fragment? = null) : AbstractResour
                     if (!isTaskRunning()) {
                         val dialog = ZHTools.showTaskRunningDialog(requireContext())
                         Task.runTask {
-                            copyFileInBackground(requireContext(), result, PathManager.DIR_CACHE.absolutePath)
+                            FileTools.copyFileInBackground(requireContext(), result, PathManager.DIR_CACHE.absolutePath)
                         }.ended(TaskExecutors.getAndroidUI()) { modPackFile ->
                             modPackFile?.let {
                                 EventBus.getDefault().post(InstallLocalModpackEvent(InstallExtra(true, it.absolutePath)))
                             }
+                        }.onThrowable { e ->
+                            Tools.showErrorRemote(e)
                         }.finallyTask(TaskExecutors.getAndroidUI()) {
                             dialog.dismiss()
                         }.execute()

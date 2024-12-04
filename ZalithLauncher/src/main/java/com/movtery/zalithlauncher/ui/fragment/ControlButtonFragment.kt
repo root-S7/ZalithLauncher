@@ -32,7 +32,7 @@ import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.file.PasteFile
 import net.kdt.pojavlaunch.CustomControlsActivity
 import net.kdt.pojavlaunch.Tools
@@ -59,11 +59,13 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireContext(), uri, File(PathManager.DIR_CTRLMAP_PATH).absolutePath)
+                        FileTools.copyFileInBackground(requireContext(), uri, File(PathManager.DIR_CTRLMAP_PATH).absolutePath)
                     }
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireContext(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     controlsListViewCreator.refresh()
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

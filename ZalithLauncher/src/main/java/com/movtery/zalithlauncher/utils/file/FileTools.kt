@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog.ConfirmListener
@@ -36,20 +35,21 @@ class FileTools {
         }
 
         @JvmStatic
-        fun copyFileInBackground(context: Context, fileUri: Uri?, rootPath: String?): File {
+        fun copyFileInBackground(context: Context, fileUri: Uri, rootPath: String): File {
             val fileName = Tools.getFileName(context, fileUri)
             val outputFile = File(rootPath, fileName)
             return copyFileInBackground(context, fileUri, outputFile)
         }
 
         @JvmStatic
-        fun copyFileInBackground(context: Context, fileUri: Uri?, outputFile: File): File {
+        fun copyFileInBackground(context: Context, fileUri: Uri, outputFile: File): File {
+            if (outputFile.exists()) throw IOException("The output file \"${outputFile.absolutePath}\" already exists!")
+
             runCatching {
-                context.contentResolver.openInputStream(fileUri!!).use { inputStream ->
+                context.contentResolver.openInputStream(fileUri).use { inputStream ->
                     FileUtils.copyInputStreamToFile(inputStream, outputFile)
                 }
             }.getOrElse { e ->
-                Logging.e("CopyFileInBackground", Tools.printToString(e))
                 throw RuntimeException(e)
             }
 

@@ -31,10 +31,11 @@ import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.anim.AnimUtils.Companion.setVisibilityAnim
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
+import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 
@@ -51,13 +52,15 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
-            result?.let {
+            result?.let { uri ->
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
-                    copyFileInBackground(requireActivity(), result, binding.fileRecyclerView.fullPath.absolutePath)
+                    FileTools.copyFileInBackground(requireActivity(), uri, binding.fileRecyclerView.fullPath.absolutePath)
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     binding.fileRecyclerView.listFileAt(backgroundPath())
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

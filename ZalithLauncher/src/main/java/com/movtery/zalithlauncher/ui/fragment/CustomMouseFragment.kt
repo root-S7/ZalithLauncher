@@ -28,10 +28,11 @@ import com.movtery.zalithlauncher.ui.subassembly.filelist.FileRecyclerViewCreato
 import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
+import net.kdt.pojavlaunch.Tools
 import java.io.File
 
 class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
@@ -46,13 +47,15 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
-            result?.let {
+            result?.let { uri ->
                 val dialog = ZHTools.showTaskRunningDialog(requireContext())
                 Task.runTask {
-                    copyFileInBackground(requireActivity(), result, mousePath().absolutePath)
+                    FileTools.copyFileInBackground(requireActivity(), uri, mousePath().absolutePath)
                 }.ended(TaskExecutors.getAndroidUI()) {
                     Toast.makeText(requireActivity(), getString(R.string.file_added), Toast.LENGTH_SHORT).show()
                     loadData()
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

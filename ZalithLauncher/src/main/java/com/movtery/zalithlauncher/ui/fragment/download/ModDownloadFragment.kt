@@ -13,7 +13,8 @@ import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.utils.ZHTools
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.movtery.zalithlauncher.utils.file.FileTools
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 
 class ModDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDownloadFragment(
@@ -31,8 +32,10 @@ class ModDownloadFragment(parentFragment: Fragment? = null) : AbstractResourceDo
                 val dialog = ZHTools.showTaskRunningDialog((requireContext()))
                 Task.runTask {
                     uriList.forEach { uri ->
-                        copyFileInBackground(requireActivity(), uri, getModsPath().absolutePath)
+                        FileTools.copyFileInBackground(requireActivity(), uri, getModsPath().absolutePath)
                     }
+                }.onThrowable { e ->
+                    Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
                 }.execute()

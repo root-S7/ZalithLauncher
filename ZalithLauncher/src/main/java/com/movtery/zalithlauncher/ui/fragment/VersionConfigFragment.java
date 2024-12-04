@@ -18,7 +18,6 @@ import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentVersionConfigBinding;
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent;
-import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.NoVersionException;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
@@ -37,6 +36,7 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 
+import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
@@ -58,11 +58,13 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private final ActivityResultLauncher<String[]> openDocumentLauncher =
             registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
                 if (result != null) {
+                    File iconFile = VersionsManager.INSTANCE.getVersionIconFile(mTempVersion);
+                    FileUtils.deleteQuietly(iconFile);
                     AlertDialog dialog = ZHTools.showTaskRunningDialog(requireActivity());
-                    Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, VersionsManager.INSTANCE.getVersionIconFile(mTempVersion)))
+                    Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, iconFile))
                             .ended(TaskExecutors.getAndroidUI(), file -> refreshIcon(false))
                             .finallyTask(TaskExecutors.getAndroidUI(), dialog::dismiss)
-                            .onThrowable(e -> Logging.e("Version Config Editor", Tools.printToString(e)))
+                            .onThrowable(Tools::showErrorRemote)
                             .execute();
                 }
             });
