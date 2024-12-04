@@ -203,7 +203,6 @@ public class LauncherActivity extends BaseActivity {
     public void event(MicrosoftLoginEvent event) {
         new MicrosoftBackgroundLogin(false, event.getUri().getQueryParameter("code")).performLogin(
                 null,
-                accountsManager.getProgressListener(),
                 accountsManager.getDoneListener(),
                 accountsManager.getErrorListener()
         );

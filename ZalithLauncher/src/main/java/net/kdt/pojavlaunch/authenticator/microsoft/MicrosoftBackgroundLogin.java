@@ -15,7 +15,6 @@ import com.movtery.zalithlauncher.utils.path.UrlManager;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.authenticator.listener.DoneListener;
 import net.kdt.pojavlaunch.authenticator.listener.ErrorListener;
-import net.kdt.pojavlaunch.authenticator.listener.ProgressListener;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import org.json.JSONArray;
@@ -71,20 +70,19 @@ public class MicrosoftBackgroundLogin {
     /** Performs a full login, calling back listeners appropriately  */
     public void performLogin(
             final MinecraftAccount account,
-            @Nullable final ProgressListener progressListener,
             @Nullable final DoneListener doneListener,
             @Nullable final ErrorListener errorListener
     ) {
         Task.runTask(() -> {
-            notifyProgress(progressListener, 1);
+            notifyProgress(1);
             String accessToken = acquireAccessToken(mIsRefresh, mAuthCode);
-            notifyProgress(progressListener, 2);
+            notifyProgress(2);
             String xboxLiveToken = acquireXBLToken(accessToken);
-            notifyProgress(progressListener, 3);
+            notifyProgress(3);
             String[] xsts = acquireXsts(xboxLiveToken);
-            notifyProgress(progressListener, 4);
+            notifyProgress(4);
             String mcToken = acquireMinecraftToken(xsts[0], xsts[1]);
-            notifyProgress(progressListener, 5);
+            notifyProgress(5);
             fetchOwnedItems(mcToken);
             checkMcProfile(mcToken);
 
@@ -301,10 +299,7 @@ public class MicrosoftBackgroundLogin {
     }
 
     /** Wrapper to ease notifying the listener */
-    private void notifyProgress(@Nullable ProgressListener listener, int step){
-        if (listener != null) {
-            TaskExecutors.runInUIThread(() -> listener.onLoginProgress(step));
-        }
+    private void notifyProgress(int step) {
         ProgressLayout.setProgress(ProgressLayout.LOGIN_ACCOUNT, step * 20);
     }
 

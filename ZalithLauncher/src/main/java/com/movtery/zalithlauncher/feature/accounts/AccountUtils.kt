@@ -25,7 +25,6 @@ class AccountUtils {
             MicrosoftBackgroundLogin(true, account.msaRefreshToken)
                 .performLogin(
                     account,
-                    accountsManager.progressListener,
                     doneListener,
                     errorListener
                 )
