@@ -112,7 +112,7 @@ class SeekBarSettingsWrapper(
     }
 
     fun setSeekBarValueTextView() {
-        val text = "${seekbarView.progress} $suffix"
+        val text = "${seekbarView.progress} $suffix".trim()
         valueView.text = text
     }
 
