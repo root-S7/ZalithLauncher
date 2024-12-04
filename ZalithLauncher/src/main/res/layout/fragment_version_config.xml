@@ -63,7 +63,7 @@
                         app:layout_constraintStart_toStartOf="@+id/control_name"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <com.movtery.zalithlauncher.ui.view.AnimTextView
                         android:id="@+id/control_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

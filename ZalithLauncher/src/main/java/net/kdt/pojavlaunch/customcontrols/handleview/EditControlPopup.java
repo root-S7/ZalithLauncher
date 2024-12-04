@@ -9,8 +9,6 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +28,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.kdt.DefocusableScrollView;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher;
 import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
 
 import net.kdt.pojavlaunch.EfficientAndroidLWJGLKeycode;
@@ -427,67 +426,43 @@ public class EditControlPopup {
     /**
      * A long function linking all the displayed data on the popup and,
      * the currently edited mCurrentlyEditedButton
+     * @noinspection SuspiciousNameCombination
      */
     public void setupRealTimeListeners() {
-        mNameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        mNameEditText.addTextChangedListener((SimpleTextWatcher) s -> {
+            if (internalChanges) return;
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            mCurrentlyEditedButton.getProperties().name = s.toString();
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (internalChanges) return;
+            // Cheap and unoptimized, doesn't break the abstraction layer
+            mCurrentlyEditedButton.setProperties(mCurrentlyEditedButton.getProperties(), false);
+        });
 
-                mCurrentlyEditedButton.getProperties().name = s.toString();
+        mWidthEditText.addTextChangedListener((SimpleTextWatcher) s -> {
+            if (internalChanges) return;
 
-                // Cheap and unoptimized, doesn't break the abstraction layer
-                mCurrentlyEditedButton.setProperties(mCurrentlyEditedButton.getProperties(), false);
+            float width = safeParseFloat(s.toString());
+            if (width >= 0) {
+                mCurrentlyEditedButton.getProperties().setWidth(width);
+                if (mCurrentlyEditedButton.getProperties() instanceof ControlJoystickData) {
+                    // Joysticks are square
+                    mCurrentlyEditedButton.getProperties().setHeight(width);
+                }
+                mCurrentlyEditedButton.updateProperties();
             }
         });
 
-        mWidthEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        mHeightEditText.addTextChangedListener((SimpleTextWatcher) s -> {
+            if (internalChanges) return;
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (internalChanges) return;
-
-                float width = safeParseFloat(s.toString());
-                if (width >= 0) {
-                    mCurrentlyEditedButton.getProperties().setWidth(width);
-                    mCurrentlyEditedButton.updateProperties();
+            float height = safeParseFloat(s.toString());
+            if (height >= 0) {
+                mCurrentlyEditedButton.getProperties().setHeight(height);
+                if (mCurrentlyEditedButton.getProperties() instanceof ControlJoystickData) {
+                    // Joysticks are square
+                    mCurrentlyEditedButton.getProperties().setWidth(height);
                 }
-            }
-        });
-
-        mHeightEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (internalChanges) return;
-
-                float height = safeParseFloat(s.toString());
-                if (height >= 0) {
-                    mCurrentlyEditedButton.getProperties().setHeight(height);
-                    mCurrentlyEditedButton.updateProperties();
-                }
+                mCurrentlyEditedButton.updateProperties();
             }
         });
 

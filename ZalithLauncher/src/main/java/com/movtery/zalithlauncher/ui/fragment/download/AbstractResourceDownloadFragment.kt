@@ -2,7 +2,6 @@ package com.movtery.zalithlauncher.ui.fragment.download
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +33,7 @@ import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectVersionDialog
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
@@ -118,18 +118,7 @@ abstract class AbstractResourceDownloadFragment(
             backToTop.setOnClickListener { recyclerView.smoothScrollToPosition(0) }
 
             searchView.setOnClickListener { search() }
-            nameEdit.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
+            nameEdit.addTextChangedListener(object : SimpleTextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     mFilters.name = s?.toString() ?: ""
                 }

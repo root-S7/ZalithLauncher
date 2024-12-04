@@ -95,21 +95,20 @@ public class VersionConfigFragment extends FragmentWithAnim {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Set up behaviors
         binding.cancelButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-
         binding.saveButton.setOnClickListener(v -> {
             save();
             Tools.backToMainMenu(requireActivity());
         });
 
-        binding.selectControl.setOnClickListener(v -> {
+        View.OnClickListener selectControl = v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true);
-
             ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, bundle);
-        });
+        };
 
+        binding.controlName.setOnClickListener(selectControl);
+        binding.selectControl.setOnClickListener(selectControl);
         binding.iconLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
-
         binding.iconReset.setOnClickListener(v -> resetIcon());
 
         Version version = VersionsManager.INSTANCE.getCurrentVersion();

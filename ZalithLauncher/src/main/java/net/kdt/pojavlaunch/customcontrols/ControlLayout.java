@@ -24,6 +24,7 @@ import com.movtery.zalithlauncher.ui.dialog.SelectControlsDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
 import com.movtery.zalithlauncher.utils.path.PathManager;
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt;
 
 import net.kdt.pojavlaunch.MinecraftGLSurface;
 import net.kdt.pojavlaunch.Tools;
@@ -81,7 +82,7 @@ public class ControlLayout extends FrameLayout {
 		if (layout != null) {
 			loadLayout(layout);
 			if (jsonFile.exists()) {
-				updateLoadedFileName(jsonFile.getAbsolutePath());
+				mLayoutFileName = StringUtilsKt.removeSuffix(jsonFile.getName(), ".json");
 			} else {
 				mLayoutFileName = "default";
 			}
@@ -331,11 +332,11 @@ public class ControlLayout extends FrameLayout {
 
 		mControlPopup.internalChanges = true;
 		mControlPopup.setCurrentlyEditedButton(button);
+
+		mControlPopup.appear(button.getControlView().getX() + button.getControlView().getWidth()/2f < currentDisplayMetrics.widthPixels/2f);
 		button.loadEditValues(mControlPopup);
 
 		mControlPopup.internalChanges = false;
-
-		mControlPopup.appear(button.getControlView().getX() + button.getControlView().getWidth()/2f < currentDisplayMetrics.widthPixels/2f);
 		mControlPopup.disappearColor();
 
 		if(mHandleView == null){
@@ -349,8 +350,7 @@ public class ControlLayout extends FrameLayout {
 
 	/** Swap the panel if the button position requires it */
 	public void adaptPanelPosition(){
-		if(mControlPopup != null)
-			mControlPopup.adaptPanelPosition();
+		if(mControlPopup != null) mControlPopup.adaptPanelPosition();
 	}
 
 
@@ -482,12 +482,6 @@ public class ControlLayout extends FrameLayout {
 		}else{
 			openExitDialog(editorExitable);
 		}
-	}
-
-	public void updateLoadedFileName(String path) {
-		path = path.replace(PathManager.DIR_CTRLMAP_PATH, ".");
-		path = path.substring(0, path.length() - 5);
-		mLayoutFileName = path;
 	}
 
 	public String saveToDirectory(String name) throws Exception{

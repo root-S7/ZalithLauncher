@@ -58,15 +58,22 @@ public class LayoutConverter {
             CustomControls layout = LayoutConverter.convertV1Layout(layoutJobj);
             if (jsonPath != null) layout.save(jsonPath);
             return layout;
-        } else if (layoutJobj.getInt("version") == 2) {
-            CustomControls layout = LayoutConverter.convertV2Layout(layoutJobj);
-            if (jsonPath != null)layout.save(jsonPath);
-            return layout;
-        }else if (layoutJobj.getInt("version") >= 3 && layoutJobj.getInt("version") <= 5) {
-            return LayoutConverter.convertV3_4Layout(layoutJobj);
-        } else if (layoutJobj.getInt("version") == 6 || layoutJobj.getInt("version") == 7) {
-            return Tools.GLOBAL_GSON.fromJson(jsonLayoutData, CustomControls.class);
         } else {
+            int version = layoutJobj.getInt("version");
+            if (version == 2) {
+                CustomControls layout = LayoutConverter.convertV2Layout(layoutJobj);
+                if (jsonPath != null) layout.save(jsonPath);
+                return layout;
+            }
+            if (version == 3 || version == 4 || version == 5) {
+                return LayoutConverter.convertV3_4Layout(layoutJobj);
+            }
+            if (version == 6 || version == 7) {
+                return convertV6_7Layout(layoutJobj);
+            }
+            if (version == 8) {
+                return Tools.GLOBAL_GSON.fromJson(jsonLayoutData, CustomControls.class);
+            }
             if (showError) {
                 IOException ioException = new IOException();
                 Tools.showError(ctx, ctx.getString(R.string.controls_unsupported_layout_version), ioException);
@@ -75,11 +82,30 @@ public class LayoutConverter {
         }
     }
 
+    /**
+     * Normalize the layout to v8 from v6/7. An issue from the joystick height and position has to be fixed.
+     * @param oldLayoutJson The old layout
+     * @return The new layout with the fixed joystick height
+     */
+    public static CustomControls convertV6_7Layout(JSONObject oldLayoutJson) {
+        CustomControls layout = Tools.GLOBAL_GSON.fromJson(oldLayoutJson.toString(), CustomControls.class);
+        for (ControlJoystickData data : layout.mJoystickDataList) {
+            if (data.getHeight() > data.getWidth()) {
+                // Make the size square, adjust the dynamic position related to height
+                float ratio = data.getHeight() / data.getWidth();
+                data.dynamicX = data.dynamicX.replace("${height}", "(" + ratio + " * ${height})");
+                data.dynamicY = data.dynamicY.replace("${height}", "(" + ratio + " * ${height})") +  " + (" + (ratio-1) + " * ${height})";
+                data.setHeight(data.getWidth());
+            }
+        }
+        layout.version = 8;
+        return layout;
+    }
 
     /**
      * Normalize the layout to v6 from v3/4: The stroke width is no longer dependant on the button size
      */
-    public static CustomControls convertV3_4Layout(JSONObject oldLayoutJson) {
+    private static CustomControls convertV3_4Layout(JSONObject oldLayoutJson) {
         CustomControls layout = Tools.GLOBAL_GSON.fromJson(oldLayoutJson.toString(), CustomControls.class);
         convertStrokeWidth(layout);
         layout.version = 6;
@@ -87,7 +113,7 @@ public class LayoutConverter {
     }
 
 
-    public static CustomControls convertV2Layout(JSONObject oldLayoutJson) throws JSONException {
+    private static CustomControls convertV2Layout(JSONObject oldLayoutJson) throws JSONException {
         CustomControls layout = Tools.GLOBAL_GSON.fromJson(oldLayoutJson.toString(), CustomControls.class);
         JSONArray layoutMainArray = oldLayoutJson.getJSONArray("mControlDataList");
         layout.mControlDataList = new ArrayList<>(layoutMainArray.length());
@@ -130,7 +156,7 @@ public class LayoutConverter {
         return layout;
     }
 
-    public static CustomControls convertV1Layout(JSONObject oldLayoutJson) throws JSONException {
+    private static CustomControls convertV1Layout(JSONObject oldLayoutJson) throws JSONException {
         CustomControls empty = new CustomControls();
         JSONArray layoutMainArray = oldLayoutJson.getJSONArray("mControlDataList");
         for (int i = 0; i < layoutMainArray.length(); i++) {

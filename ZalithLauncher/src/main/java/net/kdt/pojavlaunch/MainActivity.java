@@ -97,11 +97,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     @SuppressLint("StaticFieldLeak")
     private static ActivityGameBinding binding = null;
+    public static TouchCharInput touchCharInput;
     private GameMenuViewWrapper mGameMenuWrapper;
     private GyroControl mGyroControl;
     private KeyboardDialog keyboardDialog;
-    public static TouchCharInput touchCharInput;
-    public static ControlLayout mControlLayout;
 
     Version minecraftVersion;
 
@@ -157,7 +156,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         mGameMenuWrapper = new GameMenuViewWrapper(this, v -> onClickedMenu());
         touchCharInput = binding.mainTouchCharInput;
-        mControlLayout = binding.mainControlLayout;
 
         BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, findViewById(R.id.background_view));
 
@@ -686,6 +684,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 AllSettings.getEnableGyro().put(isChecked).save();
                 //刷新陀螺仪的启用状态
                 AllStaticSettings.enableGyro = isChecked;
+                mGyroControl.updateOrientation();
                 if (isChecked) mGyroControl.enable();
                 else mGyroControl.disable();
             } else if (v == binding.gyroInvertX) {

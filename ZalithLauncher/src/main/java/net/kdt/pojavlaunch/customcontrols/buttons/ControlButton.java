@@ -206,7 +206,7 @@ public class ControlButton extends TextView implements ControlInterface {
                 break;
 
             case ControlData.SPECIALBTN_TOGGLECTRL:
-                if(isDown)MainActivity.mControlLayout.toggleControlVisible();
+                if(isDown) getControlLayoutParent().toggleControlVisible();
                 break;
 
             case ControlData.SPECIALBTN_VIRTUALMOUSE:

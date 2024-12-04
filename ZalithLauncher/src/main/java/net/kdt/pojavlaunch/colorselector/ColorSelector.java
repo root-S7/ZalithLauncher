@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,9 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher;
 
-public class ColorSelector implements HueSelectionListener, RectangleSelectionListener, AlphaSelectionListener, TextWatcher{
+public class ColorSelector implements HueSelectionListener, RectangleSelectionListener, AlphaSelectionListener, SimpleTextWatcher {
     private static final int ALPHA_MASK = ~(0xFF << 24);
     private final View mRootView;
     private final HueView mHueView;
@@ -129,12 +129,6 @@ public class ColorSelector implements HueSelectionListener, RectangleSelectionLi
         mAlphaView.setAlpha(mAlphaEnabled ? mAlphaSelected : 255);
         mColorView.setColor(color);
     }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
     @Override
     public void afterTextChanged(Editable s) {
