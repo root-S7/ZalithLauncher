@@ -193,7 +193,7 @@
                             android:text="@string/download_ui_mc_version"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
+                        <com.movtery.zalithlauncher.ui.view.AnimTextView
                             android:id="@+id/selected_mc_version_view"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"

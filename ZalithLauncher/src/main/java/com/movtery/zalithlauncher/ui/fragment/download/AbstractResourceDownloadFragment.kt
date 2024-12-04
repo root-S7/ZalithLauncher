@@ -129,8 +129,7 @@ abstract class AbstractResourceDownloadFragment(
                 false
             }
 
-            // 打开版本选择弹窗
-            mcVersionButton.setOnClickListener {
+            val selectMcVersion = View.OnClickListener {
                 val selectVersionDialog = SelectVersionDialog(requireContext())
                 selectVersionDialog.setOnVersionSelectedListener(object : VersionSelectedListener() {
                     override fun onVersionSelected(version: String?) {
@@ -141,6 +140,9 @@ abstract class AbstractResourceDownloadFragment(
                 })
                 selectVersionDialog.show()
             }
+            // 打开版本选择弹窗
+            selectedMcVersionView.setOnClickListener(selectMcVersion)
+            mcVersionButton.setOnClickListener(selectMcVersion)
         }
 
         // 初始化 Spinner
