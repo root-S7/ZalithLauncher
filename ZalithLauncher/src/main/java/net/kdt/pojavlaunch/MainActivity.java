@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -22,6 +23,7 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -89,7 +91,7 @@ import org.lwjgl.glfw.CallbackBridge;
 import java.io.File;
 import java.io.IOException;
 
-public class MainActivity extends BaseActivity implements ControlButtonMenuListener, EditorExitable, ServiceConnection {
+public class MainActivity extends BaseActivity implements ControlButtonMenuListener, EditorExitable, ServiceConnection, ViewTreeObserver.OnGlobalLayoutListener {
     public static volatile ClipboardManager GLOBAL_CLIPBOARD;
     public static final String INTENT_VERSION = "intent_version";
 
@@ -108,6 +110,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private ViewControlMenuBinding mControlSettingsBinding;
     private GameService.LocalBinder mServiceBinder;
     boolean isInEditor;
+    boolean isKeyboardVisible;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,6 +151,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         //Now, attach to the service. The game will only start when this happens, to make sure that we know the right state.
         bindService(gameServiceIntent, this, 0);
+
+        getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     protected void initLayout() {
@@ -302,6 +307,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         CallbackBridge.removeGrabListener(binding.mainTouchpad);
         CallbackBridge.removeGrabListener(binding.mainGameRenderView);
         ContextExecutor.clearActivity();
+        getWindow().getDecorView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
 
     @Override
@@ -336,6 +342,22 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     public boolean shouldIgnoreNotch() {
         return AllSettings.getIgnoreNotch().getValue();
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        Rect rect = new Rect();
+        View decorView = getWindow().getDecorView();
+        decorView.getWindowVisibleDisplayFrame(rect);
+
+        int screenHeight = decorView.getHeight();
+        if (screenHeight * 2 / 3 > rect.bottom) {
+            decorView.setTranslationY(rect.bottom - screenHeight);
+            isKeyboardVisible = true;
+        } else if (isKeyboardVisible) {
+            isKeyboardVisible = false;
+            decorView.setTranslationY(0);
+        }
     }
 
     public static void toggleMouse(Context ctx) {
