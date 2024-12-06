@@ -42,9 +42,9 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViewPager()
 
-        binding.classifyTab.observeIndexChange { _, toIndex, reselect, _ ->
+        binding.classifyTab.observeIndexChange { _, toIndex, reselect, fromUser ->
             if (reselect) return@observeIndexChange
-            binding.downloadViewpager.setCurrentItem(toIndex, false)
+            if (fromUser) binding.downloadViewpager.setCurrentItem(toIndex, false)
         }
     }
 

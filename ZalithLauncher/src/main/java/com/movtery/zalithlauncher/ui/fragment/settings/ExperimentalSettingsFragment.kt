@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.SettingsFragmentExperimentalBinding
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 
 class ExperimentalSettingsFragment :
-    AbstractSettingsFragment(R.layout.settings_fragment_experimental) {
+    AbstractSettingsFragment(R.layout.settings_fragment_experimental, SettingCategory.EXPERIMENTAL) {
     private lateinit var binding: SettingsFragmentExperimentalBinding
 
     override fun onCreateView(
@@ -38,5 +40,9 @@ class ExperimentalSettingsFragment :
             binding.bigCoreAffinityLayout,
             binding.bigCoreAffinity
         )
+    }
+
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(binding.root, Animations.BounceInDown))
     }
 }

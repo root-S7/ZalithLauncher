@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.SettingsFragmentControlBinding
 import com.movtery.zalithlauncher.setting.AllSettings
@@ -20,7 +22,7 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import fr.spse.gamepad_remapper.Remapper
 import net.kdt.pojavlaunch.fragments.GamepadMapperFragment
 
-class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_control) {
+class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_control, SettingCategory.CONTROL) {
     private lateinit var binding: SettingsFragmentControlBinding
     private var parentFragment: FragmentWithAnim? = null
 
@@ -221,6 +223,10 @@ class ControlSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fra
     override fun onChange() {
         super.onChange()
         computeVisibility()
+    }
+
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(binding.root, Animations.BounceInDown))
     }
 
     private fun computeVisibility() {

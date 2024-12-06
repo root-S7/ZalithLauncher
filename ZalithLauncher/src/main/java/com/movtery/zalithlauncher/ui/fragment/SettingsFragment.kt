@@ -12,12 +12,14 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentSettingsBinding
+import com.movtery.zalithlauncher.event.value.SettingsPageSwapEvent
 import com.movtery.zalithlauncher.setting.Settings
 import com.movtery.zalithlauncher.ui.fragment.settings.ControlSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.ExperimentalSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.GameSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.LauncherSettingsFragment
 import com.movtery.zalithlauncher.ui.fragment.settings.VideoSettingsFragment
+import org.greenrobot.eventbus.EventBus
 
 class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     companion object {
@@ -38,9 +40,9 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViewPager()
 
-        binding.settingsTab.observeIndexChange { _, toIndex, reselect, _ ->
+        binding.settingsTab.observeIndexChange { _, toIndex, reselect, fromUser ->
             if (reselect) return@observeIndexChange
-            binding.settingsViewpager.currentItem = toIndex
+            if (fromUser) binding.settingsViewpager.setCurrentItem(toIndex, false)
         }
     }
 
@@ -54,10 +56,12 @@ class SettingsFragment : FragmentWithAnim(R.layout.fragment_settings) {
             adapter = ViewPagerAdapter(this@SettingsFragment)
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 1
+            isUserInputEnabled = false
             registerOnPageChangeCallback(object: OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     onFragmentSelect(position)
+                    EventBus.getDefault().post(SettingsPageSwapEvent(position))
                 }
             })
         }

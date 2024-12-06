@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.SettingsFragmentVideoBinding
 import com.movtery.zalithlauncher.setting.AllSettings
@@ -18,7 +20,7 @@ import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SwitchSettingsWra
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
 
-class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_video) {
+class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_video, SettingCategory.VIDEO) {
     private lateinit var binding: SettingsFragmentVideoBinding
 
     override fun onCreateView(
@@ -135,6 +137,10 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
         binding.apply {
             binding.forceVsyncLayout.visibility = if (AllSettings.alternateSurface.getValue()) View.VISIBLE else View.GONE
         }
+    }
+
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(binding.root, Animations.BounceInDown))
     }
 
     companion object {

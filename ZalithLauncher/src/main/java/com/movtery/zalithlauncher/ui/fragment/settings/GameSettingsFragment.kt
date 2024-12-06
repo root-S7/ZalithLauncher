@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.SettingsFragmentGameBinding
 import com.movtery.zalithlauncher.setting.AllSettings
@@ -26,7 +28,7 @@ import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import net.kdt.pojavlaunch.multirt.MultiRTConfigDialog
 import kotlin.math.min
 
-class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_game) {
+class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_game, SettingCategory.GAME) {
     private lateinit var binding: SettingsFragmentGameBinding
     private val mVmInstallLauncher = registerForActivityResult(
         OpenDocumentWithExtension("xz")
@@ -176,6 +178,10 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         openGameMenuMemory()
         updateGameMenuMemoryText()
         setGameMenuAlpha(AllSettings.gameMenuAlpha.getValue().toFloat() / 100F)
+    }
+
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(binding.root, Animations.BounceInDown))
     }
 
     private fun updateMemoryInfo(context: Context, seekValue: Long) {

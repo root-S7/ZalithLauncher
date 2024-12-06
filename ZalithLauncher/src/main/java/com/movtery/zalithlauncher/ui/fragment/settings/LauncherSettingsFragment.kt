@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.SettingsFragmentLauncherBinding
 import com.movtery.zalithlauncher.event.single.PageOpacityChangeEvent
@@ -20,7 +22,7 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.LauncherActivity
 import org.greenrobot.eventbus.EventBus
 
-class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_launcher) {
+class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fragment_launcher, SettingCategory.LAUNCHER) {
     private lateinit var binding: SettingsFragmentLauncherBinding
     private var parentFragment: FragmentWithAnim? = null
 
@@ -170,6 +172,10 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.notificationPermissionRequest
         )
         setupNotificationRequestPreference(notificationPermissionRequest)
+    }
+
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(binding.root, Animations.BounceInDown))
     }
 
     private fun setupNotificationRequestPreference(notificationPermissionRequest: SwitchSettingsWrapper) {
