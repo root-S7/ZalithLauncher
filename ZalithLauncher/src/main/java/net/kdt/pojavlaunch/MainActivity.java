@@ -28,8 +28,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -63,6 +61,7 @@ import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarType;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarUtils;
 import com.movtery.zalithlauncher.ui.subassembly.menu.ControlMenu;
+import com.movtery.zalithlauncher.ui.subassembly.menu.MenuUtils;
 import com.movtery.zalithlauncher.ui.subassembly.view.GameMenuViewWrapper;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -518,13 +517,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             this.binding.hotbarHeight.setMax(currentDisplayMetrics.heightPixels / 2);
 
             //初始化Seekbar的值
-            initSeekBarValue(this.binding.resolutionScaler, AllSettings.getResolutionRatio().getValue(), this.binding.resolutionScalerValue, "%");
+            MenuUtils.initSeekBarValue(this.binding.resolutionScaler, AllSettings.getResolutionRatio().getValue(), this.binding.resolutionScalerValue, "%");
             binding.resolutionScalerPreview.setText(VideoSettingsFragment.getResolutionRatioPreview(getResources(), AllSettings.getResolutionRatio().getValue()));
-            initSeekBarValue(this.binding.timeLongPressTrigger, AllSettings.getTimeLongPressTrigger().getValue(), this.binding.timeLongPressTriggerValue, "ms");
-            initSeekBarValue(this.binding.mouseSpeed, AllSettings.getMouseSpeed().getValue(), this.binding.mouseSpeedValue, "%");
-            initSeekBarValue(this.binding.gyroSensitivity, AllSettings.getGyroSensitivity().getValue(), this.binding.gyroSensitivityValue, "%");
-            initSeekBarValue(this.binding.hotbarHeight, AllSettings.getHotbarHeight().getValue().getValue(), this.binding.hotbarHeightValue, "px");
-            initSeekBarValue(this.binding.hotbarWidth, AllSettings.getHotbarWidth().getValue().getValue(), this.binding.hotbarWidthValue, "px");
+            MenuUtils.initSeekBarValue(this.binding.timeLongPressTrigger, AllSettings.getTimeLongPressTrigger().getValue(), this.binding.timeLongPressTriggerValue, "ms");
+            MenuUtils.initSeekBarValue(this.binding.mouseSpeed, AllSettings.getMouseSpeed().getValue(), this.binding.mouseSpeedValue, "%");
+            MenuUtils.initSeekBarValue(this.binding.gyroSensitivity, AllSettings.getGyroSensitivity().getValue(), this.binding.gyroSensitivityValue, "%");
+            MenuUtils.initSeekBarValue(this.binding.hotbarHeight, AllSettings.getHotbarHeight().getValue().getValue(), this.binding.hotbarHeightValue, "px");
+            MenuUtils.initSeekBarValue(this.binding.hotbarWidth, AllSettings.getHotbarWidth().getValue().getValue(), this.binding.hotbarWidthValue, "px");
 
             //初始化Switch的状态
             this.binding.disableGestures.setChecked(AllSettings.getDisableGestures().getValue());
@@ -623,26 +622,26 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             if (v == binding.forceClose) ZHTools.dialogForceClose(MainActivity.this);
             else if (v == binding.logOutput) MainActivity.binding.mainLoggerView.toggleViewWithAnim();
             else if (v == binding.sendCustomKey) dialogSendCustomKey();
-            else if (v == binding.resolutionScalerRemove) adjustSeekbar(binding.resolutionScaler, -1);
-            else if (v == binding.resolutionScalerAdd) adjustSeekbar(binding.resolutionScaler, 1);
-            else if (v == binding.disableGesturesLayout) toggleSwitchState(binding.disableGestures);
-            else if (v == binding.disableDoubleTapLayout) toggleSwitchState(binding.disableDoubleTap);
-            else if (v == binding.timeLongPressTriggerRemove) adjustSeekbar(binding.timeLongPressTrigger, -1);
-            else if (v == binding.timeLongPressTriggerAdd) adjustSeekbar(binding.timeLongPressTrigger, 1);
-            else if (v == binding.mouseSpeedRemove) adjustSeekbar(binding.mouseSpeed, -1);
-            else if (v == binding.mouseSpeedAdd) adjustSeekbar(binding.mouseSpeed, 1);
+            else if (v == binding.resolutionScalerRemove) MenuUtils.adjustSeekbar(binding.resolutionScaler, -1);
+            else if (v == binding.resolutionScalerAdd) MenuUtils.adjustSeekbar(binding.resolutionScaler, 1);
+            else if (v == binding.disableGesturesLayout) MenuUtils.toggleSwitchState(binding.disableGestures);
+            else if (v == binding.disableDoubleTapLayout) MenuUtils.toggleSwitchState(binding.disableDoubleTap);
+            else if (v == binding.timeLongPressTriggerRemove) MenuUtils.adjustSeekbar(binding.timeLongPressTrigger, -1);
+            else if (v == binding.timeLongPressTriggerAdd) MenuUtils.adjustSeekbar(binding.timeLongPressTrigger, 1);
+            else if (v == binding.mouseSpeedRemove) MenuUtils.adjustSeekbar(binding.mouseSpeed, -1);
+            else if (v == binding.mouseSpeedAdd) MenuUtils.adjustSeekbar(binding.mouseSpeed, 1);
             else if (v == binding.customMouse) new SelectMouseDialog(MainActivity.this, () -> MainActivity.binding.mainTouchpad.updateMouseDrawable()).show();
             else if (v == binding.replacementCustomcontrol) replacementCustomControls();
             else if (v == binding.editControl) openCustomControls();
-            else if (v == binding.enableGyroLayout) toggleSwitchState(binding.enableGyro);
-            else if (v == binding.gyroSensitivityRemove) adjustSeekbar(binding.gyroSensitivity, -1);
-            else if (v == binding.gyroSensitivityAdd) adjustSeekbar(binding.gyroSensitivity, 1);
-            else if (v == binding.gyroInvertXLayout) toggleSwitchState(binding.gyroInvertX);
-            else if (v == binding.gyroInvertYLayout) toggleSwitchState(binding.gyroInvertY);
-            else if (v == binding.hotbarWidthRemove) adjustSeekbar(binding.hotbarWidth, -1);
-            else if (v == binding.hotbarWidthAdd) adjustSeekbar(binding.hotbarWidth, 1);
-            else if (v == binding.hotbarHeightRemove) adjustSeekbar(binding.hotbarHeight, -1);
-            else if (v == binding.hotbarHeightAdd) adjustSeekbar(binding.hotbarHeight, 1);
+            else if (v == binding.enableGyroLayout) MenuUtils.toggleSwitchState(binding.enableGyro);
+            else if (v == binding.gyroSensitivityRemove) MenuUtils.adjustSeekbar(binding.gyroSensitivity, -1);
+            else if (v == binding.gyroSensitivityAdd) MenuUtils.adjustSeekbar(binding.gyroSensitivity, 1);
+            else if (v == binding.gyroInvertXLayout) MenuUtils.toggleSwitchState(binding.gyroInvertX);
+            else if (v == binding.gyroInvertYLayout) MenuUtils.toggleSwitchState(binding.gyroInvertY);
+            else if (v == binding.hotbarWidthRemove) MenuUtils.adjustSeekbar(binding.hotbarWidth, -1);
+            else if (v == binding.hotbarWidthAdd) MenuUtils.adjustSeekbar(binding.hotbarWidth, 1);
+            else if (v == binding.hotbarHeightRemove) MenuUtils.adjustSeekbar(binding.hotbarHeight, -1);
+            else if (v == binding.hotbarHeightAdd) MenuUtils.adjustSeekbar(binding.hotbarHeight, 1);
         }
 
         @Override
@@ -651,7 +650,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             if (s == binding.resolutionScaler) {
                 AllSettings.getResolutionRatio().put(progress).save();
 
-                updateSeekbarValue(progress, binding.resolutionScalerValue, "%");
+                MenuUtils.updateSeekbarValue(progress, binding.resolutionScalerValue, "%");
                 binding.resolutionScalerPreview.setText(VideoSettingsFragment.getResolutionRatioPreview(getResources(), progress));
 
                 AllStaticSettings.scaleFactor = progress / 100f;
@@ -662,26 +661,26 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             } else if (s == binding.timeLongPressTrigger) {
                 AllSettings.getTimeLongPressTrigger().put(progress).save();
 
-                updateSeekbarValue(progress, binding.timeLongPressTriggerValue, "ms");
+                MenuUtils.updateSeekbarValue(progress, binding.timeLongPressTriggerValue, "ms");
                 AllStaticSettings.timeLongPressTrigger = progress;
             } else if (s == binding.mouseSpeed) {
                 AllSettings.getMouseSpeed().put(progress).save();
 
-                updateSeekbarValue(progress, binding.mouseSpeedValue, "%");
+                MenuUtils.updateSeekbarValue(progress, binding.mouseSpeedValue, "%");
             } else if (s == binding.gyroSensitivity) {
                 AllSettings.getGyroSensitivity().put(progress).save();
 
-                updateSeekbarValue(progress, binding.gyroSensitivityValue, "%");
+                MenuUtils.updateSeekbarValue(progress, binding.gyroSensitivityValue, "%");
                 AllStaticSettings.gyroSensitivity = progress;
             } else if (s == binding.hotbarWidth) {
                 AllSettings.getHotbarWidth().getValue().put(progress).save();
 
-                updateSeekbarValue(progress, binding.hotbarWidthValue, "px");
+                MenuUtils.updateSeekbarValue(progress, binding.hotbarWidthValue, "px");
                 EventBus.getDefault().post(new HotbarChangeEvent(progress, binding.hotbarHeight.getProgress()));
             } else if (s == binding.hotbarHeight) {
                 AllSettings.getHotbarHeight().getValue().put(progress).save();
 
-                updateSeekbarValue(progress, binding.hotbarHeightValue, "px");
+                MenuUtils.updateSeekbarValue(progress, binding.hotbarHeightValue, "px");
                 EventBus.getDefault().post(new HotbarChangeEvent(binding.hotbarWidth.getProgress(), progress));
             }
         }
@@ -710,39 +709,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 AllSettings.getGyroInvertY().put(isChecked).save();
                 AllStaticSettings.gyroInvertY = isChecked;
             }
-        }
-
-        /**
-         * 调整滑动条的值
-         * @param seekBar 滑动条
-         * @param v 需要调整的值的大小
-         */
-        private void adjustSeekbar(SeekBar seekBar, int v) {
-            seekBar.setProgress(seekBar.getProgress() + v);
-        }
-
-        /**
-         * 反转Switch当前的选中状态
-         */
-        @SuppressLint("UseSwitchCompatOrMaterialCode")
-        private void toggleSwitchState(Switch switchView) {
-            switchView.setChecked(!switchView.isChecked());
-        }
-
-        /**
-         * 初始化Seekbar的值
-         */
-        private void initSeekBarValue(SeekBar seek, int value, TextView valueView, String suffix) {
-            seek.setProgress(value);
-            updateSeekbarValue(value, valueView, suffix);
-        }
-
-        /**
-         * 更新Seekbar旁边数值的文本值
-         */
-        private void updateSeekbarValue(int value, TextView valueView, String suffix) {
-            String valueText = value + " " + suffix;
-            valueView.setText(valueText.trim());
         }
 
         /**

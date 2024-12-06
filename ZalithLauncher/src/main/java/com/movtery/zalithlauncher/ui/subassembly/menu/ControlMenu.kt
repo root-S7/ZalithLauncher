@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.provider.DocumentsContract
 import android.view.View
+import android.widget.CompoundButton
+import android.widget.SeekBar
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ViewControlMenuBinding
-import com.movtery.zalithlauncher.ui.dialog.ControlSettingsDialog
+import com.movtery.zalithlauncher.setting.AllSettings
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.customcontrols.ControlData
 import net.kdt.pojavlaunch.customcontrols.ControlDrawerData
@@ -20,17 +22,27 @@ class ControlMenu(
     private val binding: ViewControlMenuBinding,
     private val controlLayout: ControlLayout,
     private val export: Boolean
-) : View.OnClickListener {
+) : View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
     init {
         val listener = this
         binding.apply {
+            snapping.isChecked = AllSettings.buttonSnapping.getValue()
+
+            MenuUtils.initSeekBarValue(snappingDistance, AllSettings.buttonSnappingDistance.getValue(), snappingDistanceValue, "dp")
+
             addButton.setOnClickListener(listener)
             addDrawer.setOnClickListener(listener)
             addJoystick.setOnClickListener(listener)
-            controlsSettings.setOnClickListener(listener)
+
             load.setOnClickListener(listener)
             save.setOnClickListener(listener)
             saveAndExit.setOnClickListener(listener)
+
+            snappingLayout.setOnClickListener(listener)
+            snapping.setOnCheckedChangeListener(listener)
+            snappingDistance.setOnSeekBarChangeListener(listener)
+            snappingDistanceAdd.setOnClickListener(listener)
+            snappingDistanceRemove.setOnClickListener(listener)
             selectDefault.setOnClickListener(listener)
             export.setOnClickListener(listener)
             exit.setOnClickListener(listener)
@@ -45,10 +57,14 @@ class ControlMenu(
                 addButton -> controlLayout.addControlButton(ControlData(activity.getString(R.string.controls_add_control_button)))
                 addDrawer -> controlLayout.addDrawer(ControlDrawerData())
                 addJoystick -> controlLayout.addJoystickButton(ControlJoystickData())
-                controlsSettings -> ControlSettingsDialog(activity).show()
+
                 load -> controlLayout.openLoadDialog()
                 save -> controlLayout.openSaveDialog()
                 saveAndExit -> controlLayout.openSaveAndExitDialog(exitListener)
+
+                snappingLayout -> MenuUtils.toggleSwitchState(snapping)
+                snappingDistanceAdd -> MenuUtils.adjustSeekbar(snappingDistance, 1)
+                snappingDistanceRemove -> MenuUtils.adjustSeekbar(snappingDistance, -1)
                 selectDefault -> controlLayout.openSetDefaultDialog()
                 export -> {
                     try { // Saving the currently shown control
@@ -71,6 +87,31 @@ class ControlMenu(
                     }
                 }
                 exit -> controlLayout.openExitDialog(exitListener)
+                else -> {}
+            }
+        }
+    }
+
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        binding.apply {
+            when (seekBar) {
+                snappingDistance -> {
+                    AllSettings.buttonSnappingDistance.put(progress).save()
+                    MenuUtils.updateSeekbarValue(progress, snappingDistanceValue, "dp")
+                }
+                else -> {}
+            }
+        }
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        binding.apply {
+            when (buttonView) {
+                snapping -> AllSettings.buttonSnapping.put(isChecked).save()
                 else -> {}
             }
         }
