@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.movtery.zalithlauncher.R;
 
+import net.kdt.pojavlaunch.MainActivity;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
 
@@ -37,9 +38,13 @@ public class GameService extends Service {
         killIntent.putExtra("kill", true);
         PendingIntent pendingKillIntent = PendingIntent.getService(this, NotificationUtils.PENDINGINTENT_CODE_KILL_GAME_SERVICE
                 , killIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT),
+                PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, Tools.NOTIFICATION_CHANNEL_DEFAULT)
                 .setContentTitle(getString(R.string.lazy_service_default_title))
                 .setContentText(getString(R.string.notification_game_runs))
+                .setContentIntent(contentIntent)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel,  getString(R.string.notification_terminate), pendingKillIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setSilent(true);

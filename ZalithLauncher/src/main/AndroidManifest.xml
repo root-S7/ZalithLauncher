@@ -109,7 +109,7 @@
         <activity
             android:name="net.kdt.pojavlaunch.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
-            android:launchMode="standard"
+            android:launchMode="singleTop"
             android:process=":game"
             android:screenOrientation="sensorLandscape" />
 
