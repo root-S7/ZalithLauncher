@@ -55,7 +55,6 @@ import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
-import com.movtery.zalithlauncher.ui.dialog.ControlSettingsDialog;
 import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectControlsDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectMouseDialog;
@@ -63,6 +62,7 @@ import com.movtery.zalithlauncher.ui.fragment.settings.VideoSettingsFragment;
 import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarType;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarUtils;
+import com.movtery.zalithlauncher.ui.subassembly.menu.ControlMenu;
 import com.movtery.zalithlauncher.ui.subassembly.view.GameMenuViewWrapper;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -72,9 +72,6 @@ import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
 
 import net.kdt.pojavlaunch.customcontrols.ControlButtonMenuListener;
-import net.kdt.pojavlaunch.customcontrols.ControlData;
-import net.kdt.pojavlaunch.customcontrols.ControlDrawerData;
-import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
@@ -144,7 +141,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         ControlLayout controlLayout = binding.mainControlLayout;
         mControlSettingsBinding = ViewControlMenuBinding.inflate(getLayoutInflater());
-        new ControlSettingsClickListener(mControlSettingsBinding, controlLayout);
+        new ControlMenu(this, this, mControlSettingsBinding, controlLayout, false);
         mControlSettingsBinding.export.setVisibility(View.GONE);
 
         binding.mainControlLayout.setModifiable(false);
@@ -776,38 +773,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             //需要在菜单状态改变的时候，关闭Hotbar类型的Spinner，这个库并没有自动关闭的功能，所以需要这么做
             //关掉！关掉！一定要关掉！
             binding.hotbarType.dismiss();
-        }
-    }
-
-    private class ControlSettingsClickListener implements View.OnClickListener {
-        private final ViewControlMenuBinding binding;
-        private final ControlLayout controlLayout;
-
-        public ControlSettingsClickListener(ViewControlMenuBinding binding, ControlLayout controlLayout) {
-            this.binding = binding;
-            this.controlLayout = controlLayout;
-            this.binding.addButton.setOnClickListener(this);
-            this.binding.addDrawer.setOnClickListener(this);
-            this.binding.addJoystick.setOnClickListener(this);
-            this.binding.controlsSettings.setOnClickListener(this);
-            this.binding.load.setOnClickListener(this);
-            this.binding.save.setOnClickListener(this);
-            this.binding.saveAndExit.setOnClickListener(this);
-            this.binding.selectDefault.setOnClickListener(this);
-            this.binding.exit.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (v == binding.addButton) controlLayout.addControlButton(new ControlData(getString(R.string.controls_add_control_button)));
-            else if (v == binding.addDrawer) controlLayout.addDrawer(new ControlDrawerData());
-            else if (v == binding.addJoystick) controlLayout.addJoystickButton(new ControlJoystickData());
-            else if (v == binding.controlsSettings) new ControlSettingsDialog(MainActivity.this).show();
-            else if (v == binding.load) controlLayout.openLoadDialog();
-            else if (v == binding.save) controlLayout.openSaveDialog();
-            else if (v == binding.saveAndExit) controlLayout.openSaveAndExitDialog(MainActivity.this);
-            else if (v == binding.selectDefault) controlLayout.openSetDefaultDialog();
-            else if (v == binding.exit) controlLayout.openExitDialog(MainActivity.this);
         }
     }
 }
