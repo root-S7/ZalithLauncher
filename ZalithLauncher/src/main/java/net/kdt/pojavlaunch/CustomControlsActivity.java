@@ -12,7 +12,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.databinding.ActivityCustomControlsBinding;
 import com.movtery.zalithlauncher.databinding.ViewControlMenuBinding;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
@@ -76,12 +75,6 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 				binding.customctrlControllayout.askToExit(CustomControlsActivity.this);
 			}
 		});
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		ContextExecutor.setActivity(this);
 	}
 
 	private void parseBundle() {

@@ -30,11 +30,11 @@
         android:text="@string/import_control"
         android:textSize="@dimen/_16sdp"
 
-        app:layout_constraintBottom_toTopOf="@+id/editText_import_control_file_name"
-        app:layout_constraintStart_toStartOf="@+id/editText_import_control_file_name" />
+        app:layout_constraintBottom_toTopOf="@+id/file_name"
+        app:layout_constraintStart_toStartOf="@+id/file_name" />
 
     <com.movtery.zalithlauncher.ui.view.AnimEditText
-        android:id="@+id/editText_import_control_file_name"
+        android:id="@+id/file_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_25sdp"
@@ -48,12 +48,12 @@
         android:textSize="@dimen/_16ssp"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
-        app:layout_constraintEnd_toStartOf="@+id/mineButton_import_control"
+        app:layout_constraintEnd_toStartOf="@+id/import_control"
         app:layout_constraintStart_toStartOf="@+id/_background_display_view"
         app:layout_constraintTop_toTopOf="@+id/_background_display_view" />
 
     <com.movtery.zalithlauncher.ui.view.AnimButton
-        android:id="@+id/mineButton_import_control"
+        android:id="@+id/import_control"
         android:layout_width="0dp"
         android:layout_height="@dimen/_42sdp"
         android:layout_marginStart="@dimen/_8sdp"
@@ -61,7 +61,7 @@
         android:onClick="startImport"
         android:text="@string/controls_import_control"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/editText_import_control_file_name"
+        app:layout_constraintStart_toEndOf="@+id/file_name"
         app:layout_constraintBottom_toBottomOf="@+id/_background_display_view"
         app:layout_constraintEnd_toEndOf="@+id/_background_display_view"
         app:layout_constraintTop_toTopOf="@+id/_background_display_view" />

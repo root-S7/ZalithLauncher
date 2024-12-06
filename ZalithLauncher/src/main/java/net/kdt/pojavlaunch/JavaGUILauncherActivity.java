@@ -18,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.kdt.LoggerView;
 import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.launch.LaunchArgs;
@@ -352,7 +351,6 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     @Override
     public void onResume() {
         super.onResume();
-        ContextExecutor.setActivity(this);
         final int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         final View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(uiOptions);

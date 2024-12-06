@@ -1,20 +1,19 @@
 package net.kdt.pojavlaunch;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.context.ContextExecutor;
+import com.movtery.zalithlauncher.databinding.ActivityImportControlBinding;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.TaskExecutors;
+import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -33,28 +32,19 @@ import java.io.OutputStream;
  * An activity dedicated to importing control files.
  */
 @SuppressWarnings("IOStreamConstructor")
-public class ImportControlActivity extends Activity {
+public class ImportControlActivity extends BaseActivity {
+
+    private ActivityImportControlBinding binding;
 
     private Uri mUriData;
     private boolean mHasIntentChanged = true;
     private volatile boolean mIsFileVerified = false;
 
-    private EditText mEditText;
-
-    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PathManager.initContextConstants(getApplicationContext());
-
-        setContentView(R.layout.activity_import_control);
-        mEditText = findViewById(R.id.editText_import_control_file_name);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ContextExecutor.setActivity(this);
+        binding = ActivityImportControlBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
     /**
@@ -63,7 +53,8 @@ public class ImportControlActivity extends Activity {
      */
     @Override
     protected void onNewIntent(Intent intent) {
-        if(intent != null) setIntent(intent);
+        super.onNewIntent(intent);
+        if (intent != null) setIntent(intent);
         mHasIntentChanged = true;
     }
 
@@ -80,7 +71,7 @@ public class ImportControlActivity extends Activity {
             finishAndRemoveTask();
             return;
         }
-        mEditText.setText(trimFileName(Tools.getFileName(this, mUriData)));
+        binding.fileName.setText(trimFileName(Tools.getFileName(this, mUriData)));
         mHasIntentChanged = false;
 
         //Import and verify thread
@@ -102,7 +93,7 @@ public class ImportControlActivity extends Activity {
         TaskExecutors.getUIHandler().postDelayed(() -> {
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
-            mEditText.setSelection(mEditText.getText().length());
+            binding.fileName.setSelection(binding.fileName.getText().length());
         }, 100);
     }
 
@@ -111,7 +102,7 @@ public class ImportControlActivity extends Activity {
      * @param view the view which called the function
      */
     public void startImport(View view) {
-        String fileName = trimFileName(mEditText.getText().toString());
+        String fileName = trimFileName(binding.fileName.getText().toString());
         //Step 1 check for suffixes.
         if(!isFileNameValid(fileName)){
             Toast.makeText(this, getText(R.string.import_control_invalid_name), Toast.LENGTH_SHORT).show();

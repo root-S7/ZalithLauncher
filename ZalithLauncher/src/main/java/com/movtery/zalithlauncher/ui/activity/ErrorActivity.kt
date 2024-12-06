@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.databinding.ActivityErrorBinding
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.utils.path.PathManager
@@ -42,11 +41,6 @@ class ErrorActivity : BaseActivity() {
             window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
             showCrash(extras)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ContextExecutor.setActivity(this)
     }
 
     private fun showCrash(extras: Bundle) {

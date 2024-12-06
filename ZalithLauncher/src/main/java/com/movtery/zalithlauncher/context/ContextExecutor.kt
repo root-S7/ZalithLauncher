@@ -87,6 +87,7 @@ class ContextExecutor {
                 }
                 Tools.getWeakReference(this.sApplication)?.let {
                     application(it)
+                    return@runInUIThread
                 }
                 throw RuntimeException("The Context has not been set!")
             }

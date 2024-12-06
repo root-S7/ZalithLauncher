@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.databinding.ActivitySplashBinding
 import com.movtery.zalithlauncher.feature.unpack.Components
 import com.movtery.zalithlauncher.feature.unpack.Jre
@@ -71,11 +70,6 @@ class SplashActivity : BaseActivity() {
         } else {
             checkEnd()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ContextExecutor.setActivity(this)
     }
 
     private fun requestStoragePermissions() {
