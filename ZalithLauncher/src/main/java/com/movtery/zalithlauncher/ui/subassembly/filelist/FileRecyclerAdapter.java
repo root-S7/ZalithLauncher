@@ -166,17 +166,22 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
             binding.name.setText(fileItemBean.name);
 
+            int infoLayoutVisible = View.GONE;
             if (fileItemBean.date != null) {
                 String date = StringUtils.formatDate(fileItemBean.date, Locale.getDefault(), TimeZone.getDefault());
                 binding.time.setText(date);
                 binding.time.setVisibility(View.VISIBLE);
+                infoLayoutVisible = View.VISIBLE;
             } else binding.time.setVisibility(View.GONE);
 
             if (fileItemBean.size != null) {
                 String size = FileTools.formatFileSize(fileItemBean.size);
                 binding.size.setText(size);
                 binding.size.setVisibility(View.VISIBLE);
+                infoLayoutVisible = View.VISIBLE;
             } else binding.size.setVisibility(View.GONE);
+
+            binding.infoLayout.setVisibility(infoLayoutVisible);
 
             if (fileItemBean.isHighlighted) {
                 binding.name.setTextColor(Color.rgb(69, 179, 162)); //设置高亮
