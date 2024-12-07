@@ -35,6 +35,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.movtery.anim.AnimPlayer;
+import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.databinding.ActivityGameBinding;
@@ -49,6 +51,7 @@ import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.launch.LaunchGame;
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -106,7 +109,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private ViewControlMenuBinding mControlSettingsBinding;
     private GameService.LocalBinder mServiceBinder;
     boolean isInEditor;
-    boolean isKeyboardVisible;
+
+    private SimpleTextWatcher mInputWatcher;
+    private final AnimPlayer mInputPreviewAnim = new AnimPlayer();
+    boolean isKeyboardVisible = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,6 +154,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         //Now, attach to the service. The game will only start when this happens, to make sure that we know the right state.
         bindService(gameServiceIntent, this, 0);
 
+        //初始化输入监听器，当输入法遮挡了游戏画面时，将设置这个监听器
+        mInputWatcher = s -> binding.inputPreview.setText(s.toString().trim());
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
@@ -345,12 +353,23 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
         int screenHeight = decorView.getHeight();
         if (screenHeight * 2 / 3 > rect.bottom) {
-            decorView.setTranslationY(rect.bottom - screenHeight);
+            binding.mainTouchCharInput.addTextChangedListener(mInputWatcher);
+            if (!isKeyboardVisible) setInputPreview(true);
             isKeyboardVisible = true;
         } else if (isKeyboardVisible) {
+            binding.mainTouchCharInput.removeTextChangedListener(mInputWatcher);
+            setInputPreview(false);
             isKeyboardVisible = false;
-            decorView.setTranslationY(0);
         }
+    }
+
+    //使用一个输入预览框来展示用户输入的内容
+    private void setInputPreview(boolean show) {
+        mInputPreviewAnim.clearEntries();
+        mInputPreviewAnim.apply(new AnimPlayer.Entry(binding.inputPreviewLayout, show ? Animations.FadeIn : Animations.FadeOut))
+                .setOnStart(() -> binding.inputPreviewLayout.setVisibility(View.VISIBLE))
+                .setOnEnd(() -> binding.inputPreviewLayout.setVisibility(show ? View.VISIBLE : View.GONE))
+                .start();
     }
 
     public static void toggleMouse(Context ctx) {
