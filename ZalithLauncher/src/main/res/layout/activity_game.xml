@@ -89,22 +89,15 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
 
-        <LinearLayout
-            android:id="@+id/input_preview_layout"
+        <TextView
+            android:id="@+id/input_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/_8sdp"
-            android:visibility="gone"
-            android:background="@drawable/background_card">
-
-            <TextView
-                android:id="@+id/input_preview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_2sdp"/>
-
-        </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:background="@drawable/background_card"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
