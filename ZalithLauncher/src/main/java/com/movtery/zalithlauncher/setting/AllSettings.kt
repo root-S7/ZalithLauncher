@@ -50,7 +50,7 @@ class AllSettings {
         val buttonScale = IntSettingUnit("buttonscale", 100)
 
         @JvmStatic
-        val buttonAllCaps = BooleanSettingUnit("buttonAllCaps", true)
+        val buttonAllCaps = BooleanSettingUnit("buttonAllCaps", false)
 
         @JvmStatic
         val mouseScale = IntSettingUnit("mousescale", 100)
