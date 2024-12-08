@@ -166,7 +166,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         mGameMenuWrapper = new GameMenuViewWrapper(this, v -> onClickedMenu());
         touchCharInput = binding.mainTouchCharInput;
 
-        BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, findViewById(R.id.background_view));
+        BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, binding.backgroundView);
 
         keyboardDialog = new KeyboardDialog(this).setShowSpecialButtons(false);
 
@@ -235,13 +235,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 tipString = StringUtils.insertNewline(tipString, StringUtils.insertSpace(getString(R.string.game_tip_mc_info), mcInfo));
             }
             binding.gameTip.setText(tipString);
-            AnimUtils.setVisibilityAnim(binding.gameTipView, 1000, true, 300, new AnimUtils.AnimationListener() {
-                @Override
-                public void onStart() {
-                }
-                @Override
-                public void onEnd() {
-                    AnimUtils.setVisibilityAnim(binding.gameTipView, 15000, false, 300, null);
+            AnimUtils.setVisibilityAnim(binding.gameTip, 1000, true, 300, new AnimUtils.AnimationListener() {
+                @Override public void onStart() {}
+                @Override public void onEnd() {
+                    AnimUtils.setVisibilityAnim(binding.gameTip, 15000, false, 300, null);
                 }
             });
         } catch (Throwable e) {
