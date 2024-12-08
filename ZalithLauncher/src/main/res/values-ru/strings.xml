@@ -158,7 +158,6 @@
     <string name="controls_unsupported_layout_version">Неподдерживаемая версия раскладки управления!</string>
     <string name="controls_create_new">Создать новую раскладку управления</string>
     <string name="controls_import_control">Импортировать раскладку управления</string>
-    <string name="controls_settings_title">Настройки редактора раскладки управления</string>
     <string name="controls_settings_button_snapping">Функция привязки кнопок</string>
     <string name="controls_settings_button_snapping_distance">Расстояние привязки кнопок</string>
     <string name="controls_info_file_name">Имя файла:</string>
@@ -176,11 +175,6 @@
     <string name="controls_nothing">Здесь нет раскладки управления, перезапуск приложения сгенерирует новую раскладку управления по умолчанию</string>
     <string name="replacement_customcontrol">Заменить раскладку управления</string>
     <string name="custom_control_title">Управление раскладками управления</string>
-    <string name="import_control">Имя раскладки управления:</string>
-    <string name="import_control_invalid_file">Файл недействителен или поврежден</string>
-    <string name="import_control_verifying_file">Файл проверяется, пожалуйста, повторите попытку позже…</string>
-    <string name="import_control_invalid_name">Неверное имя или файл уже существует</string>
-    <string name="import_control_done">Импорт завершен</string>
     <string name="controller_button_start">Старт</string>
     <string name="controller_button_trigger_left">Левый триггер</string>
     <string name="controller_button_trigger_right">Правый триггер</string>

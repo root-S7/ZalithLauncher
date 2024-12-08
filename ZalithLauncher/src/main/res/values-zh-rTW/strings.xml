@@ -158,7 +158,6 @@
     <string name="controls_unsupported_layout_version">不支持的控制佈局版本！</string>
     <string name="controls_create_new">創建新的控制佈局</string>
     <string name="controls_import_control">匯入控制佈局</string>
-    <string name="controls_settings_title">控制佈局編輯器設置</string>
     <string name="controls_settings_button_snapping">按鍵吸附功能</string>
     <string name="controls_settings_button_snapping_distance">按鍵吸附距離</string>
     <string name="controls_info_file_name">文件名稱:</string>
@@ -176,11 +175,6 @@
     <string name="controls_nothing">這裡沒有任何控制佈局，重啟應用將生成一份新的默認控制佈局</string>
     <string name="replacement_customcontrol">更換控制佈局</string>
     <string name="custom_control_title">管理控制佈局</string>
-    <string name="import_control">控制佈局名稱:</string>
-    <string name="import_control_invalid_file">文件無效或已損壞</string>
-    <string name="import_control_verifying_file">文件正在校檢中，請稍後重試…</string>
-    <string name="import_control_invalid_name">名稱無效或文件已存在</string>
-    <string name="import_control_done">匯入完成</string>
     <string name="controller_button_start">開始</string>
     <string name="controller_button_trigger_left">左觸發鍵</string>
     <string name="controller_button_trigger_right">右觸發鍵</string>

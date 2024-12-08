@@ -158,7 +158,6 @@
     <string name="controls_unsupported_layout_version">Phiên bản bố cục điều khiển không được hỗ trợ!</string>
     <string name="controls_create_new">Tạo bố cục điều khiển mới</string>
     <string name="controls_import_control">Nhập bố cục điều khiển</string>
-    <string name="controls_settings_title">Cài đặt trình chỉnh sửa bố cục điều khiển</string>
     <string name="controls_settings_button_snapping">Chức năng hút nút</string>
     <string name="controls_settings_button_snapping_distance">Khoảng cách hút nút</string>
     <string name="controls_info_file_name">Tên tệp:</string>
@@ -176,11 +175,6 @@
     <string name="controls_nothing">Không có bố cục điều khiển nào ở đây, khởi động lại ứng dụng sẽ tạo một bố cục điều khiển mặc định mới</string>
     <string name="replacement_customcontrol">Thay thế bố cục điều khiển</string>
     <string name="custom_control_title">Quản lý bố cục điều khiển</string>
-    <string name="import_control">Tên bố cục điều khiển:</string>
-    <string name="import_control_invalid_file">Tệp không hợp lệ hoặc bị hỏng</string>
-    <string name="import_control_verifying_file">Đang xác minh tệp, vui lòng thử lại sau…</string>
-    <string name="import_control_invalid_name">Tên không hợp lệ hoặc tệp đã tồn tại</string>
-    <string name="import_control_done">Nhập khẩu hoàn tất</string>
     <string name="controller_button_start">Bắt đầu</string>
     <string name="controller_button_trigger_left">Nút kích hoạt trái</string>
     <string name="controller_button_trigger_right">Nút kích hoạt phải</string>

@@ -152,7 +152,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                 val installFile = File(targetPath, "${string}.${file.extension}")
 
                 if (installFile.exists()) {
-                    editText.error = context.getString(R.string.import_control_invalid_name)
+                    editText.error = context.getString(R.string.file_rename_exitis)
                     return@setConfirmListener false
                 }
 

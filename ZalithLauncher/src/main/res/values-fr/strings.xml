@@ -158,7 +158,6 @@
     <string name="controls_unsupported_layout_version">Version de la disposition de contrôle non prise en charge !</string>
     <string name="controls_create_new">Créer une nouvelle disposition de contrôle</string>
     <string name="controls_import_control">Importer une disposition de contrôle</string>
-    <string name="controls_settings_title">Paramètres de l\'éditeur de disposition de contrôle</string>
     <string name="controls_settings_button_snapping">Fonction d\'accrochage des boutons</string>
     <string name="controls_settings_button_snapping_distance">Distance d\'accrochage des boutons</string>
     <string name="controls_info_file_name">Nom du fichier :</string>
@@ -176,11 +175,6 @@
     <string name="controls_nothing">Il n\'y a aucune disposition de contrôles ici, redémarrer l\'application générera une nouvelle disposition de contrôles par défaut</string>
     <string name="replacement_customcontrol">Changer de disposition de contrôles</string>
     <string name="custom_control_title">Gérer les dispositions de contrôles</string>
-    <string name="import_control">Nom de la disposition de contrôle :</string>
-    <string name="import_control_invalid_file">Fichier invalide ou corrompu</string>
-    <string name="import_control_verifying_file">Vérification du fichier en cours, veuillez réessayer plus tard…</string>
-    <string name="import_control_invalid_name">Nom invalide ou le fichier existe déjà</string>
-    <string name="import_control_done">Importation terminée</string>
     <string name="controller_button_start">Démarrer</string>
     <string name="controller_button_trigger_left">Gâchette gauche</string>
     <string name="controller_button_trigger_right">Gâchette droite</string>

@@ -158,7 +158,6 @@
     <string name="controls_unsupported_layout_version">Versão de layout de controle não suportada!</string>
     <string name="controls_create_new">Criar novo layout de controle</string>
     <string name="controls_import_control">Importar layout de controle</string>
-    <string name="controls_settings_title">Configurações do editor de layout de controle</string>
     <string name="controls_settings_button_snapping">Função de adesão de botões</string>
     <string name="controls_settings_button_snapping_distance">Distância de adesão de botões</string>
     <string name="controls_info_file_name">Nome do arquivo:</string>
@@ -176,11 +175,6 @@
     <string name="controls_nothing">Não há nenhum layout de controle aqui, reiniciar o aplicativo gerará um novo layout de controle padrão</string>
     <string name="replacement_customcontrol">Substituir Layout de Controle</string>
     <string name="custom_control_title">Gerenciar Layouts de Controle</string>
-    <string name="import_control">Nome do Layout de Controle:</string>
-    <string name="import_control_invalid_file">Arquivo inválido ou corrompido</string>
-    <string name="import_control_verifying_file">Verificando o arquivo, tente novamente mais tarde…</string>
-    <string name="import_control_invalid_name">Nome inválido ou arquivo já existe</string>
-    <string name="import_control_done">Importação concluída</string>
     <string name="controller_button_start">Iniciar</string>
     <string name="controller_button_trigger_left">Gatilho Esquerdo</string>
     <string name="controller_button_trigger_right">Gatilho Direito</string>

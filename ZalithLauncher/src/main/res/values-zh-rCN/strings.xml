@@ -165,7 +165,6 @@
     <string name="controls_unsupported_layout_version">不支持的控制布局版本！</string>
     <string name="controls_create_new">创建新的控制布局</string>
     <string name="controls_import_control">导入控制布局</string>
-    <string name="controls_settings_title">控制布局编辑器设置</string>
     <string name="controls_settings_button_snapping">按键吸附功能</string>
     <string name="controls_settings_button_snapping_distance">按键吸附距离</string>
     <string name="controls_info_file_name">文件名称:</string>
@@ -183,12 +182,6 @@
     <string name="controls_nothing">这里没有任何控制布局，重启应用将生成一份新的默认控制布局</string>
     <string name="replacement_customcontrol">更换控制布局</string>
     <string name="custom_control_title">管理控制布局</string>
-
-    <string name="import_control">控制布局名称:</string>
-    <string name="import_control_invalid_file">文件无效或已损坏</string>
-    <string name="import_control_verifying_file">文件正在校检中，请稍后重试…</string>
-    <string name="import_control_invalid_name">名称无效或文件已存在</string>
-    <string name="import_control_done">导入完成</string>
 
     <string name="controller_button_start">开始</string>
     <string name="controller_button_trigger_left">左触发键</string>

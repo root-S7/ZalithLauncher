@@ -158,7 +158,6 @@
     <string name="controls_unsupported_layout_version">إصدار تخطيط التحكم غير مدعوم!</string>
     <string name="controls_create_new">إنشاء تخطيط تحكم جديد</string>
     <string name="controls_import_control">استيراد تخطيط التحكم</string>
-    <string name="controls_settings_title">إعدادات محرر تخطيط التحكم</string>
     <string name="controls_settings_button_snapping">ميزة التقاط الأزرار</string>
     <string name="controls_settings_button_snapping_distance">مسافة التقاط الأزرار</string>
     <string name="controls_info_file_name">اسم الملف:</string>
@@ -176,11 +175,6 @@
     <string name="controls_nothing">لا يوجد هنا أي تخطيطات تحكم، سيتم إنشاء تخطيط تحكم افتراضي جديد عند إعادة تشغيل التطبيق</string>
     <string name="replacement_customcontrol">استبدال تخطيط التحكم</string>
     <string name="custom_control_title">إدارة تخطيطات التحكم</string>
-    <string name="import_control">اسم تخطيط التحكم:</string>
-    <string name="import_control_invalid_file">الملف غير صالح أو تالف</string>
-    <string name="import_control_verifying_file">الملف قيد التحقق، يرجى المحاولة مرة أخرى لاحقًا…</string>
-    <string name="import_control_invalid_name">الاسم غير صالح أو الملف موجود بالفعل</string>
-    <string name="import_control_done">اكتمال الاستيراد</string>
     <string name="controller_button_start">بدء</string>
     <string name="controller_button_trigger_left">زر الزناد الأيسر</string>
     <string name="controller_button_trigger_right">زر الزناد الأيمن</string>

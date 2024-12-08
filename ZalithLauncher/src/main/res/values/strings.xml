@@ -159,7 +159,6 @@
     <string name="controls_unsupported_layout_version">Unsupported control layout version!</string>
     <string name="controls_create_new">Create New Control Layout</string>
     <string name="controls_import_control">Import Control Layout</string>
-    <string name="controls_settings_title">Control Layout Editor Settings</string>
     <string name="controls_settings_button_snapping">Button Snapping</string>
     <string name="controls_settings_button_snapping_distance">Button Snapping Distance</string>
     <string name="controls_info_file_name">File Name:</string>
@@ -177,11 +176,6 @@
     <string name="controls_nothing">There are no control layouts here. Restarting the app will generate a new default layout.</string>
     <string name="replacement_customcontrol">Replace Control Layout</string>
     <string name="custom_control_title">Manage Control Layouts</string>
-    <string name="import_control">Control Layout Name:</string>
-    <string name="import_control_invalid_file">File is invalid or corrupted</string>
-    <string name="import_control_verifying_file">File is being verified, please try again later…</string>
-    <string name="import_control_invalid_name">Name is invalid or file already exists</string>
-    <string name="import_control_done">Import Complete</string>
     <string name="controller_button_a" translatable="false">A</string>
     <string name="controller_button_b" translatable="false">B</string>
     <string name="controller_button_x" translatable="false">X</string>

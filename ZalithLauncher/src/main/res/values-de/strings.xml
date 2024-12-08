@@ -158,7 +158,6 @@
     <string name="controls_unsupported_layout_version">Nicht unterstützte Layoutversion!</string>
     <string name="controls_create_new">Neues Steuerungslayout erstellen</string>
     <string name="controls_import_control">Steuerungslayout importieren</string>
-    <string name="controls_settings_title">Einstellungen des Steuerungslayout-Editors</string>
     <string name="controls_settings_button_snapping">Tastenrasterung aktivieren</string>
     <string name="controls_settings_button_snapping_distance">Tastenrasterungsabstand</string>
     <string name="controls_info_file_name">Dateiname:</string>
@@ -176,11 +175,6 @@
     <string name="controls_nothing">Hier gibt es keine Steuerungsraster. Beim Neustart der Anwendung wird ein neues Standard-Steuerungsraster generiert.</string>
     <string name="replacement_customcontrol">Steuerungsraster ersetzen</string>
     <string name="custom_control_title">Steuerungsraster verwalten</string>
-    <string name="import_control">Name des Steuerungsrasters:</string>
-    <string name="import_control_invalid_file">Datei ist ungültig oder beschädigt</string>
-    <string name="import_control_verifying_file">Datei wird überprüft, bitte versuchen Sie es später erneut…</string>
-    <string name="import_control_invalid_name">Name ist ungültig oder die Datei existiert bereits</string>
-    <string name="import_control_done">Import abgeschlossen</string>
     <string name="controller_button_start">Start</string>
     <string name="controller_button_trigger_left">Linker Trigger</string>
     <string name="controller_button_trigger_right">Rechter Trigger</string>
