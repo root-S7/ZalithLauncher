@@ -53,8 +53,7 @@ android {
         versionCode 138000
         versionName "1.3.8"
         multiDexEnabled true //important
-        def yiza = System.getenv("SANPMU")
-        resValue 'string', 'generic_yiza', yiza
+        resValue 'string', 'generic_yiza', System.getenv("SANPMU")
         resValue 'string', 'curseforge_api_key', getCFApiKey()
     }
 
