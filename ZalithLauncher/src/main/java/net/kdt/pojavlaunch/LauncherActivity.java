@@ -397,6 +397,7 @@ public class LauncherActivity extends BaseActivity {
                 Tools.backToMainMenu(this);
             }
         });
+        binding.appTitleText.setText(PojavApplication.getKey());
         binding.appTitleText.setOnClickListener(v ->
                 binding.appTitleText.setText(StringUtils.shiftString(binding.appTitleText.getText().toString(), ShiftDirection.RIGHT, 1))
         );

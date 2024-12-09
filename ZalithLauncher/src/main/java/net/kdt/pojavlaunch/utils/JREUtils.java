@@ -29,6 +29,7 @@ import com.oracle.dalvik.VMLauncher;
 
 import net.kdt.pojavlaunch.Architecture;
 import net.kdt.pojavlaunch.Logger;
+import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
@@ -399,7 +400,7 @@ public class JREUtils {
                 "-Dext.net.resolvPath=" +resolvFile,
                 "-Dlog4j2.formatMsgNoLookups=true", //Log4j RCE mitigation
 
-                "-Dnet.minecraft.clientmodname=" + Tools.APP_NAME,
+                "-Dnet.minecraft.clientmodname=" + PojavApplication.getKey(),
                 "-Dfml.earlyprogresswindow=false", //Forge 1.14+ workaround
                 "-Dloader.disable_forked_guis=true",
                 "-Dsodium.checks.issue2561=false"

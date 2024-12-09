@@ -20,6 +20,7 @@ import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.MissingStorageActivity
+import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 
 @SuppressLint("CustomSplashScreen")
@@ -38,6 +39,7 @@ class SplashActivity : BaseActivity() {
         setContentView(binding.root)
 
         val splashText = findViewById<TextView>(R.id.splash_text)
+        binding.titleText.text = PojavApplication.getKey()
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SplashActivity)
             adapter = installableAdapter

@@ -17,6 +17,9 @@ class StringUtilsKt {
         fun isEmptyOrBlank(string: String): Boolean = string.isEmpty() || string.isBlank()
 
         @JvmStatic
+        fun parseKey(func: () -> String): String = StringUtils.decodeBase64(func())
+
+        @JvmStatic
         fun removeSuffix(string: String, suffix: String) = string.removeSuffix(suffix)
 
         @JvmStatic
