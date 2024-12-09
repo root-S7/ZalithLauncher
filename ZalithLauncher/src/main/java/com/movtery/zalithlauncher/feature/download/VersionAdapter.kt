@@ -25,7 +25,6 @@ import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
-import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
 import java.util.Locale
 import java.util.StringJoiner
 import java.util.TimeZone
@@ -35,11 +34,9 @@ class VersionAdapter(
     private val infoItem: InfoItem,
     private val platformHelper: AbstractPlatformHelper,
     private val mData: List<VersionItem>?
-) : RecyclerView.Adapter<VersionAdapter.InnerHolder>(), TaskCountListener {
-    private var mTasksRunning = false
+) : RecyclerView.Adapter<VersionAdapter.InnerHolder>() {
 
     init {
-        ProgressKeeper.addTaskCountListener(this)
         mData?.sortedWith { o1, o2 ->  //按照日期进行一波排序
             o1.uploadDate.compareTo(o2.uploadDate)
         }
@@ -54,10 +51,6 @@ class VersionAdapter(
     }
 
     override fun getItemCount(): Int = mData?.size ?: 0
-
-    override fun onUpdateTaskCount(taskCount: Int) {
-        mTasksRunning = taskCount != 0
-    }
 
     inner class InnerHolder(private val binding: ItemModVersionBinding) : RecyclerView.ViewHolder(
         binding.root
@@ -102,12 +95,13 @@ class VersionAdapter(
         }
 
         private fun startInstall(versionItem: VersionItem) {
-            platformHelper.install(mContext, infoItem, versionItem) {
-                if (mTasksRunning) {
+            platformHelper.install(mContext, infoItem, versionItem) { key ->
+                val containsProgress = ProgressKeeper.containsProgress(key)
+                if (containsProgress) {
                     setViewAnim(itemView, Animations.Shake)
                     Toast.makeText(mContext, mContext.getString(R.string.tasks_ongoing), Toast.LENGTH_SHORT).show()
                 }
-                mTasksRunning
+                containsProgress
             }
         }
 

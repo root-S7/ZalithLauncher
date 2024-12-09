@@ -86,8 +86,8 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
     }
 
     @Throws(Throwable::class)
-    override fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath)
+    override fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
+        InstallHelper.downloadFile(version, targetPath, progressKey)
     }
 
     @Throws(Throwable::class)
@@ -96,17 +96,17 @@ class ModrinthHelper : AbstractPlatformHelper(ApiHandler("https://api.modrinth.c
     }
 
     @Throws(Throwable::class)
-    override fun installResourcePack(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath)
+    override fun installResourcePack(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
+        InstallHelper.downloadFile(version, targetPath, progressKey)
     }
 
     @Throws(Throwable::class)
-    override fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
+    override fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
         throw PlatformNotSupportedException("Modrinth does not provide archive download support.")
     }
 
     @Throws(Throwable::class)
-    override fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath)
+    override fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
+        InstallHelper.downloadFile(version, targetPath, progressKey)
     }
 }

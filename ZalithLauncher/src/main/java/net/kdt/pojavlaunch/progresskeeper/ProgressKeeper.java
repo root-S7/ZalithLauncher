@@ -73,6 +73,13 @@ public class ProgressKeeper {
     }
 
     /**
+     * @return 当前任务集合内是否存在任务key
+     */
+    public static boolean containsProgress(String progressKey) {
+        return sProgressStates.containsKey(progressKey);
+    }
+
+    /**
      * Waits until all tasks are done and runs the runnable, or if there were no pending process remaining
      * The runnable runs from the thread that updated the task count last, and it might be the UI thread,
      * so don't put long running processes in it

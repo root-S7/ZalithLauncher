@@ -20,7 +20,8 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.ProgressListener;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /** Class staring at specific values and automatically show something if the progress is present
@@ -51,19 +52,21 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
         init();
     }
 
-    private final ArrayList<LayoutProgressListener> mMap = new ArrayList<>();
+    private final Map<String, LayoutProgressListener> mMap = new HashMap<>();
     private LinearLayout mLinearLayout;
     private TextView mTaskNumberDisplayer;
     private ImageView mFlipArrow;
 
-    public void observe(String progressKey){
-        mMap.add(new LayoutProgressListener(progressKey));
+    public void observe(String progressKey) {
+        mMap.put(progressKey, new LayoutProgressListener(progressKey));
+    }
+
+    public void unObserve(String progressKey) {
+        mMap.remove(progressKey);
     }
 
     public void cleanUpObservers() {
-        for(LayoutProgressListener progressListener : mMap) {
-            ProgressKeeper.removeListener(progressListener.progressKey, progressListener);
-        }
+        mMap.forEach(ProgressKeeper::removeListener);
     }
 
     public boolean hasProcesses(){

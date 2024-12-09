@@ -92,8 +92,8 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     }
 
     @Throws(Throwable::class)
-    override fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath)
+    override fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
+        InstallHelper.downloadFile(version, targetPath, progressKey)
     }
 
     @Throws(Throwable::class)
@@ -102,14 +102,14 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     }
 
     @Throws(Throwable::class)
-    override fun installResourcePack(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath)
+    override fun installResourcePack(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
+        InstallHelper.downloadFile(version, targetPath, progressKey)
     }
 
     @Throws(Throwable::class)
-    override fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath) { file ->
-            targetPath!!.parentFile?.let {
+    override fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
+        InstallHelper.downloadFile(version, targetPath, progressKey) { file ->
+            targetPath.parentFile?.let {
                 runCatching {
                     UnpackWorldZipHelper.unpackFile(file, it)
                 }.getOrElse {
@@ -120,7 +120,7 @@ class CurseForgeHelper : AbstractPlatformHelper(PlatformUtils.createCurseForgeAp
     }
 
     @Throws(Throwable::class)
-    override fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File?) {
-        InstallHelper.downloadFile(version, targetPath)
+    override fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String) {
+        InstallHelper.downloadFile(version, targetPath, progressKey)
     }
 }

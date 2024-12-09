@@ -53,15 +53,17 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
     }
 
     @Throws(Throwable::class)
-    fun install(context: Context, infoItem: InfoItem, version: VersionItem, isTaskRunning: () -> Boolean) {
+    fun install(context: Context, infoItem: InfoItem, version: VersionItem, isTaskRunning: (progressKey: String) -> Boolean) {
         try {
             when (infoItem.classify) {
                 Classify.ALL -> throw IllegalArgumentException("Cannot be the enum value ${Classify.ALL}")
                 Classify.MOD -> {
                     val mod = ModTranslations.getTranslationsByRepositoryType(infoItem.classify)
                         .getModByCurseForgeId(infoItem.slug)
-                    customPath(context, version, getModsPath(), infoItem.title, translatedName = mod?.name, taskRunning = isTaskRunning, install = { targetPath ->
-                        installMod(infoItem, version, targetPath)
+                    customPath(
+                        context, version, getModsPath(), infoItem.title,
+                        translatedName = mod?.name, taskRunning = isTaskRunning, install = { targetPath, progressKey ->
+                        installMod(infoItem, version, targetPath, progressKey)
                     })
                 }
                 Classify.MODPACK -> {
@@ -80,7 +82,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                                 return@setConfirmListener false
                             }
 
-                            if (!isTaskRunning()) {
+                            if (!isTaskRunning(ProgressLayout.INSTALL_RESOURCE)) {
                                 ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
                                 val installingVersionEvent = InstallingVersionEvent()
                                 Task.runTask {
@@ -115,18 +117,24 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                         }.buildDialog()
                 }
                 Classify.RESOURCE_PACK -> {
-                    customPath(context, version, getResourcePackPath(), infoItem.title, taskRunning = isTaskRunning, install = { targetPath ->
-                        installResourcePack(infoItem, version, targetPath)
+                    customPath(
+                        context, version, getResourcePackPath(), infoItem.title,
+                        taskRunning = isTaskRunning, install = { targetPath, progressKey ->
+                        installResourcePack(infoItem, version, targetPath, progressKey)
                     })
                 }
                 Classify.WORLD -> {
-                    customPath(context, version, getWorldPath(), infoItem.title, taskRunning = isTaskRunning, install = { targetPath ->
-                        installWorld(infoItem, version, targetPath)
+                    customPath(
+                        context, version, getWorldPath(), infoItem.title,
+                        taskRunning = isTaskRunning, install = { targetPath, progressKey ->
+                        installWorld(infoItem, version, targetPath, progressKey)
                     })
                 }
                 Classify.SHADER_PACK -> {
-                    customPath(context, version, getShaderPackPath(), infoItem.title, taskRunning = isTaskRunning, install = { targetPath ->
-                        installShaderPack(infoItem, version, targetPath)
+                    customPath(
+                        context, version, getShaderPackPath(), infoItem.title,
+                        taskRunning = isTaskRunning, install = { targetPath, progressKey ->
+                        installShaderPack(infoItem, version, targetPath, progressKey)
                     })
                 }
             }
@@ -135,7 +143,15 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
         }
     }
 
-    private fun customPath(context: Context, version: VersionItem, targetPath: File, name: String, translatedName: String? = null, taskRunning: () -> Boolean, install: (File) -> Unit) {
+    private fun customPath(
+        context: Context,
+        version: VersionItem,
+        targetPath: File,
+        name: String,
+        translatedName: String? = null,
+        taskRunning: (path: String) -> Boolean,
+        install: (File, String) -> Unit
+    ) {
         val file = File(version.fileName)
         val fileName = "[${if (ZHTools.areaChecks("zh") && translatedName?.isNotEmpty() == true) translatedName else name}] "
 
@@ -156,9 +172,10 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                     return@setConfirmListener false
                 }
 
-                if (!taskRunning()) {
-                    install(installFile)
-                    ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
+                val progressKey = installFile.absolutePath
+                if (!taskRunning(progressKey)) {
+                    install(installFile, progressKey)
+                    ProgressLayout.setProgress(progressKey, 0, R.string.generic_waiting)
                 }
                 true
             }.buildDialog()
@@ -180,11 +197,11 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
     abstract fun getWorldVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
     abstract fun getShaderPackVersions(infoItem: InfoItem, force: Boolean): List<VersionItem>?
 
-    abstract fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File?)
+    abstract fun installMod(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String)
     abstract fun installModPack(version: VersionItem, customName: String): ModLoaderWrapper?
-    abstract fun installResourcePack(infoItem: InfoItem, version: VersionItem, targetPath: File?)
-    abstract fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File?)
-    abstract fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File?)
+    abstract fun installResourcePack(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String)
+    abstract fun installWorld(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String)
+    abstract fun installShaderPack(infoItem: InfoItem, version: VersionItem, targetPath: File, progressKey: String)
 
     companion object {
         @JvmStatic

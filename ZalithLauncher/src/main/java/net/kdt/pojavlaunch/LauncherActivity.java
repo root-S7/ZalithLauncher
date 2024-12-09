@@ -34,6 +34,7 @@ import com.movtery.zalithlauncher.event.single.PageOpacityChangeEvent;
 import com.movtery.zalithlauncher.event.single.SwapToLoginEvent;
 import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent;
 import com.movtery.zalithlauncher.event.sticky.MinecraftVersionValueEvent;
+import com.movtery.zalithlauncher.event.value.DownloadProgressKeyEvent;
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent;
 import com.movtery.zalithlauncher.event.value.InstallGameEvent;
 import com.movtery.zalithlauncher.event.value.InstallLocalModpackEvent;
@@ -302,6 +303,15 @@ public class LauncherActivity extends BaseActivity {
     @Subscribe()
     public void event(InstallGameEvent event) {
         new GameInstaller(this, event).installGame();
+    }
+
+    @Subscribe()
+    public void event(DownloadProgressKeyEvent event) {
+        if (event.getObserve()) {
+            binding.progressLayout.observe(event.getProgressKey());
+        } else {
+            binding.progressLayout.unObserve(event.getProgressKey());
+        }
     }
 
     @Override
