@@ -153,6 +153,7 @@ class LaunchGame {
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
             Logger.appendToLog("Info: Selected Minecraft version: ${minecraftVersion.getVersionName()}")
             Logger.appendToLog("Info: Minecraft Info: $mcInfo")
+            Logger.appendToLog("Info: Game Path: ${minecraftVersion.getGameDir().absolutePath} (Isolation: ${minecraftVersion.isIsolation()})")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
             Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
             Logger.appendToLog("Info: Account: ${account.username} (${account.accountType})")

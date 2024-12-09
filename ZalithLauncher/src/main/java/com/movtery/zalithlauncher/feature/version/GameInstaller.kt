@@ -46,7 +46,7 @@ class GameInstaller(
                     Task.runTask {
                         if (isolation) {
                             if (!targetVersionFolder.exists() && !targetVersionFolder.mkdirs()) throw IOException("Failed to create version folder!")
-                            VersionConfig(targetVersionFolder).saveWithThrowable() //保存版本隔离的特征文件
+                            VersionConfig.createIsolation(targetVersionFolder).saveWithThrowable() //保存版本配置文件（开启版本隔离）
                         }
 
                         if (taskMap.isNotEmpty()) EventBus.getDefault().postSticky(installModVersion)

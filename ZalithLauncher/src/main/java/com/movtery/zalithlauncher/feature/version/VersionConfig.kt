@@ -4,20 +4,15 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.movtery.zalithlauncher.feature.log.Logging
 import net.kdt.pojavlaunch.Tools
-import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.FileWriter
 
-class VersionConfig private constructor() : Parcelable {
-    private var versionPath: File? = null
+class VersionConfig(private var versionPath: File) : Parcelable {
+    private var isolation: Boolean = false
     private var javaDir: String = ""
     private var javaArgs: String = ""
     private var renderer: String = ""
     private var control: String = ""
-
-    constructor(versionPath: File): this() {
-        this.versionPath = versionPath
-    }
 
     constructor(
         filePath: File,
@@ -32,7 +27,7 @@ class VersionConfig private constructor() : Parcelable {
         this.control = control
     }
 
-    fun copy(): VersionConfig = VersionConfig(versionPath!!, javaDir, javaArgs, renderer, control)
+    fun copy(): VersionConfig = VersionConfig(versionPath, javaDir, javaArgs, renderer, control)
 
     fun save() {
         runCatching {
@@ -45,8 +40,8 @@ class VersionConfig private constructor() : Parcelable {
     @Throws(Throwable::class)
     fun saveWithThrowable() {
         Logging.i("Save Version Config", "Trying to save: $this")
-        val zalithVersionPath = VersionsManager.getZalithVersionPath(versionPath!!)
-        val configFile = File(zalithVersionPath, "ZalithVersion.cfg")
+        val zalithVersionPath = VersionsManager.getZalithVersionPath(versionPath)
+        val configFile = File(zalithVersionPath, "VersionConfig.json")
         if (!zalithVersionPath.exists()) zalithVersionPath.mkdirs()
 
         FileWriter(configFile, false).use {
@@ -56,18 +51,16 @@ class VersionConfig private constructor() : Parcelable {
         Logging.i("Save Version Config", "Saved: $this")
     }
 
-    fun delete() {
-        runCatching {
-            File(VersionsManager.getZalithVersionPath(versionPath!!), "ZalithVersion.cfg").let {
-                if (it.exists()) FileUtils.deleteQuietly(it)
-            }
-        }
-    }
-
     fun getVersionPath() = versionPath
 
     fun setVersionPath(versionPath: File) {
         this.versionPath = versionPath
+    }
+
+    fun isIsolation() = isolation
+
+    fun setIsolation(isolation: Boolean) {
+        this.isolation = isolation
     }
 
     fun getJavaDir() = javaDir
@@ -93,6 +86,8 @@ class VersionConfig private constructor() : Parcelable {
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeInt(if (isolation) 1 else 0)
+        dest.writeString(versionPath.absolutePath)
         dest.writeString(javaDir)
         dest.writeString(javaArgs)
         dest.writeString(renderer)
@@ -101,16 +96,25 @@ class VersionConfig private constructor() : Parcelable {
 
     companion object CREATOR : Parcelable.Creator<VersionConfig> {
         override fun createFromParcel(parcel: Parcel): VersionConfig {
+            val isolation = parcel.readInt() > 0
+            val versionPath = File(parcel.readString().orEmpty())
             val javaDir = parcel.readString().orEmpty()
             val javaArgs = parcel.readString().orEmpty()
             val renderer = parcel.readString().orEmpty()
             val control = parcel.readString().orEmpty()
-            val versionPath = File(parcel.readString().orEmpty())
-            return VersionConfig(versionPath, javaDir, javaArgs, renderer, control)
+            return VersionConfig(versionPath, javaDir, javaArgs, renderer, control).apply {
+                setIsolation(isolation)
+            }
         }
 
         override fun newArray(size: Int): Array<VersionConfig?> {
             return arrayOfNulls(size)
+        }
+
+        fun createIsolation(versionPath: File): VersionConfig {
+            val config = VersionConfig(versionPath)
+            config.setIsolation(true)
+            return config
         }
     }
 }

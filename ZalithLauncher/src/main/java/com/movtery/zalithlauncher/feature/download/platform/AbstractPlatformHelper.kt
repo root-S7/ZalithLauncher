@@ -88,7 +88,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                                     val modloader = installModPack(version, customName) ?: return@runTask null
 
                                     val versionPath = VersionsManager.getVersionPath(customName)
-                                    VersionConfig(versionPath).save()
+                                    VersionConfig.createIsolation(versionPath).save()
 
                                     infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(customName)) }
 

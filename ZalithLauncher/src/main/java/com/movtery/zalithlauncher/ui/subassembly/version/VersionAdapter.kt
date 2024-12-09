@@ -76,7 +76,7 @@ class VersionAdapter(
                     mContext.getString(R.string.version_manager_invalid).addInfoIfNotBlank(true)
                 }
 
-                it.getVersionConfig()?.let {
+                if (it.getVersionConfig().isIsolation()) {
                     mContext.getString(R.string.pedit_isolation_enabled).addInfoIfNotBlank()
                 }
 

@@ -12,13 +12,13 @@ import java.io.File
  * Minecraft 版本，由版本名称进行区分
  * @param versionsFolder 版本所属的版本文件夹
  * @param versionPath 版本的路径
- * @param versionConfig 独立版本的配置，如果为空则代表其未开启版本隔离
+ * @param versionConfig 独立版本的配置
  * @param isValid 版本的有效性
  */
 class Version(
     private val versionsFolder: String,
     private val versionPath: String,
-    private val versionConfig: VersionConfig?,
+    private val versionConfig: VersionConfig,
     private val isValid: Boolean
 ) :Parcelable {
     /**
@@ -47,40 +47,37 @@ class Version(
     fun isValid() = isValid
 
     /**
+     * @return 是否开启了版本隔离
+     */
+    fun isIsolation() = versionConfig.isIsolation()
+
+    /**
      * @return 获取版本的游戏里经（若开启了版本隔离，则路径为版本文件夹）
      */
     fun getGameDir(): File {
-        versionConfig?.let {
-            return getVersionPath()
-        }
-        return File(ProfilePathHome.gameHome)
+        return if (versionConfig.isIsolation()) versionConfig.getVersionPath()
+        else File(ProfilePathHome.gameHome)
     }
 
     fun getRenderer(): String {
         val defaultValue = AllSettings.renderer.getValue()
-        versionConfig?.let { config ->
-            return config.getRenderer().takeIf { it.isNotEmpty() } ?: defaultValue
-        }
-        return defaultValue
+        return if (versionConfig.isIsolation()) versionConfig.getRenderer().takeIf { it.isNotEmpty() } ?: defaultValue
+        else defaultValue
     }
 
     fun getJavaDir(): String {
         val defaultValue = AllSettings.defaultRuntime.getValue()
-        versionConfig?.let { config ->
-            return config.getJavaDir().takeIf { it.isNotEmpty() } ?: defaultValue
-        }
-        return defaultValue
+        return if (versionConfig.isIsolation()) versionConfig.getJavaDir().takeIf { it.isNotEmpty() } ?: defaultValue
+        else defaultValue
     }
 
     fun getJavaArgs(): String {
-        versionConfig?.let {
-            return it.getJavaArgs()
-        }
-        return AllSettings.javaArgs.getValue()
+        return if (versionConfig.isIsolation()) versionConfig.getJavaArgs()
+        else AllSettings.javaArgs.getValue()
     }
 
-    fun getControl(): String? {
-        val configControl = versionConfig?.getControl()?.removeSuffix("./") ?: ""
+    fun getControl(): String {
+        val configControl = versionConfig.getControl().removeSuffix("./")
         return if (configControl.isNotEmpty()) File(PathManager.DIR_CTRLMAP_PATH, configControl).absolutePath
         else File(AllSettings.defaultCtrl.getValue()).absolutePath
     }
@@ -108,7 +105,7 @@ class Version(
         override fun createFromParcel(parcel: Parcel): Version {
             val stringList = ArrayList<String>()
             parcel.readStringList(stringList)
-            val versionConfig = parcel.readParcelable<VersionConfig>(VersionConfig::class.java.classLoader)
+            val versionConfig = parcel.readParcelable<VersionConfig>(VersionConfig::class.java.classLoader)!!
             val isValid = parcel.readInt() != 0
             return Version(stringList[0], stringList[1], versionConfig, isValid)
         }

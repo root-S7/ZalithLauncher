@@ -112,20 +112,19 @@ public class VersionConfigFragment extends FragmentWithAnim {
         binding.iconReset.setOnClickListener(v -> resetIcon());
 
         Version version = VersionsManager.INSTANCE.getCurrentVersion();
-        if (version == null) Tools.showError(requireActivity(), getString(R.string.version_manager_no_installed_version), new NoVersionException("There is no installed version"));
-        mTempVersion = version;
-        mVersionIconUtils = new VersionIconUtils(mTempVersion);
-        File versionFolder = mTempVersion.getVersionPath();
+        if (version == null) {
+            Tools.showError(requireActivity(), getString(R.string.version_manager_no_installed_version), new NoVersionException("There is no installed version"));
+            ZHTools.onBackPressed(requireActivity());
+            return;
+        }
 
-        if (mTempVersion.getVersionConfig() != null) {
-            mTempConfig = mTempVersion.getVersionConfig();
-            if (mTempConfig.getVersionPath() == null) {
-                //以防万一版本路径是空的，这里做个检查，是空的就会在这里赋值
-                mTempConfig.setVersionPath(versionFolder);
-            }
+        mTempVersion = version;
+        mTempConfig = mTempVersion.getVersionConfig();
+        mVersionIconUtils = new VersionIconUtils(mTempVersion);
+
+        if (mTempVersion.getVersionConfig().isIsolation()) {
             binding.isolation.setChecked(true);
             setIsolationVisible(true);
-            loadValues(view.getContext());
         } else {
             binding.isolation.setChecked(false);
             setIsolationVisible(false);
@@ -133,18 +132,16 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         binding.isolation.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                mTempConfig = new VersionConfig(versionFolder);
-                show();
-                loadValues(view.getContext());
+                mTempConfig.setIsolation(true);
+                setIsolationAnim(true);
             } else {
-                hide();
-                mTempConfig.delete();
-                mTempConfig = null;
-                VersionsManager.INSTANCE.refresh();
+                mTempConfig.setIsolation(false);
+                setIsolationAnim(false);
             }
             closeSpinner();
         });
 
+        loadValues(view.getContext());
         refreshIcon(true);
     }
 
@@ -193,13 +190,11 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private void setIsolationVisible(boolean visible) {
         int visibility = visible ? View.VISIBLE : View.GONE;
         binding.isolationConfig.setVisibility(visibility);
-        binding.saveButton.setVisibility(visibility);
     }
 
-    private void show() {
+    private void setIsolationAnim(boolean show) {
         isolationAnimPlayer.clearEntries();
-        isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.BounceInUp))
-                .apply(new AnimPlayer.Entry(binding.saveButton, Animations.BounceEnlarge))
+        isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, show ? Animations.BounceInUp : Animations.FadeOutDown))
                 .duration(AllSettings.getAnimationSpeed().getValue() / 2)
                 .setOnStart(() -> {
                     setIsolationVisible(true);
@@ -207,26 +202,9 @@ public class VersionConfigFragment extends FragmentWithAnim {
                     binding.saveButton.setEnabled(false);
                 })
                 .setOnEnd(() -> {
-                    setIsolationVisible(true);
-                    binding.isolationConfig.setEnabled(true);
+                    setIsolationVisible(show);
+                    binding.isolationConfig.setEnabled(show);
                     binding.saveButton.setEnabled(true);
-                }).start();
-    }
-
-    private void hide() {
-        isolationAnimPlayer.clearEntries();
-        isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, Animations.FadeOutDown))
-                .apply(new AnimPlayer.Entry(binding.saveButton, Animations.FadeOut))
-                .duration(AllSettings.getAnimationSpeed().getValue() / 2)
-                .setOnStart(() -> {
-                    setIsolationVisible(true);
-                    binding.isolationConfig.setEnabled(false);
-                    binding.saveButton.setEnabled(false);
-                })
-                .setOnEnd(() -> {
-                    setIsolationVisible(false);
-                    binding.isolationConfig.setEnabled(false);
-                    binding.saveButton.setEnabled(false);
                 }).start();
     }
 

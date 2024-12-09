@@ -69,7 +69,6 @@ object VersionsManager {
                     runCatching {
                         if (versionFile.exists() && versionFile.isDirectory) {
                             var isVersion = false
-                            var versionConfig: VersionConfig? = null
 
                             //通过判断是否存在版本的.json文件，来确定其是否为一个版本
                             val jsonFile = File(versionFile, "${versionFile.name}.json")
@@ -80,15 +79,33 @@ object VersionsManager {
                                 }
                             }
 
-                            val configFile = File(getZalithVersionPath(versionFile), "ZalithVersion.cfg")
-                            if (configFile.exists() && configFile.isFile) versionConfig = runCatching {
+                            //兼容旧版本的版本隔离文件（识别并保存为新版本后，旧的版本隔离文件将被删除）
+                            val oldConfigFile = File(getZalithVersionPath(versionFile), "ZalithVersion.cfg")
+                            val configFile = File(getZalithVersionPath(versionFile), "VersionConfig.json")
+
+                            val versionConfig = runCatching getConfig@{
+                                if (oldConfigFile.exists()) {
+                                    runCatching {
+                                        Tools.GLOBAL_GSON.fromJson(Tools.read(oldConfigFile), VersionConfig::class.java).apply {
+                                            setIsolation(true)
+                                            setVersionPath(versionFile)
+                                            save()
+                                        }
+                                    }.getOrNull().let { config ->
+                                        //移除旧的配置文件
+                                        oldConfigFile.delete()
+                                        config?.let { return@getConfig it }
+                                    }
+                                }
                                 //读取此文件的内容，并解析为VersionConfig
                                 val config = Tools.GLOBAL_GSON.fromJson(Tools.read(configFile), VersionConfig::class.java)
                                 config.setVersionPath(versionFile)
                                 config
                             }.getOrElse { e ->
                                 Logging.e("Refresh Versions", Tools.printToString(e))
-                                null
+                                val config = VersionConfig(versionFile)
+                                config.save()
+                                config
                             }
 
                             versions.add(
@@ -332,8 +349,8 @@ object VersionsManager {
             if (originalJarFile.exists()) originalJarFile.copyTo(newJarFile)
         }
 
-        //保存版本隔离特征文件，如果当前版本开启了版本隔离，那么将复制当前版本的设置，在新的版本里保存
-        (version.getVersionConfig()?.copy() ?: VersionConfig(newVersion)).let { config ->
+        //保存版本配置文件
+        version.getVersionConfig().copy().let { config ->
             config.setVersionPath(newVersion)
             config.saveWithThrowable()
         }

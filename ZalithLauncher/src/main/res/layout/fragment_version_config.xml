@@ -47,53 +47,54 @@
                     android:background="@drawable/background_item"
                     android:text="@string/pedit_isolation_enabled"
                     tools:ignore="RtlSymmetry" />
-                
+
+                <TextView
+                    android:id="@+id/control_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:text="@string/pedit_control"
+                    app:layout_constraintStart_toStartOf="@+id/control_name"
+                    app:layout_constraintTop_toBottomOf="@+id/isolation" />
+
+                <com.movtery.zalithlauncher.ui.view.AnimTextView
+                    android:id="@+id/control_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/padding_medium"
+                    android:background="@drawable/background_item"
+                    android:hint="@string/pedit_default"
+                    android:paddingHorizontal="@dimen/padding_heavy"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toStartOf="@id/select_control"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/control_title" />
+
+                <com.movtery.zalithlauncher.ui.view.AnimButton
+                    android:id="@+id/select_control"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingHorizontal="@dimen/padding_large"
+                    android:text="@string/generic_select"
+                    app:layout_constraintBottom_toBottomOf="@id/control_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/control_name" />
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/isolation_config"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@id/isolation">
-
-                    <TextView
-                        android:id="@+id/control_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pedit_control"
-                        app:layout_constraintStart_toStartOf="@+id/control_name"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.movtery.zalithlauncher.ui.view.AnimTextView
-                        android:id="@+id/control_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_medium"
-                        android:background="@drawable/background_item"
-                        android:hint="@string/pedit_default"
-                        android:paddingHorizontal="@dimen/padding_heavy"
-                        android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toStartOf="@id/select_control"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/control_title" />
-
-                    <com.movtery.zalithlauncher.ui.view.AnimButton
-                        android:id="@+id/select_control"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:paddingHorizontal="@dimen/padding_large"
-                        android:text="@string/generic_select"
-                        app:layout_constraintBottom_toBottomOf="@id/control_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/control_name" />
+                    app:layout_constraintTop_toBottomOf="@id/control_name">
 
                     <TextView
                         android:id="@+id/jvm_args_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/setting_java_args_title"
                         app:layout_constraintStart_toStartOf="@+id/jvm_args_edit"
-                        app:layout_constraintTop_toBottomOf="@+id/control_name" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.movtery.zalithlauncher.ui.view.AnimEditText
                         android:id="@+id/jvm_args_edit"

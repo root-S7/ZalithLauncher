@@ -43,6 +43,7 @@ import com.movtery.zalithlauncher.databinding.ActivityGameBinding;
 import com.movtery.zalithlauncher.databinding.ViewControlMenuBinding;
 import com.movtery.zalithlauncher.databinding.ViewGameMenuBinding;
 import com.movtery.zalithlauncher.event.single.RefreshHotbarEvent;
+import com.movtery.zalithlauncher.event.sticky.RunningVersionEvent;
 import com.movtery.zalithlauncher.event.value.HotbarChangeEvent;
 import com.movtery.zalithlauncher.feature.ProfileLanguageSelector;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
@@ -104,6 +105,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private KeyboardDialog keyboardDialog;
 
     Version minecraftVersion;
+    private RunningVersionEvent runningVersionEvent;
 
     private ViewGameMenuBinding mGameMenuBinding;
     private ViewControlMenuBinding mControlSettingsBinding;
@@ -120,7 +122,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         minecraftVersion = getIntent().getParcelableExtra(INTENT_VERSION);
         if (minecraftVersion == null) throw new RuntimeException("The game version is not selected!");
 
-        MCOptionUtils.load(minecraftVersion.getGameDir().getAbsolutePath());
+        runningVersionEvent = new RunningVersionEvent(minecraftVersion);
+        EventBus.getDefault().postSticky(runningVersionEvent);
+
+        MCOptionUtils.load(minecraftVersion);
         if (AllSettings.getAutoSetGameLanguage().getValue()) {
             ProfileLanguageSelector.setGameLanguage(minecraftVersion, AllSettings.getGameLanguageOverridden().getValue());
         }
@@ -302,6 +307,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().removeStickyEvent(runningVersionEvent);
         CallbackBridge.removeGrabListener(binding.mainTouchpad);
         CallbackBridge.removeGrabListener(binding.mainGameRenderView);
         getWindow().getDecorView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
