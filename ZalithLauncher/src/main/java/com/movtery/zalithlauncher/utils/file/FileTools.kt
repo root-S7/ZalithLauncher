@@ -43,8 +43,6 @@ class FileTools {
 
         @JvmStatic
         fun copyFileInBackground(context: Context, fileUri: Uri, outputFile: File): File {
-            if (outputFile.exists()) throw IOException("The output file \"${outputFile.absolutePath}\" already exists!")
-
             runCatching {
                 context.contentResolver.openInputStream(fileUri).use { inputStream ->
                     FileUtils.copyInputStreamToFile(inputStream, outputFile)
