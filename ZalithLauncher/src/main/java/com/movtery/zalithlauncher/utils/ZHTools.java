@@ -40,7 +40,8 @@ import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
 import com.movtery.zalithlauncher.utils.path.PathManager;
-import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt;
+
+import net.kdt.pojavlaunch.PojavApplication;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -100,11 +101,7 @@ public final class ZHTools {
                     try {
                         ZHTools.killProcess();
                     } catch (Throwable th) {
-                        Logging.w(
-                                StringUtilsKt.parseKey(() -> ctx.getString(R.string.generic_yiza)),
-                                "Could not enable System.exit() method!",
-                                th
-                        );
+                        Logging.w(PojavApplication.getKey(), "Could not enable System.exit() method!", th);
                     }
                 }).buildDialog();
     }
