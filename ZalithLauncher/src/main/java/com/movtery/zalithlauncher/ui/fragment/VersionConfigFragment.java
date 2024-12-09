@@ -36,10 +36,8 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 
-import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,10 +56,8 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private final ActivityResultLauncher<String[]> openDocumentLauncher =
             registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
                 if (result != null) {
-                    File iconFile = VersionsManager.INSTANCE.getVersionIconFile(mTempVersion);
-                    FileUtils.deleteQuietly(iconFile);
                     AlertDialog dialog = ZHTools.showTaskRunningDialog(requireActivity());
-                    Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, iconFile))
+                    Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, VersionsManager.INSTANCE.getVersionIconFile(mTempVersion)))
                             .ended(TaskExecutors.getAndroidUI(), file -> refreshIcon(false))
                             .finallyTask(TaskExecutors.getAndroidUI(), dialog::dismiss)
                             .onThrowable(Tools::showErrorRemote)
