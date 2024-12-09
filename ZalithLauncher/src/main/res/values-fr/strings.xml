@@ -589,10 +589,10 @@
     <string name="splash_screen_jre21">Environnement Java 21, Minecraft 1.20.5+ dépend de Java 21.</string>
     <string name="splash_screen_apply">Accepter et installer</string>
     <!-- About -->
-    <string name="about_tab">À propos de Zalith Launcher</string>
-    <string name="about_dec1">Zalith Launcher est un lanceur Minecraft développé à partir de PojavLauncher, capable d\'exécuter Minecraft : Java Edition sur des appareils Android.</string>
-    <string name="about_dec2">Zalith Launcher s\'engage à optimiser l\'expérience utilisateur, à redessiner l\'interface de l\'application et à ajouter plus de fonctionnalités pratiques, visant à réduire autant que possible les barrières à la pratique, permettant à un plus grand nombre de personnes de profiter facilement du plaisir de Minecraft.</string>
-    <string name="about_dec3">Zalith Launcher est sous licence GPL 3.0, cette licence a une nature "virale"; tout code utilisant, modifiant ou dérivant de bibliothèques ou de logiciels GPL doit également être ouvert sous la licence GPL. Si vous envisagez de distribuer ou de partager ce logiciel, veuillez vous assurer de respecter les dispositions pertinentes de la licence GPL 3.0.</string>
+    <string name="about_tab">À propos de %s</string>
+    <string name="about_dec1">%s est un lanceur Minecraft basé sur PojavLauncher qui permet de faire fonctionner Minecraft: Java Edition sur les appareils Android.</string>
+    <string name="about_dec2">%s se concentre sur l\'optimisation de l\'expérience utilisateur, la refonte de l\'interface de l\'application et l\'ajout de fonctionnalités pratiques, visant à réduire les barrières à l\'entrée et à permettre à davantage de personnes de profiter facilement du plaisir de Minecraft.</string>
+    <string name="about_dec3">%s utilise la licence open source GPL 3.0, qui est "virale". Tout code utilisant, modifiant ou dérivant de bibliothèques ou logiciels sous GPL doit également adopter la licence GPL pour l\'open source. Si vous envisagez de distribuer ce logiciel, veuillez respecter les dispositions pertinentes de la licence open source GPL 3.0.</string>
     <string name="about_contributors">Contributeurs et Remerciements :</string>
     <string name="about_sponsors">Remerciements aux sponsors :</string>
     <string name="about_sponsors_desc">Voici tous les sponsors qui soutiennent le développement, un grand merci !</string>

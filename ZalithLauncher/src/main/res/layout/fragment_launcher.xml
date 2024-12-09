@@ -43,7 +43,6 @@
                     android:textAllCaps="false"
                     android:background="@drawable/background_item"
                     android:drawableStart="@drawable/ic_about"
-                    android:text="@string/about_tab"
                     android:textColor="@color/primary_text" />
 
                 <com.kdt.mcgui.LauncherMenuButton
