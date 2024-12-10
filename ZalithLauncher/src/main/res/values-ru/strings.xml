@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">Введенное значение слишком большое, максимум %s</string>
     <string name="generic_copied">Скопировано</string>
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher неожиданно завершил работу</string>
+    <string name="error_fatal">%s неожиданно завершил работу</string>
     <string name="error_no_version">Версия не найдена!</string>
     <string name="error_show_more">Показать подробности</string>
     <string name="error_show_less">Скрыть подробности</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">Задачи выполняются, пожалуйста, подождите</string>
     <string name="mc_download_failed">Не удалось загрузить Minecraft! Это может быть связано с плохим подключением к интернету, неправильным размещением файлов и т.д.</string>
     <string name="microsoft_login_retry_later">Ваши действия слишком часты, попробуйте позже</string>
-    <string name="storage_required">Zalith Launcher требует подключения внешнего хранилища, пожалуйста, подключите его и перезапустите программу</string>
+    <string name="storage_required">%s требует подключения внешнего хранилища, пожалуйста, подключите его и перезапустите программу</string>
     <string name="dialog_select_jar">Выбрать файл Jar</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Выберите версию</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">Игра готова к запуску</string>
     <string name="notif_download_finished_desc">Нажмите здесь, чтобы запустить ее!</string>
     <string name="notification_permission_dialog_title">Запрос разрешения</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher требует разрешения на отправку уведомлений, чтобы предотвратить остановку загрузки файлов игры, когда вы покидаете приложение. Без этого разрешения Android может остановить вашу загрузку, когда Zalith Launcher находится в фоновом режиме</string>
+    <string name="notification_permission_dialog_text">%s требует разрешения на отправку уведомлений, чтобы предотвратить остановку загрузки файлов игры, когда вы покидаете приложение. Без этого разрешения Android может остановить вашу загрузку, когда %s находится в фоновом режиме</string>
     <string name="notification_permission_toast">Вы можете изменить свое решение в любое время, перейдя в \"Системные настройки\"</string>
     <string name="newdl_starting">Чтение метаданных игры…</string>
     <string name="newdl_downloading_metadata">Загрузка метаданных игры (%s)</string>
@@ -225,8 +225,8 @@
     <string name="version_manager_invalid">Эта версия недействительна</string>
     <string name="version_manager_no_installed_version">Запускатель не нашёл установленную версию Minecraft!</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
-    <string name="permissions_write_external_storage">Для работы Zalith Launcher требуется разрешение на управление хранилищем. Если разрешение не предоставлено, могут возникнуть проблемы, такие как невозможность сохранения или распаковки игровых файлов. Пожалуйста, предоставьте разрешение для обеспечения корректной работы.</string>
+    <string name="permissions_manage_external_storage">%s требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
+    <string name="permissions_write_external_storage">Для работы %s требуется разрешение на управление хранилищем. Если разрешение не предоставлено, могут возникнуть проблемы, такие как невозможность сохранения или распаковки игровых файлов. Пожалуйста, предоставьте разрешение для обеспечения корректной работы.</string>
     <string name="profiles_path_title">Управление путями игры</string>
     <string name="profiles_path_default">Путь по умолчанию</string>
     <string name="profiles_path_settings">Открыть настройки пути</string>

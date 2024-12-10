@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">Der Wert ist zu groß, maximal %s</string>
     <string name="generic_copied">Kopiert</string>
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher ist unerwartet abgestürzt</string>
+    <string name="error_fatal">%s ist unerwartet abgestürzt</string>
     <string name="error_no_version">Keine Version vorhanden!</string>
     <string name="error_show_more">Mehr Details anzeigen</string>
     <string name="error_show_less">Details ausblenden</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">Aufgaben werden ausgeführt, bitte warten</string>
     <string name="mc_download_failed">Herunterladen von Minecraft fehlgeschlagen! Dies könnte auf eine schlechte Netzwerkverbindung, falsche Dateipositionierung usw. zurückzuführen sein</string>
     <string name="microsoft_login_retry_later">Deine Aktionen sind zu häufig, bitte versuche es später erneut</string>
-    <string name="storage_required">Zalith Launcher benötigt eine externe Speicherverbindung, bitte erneut verbinden und die Software neu starten</string>
+    <string name="storage_required">%s benötigt eine externe Speicherverbindung, bitte erneut verbinden und die Software neu starten</string>
     <string name="dialog_select_jar">Jar-Datei auswählen</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Version auswählen</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">Das Spiel ist bereit zum Starten</string>
     <string name="notif_download_finished_desc">Klicke hier, um es zu starten!</string>
     <string name="notification_permission_dialog_title">Berechtigungsanfrage</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher benötigt die Berechtigung, Benachrichtigungen zu senden, um zu verhindern, dass beim Verlassen der Anwendung der Download von Spieldateien gestoppt wird. Ohne diese Berechtigung könnte Android deinen Download-Fortschritt stoppen, wenn du Zalith Launcher in den Hintergrund stellst.</string>
+    <string name="notification_permission_dialog_text">%s benötigt die Berechtigung, Benachrichtigungen zu senden, um zu verhindern, dass beim Verlassen der Anwendung der Download von Spieldateien gestoppt wird. Ohne diese Berechtigung könnte Android deinen Download-Fortschritt stoppen, wenn du %s in den Hintergrund stellst.</string>
     <string name="notification_permission_toast">Du kannst deine Meinung jederzeit ändern, indem du in die \"Systemeinstellungen\" gehst</string>
     <string name="newdl_starting">Lese Spiel-Metadaten…</string>
     <string name="newdl_downloading_metadata">Lade Spiel-Metadaten herunter (%s)</string>
@@ -225,8 +225,8 @@
     <string name="version_manager_invalid">Diese Version ist ungültig</string>
     <string name="version_manager_no_installed_version">Der Launcher keine installierte Minecraft-Version gefunden!</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher benötigt die Berechtigung, um alle Dateien auf dem Gerät zu verwalten, damit diese Funktion ordnungsgemäß funktioniert. Bitte erteilen Sie die Berechtigung!</string>
-    <string name="permissions_write_external_storage">Zalith Launcher benötigt die Speicherverwaltungsberechtigung. Wenn die Berechtigung nicht aktiviert ist, können Probleme auftreten, wie z. B. das fehlerhafte Speichern oder Entpacken von Spieldateien. Bitte erteilen Sie die Berechtigung, um die ordnungsgemäße Funktion sicherzustellen.</string>
+    <string name="permissions_manage_external_storage">%s benötigt die Berechtigung, um alle Dateien auf dem Gerät zu verwalten, damit diese Funktion ordnungsgemäß funktioniert. Bitte erteilen Sie die Berechtigung!</string>
+    <string name="permissions_write_external_storage">%s benötigt die Speicherverwaltungsberechtigung. Wenn die Berechtigung nicht aktiviert ist, können Probleme auftreten, wie z. B. das fehlerhafte Speichern oder Entpacken von Spieldateien. Bitte erteilen Sie die Berechtigung, um die ordnungsgemäße Funktion sicherzustellen.</string>
     <string name="profiles_path_title">Spielpfad-Verwaltung</string>
     <string name="profiles_path_default">Standardpfad</string>
     <string name="profiles_path_settings">Pfad-Einstellungen öffnen</string>

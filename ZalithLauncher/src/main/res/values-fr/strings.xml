@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">La valeur saisie est trop grande, elle ne peut être que %s</string>
     <string name="generic_copied">Copié</string>
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher a rencontré une erreur fatale</string>
+    <string name="error_fatal">%s a rencontré une erreur fatale</string>
     <string name="error_no_version">Aucune version disponible !</string>
     <string name="error_show_more">Afficher les détails</string>
     <string name="error_show_less">Masquer les détails</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">Tâches en cours d\'exécution, veuillez patienter</string>
     <string name="mc_download_failed">Échec du téléchargement de Minecraft ! Cela pourrait être dû à une mauvaise connexion réseau, à un mauvais placement des fichiers, etc.</string>
     <string name="microsoft_login_retry_later">Vous avez effectué trop d\'opérations, veuillez réessayer plus tard</string>
-    <string name="storage_required">Zalith Launcher nécessite une connexion à un stockage externe, veuillez reconnecter et redémarrer l\'application</string>
+    <string name="storage_required">%s nécessite une connexion à un stockage externe, veuillez reconnecter et redémarrer l\'application</string>
     <string name="dialog_select_jar">Sélectionner un fichier Jar</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Sélectionner une version</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">Le jeu est prêt à être lancé</string>
     <string name="notif_download_finished_desc">Cliquez ici pour le lancer !</string>
     <string name="notification_permission_dialog_title">Demande d\'autorisation</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher a besoin de l\'autorisation de publier des notifications pour empêcher l\'arrêt du téléchargement des fichiers du jeu lorsque vous quittez l\'application. Sans cette autorisation, Android pourrait arrêter votre progression de téléchargement lorsque vous mettez Zalith Launcher en arrière-plan.</string>
+    <string name="notification_permission_dialog_text">%s a besoin de l\'autorisation de publier des notifications pour empêcher l\'arrêt du téléchargement des fichiers du jeu lorsque vous quittez l\'application. Sans cette autorisation, Android pourrait arrêter votre progression de téléchargement lorsque vous mettez %s en arrière-plan.</string>
     <string name="notification_permission_toast">Vous pouvez changer d\'avis à tout moment en accédant aux \"Paramètres système\"</string>
     <string name="newdl_starting">Lecture des métadonnées du jeu en cours…</string>
     <string name="newdl_downloading_metadata">Téléchargement des métadonnées du jeu en cours (%s)</string>
@@ -225,8 +225,8 @@
     <string name="version_manager_invalid">Cette version est invalide</string>
     <string name="version_manager_no_installed_version">Le lanceur n\'a trouvé aucune version de Minecraft installée!</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher nécessite l\'autorisation de gérer tous les fichiers de l\'appareil pour fonctionner correctement. Veuillez activer les autorisations !</string>
-    <string name="permissions_write_external_storage">Zalith Launcher nécessite l\'autorisation de gestion du stockage. Si l\'autorisation n\'est pas activée, cela peut entraîner des problèmes tels que l\'échec de l\'enregistrement ou de la décompression des fichiers de jeu. Veuillez accorder l\'autorisation pour assurer le bon fonctionnement.</string>
+    <string name="permissions_manage_external_storage">%s nécessite l\'autorisation de gérer tous les fichiers de l\'appareil pour fonctionner correctement. Veuillez activer les autorisations !</string>
+    <string name="permissions_write_external_storage">%s nécessite l\'autorisation de gestion du stockage. Si l\'autorisation n\'est pas activée, cela peut entraîner des problèmes tels que l\'échec de l\'enregistrement ou de la décompression des fichiers de jeu. Veuillez accorder l\'autorisation pour assurer le bon fonctionnement.</string>
     <string name="profiles_path_title">Gestion du chemin du jeu</string>
     <string name="profiles_path_default">Chemin par défaut</string>
     <string name="profiles_path_settings">Ouvrir les paramètres de chemin</string>

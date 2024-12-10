@@ -186,7 +186,6 @@ class LaunchGame {
             val launchClassPath = Tools.generateLaunchClassPath(versionInfo, minecraftVersion)
 
             val launchArgs = LaunchArgs(
-                activity,
                 account,
                 gameDirPath,
                 minecraftVersion,

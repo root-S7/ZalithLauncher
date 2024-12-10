@@ -12,6 +12,7 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 
@@ -92,7 +93,7 @@ class StoragePermissionsUtils {
         private fun showPermissionRequestDialog(context: Context, title: Int, requestPermissions: RequestPermissions) {
             TipDialog.Builder(context)
                 .setTitle(title)
-                .setMessage(context.getString(R.string.permissions_manage_external_storage))
+                .setMessage(InfoCenter.replaceName(context, R.string.permissions_manage_external_storage))
                 .setConfirmClickListener { requestPermissions.onRequest() }
                 .setCancelable(false)
                 .buildDialog()

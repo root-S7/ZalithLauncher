@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">Giá trị đã nhập quá lớn, tối đa chỉ là %s</string>
     <string name="generic_copied">Đã sao chép</string>
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher đã gặp sự cố nghiêm trọng</string>
+    <string name="error_fatal">%s đã gặp sự cố nghiêm trọng</string>
     <string name="error_no_version">Không có phiên bản!</string>
     <string name="error_show_more">Hiển thị chi tiết</string>
     <string name="error_show_less">Đóng chi tiết</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">Nhiệm vụ đang được thực hiện, vui lòng chờ</string>
     <string name="mc_download_failed">Tải xuống Minecraft thất bại! Điều này có thể do kết nối mạng kém, đặt tệp sai vị trí, v.v.</string>
     <string name="microsoft_login_retry_later">Hoạt động của bạn quá nhiều, vui lòng thử lại sau</string>
-    <string name="storage_required">Zalith Launcher yêu cầu kết nối bộ nhớ ngoài, vui lòng kết nối lại và khởi động lại phần mềm</string>
+    <string name="storage_required">%s yêu cầu kết nối bộ nhớ ngoài, vui lòng kết nối lại và khởi động lại phần mềm</string>
     <string name="dialog_select_jar">Chọn tệp Jar</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Chọn phiên bản</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">Trò chơi đã sẵn sàng để khởi chạy</string>
     <string name="notif_download_finished_desc">Nhấn vào đây để khởi chạy!</string>
     <string name="notification_permission_dialog_title">Yêu cầu quyền</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher cần quyền đăng thông báo để ngăn chặn việc dừng tải xuống tệp trò chơi khi bạn rời khỏi ứng dụng. Nếu không có quyền này, khi bạn đưa Zalith Launcher vào nền, Android có thể dừng tiến trình tải xuống của bạn</string>
+    <string name="notification_permission_dialog_text">%s cần quyền đăng thông báo để ngăn chặn việc dừng tải xuống tệp trò chơi khi bạn rời khỏi ứng dụng. Nếu không có quyền này, khi bạn đưa %s vào nền, Android có thể dừng tiến trình tải xuống của bạn</string>
     <string name="notification_permission_toast">Bạn có thể thay đổi quyết định bất cứ lúc nào bằng cách vào \"Cài đặt hệ thống\"</string>
     <string name="newdl_starting">Đang đọc siêu dữ liệu trò chơi…</string>
     <string name="newdl_downloading_metadata">Đang tải siêu dữ liệu trò chơi (%s)</string>
@@ -225,8 +225,8 @@
     <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>
     <string name="version_manager_no_installed_version">Khởi động không tìm thấy bất kỳ phiên bản Minecraft nào đã được cài đặt!</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
-    <string name="permissions_write_external_storage">Zalith Launcher yêu cầu quyền quản lý bộ nhớ. Nếu quyền này không được bật, có thể gây ra các vấn đề như tệp trò chơi không thể lưu hoặc giải nén đúng cách. Vui lòng cấp quyền để đảm bảo các chức năng hoạt động đúng.</string>
+    <string name="permissions_manage_external_storage">%s cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
+    <string name="permissions_write_external_storage">%s yêu cầu quyền quản lý bộ nhớ. Nếu quyền này không được bật, có thể gây ra các vấn đề như tệp trò chơi không thể lưu hoặc giải nén đúng cách. Vui lòng cấp quyền để đảm bảo các chức năng hoạt động đúng.</string>
     <string name="profiles_path_title">Quản lý đường dẫn trò chơi</string>
     <string name="profiles_path_default">Đường dẫn mặc định</string>
     <string name="profiles_path_settings">Mở cài đặt đường dẫn</string>

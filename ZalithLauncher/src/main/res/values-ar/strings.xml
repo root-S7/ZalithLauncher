@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">القيمة المدخلة كبيرة جدًا، يجب أن تكون على الأكثر %s</string>
     <string name="generic_copied">تم النسخ</string>
     <!-- Error -->
-    <string name="error_fatal">حدث انهيار غير متوقع في Zalith Launcher</string>
+    <string name="error_fatal">حدث انهيار غير متوقع في %s</string>
     <string name="error_no_version">لا توجد نسخة!</string>
     <string name="error_show_more">عرض التفاصيل</string>
     <string name="error_show_less">إغلاق التفاصيل</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">المهام قيد التنفيذ، يرجى الانتظار</string>
     <string name="mc_download_failed">فشل تنزيل Minecraft! قد يكون هذا بسبب اتصال شبكة ضعيف أو وضع الملفات بشكل خاطئ</string>
     <string name="microsoft_login_retry_later">لقد قمت بالكثير من المحاولات، يرجى المحاولة مرة أخرى لاحقًا</string>
-    <string name="storage_required">Zalith Launcher يتطلب الاتصال بالتخزين الخارجي، يرجى إعادة الاتصال وإعادة تشغيل البرنامج</string>
+    <string name="storage_required">%s يتطلب الاتصال بالتخزين الخارجي، يرجى إعادة الاتصال وإعادة تشغيل البرنامج</string>
     <string name="dialog_select_jar">اختيار ملف Jar</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">اختيار الإصدار</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">اللعبة جاهزة للتشغيل</string>
     <string name="notif_download_finished_desc">انقر هنا لتشغيلها!</string>
     <string name="notification_permission_dialog_title">طلب الإذن</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher يحتاج إلى إذن نشر الإشعارات لمنع إيقاف تنزيل ملفات اللعبة عندما تغادر التطبيق. بدون هذا الإذن، قد يقوم Android بإيقاف تقدم التنزيل عند وضع Zalith Launcher في الخلفية</string>
+    <string name="notification_permission_dialog_text">%s يحتاج إلى إذن نشر الإشعارات لمنع إيقاف تنزيل ملفات اللعبة عندما تغادر التطبيق. بدون هذا الإذن، قد يقوم Android بإيقاف تقدم التنزيل عند وضع %s في الخلفية</string>
     <string name="notification_permission_toast">يمكنك تغيير رأيك في أي وقت من خلال الدخول إلى \"إعدادات النظام\"</string>
     <string name="newdl_starting">قراءة بيانات اللعبة…</string>
     <string name="newdl_downloading_metadata">تنزيل بيانات اللعبة (%s)</string>
@@ -225,8 +225,8 @@
     <string name="version_manager_invalid">هذه النسخة غير صالحة</string>
     <string name="version_manager_no_installed_version">المُحَرّك لم يجد أي Minecraft مُثبّت!</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher يحتاج إلى إمكانية التحكم في جميع ملفات الجهاز لاستخدام هذه الميزة بشكل صحيح، يرجى تمكين الإذن!</string>
-    <string name="permissions_write_external_storage">يتطلب Zalith Launcher إذن إدارة التخزين. إذا لم يتم تمكين الإذن، فقد يؤدي ذلك إلى مشاكل مثل فشل حفظ ملفات اللعبة أو فك ضغطها بشكل صحيح. يرجى منح الإذن لضمان عمل الوظائف بشكل صحيح.</string>
+    <string name="permissions_manage_external_storage">%s يحتاج إلى إمكانية التحكم في جميع ملفات الجهاز لاستخدام هذه الميزة بشكل صحيح، يرجى تمكين الإذن!</string>
+    <string name="permissions_write_external_storage">يتطلب %s إذن إدارة التخزين. إذا لم يتم تمكين الإذن، فقد يؤدي ذلك إلى مشاكل مثل فشل حفظ ملفات اللعبة أو فك ضغطها بشكل صحيح. يرجى منح الإذن لضمان عمل الوظائف بشكل صحيح.</string>
     <string name="profiles_path_title">إدارة مسارات اللعبة</string>
     <string name="profiles_path_default">المسار الافتراضي</string>
     <string name="profiles_path_settings">فتح إعدادات المسار</string>

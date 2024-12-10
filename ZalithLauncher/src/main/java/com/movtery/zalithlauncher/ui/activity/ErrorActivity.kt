@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ActivityErrorBinding
 import com.movtery.zalithlauncher.feature.version.VersionsManager
@@ -76,6 +77,7 @@ class ErrorActivity : BaseActivity() {
     }
 
     private fun showError(extras: Bundle) {
+        binding.errorTitle.text = InfoCenter.replaceName(this, R.string.error_fatal)
         binding.crashButtons.visibility = View.GONE
 
         val throwable = extras.getSerializable(BUNDLE_THROWABLE) as Throwable?

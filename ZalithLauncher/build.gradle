@@ -1,7 +1,8 @@
 plugins {
-    id 'com.android.application' version '8.3.1'
+    id 'com.android.application'
     id 'org.jetbrains.kotlin.android' version '2.0.21'
 }
+apply plugin: 'stringfog'
 
 def getCFApiKey = {
     String key = System.getenv("CURSEFORGE_API_KEY")
@@ -22,7 +23,9 @@ configurations {
 }
 
 android {
-    namespace 'com.movtery.zalithlauncher'
+    def nameId = "com.movtery.zalithlauncher"
+
+    namespace nameId
 
     compileSdk = 34
 
@@ -47,14 +50,18 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.movtery.zalithlauncher"
+        applicationId nameId
         minSdkVersion 26
         targetSdkVersion 34
         versionCode 138000
         versionName "1.3.8"
         multiDexEnabled true //important
-        resValue 'string', 'generic_yiza', System.getenv("SANPMU")
         resValue 'string', 'curseforge_api_key', getCFApiKey()
+
+        stringfog {
+            implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
+            packageName nameId
+        }
     }
 
     buildTypes {
@@ -64,8 +71,8 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'application_package', 'com.movtery.zalithlauncher.debug'
-            resValue 'string', 'storageProviderAuthorities', 'com.movtery.zalithlauncher.scoped.gamefolder.debug'
+            resValue 'string', 'application_package', nameId + '.debug'
+            resValue 'string', 'storageProviderAuthorities', nameId + '.scoped.gamefolder.debug'
         }
         proguard {
             initWith debug
@@ -80,8 +87,8 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'application_package', 'com.movtery.zalithlauncher'
-            resValue 'string', 'storageProviderAuthorities', 'com.movtery.zalithlauncher.scoped.gamefolder'
+            resValue 'string', 'application_package', nameId
+            resValue 'string', 'storageProviderAuthorities', nameId + '.scoped.gamefolder'
             signingConfig signingConfigs.releaseBuild
         }
     }
@@ -194,6 +201,8 @@ dependencies {
     implementation "com.github.skydoves:powerspinner:1.2.7"
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.github.angcyo.DslTablayout:TabLayout:3.5.5'
+
+    implementation 'com.github.megatronking.stringfog:xor:5.0.0'
 
     // implementation 'com.intuit.sdp:sdp-android:1.0.5'
     // implementation 'com.intuit.ssp:ssp-android:1.0.5'

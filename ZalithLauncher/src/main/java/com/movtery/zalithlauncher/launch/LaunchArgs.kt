@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.launch
 
-import android.content.Context
 import androidx.collection.ArrayMap
+import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.librariesHome
@@ -11,7 +11,6 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.path.LibPath
 import net.kdt.pojavlaunch.AWTCanvasView
 import net.kdt.pojavlaunch.JMinecraftVersionList
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.multirt.Runtime
 import net.kdt.pojavlaunch.utils.JSONUtils
@@ -20,7 +19,6 @@ import org.jackhuang.hmcl.util.versioning.VersionNumber
 import java.io.File
 
 class LaunchArgs(
-    private val context: Context,
     private val account: MinecraftAccount,
     private val gameDirPath: File,
     private val minecraftVersion: Version,
@@ -125,7 +123,7 @@ class LaunchArgs(
     }
 
     private fun setLauncherInfo(verArgMap: MutableMap<String, String>) {
-        val launcherName = PojavApplication.getKey().replace("\\s+".toRegex(), "")
+        val launcherName = InfoCenter.LAUNCHER_NAME
         val launcherVersion = ZHTools.getVersionName()
         verArgMap["launcher_name"] = launcherName
         verArgMap["launcher_version"] = launcherVersion

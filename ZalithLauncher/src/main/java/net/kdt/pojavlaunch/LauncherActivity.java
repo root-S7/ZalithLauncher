@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentManager;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
+import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.databinding.ActivityLauncherBinding;
@@ -407,7 +408,7 @@ public class LauncherActivity extends BaseActivity {
                 Tools.backToMainMenu(this);
             }
         });
-        binding.appTitleText.setText(PojavApplication.getKey());
+        binding.appTitleText.setText(InfoCenter.APP_NAME);
         binding.appTitleText.setOnClickListener(v ->
                 binding.appTitleText.setText(StringUtils.shiftString(binding.appTitleText.getText().toString(), ShiftDirection.RIGHT, 1))
         );
@@ -572,7 +573,7 @@ public class LauncherActivity extends BaseActivity {
     private void showNotificationPermissionReasoning() {
         new TipDialog.Builder(this)
                 .setTitle(R.string.notification_permission_dialog_title)
-                .setMessage(R.string.notification_permission_dialog_text)
+                .setMessage(getString(R.string.notification_permission_dialog_text, InfoCenter.APP_NAME, InfoCenter.APP_NAME))
                 .setConfirmClickListener(checked -> askForNotificationPermission(null))
                 .setCancelClickListener(this::handleNoNotificationPermission)
                 .buildDialog();

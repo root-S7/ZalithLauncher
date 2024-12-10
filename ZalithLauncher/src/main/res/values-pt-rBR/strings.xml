@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">O valor preenchido é muito grande, o máximo é %s</string>
     <string name="generic_copied">Copiado</string>
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher teve um erro e fechou inesperadamente</string>
+    <string name="error_fatal">%s teve um erro e fechou inesperadamente</string>
     <string name="error_no_version">Nenhuma versão encontrada!</string>
     <string name="error_show_more">Mostrar detalhes</string>
     <string name="error_show_less">Ocultar detalhes</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">Tarefas em andamento, aguarde</string>
     <string name="mc_download_failed">Falha ao baixar o Minecraft! Isso pode ser devido a uma conexão de rede ruim, localização incorreta do arquivo, etc.</string>
     <string name="microsoft_login_retry_later">Suas ações estão sendo realizadas com muita frequência, tente novamente mais tarde</string>
-    <string name="storage_required">O Zalith Launcher requer armazenamento externo, reconecte e reinicie o software</string>
+    <string name="storage_required">O %s requer armazenamento externo, reconecte e reinicie o software</string>
     <string name="dialog_select_jar">Selecionar Arquivo Jar</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Selecionar Versão</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">O jogo está pronto para ser iniciado</string>
     <string name="notif_download_finished_desc">Clique aqui para iniciá-lo!</string>
     <string name="notification_permission_dialog_title">Solicitação de Permissão</string>
-    <string name="notification_permission_dialog_text">O Zalith Launcher precisa da permissão para enviar notificações, para evitar que o download dos arquivos do jogo seja interrompido quando você sair do aplicativo. Sem essa permissão, o Android pode interromper o progresso do seu download quando o Zalith Launcher estiver em segundo plano.</string>
+    <string name="notification_permission_dialog_text">O %s precisa da permissão para enviar notificações, para evitar que o download dos arquivos do jogo seja interrompido quando você sair do aplicativo. Sem essa permissão, o Android pode interromper o progresso do seu download quando o %s estiver em segundo plano.</string>
     <string name="notification_permission_toast">Você pode mudar de ideia a qualquer momento nas \"Configurações do Sistema\"</string>
     <string name="newdl_starting">Lendo metadados do jogo…</string>
     <string name="newdl_downloading_metadata">Baixando metadados do jogo (%s)</string>
@@ -225,8 +225,8 @@
     <string name="version_manager_invalid">Esta versão é inválida</string>
     <string name="version_manager_no_installed_version">O lançador não encontrou nenhum Minecraft instalado!</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher precisa da permissão para gerenciar todos os arquivos do dispositivo para usar esta funcionalidade corretamente, por favor, habilite a permissão!</string>
-    <string name="permissions_write_external_storage">O Zalith Launcher requer permissão de gerenciamento de armazenamento. Se a permissão não estiver ativada, podem ocorrer problemas como falha ao salvar ou descompactar os arquivos do jogo. Conceda a permissão para garantir o funcionamento correto.</string>
+    <string name="permissions_manage_external_storage">%s precisa da permissão para gerenciar todos os arquivos do dispositivo para usar esta funcionalidade corretamente, por favor, habilite a permissão!</string>
+    <string name="permissions_write_external_storage">O %s requer permissão de gerenciamento de armazenamento. Se a permissão não estiver ativada, podem ocorrer problemas como falha ao salvar ou descompactar os arquivos do jogo. Conceda a permissão para garantir o funcionamento correto.</string>
     <string name="profiles_path_title">Gerenciamento de Caminho do Jogo</string>
     <string name="profiles_path_default">Caminho Padrão</string>
     <string name="profiles_path_settings">Abrir configurações de caminho</string>

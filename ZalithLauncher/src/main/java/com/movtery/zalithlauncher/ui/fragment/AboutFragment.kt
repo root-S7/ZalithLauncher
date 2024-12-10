@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentAboutBinding
 import com.movtery.zalithlauncher.feature.CheckSponsor
@@ -48,10 +49,12 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
         loadSponsorData()
         loadAboutData(requireContext().resources)
 
+        val context = requireActivity()
+
         binding.apply {
-            dec1.text = parseKey(R.string.about_dec1)
-            dec2.text = parseKey(R.string.about_dec2)
-            dec3.text = parseKey(R.string.about_dec3)
+            dec1.text = InfoCenter.replaceName(context, R.string.about_dec1)
+            dec2.text = InfoCenter.replaceName(context, R.string.about_dec2)
+            dec3.text = InfoCenter.replaceName(context, R.string.about_dec3)
             appInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.about_version_name), ZHTools.getVersionName()),
                 StringUtils.insertSpace(getString(R.string.about_version_code), ZHTools.getVersionCode()),
                 StringUtils.insertSpace(getString(R.string.about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),

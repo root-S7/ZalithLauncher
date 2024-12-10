@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import com.movtery.anim.AnimPlayer
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.anim.SlideAnimation
-import net.kdt.pojavlaunch.PojavApplication
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener
 
@@ -30,8 +29,6 @@ abstract class FragmentWithAnim : Fragment, SlideAnimation, TaskCountListener {
     override fun onUpdateTaskCount(taskCount: Int) {
         this.mIsTaskRunning = taskCount != 0
     }
-
-    fun parseKey(resKey: Int) = getString(resKey, PojavApplication.getKey())
 
     fun isTaskRunning() = mIsTaskRunning
 

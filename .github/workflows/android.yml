@@ -17,7 +17,6 @@ jobs:
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       MOVTERY_KEYSTORE_PASSWORD: ${{ secrets.MOVTERY_KEYSTORE_PASSWORD }}
-      SANPMU: ${{ secrets.SANPMU }}
 
     steps:
       - name: Checkout

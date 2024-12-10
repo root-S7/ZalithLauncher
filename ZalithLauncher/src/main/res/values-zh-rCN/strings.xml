@@ -47,7 +47,7 @@
     <string name="generic_copied">已复制</string>
 
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher 意外地崩溃了</string>
+    <string name="error_fatal">%s 意外地崩溃了</string>
     <string name="error_no_version">没有版本！</string>
     <string name="error_show_more">显示详细信息</string>
     <string name="error_show_less">关闭详细信息</string>
@@ -85,7 +85,7 @@
     <string name="tasks_ongoing">任务正在执行中，请稍候</string>
     <string name="mc_download_failed">下载 Minecraft 失败！这可能是由于网络连接不良、文件放置错误等</string>
     <string name="microsoft_login_retry_later">你的操作过于频繁，请稍后再试</string>
-    <string name="storage_required">Zalith Launcher 需要连接外部存储，请重新连接并重启软件</string>
+    <string name="storage_required">%s 需要连接外部存储，请重新连接并重启软件</string>
     <string name="dialog_select_jar">选择 Jar 文件</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">选择版本</string>
@@ -102,7 +102,7 @@
     <string name="notif_download_finished">游戏已经准备好启动了</string>
     <string name="notif_download_finished_desc">点击这里启动它！</string>
     <string name="notification_permission_dialog_title">权限请求</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher 需要发布通知的权限，以防止你离开应用程序时，停止游戏文件的下载。如果没有此权限，当你将 Zalith Launcher 置于后台时，Android 可能会停止你的下载进度</string>
+    <string name="notification_permission_dialog_text">%s 需要发布通知的权限，以防止你离开应用程序时，停止游戏文件的下载。如果没有此权限，当你将 %s 置于后台时，Android 可能会停止你的下载进度</string>
     <string name="notification_permission_toast">你可以随时通过进入“系统设置”改变你的主意</string>
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
@@ -235,8 +235,8 @@
     <string name="version_manager_no_installed_version">启动器没有找到已安装的 Minecraft！</string>
 
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>
-    <string name="permissions_write_external_storage">Zalith Launcher 需要授予存储管理权限。如果权限未开启，可能会导致游戏文件无法正常保存、解压等问题。请授予权限，以确保功能正常运行。</string>
+    <string name="permissions_manage_external_storage">%s 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>
+    <string name="permissions_write_external_storage">%s 需要授予存储管理权限。如果权限未开启，可能会导致游戏文件无法正常保存、解压等问题。请授予权限，以确保功能正常运行。</string>
     <string name="profiles_path_title">游戏路径管理</string>
     <string name="profiles_path_default">默认路径</string>
     <string name="profiles_path_settings">打开路径设置</string>

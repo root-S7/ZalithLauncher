@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">填寫的數值過大，最多只能為 %s</string>
     <string name="generic_copied">已複製</string>
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher 意外地當機了</string>
+    <string name="error_fatal">%s 意外地當機了</string>
     <string name="error_no_version">沒有版本！</string>
     <string name="error_show_more">顯示詳細資訊</string>
     <string name="error_show_less">關閉詳細資訊</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">任務正在進行中，請稍候</string>
     <string name="mc_download_failed">下載 Minecraft 失敗！這可能是由於網路連線不良、檔案位置錯誤等原因</string>
     <string name="microsoft_login_retry_later">你的操作過於頻繁，請稍後再試</string>
-    <string name="storage_required">Zalith Launcher 需要連接外部儲存，請重新連接並重新啟動軟體</string>
+    <string name="storage_required">%s 需要連接外部儲存，請重新連接並重新啟動軟體</string>
     <string name="dialog_select_jar">選擇 Jar 檔案</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">選擇版本</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">遊戲已準備好啟動</string>
     <string name="notif_download_finished_desc">點擊這裡啟動它！</string>
     <string name="notification_permission_dialog_title">權限請求</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher 需要通知的權限，以防止你離開應用程式時，停止遊戲檔案的下載。如果沒有此權限，當你將 Zalith Launcher 置於背景時，Android 可能會停止你的下載進度。</string>
+    <string name="notification_permission_dialog_text">%s 需要通知的權限，以防止你離開應用程式時，停止遊戲檔案的下載。如果沒有此權限，當你將 %s 置於背景時，Android 可能會停止你的下載進度。</string>
     <string name="notification_permission_toast">你可以隨時通過進入「系統設定」改變你的決定</string>
     <string name="newdl_starting">讀取遊戲元數據中…</string>
     <string name="newdl_downloading_metadata">下載遊戲元數據中 (%s)</string>
@@ -225,8 +225,8 @@
     <string name="version_manager_invalid">該版本無效</string>
     <string name="version_manager_no_installed_version">啟動器未找到已安裝的 Minecraft！</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher 需要管理裝置所有檔案的權限，以便正常使用這個功能，請開啟權限！</string>
-    <string name="permissions_write_external_storage">Zalith Launcher 需要授予存儲管理權限。如果未開啟權限，可能會導致遊戲文件無法正常保存、解壓等問題。請授予權限，以確保功能正常運行。</string>
+    <string name="permissions_manage_external_storage">%s 需要管理裝置所有檔案的權限，以便正常使用這個功能，請開啟權限！</string>
+    <string name="permissions_write_external_storage">%s 需要授予存儲管理權限。如果未開啟權限，可能會導致遊戲文件無法正常保存、解壓等問題。請授予權限，以確保功能正常運行。</string>
     <string name="profiles_path_title">遊戲路徑管理</string>
     <string name="profiles_path_default">預設路徑</string>
     <string name="profiles_path_settings">打開路徑設定</string>

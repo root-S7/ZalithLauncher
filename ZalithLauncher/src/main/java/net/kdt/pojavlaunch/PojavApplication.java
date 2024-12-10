@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 
-import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.context.LocaleHelper;
 import com.movtery.zalithlauncher.feature.log.Logging;
@@ -24,7 +23,6 @@ import com.movtery.zalithlauncher.setting.LegacySettingsSync;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
-import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt;
 
 import net.kdt.pojavlaunch.utils.FileUtils;
 
@@ -34,11 +32,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-import kotlin.Pair;
-
 public class PojavApplication extends Application {
 	public static final String CRASH_REPORT_TAG = "PojavCrashReport";
-	private static Pair<String, String> ZAN_KEY;
 
 	@Override
 	public void onCreate() {
@@ -71,9 +66,6 @@ public class PojavApplication extends Application {
 		
 		try {
 			super.onCreate();
-			String key = getString(R.string.generic_yiza);
-			String parsedKey = StringUtilsKt.parseKey(() -> key);
-			ZAN_KEY = new Pair<>(key, parsedKey);
 			PathManager.DIR_DATA = getDir("files", MODE_PRIVATE).getParent();
 			PathManager.DIR_CACHE = getCacheDir();
 			PathManager.DIR_ACCOUNT_NEW = PathManager.DIR_DATA + "/accounts";
@@ -105,9 +97,6 @@ public class PojavApplication extends Application {
 					break;
 			}
 		}
-	}
-	public static String getKey() {
-		return ZAN_KEY.getSecond();
 	}
 
 	@Override

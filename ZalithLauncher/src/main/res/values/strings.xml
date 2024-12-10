@@ -46,7 +46,7 @@
     <string name="generic_input_too_big">The value is too big, it can be at most %s</string>
     <string name="generic_copied">Copied</string>
     <!-- Error -->
-    <string name="error_fatal">Zalith Launcher crashed unexpectedly</string>
+    <string name="error_fatal">%s crashed unexpectedly</string>
     <string name="error_no_version">No version!</string>
     <string name="error_show_more">Show details</string>
     <string name="error_show_less">Hide details</string>
@@ -83,7 +83,7 @@
     <string name="tasks_ongoing">Tasks are being executed, please wait</string>
     <string name="mc_download_failed">Failed to download Minecraft! This may be due to poor network connection, incorrect file placement, etc.</string>
     <string name="microsoft_login_retry_later">Your actions are too frequent, please try again later</string>
-    <string name="storage_required">Zalith Launcher requires external storage, please reconnect and restart the software</string>
+    <string name="storage_required">%s requires external storage, please reconnect and restart the software</string>
     <string name="dialog_select_jar">Select Jar File</string>
     <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Select Version</string>
@@ -99,7 +99,7 @@
     <string name="notif_download_finished">The game is ready to launch</string>
     <string name="notif_download_finished_desc">Click here to launch it!</string>
     <string name="notification_permission_dialog_title">Permission Request</string>
-    <string name="notification_permission_dialog_text">Zalith Launcher requires notification permission to prevent game file downloads from stopping when you leave the app. Without this permission, Android may stop your download progress when Zalith Launcher is in the background.</string>
+    <string name="notification_permission_dialog_text">%s requires notification permission to prevent game file downloads from stopping when you leave the app. Without this permission, Android may stop your download progress when %s is in the background.</string>
     <string name="notification_permission_toast">You can change your mind at any time by going to \"System Settings\"</string>
     <string name="newdl_starting">Reading game metadata…</string>
     <string name="newdl_downloading_metadata">Downloading game metadata (%s)</string>
@@ -230,8 +230,8 @@
     <string name="version_manager_invalid">This version is invalid</string>
     <string name="version_manager_no_installed_version">Launcher did not find any installed Minecraft!</string>
     <!-- Profiles Path -->
-    <string name="permissions_manage_external_storage">Zalith Launcher requires permission to manage all files on the device to use this feature properly. Please enable the permission!</string>
-    <string name="permissions_write_external_storage">Zalith Launcher requires storage management permission. If the permission is not enabled, it may cause issues such as game files failing to save or decompress properly. Please grant the permission to ensure proper functionality.</string>
+    <string name="permissions_manage_external_storage">%s requires permission to manage all files on the device to use this feature properly. Please enable the permission!</string>
+    <string name="permissions_write_external_storage">%s requires storage management permission. If the permission is not enabled, it may cause issues such as game files failing to save or decompress properly. Please grant the permission to ensure proper functionality.</string>
     <string name="profiles_path_title">Game Path Management</string>
     <string name="profiles_path_default">Default Path</string>
     <string name="profiles_path_settings">Open Path Settings</string>

@@ -9,12 +9,12 @@ import android.os.FileObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.event.sticky.RunningVersionEvent;
 
-import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,14 +58,14 @@ public class MCOptionUtils {
             while ((line = reader.readLine()) != null) {
                 int firstColonIndex = line.indexOf(':');
                 if(firstColonIndex < 0) {
-                    Logging.w(PojavApplication.getKey(), "No colon on line \""+line+"\", skipping");
+                    Logging.w(InfoCenter.LAUNCHER_NAME, "No colon on line \""+line+"\", skipping");
                     continue;
                 }
                 sParameterMap.put(line.substring(0,firstColonIndex), line.substring(firstColonIndex+1));
             }
             reader.close();
         } catch (IOException e) {
-            Logging.w(PojavApplication.getKey(), "Could not load options.txt", e);
+            Logging.w(InfoCenter.LAUNCHER_NAME, "Could not load options.txt", e);
         }
     }
 
@@ -113,7 +113,7 @@ public class MCOptionUtils {
             Tools.write(sVersion.getGameDir().getAbsolutePath() + "/options.txt", result.toString());
             sFileObserver.startWatching();
         } catch (IOException e) {
-            Logging.w(PojavApplication.getKey(), "Could not save options.txt", e);
+            Logging.w(InfoCenter.LAUNCHER_NAME, "Could not save options.txt", e);
         }
     }
 
