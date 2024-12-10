@@ -6,12 +6,12 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
 import com.movtery.zalithlauncher.utils.path.UrlManager.Companion.TIME_OUT
 import com.movtery.zalithlauncher.utils.path.UrlManager.Companion.createRequestBuilder
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.apache.commons.text.StringEscapeUtils
 import org.json.JSONObject
 import java.io.IOException
 import java.util.Objects
@@ -102,7 +102,7 @@ object OtherLoginApi {
                     }
 
                     if (errorMessage.contains("\\u"))
-                        errorMessage = StringEscapeUtils.unescapeJava(errorMessage.replace("\\\\u", "\\u"))
+                        errorMessage = StringUtilsKt.decodeUnicode(errorMessage.replace("\\\\u", "\\u"))
                 }.getOrElse { e -> e("Other Login", Tools.printToString(e)) }
                 listener.onFailed("(${response.code}) $errorMessage")
             }

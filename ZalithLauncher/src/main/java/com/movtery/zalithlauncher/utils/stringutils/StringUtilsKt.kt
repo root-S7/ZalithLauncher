@@ -24,5 +24,17 @@ class StringUtilsKt {
 
         @JvmStatic
         fun removePrefix(string: String, prefix: String) = string.removePrefix(prefix)
+
+        @JvmStatic
+        fun decodeUnicode(input: String): String {
+            val regex = """\\u([0-9a-fA-F]{4})""".toRegex()
+            var result = input
+            regex.findAll(input).forEach { match ->
+                val unicode = match.groupValues[1]
+                val char = Character.toChars(unicode.toInt(16))[0]
+                result = result.replace(match.value, char.toString())
+            }
+            return result
+        }
     }
 }
