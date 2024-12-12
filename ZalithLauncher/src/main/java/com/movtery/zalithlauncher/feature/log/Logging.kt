@@ -2,6 +2,7 @@ package com.movtery.zalithlauncher.feature.log
 
 import android.util.Log
 import com.movtery.zalithlauncher.BuildConfig
+import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.utils.path.PathManager.Companion.DIR_LAUNCHER_LOG
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
@@ -73,7 +74,7 @@ object Logging {
     private fun writeLauncherInfo() {
         writeToFile(
             """
-                =============== Zalith Launcher ===============
+                =============== ${InfoCenter.APP_NAME} ===============
                 - Version Name : ${BuildConfig.VERSION_NAME}
                 - Version Code : ${BuildConfig.VERSION_CODE}
                 - Build Type : ${BuildConfig.BUILD_TYPE}

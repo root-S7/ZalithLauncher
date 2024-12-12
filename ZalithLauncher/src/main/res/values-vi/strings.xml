@@ -76,7 +76,7 @@
     <string name="memory_warning_msg">Bộ nhớ hiện có (%d) thấp hơn bộ nhớ được phân bổ (%d), điều này có thể gây ra sự cố trò chơi, nếu trò chơi bị sự cố, vui lòng thay đổi cấu hình!</string>
     <string name="address_memory_warning_msg">Không gian bộ nhớ trống hiện có (%d) thấp hơn bộ nhớ được phân bổ (%d), điều này sẽ gây ra sự cố, nếu trò chơi bị sự cố, vui lòng điều chỉnh phân bổ bộ nhớ.</string>
     <string name="notif_channel_name">Thông thường</string>
-    <string name="lazy_service_default_title">Dịch vụ Tiếp tân Zalith</string>
+    <string name="lazy_service_default_title">Dịch vụ Tiếp tân %s</string>
     <string name="progresslayout_tasks_in_progress">%d nhiệm vụ đang diễn ra</string>
     <string name="notification_terminate">Kết thúc</string>
     <string name="notification_game_runs">Trò chơi đang chạy!</string>

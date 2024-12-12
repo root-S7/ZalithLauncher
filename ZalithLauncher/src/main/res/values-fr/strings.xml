@@ -76,7 +76,7 @@
     <string name="memory_warning_msg">La mémoire disponible actuelle (%d) est inférieure à la mémoire allouée (%d), ce qui pourrait entraîner un plantage du jeu. Si le jeu plante, veuillez modifier la configuration !</string>
     <string name="address_memory_warning_msg">L\'espace mémoire libre disponible (%d) est inférieur à la mémoire allouée (%d), ce qui entraînera un plantage. Si le jeu plante, veuillez ajuster l\'allocation de mémoire.</string>
     <string name="notif_channel_name">Général</string>
-    <string name="lazy_service_default_title">Service de Réception Zalith</string>
+    <string name="lazy_service_default_title">Service de Réception %s</string>
     <string name="progresslayout_tasks_in_progress">%d tâches en cours</string>
     <string name="notification_terminate">Terminer</string>
     <string name="notification_game_runs">Le jeu est en cours d\'exécution !</string>

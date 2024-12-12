@@ -76,7 +76,7 @@
     <string name="memory_warning_msg">الذاكرة المتاحة حاليًا (%d) أقل من الذاكرة المخصصة (%d)، مما قد يؤدي إلى تعطل اللعبة، إذا تعطلت اللعبة، يرجى تغيير الإعدادات!</string>
     <string name="address_memory_warning_msg">المساحة الحرة المتاحة (%d) أقل من الذاكرة المخصصة (%d)، مما يؤدي إلى التعطل، إذا تعطلت اللعبة، يرجى ضبط تخصيص الذاكرة.</string>
     <string name="notif_channel_name">عام</string>
-    <string name="lazy_service_default_title">خدمة مكتب Zalith الأمامية</string>
+    <string name="lazy_service_default_title">خدمة مكتب %s الأمامية</string>
     <string name="progresslayout_tasks_in_progress">%d مهمة قيد التنفيذ</string>
     <string name="notification_terminate">إنهاء</string>
     <string name="notification_game_runs">اللعبة تعمل!</string>

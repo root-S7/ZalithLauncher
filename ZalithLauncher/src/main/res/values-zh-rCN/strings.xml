@@ -78,7 +78,7 @@
     <string name="memory_warning_msg">当前可用内存（%d）低于所分配的内存（%d），这可能会导致游戏崩溃，如果游戏崩溃请更改配置！</string>
     <string name="address_memory_warning_msg">当前可用的空闲内存空间 (%d) 低于分配的内存 (%d)，这会导致崩溃，如果游戏崩溃，请调整内存分配。</string>
     <string name="notif_channel_name">常规</string>
-    <string name="lazy_service_default_title">Zalith 前台服务</string>
+    <string name="lazy_service_default_title">%s 前台服务</string>
     <string name="progresslayout_tasks_in_progress">%d 项任务正在进行中</string>
     <string name="notification_terminate">终止</string>
     <string name="notification_game_runs">游戏正在运行！</string>
