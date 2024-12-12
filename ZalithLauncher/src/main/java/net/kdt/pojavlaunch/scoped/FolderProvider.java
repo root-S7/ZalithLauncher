@@ -1,9 +1,11 @@
 package net.kdt.pojavlaunch.scoped;
 
+import android.content.ContentResolver;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
@@ -14,6 +16,7 @@ import android.webkit.MimeTypeMap;
 
 import androidx.annotation.Nullable;
 
+import com.movtery.zalithlauncher.BuildConfig;
 import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
@@ -46,6 +49,9 @@ public class FolderProvider extends DocumentsProvider {
 
     private static final File BASE_DIR = new File(PathManager.DIR_GAME_HOME);
 
+    private ContentResolver mContentResolver;
+    private String mStorageProviderAuthortiy;
+
     // The default columns to return information about a root if no specific
     // columns are requested in a query.
     private static final String[] DEFAULT_ROOT_PROJECTION = new String[]{
@@ -74,10 +80,15 @@ public class FolderProvider extends DocumentsProvider {
     public Cursor queryRoots(String[] projection) {
         final MatrixCursor result = new MatrixCursor(projection != null ? projection : DEFAULT_ROOT_PROJECTION);
 
+        String summary = InfoCenter.APP_NAME;
+        if (BuildConfig.DEBUG) {
+            summary = "(" + getContext().getString(R.string.about_version_status_debug) + ") " + summary;
+        }
+
         final MatrixCursor.RowBuilder row = result.newRow();
         row.add(Root.COLUMN_ROOT_ID, getDocIdForFile(BASE_DIR));
         row.add(Root.COLUMN_DOCUMENT_ID, getDocIdForFile(BASE_DIR));
-        row.add(Root.COLUMN_SUMMARY, null);
+        row.add(Root.COLUMN_SUMMARY, summary);
         row.add(Root.COLUMN_FLAGS, Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_SEARCH | Root.FLAG_SUPPORTS_IS_CHILD);
         row.add(Root.COLUMN_TITLE, InfoCenter.APP_NAME);
         row.add(Root.COLUMN_MIME_TYPES, ALL_MIME_TYPES);
@@ -89,6 +100,8 @@ public class FolderProvider extends DocumentsProvider {
     @Override
     public Cursor queryDocument(String documentId, String[] projection) throws FileNotFoundException {
         final MatrixCursor result = new MatrixCursor(projection != null ? projection : DEFAULT_DOCUMENT_PROJECTION);
+        // Future-proofing in case if we implement realtime file watching
+        result.setNotificationUri(mContentResolver, createUriForDocId(documentId));
         includeFile(result, documentId, null);
         return result;
     }
@@ -102,6 +115,8 @@ public class FolderProvider extends DocumentsProvider {
         for (File file : children) {
             includeFile(result, null, file);
         }
+        // Set the notification URI as that's what the "Files" app will be listening to in case of file deletion
+        result.setNotificationUri(mContentResolver, createUriForDocId(parentDocumentId));
         return result;
     }
 
@@ -121,6 +136,8 @@ public class FolderProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
+        mContentResolver = getContext().getContentResolver();
+        mStorageProviderAuthortiy = getContext().getString(R.string.storageProviderAuthorities);
         return true;
     }
 
@@ -144,6 +161,8 @@ public class FolderProvider extends DocumentsProvider {
         } catch (IOException e) {
             throw new FileNotFoundException("Failed to create document with id " + newFile.getPath());
         }
+        // Notify the file manager that the parent directory has changed
+        notifyChange(createUriForDocId(parentDocumentId));
         return newFile.getPath();
     }
 
@@ -188,6 +207,8 @@ public class FolderProvider extends DocumentsProvider {
                 throw new FileNotFoundException("Failed to delete document with id " + documentId);
             }
         }
+        // Notify the file manager that the parent directory has changed
+        notifyChange(createUriForFile(file.getParentFile()));
     }
 
     @Override
@@ -328,5 +349,15 @@ public class FolderProvider extends DocumentsProvider {
         Collections.reverse(pathIds);
         Logging.i("FolderProvider", pathIds.toString());
         return new DocumentsContract.Path(getDocIdForFile(source), pathIds);
+    }
+
+    private Uri createUriForDocId(String documentId) throws FileNotFoundException {
+        return createUriForFile(getFileForDocId(documentId));
+    }
+    private Uri createUriForFile(File file) {
+        return DocumentsContract.buildDocumentUri(mStorageProviderAuthortiy, file.getAbsolutePath());
+    }
+    private void notifyChange(Uri uri) {
+        mContentResolver.notifyChange(uri, null);
     }
 }
