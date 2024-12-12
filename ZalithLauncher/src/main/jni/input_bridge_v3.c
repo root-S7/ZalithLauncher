@@ -627,6 +627,7 @@ static bool tryCriticalNative(JNIEnv *env) {
     };
     jclass criticalNativeTest = (*env)->FindClass(env, "net/kdt/pojavlaunch/CriticalNativeTest");
     if(criticalNativeTest == NULL) {
+        LOGD("No CriticalNativeTest class found !");
         (*env)->ExceptionClear(env);
         return false;
     }

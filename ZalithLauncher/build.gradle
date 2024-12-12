@@ -78,7 +78,10 @@ android {
             minifyEnabled true
             shrinkResources true
         }
-
+        proguardNoDebug {
+            initWith proguard
+            debuggable false
+        }
         release {
             // Don't set to true or java.awt will be a.a or something similar.
             minifyEnabled false
@@ -167,6 +170,7 @@ android {
 
     buildFeatures {
         prefab true
+        buildConfig true
     }
 
     buildToolsVersion = '34.0.0'
