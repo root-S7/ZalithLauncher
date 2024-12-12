@@ -71,7 +71,6 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'application_package', nameId + '.debug'
             resValue 'string', 'storageProviderAuthorities', nameId + '.scoped.gamefolder.debug'
         }
         proguard {
@@ -87,7 +86,6 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'application_package', nameId
             resValue 'string', 'storageProviderAuthorities', nameId + '.scoped.gamefolder'
             signingConfig signingConfigs.releaseBuild
         }
