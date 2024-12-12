@@ -515,6 +515,7 @@
     <string name="download_info_dependencies">依賴類型:</string>
     <string name="download_info_release_type_beta">測試版</string>
     <string name="download_info_release_type_alpha">內測版</string>
+    <string name="download_info_load_screenshot">展示螢幕截圖</string>
     <string name="download_search_failed">搜尋資源時失敗！</string>
     <string name="download_search_no_result">未找到相關資源！</string>
     <string name="download_search_platform_not_supported">當前平台不支持下載這類資源，或不支持此類別篩選！</string>

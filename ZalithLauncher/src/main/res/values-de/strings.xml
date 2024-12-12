@@ -515,6 +515,7 @@
     <string name="download_info_dependencies">Abhängigkeitsart:</string>
     <string name="download_info_release_type_beta">Beta</string>
     <string name="download_info_release_type_alpha">Alpha</string>
+    <string name="download_info_load_screenshot">Bildschirmfoto anzeigen</string>
     <string name="download_search_failed">Fehler beim Suchen nach Ressourcen!</string>
     <string name="download_search_no_result">Keine verwandten Ressourcen gefunden!</string>
     <string name="download_search_platform_not_supported">Die aktuelle Plattform unterstützt das Herunterladen dieses Typs von Ressourcen oder diese Kategoriefilterung nicht!</string>

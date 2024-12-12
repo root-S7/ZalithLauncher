@@ -515,6 +515,7 @@
     <string name="download_info_dependencies">Type de dépendance:</string>
     <string name="download_info_release_type_beta">Bêta</string>
     <string name="download_info_release_type_alpha">Alpha</string>
+    <string name="download_info_load_screenshot">Afficher la capture d\'écran</string>
     <string name="download_search_failed">Échec de la recherche de ressources!</string>
     <string name="download_search_no_result">Aucune ressource correspondante trouvée!</string>
     <string name="download_search_platform_not_supported">La plateforme actuelle ne prend pas en charge le téléchargement de ce type de ressource ou ce filtre de catégorie!</string>

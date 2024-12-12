@@ -515,6 +515,7 @@
     <string name="download_info_dependencies">Тип зависимости:</string>
     <string name="download_info_release_type_beta">Бета</string>
     <string name="download_info_release_type_alpha">Альфа</string>
+    <string name="download_info_load_screenshot">Показать снимок экрана</string>
     <string name="download_search_failed">Не удалось найти ресурсы!</string>
     <string name="download_search_no_result">Связанные ресурсы не найдены!</string>
     <string name="download_search_platform_not_supported">Текущая платформа не поддерживает загрузку этого типа ресурса или фильтрацию этой категории!</string>

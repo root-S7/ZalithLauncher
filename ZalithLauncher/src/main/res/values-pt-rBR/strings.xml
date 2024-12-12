@@ -515,6 +515,7 @@
     <string name="download_info_dependencies">Tipo de Dependência:</string>
     <string name="download_info_release_type_beta">Beta</string>
     <string name="download_info_release_type_alpha">Alpha</string>
+    <string name="download_info_load_screenshot">Mostrar Captura de Tela</string>
     <string name="download_search_failed">Falha ao buscar recursos!</string>
     <string name="download_search_no_result">Nenhum recurso relacionado encontrado!</string>
     <string name="download_search_platform_not_supported">A plataforma atual não suporta o download deste tipo de recurso ou este filtro de categoria!</string>

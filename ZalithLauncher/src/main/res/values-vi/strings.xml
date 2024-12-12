@@ -515,6 +515,7 @@
     <string name="download_info_dependencies">Loại phụ thuộc:</string>
     <string name="download_info_release_type_beta">Phiên bản Beta</string>
     <string name="download_info_release_type_alpha">Phiên bản Alpha</string>
+    <string name="download_info_load_screenshot">Hiển thị ảnh chụp màn hình</string>
     <string name="download_search_failed">Tìm kiếm tài nguyên thất bại!</string>
     <string name="download_search_no_result">Không tìm thấy tài nguyên liên quan!</string>
     <string name="download_search_platform_not_supported">Nền tảng hiện tại không hỗ trợ tải xuống loại tài nguyên này hoặc bộ lọc loại này!</string>
