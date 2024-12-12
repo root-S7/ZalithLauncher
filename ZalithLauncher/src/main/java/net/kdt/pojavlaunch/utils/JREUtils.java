@@ -351,6 +351,13 @@ public class JREUtils {
         userArgs.addAll(JVMArgs);
         activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.autoram_info_msg, AllSettings.getRamAllocation().getValue().getValue()), Toast.LENGTH_SHORT).show());
         System.out.println(JVMArgs);
+        for (int i = 0; i < userArgs.size(); i++) {
+            String arg = userArgs.get(i);
+            if (arg.startsWith("--accessToken")) {
+                i += 1;
+            }
+            Logger.appendToLog("JVMArg: " + arg);
+        }
 
         initJavaRuntime(runtimeHome);
         setupExitTrap(activity.getApplication());
