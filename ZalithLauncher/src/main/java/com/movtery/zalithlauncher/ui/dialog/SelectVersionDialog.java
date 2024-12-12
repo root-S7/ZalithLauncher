@@ -76,7 +76,7 @@ public class SelectVersionDialog extends FullScreenDialog {
         alphaTab = mTabLayout.newTab();
         returnTab = mTabLayout.newTab();
 
-        releaseTab.setText(context.getString(R.string.version_release));
+        releaseTab.setText(context.getString(R.string.generic_release));
         snapshotTab.setText(context.getString(R.string.version_snapshot));
         betaTab.setText(context.getString(R.string.version_beta));
         alphaTab.setText(context.getString(R.string.version_alpha));

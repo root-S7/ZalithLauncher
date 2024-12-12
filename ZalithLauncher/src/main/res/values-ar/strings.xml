@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">القيمة المدخلة صغيرة جدًا، يجب أن تكون على الأقل %s</string>
     <string name="generic_input_too_big">القيمة المدخلة كبيرة جدًا، يجب أن تكون على الأكثر %s</string>
     <string name="generic_copied">تم النسخ</string>
+    <string name="generic_release">الإصدار الرسمي</string>
+    <string name="generic_debug">إصدار تجريبي</string>
+    <string name="generic_pre_release">إصدار ما قبل النشر</string>
+    <string name="generic_beta">نسخة بيتا</string>
+    <string name="generic_alpha">نسخة ألفا</string>
     <!-- Error -->
     <string name="error_fatal">حدث انهيار غير متوقع في %s</string>
     <string name="error_no_version">لا توجد نسخة!</string>
@@ -67,7 +72,6 @@
     <string name="customctrl_editor_exit_msg">هل أنت متأكد من الخروج؟</string>
     <string name="customctrl_editor_exit">الخروج من المحرر</string>
     <string name="global_save_and_exit">حفظ والخروج</string>
-    <string name="version_release">الإصدار الرسمي</string>
     <string name="version_snapshot">الإصدار المبدئي</string>
     <string name="version_alpha">إصدار ألفا</string>
     <string name="version_beta">إصدار بيتا</string>
@@ -513,8 +517,6 @@
     <string name="download_info_date">تاريخ الإنشاء:</string>
     <string name="download_info_modloader">متوافق مع:</string>
     <string name="download_info_dependencies">نوع الاعتماد:</string>
-    <string name="download_info_release_type_beta">نسخة تجريبية</string>
-    <string name="download_info_release_type_alpha">نسخة ألفا</string>
     <string name="download_info_load_screenshot">إظهار لقطة الشاشة</string>
     <string name="download_search_failed">فشل في البحث عن الموارد!</string>
     <string name="download_search_no_result">لم يتم العثور على موارد ذات صلة!</string>
@@ -612,8 +614,6 @@
     <string name="about_version_code">رمز إصدار البرنامج:</string>
     <string name="about_last_update_time">آخر وقت تحديث:</string>
     <string name="about_version_status">حالة الإصدار:</string>
-    <string name="about_version_status_debug">إصدار تجريبي</string>
-    <string name="about_version_status_pre_release">إصدار مسبق</string>
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">يمكنك النقر على هذا الزر للإغلاق والعودة إلى الواجهة السابقة.</string>
     <string name="newbie_guide_general_refresh">يمكنك النقر على هذا الزر لتحديث المحتوى الحالي.</string>

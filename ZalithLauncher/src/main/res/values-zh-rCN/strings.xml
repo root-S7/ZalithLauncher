@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">填写的值过小，至少需要为 %s</string>
     <string name="generic_input_too_big">填写的值过大，最大只能为 %s</string>
     <string name="generic_copied">已复制</string>
+    <string name="generic_release">正式版</string>
+    <string name="generic_debug">测试版</string>
+    <string name="generic_pre_release">预发布版</string>
+    <string name="generic_beta">测试版</string>
+    <string name="generic_alpha">内测版</string>
 
     <!-- Error -->
     <string name="error_fatal">%s 意外地崩溃了</string>
@@ -69,7 +74,6 @@
     <string name="customctrl_editor_exit_msg">你是否确认退出？</string>
     <string name="customctrl_editor_exit">退出编辑器</string>
     <string name="global_save_and_exit">保存并退出</string>
-    <string name="version_release">正式版</string>
     <string name="version_snapshot">快照版</string>
     <string name="version_alpha">Alpha 版</string>
     <string name="version_beta">Beta 版</string>
@@ -543,8 +547,6 @@
     <string name="download_info_date">创建日期:</string>
     <string name="download_info_modloader">适用于:</string>
     <string name="download_info_dependencies">依赖类型:</string>
-    <string name="download_info_release_type_beta">测试版</string>
-    <string name="download_info_release_type_alpha">内测版</string>
     <string name="download_info_load_screenshot">展示屏幕截图</string>
     <string name="download_search_failed">搜索资源时失败！</string>
     <string name="download_search_no_result">未找到相关资源！</string>
@@ -649,8 +651,6 @@
     <string name="about_version_code">软件版本码:</string>
     <string name="about_last_update_time">上一次更新时间:</string>
     <string name="about_version_status">版本状态:</string>
-    <string name="about_version_status_debug">测试版</string>
-    <string name="about_version_status_pre_release">预发布版</string>
 
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">可点击此按钮以关闭并返回上一个界面。</string>

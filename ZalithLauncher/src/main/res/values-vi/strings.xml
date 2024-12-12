@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">Giá trị đã nhập quá nhỏ, cần ít nhất là %s</string>
     <string name="generic_input_too_big">Giá trị đã nhập quá lớn, tối đa chỉ là %s</string>
     <string name="generic_copied">Đã sao chép</string>
+    <string name="generic_release">Phiên bản chính thức</string>
+    <string name="generic_debug">Phiên bản thử nghiệm</string>
+    <string name="generic_pre_release">Phiên bản phát hành trước</string>
+    <string name="generic_beta">Phiên bản beta</string>
+    <string name="generic_alpha">Phiên bản alpha</string>
     <!-- Error -->
     <string name="error_fatal">%s đã gặp sự cố nghiêm trọng</string>
     <string name="error_no_version">Không có phiên bản!</string>
@@ -67,7 +72,6 @@
     <string name="customctrl_editor_exit_msg">Bạn có chắc chắn muốn thoát?</string>
     <string name="customctrl_editor_exit">Thoát trình soạn thảo</string>
     <string name="global_save_and_exit">Lưu và thoát</string>
-    <string name="version_release">Phiên bản chính thức</string>
     <string name="version_snapshot">Phiên bản Snapshot</string>
     <string name="version_alpha">Phiên bản Alpha</string>
     <string name="version_beta">Phiên bản Beta</string>
@@ -513,8 +517,6 @@
     <string name="download_info_date">Ngày tạo:</string>
     <string name="download_info_modloader">Tương thích với:</string>
     <string name="download_info_dependencies">Loại phụ thuộc:</string>
-    <string name="download_info_release_type_beta">Phiên bản Beta</string>
-    <string name="download_info_release_type_alpha">Phiên bản Alpha</string>
     <string name="download_info_load_screenshot">Hiển thị ảnh chụp màn hình</string>
     <string name="download_search_failed">Tìm kiếm tài nguyên thất bại!</string>
     <string name="download_search_no_result">Không tìm thấy tài nguyên liên quan!</string>
@@ -612,8 +614,6 @@
     <string name="about_version_code">Mã phiên bản phần mềm:</string>
     <string name="about_last_update_time">Lần cập nhật cuối:</string>
     <string name="about_version_status">Trạng thái phiên bản:</string>
-    <string name="about_version_status_debug">Bản thử nghiệm</string>
-    <string name="about_version_status_pre_release">Bản phát hành trước</string>
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">Có thể nhấn nút này để đóng và quay lại giao diện trước đó.</string>
     <string name="newbie_guide_general_refresh">Có thể nhấn nút này để làm mới nội dung hiện tại.</string>

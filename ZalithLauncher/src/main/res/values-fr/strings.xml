@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">La valeur saisie est trop petite, elle doit être au moins %s</string>
     <string name="generic_input_too_big">La valeur saisie est trop grande, elle ne peut être que %s</string>
     <string name="generic_copied">Copié</string>
+    <string name="generic_release">Version officielle</string>
+    <string name="generic_debug">Version de test</string>
+    <string name="generic_pre_release">Version préliminaire</string>
+    <string name="generic_beta">Version bêta</string>
+    <string name="generic_alpha">Version alpha</string>
     <!-- Error -->
     <string name="error_fatal">%s a rencontré une erreur fatale</string>
     <string name="error_no_version">Aucune version disponible !</string>
@@ -67,7 +72,6 @@
     <string name="customctrl_editor_exit_msg">Êtes-vous sûr de vouloir quitter ?</string>
     <string name="customctrl_editor_exit">Quitter l\'éditeur</string>
     <string name="global_save_and_exit">Sauvegarder et quitter</string>
-    <string name="version_release">Version officielle</string>
     <string name="version_snapshot">Version snapshot</string>
     <string name="version_alpha">Version Alpha</string>
     <string name="version_beta">Version Beta</string>
@@ -513,8 +517,6 @@
     <string name="download_info_date">Date de création:</string>
     <string name="download_info_modloader">Compatible avec:</string>
     <string name="download_info_dependencies">Type de dépendance:</string>
-    <string name="download_info_release_type_beta">Bêta</string>
-    <string name="download_info_release_type_alpha">Alpha</string>
     <string name="download_info_load_screenshot">Afficher la capture d\'écran</string>
     <string name="download_search_failed">Échec de la recherche de ressources!</string>
     <string name="download_search_no_result">Aucune ressource correspondante trouvée!</string>
@@ -612,8 +614,6 @@
     <string name="about_version_code">Code de version du logiciel :</string>
     <string name="about_last_update_time">Dernière date de mise à jour :</string>
     <string name="about_version_status">État de la version :</string>
-    <string name="about_version_status_debug">Version de test</string>
-    <string name="about_version_status_pre_release">Version préliminaire</string>
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">Vous pouvez cliquer sur ce bouton pour fermer et revenir à l\'écran précédent.</string>
     <string name="newbie_guide_general_refresh">Vous pouvez cliquer sur ce bouton pour actualiser le contenu actuel.</string>

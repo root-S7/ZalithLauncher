@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">Введенное значение слишком маленькое, минимум %s</string>
     <string name="generic_input_too_big">Введенное значение слишком большое, максимум %s</string>
     <string name="generic_copied">Скопировано</string>
+    <string name="generic_release">Официальная версия</string>
+    <string name="generic_debug">Тестовая версия</string>
+    <string name="generic_pre_release">Предрелизная версия</string>
+    <string name="generic_beta">Бета-версия</string>
+    <string name="generic_alpha">Альфа-версия</string>
     <!-- Error -->
     <string name="error_fatal">%s неожиданно завершил работу</string>
     <string name="error_no_version">Версия не найдена!</string>
@@ -67,7 +72,6 @@
     <string name="customctrl_editor_exit_msg">Вы уверены, что хотите выйти?</string>
     <string name="customctrl_editor_exit">Выйти из редактора</string>
     <string name="global_save_and_exit">Сохранить и выйти</string>
-    <string name="version_release">Релиз</string>
     <string name="version_snapshot">Снимок</string>
     <string name="version_alpha">Альфа</string>
     <string name="version_beta">Бета</string>
@@ -513,8 +517,6 @@
     <string name="download_info_date">Дата создания:</string>
     <string name="download_info_modloader">Совместимость с:</string>
     <string name="download_info_dependencies">Тип зависимости:</string>
-    <string name="download_info_release_type_beta">Бета</string>
-    <string name="download_info_release_type_alpha">Альфа</string>
     <string name="download_info_load_screenshot">Показать снимок экрана</string>
     <string name="download_search_failed">Не удалось найти ресурсы!</string>
     <string name="download_search_no_result">Связанные ресурсы не найдены!</string>
@@ -612,8 +614,6 @@
     <string name="about_version_code">Код версии программного обеспечения:</string>
     <string name="about_last_update_time">Дата последнего обновления:</string>
     <string name="about_version_status">Статус версии:</string>
-    <string name="about_version_status_debug">Отладочная версия</string>
-    <string name="about_version_status_pre_release">Предварительная версия</string>
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">Нажмите эту кнопку, чтобы закрыть и вернуться на предыдущий экран.</string>
     <string name="newbie_guide_general_refresh">Нажмите эту кнопку, чтобы обновить текущее содержимое.</string>

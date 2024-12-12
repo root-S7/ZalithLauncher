@@ -115,9 +115,9 @@ class VersionAdapter(
 
         private fun getDownloadTypeText(versionType: VersionType): String {
             val text = when (versionType) {
-                VersionType.RELEASE -> mContext.getString(R.string.version_release)
-                VersionType.BETA -> mContext.getString(R.string.download_info_release_type_beta)
-                VersionType.ALPHA -> mContext.getString(R.string.download_info_release_type_alpha)
+                VersionType.RELEASE -> mContext.getString(R.string.generic_release)
+                VersionType.BETA -> mContext.getString(R.string.generic_beta)
+                VersionType.ALPHA -> mContext.getString(R.string.generic_alpha)
             }
             return text
         }

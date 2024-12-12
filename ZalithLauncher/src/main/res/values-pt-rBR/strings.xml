@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">O valor preenchido é muito pequeno, deve ser pelo menos %s</string>
     <string name="generic_input_too_big">O valor preenchido é muito grande, o máximo é %s</string>
     <string name="generic_copied">Copiado</string>
+    <string name="generic_release">Versão oficial</string>
+    <string name="generic_debug">Versão de teste</string>
+    <string name="generic_pre_release">Versão preliminar</string>
+    <string name="generic_beta">Versão beta</string>
+    <string name="generic_alpha">Versão alfa</string>
     <!-- Error -->
     <string name="error_fatal">%s teve um erro e fechou inesperadamente</string>
     <string name="error_no_version">Nenhuma versão encontrada!</string>
@@ -67,7 +72,6 @@
     <string name="customctrl_editor_exit_msg">Tem certeza de que deseja sair?</string>
     <string name="customctrl_editor_exit">Sair do Editor</string>
     <string name="global_save_and_exit">Salvar e Sair</string>
-    <string name="version_release">Versão Oficial</string>
     <string name="version_snapshot">Versão Snapshot</string>
     <string name="version_alpha">Versão Alpha</string>
     <string name="version_beta">Versão Beta</string>
@@ -513,8 +517,6 @@
     <string name="download_info_date">Data de Criação:</string>
     <string name="download_info_modloader">Compatível com:</string>
     <string name="download_info_dependencies">Tipo de Dependência:</string>
-    <string name="download_info_release_type_beta">Beta</string>
-    <string name="download_info_release_type_alpha">Alpha</string>
     <string name="download_info_load_screenshot">Mostrar Captura de Tela</string>
     <string name="download_search_failed">Falha ao buscar recursos!</string>
     <string name="download_search_no_result">Nenhum recurso relacionado encontrado!</string>
@@ -612,8 +614,6 @@
     <string name="about_version_code">Código da versão do software:</string>
     <string name="about_last_update_time">Última atualização:</string>
     <string name="about_version_status">Status da versão:</string>
-    <string name="about_version_status_debug">Versão de Teste</string>
-    <string name="about_version_status_pre_release">Versão Pré-lançamento</string>
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">Você pode clicar neste botão para fechar e voltar à tela anterior.</string>
     <string name="newbie_guide_general_refresh">Você pode clicar neste botão para atualizar o conteúdo atual.</string>

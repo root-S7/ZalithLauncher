@@ -82,7 +82,7 @@ public class FolderProvider extends DocumentsProvider {
 
         String summary = InfoCenter.APP_NAME;
         if (BuildConfig.DEBUG) {
-            summary = "(" + getContext().getString(R.string.about_version_status_debug) + ") " + summary;
+            summary = "(" + getContext().getString(R.string.generic_debug) + ") " + summary;
         }
 
         final MatrixCursor.RowBuilder row = result.newRow();

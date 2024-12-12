@@ -204,9 +204,9 @@ public final class ZHTools {
     //获取版本状态信息
     public static String getVersionStatus(Context context) {
         String status;
-        if (getVersionName().contains("pre-release")) status = context.getString(R.string.about_version_status_pre_release);
-        else if (Objects.equals(BuildConfig.BUILD_TYPE, "release")) status = context.getString(R.string.version_release);
-        else status = context.getString(R.string.about_version_status_debug);
+        if (getVersionName().contains("pre-release")) status = context.getString(R.string.generic_pre_release);
+        else if (Objects.equals(BuildConfig.BUILD_TYPE, "release")) status = context.getString(R.string.generic_release);
+        else status = context.getString(R.string.generic_debug);
 
         return status;
     }

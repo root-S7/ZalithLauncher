@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">The value is too small, it must be at least %s</string>
     <string name="generic_input_too_big">The value is too big, it can be at most %s</string>
     <string name="generic_copied">Copied</string>
+    <string name="generic_release">Release</string>
+    <string name="generic_debug">Debug</string>
+    <string name="generic_pre_release">Pre-release</string>
+    <string name="generic_beta">Beta</string>
+    <string name="generic_alpha">Alpha</string>
     <!-- Error -->
     <string name="error_fatal">%s crashed unexpectedly</string>
     <string name="error_no_version">No version!</string>
@@ -67,7 +72,6 @@
     <string name="customctrl_editor_exit_msg">Are you sure you want to exit?</string>
     <string name="customctrl_editor_exit">Exit Editor</string>
     <string name="global_save_and_exit">Save and Exit</string>
-    <string name="version_release">Release</string>
     <string name="version_snapshot">Snapshot</string>
     <string name="version_alpha">Alpha</string>
     <string name="version_beta">Beta</string>
@@ -518,8 +522,6 @@
     <string name="download_info_date">Creation Date:</string>
     <string name="download_info_modloader">Compatible With:</string>
     <string name="download_info_dependencies">Dependency Type:</string>
-    <string name="download_info_release_type_beta">Beta</string>
-    <string name="download_info_release_type_alpha">Alpha</string>
     <string name="download_info_load_screenshot">Show Screenshot</string>
     <string name="download_search_failed">Failed to search for resources!</string>
     <string name="download_search_no_result">No related resources found!</string>
@@ -617,8 +619,6 @@
     <string name="about_version_code">Software Version Code:</string>
     <string name="about_last_update_time">Last Update Time:</string>
     <string name="about_version_status">Version Status:</string>
-    <string name="about_version_status_debug">Debug</string>
-    <string name="about_version_status_pre_release">Pre-release</string>
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">Click this button to close and return to the previous interface.</string>
     <string name="newbie_guide_general_refresh">Click this button to refresh the current content.</string>

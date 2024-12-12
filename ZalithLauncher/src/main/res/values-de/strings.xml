@@ -45,6 +45,11 @@
     <string name="generic_input_too_small">Der Wert ist zu klein, mindestens %s</string>
     <string name="generic_input_too_big">Der Wert ist zu groß, maximal %s</string>
     <string name="generic_copied">Kopiert</string>
+    <string name="generic_release">Release</string>
+    <string name="generic_debug">Testversion</string>
+    <string name="generic_pre_release">Vorabversion</string>
+    <string name="generic_beta">Beta-Version</string>
+    <string name="generic_alpha">Alpha-Version</string>
     <!-- Error -->
     <string name="error_fatal">%s ist unerwartet abgestürzt</string>
     <string name="error_no_version">Keine Version vorhanden!</string>
@@ -67,7 +72,6 @@
     <string name="customctrl_editor_exit_msg">Möchtest du wirklich beenden?</string>
     <string name="customctrl_editor_exit">Editor beenden</string>
     <string name="global_save_and_exit">Speichern und beenden</string>
-    <string name="version_release">Offizielle Version</string>
     <string name="version_snapshot">Snapshot</string>
     <string name="version_alpha">Alpha-Version</string>
     <string name="version_beta">Beta-Version</string>
@@ -513,8 +517,6 @@
     <string name="download_info_date">Erstellungsdatum:</string>
     <string name="download_info_modloader">Kompatibel mit:</string>
     <string name="download_info_dependencies">Abhängigkeitsart:</string>
-    <string name="download_info_release_type_beta">Beta</string>
-    <string name="download_info_release_type_alpha">Alpha</string>
     <string name="download_info_load_screenshot">Bildschirmfoto anzeigen</string>
     <string name="download_search_failed">Fehler beim Suchen nach Ressourcen!</string>
     <string name="download_search_no_result">Keine verwandten Ressourcen gefunden!</string>
@@ -612,8 +614,6 @@
     <string name="about_version_code">Software-Versionscode:</string>
     <string name="about_last_update_time">Letzte Aktualisierungszeit:</string>
     <string name="about_version_status">Versionsstatus:</string>
-    <string name="about_version_status_debug">Testversion</string>
-    <string name="about_version_status_pre_release">Vorabversion</string>
     <!-- Newbie Guide -->
     <string name="newbie_guide_general_close">Klicken Sie auf diese Schaltfläche, um zu schließen und zum vorherigen Bildschirm zurückzukehren.</string>
     <string name="newbie_guide_general_refresh">Klicken Sie auf diese Schaltfläche, um den aktuellen Inhalt zu aktualisieren.</string>

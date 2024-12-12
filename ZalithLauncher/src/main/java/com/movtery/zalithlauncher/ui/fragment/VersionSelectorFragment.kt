@@ -91,7 +91,7 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
 
     private fun bindTab() {
         binding.apply {
-            release = versionTab.newTab().setText(getString(R.string.version_release))
+            release = versionTab.newTab().setText(getString(R.string.generic_release))
             snapshot = versionTab.newTab().setText(getString(R.string.version_snapshot))
             beta = versionTab.newTab().setText(getString(R.string.version_beta))
             alpha = versionTab.newTab().setText(getString(R.string.version_alpha))

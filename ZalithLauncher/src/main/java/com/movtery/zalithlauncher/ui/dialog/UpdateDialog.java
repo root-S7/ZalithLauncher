@@ -74,7 +74,7 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
     }
 
     private String getVersionType() {
-        return getContext().getString(launcherVersion.isPreRelease() ? R.string.about_version_status_pre_release : R.string.version_release);
+        return getContext().getString(launcherVersion.isPreRelease() ? R.string.generic_pre_release : R.string.generic_release);
     }
 
     private String getLanguageText(LauncherVersion.WhatsNew whatsNew) {
