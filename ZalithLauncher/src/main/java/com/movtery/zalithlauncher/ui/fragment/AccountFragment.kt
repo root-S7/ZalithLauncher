@@ -127,6 +127,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                 TipDialog.Builder(context)
                     .setMessage(R.string.account_remove)
                     .setConfirm(R.string.generic_delete)
+                    .setWarning()
                     .setConfirmClickListener {
                         val accountFile =
                             File(PathManager.DIR_ACCOUNT_NEW, account.uniqueUUID)
@@ -255,6 +256,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                     TipDialog.Builder(requireContext())
                         .setTitle(R.string.generic_warning)
                         .setMessage(R.string.account_local_account_invalid)
+                        .setWarning()
                         .setCenterMessage(false)
                         .setConfirmClickListener { startLogin(string) }
                         .buildDialog()
@@ -284,6 +286,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                     TipDialog.Builder(requireActivity())
                         .setTitle(R.string.generic_warning)
                         .setMessage(getString(R.string.other_login_error) + error)
+                        .setWarning()
                         .setCancel(android.R.string.copy)
                         .setCancelClickListener {
                             StringUtils.copyText(

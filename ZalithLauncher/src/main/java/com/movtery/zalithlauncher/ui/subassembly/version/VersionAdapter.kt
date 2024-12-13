@@ -174,6 +174,7 @@ class VersionAdapter(
             TipDialog.Builder(context)
                 .setTitle(context.getString(R.string.version_manager_delete))
                 .setMessage(deleteMessage)
+                .setWarning()
                 .setCancelable(false)
                 .setConfirmClickListener {
                     FileDeletionHandler(

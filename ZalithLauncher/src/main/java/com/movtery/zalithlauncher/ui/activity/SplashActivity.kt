@@ -66,6 +66,7 @@ class SplashActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P && !StoragePermissionsUtils.hasStoragePermissions(this)) {
             TipDialog.Builder(this)
                 .setMessage(InfoCenter.replaceName(this, R.string.permissions_write_external_storage))
+                .setWarning()
                 .setConfirmClickListener { requestStoragePermissions() }
                 .setCancelClickListener { checkEnd() } //用户取消，那就跟随用户的意愿
                 .buildDialog()

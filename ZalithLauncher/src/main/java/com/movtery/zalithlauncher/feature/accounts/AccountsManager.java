@@ -13,6 +13,7 @@ import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
+import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
@@ -76,7 +77,13 @@ public final class AccountsManager {
                 PresentedException exception = (PresentedException) errorMessage;
                 Throwable cause = exception.getCause();
                 if (cause == null) {
-                    Tools.dialog(activity, activity.getString(R.string.generic_error), exception.toString(activity));
+                    new TipDialog.Builder(activity)
+                            .setTitle(R.string.generic_error)
+                            .setMessage(exception.toString(activity))
+                            .setWarning()
+                            .setConfirm(android.R.string.ok)
+                            .setShowCancel(false)
+                            .buildDialog();
                 } else {
                     Tools.showError(activity, exception.toString(activity), exception.getCause());
                 }

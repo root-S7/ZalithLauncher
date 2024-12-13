@@ -184,6 +184,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     new TipDialog.Builder(mContext)
                             .setTitle(R.string.generic_warning)
                             .setMessage(R.string.multirt_config_removeerror_last)
+                            .setWarning()
                             .setShowCancel(false)
                             .buildDialog();
                     return;

@@ -42,7 +42,6 @@ import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
-import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
@@ -373,15 +372,6 @@ public final class Tools {
 
         // Add your Context-related rage here
         ContextExecutor.executeTask(new ShowErrorActivity.RemoteErrorTask(e, rolledMessage));
-    }
-
-    public static void dialog(final Context context, final CharSequence title, final CharSequence message) {
-        new TipDialog.Builder(context)
-                .setTitle(title.toString())
-                .setMessage(message.toString())
-                .setConfirm(android.R.string.ok)
-                .setShowCancel(false)
-                .buildDialog();
     }
 
     private static boolean checkRules(JMinecraftVersionList.Arguments.ArgValue.ArgRules[] rules) {

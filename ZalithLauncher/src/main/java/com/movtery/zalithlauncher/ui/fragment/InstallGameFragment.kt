@@ -236,6 +236,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                         TipDialog.Builder(activity)
                             .setTitle(R.string.generic_warning)
                             .setMessage(R.string.version_install_optifine_and_forge)
+                            .setWarning()
                             .setConfirmClickListener { install() }
                             .buildDialog()
                     } else install()

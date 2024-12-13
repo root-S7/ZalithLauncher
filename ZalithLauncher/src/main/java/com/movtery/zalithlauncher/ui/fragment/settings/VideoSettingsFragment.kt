@@ -110,6 +110,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
                     TipDialog.Builder(requireActivity())
                         .setTitle(R.string.generic_warning)
                         .setMessage(R.string.setting_zink_driver_adreno)
+                        .setWarning()
                         .setCancelable(false)
                         .setConfirmClickListener { listener.onSave() }
                         .setCancelClickListener { buttonView.isChecked = false }

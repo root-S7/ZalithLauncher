@@ -35,6 +35,7 @@ class LocalAccountUtils {
             TipDialog.Builder(activity)
                 .setTitle(R.string.generic_warning)
                 .setMessage(message)
+                .setWarning()
                 .setShowCheckBox(true)
                 .setCheckBox(R.string.generic_no_more_reminders)
                 .setConfirmClickListener(confirmClickListener)

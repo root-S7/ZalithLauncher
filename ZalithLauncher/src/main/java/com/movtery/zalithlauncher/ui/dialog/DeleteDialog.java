@@ -35,6 +35,7 @@ public class DeleteDialog extends TipDialog.Builder {
                 R.string.file_delete_dir_message :
                 R.string.file_delete) : R.string.file_delete_multiple_items_message);
         setConfirm(R.string.generic_delete);
+        setWarning();
 
         setConfirmClickListener(checked -> new FileDeletionHandler(context, files, endTask).start());
     }

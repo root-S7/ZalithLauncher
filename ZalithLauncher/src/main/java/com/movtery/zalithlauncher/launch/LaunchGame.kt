@@ -87,6 +87,7 @@ class LaunchGame {
                         TipDialog.Builder(context)
                             .setTitle(R.string.generic_error)
                             .setMessage("${context.getString(R.string.account_login_skip)}\r\n$errorMessage")
+                            .setWarning()
                             .setConfirmClickListener { launch() }
                             .setCenterMessage(false)
                             .buildDialog()
@@ -217,6 +218,7 @@ class LaunchGame {
                 val builder = TipDialog.Builder(activity)
                     .setTitle(R.string.generic_warning)
                     .setMessage(activity.getString(stringId, freeDeviceMemory, AllSettings.ramAllocation.value.getValue()))
+                    .setWarning()
                     .setCenterMessage(false)
                     .setShowCancel(false)
                 if (LifecycleAwareTipDialog.haltOnDialog(activity.lifecycle, builder)) return

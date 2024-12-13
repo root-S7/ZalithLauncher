@@ -70,6 +70,7 @@ class InstallLocalModPack {
                             TaskExecutors.runInUIThread {
                                 TipDialog.Builder(context)
                                     .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
+                                    .setWarning()
                                     .setShowCancel(true)
                                     .setShowConfirm(false)
                                     .buildDialog()
