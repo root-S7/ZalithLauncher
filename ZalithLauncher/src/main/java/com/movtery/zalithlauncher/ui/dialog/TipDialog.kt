@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.view.Window
+import android.widget.TextView
 import androidx.annotation.CheckResult
 import com.movtery.zalithlauncher.databinding.DialogTipBinding
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
@@ -29,12 +30,18 @@ class TipDialog private constructor(
     private val binding = DialogTipBinding.inflate(layoutInflater)
 
     init {
+        fun TextView.addText(textString: String?) {
+            this.text = textString
+            textString ?: run { this.visibility = View.GONE }
+        }
+
         binding.apply {
             setContentView(root)
             DraggableDialog.initDialog(this@TipDialog)
 
-            titleView.text = title
-            messageView.text = message
+            titleView.addText(title)
+            messageView.addText(message)
+
             cancel?.apply { cancelButton.text = this }
             confirm?.apply { confirmButton.text = this }
             if (centerMessage) messageView.gravity = Gravity.CENTER_HORIZONTAL
