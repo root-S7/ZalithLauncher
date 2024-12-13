@@ -93,6 +93,7 @@
     <string name="version_select_hint">Version auswählen</string>
     <string name="notif_error_occured">Ein Fehler ist aufgetreten</string>
     <string name="notif_error_occured_desc">Klicken Sie hier, um Details anzuzeigen</string>
+    <string name="input_preview_tip">Eingabevorschau-Feld, erfasst die Eingabe der Soft-Tastatur, nur als Referenz:</string>
     <string name="dl_tampered_manifest_title">Warnung zur Dateiprüfung</string>
     <string name="dl_tampered_manifest"><![CDATA[Die Versionsliste der Spiele auf der Mirror-Quelle stimmt nicht mit der offiziellen Versionsliste von Mojang überein, was bedeutet, dass sie möglicherweise manipuliert wurde.<br/>
         <b>Dies ist nicht sicher. Wenn Sie fortfahren, könnte Ihre persönliche Sicherheit gefährdet sein!</b><br/>

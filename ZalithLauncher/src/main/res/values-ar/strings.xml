@@ -93,6 +93,7 @@
     <string name="version_select_hint">اختيار الإصدار</string>
     <string name="notif_error_occured">حدث خطأ</string>
     <string name="notif_error_occured_desc">انقر لعرض التفاصيل</string>
+    <string name="input_preview_tip">معاينة مربع الإدخال، التقاط إدخال لوحة المفاتيح الافتراضية، للمرجعية فقط:</string>
     <string name="dl_tampered_manifest_title">تحذير التحقق من الملف</string>
     <string name="dl_tampered_manifest"><![CDATA[قائمة إصدارات اللعبة على مصدر التصوير لا تتطابق مع قائمة إصدارات Mojang الرسمية، مما يعني أنها قد تكون معدلة<br/>
         <b>هذا ليس آمنًا. إذا استمريت، قد تكون معلوماتك الشخصية في خطر!</b><br/>

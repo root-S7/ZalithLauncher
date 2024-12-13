@@ -95,6 +95,7 @@
     <string name="version_select_hint">选择版本</string>
     <string name="notif_error_occured">出现了一个错误</string>
     <string name="notif_error_occured_desc">点击查看详细信息</string>
+    <string name="input_preview_tip">预览输入框，捕获软键盘输入，仅供参考:</string>
 
     <string name="dl_tampered_manifest_title">文件校验警告</string>
     <string name="dl_tampered_manifest"><![CDATA[镜像源上的游戏版本列表与 Mojang 官方版本列表并不一致，这意味着它可能被篡改了<br/>

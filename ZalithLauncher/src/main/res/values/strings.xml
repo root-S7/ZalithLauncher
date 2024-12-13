@@ -93,6 +93,7 @@
     <string name="version_select_hint">Select Version</string>
     <string name="notif_error_occured">An error occurred</string>
     <string name="notif_error_occured_desc">Click to view details</string>
+    <string name="input_preview_tip">Input preview box, capturing soft keyboard input, for reference only:</string>
     <string name="dl_tampered_manifest_title">File Verification Warning</string>
     <string name="dl_tampered_manifest"><![CDATA[The game version manifest on the mirror does not match the official Mojang version manifest, which means it may have been tampered with.<br/>
         <b>This is not safe. Your personal information may be at risk if you continue.</b><br/>

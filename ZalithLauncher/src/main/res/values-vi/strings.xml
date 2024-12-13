@@ -93,6 +93,7 @@
     <string name="version_select_hint">Chọn phiên bản</string>
     <string name="notif_error_occured">Đã xảy ra lỗi</string>
     <string name="notif_error_occured_desc">Nhấn vào đây để xem chi tiết</string>
+    <string name="input_preview_tip">Xem trước khung nhập liệu, ghi lại đầu vào từ bàn phím mềm, chỉ để tham khảo:</string>
     <string name="dl_tampered_manifest_title">Cảnh báo xác minh tệp</string>
     <string name="dl_tampered_manifest"><![CDATA[Danh sách phiên bản trò chơi trên nguồn hình ảnh không khớp với danh sách phiên bản chính thức của Mojang, điều này có nghĩa là nó có thể đã bị thay đổi<br/>
         <b>Hành động này không an toàn. Nếu bạn tiếp tục, thông tin cá nhân của bạn có thể gặp rủi ro!</b><br/>

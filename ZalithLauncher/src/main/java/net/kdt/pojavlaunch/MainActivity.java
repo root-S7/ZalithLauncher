@@ -371,9 +371,9 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     //使用一个输入预览框来展示用户输入的内容
     private void setInputPreview(boolean show) {
         mInputPreviewAnim.clearEntries();
-        mInputPreviewAnim.apply(new AnimPlayer.Entry(binding.inputPreview, show ? Animations.FadeIn : Animations.FadeOut))
-                .setOnStart(() -> binding.inputPreview.setVisibility(View.VISIBLE))
-                .setOnEnd(() -> binding.inputPreview.setVisibility(show ? View.VISIBLE : View.GONE))
+        mInputPreviewAnim.apply(new AnimPlayer.Entry(binding.inputPreviewLayout, show ? Animations.FadeIn : Animations.FadeOut))
+                .setOnStart(() -> binding.inputPreviewLayout.setVisibility(View.VISIBLE))
+                .setOnEnd(() -> binding.inputPreviewLayout.setVisibility(show ? View.VISIBLE : View.GONE))
                 .start();
     }
 

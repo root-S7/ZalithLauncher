@@ -93,6 +93,7 @@
     <string name="version_select_hint">Selecionar Versão</string>
     <string name="notif_error_occured">Ocorreu um erro</string>
     <string name="notif_error_occured_desc">Clique para ver detalhes</string>
+    <string name="input_preview_tip">Pré-visualização da entrada, captura a entrada do teclado virtual, apenas para referência:</string>
     <string name="dl_tampered_manifest_title">Aviso de Verificação de Arquivo</string>
     <string name="dl_tampered_manifest"><![CDATA[A lista de versões do jogo na fonte de espelho não coincide com a lista oficial da Mojang, o que significa que ela pode ter sido adulterada.<br/>
         <b>Isso não é seguro. Se você continuar, suas informações pessoais podem estar em risco!</b><br/>

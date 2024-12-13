@@ -79,15 +79,31 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/input_preview"
+        <LinearLayout
+            android:id="@+id/input_preview_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
             android:layout_gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_8sdp"
             android:background="@drawable/background_card"
-            android:visibility="gone"/>
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:layout_gravity="start"
+                android:text="@string/input_preview_tip"
+                android:textSize="@dimen/_9sdp"/>
+
+            <TextView
+                android:id="@+id/input_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
 
     </FrameLayout>
 

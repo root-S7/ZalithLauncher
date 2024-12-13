@@ -93,6 +93,7 @@
     <string name="version_select_hint">選擇版本</string>
     <string name="notif_error_occured">發生了一個錯誤</string>
     <string name="notif_error_occured_desc">點擊查看詳細資訊</string>
+    <string name="input_preview_tip">預覽輸入框，捕獲軟鍵盤輸入，僅供參考：</string>
     <string name="dl_tampered_manifest_title">檔案驗證警告</string>
     <string name="dl_tampered_manifest"><![CDATA[鏡像源上的遊戲版本列表與 Mojang 官方版本列表不一致，這意味著它可能被篡改了<br/>
         <b>這樣做並不安全。如果你繼續，你的個人資訊可能面臨風險！</b><br/>

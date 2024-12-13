@@ -93,6 +93,7 @@
     <string name="version_select_hint">Выберите версию</string>
     <string name="notif_error_occured">Произошла ошибка</string>
     <string name="notif_error_occured_desc">Нажмите, чтобы увидеть подробности</string>
+    <string name="input_preview_tip">Предварительный просмотр ввода, перехват ввода с экранной клавиатуры, только для справки:</string>
     <string name="dl_tampered_manifest_title">Предупреждение о проверке файла</string>
     <string name="dl_tampered_manifest"><![CDATA[Список версий игры на зеркальном источнике не соответствует официальному списку версий Mojang, что может указывать на возможность подделки.<br/>
         <b>Это небезопасно. Если вы продолжите, ваши личные данные могут быть под угрозой!</b><br/>
