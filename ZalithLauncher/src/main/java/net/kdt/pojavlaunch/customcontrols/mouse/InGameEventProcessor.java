@@ -58,6 +58,7 @@ public class InGameEventProcessor implements TouchEventProcessor {
 
     @Override
     public void cancelPendingActions() {
+        mContactHandler.clearPointer();
         cancelGestures(true);
     }
 

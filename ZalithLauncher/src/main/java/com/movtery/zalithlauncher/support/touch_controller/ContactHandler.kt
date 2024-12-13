@@ -4,6 +4,7 @@ import android.util.Log
 import android.util.SparseIntArray
 import android.view.MotionEvent
 import android.view.View
+import top.fifthlight.touchcontroller.proxy.client.LauncherSocketProxyClient
 import top.fifthlight.touchcontroller.proxy.data.Offset
 import top.fifthlight.touchcontroller.proxy.message.AddPointerMessage
 import top.fifthlight.touchcontroller.proxy.message.ClearPointerMessage
@@ -51,10 +52,7 @@ class ContactHandler {
                         )
                     }
                 }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    proxy.trySend(ClearPointerMessage)
-                    pointerIdMap.clear()
-                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> clearPointer(proxy)
                 MotionEvent.ACTION_POINTER_UP -> {
                     val i = motionEvent.actionIndex
                     val pointerId = pointerIdMap[motionEvent.getPointerId(i)]
@@ -68,6 +66,16 @@ class ContactHandler {
                 else -> {}
             }
         }
+    }
+
+    private fun clearPointer(proxy: LauncherSocketProxyClient) {
+        proxy.trySend(ClearPointerMessage)
+        pointerIdMap.clear()
+    }
+
+    fun clearPointer() {
+        ControllerProxy.getProxyClient()?.let { clearPointer(it) }
+        pointerIdMap.clear()
     }
 
     companion object {
