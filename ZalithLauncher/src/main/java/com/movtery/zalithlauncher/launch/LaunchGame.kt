@@ -12,6 +12,7 @@ import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.support.touch_controller.ControllerProxy
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -197,6 +198,8 @@ class LaunchGame {
             ).getAllArgs()
 
             FFmpegPlugin.discover(activity)
+            ControllerProxy.startProxy()
+
             JREUtils.launchJavaVM(activity, runtime, gameDirPath, launchArgs, customArgs)
         }
 
