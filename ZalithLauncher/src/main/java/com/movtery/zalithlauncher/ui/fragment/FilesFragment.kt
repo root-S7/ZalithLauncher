@@ -48,6 +48,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         const val BUNDLE_MULTI_SELECT_MODE: String = "multi_select_mode"
         const val BUNDLE_SELECT_FOLDER_MODE: String = "select_folder_mode"
         const val BUNDLE_REMOVE_LOCK_PATH: String = "remove_lock_path"
+        const val BUNDLE_TITLE_REMOVE_LOCK_PATH: String = "title_remove_lock_path"
     }
 
     private lateinit var binding: FragmentFilesBinding
@@ -59,6 +60,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
     private var mMultiSelectMode = false
     private var mSelectFolderMode = false
     private var mRemoveLockPath = false
+    private var mTitleRemoveLockPath = false
     private var mLockPath: String? = null
     private var mListPath: String? = null
 
@@ -104,7 +106,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
             fileRecyclerView.apply {
                 setShowFiles(mShowFiles)
                 setShowFolders(mShowFolders)
-                setTitleListener { title: String? -> currentPath.text = removeLockPath(title!!) }
+                setTitleListener { title: String? -> currentPath.text = removeLockPath(title!!, mTitleRemoveLockPath) }
 
                 setFileSelectedListener(object : FileSelectedListener() {
                     override fun onFileSelected(file: File?, path: String?) {
@@ -209,7 +211,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     Tools.removeCurrentFragment(requireActivity())
                 } else {
                     EventBus.getDefault().postSticky(FileSelectorEvent(
-                        removeLockPath(fileRecyclerView.fullPath.absolutePath)
+                        removeLockPath(fileRecyclerView.fullPath.absolutePath, mRemoveLockPath)
                     ))
                     Tools.removeCurrentFragment(requireActivity())
                 }
@@ -329,9 +331,9 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         filesDialog.show()
     }
 
-    private fun removeLockPath(path: String): String {
+    private fun removeLockPath(path: String, remove: Boolean): String {
         var string = path
-        if (mRemoveLockPath) {
+        if (remove) {
             string = path.replace(mLockPath!!, ".")
         }
         return string
@@ -392,6 +394,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         mMultiSelectMode = bundle.getBoolean(BUNDLE_MULTI_SELECT_MODE, true)
         mSelectFolderMode = bundle.getBoolean(BUNDLE_SELECT_FOLDER_MODE, false)
         mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true)
+        mTitleRemoveLockPath = bundle.getBoolean(BUNDLE_TITLE_REMOVE_LOCK_PATH, true)
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
