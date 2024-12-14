@@ -249,6 +249,7 @@
     <string name="pedit_isolation_enabled">Enable Version Isolation</string>
     <string name="pedit_reset_icon">This will reset the custom icon you set, and the operation is irreversible. Are you sure you want to reset the version icon?</string>
     <string name="pedit_control">Control Layout</string>
+    <string name="pedit_custom_path">Custom Path</string>
     <string name="pedit_default">(Use global default)</string>
     <string name="profile_mods_download_mod">Download Mod</string>
     <string name="profile_mods_download_mod_release_version">Show only official Minecraft versions</string>

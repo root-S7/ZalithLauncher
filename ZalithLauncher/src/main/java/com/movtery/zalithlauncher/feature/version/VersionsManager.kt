@@ -352,6 +352,7 @@ object VersionsManager {
         //保存版本配置文件
         version.getVersionConfig().copy().let { config ->
             config.setVersionPath(newVersion)
+            config.setIsolation(true)
             config.saveWithThrowable()
         }
     }

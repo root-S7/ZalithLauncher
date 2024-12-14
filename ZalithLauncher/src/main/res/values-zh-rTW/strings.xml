@@ -244,6 +244,7 @@
     <string name="pedit_isolation_enabled">啟用版本隔離</string>
     <string name="pedit_reset_icon">這將會重置你設定的自訂圖示，且操作不可逆，你確定要重置版本圖示嗎？</string>
     <string name="pedit_control">控制佈局</string>
+    <string name="pedit_custom_path">自訂路徑</string>
     <string name="pedit_default">（使用全域預設值）</string>
     <string name="profile_mods_download_mod">下載模組</string>
     <string name="profile_mods_download_mod_release_version">僅展示 Minecraft 正式版本</string>

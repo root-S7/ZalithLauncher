@@ -244,6 +244,7 @@
     <string name="pedit_isolation_enabled">Bật cách ly phiên bản</string>
     <string name="pedit_reset_icon">Điều này sẽ đặt lại biểu tượng tùy chỉnh bạn đã thiết lập và thao tác không thể hoàn tác. Bạn có chắc chắn muốn đặt lại biểu tượng phiên bản không?</string>
     <string name="pedit_control">Bố cục điều khiển</string>
+    <string name="pedit_custom_path">Đường dẫn tùy chỉnh</string>
     <string name="pedit_default">（Sử dụng giá trị mặc định toàn cục）</string>
     <string name="profile_mods_download_mod">Tải xuống Mod</string>
     <string name="profile_mods_download_mod_release_version">Chỉ hiển thị phiên bản chính thức của Minecraft</string>

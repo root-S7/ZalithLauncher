@@ -244,6 +244,7 @@
     <string name="pedit_isolation_enabled">تمكين عزل الإصدارات</string>
     <string name="pedit_reset_icon">سيتم إعادة تعيين الرمز المخصص الذي قمت بتحديده، وهذه العملية لا يمكن التراجع عنها. هل أنت متأكد أنك تريد إعادة تعيين رمز النسخة؟</string>
     <string name="pedit_control">تخطيط التحكم</string>
+    <string name="pedit_custom_path">مسار مخصص</string>
     <string name="pedit_default">(استخدام القيمة الافتراضية العامة)</string>
     <string name="profile_mods_download_mod">تنزيل Mod</string>
     <string name="profile_mods_download_mod_release_version">عرض إصدارات Minecraft الرسمية فقط</string>

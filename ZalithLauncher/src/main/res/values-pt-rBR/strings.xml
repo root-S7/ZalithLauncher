@@ -244,6 +244,7 @@
     <string name="pedit_isolation_enabled">Habilitar Isolamento de Versão</string>
     <string name="pedit_reset_icon">Isso irá redefinir o ícone personalizado que você configurou, e a operação não pode ser desfeita. Tem certeza de que deseja redefinir o ícone da versão?</string>
     <string name="pedit_control">Layout de Controle</string>
+    <string name="pedit_custom_path">Caminho personalizado</string>
     <string name="pedit_default">(Usar valor padrão global)</string>
     <string name="profile_mods_download_mod">Baixar Mod</string>
     <string name="profile_mods_download_mod_release_version">Mostrar apenas versões oficiais do Minecraft</string>

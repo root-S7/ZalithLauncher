@@ -15,7 +15,7 @@ import com.google.android.flexbox.FlexboxLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemVersionBinding
 import com.movtery.zalithlauncher.databinding.ViewVersionManagerBinding
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils
 import com.movtery.zalithlauncher.feature.version.VersionsManager
@@ -191,7 +191,7 @@ class VersionAdapter(
             val bundle = Bundle()
             bundle.putString(
                 FilesFragment.BUNDLE_LOCK_PATH,
-                ProfilePathHome.gameHome
+                ProfilePathManager.currentPath
             )
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, path)
             ZHTools.swapFragmentWithAnim(

@@ -244,6 +244,7 @@
     <string name="pedit_isolation_enabled">Включить изоляцию версий</string>
     <string name="pedit_reset_icon">Это сбросит установленную вами пользовательскую иконку, и операция необратима. Вы уверены, что хотите сбросить иконку версии?</string>
     <string name="pedit_control">Раскладка управления</string>
+    <string name="pedit_custom_path">Пользовательский путь</string>
     <string name="pedit_default">(Использовать глобальное значение по умолчанию)</string>
     <string name="profile_mods_download_mod">Скачать мод</string>
     <string name="profile_mods_download_mod_release_version">Показывать только официальные версии Minecraft</string>

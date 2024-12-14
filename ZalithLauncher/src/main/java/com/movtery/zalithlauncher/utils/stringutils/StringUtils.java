@@ -93,6 +93,11 @@ public class StringUtils {
         }
     }
 
+    public static String getStringNotNull(String string) {
+        if (string == null) return "";
+        else return string;
+    }
+
     /**
      * 检查一段字符串内是否含有中文字符（中文标点）
      * @param str 检查的字符

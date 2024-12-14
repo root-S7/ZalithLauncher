@@ -56,6 +56,7 @@ class Version(
      */
     fun getGameDir(): File {
         return if (versionConfig.isIsolation()) versionConfig.getVersionPath()
+        else if (versionConfig.getCustomPath().isNotEmpty()) File(versionConfig.getCustomPath())
         else File(ProfilePathHome.gameHome)
     }
 

@@ -13,21 +13,26 @@ class VersionConfig(private var versionPath: File) : Parcelable {
     private var javaArgs: String = ""
     private var renderer: String = ""
     private var control: String = ""
+    private var customPath: String = ""
 
     constructor(
         filePath: File,
+        isolation: Boolean = false,
         javaDir: String = "",
         javaArgs: String = "",
         renderer: String = "",
-        control: String = ""
+        control: String = "",
+        customPath: String = ""
     ) : this(filePath) {
+        this.isolation = isolation
         this.javaDir = javaDir
         this.javaArgs = javaArgs
         this.renderer = renderer
         this.control = control
+        this.customPath = customPath
     }
 
-    fun copy(): VersionConfig = VersionConfig(versionPath, javaDir, javaArgs, renderer, control)
+    fun copy(): VersionConfig = VersionConfig(versionPath, isolation, javaDir, javaArgs, renderer, control, customPath)
 
     fun save() {
         runCatching {
@@ -79,32 +84,36 @@ class VersionConfig(private var versionPath: File) : Parcelable {
 
     fun setControl(control: String) { this.control = control }
 
+    fun getCustomPath() = customPath
+
+    fun setCustomPath(customPath: String) { this.customPath = customPath }
+
     override fun toString(): String {
-        return "VersionConfig{versionPath='$versionPath', javaDir='$javaDir', javaArgs='$javaArgs', renderer='$renderer', control='$control'}"
+        return "VersionConfig{isolation=$isolation, versionPath='$versionPath', javaDir='$javaDir', javaArgs='$javaArgs', renderer='$renderer', control='$control', customPath='$customPath'}"
     }
 
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeInt(if (isolation) 1 else 0)
         dest.writeString(versionPath.absolutePath)
+        dest.writeInt(if (isolation) 1 else 0)
         dest.writeString(javaDir)
         dest.writeString(javaArgs)
         dest.writeString(renderer)
         dest.writeString(control)
+        dest.writeString(customPath)
     }
 
     companion object CREATOR : Parcelable.Creator<VersionConfig> {
         override fun createFromParcel(parcel: Parcel): VersionConfig {
-            val isolation = parcel.readInt() > 0
             val versionPath = File(parcel.readString().orEmpty())
+            val isolation = parcel.readInt() > 0
             val javaDir = parcel.readString().orEmpty()
             val javaArgs = parcel.readString().orEmpty()
             val renderer = parcel.readString().orEmpty()
             val control = parcel.readString().orEmpty()
-            return VersionConfig(versionPath, javaDir, javaArgs, renderer, control).apply {
-                setIsolation(isolation)
-            }
+            val customPath = parcel.readString().orEmpty()
+            return VersionConfig(versionPath, isolation, javaDir, javaArgs, renderer, control, customPath)
         }
 
         override fun newArray(size: Int): Array<VersionConfig?> {
