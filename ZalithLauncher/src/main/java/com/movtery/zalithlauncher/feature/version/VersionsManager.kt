@@ -303,11 +303,11 @@ object VersionsManager {
                     copyVersion(version, string, checked)
                 }.beforeStart(TaskExecutors.getAndroidUI()) {
                     dialog.show()
-                }.ended(TaskExecutors.getAndroidUI()) {
-                    dialog.dismiss()
-                    refresh()
                 }.onThrowable { e ->
                     Tools.showErrorRemote(e)
+                }.finallyTask(TaskExecutors.getAndroidUI()) {
+                    dialog.dismiss()
+                    refresh()
                 }.execute()
                 true
             }.buildDialog()
