@@ -93,6 +93,9 @@ public class StringUtils {
         }
     }
 
+    /**
+     * @return 检查字符串是否为null，如果是那么则返回""，如果不是，则返回字符串本身
+     */
     public static String getStringNotNull(String string) {
         if (string == null) return "";
         else return string;

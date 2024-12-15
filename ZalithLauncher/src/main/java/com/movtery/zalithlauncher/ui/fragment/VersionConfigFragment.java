@@ -30,7 +30,6 @@ import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
-import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
 
@@ -282,7 +281,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         binding.jvmArgsEdit.setText(mTempConfig.getJavaArgs());
         binding.controlName.setText(mTempConfig.getControl());
-        binding.customPath.setText(StringUtils.getStringNotNull(mTempConfig.getCustomPath()).replaceFirst(ProfilePathManager.getCurrentPath(), "."));
+        binding.customPath.setText(mTempConfig.getCustomPath().replaceFirst(ProfilePathManager.getCurrentPath(), "."));
     }
 
     private void save() {

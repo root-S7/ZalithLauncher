@@ -52,10 +52,11 @@ class Version(
     fun isIsolation() = versionConfig.isIsolation()
 
     /**
-     * @return 获取版本的游戏里经（若开启了版本隔离，则路径为版本文件夹）
+     * @return 获取版本的游戏文件夹路径（若开启了版本隔离，则路径为版本文件夹）
      */
     fun getGameDir(): File {
         return if (versionConfig.isIsolation()) versionConfig.getVersionPath()
+        //未开启版本隔离可以使用自定义路径，如果自定义路径为空（则为未设置），那么返回默认游戏路径（.minecraft/）
         else if (versionConfig.getCustomPath().isNotEmpty()) File(versionConfig.getCustomPath())
         else File(ProfilePathHome.gameHome)
     }
