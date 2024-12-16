@@ -632,6 +632,7 @@
     <string name="newbie_guide_mod_search">Nhấp vào để triệu hồi hộp tìm kiếm, sử dụng nó để nhanh chóng tìm kiếm Mod bạn muốn tìm.</string>
     <string name="newbie_guide_mod_import">Chọn một tệp Mod trong trình quản lý tệp gốc, có thể nhập nó vào thư mục Mod hiện tại.</string>
     <string name="newbie_guide_mod_download">Nhấp vào để vào trang tải xuống Mod, bạn có thể tìm kiếm và tải xuống Mod trực tuyến ở đó.</string>
+    <string name="newbie_guide_game_menu">Bạn có thể kéo cửa sổ nổi của menu trò chơi đến bất kỳ vị trí nào trên màn hình.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Hỗ trợ phát triển của tôi</string>
     <string name="request_sponsorship_message">Phần lớn nội dung của phần mềm này do một mình tôi phát triển và bảo trì. Nếu bạn thấy phần mềm này hữu ích và có điều kiện, mong bạn xem xét tài trợ cho tôi, để tôi có thêm động lực tiếp tục phát triển và cải tiến, cảm ơn sự ủng hộ của bạn!</string>

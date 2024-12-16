@@ -17,8 +17,8 @@ import java.io.FileWriter
 class NewbieGuideUtils {
     @SuppressLint("NonConstantResourceId")
     companion object {
-        private val TEXT_COLOR = R.color.black_or_white
-        private val TARGET_CIRCLE_COLOR = R.color.background_menu_element
+        private const val TEXT_COLOR = R.color.black_or_white
+        private const val TARGET_CIRCLE_COLOR = R.color.background_menu_element
         private val NEWBIE_TAGS: MutableList<String> = ArrayList()
 
         init {

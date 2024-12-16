@@ -632,6 +632,7 @@
     <string name="newbie_guide_mod_search">Clique para convocar a caixa de pesquisa e use-a para encontrar rapidamente o Mod que você deseja.</string>
     <string name="newbie_guide_mod_import">Selecione um arquivo Mod no gerenciador de arquivos nativo para importá-lo para a pasta de Mods atual.</string>
     <string name="newbie_guide_mod_download">Clique para acessar a página de download de Mods, onde você pode pesquisar e baixar Mods online.</string>
+    <string name="newbie_guide_game_menu">Você pode arrastar a janela flutuante do menu do jogo para qualquer posição na tela.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Apoie o meu desenvolvimento</string>
     <string name="request_sponsorship_message">A maior parte deste software foi desenvolvida e mantida por mim sozinho. Se você acha que este software é útil para você e se suas condições permitirem, espero que considere me patrocinar para que eu possa ter mais motivação para continuar desenvolvendo e melhorando, obrigado pelo seu apoio!</string>

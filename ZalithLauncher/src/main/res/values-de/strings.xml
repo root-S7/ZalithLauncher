@@ -632,6 +632,7 @@
     <string name="newbie_guide_mod_search">Klicken Sie, um das Suchfeld aufzurufen, mit dem Sie schnell den gewünschten Mod finden können.</string>
     <string name="newbie_guide_mod_import">Wählen Sie im nativen Dateimanager eine Mod-Datei aus, um sie in den aktuellen Mod-Ordner zu importieren.</string>
     <string name="newbie_guide_mod_download">Klicken Sie, um zur Mod-Download-Seite zu gelangen, auf der Sie Mods online suchen und herunterladen können.</string>
+    <string name="newbie_guide_game_menu">Sie können das schwebende Spielfenster an jede Position auf dem Bildschirm ziehen.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Unterstütze meine Entwicklung</string>
     <string name="request_sponsorship_message">Der Großteil dieser Software wurde von mir allein entwickelt und gewartet. Wenn Sie diese Software hilfreich finden und es Ihnen möglich ist, würde ich mich freuen, wenn Sie meine Entwicklung unterstützen würden, damit ich weiterhin motiviert bin, sie zu verbessern. Vielen Dank für Ihre Unterstützung!</string>

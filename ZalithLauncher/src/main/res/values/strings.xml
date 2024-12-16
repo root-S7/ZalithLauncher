@@ -637,6 +637,7 @@
     <string name="newbie_guide_mod_search">Click to summon a search box and use it to quickly find the Mod you\'re looking for.</string>
     <string name="newbie_guide_mod_import">Select a Mod file in the native file manager to import it into the current Mod folder.</string>
     <string name="newbie_guide_mod_download">Click to enter the Mod download page where you can search and download Mods online.</string>
+    <string name="newbie_guide_game_menu">You can drag the game menu floating window to any position on the screen.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">Support My Development</string>
     <string name="request_sponsorship_message">Most of the content in this software is developed and maintained by me alone. If you find this software helpful and are in a position to do so, I hope you will consider sponsoring me to give me more motivation to continue developing and improving it. Thank you for your support!</string>

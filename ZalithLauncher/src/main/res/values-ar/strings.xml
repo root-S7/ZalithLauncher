@@ -632,6 +632,7 @@
     <string name="newbie_guide_mod_search">انقر لاستدعاء مربع البحث، واستخدمه للعثور على الوحدة النمطية التي تبحث عنها بسرعة.</string>
     <string name="newbie_guide_mod_import">حدد ملف وحدة نمطية في مدير الملفات الأصلي لاستيراده إلى مجلد الوحدات النمطية الحالي.</string>
     <string name="newbie_guide_mod_download">انقر للدخول إلى صفحة تنزيل الوحدات النمطية، حيث يمكنك البحث عن الوحدات النمطية وتنزيلها عبر الإنترنت.</string>
+    <string name="newbie_guide_game_menu">يمكنك سحب نافذة القائمة العائمة إلى أي مكان على الشاشة.</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">دعم تطويري</string>
     <string name="request_sponsorship_message">تم تطوير وصيانة معظم محتويات هذا البرنامج بواسطتي وحدي. إذا كنت تجد هذا البرنامج مفيدًا بالنسبة لك وكان بإمكانك، أرجو أن تفكر في رعايتي لإعطائي المزيد من الدافع لمواصلة التطوير والتحسين، شكرًا لدعمك!</string>

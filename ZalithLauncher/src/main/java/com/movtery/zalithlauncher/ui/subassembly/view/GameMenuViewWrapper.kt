@@ -3,9 +3,11 @@ package com.movtery.zalithlauncher.ui.subassembly.view
 import android.app.Activity
 import android.view.View
 import android.widget.TextView
+import com.getkeepsafe.taptargetview.TapTargetView
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.task.TaskExecutors
+import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.formatFileSize
 import com.movtery.zalithlauncher.utils.platform.MemoryUtils
 import com.petterp.floatingx.assist.FxGravity
@@ -19,6 +21,10 @@ class GameMenuViewWrapper(
     private val activity: Activity,
     private val listener: View.OnClickListener
 ) {
+    companion object {
+        private const val TAG = "GameMenuView"
+    }
+
     private var timer: Timer? = null
     private var showMemory: Boolean = false
 
@@ -40,6 +46,8 @@ class GameMenuViewWrapper(
                 holder.getView<TextView>(R.id.memory_text).apply {
                     updateMemoryText(this)
                 }
+
+                startNewbieGuide(holder.view)
             }
 
             override fun detached(view: View) {
@@ -48,6 +56,17 @@ class GameMenuViewWrapper(
         })
         setGravity(getCurrentGravity())
         build().toControl(activity)
+    }
+
+    private fun startNewbieGuide(mainView: View) {
+        if (NewbieGuideUtils.showOnlyOne(TAG)) return
+        TapTargetView.showFor(
+            activity,
+            NewbieGuideUtils.getSimpleTarget(activity, mainView,
+                activity.getString(R.string.setting_category_game_menu),
+                activity.getString(R.string.newbie_guide_game_menu)
+            )
+        )
     }
 
     fun setVisibility(visible: Boolean) {
@@ -60,7 +79,7 @@ class GameMenuViewWrapper(
         }
     }
 
-    fun setShowMemory() {
+    private fun setShowMemory() {
         scopeFx.getView()?.findViewById<TextView>(R.id.memory_text)?.apply {
             updateMemoryText(this)
         }

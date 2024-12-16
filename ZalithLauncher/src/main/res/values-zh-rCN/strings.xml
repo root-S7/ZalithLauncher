@@ -670,6 +670,7 @@
     <string name="newbie_guide_mod_search">点击可召唤搜索框，使用它可以快速搜寻到你想要寻找的模组。</string>
     <string name="newbie_guide_mod_import">在原生的文件管理器内选择一个模组文件，可将其导入当前模组文件夹。</string>
     <string name="newbie_guide_mod_download">点击可以进入模组下载页面，你可以在那里在线搜索与下载模组。</string>
+    <string name="newbie_guide_game_menu">可以拖动游戏菜单悬浮窗至屏幕的任意位置。</string>
 
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">支持我的开发</string>

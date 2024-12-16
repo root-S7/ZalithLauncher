@@ -632,6 +632,7 @@
     <string name="newbie_guide_mod_search">點擊可召喚搜尋框，使用它可以快速搜尋到你想要尋找的模組。</string>
     <string name="newbie_guide_mod_import">在原生的檔案管理器內選擇一個模組檔案，可將其匯入當前模組資料夾。</string>
     <string name="newbie_guide_mod_download">點擊可以進入模組下載頁面，你可以在那裡線上搜尋與下載模組。</string>
+    <string name="newbie_guide_game_menu">可以拖動遊戲選單浮動視窗至螢幕的任意位置。</string>
     <!-- Sponsorship Related -->
     <string name="request_sponsorship_title">支持我的開發</string>
     <string name="request_sponsorship_message">這款軟體的大部分內容都是我一個人開發和維護的。如果你覺得這款軟體對你有幫助，並且條件允許的話，希望你能考慮贊助我，讓我有更多動力繼續開發和改進，謝謝你的支持！</string>
