@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.fragments;
 
+import static com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.END;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,18 +109,20 @@ public class MainMenuFragment extends FragmentWithAnim {
 
     @Subscribe()
     public void event(RefreshVersionsEvent event) {
-        TaskExecutors.runInUIThread(() -> {
-            Version version = VersionsManager.INSTANCE.getCurrentVersion();
-            if (version != null) {
-                binding.versionName.setText(version.getVersionName());
+        if (event.getMode() == END) {
+            TaskExecutors.runInUIThread(() -> {
+                Version version = VersionsManager.INSTANCE.getCurrentVersion();
+                if (version != null) {
+                    binding.versionName.setText(version.getVersionName());
 
-                new VersionIconUtils(version).start(binding.versionIcon);
-                binding.managerProfileButton.setVisibility(View.VISIBLE);
-            } else {
-                binding.versionName.setText(R.string.version_no_versions);
-                binding.managerProfileButton.setVisibility(View.GONE);
-            }
-        });
+                    new VersionIconUtils(version).start(binding.versionIcon);
+                    binding.managerProfileButton.setVisibility(View.VISIBLE);
+                } else {
+                    binding.versionName.setText(R.string.version_no_versions);
+                    binding.managerProfileButton.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
