@@ -112,9 +112,7 @@ class LaunchGame {
                 Tools.releaseCache()
             }
 
-            val customArgs = minecraftVersion.getJavaArgs().takeIf { it.isNotBlank() }
-                ?: AllSettings.javaArgs.getValue().takeIf { it.isNotBlank() }
-                ?: ""
+            val customArgs = minecraftVersion.getJavaArgs().takeIf { it.isNotBlank() } ?: ""
             val account = AccountsManager.getInstance().currentAccount
             printLauncherInfo(
                 minecraftVersion,

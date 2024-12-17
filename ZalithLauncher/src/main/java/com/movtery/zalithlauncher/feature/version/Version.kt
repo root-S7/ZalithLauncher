@@ -61,22 +61,13 @@ class Version(
         else File(ProfilePathHome.gameHome)
     }
 
-    fun getRenderer(): String {
-        val defaultValue = AllSettings.renderer.getValue()
-        return if (versionConfig.isIsolation()) versionConfig.getRenderer().takeIf { it.isNotEmpty() } ?: defaultValue
-        else defaultValue
-    }
+    private fun String.getValueOrDefault(default: String): String = this.takeIf { it.isNotEmpty() } ?: default
 
-    fun getJavaDir(): String {
-        val defaultValue = AllSettings.defaultRuntime.getValue()
-        return if (versionConfig.isIsolation()) versionConfig.getJavaDir().takeIf { it.isNotEmpty() } ?: defaultValue
-        else defaultValue
-    }
+    fun getRenderer(): String = versionConfig.getRenderer().getValueOrDefault(AllSettings.renderer.getValue())
 
-    fun getJavaArgs(): String {
-        return if (versionConfig.isIsolation()) versionConfig.getJavaArgs()
-        else AllSettings.javaArgs.getValue()
-    }
+    fun getJavaDir(): String = versionConfig.getJavaDir().getValueOrDefault(AllSettings.defaultRuntime.getValue())
+
+    fun getJavaArgs(): String = versionConfig.getJavaArgs().getValueOrDefault(AllSettings.javaArgs.getValue())
 
     fun getControl(): String {
         val configControl = versionConfig.getControl().removeSuffix("./")

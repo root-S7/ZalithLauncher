@@ -24,7 +24,6 @@ import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
-import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
@@ -55,7 +54,6 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private List<String> mRenderNames;
     private VersionIconUtils mVersionIconUtils;
 
-    private final AnimPlayer isolationAnimPlayer = new AnimPlayer();
     private final AnimPlayer resetIconAnimPlayer = new AnimPlayer();
     private final ActivityResultLauncher<String[]> openDocumentLauncher =
             registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
@@ -142,29 +140,23 @@ public class VersionConfigFragment extends FragmentWithAnim {
         mTempConfig = mTempVersion.getVersionConfig();
         mVersionIconUtils = new VersionIconUtils(mTempVersion);
 
-        if (mTempVersion.getVersionConfig().isIsolation()) {
-            binding.isolation.setChecked(true);
-            setViewVisible(binding.isolationConfig, true);
-            setViewVisible(binding.customPathLayout, false);
-        } else {
-            binding.isolation.setChecked(false);
-            setViewVisible(binding.isolationConfig, false);
-            setViewVisible(binding.customPathLayout, true);
-        }
+        boolean isolation = mTempVersion.getVersionConfig().isIsolation();
+        binding.isolation.setChecked(isolation);
+        setIsolation(isolation);
 
         binding.isolation.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                mTempConfig.setIsolation(true);
-                setIsolationAnim(true);
-            } else {
-                mTempConfig.setIsolation(false);
-                setIsolationAnim(false);
-            }
+            mTempConfig.setIsolation(isChecked);
+            setIsolation(isChecked);
             closeSpinner();
         });
 
         loadValues(view.getContext());
         refreshIcon(true);
+    }
+
+    private void setIsolation(boolean isolation) {
+        binding.customPath.setEnabled(!isolation);
+        binding.selectCustomPath.setEnabled(!isolation);
     }
 
     private void closeSpinner() {
@@ -208,31 +200,6 @@ public class VersionConfigFragment extends FragmentWithAnim {
                     mVersionIconUtils.resetIcon();
                     refreshIcon(false);
                 }).buildDialog();
-    }
-
-    private void setViewVisible(View view, boolean visible) {
-        view.setVisibility(visible ? View.VISIBLE : View.GONE);
-    }
-
-    private void setIsolationAnim(boolean show) {
-        isolationAnimPlayer.clearEntries();
-        isolationAnimPlayer.apply(new AnimPlayer.Entry(binding.isolationConfig, show ? Animations.BounceInUp : Animations.FadeOutDown))
-                .apply(new AnimPlayer.Entry(binding.customPathLayout, show ? Animations.FadeOutUp : Animations.BounceInDown))
-                .duration(AllSettings.getAnimationSpeed().getValue() / 2)
-                .setOnStart(() -> {
-                    setViewVisible(binding.isolationConfig, true);
-                    setViewVisible(binding.customPathLayout, true);
-                    binding.isolationConfig.setEnabled(false);
-                    binding.customPathLayout.setEnabled(false);
-                    binding.saveButton.setEnabled(false);
-                })
-                .setOnEnd(() -> {
-                    setViewVisible(binding.isolationConfig, show);
-                    setViewVisible(binding.customPathLayout, !show);
-                    binding.isolationConfig.setEnabled(show);
-                    binding.customPathLayout.setEnabled(!show);
-                    binding.saveButton.setEnabled(true);
-                }).start();
     }
 
     private void loadValues(@NonNull Context context) {
