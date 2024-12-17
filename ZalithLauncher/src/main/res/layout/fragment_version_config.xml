@@ -66,15 +66,23 @@
                     android:hint="@string/pedit_default"
                     android:paddingHorizontal="@dimen/padding_heavy"
                     android:textSize="@dimen/_13ssp"
-                    app:layout_constraintEnd_toStartOf="@id/select_control"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/reset_control"
                     app:layout_constraintTop_toBottomOf="@+id/control_title" />
+
+                <com.movtery.zalithlauncher.ui.view.AnimButton
+                    android:id="@+id/reset_control"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/generic_reset"
+                    app:layout_constraintBottom_toBottomOf="@id/control_name"
+                    app:layout_constraintEnd_toStartOf="@id/select_control"
+                    app:layout_constraintTop_toTopOf="@id/control_name" />
 
                 <com.movtery.zalithlauncher.ui.view.AnimButton
                     android:id="@+id/select_control"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:paddingHorizontal="@dimen/padding_large"
                     android:text="@string/generic_select"
                     app:layout_constraintBottom_toBottomOf="@id/control_name"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -104,16 +112,24 @@
                         android:hint="./.minecraft"
                         android:paddingHorizontal="@dimen/padding_heavy"
                         android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toStartOf="@id/select_custom_path"
+                        app:layout_constraintEnd_toStartOf="@id/reset_custom_path"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/custom_path_title"
                         tools:ignore="HardcodedText" />
 
                     <com.movtery.zalithlauncher.ui.view.AnimButton
+                        android:id="@+id/reset_custom_path"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="@string/generic_reset"
+                        app:layout_constraintBottom_toBottomOf="@id/custom_path"
+                        app:layout_constraintEnd_toStartOf="@id/select_custom_path"
+                        app:layout_constraintTop_toTopOf="@id/custom_path" />
+
+                    <com.movtery.zalithlauncher.ui.view.AnimButton
                         android:id="@+id/select_custom_path"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:paddingHorizontal="@dimen/padding_large"
                         android:text="@string/generic_select"
                         app:layout_constraintBottom_toBottomOf="@id/custom_path"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -68,7 +68,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
             });
     private String mSelectPathMark = "";
 
-    public VersionConfigFragment(){
+    public VersionConfigFragment() {
         super(R.layout.fragment_version_config);
     }
 
@@ -116,6 +116,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
             bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
             bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);
             bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false);
+            bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
             bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, mTempVersion.getVersionsFolder());
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
@@ -123,8 +124,17 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         binding.controlName.setOnClickListener(selectControl);
         binding.selectControl.setOnClickListener(selectControl);
+        binding.resetControl.setOnClickListener(v -> {
+            binding.controlName.setText("");
+            mTempConfig.setControl("");
+        });
+
         binding.customPath.setOnClickListener(selectCustomPath);
         binding.selectCustomPath.setOnClickListener(selectCustomPath);
+        binding.resetCustomPath.setOnClickListener(v -> {
+            binding.customPath.setText("");
+            mTempConfig.setCustomPath("");
+        });
 
         binding.iconLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
         binding.iconReset.setOnClickListener(v -> resetIcon());
@@ -142,11 +152,11 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
         boolean isolation = mTempVersion.getVersionConfig().isIsolation();
         binding.isolation.setChecked(isolation);
-        setIsolation(isolation);
+        disableCustomPath(isolation);
 
         binding.isolation.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mTempConfig.setIsolation(isChecked);
-            setIsolation(isChecked);
+            disableCustomPath(isChecked);
             closeSpinner();
         });
 
@@ -154,9 +164,10 @@ public class VersionConfigFragment extends FragmentWithAnim {
         refreshIcon(true);
     }
 
-    private void setIsolation(boolean isolation) {
-        binding.customPath.setEnabled(!isolation);
-        binding.selectCustomPath.setEnabled(!isolation);
+    private void disableCustomPath(boolean disable) {
+        binding.customPath.setEnabled(!disable);
+        binding.selectCustomPath.setEnabled(!disable);
+        binding.resetCustomPath.setEnabled(!disable);
     }
 
     private void closeSpinner() {
