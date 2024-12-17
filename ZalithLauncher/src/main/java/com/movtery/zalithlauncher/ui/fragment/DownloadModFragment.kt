@@ -141,7 +141,17 @@ class DownloadModFragment : ModListFragment() {
         val mData: MutableList<ModListItemBean> = ArrayList()
         mModVersionsByMinecraftVersion.entries
             .sortedWith { entry1, entry2 ->
-                -VersionNumber.compare(entry1.key.first, entry2.key.first)
+                val mcVersionComparison = -VersionNumber.compare(entry1.key.first, entry2.key.first)
+                if (mcVersionComparison != 0) {
+                    mcVersionComparison
+                } else {
+                    val name1 = entry1.key.second?.name ?: ""
+                    val name2 = entry2.key.second?.name ?: ""
+                    //保证有ModLoader的版本在前
+                    if (name1.isEmpty() && name2.isNotEmpty()) 1
+                    else if (name1.isNotEmpty() && name2.isEmpty()) -1
+                    else name1.compareTo(name2)
+                }
             }
             .forEach { entry: Map.Entry<Pair<String, ModLoader?>, List<VersionItem>> ->
                 currentTask?.apply { if (isCancelled) return }
