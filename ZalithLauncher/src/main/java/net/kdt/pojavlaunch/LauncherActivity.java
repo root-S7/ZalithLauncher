@@ -42,6 +42,7 @@ import com.movtery.zalithlauncher.event.value.InstallLocalModpackEvent;
 import com.movtery.zalithlauncher.event.value.LocalLoginEvent;
 import com.movtery.zalithlauncher.event.value.MicrosoftLoginEvent;
 import com.movtery.zalithlauncher.event.value.OtherLoginEvent;
+import com.movtery.zalithlauncher.feature.accounts.AccountType;
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager;
 import com.movtery.zalithlauncher.feature.accounts.LocalAccountUtils;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
@@ -226,7 +227,7 @@ public class LauncherActivity extends BaseActivity {
         String userName = event.getUserName();
         MinecraftAccount localAccount = new MinecraftAccount();
         localAccount.username = userName;
-        localAccount.accountType = "Local";
+        localAccount.accountType = AccountType.LOCAL.getType();
         try {
             localAccount.save();
             Logging.i("Account", "Saved the account : " + localAccount.username);

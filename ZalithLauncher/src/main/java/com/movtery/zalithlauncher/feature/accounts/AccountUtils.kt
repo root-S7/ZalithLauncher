@@ -59,12 +59,12 @@ class AccountUtils {
 
         @JvmStatic
         fun isMicrosoftAccount(account: MinecraftAccount): Boolean {
-            return account.accountType == "Microsoft"
+            return account.accountType == AccountType.MICROSOFT.type
         }
 
         @JvmStatic
         fun isNoLoginRequired(account: MinecraftAccount?): Boolean {
-            return account == null || account.accountType == "Local"
+            return account == null || account.accountType == AccountType.LOCAL.type
         }
 
         @JvmStatic

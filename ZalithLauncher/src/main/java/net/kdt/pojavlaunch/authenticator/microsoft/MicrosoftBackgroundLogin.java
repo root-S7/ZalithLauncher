@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.feature.accounts.AccountType;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -104,7 +105,7 @@ public class MicrosoftBackgroundLogin {
                 acc.username = mcName;
                 acc.profileId = mcUuid;
                 acc.msaRefreshToken = msRefreshToken;
-                acc.accountType = "Microsoft";
+                acc.accountType = AccountType.MICROSOFT.getType();
                 acc.updateMicrosoftSkin();
             }
             acc.save();
