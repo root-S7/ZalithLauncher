@@ -88,9 +88,9 @@ class VersionAdapter(
                     }
                 }
 
-                binding.settings.visibility = View.VISIBLE
-                binding.settings.setOnClickListener { _ ->
-                    showPopupWindow(binding.settings, it)
+                binding.operate.visibility = View.VISIBLE
+                binding.operate.setOnClickListener { _ ->
+                    showPopupWindow(binding.operate, it)
                 }
 
                 VersionIconUtils(it).start(binding.versionIcon)
@@ -107,7 +107,7 @@ class VersionAdapter(
             }
             binding.versionIcon.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_add))
             binding.version.setText(R.string.version_install_new)
-            binding.settings.visibility = View.GONE
+            binding.operate.visibility = View.GONE
             binding.root.setOnClickListener { listener.onCreateVersion() }
         }
 

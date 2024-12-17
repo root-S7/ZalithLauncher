@@ -23,7 +23,7 @@
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/settings"
+        app:layout_constraintEnd_toStartOf="@id/operate"
         app:layout_constraintStart_toEndOf="@id/radio_button"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -51,14 +51,16 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <ImageButton
-        android:id="@+id/settings"
+        android:id="@+id/operate"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/profiles_path_settings"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_setting"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_more"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

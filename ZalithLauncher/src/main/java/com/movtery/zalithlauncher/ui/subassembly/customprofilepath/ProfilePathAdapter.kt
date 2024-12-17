@@ -98,7 +98,7 @@ class ProfilePathAdapter(
             itemView.setOnClickListener(onClickListener)
             binding.radioButton.setOnClickListener(onClickListener)
 
-            binding.settings.setOnClickListener {
+            binding.operate.setOnClickListener {
                 showPopupWindow(binding.root, profileItem.id == "default", profileItem, position)
             }
 
