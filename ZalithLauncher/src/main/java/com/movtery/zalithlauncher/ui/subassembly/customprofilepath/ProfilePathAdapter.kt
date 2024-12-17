@@ -129,10 +129,7 @@ class ProfilePathAdapter(
                     when (v) {
                         gotoView -> {
                             val bundle = Bundle()
-                            bundle.putString(
-                                FilesFragment.BUNDLE_LOCK_PATH,
-                                Environment.getExternalStorageDirectory().absolutePath
-                            )
+                            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().absolutePath)
                             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, profileItem.path)
                             ZHTools.swapFragmentWithAnim(
                                 fragment,
