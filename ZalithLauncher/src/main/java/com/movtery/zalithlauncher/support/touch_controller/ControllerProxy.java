@@ -17,8 +17,10 @@ public final class ControllerProxy {
     private static LauncherSocketProxyClient proxyClient;
     private static int proxyPort = -1;
 
+    private ControllerProxy() {}
+
     /**
-     * 启动控制代理
+     * 启动控制代理客户端，目的是与 TouchController 模组进行通信
      */
     public static void startProxy() throws Throwable {
         if (proxyClient == null) {

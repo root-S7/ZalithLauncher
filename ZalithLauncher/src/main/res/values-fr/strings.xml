@@ -443,6 +443,8 @@
     <string name="setting_shader_dump_desc">Enregistrer les shaders convertis dans un fichier journal</string>
     <string name="setting_force_big_core_title">Forcer le rendu sur le grand cœur</string>
     <string name="setting_force_big_core_desc">Forcer le thread de rendu de Minecraft à fonctionner sur le cœur à la fréquence la plus élevée</string>
+    <string name="setting_use_controller_proxy_title">Activer le proxy de contrôle</string>
+    <string name="setting_use_controller_proxy_desc">Activez le client proxy de contrôle local lors du lancement du jeu pour communiquer avec le module TouchController et garantir le bon fonctionnement des contrôles tactiles</string>
     <string name="setting_verify_manifest_title">Vérification de la liste des versions du jeu</string>
     <string name="setting_verify_manifest_desc">Lorsqu\'elle est activée, le lanceur vérifie la liste des versions du jeu ainsi que les bibliothèques</string>
     <string name="setting_resource_image_cache_title">Mettre en cache les images des ressources</string>

@@ -40,6 +40,13 @@ class ExperimentalSettingsFragment :
             binding.bigCoreAffinityLayout,
             binding.bigCoreAffinity
         )
+
+        SwitchSettingsWrapper(
+            context,
+            AllSettings.useControllerProxy,
+            binding.useControllerProxyLayout,
+            binding.useControllerProxy
+        )
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {

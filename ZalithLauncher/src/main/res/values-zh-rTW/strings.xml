@@ -443,6 +443,8 @@
     <string name="setting_shader_dump_desc">記錄轉換的著色器到日誌檔案</string>
     <string name="setting_force_big_core_title">強制渲染器在大核上運行</string>
     <string name="setting_force_big_core_desc">強制 Minecraft 渲染執行緒在最高頻率的核心運行</string>
+    <string name="setting_use_controller_proxy_title">啟用控制代理</string>
+    <string name="setting_use_controller_proxy_desc">在啟動遊戲時啟用本地控制代理客戶端，用於與 TouchController 模組進行通訊，確保觸控控制功能的正常使用</string>
     <string name="setting_verify_manifest_title">遊戲版本列表檢查</string>
     <string name="setting_verify_manifest_desc">啟用後，啟動器將檢查遊戲版本列表以及庫</string>
     <string name="setting_resource_image_cache_title">快取資源圖片</string>

@@ -17,16 +17,19 @@ public class InGameEventProcessor implements TouchEventProcessor {
     private final PointerTracker mTracker = new PointerTracker();
     private final LeftClickGesture mLeftClickGesture = new LeftClickGesture(mGestureHandler);
     private final RightClickGesture mRightClickGesture = new RightClickGesture(mGestureHandler);
-    private final ContactHandler mContactHandler = new ContactHandler();
+    private final ContactHandler mContactHandler;
 
     public InGameEventProcessor(double sensitivity) {
         mSensitivity = sensitivity;
+        mContactHandler = AllSettings.getUseControllerProxy().getValue() ? ContactHandler.INSTANCE : null;
     }
 
     @Override
     public boolean processTouchEvent(MotionEvent motionEvent, View view) {
-        //单独处理触摸事件，支持TouchController模组
-        mContactHandler.progressEvent(motionEvent, view);
+        if (mContactHandler != null) {
+            //单独处理触摸事件，支持TouchController模组
+            mContactHandler.progressEvent(motionEvent, view);
+        }
 
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
@@ -58,7 +61,9 @@ public class InGameEventProcessor implements TouchEventProcessor {
 
     @Override
     public void cancelPendingActions() {
-        mContactHandler.clearPointer();
+        if (mContactHandler != null) {
+            mContactHandler.clearPointer();
+        }
         cancelGestures(true);
     }
 

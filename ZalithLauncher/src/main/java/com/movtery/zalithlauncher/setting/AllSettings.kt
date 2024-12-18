@@ -166,6 +166,9 @@ class AllSettings {
         @JvmStatic
         val bigCoreAffinity = BooleanSettingUnit("bigCoreAffinity", false)
 
+        @JvmStatic
+        val useControllerProxy = BooleanSettingUnit("useControllerProxy", false)
+
         // Other
         @JvmStatic
         val currentAccount = StringSettingUnit("currentAccount", "")
