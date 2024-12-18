@@ -4,32 +4,24 @@ import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.utils.runtime.RuntimeSelectedListener
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.multirt.RTRecyclerViewAdapter
 import net.kdt.pojavlaunch.multirt.Runtime
 
-class SelectRuntimeDialog(context: Context) : AbstractSelectDialog(context) {
-    private var recyclerView: RecyclerView? = null
-
+class SelectRuntimeDialog(context: Context, private val listener: RuntimeSelectedListener) : AbstractSelectDialog(context) {
     init {
         this.setCancelable(false)
     }
 
     override fun initDialog(recyclerView: RecyclerView) {
-        this.recyclerView = recyclerView
         setTitleText(R.string.install_select_jre_environment)
         setMessageText(R.string.install_recommend_use_jre8)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-    }
 
-    fun setListener(listener: RuntimeSelectedListener?) {
         val runtimes: MutableList<Runtime> = ArrayList(MultiRTUtils.getRuntimes())
         if (runtimes.isNotEmpty()) runtimes.add(Runtime("auto"))
-        val adapter = RTRecyclerViewAdapter(runtimes, listener)
-        recyclerView?.adapter = adapter
-    }
-
-    fun interface RuntimeSelectedListener {
-        fun onSelected(jreName: String?)
+        val adapter = RTRecyclerViewAdapter(runtimes, listener, this)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
     }
 }

@@ -425,6 +425,10 @@
     <string name="setting_deadzone_scale_desc">Увеличьте этот параметр, если джойстик смещается</string>
     <string name="setting_java_multirt_title">Менеджер среды выполнения</string>
     <string name="setting_java_multirt_desc">Управление установленными средами выполнения Java</string>
+    <string name="setting_java_select_runtime_title">Выбор среды выполнения перед выполнением</string>
+    <string name="setting_java_select_runtime_desc">Среда выполнения Java, которая будет использоваться перед входом в среду выполнения</string>
+    <string name="setting_java_select_runtime_ask_me">Позвольте мне выбрать временно</string>
+    <string name="setting_java_select_runtime_default">Текущая среда выполнения по умолчанию</string>
     <string name="setting_java_args_title">Параметры запуска JVM</string>
     <string name="setting_java_args_desc">Дополнительные параметры JVM, добавляемые при запуске Minecraft. Не рекомендуется изменять без уверенности, так как это может привести к сбоям игры.</string>
     <string name="setting_java_memory_title">Выделение памяти</string>

@@ -449,6 +449,10 @@
 
     <string name="setting_java_multirt_title">运行环境管理器</string>
     <string name="setting_java_multirt_desc">管理已安装的 Java 运行环境</string>
+    <string name="setting_java_select_runtime_title">执行前选择运行环境</string>
+    <string name="setting_java_select_runtime_desc">在进入执行环境前，将会使用的 Java 运行环境</string>
+    <string name="setting_java_select_runtime_ask_me">让我临时选择</string>
+    <string name="setting_java_select_runtime_default">当前的默认运行环境</string>
     <string name="setting_java_args_title">JVM 启动参数</string>
     <string name="setting_java_args_desc">启动 Minecraft 时，额外添加的 JVM 参数，不建议在没有把握的情况下进行修改，因为这很有可能导致游戏崩溃</string>
     <string name="setting_java_memory_title">内存分配</string>

@@ -425,6 +425,10 @@
     <string name="setting_deadzone_scale_desc">Aumente esta opção se o joystick estiver deslocado</string>
     <string name="setting_java_multirt_title">Gerenciador de Ambiente de Execução</string>
     <string name="setting_java_multirt_desc">Gerenciar os ambientes de execução Java instalados</string>
+    <string name="setting_java_select_runtime_title">Selecionar Ambiente de Execução Antes da Execução</string>
+    <string name="setting_java_select_runtime_desc">O ambiente de execução Java a ser utilizado antes de entrar no ambiente de execução</string>
+    <string name="setting_java_select_runtime_ask_me">Deixe-me escolher temporariamente</string>
+    <string name="setting_java_select_runtime_default">Ambiente de execução padrão atual</string>
     <string name="setting_java_args_title">Parâmetros de Inicialização da JVM</string>
     <string name="setting_java_args_desc">Parâmetros adicionais da JVM ao iniciar o Minecraft. Não é recomendado modificar sem certeza, pois isso pode causar falhas no jogo.</string>
     <string name="setting_java_memory_title">Alocação de Memória</string>

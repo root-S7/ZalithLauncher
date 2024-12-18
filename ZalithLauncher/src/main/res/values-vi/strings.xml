@@ -425,6 +425,10 @@
     <string name="setting_deadzone_scale_desc">Nếu tay cầm bị lệch, hãy tăng tùy chọn này</string>
     <string name="setting_java_multirt_title">Quản lý môi trường chạy</string>
     <string name="setting_java_multirt_desc">Quản lý các môi trường chạy Java đã cài đặt</string>
+    <string name="setting_java_select_runtime_title">Chọn môi trường chạy trước khi thực thi</string>
+    <string name="setting_java_select_runtime_desc">Môi trường chạy Java sẽ được sử dụng trước khi vào môi trường thực thi</string>
+    <string name="setting_java_select_runtime_ask_me">Hãy để tôi chọn tạm thời</string>
+    <string name="setting_java_select_runtime_default">Môi trường chạy mặc định hiện tại</string>
     <string name="setting_java_args_title">Tham số khởi động JVM</string>
     <string name="setting_java_args_desc">Các tham số JVM bổ sung khi khởi động Minecraft, không khuyến khích sửa đổi nếu không có kiến thức, vì điều này có thể gây ra sự cố cho trò chơi</string>
     <string name="setting_java_memory_title">Phân bổ bộ nhớ</string>

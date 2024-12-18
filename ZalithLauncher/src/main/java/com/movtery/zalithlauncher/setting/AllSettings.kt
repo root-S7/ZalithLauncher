@@ -99,6 +99,9 @@ class AllSettings {
         val setGameLanguage = StringSettingUnit("setGameLanguage", "system")
 
         @JvmStatic
+        val selectRuntimeMode = StringSettingUnit("selectRuntimeMode", "auto")
+
+        @JvmStatic
         val javaArgs = StringSettingUnit("javaArgs", "")
 
         @JvmStatic

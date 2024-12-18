@@ -5,8 +5,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
-import com.movtery.zalithlauncher.task.TaskExecutors
-import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
+import com.movtery.zalithlauncher.utils.runtime.SelectRuntimeUtils
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
@@ -85,15 +84,9 @@ class ModPackUtils {
         @Throws(Throwable::class)
         fun startModLoaderInstall(modLoader: ModLoaderWrapper, activity: Activity, modInstallFile: File, customName: String) {
             modLoader.getInstallationIntent(activity, modInstallFile, customName)?.let { installIntent ->
-                TaskExecutors.runInUIThread {
-                    SelectRuntimeDialog(activity).apply {
-                        setListener { jreName: String? ->
-                            installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                            dismiss()
-                            activity.startActivity(installIntent)
-                        }
-                        setTitleText(activity.getString(R.string.version_install_new_modloader, modLoader.modLoader.loaderName))
-                    }.show()
+                SelectRuntimeUtils.selectRuntime(activity, activity.getString(R.string.version_install_new_modloader, modLoader.modLoader.loaderName)) { jreName ->
+                    installIntent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+                    activity.startActivity(installIntent)
                 }
             }
         }

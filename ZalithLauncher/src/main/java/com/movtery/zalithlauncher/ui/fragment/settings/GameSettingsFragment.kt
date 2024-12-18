@@ -91,6 +91,15 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             }.show()
         }
 
+        ListSettingsWrapper(
+            context,
+            AllSettings.selectRuntimeMode,
+            binding.selectRuntimeModeLayout,
+            binding.selectRuntimeModeTitle,
+            binding.selectRuntimeModeValue,
+            R.array.select_java_runtime_names, R.array.select_java_runtime_values
+        )
+
         EditTextSettingsWrapper(
             AllSettings.javaArgs,
             binding.javaArgsLayout,

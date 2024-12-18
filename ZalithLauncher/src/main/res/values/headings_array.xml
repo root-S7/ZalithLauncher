@@ -27,6 +27,18 @@
         <item>bmclapi</item>
     </string-array>
 
+    <string-array name="select_java_runtime_names">
+        <item>@string/setting_java_select_runtime_ask_me</item>
+        <item>@string/setting_java_select_runtime_default</item>
+        <item>@string/install_auto_select</item>
+    </string-array>
+
+    <string-array name="select_java_runtime_values">
+        <item>ask_me</item>
+        <item>default</item>
+        <item>auto</item>
+    </string-array>
+
     <string-array name="launcher_theme_names">
         <item>@string/setting_launcher_theme_system</item>
         <item>@string/setting_launcher_theme_light</item>

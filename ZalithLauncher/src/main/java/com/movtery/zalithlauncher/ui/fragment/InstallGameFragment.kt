@@ -23,10 +23,9 @@ import com.movtery.zalithlauncher.feature.version.InstallTask
 import com.movtery.zalithlauncher.feature.version.InstallTaskItem
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.task.TaskExecutors
-import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.runtime.SelectRuntimeUtils
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
@@ -320,15 +319,9 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
         val argUtils = InstallArgsUtils(mcVersion, selectVersion)
         setArgs(intent, argUtils)
 
-        TaskExecutors.runInUIThread {
-            SelectRuntimeDialog(activity).apply {
-                setListener { jreName: String? ->
-                    intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
-                    this.dismiss()
-                    activity.startActivity(intent)
-                }
-                setTitleText(activity.getString(R.string.version_install_new_modloader, addonName))
-            }.show()
+        SelectRuntimeUtils.selectRuntime(activity, activity.getString(R.string.version_install_new_modloader, addonName)) { jreName ->
+            intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
+            activity.startActivity(intent)
         }
     }
 

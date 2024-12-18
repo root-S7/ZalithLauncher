@@ -425,6 +425,10 @@
     <string name="setting_deadzone_scale_desc">إذا كان المؤشر ينحرف، يرجى زيادة هذا الخيار</string>
     <string name="setting_java_multirt_title">مدير بيئة التشغيل</string>
     <string name="setting_java_multirt_desc">إدارة البيئات التشغيلية المثبتة لـ Java</string>
+    <string name="setting_java_select_runtime_title">اختيار بيئة التشغيل قبل التنفيذ</string>
+    <string name="setting_java_select_runtime_desc">بيئة تشغيل Java التي سيتم استخدامها قبل الدخول إلى بيئة التنفيذ</string>
+    <string name="setting_java_select_runtime_ask_me">دعني أختار مؤقتًا</string>
+    <string name="setting_java_select_runtime_default">بيئة التشغيل الافتراضية الحالية</string>
     <string name="setting_java_args_title">معلمات بدء تشغيل JVM</string>
     <string name="setting_java_args_desc">المعلمات الإضافية لـ JVM التي يتم إضافتها عند بدء تشغيل Minecraft، لا ينصح بتعديلها بدون معرفة، لأن ذلك قد يؤدي إلى تعطل اللعبة</string>
     <string name="setting_java_memory_title">تخصيص الذاكرة</string>

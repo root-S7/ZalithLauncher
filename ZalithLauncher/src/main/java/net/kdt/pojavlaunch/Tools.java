@@ -40,10 +40,10 @@ import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
-import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
+import com.movtery.zalithlauncher.utils.runtime.SelectRuntimeUtils;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
@@ -695,13 +695,10 @@ public final class Tools {
                 .setConfirmListener((editBox, checked) -> {
                     Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
                     intent.putExtra("javaArgs", editBox.getText().toString());
-                    SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
-                    selectRuntimeDialog.setListener(jreName -> {
+                    SelectRuntimeUtils.selectRuntime(activity, null, jreName -> {
                         intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
-                        selectRuntimeDialog.dismiss();
                         activity.startActivity(intent);
                     });
-                    selectRuntimeDialog.show();
 
                     return true;
                 }).buildDialog();
@@ -713,13 +710,10 @@ public final class Tools {
     public static void launchModInstaller(Activity activity, @NonNull Uri uri){
         Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
         intent.putExtra("modUri", uri);
-        SelectRuntimeDialog selectRuntimeDialog = new SelectRuntimeDialog(activity);
-        selectRuntimeDialog.setListener(jreName -> {
+        SelectRuntimeUtils.selectRuntime(activity, null, jreName -> {
             intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
-            selectRuntimeDialog.dismiss();
             activity.startActivity(intent);
         });
-        selectRuntimeDialog.show();
     }
 
 

@@ -425,6 +425,10 @@
     <string name="setting_deadzone_scale_desc">若搖桿偏移，請調高此選項</string>
     <string name="setting_java_multirt_title">運行環境管理器</string>
     <string name="setting_java_multirt_desc">管理已安裝的 Java 運行環境</string>
+    <string name="setting_java_select_runtime_title">執行前選擇運行環境</string>
+    <string name="setting_java_select_runtime_desc">在進入執行環境前，將會使用的 Java 運行環境</string>
+    <string name="setting_java_select_runtime_ask_me">讓我臨時選擇</string>
+    <string name="setting_java_select_runtime_default">當前的預設運行環境</string>
     <string name="setting_java_args_title">JVM 啟動參數</string>
     <string name="setting_java_args_desc">啟動 Minecraft 時，額外添加的 JVM 參數，不建議在沒有把握的情況下進行修改，因為這很有可能導致遊戲崩潰</string>
     <string name="setting_java_memory_title">記憶體分配</string>
