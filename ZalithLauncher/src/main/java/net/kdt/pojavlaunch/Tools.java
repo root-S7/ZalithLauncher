@@ -37,7 +37,6 @@ import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
-import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
@@ -52,7 +51,6 @@ import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.memory.MemoryHoleFinder;
 import net.kdt.pojavlaunch.memory.SelfMapsParser;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
-import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.value.DependentLibrary;
@@ -750,37 +748,6 @@ public final class Tools {
 
     public static boolean isValidString(String string) {
         return string != null && !string.isEmpty();
-    }
-
-    public static String getRuntimeName(String prefixedName) {
-        if(prefixedName == null) return null;
-        if(!prefixedName.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX)) return null;
-        return prefixedName.substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
-    }
-
-    public static String getSelectedRuntime(Version version) {
-        String runtime = AllSettings.getDefaultRuntime().getValue();
-        String versionRuntime = getRuntimeName(version.getJavaDir());
-        if (versionRuntime != null) {
-            if (MultiRTUtils.forceReread(versionRuntime).versionString != null) {
-                runtime = versionRuntime;
-            }
-        }
-        return runtime;
-    }
-
-    public static @NonNull String pickRuntime(Activity activity, Version version, int targetJavaVersion) {
-        String runtime = getSelectedRuntime(version);
-        Runtime pickedRuntime = MultiRTUtils.read(runtime);
-        if (pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
-            String settingsRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);
-            if (settingsRuntime == null) {
-                activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.game_autopick_runtime_failed), Toast.LENGTH_LONG).show());
-                return runtime; //返回选择的runtime
-            }
-            runtime = settingsRuntime;
-        }
-        return runtime;
     }
 
     /**

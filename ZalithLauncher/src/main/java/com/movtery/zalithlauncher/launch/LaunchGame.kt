@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.launch
 
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.widget.Toast
@@ -124,18 +125,42 @@ class LaunchGame {
             }
 
             val customArgs = minecraftVersion.getJavaArgs().takeIf { it.isNotBlank() } ?: ""
+
+            val javaRuntime = getRuntime(activity, minecraftVersion, version.javaVersion?.majorVersion ?: 8)
+
             printLauncherInfo(
                 minecraftVersion,
                 customArgs.takeIf { it.isNotBlank() } ?: "NONE",
-                minecraftVersion.getJavaDir().takeIf { it.isNotBlank() } ?: "NONE",
+                javaRuntime,
                 account
             )
             JREUtils.redirectAndPrintJRELog()
 
-            val requiredJavaVersion = version.javaVersion?.majorVersion ?: 8
-            launch(activity, account, minecraftVersion, requiredJavaVersion, customArgs)
+            launch(activity, account, minecraftVersion, javaRuntime, customArgs)
             //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
             activity.runOnUiThread { serverBinder.isActive = false }
+        }
+
+        private fun getRuntime(activity: Activity, version: Version, targetJavaVersion: Int): String {
+            val versionRuntime = version.getJavaDir()
+                .takeIf { it.isNotEmpty() && it.startsWith(Tools.LAUNCHERPROFILES_RTPREFIX) }
+                ?.removePrefix(Tools.LAUNCHERPROFILES_RTPREFIX)
+                ?: ""
+
+            if (versionRuntime.isNotEmpty()) return versionRuntime
+
+            //如果版本未选择Java环境，则自动选择合适的环境
+            var runtime = AllSettings.defaultRuntime.getValue()
+            val pickedRuntime = MultiRTUtils.read(runtime)
+            if (pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
+                runtime = MultiRTUtils.getNearestJreName(targetJavaVersion) ?: run {
+                    activity.runOnUiThread {
+                        Toast.makeText(activity, activity.getString(R.string.game_autopick_runtime_failed), Toast.LENGTH_SHORT).show()
+                    }
+                    return runtime
+                }
+            }
+            return runtime
         }
 
         private fun printLauncherInfo(
@@ -144,12 +169,6 @@ class LaunchGame {
             javaRuntime: String,
             account: MinecraftAccount
         ) {
-            fun formatJavaRuntimeString(): String {
-                val prefix = Tools.LAUNCHERPROFILES_RTPREFIX
-                return if (javaRuntime.startsWith(prefix)) javaRuntime.removePrefix(prefix)
-                else javaRuntime
-            }
-
             var mcInfo = minecraftVersion.getVersionName()
             minecraftVersion.getVersionInfo()?.let { info ->
                 mcInfo = info.getInfoString()
@@ -164,7 +183,7 @@ class LaunchGame {
             Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Game Path: ${minecraftVersion.getGameDir().absolutePath} (Isolation: ${minecraftVersion.isIsolation()})")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
-            Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
+            Logger.appendToLog("Info: Java Runtime: $javaRuntime")
             Logger.appendToLog("Info: Account: ${account.username} (${account.accountType})")
         }
 
@@ -174,18 +193,12 @@ class LaunchGame {
             activity: AppCompatActivity,
             account: MinecraftAccount,
             minecraftVersion: Version,
-            versionJavaRequirement: Int,
+            javaRuntime: String,
             customArgs: String
         ) {
             checkMemory(activity)
 
-            val runtime = MultiRTUtils.forceReread(
-                Tools.pickRuntime(
-                    activity,
-                    minecraftVersion,
-                    versionJavaRequirement
-                )
-            )
+            val runtime = MultiRTUtils.forceReread(javaRuntime)
 
             val versionInfo = Tools.getVersionInfo(minecraftVersion)
             val gameDirPath = minecraftVersion.getGameDir()

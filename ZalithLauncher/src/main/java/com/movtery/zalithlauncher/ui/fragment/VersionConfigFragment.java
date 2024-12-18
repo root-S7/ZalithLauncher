@@ -218,7 +218,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
         List<Runtime> runtimes = MultiRTUtils.getRuntimes();
         List<String> runtimeNames = new ArrayList<>();
         runtimes.forEach(v -> runtimeNames.add(String.format("%s - %s", v.name, v.versionString == null ? getString(R.string.multirt_runtime_corrupt) : v.versionString)));
-        runtimeNames.add(getString(R.string.generic_default));
+        runtimeNames.add(getString(R.string.install_auto_select));
         int jvmIndex = runtimeNames.size() - 1;
         if (!mTempConfig.getJavaDir().isEmpty()) {
             String selectedRuntime = mTempConfig.getJavaDir().substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
