@@ -143,7 +143,7 @@
     <string name="customctrl_addbutton_joystick">Joystick hinzufügen</string>
     <string name="customctrl_addsubbutton">Untertaste hinzufügen</string>
     <string name="customctrl_selectdefault">Standardsteuerungslayout auswählen</string>
-    <string name="customctrl_export">Steuerungslayout exportieren</string>
+    <string name="customctrl_export">Speichern und Teilen</string>
     <string name="customctrl_passthru">Mausdurchleitung</string>
     <string name="customctrl_swipeable">Wischbar</string>
     <string name="customctrl_forward_lock">Vorwärts sperren</string>

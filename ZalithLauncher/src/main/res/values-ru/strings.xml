@@ -143,7 +143,7 @@
     <string name="customctrl_addbutton_joystick">Добавить джойстик</string>
     <string name="customctrl_addsubbutton">Добавить под кнопку</string>
     <string name="customctrl_selectdefault">Выбрать раскладку управления по умолчанию</string>
-    <string name="customctrl_export">Экспорт раскладки управления</string>
+    <string name="customctrl_export">Сохранить и поделиться</string>
     <string name="customctrl_passthru">Прямой проход мыши</string>
     <string name="customctrl_swipeable">Прокручиваемый</string>
     <string name="customctrl_forward_lock">Блокировка движения вперед</string>

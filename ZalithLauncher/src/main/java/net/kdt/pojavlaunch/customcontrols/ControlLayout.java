@@ -545,6 +545,7 @@ public class ControlLayout extends FrameLayout {
             }
             dialog.dismiss();
         });
+		dialog.setTitleText(R.string.customctrl_selectdefault);
 		dialog.show();
 	}
 

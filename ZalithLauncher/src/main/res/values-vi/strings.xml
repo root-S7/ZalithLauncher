@@ -143,7 +143,7 @@
     <string name="customctrl_addbutton_joystick">Thêm nút joystick</string>
     <string name="customctrl_addsubbutton">Thêm nút con</string>
     <string name="customctrl_selectdefault">Chọn bố cục điều khiển mặc định</string>
-    <string name="customctrl_export">Xuất bố cục điều khiển</string>
+    <string name="customctrl_export">Lưu và Chia sẻ</string>
     <string name="customctrl_passthru">Chuyển tiếp chuột</string>
     <string name="customctrl_swipeable">Có thể vuốt</string>
     <string name="customctrl_forward_lock">Khóa tiến</string>

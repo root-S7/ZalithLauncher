@@ -149,7 +149,7 @@
     <string name="customctrl_addbutton_joystick">添加摇杆</string>
     <string name="customctrl_addsubbutton">添加子按键</string>
     <string name="customctrl_selectdefault">选择默认控制布局</string>
-    <string name="customctrl_export">导出控制布局</string>
+    <string name="customctrl_export">保存并分享</string>
     <string name="customctrl_passthru">鼠标透传</string>
     <string name="customctrl_swipeable">可滑动</string>
     <string name="customctrl_forward_lock">锁定前进</string>

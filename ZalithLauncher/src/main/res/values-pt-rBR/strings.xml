@@ -143,7 +143,7 @@
     <string name="customctrl_addbutton_joystick">Adicionar joystick</string>
     <string name="customctrl_addsubbutton">Adicionar subbotão</string>
     <string name="customctrl_selectdefault">Selecionar layout de controle padrão</string>
-    <string name="customctrl_export">Exportar layout de controle</string>
+    <string name="customctrl_export">Salvar e Compartilhar</string>
     <string name="customctrl_passthru">Passagem do mouse</string>
     <string name="customctrl_swipeable">Deslizável</string>
     <string name="customctrl_forward_lock">Bloquear avanço</string>

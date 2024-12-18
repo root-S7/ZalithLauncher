@@ -143,7 +143,7 @@
     <string name="customctrl_addbutton_joystick">添加搖桿</string>
     <string name="customctrl_addsubbutton">添加子按鍵</string>
     <string name="customctrl_selectdefault">選擇預設控制佈局</string>
-    <string name="customctrl_export">匯出控制佈局</string>
+    <string name="customctrl_export">保存並分享</string>
     <string name="customctrl_passthru">滑鼠透傳</string>
     <string name="customctrl_swipeable">可滑動</string>
     <string name="customctrl_forward_lock">鎖定前進</string>

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/background_card"
     android:padding="@dimen/_8sdp"
@@ -108,6 +107,16 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_item"
                 android:text="@string/global_save_and_exit"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"/>
+
+            <com.movtery.zalithlauncher.ui.view.AnimTextView
+                android:id="@+id/save_and_export"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/background_item"
+                android:text="@string/customctrl_export"
                 android:gravity="center_horizontal"
                 android:paddingHorizontal="@dimen/_8sdp"/>
 
@@ -225,16 +234,6 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_item"
                 android:text="@string/customctrl_selectdefault"
-                android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_8sdp"/>
-
-            <com.movtery.zalithlauncher.ui.view.AnimTextView
-                android:id="@+id/export"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/background_item"
-                android:text="@string/customctrl_export"
                 android:gravity="center_horizontal"
                 android:paddingHorizontal="@dimen/_8sdp"/>
 

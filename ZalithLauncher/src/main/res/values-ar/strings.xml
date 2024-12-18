@@ -143,7 +143,7 @@
     <string name="customctrl_addbutton_joystick">إضافة عصا تحكم</string>
     <string name="customctrl_addsubbutton">إضافة زر فرعي</string>
     <string name="customctrl_selectdefault">اختيار تخطيط التحكم الافتراضي</string>
-    <string name="customctrl_export">تصدير تخطيط التحكم</string>
+    <string name="customctrl_export">حفظ ومشاركة</string>
     <string name="customctrl_passthru">تمرير الماوس</string>
     <string name="customctrl_swipeable">قابل للتمرير</string>
     <string name="customctrl_forward_lock">قفل التقدم</string>

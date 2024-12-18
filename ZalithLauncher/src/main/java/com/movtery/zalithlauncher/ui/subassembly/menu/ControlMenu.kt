@@ -37,6 +37,7 @@ class ControlMenu(
             load.setOnClickListener(listener)
             save.setOnClickListener(listener)
             saveAndExit.setOnClickListener(listener)
+            saveAndExport.setOnClickListener(listener)
 
             snappingLayout.setOnClickListener(listener)
             snapping.setOnCheckedChangeListener(listener)
@@ -44,10 +45,9 @@ class ControlMenu(
             snappingDistanceAdd.setOnClickListener(listener)
             snappingDistanceRemove.setOnClickListener(listener)
             selectDefault.setOnClickListener(listener)
-            export.setOnClickListener(listener)
             exit.setOnClickListener(listener)
-            if (this@ControlMenu.export) export.visibility = View.VISIBLE
-            else export.visibility = View.GONE
+            if (export) saveAndExport.visibility = View.VISIBLE
+            else saveAndExport.visibility = View.GONE
         }
     }
 
@@ -61,12 +61,7 @@ class ControlMenu(
                 load -> controlLayout.openLoadDialog()
                 save -> controlLayout.openSaveDialog()
                 saveAndExit -> controlLayout.openSaveAndExitDialog(exitListener)
-
-                snappingLayout -> MenuUtils.toggleSwitchState(snapping)
-                snappingDistanceAdd -> MenuUtils.adjustSeekbar(snappingDistance, 1)
-                snappingDistanceRemove -> MenuUtils.adjustSeekbar(snappingDistance, -1)
-                selectDefault -> controlLayout.openSetDefaultDialog()
-                export -> {
+                saveAndExport -> {
                     try { // Saving the currently shown control
                         val contentUri = DocumentsContract.buildDocumentUri(
                             activity.getString(R.string.storageProviderAuthorities),
@@ -86,6 +81,12 @@ class ControlMenu(
                         Tools.showError(activity, e)
                     }
                 }
+
+                snappingLayout -> MenuUtils.toggleSwitchState(snapping)
+                snappingDistanceAdd -> MenuUtils.adjustSeekbar(snappingDistance, 1)
+                snappingDistanceRemove -> MenuUtils.adjustSeekbar(snappingDistance, -1)
+                selectDefault -> controlLayout.openSetDefaultDialog()
+
                 exit -> controlLayout.openExitDialog(exitListener)
                 else -> {}
             }

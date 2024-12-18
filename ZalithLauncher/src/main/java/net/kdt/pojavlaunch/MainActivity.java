@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         ControlLayout controlLayout = binding.mainControlLayout;
         mControlSettingsBinding = ViewControlMenuBinding.inflate(getLayoutInflater());
         new ControlMenu(this, this, mControlSettingsBinding, controlLayout, false);
-        mControlSettingsBinding.export.setVisibility(View.GONE);
+        mControlSettingsBinding.saveAndExport.setVisibility(View.GONE);
 
         binding.mainControlLayout.setModifiable(false);
 
@@ -631,6 +631,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 } catch (IOException ignored) {}
                 dialog.dismiss();
             });
+            dialog.setTitleText(R.string.replacement_customcontrol);
             dialog.show();
         }
 
