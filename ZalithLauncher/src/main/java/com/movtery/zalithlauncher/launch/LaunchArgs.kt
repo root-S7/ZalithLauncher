@@ -20,7 +20,6 @@ import java.io.File
 
 class LaunchArgs(
     private val account: MinecraftAccount,
-    private val isNoNetwork: Boolean,
     private val gameDirPath: File,
     private val minecraftVersion: Version,
     private val versionInfo: JMinecraftVersionList.Version,
@@ -45,7 +44,7 @@ class LaunchArgs(
     private fun getJavaArgs(): List<String> {
         val argsList: MutableList<String> = ArrayList()
 
-        if (!isNoNetwork && AccountUtils.isOtherLoginAccount(account)) {
+        if (AccountUtils.isOtherLoginAccount(account)) {
             if (account.otherBaseUrl.contains("auth.mc-user.com")) {
                 argsList.add("-javaagent:${LibPath.NIDE_8_AUTH.absolutePath}=${account.otherBaseUrl.replace("https://auth.mc-user.com:233/", "")}")
                 argsList.add("-Dnide8auth.client=true")
@@ -94,11 +93,11 @@ class LaunchArgs(
 
     private fun getMinecraftClientArgs(): Array<String> {
         val verArgMap: MutableMap<String, String> = ArrayMap()
-        verArgMap["auth_session"] = account.accessToken.takeIf { !isNoNetwork } ?: "0"
-        verArgMap["auth_access_token"] = account.accessToken.takeIf { !isNoNetwork } ?: "0"
+        verArgMap["auth_session"] = account.accessToken
+        verArgMap["auth_access_token"] = account.accessToken
         verArgMap["auth_player_name"] = account.username
         verArgMap["auth_uuid"] = account.profileId.replace("-", "")
-        verArgMap["auth_xuid"] = account.xuid.takeIf { !isNoNetwork } ?: ""
+        verArgMap["auth_xuid"] = account.xuid
         verArgMap["assets_root"] = ProfilePathHome.assetsHome
         verArgMap["assets_index_name"] = versionInfo.assets
         verArgMap["game_assets"] = ProfilePathHome.assetsHome

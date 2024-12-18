@@ -57,7 +57,8 @@ class LaunchGame {
             }
 
             if (!NetworkUtils.isNetworkAvailable(context)) {
-                //网络未链接，无法登录，但是依旧允许玩家启动游戏
+                // 网络未链接，无法登录，但是依旧允许玩家启动游戏
+                // 在启动时会再检查网络情况，如果仍未连接网络，那么将会临时创建一个同名的离线账号启动游戏
                 Toast.makeText(context, context.getString(R.string.account_login_no_network), Toast.LENGTH_SHORT).show()
                 launch()
                 return
@@ -113,20 +114,26 @@ class LaunchGame {
                 Tools.releaseCache()
             }
 
-            val isNoNetwork = !NetworkUtils.isNetworkAvailable(activity)
+            var account = AccountsManager.getInstance().currentAccount
+            if (!NetworkUtils.isNetworkAvailable(activity)) {
+                //没有网络时，将账号视为离线账号
+                account = MinecraftAccount().apply {
+                    this.username = account.username
+                    this.accountType = AccountType.LOCAL.type
+                }
+            }
 
             val customArgs = minecraftVersion.getJavaArgs().takeIf { it.isNotBlank() } ?: ""
-            val account = AccountsManager.getInstance().currentAccount
             printLauncherInfo(
                 minecraftVersion,
                 customArgs.takeIf { it.isNotBlank() } ?: "NONE",
                 minecraftVersion.getJavaDir().takeIf { it.isNotBlank() } ?: "NONE",
-                account, isNoNetwork
+                account
             )
             JREUtils.redirectAndPrintJRELog()
 
             val requiredJavaVersion = version.javaVersion?.majorVersion ?: 8
-            launch(activity, account, isNoNetwork, minecraftVersion, requiredJavaVersion, customArgs)
+            launch(activity, account, minecraftVersion, requiredJavaVersion, customArgs)
             //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
             activity.runOnUiThread { serverBinder.isActive = false }
         }
@@ -135,8 +142,7 @@ class LaunchGame {
             minecraftVersion: Version,
             javaArguments: String,
             javaRuntime: String,
-            account: MinecraftAccount,
-            isNoNetwork: Boolean
+            account: MinecraftAccount
         ) {
             fun formatJavaRuntimeString(): String {
                 val prefix = Tools.LAUNCHERPROFILES_RTPREFIX
@@ -159,7 +165,7 @@ class LaunchGame {
             Logger.appendToLog("Info: Game Path: ${minecraftVersion.getGameDir().absolutePath} (Isolation: ${minecraftVersion.isIsolation()})")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
             Logger.appendToLog("Info: Java Runtime: ${formatJavaRuntimeString()}")
-            Logger.appendToLog("Info: Account: ${account.username} (${if (isNoNetwork) AccountType.LOCAL.type else account.accountType})")
+            Logger.appendToLog("Info: Account: ${account.username} (${account.accountType})")
         }
 
         @Throws(Throwable::class)
@@ -167,7 +173,6 @@ class LaunchGame {
         private fun launch(
             activity: AppCompatActivity,
             account: MinecraftAccount,
-            isNoNetwork: Boolean,
             minecraftVersion: Version,
             versionJavaRequirement: Int,
             customArgs: String
@@ -191,7 +196,6 @@ class LaunchGame {
 
             val launchArgs = LaunchArgs(
                 account,
-                isNoNetwork,
                 gameDirPath,
                 minecraftVersion,
                 versionInfo,
