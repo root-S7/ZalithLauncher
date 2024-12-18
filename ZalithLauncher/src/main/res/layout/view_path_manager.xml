@@ -6,6 +6,8 @@
     android:background="@drawable/background_card"
     android:padding="@dimen/_8sdp"
     android:orientation="vertical"
+    android:elevation="@dimen/_8sdp"
+    android:translationZ="4dp"
     tools:ignore="ContentDescription">
 
     <LinearLayout

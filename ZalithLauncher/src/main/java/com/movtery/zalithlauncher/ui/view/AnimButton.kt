@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.res.ResourcesCompat
 import com.movtery.zalithlauncher.R
+import net.kdt.pojavlaunch.Tools
 
 open class AnimButton @JvmOverloads constructor(
     context: Context,
@@ -15,7 +16,8 @@ open class AnimButton @JvmOverloads constructor(
     init {
         isAllCaps = false
         background = ResourcesCompat.getDrawable(resources, R.drawable.button_background, context.theme)
-        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale_with_shadow)
+        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.xml.anim_scale)
+        translationZ = Tools.dpToPx(4f)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

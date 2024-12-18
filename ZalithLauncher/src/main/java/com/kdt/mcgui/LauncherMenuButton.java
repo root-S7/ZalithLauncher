@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.R;
 
+import net.kdt.pojavlaunch.Tools;
+
 import fr.spse.extended_view.ExtendedButton;
 
 public class LauncherMenuButton extends ExtendedButton {
@@ -31,7 +33,8 @@ public class LauncherMenuButton extends ExtendedButton {
         post(() -> {
             setPivotX(getWidth() / 2f);
             setPivotY(getHeight() / 2f);
-            setStateListAnimator(AnimatorInflater.loadStateListAnimator(getContext(), R.xml.anim_scale_with_shadow));
+            setStateListAnimator(AnimatorInflater.loadStateListAnimator(getContext(), R.xml.anim_scale));
+            setTranslationZ(Tools.dpToPx(4f));
         });
     }
 
