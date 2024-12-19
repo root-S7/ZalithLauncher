@@ -450,6 +450,8 @@
     <string name="setting_verify_manifest_desc">Wenn aktiviert, überprüft der Launcher die Spielversionsliste sowie die Bibliotheken</string>
     <string name="setting_resource_image_cache_title">Ressourcenbilder zwischenspeichern</string>
     <string name="setting_resource_image_cache_desc">Wenn aktiviert, speichert der Launcher die Titelbilder und Screenshots von Ressourcen im Cache, um sie beim nächsten Mal schneller zu laden</string>
+    <string name="setting_resource_full_name_title">Vollständiger Name der Ressource Präfix</string>
+    <string name="setting_resource_full_name_desc">Beim Herunterladen von Ressourcen-Dateien, ob der vollständige Name der Ressource dem benutzerdefinierten Dateinamen als Präfix hinzugefügt werden soll</string>
     <string name="setting_download_source_title">Spiel-Downloadquelle</string>
     <string name="setting_download_source_desc">Wählen Sie eine Mirror-Downloadquelle anstelle der offiziellen Downloadquelle</string>
     <string name="setting_max_download_threads_title">Maximale Download-Threads</string>

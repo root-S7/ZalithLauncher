@@ -477,6 +477,8 @@
     <string name="setting_verify_manifest_desc">启用后，启动器将检查游戏版本列表以及库</string>
     <string name="setting_resource_image_cache_title">缓存资源图片</string>
     <string name="setting_resource_image_cache_desc">启用后，启动器将会对资源的封面图片、截图进行缓存，以便下次更快的加载</string>
+    <string name="setting_resource_full_name_title">资源完整名称前缀</string>
+    <string name="setting_resource_full_name_desc">下载资源文件时，是否在自定义文件名前添加资源的完整名称</string>
     <string name="setting_download_source_title">游戏下载源</string>
     <string name="setting_download_source_desc">选择镜像下载源，而不是使用官方下载源</string>
     <string name="setting_max_download_threads_title">文件下载最大线程数</string>

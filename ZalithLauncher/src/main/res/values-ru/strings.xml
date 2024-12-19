@@ -450,6 +450,8 @@
     <string name="setting_verify_manifest_desc">После включения лаунчер будет проверять список версий игры и библиотек</string>
     <string name="setting_resource_image_cache_title">Кэшировать изображения ресурсов</string>
     <string name="setting_resource_image_cache_desc">При включении лаунчер будет кэшировать обложки и скриншоты ресурсов для более быстрого загрузки в следующий раз</string>
+    <string name="setting_resource_full_name_title">Префикс полного имени ресурса</string>
+    <string name="setting_resource_full_name_desc">При загрузке файлов ресурсов, нужно ли добавлять полное имя ресурса в качестве префикса к пользовательскому имени файла</string>
     <string name="setting_download_source_title">Источник загрузки игры</string>
     <string name="setting_download_source_desc">Выберите зеркальный источник загрузки вместо официального</string>
     <string name="setting_max_download_threads_title">Максимальное количество потоков для загрузки</string>

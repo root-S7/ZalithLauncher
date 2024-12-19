@@ -450,6 +450,8 @@
     <string name="setting_verify_manifest_desc">Quando habilitado, o lançador verificará a lista de versões do jogo e as bibliotecas</string>
     <string name="setting_resource_image_cache_title">Cachear imagens de recursos</string>
     <string name="setting_resource_image_cache_desc">Quando ativado, o launcher armazenará em cache as imagens de capa e capturas de tela dos recursos para carregar mais rapidamente da próxima vez</string>
+    <string name="setting_resource_full_name_title">Prefixo do nome completo do recurso</string>
+    <string name="setting_resource_full_name_desc">Ao baixar arquivos de recursos, se o nome completo do recurso deve ser adicionado como prefixo ao nome do arquivo personalizado</string>
     <string name="setting_download_source_title">Fonte de Download do Jogo</string>
     <string name="setting_download_source_desc">Selecionar fonte de download em espelho em vez de usar a fonte oficial de download</string>
     <string name="setting_max_download_threads_title">Número máximo de threads de download</string>

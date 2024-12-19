@@ -136,6 +136,9 @@ class AllSettings {
         val resourceImageCache = BooleanSettingUnit("resourceImageCache", false)
 
         @JvmStatic
+        val addFullResourceName = BooleanSettingUnit("addFullResourceName", true)
+
+        @JvmStatic
         val downloadSource = StringSettingUnit("downloadSource", "default")
 
         @JvmStatic

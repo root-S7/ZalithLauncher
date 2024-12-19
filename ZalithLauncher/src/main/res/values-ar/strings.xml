@@ -450,6 +450,8 @@
     <string name="setting_verify_manifest_desc">عند التمكين، سيقوم المشغل بالتحقق من قائمة نسخ اللعبة والمكتبات</string>
     <string name="setting_resource_image_cache_title">تخزين صور الموارد مؤقتًا</string>
     <string name="setting_resource_image_cache_desc">عند التفعيل، سيقوم المشغل بتخزين صور غلاف الموارد ولقطات الشاشة مؤقتًا لتحميلها بشكل أسرع في المرة القادمة</string>
+    <string name="setting_resource_full_name_title">بادئة الاسم الكامل للمورد</string>
+    <string name="setting_resource_full_name_desc">عند تنزيل ملفات الموارد، هل يجب إضافة الاسم الكامل للمورد كبادئة لاسم الملف المخصص</string>
     <string name="setting_download_source_title">مصدر تنزيل اللعبة</string>
     <string name="setting_download_source_desc">اختيار مصدر تنزيل مرآة بدلاً من استخدام المصدر الرسمي</string>
     <string name="setting_max_download_threads_title">عدد الحلقات الأقصى لتنزيل الملفات</string>

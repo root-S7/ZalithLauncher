@@ -450,6 +450,8 @@
     <string name="setting_verify_manifest_desc">Khi bật, trình khởi chạy sẽ kiểm tra danh sách phiên bản trò chơi và thư viện</string>
     <string name="setting_resource_image_cache_title">Bộ nhớ đệm hình ảnh tài nguyên</string>
     <string name="setting_resource_image_cache_desc">Khi bật, trình khởi chạy sẽ lưu trữ vào bộ nhớ đệm các ảnh bìa và ảnh chụp màn hình của tài nguyên để tải nhanh hơn lần sau</string>
+    <string name="setting_resource_full_name_title">Tiền tố tên đầy đủ của tài nguyên</string>
+    <string name="setting_resource_full_name_desc">Khi tải xuống tệp tài nguyên, có nên thêm tên đầy đủ của tài nguyên làm tiền tố cho tên tệp tùy chỉnh</string>
     <string name="setting_download_source_title">Nguồn tải xuống trò chơi</string>
     <string name="setting_download_source_desc">Chọn nguồn tải xuống lậu thay vì sử dụng nguồn tải xuống chính thức</string>
     <string name="setting_max_download_threads_title">Số luồng tải xuống tối đa</string>

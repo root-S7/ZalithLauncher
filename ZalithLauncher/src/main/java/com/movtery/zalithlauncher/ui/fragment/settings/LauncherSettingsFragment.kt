@@ -63,6 +63,13 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.resourceImageCache
         )
 
+        SwitchSettingsWrapper(
+            context,
+            AllSettings.addFullResourceName,
+            binding.addFullResourceNameLayout,
+            binding.addFullResourceName
+        )
+
         ListSettingsWrapper(
             context,
             AllSettings.downloadSource,

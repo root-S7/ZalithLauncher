@@ -17,6 +17,7 @@ import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
 import com.movtery.zalithlauncher.feature.version.NoVersionException
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionsManager
+import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -153,7 +154,8 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
         install: (File, String) -> Unit
     ) {
         val file = File(version.fileName)
-        val fileName = "[${if (ZHTools.areaChecks("zh") && translatedName?.isNotEmpty() == true) translatedName else name}] "
+        val fileName = "".takeIf { !AllSettings.addFullResourceName.getValue() }
+            ?: "[${if (ZHTools.areaChecks("zh") && translatedName?.isNotEmpty() == true) translatedName else name}] "
 
         EditTextDialog.Builder(context)
             .setTitle(R.string.download_install_custom_name)
