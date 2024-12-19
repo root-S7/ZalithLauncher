@@ -374,6 +374,7 @@
     <string name="setting_category_game_menu">Menu game</string>
     <string name="setting_category_experimental">Thử nghiệm</string>
     <string name="setting_category_experimental_patches">Bản vá thử nghiệm</string>
+    <string name="setting_category_support">Hỗ trợ bên ngoài</string>
     <string name="setting_renderer_title">Bộ kết xuất</string>
     <string name="setting_renderer_name_ltw">LTW (Chỉ dành cho 1.17+)</string>
     <string name="setting_ignore_notch_title">Chế độ toàn màn hình</string>

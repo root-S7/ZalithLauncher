@@ -374,6 +374,7 @@
     <string name="setting_category_game_menu">遊戲選單</string>
     <string name="setting_category_experimental">實驗性</string>
     <string name="setting_category_experimental_patches">實驗性補丁</string>
+    <string name="setting_category_support">外部支援</string>
     <string name="setting_renderer_title">渲染器</string>
     <string name="setting_renderer_name_ltw">LTW (僅限 1.17+)</string>
     <string name="setting_ignore_notch_title">全螢幕模式</string>

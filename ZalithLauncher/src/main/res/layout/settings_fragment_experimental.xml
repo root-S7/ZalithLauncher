@@ -91,6 +91,24 @@
                     android:layout_centerVertical="true" />
             </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/support_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_12sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:text="@string/setting_category_support"
+                android:textColor="@color/settings_category" />
+
             <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
                 android:id="@+id/useControllerProxy_layout"
                 android:layout_width="match_parent"

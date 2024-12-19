@@ -374,6 +374,7 @@
     <string name="setting_category_game_menu">قائمة اللعبة</string>
     <string name="setting_category_experimental">تجريبي</string>
     <string name="setting_category_experimental_patches">تصحيحات تجريبية</string>
+    <string name="setting_category_support">الدعم الخارجي</string>
     <string name="setting_renderer_title">العارض</string>
     <string name="setting_renderer_name_ltw">LTW (للإصدار 1.17+ فقط)</string>
     <string name="setting_ignore_notch_title">وضع ملء الشاشة</string>

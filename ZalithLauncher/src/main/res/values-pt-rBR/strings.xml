@@ -374,6 +374,7 @@
     <string name="setting_category_game_menu">Menu do jogo</string>
     <string name="setting_category_experimental">Experimental</string>
     <string name="setting_category_experimental_patches">Patches experimentais</string>
+    <string name="setting_category_support">Suporte Externo</string>
     <string name="setting_renderer_title">Renderizador</string>
     <string name="setting_renderer_name_ltw">LTW (Apenas para 1.17+)</string>
     <string name="setting_ignore_notch_title">Modo Tela Cheia</string>

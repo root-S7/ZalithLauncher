@@ -374,6 +374,7 @@
     <string name="setting_category_game_menu">Menu du jeu</string>
     <string name="setting_category_experimental">Expérimental</string>
     <string name="setting_category_experimental_patches">Patchs expérimentaux</string>
+    <string name="setting_category_support">Support externe</string>
     <string name="setting_renderer_title">Moteur de rendu</string>
     <string name="setting_renderer_name_ltw">LTW (Uniquement pour 1.17+)</string>
     <string name="setting_ignore_notch_title">Mode plein écran</string>

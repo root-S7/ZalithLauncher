@@ -395,6 +395,7 @@
     <string name="setting_category_game_menu">游戏菜单</string>
     <string name="setting_category_experimental">实验性</string>
     <string name="setting_category_experimental_patches">实验性的补丁</string>
+    <string name="setting_category_support">外部支持</string>
 
     <string name="setting_renderer_title">渲染器</string>
     <string name="setting_renderer_name_ltw">LTW (仅限 1.17+)</string>
