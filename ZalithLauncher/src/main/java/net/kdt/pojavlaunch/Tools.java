@@ -51,7 +51,6 @@ import net.kdt.pojavlaunch.lifecycle.ContextExecutorTask;
 import net.kdt.pojavlaunch.memory.MemoryHoleFinder;
 import net.kdt.pojavlaunch.memory.SelfMapsParser;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
-import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.value.DependentLibrary;
 import net.kdt.pojavlaunch.value.MinecraftLibraryArtifact;
@@ -87,14 +86,6 @@ public final class Tools {
     // New since 3.0.0
     public static String DIRNAME_HOME_JRE = "lib";
     private static RenderersList sCompatibleRenderers;
-
-    public static File getPojavStorageRoot(Context ctx) {
-        if(SDK_INT >= 29) {
-            return ctx.getExternalFilesDir(null);
-        }else{
-            return new File(Environment.getExternalStorageDirectory(),"games/ZalithLauncher");
-        }
-    }
 
     /**
      * Checks if the Pojav's storage root is accessible and read-writable
@@ -578,10 +569,6 @@ public final class Tools {
         }
     }
 
-    public static void downloadFile(String urlInput, String nameOutput) throws IOException {
-        File file = new File(nameOutput);
-        DownloadUtils.downloadFile(urlInput, file);
-    }
     public interface DownloaderFeedback {
         void updateProgress(int curr, int max);
     }

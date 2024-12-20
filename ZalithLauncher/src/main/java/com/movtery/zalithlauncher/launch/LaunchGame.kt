@@ -185,7 +185,7 @@ class LaunchGame {
             Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
             Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
-            Logger.appendToLog("Info: Renderer: ${renderName?.first ?: "NULL"}")
+            Logger.appendToLog("Info: Renderer: ${renderName?.first ?: "Parsing failed, original name: ${Tools.LOCAL_RENDERER}"}")
             Logger.appendToLog("Info: Selected Minecraft version: ${minecraftVersion.getVersionName()}")
             Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Game Path: ${minecraftVersion.getGameDir().absolutePath} (Isolation: ${minecraftVersion.isIsolation()})")

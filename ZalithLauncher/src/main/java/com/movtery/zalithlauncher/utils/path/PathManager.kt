@@ -1,8 +1,9 @@
 package com.movtery.zalithlauncher.utils.path
 
 import android.content.Context
+import android.os.Build.VERSION
 import android.os.Environment
-import net.kdt.pojavlaunch.Tools
+import com.movtery.zalithlauncher.InfoCenter
 import org.apache.commons.io.FileUtils
 import java.io.File
 
@@ -37,7 +38,7 @@ class PathManager {
             DIR_DATA = DIR_FILE.getParent()!!
             DIR_CACHE = context.cacheDir
             DIR_MULTIRT_HOME = "$DIR_DATA/runtimes"
-            DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
+            DIR_GAME_HOME = getExternalStorageRoot(context).absolutePath
             DIR_LAUNCHER_LOG = "$DIR_GAME_HOME/launcher_log"
             DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
             DIR_ACCOUNT_NEW = "$DIR_FILE/accounts"
@@ -57,6 +58,15 @@ class PathManager {
                 //此处的账号文件已不再使用，需要检查并清除
                 FileUtils.deleteQuietly(File("$DIR_DATA/accounts"))
                 FileUtils.deleteQuietly(File(DIR_DATA, "/user_skin"))
+            }
+        }
+
+        @JvmStatic
+        fun getExternalStorageRoot(ctx: Context): File {
+            return if (VERSION.SDK_INT >= 29) {
+                ctx.getExternalFilesDir(null)!!
+            } else {
+                File(Environment.getExternalStorageDirectory(), "games/${InfoCenter.LAUNCHER_NAME}")
             }
         }
     }
