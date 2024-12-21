@@ -14,7 +14,6 @@ import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.FilenameFilter
 import java.io.IOException
 import java.io.InputStream
@@ -220,23 +219,33 @@ class FileTools {
             return String.format("%.2f %s", value, units[unitIndex])
         }
 
+        @JvmStatic
         @Throws(IOException::class)
-        fun packZip(files: Array<File>, outputZipFile: File?) {
-            if (files.isEmpty()) return
-
-            FileOutputStream(outputZipFile).use { fos ->
-                ZipOutputStream(fos).use { zos ->
-                    files.forEach { file ->
-                        FileInputStream(file).use { fis ->
-                            val zipEntry = ZipEntry(file.name).apply {
-                                time = file.lastModified() //保留原始文件的修改时间
-                            }
-                            zos.putNextEntry(zipEntry)
-                            fis.copyTo(zos, bufferSize = 1024)
-                            zos.closeEntry()
-                        }
-                    }
+        fun zipDirectory(folder: File, parentPath: String, filter: (File) -> Boolean, zos: ZipOutputStream) {
+            val files = folder.listFiles()?.filter(filter) ?: return
+            for (file in files) {
+                if (file.isDirectory) {
+                    zipDirectory(file, parentPath + file.name + "/", filter, zos)
+                } else {
+                    zipFile(file, parentPath + file.name, zos)
                 }
+            }
+        }
+
+        @JvmStatic
+        @Throws(IOException::class)
+        fun zipFile(file: File, entryName: String, zos: ZipOutputStream) {
+            FileInputStream(file).use { fis ->
+                val zipEntry = ZipEntry(entryName)
+                zipEntry.time = file.lastModified() //保留文件的修改时间
+                zos.putNextEntry(zipEntry)
+
+                val buffer = ByteArray(4096)
+                var length: Int
+                while ((fis.read(buffer).also { length = it }) >= 0) {
+                    zos.write(buffer, 0, length)
+                }
+                zos.closeEntry()
             }
         }
 

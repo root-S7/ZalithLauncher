@@ -355,9 +355,6 @@
     <string name="main_install_jar_file">執行 .jar 檔案</string>
     <string name="main_share_logs">分享日誌檔案</string>
     <string name="main_share_crash_report">分享崩潰報告</string>
-    <string name="main_share_log_title">請選擇日誌檔案類型</string>
-    <string name="main_share_launcher_log">啟動器日誌檔案</string>
-    <string name="main_share_game_log">上一次遊戲運行日誌</string>
     <string name="main_launch">啟動遊戲</string>
     <string name="setting_category_control">控制設定</string>
     <string name="setting_category_virtual_mouse">虛擬滑鼠</string>

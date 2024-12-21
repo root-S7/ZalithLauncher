@@ -375,9 +375,6 @@
     <string name="main_install_jar_file">执行 .jar 文件</string>
     <string name="main_share_logs">分享日志文件</string>
     <string name="main_share_crash_report">分享崩溃报告</string>
-    <string name="main_share_log_title">请选择日志文件类型</string>
-    <string name="main_share_launcher_log">启动器日志文件</string>
-    <string name="main_share_game_log">上一次游戏运行日志</string>
     <string name="main_launch">启动游戏</string>
 
     <string name="setting_category_control">控制设置</string>

@@ -355,9 +355,6 @@
     <string name="main_install_jar_file">تنفيذ ملف .jar</string>
     <string name="main_share_logs">مشاركة ملفات السجل</string>
     <string name="main_share_crash_report">مشاركة تقرير الانهيار</string>
-    <string name="main_share_log_title">الرجاء تحديد نوع ملف السجل</string>
-    <string name="main_share_launcher_log">ملف سجل المشغل</string>
-    <string name="main_share_game_log">سجل تشغيل اللعبة الأخير</string>
     <string name="main_launch">إطلاق اللعبة</string>
     <string name="setting_category_control">إعدادات التحكم</string>
     <string name="setting_category_virtual_mouse">الماوس الافتراضي</string>

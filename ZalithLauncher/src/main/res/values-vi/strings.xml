@@ -355,9 +355,6 @@
     <string name="main_install_jar_file">Thực thi tệp .jar</string>
     <string name="main_share_logs">Chia sẻ tệp nhật ký</string>
     <string name="main_share_crash_report">Chia sẻ báo cáo sự cố</string>
-    <string name="main_share_log_title">Vui lòng chọn loại tệp nhật ký</string>
-    <string name="main_share_launcher_log">Tệp nhật ký trình khởi chạy</string>
-    <string name="main_share_game_log">Nhật ký chạy game lần trước</string>
     <string name="main_launch">Bắt đầu trò chơi</string>
     <string name="setting_category_control">Cài đặt điều khiển</string>
     <string name="setting_category_virtual_mouse">Chuột ảo</string>

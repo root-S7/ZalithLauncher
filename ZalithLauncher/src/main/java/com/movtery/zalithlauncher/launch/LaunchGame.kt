@@ -176,22 +176,24 @@ class LaunchGame {
             minecraftVersion.getVersionInfo()?.let { info ->
                 mcInfo = info.getInfoString()
             }
-            
-            val renderers = context.resources.getStringArray(R.array.renderer).zip(context.resources.getStringArray(R.array.renderer_values))
-            val renderName = renderers.find { it.second == Tools.LOCAL_RENDERER }
+
+            val resources = context.resources
+            val renderers = resources.getStringArray(R.array.renderer).zip(resources.getStringArray(R.array.renderer_values))
+            val rendererName = renderers.find { it.second == Tools.LOCAL_RENDERER }?.first ?: "Parsing failed, original name: ${Tools.LOCAL_RENDERER}"
 
             Logger.appendToLog("--------- Start launching the game")
             Logger.appendToLog("Info: Launcher version: ${ZHTools.getVersionName()} (${ZHTools.getVersionCode()})")
             Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
             Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
-            Logger.appendToLog("Info: Renderer: ${renderName?.first ?: "Parsing failed, original name: ${Tools.LOCAL_RENDERER}"}")
+            Logger.appendToLog("Info: Renderer: $rendererName")
             Logger.appendToLog("Info: Selected Minecraft version: ${minecraftVersion.getVersionName()}")
             Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Game Path: ${minecraftVersion.getGameDir().absolutePath} (Isolation: ${minecraftVersion.isIsolation()})")
             Logger.appendToLog("Info: Custom Java arguments: $javaArguments")
             Logger.appendToLog("Info: Java Runtime: $javaRuntime")
             Logger.appendToLog("Info: Account: ${account.username} (${account.accountType})")
+            Logger.appendToLog("---------\r\n")
         }
 
         @Throws(Throwable::class)

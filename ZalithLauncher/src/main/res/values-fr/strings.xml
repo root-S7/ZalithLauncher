@@ -355,9 +355,6 @@
     <string name="main_install_jar_file">Exécuter le fichier .jar</string>
     <string name="main_share_logs">Partager les fichiers journaux</string>
     <string name="main_share_crash_report">Partager le rapport de crash</string>
-    <string name="main_share_log_title">Veuillez sélectionner le type de fichier journal</string>
-    <string name="main_share_launcher_log">Fichier journal du lanceur</string>
-    <string name="main_share_game_log">Journal de la dernière exécution du jeu</string>
     <string name="main_launch">Lancer le jeu</string>
     <string name="setting_category_control">Paramètres de contrôle</string>
     <string name="setting_category_virtual_mouse">Souris virtuelle</string>
