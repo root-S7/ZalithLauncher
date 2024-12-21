@@ -69,7 +69,7 @@
     <string name="option_hotbar_width">判定框寬度</string>
     <string name="option_hotbar_height">判定框高度</string>
     <string name="customctrl_editor_exit_title">是否離開？</string>
-    <string name="customctrl_editor_exit_msg">你是否確認退出？</string>
+    <string name="customctrl_editor_exit_msg">當前已進行的修改將不被保存，你確定要直接退出嗎？</string>
     <string name="customctrl_editor_exit">退出編輯器</string>
     <string name="global_save_and_exit">儲存並退出</string>
     <string name="version_snapshot">快照版</string>
@@ -89,7 +89,6 @@
     <string name="microsoft_login_retry_later">你的操作過於頻繁，請稍後再試</string>
     <string name="storage_required">%s 需要連接外部儲存，請重新連接並重新啟動軟體</string>
     <string name="dialog_select_jar">選擇 Jar 檔案</string>
-    <string name="percent_format">%d%%</string>
     <string name="version_select_hint">選擇版本</string>
     <string name="notif_error_occured">發生了一個錯誤</string>
     <string name="notif_error_occured_desc">點擊查看詳細資訊</string>
@@ -381,9 +380,8 @@
     <string name="setting_use_surface_view_title">使用備用表面渲染</string>
     <string name="setting_use_surface_view_desc">可能有助於提升受 GPU 功能限制的效能</string>
     <string name="setting_sustained_performance_title">啟用持續效能模式</string>
-    <string name="setting_sustained_performance_desc">通過限制峰值效能來限制過熱降頻</string>
     <string name="setting_force_vsync_title">強制啟用垂直同步</string>
-    <string name="setting_force_vsync_description">通過限制峰值效能來限制過熱降頻</string>
+    <string name="setting_limit_overheating_throttling">透過限制峰值性能來防止過熱降頻</string>
     <string name="setting_vsync_in_zink_title">允許與 Zink 進行垂直同步</string>
     <string name="setting_vsync_in_zink_desc">允許啟動器使用內部系統 API 為 Zink 啟用垂直同步</string>
     <string name="setting_vulkan_driver_system_title">使用系統 Vulkan 驅動</string>
@@ -391,7 +389,7 @@
     <string name="setting_longpress_trigger_title">觸發長按延遲</string>
     <string name="setting_longpress_trigger_desc">更改長按摧毀方塊、丟棄物品的觸發延遲</string>
     <string name="setting_button_scale_title">控制佈局縮放</string>
-    <string name="setting_button_scale_desc">如果按鍵太小，可以將其放大</string>
+    <string name="setting_button_scale_desc">調整控制佈局整體的縮放比例，如果按鍵太小，可以將其放大</string>
     <string name="setting_mouse_scale_desc">修改虛擬鼠標的大小</string>
     <string name="setting_mouse_speed_desc">修改虛擬鼠標的移動速度</string>
     <string name="setting_mouse_start_title">啟動遊戲時預設開啟虛擬鼠標</string>

@@ -69,7 +69,7 @@
     <string name="option_hotbar_width">Largeur de la boîte de détection</string>
     <string name="option_hotbar_height">Hauteur de la boîte de détection</string>
     <string name="customctrl_editor_exit_title">Quitter ?</string>
-    <string name="customctrl_editor_exit_msg">Êtes-vous sûr de vouloir quitter ?</string>
+    <string name="customctrl_editor_exit_msg">Les modifications en cours ne seront pas enregistrées. Êtes-vous sûr de vouloir quitter directement ?</string>
     <string name="customctrl_editor_exit">Quitter l\'éditeur</string>
     <string name="global_save_and_exit">Sauvegarder et quitter</string>
     <string name="version_snapshot">Version snapshot</string>
@@ -89,7 +89,6 @@
     <string name="microsoft_login_retry_later">Vous avez effectué trop d\'opérations, veuillez réessayer plus tard</string>
     <string name="storage_required">%s nécessite une connexion à un stockage externe, veuillez reconnecter et redémarrer l\'application</string>
     <string name="dialog_select_jar">Sélectionner un fichier Jar</string>
-    <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Sélectionner une version</string>
     <string name="notif_error_occured">Une erreur est survenue</string>
     <string name="notif_error_occured_desc">Cliquez pour voir les détails</string>
@@ -381,9 +380,8 @@
     <string name="setting_use_surface_view_title">Utiliser le rendu de surface de secours</string>
     <string name="setting_use_surface_view_desc">Peut aider à améliorer les performances limitées par la puissance de la GPU</string>
     <string name="setting_sustained_performance_title">Activer le mode de performance soutenue</string>
-    <string name="setting_sustained_performance_desc">Limite les performances maximales pour éviter la surchauffe et la baisse de fréquence</string>
     <string name="setting_force_vsync_title">Forcer la synchronisation verticale</string>
-    <string name="setting_force_vsync_description">Limite les performances maximales pour éviter la surchauffe et la baisse de fréquence</string>
+    <string name="setting_limit_overheating_throttling">Prévenir la réduction de la fréquence due à la surchauffe en limitant la performance maximale</string>
     <string name="setting_vsync_in_zink_title">Autoriser la synchronisation verticale avec Zink</string>
     <string name="setting_vsync_in_zink_desc">Permet au lanceur d\'utiliser les API système internes pour activer la synchronisation verticale avec Zink</string>
     <string name="setting_vulkan_driver_system_title">Utiliser le pilote Vulkan du système</string>
@@ -391,7 +389,7 @@
     <string name="setting_longpress_trigger_title">Délai de déclenchement de la pression longue</string>
     <string name="setting_longpress_trigger_desc">Modifie le délai de déclenchement pour détruire un bloc ou jeter un objet</string>
     <string name="setting_button_scale_title">Mise à l\'échelle de la disposition des contrôles</string>
-    <string name="setting_button_scale_desc">Si les boutons sont trop petits, vous pouvez les agrandir</string>
+    <string name="setting_button_scale_desc">Ajustez l\'échelle globale de la disposition des contrôles. Si les boutons sont trop petits, vous pouvez les agrandir.</string>
     <string name="setting_mouse_scale_desc">Modifier la taille de la souris virtuelle</string>
     <string name="setting_mouse_speed_desc">Modifier la vitesse de la souris virtuelle</string>
     <string name="setting_mouse_start_title">Afficher la souris virtuelle au démarrage du jeu</string>

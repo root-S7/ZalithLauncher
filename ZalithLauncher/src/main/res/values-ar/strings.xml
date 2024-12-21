@@ -69,7 +69,7 @@
     <string name="option_hotbar_width">عرض إطار التحديد</string>
     <string name="option_hotbar_height">ارتفاع إطار التحديد</string>
     <string name="customctrl_editor_exit_title">هل تريد الخروج؟</string>
-    <string name="customctrl_editor_exit_msg">هل أنت متأكد من الخروج؟</string>
+    <string name="customctrl_editor_exit_msg">لن يتم حفظ التعديلات الحالية. هل أنت متأكد أنك تريد الخروج مباشرة؟</string>
     <string name="customctrl_editor_exit">الخروج من المحرر</string>
     <string name="global_save_and_exit">حفظ والخروج</string>
     <string name="version_snapshot">الإصدار المبدئي</string>
@@ -89,7 +89,6 @@
     <string name="microsoft_login_retry_later">لقد قمت بالكثير من المحاولات، يرجى المحاولة مرة أخرى لاحقًا</string>
     <string name="storage_required">%s يتطلب الاتصال بالتخزين الخارجي، يرجى إعادة الاتصال وإعادة تشغيل البرنامج</string>
     <string name="dialog_select_jar">اختيار ملف Jar</string>
-    <string name="percent_format">%d%%</string>
     <string name="version_select_hint">اختيار الإصدار</string>
     <string name="notif_error_occured">حدث خطأ</string>
     <string name="notif_error_occured_desc">انقر لعرض التفاصيل</string>
@@ -381,9 +380,8 @@
     <string name="setting_use_surface_view_title">استخدام عرض سطح بديل</string>
     <string name="setting_use_surface_view_desc">قد يساعد في تحسين الأداء المقيد بقدرات وحدة معالجة الرسومات</string>
     <string name="setting_sustained_performance_title">تمكين وضع الأداء المستمر</string>
-    <string name="setting_sustained_performance_desc">يحد من الأداء القصوى لمنع الانخفاض الحراري</string>
     <string name="setting_force_vsync_title">فرض تمكين المزامنة العمودية</string>
-    <string name="setting_force_vsync_description">يحد من الأداء القصوى لمنع الانخفاض الحراري</string>
+    <string name="setting_limit_overheating_throttling">منع خفض التردد بسبب الحرارة الزائدة عن طريق تحديد الأداء الأقصى</string>
     <string name="setting_vsync_in_zink_title">السماح بالمزامنة العمودية مع Zink</string>
     <string name="setting_vsync_in_zink_desc">يسمح للمشغل باستخدام واجهة برمجة تطبيقات النظام الداخلية لتمكين المزامنة العمودية لـ Zink</string>
     <string name="setting_vulkan_driver_system_title">استخدام برنامج تشغيل Vulkan الخاص بالنظام</string>
@@ -391,7 +389,7 @@
     <string name="setting_longpress_trigger_title">تأخير تشغيل الضغط الطويل</string>
     <string name="setting_longpress_trigger_desc">تغيير تأخير تشغيل الضغط الطويل لتدمير الكتل وإفلات العناصر</string>
     <string name="setting_button_scale_title">تحجيم تخطيط التحكم</string>
-    <string name="setting_button_scale_desc">إذا كانت الأزرار صغيرة جدًا، يمكنك تكبيرها</string>
+    <string name="setting_button_scale_desc">اضبط مقياس تخطيط التحكم بشكل عام. إذا كانت الأزرار صغيرة جدًا، يمكنك تكبيرها.</string>
     <string name="setting_mouse_scale_desc">تعديل حجم الماوس الافتراضي</string>
     <string name="setting_mouse_speed_desc">تعديل سرعة الماوس الافتراضي</string>
     <string name="setting_mouse_start_title">فتح الماوس الافتراضي بشكل افتراضي عند بدء اللعبة</string>

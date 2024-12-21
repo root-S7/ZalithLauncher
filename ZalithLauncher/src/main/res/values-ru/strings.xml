@@ -69,7 +69,7 @@
     <string name="option_hotbar_width">Ширина коробки обнаружения</string>
     <string name="option_hotbar_height">Высота коробки обнаружения</string>
     <string name="customctrl_editor_exit_title">Выйти?</string>
-    <string name="customctrl_editor_exit_msg">Вы уверены, что хотите выйти?</string>
+    <string name="customctrl_editor_exit_msg">Текущие изменения не будут сохранены. Вы уверены, что хотите выйти прямо сейчас?</string>
     <string name="customctrl_editor_exit">Выйти из редактора</string>
     <string name="global_save_and_exit">Сохранить и выйти</string>
     <string name="version_snapshot">Снимок</string>
@@ -89,7 +89,6 @@
     <string name="microsoft_login_retry_later">Ваши действия слишком часты, попробуйте позже</string>
     <string name="storage_required">%s требует подключения внешнего хранилища, пожалуйста, подключите его и перезапустите программу</string>
     <string name="dialog_select_jar">Выбрать файл Jar</string>
-    <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Выберите версию</string>
     <string name="notif_error_occured">Произошла ошибка</string>
     <string name="notif_error_occured_desc">Нажмите, чтобы увидеть подробности</string>
@@ -381,9 +380,8 @@
     <string name="setting_use_surface_view_title">Использовать альтернативный поверхностный рендеринг</string>
     <string name="setting_use_surface_view_desc">Может помочь улучшить производительность, ограниченную возможностями GPU</string>
     <string name="setting_sustained_performance_title">Включить режим постоянного уровня производительности</string>
-    <string name="setting_sustained_performance_desc">Ограничивает пиковую производительность для предотвращения перегрева и снижения частоты</string>
     <string name="setting_force_vsync_title">Принудительно включить вертикальную синхронизацию</string>
-    <string name="setting_force_vsync_description">Ограничивает пиковую производительность для предотвращения перегрева и снижения частоты</string>
+    <string name="setting_limit_overheating_throttling">Предотвращение троттлинга из-за перегрева путем ограничения пиковой производительности</string>
     <string name="setting_vsync_in_zink_title">Разрешить вертикальную синхронизацию с Zink</string>
     <string name="setting_vsync_in_zink_desc">Позволяет лаунчеру использовать внутренние системные API для включения вертикальной синхронизации с Zink</string>
     <string name="setting_vulkan_driver_system_title">Использовать системный драйвер Vulkan</string>
@@ -391,7 +389,7 @@
     <string name="setting_longpress_trigger_title">Задержка длинного нажатия</string>
     <string name="setting_longpress_trigger_desc">Изменяет задержку для активации длинного нажатия для разрушения блоков и выбрасывания предметов</string>
     <string name="setting_button_scale_title">Масштабирование раскладки управления</string>
-    <string name="setting_button_scale_desc">Если кнопки слишком маленькие, их можно увеличить</string>
+    <string name="setting_button_scale_desc">Настройте общий масштаб макета управления. Если кнопки слишком маленькие, их можно увеличить.</string>
     <string name="setting_mouse_scale_desc">Изменить размер виртуальной мыши</string>
     <string name="setting_mouse_speed_desc">Изменить скорость перемещения виртуальной мыши</string>
     <string name="setting_mouse_start_title">Показывать виртуальную мышь при запуске игры</string>

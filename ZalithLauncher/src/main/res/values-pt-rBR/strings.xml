@@ -69,7 +69,7 @@
     <string name="option_hotbar_width">Largura da Caixa de Detecção</string>
     <string name="option_hotbar_height">Altura da Caixa de Detecção</string>
     <string name="customctrl_editor_exit_title">Sair?</string>
-    <string name="customctrl_editor_exit_msg">Tem certeza de que deseja sair?</string>
+    <string name="customctrl_editor_exit_msg">As alterações atuais não serão salvas. Tem certeza de que deseja sair diretamente?</string>
     <string name="customctrl_editor_exit">Sair do Editor</string>
     <string name="global_save_and_exit">Salvar e Sair</string>
     <string name="version_snapshot">Versão Snapshot</string>
@@ -89,7 +89,6 @@
     <string name="microsoft_login_retry_later">Suas ações estão sendo realizadas com muita frequência, tente novamente mais tarde</string>
     <string name="storage_required">O %s requer armazenamento externo, reconecte e reinicie o software</string>
     <string name="dialog_select_jar">Selecionar Arquivo Jar</string>
-    <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Selecionar Versão</string>
     <string name="notif_error_occured">Ocorreu um erro</string>
     <string name="notif_error_occured_desc">Clique para ver detalhes</string>
@@ -381,9 +380,8 @@
     <string name="setting_use_surface_view_title">Usar Renderização de Superfície Alternativa</string>
     <string name="setting_use_surface_view_desc">Pode ajudar a melhorar o desempenho limitado pela capacidade da GPU</string>
     <string name="setting_sustained_performance_title">Habilitar Modo de Desempenho Sustentado</string>
-    <string name="setting_sustained_performance_desc">Limita o desempenho máximo para evitar redução de frequência devido ao superaquecimento</string>
     <string name="setting_force_vsync_title">Forçar V-Sync</string>
-    <string name="setting_force_vsync_description">Limita o desempenho máximo para evitar redução de frequência devido ao superaquecimento</string>
+    <string name="setting_limit_overheating_throttling">Prevenir o redução de desempenho devido ao superaquecimento limitando o desempenho máximo</string>
     <string name="setting_vsync_in_zink_title">Permitir V-Sync com Zink</string>
     <string name="setting_vsync_in_zink_desc">Permite que o launcher use a API do sistema interno para habilitar V-Sync com Zink</string>
     <string name="setting_vulkan_driver_system_title">Usar Driver Vulkan do Sistema</string>
@@ -391,7 +389,7 @@
     <string name="setting_longpress_trigger_title">Atraso de Acionamento de Toque Longo</string>
     <string name="setting_longpress_trigger_desc">Altera o atraso para acionar o toque longo para destruir blocos, descartar itens</string>
     <string name="setting_button_scale_title">Escala de Layout de Controle</string>
-    <string name="setting_button_scale_desc">Se os botões forem muito pequenos, você pode aumentá-los</string>
+    <string name="setting_button_scale_desc">Ajuste a escala geral do layout de controle. Se os botões estiverem muito pequenos, você pode aumentá-los.</string>
     <string name="setting_mouse_scale_desc">Modifica o tamanho do mouse virtual</string>
     <string name="setting_mouse_speed_desc">Modifica a velocidade do mouse virtual</string>
     <string name="setting_mouse_start_title">Mostrar Mouse Virtual ao Iniciar o Jogo</string>

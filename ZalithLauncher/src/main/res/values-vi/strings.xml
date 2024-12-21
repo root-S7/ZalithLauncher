@@ -69,7 +69,7 @@
     <string name="option_hotbar_width">Chiều rộng hộp kiểm tra</string>
     <string name="option_hotbar_height">Chiều cao hộp kiểm tra</string>
     <string name="customctrl_editor_exit_title">Bạn có muốn rời đi?</string>
-    <string name="customctrl_editor_exit_msg">Bạn có chắc chắn muốn thoát?</string>
+    <string name="customctrl_editor_exit_msg">Các chỉnh sửa hiện tại sẽ không được lưu. Bạn có chắc chắn muốn thoát ngay không?</string>
     <string name="customctrl_editor_exit">Thoát trình soạn thảo</string>
     <string name="global_save_and_exit">Lưu và thoát</string>
     <string name="version_snapshot">Phiên bản Snapshot</string>
@@ -89,7 +89,6 @@
     <string name="microsoft_login_retry_later">Hoạt động của bạn quá nhiều, vui lòng thử lại sau</string>
     <string name="storage_required">%s yêu cầu kết nối bộ nhớ ngoài, vui lòng kết nối lại và khởi động lại phần mềm</string>
     <string name="dialog_select_jar">Chọn tệp Jar</string>
-    <string name="percent_format">%d%%</string>
     <string name="version_select_hint">Chọn phiên bản</string>
     <string name="notif_error_occured">Đã xảy ra lỗi</string>
     <string name="notif_error_occured_desc">Nhấn vào đây để xem chi tiết</string>
@@ -381,9 +380,8 @@
     <string name="setting_use_surface_view_title">Sử dụng bề mặt kết xuất dự phòng</string>
     <string name="setting_use_surface_view_desc">Có thể giúp cải thiện hiệu suất bị giới hạn bởi khả năng GPU</string>
     <string name="setting_sustained_performance_title">Bật chế độ hiệu suất liên tục</string>
-    <string name="setting_sustained_performance_desc">Giới hạn hiệu suất đỉnh để ngăn quá nhiệt và giảm tần số</string>
     <string name="setting_force_vsync_title">Buộc bật đồng bộ dọc</string>
-    <string name="setting_force_vsync_description">Giới hạn hiệu suất đỉnh để ngăn quá nhiệt và giảm tần số</string>
+    <string name="setting_limit_overheating_throttling">Ngăn ngừa việc giảm tốc do quá nhiệt bằng cách giới hạn hiệu suất tối đa</string>
     <string name="setting_vsync_in_zink_title">Cho phép đồng bộ dọc với Zink</string>
     <string name="setting_vsync_in_zink_desc">Cho phép trình khởi chạy sử dụng API hệ thống nội bộ để bật đồng bộ dọc cho Zink</string>
     <string name="setting_vulkan_driver_system_title">Sử dụng trình điều khiển Vulkan của hệ thống</string>
@@ -391,7 +389,7 @@
     <string name="setting_longpress_trigger_title">Kích hoạt độ trễ nhấn và giữ</string>
     <string name="setting_longpress_trigger_desc">Thay đổi độ trễ kích hoạt nhấn và giữ để phá hủy khối, loại bỏ vật phẩm</string>
     <string name="setting_button_scale_title">Thay đổi tỷ lệ bố cục điều khiển</string>
-    <string name="setting_button_scale_desc">Nếu nút quá nhỏ, bạn có thể phóng to chúng</string>
+    <string name="setting_button_scale_desc">Điều chỉnh tỷ lệ thu phóng tổng thể của bố cục điều khiển. Nếu các nút quá nhỏ, bạn có thể phóng to chúng.</string>
     <string name="setting_mouse_scale_desc">Thay đổi kích thước của chuột ảo</string>
     <string name="setting_mouse_speed_desc">Thay đổi tốc độ di chuyển của chuột ảo</string>
     <string name="setting_mouse_start_title">Mở chuột ảo mặc định khi khởi chạy trò chơi</string>

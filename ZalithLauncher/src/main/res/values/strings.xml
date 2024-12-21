@@ -69,7 +69,7 @@
     <string name="option_hotbar_width">Detection Box Width</string>
     <string name="option_hotbar_height">Detection Box Height</string>
     <string name="customctrl_editor_exit_title">Exit?</string>
-    <string name="customctrl_editor_exit_msg">Are you sure you want to exit?</string>
+    <string name="customctrl_editor_exit_msg">The current modifications will not be saved. Are you sure you want to exit directly?</string>
     <string name="customctrl_editor_exit">Exit Editor</string>
     <string name="global_save_and_exit">Save and Exit</string>
     <string name="version_snapshot">Snapshot</string>
@@ -89,7 +89,7 @@
     <string name="microsoft_login_retry_later">Your actions are too frequent, please try again later</string>
     <string name="storage_required">%s requires external storage, please reconnect and restart the software</string>
     <string name="dialog_select_jar">Select Jar File</string>
-    <string name="percent_format">%d%%</string>
+    <string name="percent_format" translatable="false">%d%%</string>
     <string name="version_select_hint">Select Version</string>
     <string name="notif_error_occured">An error occurred</string>
     <string name="notif_error_occured_desc">Click to view details</string>
@@ -386,9 +386,8 @@
     <string name="setting_use_surface_view_title">Use Alternate Surface Rendering</string>
     <string name="setting_use_surface_view_desc">May help improve performance on devices limited by GPU capabilities</string>
     <string name="setting_sustained_performance_title">Enable Sustained Performance Mode</string>
-    <string name="setting_sustained_performance_desc">Limits peak performance to prevent overheating and throttling</string>
     <string name="setting_force_vsync_title">Force V-Sync</string>
-    <string name="setting_force_vsync_description">Limits peak performance to prevent overheating and throttling</string>
+    <string name="setting_limit_overheating_throttling">Prevent overheating throttling by limiting peak performance</string>
     <string name="setting_vsync_in_zink_title">Allow V-Sync with Zink</string>
     <string name="setting_vsync_in_zink_desc">Allows the launcher to use internal system APIs to enable V-Sync for Zink</string>
     <string name="setting_vulkan_driver_system_title">Use System Vulkan Driver</string>
