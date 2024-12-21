@@ -244,6 +244,11 @@ public class JREUtils {
             envMap.put("POJAVEXEC_EGL", "libltw.so");
         }
 
+        if (LOCAL_RENDERER.equals("opengles3_angle")) {
+            envMap.put("LIBGL_ES", "3");
+            envMap.put("POJAVEXEC_EGL", "libEGL_angle.so");
+        }
+
         if (LOCAL_RENDERER.equals("gallium_virgl"))
             envMap.put("VTEST_SOCKET_NAME", new File(PathManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
 
@@ -510,6 +515,9 @@ public class JREUtils {
                 break;
             case "gallium_panfrost":
                 renderLibrary = "libOSMesa_2300d.so";
+                break;
+            case "opengles3_angle":
+                renderLibrary = "libAngle.so";
                 break;
             case "opengles3_ltw":
                 renderLibrary = "libltw.so";
