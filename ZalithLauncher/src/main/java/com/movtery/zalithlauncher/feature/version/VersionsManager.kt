@@ -142,25 +142,29 @@ object VersionsManager {
         if (versions.isEmpty()) return null
 
         getPathConfigFile().apply {
+            fun returnVersionByFirst(): Version? {
+                versions.forEach { version ->
+                    if (version.isValid()) {
+                        //确保版本有效
+                        saveCurrentVersion(version.getVersionName())
+                        return version
+                    }
+                }
+                //如果所有版本都无效，或者没有版本，那么久返回空
+                return null
+            }
+
             return if (exists()) {
                 runCatching {
                     val string = Tools.read(this)
                     getVersion(string) ?: run {
-                        versions.forEach { version ->
-                            if (version.isValid()) {
-                                //确保版本有效
-                                saveCurrentVersion(version.getVersionName())
-                                return version
-                            }
-                        }
-                        //如果所有版本都无效，或者没有版本，那么久返回空
-                        null
+                        return returnVersionByFirst()
                     }
                 }.getOrElse { e ->
                     Logging.e("Get Current Version", Tools.printToString(e))
-                    null
+                    returnVersionByFirst()
                 }
-            } else null
+            } else returnVersionByFirst()
         }
     }
 
