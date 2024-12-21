@@ -61,13 +61,12 @@ object ContactHandler {
         proxy.trySend(AddPointerMessage(pointerId, Offset(x, y)))
     }
 
-    private fun clearPointer(proxy: LauncherSocketProxyClient) {
-        proxy.trySend(ClearPointerMessage)
+    private fun clearPointer(proxy: LauncherSocketProxyClient?) {
+        proxy?.trySend(ClearPointerMessage)
         pointerIdMap.clear()
     }
 
     fun clearPointer() {
-        ControllerProxy.getProxyClient()?.let { clearPointer(it) }
-        pointerIdMap.clear()
+        clearPointer(ControllerProxy.getProxyClient())
     }
 }
