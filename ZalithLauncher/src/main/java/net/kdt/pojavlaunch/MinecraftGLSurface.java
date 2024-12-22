@@ -197,7 +197,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
             return true; //mouse event handled successfully
         }
         if (mIngameProcessor == null || mInGUIProcessor == null) return true;
-        return mCurrentTouchProcessor.processTouchEvent(e, this);
+        return mCurrentTouchProcessor.processTouchEvent(e);
     }
 
     private void createGamepad(View contextView, InputDevice inputDevice) {
@@ -246,6 +246,14 @@ public class MinecraftGLSurface extends View implements GrabListener {
             default:
                 return false;
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (mCurrentTouchProcessor != null) {
+            mCurrentTouchProcessor.dispatchTouchEvent(event, this);
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     /** The event for keyboard/ gamepad button inputs */

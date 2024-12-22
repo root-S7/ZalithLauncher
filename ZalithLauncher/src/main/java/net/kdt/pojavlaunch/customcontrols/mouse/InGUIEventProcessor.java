@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch.customcontrols.mouse;
 
 import android.view.MotionEvent;
-import android.view.View;
 
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
@@ -27,7 +26,7 @@ public class InGUIEventProcessor implements TouchEventProcessor {
     }
 
     @Override
-    public boolean processTouchEvent(MotionEvent motionEvent, View view) {
+    public boolean processTouchEvent(MotionEvent motionEvent) {
         boolean singleTap = mSingleTapDetector.onTouchEvent(motionEvent);
 
         switch (motionEvent.getActionMasked()) {

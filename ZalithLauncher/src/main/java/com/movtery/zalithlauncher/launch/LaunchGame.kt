@@ -227,7 +227,7 @@ class LaunchGame {
             ).getAllArgs()
 
             FFmpegPlugin.discover(activity)
-            if (AllSettings.useControllerProxy.getValue()) ControllerProxy.startProxy()
+            if (AllSettings.useControllerProxy.getValue()) ControllerProxy.startProxy(activity)
 
             JREUtils.launchJavaVM(activity, runtime, gameDirPath, launchArgs, customArgs)
         }

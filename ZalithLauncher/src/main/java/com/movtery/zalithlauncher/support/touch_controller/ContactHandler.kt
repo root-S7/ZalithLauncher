@@ -1,72 +1,57 @@
 package com.movtery.zalithlauncher.support.touch_controller
 
+import android.util.SparseIntArray
 import android.view.MotionEvent
 import android.view.View
-import com.movtery.zalithlauncher.feature.log.Logging
-import top.fifthlight.touchcontroller.proxy.client.LauncherSocketProxyClient
+import top.fifthlight.touchcontroller.proxy.client.LauncherProxyClient
 import top.fifthlight.touchcontroller.proxy.data.Offset
-import top.fifthlight.touchcontroller.proxy.message.AddPointerMessage
-import top.fifthlight.touchcontroller.proxy.message.ClearPointerMessage
-import top.fifthlight.touchcontroller.proxy.message.RemovePointerMessage
 
 /**
  * 单独在这里处理触点，为TouchController模组的控制代理提供信息
  */
 object ContactHandler {
-    private val pointerIdMap: MutableMap<Int, Int> = HashMap()
+    private val pointerIdMap = SparseIntArray()
     private var nextPointerId = 1
 
-    fun progressEvent(motionEvent: MotionEvent, touchView: View) {
-        val proxy = ControllerProxy.getProxyClient() ?: return
+    private fun MotionEvent.getOffset(index: Int, view: View) = Offset(
+        getX(index) / view.width,
+        getY(index) / view.height
+    )
 
-        when (motionEvent.actionMasked) {
-            MotionEvent.ACTION_DOWN -> handlePointerDown(motionEvent, proxy, 0, touchView)
-            MotionEvent.ACTION_POINTER_DOWN -> handlePointerDown(motionEvent, proxy, motionEvent.actionIndex, touchView)
+    fun progressEvent(event: MotionEvent, view: View) {
+        val client = ControllerProxy.getProxyClient() ?: return
+
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> handlePointerDown(event, client, 0, view)
+
+            MotionEvent.ACTION_POINTER_DOWN -> handlePointerDown(event, client, event.actionIndex, view)
+
             MotionEvent.ACTION_MOVE -> {
-                for (i in 0 until motionEvent.pointerCount) {
-                    val pointerId = pointerIdMap[motionEvent.getPointerId(i)] ?: 0
-                    if (pointerId == 0) {
-                        Logging.d("InGameEventProcessor", "PointerId is 0, skipping.")
-                    }
-                    trySendPointer(proxy, pointerId,
-                        motionEvent.getX(i) / touchView.width,
-                        motionEvent.getY(i) / touchView.height
-                    )
+                for (i in 0 until event.pointerCount) {
+                    val pointerId = pointerIdMap.get(event.getPointerId(i))
+                    client.addPointer(pointerId, event.getOffset(i, view))
                 }
             }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> clearPointer(proxy)
+
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                client.clearPointer()
+                pointerIdMap.clear()
+            }
+
             MotionEvent.ACTION_POINTER_UP -> {
-                val i = motionEvent.actionIndex
-                val pointerId = pointerIdMap[motionEvent.getPointerId(i)] ?: 0
-                if (pointerId == 0) {
-                    Logging.d("InGameEventProcessor", "PointerId is 0, skipping.")
-                } else {
-                    pointerIdMap.remove(motionEvent.getPointerId(i))
-                    proxy.trySend(RemovePointerMessage(pointerId))
+                val i = event.actionIndex
+                val pointerId = pointerIdMap.get(event.getPointerId(i))
+                if (pointerId != 0) {
+                    pointerIdMap.delete(pointerId)
+                    client.removePointer(pointerId)
                 }
             }
         }
     }
 
-    private fun handlePointerDown(motionEvent: MotionEvent, proxy: LauncherSocketProxyClient, index: Int, touchView: View) {
+    private fun handlePointerDown(event: MotionEvent, client: LauncherProxyClient, index: Int, view: View) {
         val pointerId = nextPointerId++
-        pointerIdMap[motionEvent.getPointerId(index)] = pointerId
-        trySendPointer(proxy, pointerId,
-            motionEvent.getX(index) / touchView.width,
-            motionEvent.getY(index) / touchView.height
-        )
-    }
-
-    private fun trySendPointer(proxy: LauncherSocketProxyClient, pointerId: Int, x: Float, y: Float) {
-        proxy.trySend(AddPointerMessage(pointerId, Offset(x, y)))
-    }
-
-    private fun clearPointer(proxy: LauncherSocketProxyClient?) {
-        proxy?.trySend(ClearPointerMessage)
-        pointerIdMap.clear()
-    }
-
-    fun clearPointer() {
-        clearPointer(ControllerProxy.getProxyClient())
+        pointerIdMap.put(event.getPointerId(index), pointerId)
+        client.addPointer(pointerId, event.getOffset(index, view))
     }
 }

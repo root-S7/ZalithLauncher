@@ -1,44 +1,51 @@
 package com.movtery.zalithlauncher.support.touch_controller;
 
+import android.content.Context;
+import android.os.Vibrator;
 import android.system.Os;
+
+import com.movtery.zalithlauncher.InfoCenter;
+import com.movtery.zalithlauncher.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Logger;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-import top.fifthlight.touchcontroller.proxy.client.LauncherSocketProxyClient;
-import top.fifthlight.touchcontroller.proxy.client.LauncherSocketProxyClientKt;
+import top.fifthlight.touchcontroller.proxy.client.LauncherProxyClient;
+import top.fifthlight.touchcontroller.proxy.client.MessageTransport;
+import top.fifthlight.touchcontroller.proxy.client.android.SimpleVibrationHandler;
+import top.fifthlight.touchcontroller.proxy.client.android.transport.UnixSocketTransportKt;
 
 /**
  * 为适配 TouchController 模组
  * <a href="">https://modrinth.com/mod/touchcontroller</a>
  */
 public final class ControllerProxy {
-    private static LauncherSocketProxyClient proxyClient;
-    private static int proxyPort = -1;
+    private static LauncherProxyClient proxyClient;
 
     private ControllerProxy() {}
 
     /**
      * 启动控制代理客户端，目的是与 TouchController 模组进行通信
      */
-    public static void startProxy() throws Throwable {
+    public static void startProxy(Context context) {
         if (proxyClient == null) {
-            proxyPort = ThreadLocalRandom.current().nextInt(32768) + 32768;
-            proxyClient = LauncherSocketProxyClientKt.localhostLauncherSocketProxyClient(proxyPort);
-            Logger.appendToLog("LauncherSocketProxy: Created on port " + proxyPort);
-            new Thread(() -> {
-                Logger.appendToLog("LauncherSocketProxy: Listening on port " + proxyPort);
-                LauncherSocketProxyClientKt.runProxy(proxyClient);
-                Logger.appendToLog("LauncherSocketProxy: Stopped");
-            }).start();
-        }
-        if (proxyPort > 0) {
-            Os.setenv("TOUCH_CONTROLLER_PROXY", String.valueOf(proxyPort), true);
+            try {
+                MessageTransport transport = UnixSocketTransportKt.UnixSocketTransport(InfoCenter.LAUNCHER_NAME);
+                Os.setenv("TOUCH_CONTROLLER_PROXY_SOCKET", InfoCenter.LAUNCHER_NAME, true);
+                LauncherProxyClient client = new LauncherProxyClient(transport);
+                Vibrator vibrator = context.getSystemService(Vibrator.class);
+                SimpleVibrationHandler handler = new SimpleVibrationHandler(vibrator);
+                client.setVibrationHandler(handler);
+                client.run();
+                Logger.appendToLog("TouchController: TouchController Proxy Client has been created!");
+                proxyClient = client;
+            } catch (Throwable ex) {
+                Logging.w("TouchController", "TouchController proxy client create failed", ex);
+                proxyClient = null;
+            }
         }
     }
 
-    static LauncherSocketProxyClient getProxyClient() {
+    static LauncherProxyClient getProxyClient() {
         return proxyClient;
     }
 }

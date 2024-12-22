@@ -25,12 +25,7 @@ public class InGameEventProcessor implements TouchEventProcessor {
     }
 
     @Override
-    public boolean processTouchEvent(MotionEvent motionEvent, View view) {
-        if (mContactHandler != null) {
-            //单独处理触摸事件，支持TouchController模组
-            mContactHandler.progressEvent(motionEvent, view);
-        }
-
+    public boolean processTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 mTracker.startTracking(motionEvent);
@@ -61,10 +56,15 @@ public class InGameEventProcessor implements TouchEventProcessor {
 
     @Override
     public void cancelPendingActions() {
-        if (mContactHandler != null) {
-            mContactHandler.clearPointer();
-        }
         cancelGestures(true);
+    }
+
+    @Override
+    public void dispatchTouchEvent(MotionEvent event, View view) {
+        if (mContactHandler != null) {
+            //单独处理触摸事件，支持TouchController模组
+            mContactHandler.progressEvent(event, view);
+        }
     }
 
     private void checkGestures() {
