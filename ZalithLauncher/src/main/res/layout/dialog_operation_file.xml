@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/close_button"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -36,7 +36,7 @@
             android:singleLine="true"
             android:text="@string/file_tips"
             android:textColor="@color/black_or_white"
-            android:textSize="16sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             android:id="@+id/text_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:layout_weight="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
                     android:layout_marginHorizontal="@dimen/_8sdp"
                     android:gravity="center_horizontal"
                     android:textColor="@color/black_or_white"
-                    android:textSize="15sp" />
+                    android:textSize="@dimen/_12ssp" />
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -74,7 +74,8 @@
         android:id="@+id/layout_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/layout_2"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,15 +84,15 @@
         <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
             android:id="@+id/copy_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_48sdp"
             android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/copy_image"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_copy" />
 
@@ -99,26 +100,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toEndOf="@+id/copy_image"
                 android:singleLine="true"
                 android:text="@android:string/copy"
                 android:textColor="@color/black_or_white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
         <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
             android:id="@+id/rename_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_48sdp"
             android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/rename_image"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:scaleType="fitCenter"
                 android:scaleX="0.8"
                 android:scaleY="0.8"
@@ -128,26 +129,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toEndOf="@+id/rename_image"
                 android:singleLine="true"
                 android:text="@string/generic_rename"
                 android:textColor="@color/black_or_white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
         <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
             android:id="@+id/share_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_48sdp"
             android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/share_image"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_share" />
 
@@ -155,12 +156,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toEndOf="@+id/share_image"
                 android:singleLine="true"
                 android:text="@string/generic_share"
                 android:textColor="@color/black_or_white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
     </LinearLayout>
 
@@ -168,7 +169,8 @@
         android:id="@+id/layout_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layout_1"
@@ -177,15 +179,15 @@
         <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
             android:id="@+id/move_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_48sdp"
             android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/move_image"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_move" />
 
@@ -193,26 +195,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toEndOf="@+id/move_image"
                 android:singleLine="true"
                 android:text="@string/generic_move"
                 android:textColor="@color/black_or_white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
         <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
             android:id="@+id/delete_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_48sdp"
             android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/delete_image"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_menu_delete_forever" />
 
@@ -220,26 +222,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toEndOf="@+id/delete_image"
                 android:singleLine="true"
                 android:text="@string/generic_delete"
                 android:textColor="@color/black_or_white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
         <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
             android:id="@+id/more_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_48sdp"
             android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/more_image"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_more" />
 
@@ -248,12 +250,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_toEndOf="@+id/more_image"
                 android:singleLine="true"
                 android:text="@string/generic_more"
                 android:textColor="@color/black_or_white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

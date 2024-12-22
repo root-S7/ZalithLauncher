@@ -7,7 +7,7 @@
     <View
         android:id="@+id/top_log_view"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/_40sdp"
         android:background="@color/menu_bar"
         android:clickable="true"
         android:focusable="true"
@@ -48,9 +48,10 @@
 
     <ImageButton
         android:id="@+id/log_view_cancel"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="0dp"
         android:layout_marginEnd="@dimen/_8sdp"
+        android:contentDescription="@string/generic_close"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_close"
         app:layout_constraintBottom_toBottomOf="@+id/top_log_view"

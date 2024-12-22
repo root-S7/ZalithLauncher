@@ -34,7 +34,7 @@
             android:layout_gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/generic_tip"
-            android:textSize="16sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold" >
 
         </TextView>
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_4sdp"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_13ssp"
                 tools:text="test some message"/>
 
             <CheckBox

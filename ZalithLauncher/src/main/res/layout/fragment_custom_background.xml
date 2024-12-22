@@ -86,7 +86,7 @@
 
         <View
             android:id="@+id/shadowView"
-            android:layout_width="4dp"
+            android:layout_width="@dimen/_4sdp"
             android:layout_height="match_parent"
             android:background="@drawable/shadow_gradient_right"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -117,7 +117,7 @@
             <ImageView
                 android:id="@+id/preview"
                 android:layout_width="0dp"
-                android:layout_height="120dp"
+                android:layout_height="@dimen/_120sdp"
                 android:layout_marginTop="@dimen/_45sdp"
                 android:layout_marginHorizontal="@dimen/_24sdp"
                 app:layout_constraintEnd_toEndOf="@+id/operate_main_layout"

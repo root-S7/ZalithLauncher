@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/modloader_icon"
-            android:layout_width="18sp"
-            android:layout_height="18sp"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
             android:scaleType="centerInside"
             tools:src="@drawable/ic_neoforge"
             tools:ignore="ContentDescription" />
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
             android:textColor="@color/primary_text"
-            android:textSize="11sp"
+            android:textSize="@dimen/_11ssp"
             tools:text="NeoForge"/>
 
     </LinearLayout>
@@ -46,7 +46,7 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:text="Version ID"
         android:textColor="@color/primary_text"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintStart_toEndOf="@id/modloader_layout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

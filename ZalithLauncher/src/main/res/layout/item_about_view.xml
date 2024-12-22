@@ -9,16 +9,16 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_view"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/_48sdp"
+        android:layout_height="@dimen/_48sdp"
         android:layout_marginStart="@dimen/_15sdp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_help"
-        android:padding="2dp"
+        android:padding="@dimen/_2sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@android:color/white"
-        app:strokeWidth="2dp"
+        app:strokeWidth="@dimen/_2sdp"
         app:shapeAppearanceOverlay="@style/RoundImageView" />
 
     <TextView

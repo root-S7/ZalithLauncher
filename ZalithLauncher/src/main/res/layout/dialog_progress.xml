@@ -25,7 +25,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_24sdp"
         android:text="@string/update_downloading"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

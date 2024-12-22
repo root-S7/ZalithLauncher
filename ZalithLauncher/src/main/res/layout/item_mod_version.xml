@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/download_imageview"
-        android:layout_width="32sp"
-        android:layout_height="32sp"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginStart="@dimen/_4sdp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_download_release"
@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/download_link"
-        android:layout_width="24sp"
-        android:layout_height="24sp"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
         android:layout_marginEnd="@dimen/_4sdp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/about_access_link"
@@ -41,7 +41,7 @@
         android:layout_marginHorizontal="@dimen/_12sdp"
         android:ellipsize="end"
         android:textColor="@color/primary_text"
-        android:textSize="13sp"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintEnd_toStartOf="@+id/download_link"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/download_imageview"

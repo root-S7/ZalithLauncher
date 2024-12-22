@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:minWidth="@dimen/_480sdp"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/title_view"
@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:singleLine="true"
         android:text="@string/generic_tip"
-        android:textSize="16sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold" />
 
     <ScrollView
@@ -36,7 +36,7 @@
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:visibility="gone"
                 android:gravity="center_horizontal"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

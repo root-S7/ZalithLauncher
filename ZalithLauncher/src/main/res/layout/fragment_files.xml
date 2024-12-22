@@ -103,7 +103,7 @@
 
         <View
             android:id="@+id/shadowView"
-            android:layout_width="4dp"
+            android:layout_width="@dimen/_4sdp"
             android:layout_height="match_parent"
             android:background="@drawable/shadow_gradient_right"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_16sdp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:minHeight="42dp"
+                    android:minHeight="@dimen/_40sdp"
                     app:layout_constraintBottom_toTopOf="@+id/operate_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -159,7 +159,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
-                    android:minHeight="42dp"
+                    android:minHeight="@dimen/_40sdp"
                     app:layout_constraintBottom_toTopOf="@+id/external_storage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">

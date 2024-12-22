@@ -91,7 +91,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
             }
 
             try {
-                binding.icon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(38f)));
+                binding.icon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(mContext.getResources().getDimensionPixelSize(R.dimen._38sdp))));
             } catch (IOException e) {
                 Logging.e("AccountAdapter", Tools.printToString(e));
             }

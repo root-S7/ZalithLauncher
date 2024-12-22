@@ -18,7 +18,7 @@
             android:layout_marginStart="@dimen/_12sdp"
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/menu_bar_text"
-            android:textSize="16sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
 
             <View
                 android:id="@+id/shadowView2"
-                android:layout_width="4dp"
+                android:layout_width="@dimen/_4sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/shadow_gradient_right"
                 app:layout_constraintBottom_toBottomOf="parent"

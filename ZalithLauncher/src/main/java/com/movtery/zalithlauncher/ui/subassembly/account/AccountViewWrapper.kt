@@ -38,7 +38,7 @@ class AccountViewWrapper(private val parentFragment: FragmentWithAnim? = null, v
                 accountType.visibility = View.GONE
                 return
             }
-            userIcon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, Tools.dpToPx(52f).toInt()))
+            userIcon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, Tools.dpToPx(mContext.resources.getDimensionPixelSize(R.dimen._52sdp).toFloat()).toInt()))
             userName.text = account.username
             accountType.text = AccountUtils.getAccountTypeName(mContext, account)
             accountType.visibility = View.VISIBLE

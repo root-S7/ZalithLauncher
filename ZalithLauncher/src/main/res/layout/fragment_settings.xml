@@ -26,7 +26,7 @@
 
         <View
             android:id="@+id/shadowView"
-            android:layout_width="4dp"
+            android:layout_width="@dimen/_4sdp"
             android:layout_height="0dp"
             android:background="@drawable/shadow_gradient_left"
             app:layout_constraintBottom_toBottomOf="parent"

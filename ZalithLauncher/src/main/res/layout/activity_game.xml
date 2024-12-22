@@ -12,7 +12,7 @@
         android:id="@+id/background_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:translationZ="-1dp"
+        android:translationZ="-2dp"
         tools:ignore="ContentDescription" />
 
     <FrameLayout
@@ -28,7 +28,7 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:background="@drawable/background_item"
             android:text="@string/game_tip"
-            android:textSize="14sp"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             android:visibility="gone"
             android:padding="@dimen/_8sdp"/>
@@ -51,7 +51,7 @@
                 android:layout_height="match_parent"
                 android:focusable="false"
                 android:orientation="vertical"
-                android:translationZ="1dp"
+                android:translationZ="2dp"
                 android:visibility="gone" />
 
             <net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput
@@ -111,8 +111,10 @@
         android:id="@+id/main_navigation_view"
         android:layout_width="@dimen/_260sdp"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/_12sdp"
         android:layout_gravity="end"
-        android:layout_marginVertical="@dimen/_12sdp"
+        android:elevation="@dimen/_8sdp"
+        android:translationZ="4dp"
         android:fitsSystemWindows="false" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

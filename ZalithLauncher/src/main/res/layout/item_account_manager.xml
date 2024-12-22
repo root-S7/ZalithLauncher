@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_help"
@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/refresh"
         app:layout_constraintStart_toEndOf="@+id/icon"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:text="@string/account_add"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,8 +55,8 @@
 
     <ImageButton
         android:id="@+id/refresh"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:scaleType="centerInside"
@@ -67,8 +67,8 @@
 
     <ImageButton
         android:id="@+id/delete"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:scaleType="centerInside"

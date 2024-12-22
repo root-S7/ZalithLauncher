@@ -19,7 +19,7 @@ abstract class AbstractSettingsWrapper(
     fun checkShowRebootDialog(context: Context) {
         if (isRequiresReboot) {
             TipDialog.Builder(context)
-                .setMessage(R.string.setting_reboot_tip)
+                .setTitle(R.string.setting_reboot_tip)
                 .setConfirmClickListener { ZHTools.killProcess() }
                 .buildDialog()
         }

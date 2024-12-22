@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:singleLine="true"
         android:text="@string/update_update_source"
-        android:textSize="16sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold" />
 
     <androidx.appcompat.widget.LinearLayoutCompat

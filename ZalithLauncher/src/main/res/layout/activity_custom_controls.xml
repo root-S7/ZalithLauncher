@@ -36,8 +36,10 @@
         android:id="@+id/customctrl_navigation_view"
         android:layout_width="@dimen/_260sdp"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/_12sdp"
         android:layout_gravity="end"
-        android:layout_marginVertical="@dimen/_12sdp"
+        android:elevation="@dimen/_8sdp"
+        android:translationZ="4dp"
         android:fitsSystemWindows="false" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

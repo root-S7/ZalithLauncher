@@ -17,7 +17,7 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="285dp"
+                android:layout_height="@dimen/_250sdp"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_8sdp"
                 android:scrollbars="none">
@@ -958,8 +958,8 @@
 
     <ImageView
         android:id="@+id/close"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"

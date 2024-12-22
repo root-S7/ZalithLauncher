@@ -10,8 +10,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/thumbnail_imageview"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/_54sdp"
+        android:layout_height="@dimen/_54sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +32,7 @@
 
         <ImageView
             android:id="@+id/platform_imageview"
-            android:layout_width="17sp"
+            android:layout_width="@dimen/_16sdp"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/_4sdp"
             android:scaleType="centerInside"
@@ -42,7 +42,7 @@
             android:id="@+id/platform_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="8.5sp"
+            android:textSize="@dimen/_8ssp"
             tools:text="Zalith"
             tools:ignore="SmallSp" />
 
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:textColor="@color/primary_text"
-        android:textSize="11sp"
+        android:textSize="@dimen/_11ssp"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/platform_layout"
         app:layout_constraintHorizontal_bias="0.0"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="10sp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/title_textview"

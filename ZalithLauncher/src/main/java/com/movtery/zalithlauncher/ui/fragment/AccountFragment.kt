@@ -442,7 +442,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
             when (v) {
                 returnButton -> ZHTools.onBackPressed(activity)
                 addOtherServer -> TipDialog.Builder(activity)
-                    .setMessage(R.string.other_login_add_server)
+                    .setTitle(R.string.other_login_add_server)
                     .setCancel(R.string.other_login_server)
                     .setConfirm(R.string.other_login_uniform_pass)
                     .setCancelClickListener {

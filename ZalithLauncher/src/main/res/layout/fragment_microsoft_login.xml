@@ -20,9 +20,10 @@
 
         <ImageView
             android:id="@+id/return_button"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/generic_close"
             android:src="@drawable/ic_close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

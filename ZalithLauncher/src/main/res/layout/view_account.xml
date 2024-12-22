@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/user_icon"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="@dimen/_52sdp"
+        android:layout_height="@dimen/_52sdp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_help"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp"
-        android:textSize="16sp"
+        android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
-        android:textSize="12sp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_name"

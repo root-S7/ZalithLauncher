@@ -69,7 +69,7 @@
 
         <View
             android:id="@+id/shadowView"
-            android:layout_width="4dp"
+            android:layout_width="@dimen/_4sdp"
             android:layout_height="match_parent"
             android:background="@drawable/shadow_gradient_right"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -99,13 +99,14 @@
 
             <ImageView
                 android:id="@+id/mouse_icon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
                 android:layout_marginTop="@dimen/_45sdp"
                 app:layout_constraintEnd_toEndOf="@+id/operate_main_layout"
                 app:layout_constraintStart_toStartOf="@+id/operate_main_layout"
                 app:layout_constraintTop_toTopOf="@+id/operate_main_layout"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

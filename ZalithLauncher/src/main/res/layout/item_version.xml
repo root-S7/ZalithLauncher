@@ -51,8 +51,8 @@
 
     <ImageButton
         android:id="@+id/operate"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:scaleType="centerCrop"

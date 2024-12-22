@@ -26,6 +26,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginHorizontal="@dimen/_12sdp"
             android:background="@drawable/background_card"
+            android:paddingVertical="@dimen/_4sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/add_other_server"
@@ -139,7 +140,7 @@
 
         <View
             android:id="@+id/shadowView"
-            android:layout_width="4dp"
+            android:layout_width="@dimen/_4sdp"
             android:layout_height="match_parent"
             android:background="@drawable/shadow_gradient_right"
             app:layout_constraintBottom_toBottomOf="parent"

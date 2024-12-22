@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:minWidth="@dimen/_450sdp"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/server_name"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:singleLine="true"
-        android:textSize="16sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold" />
 
     <TextView
@@ -55,7 +55,6 @@
         android:imeOptions="flagNoExtractUi"
         android:inputType="textPassword"
         android:paddingHorizontal="@dimen/_8sdp"
-        android:textSize="@dimen/_16ssp"
         tools:ignore="LabelFor" />
 
     <TextView
