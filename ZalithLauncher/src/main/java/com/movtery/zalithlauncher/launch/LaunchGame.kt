@@ -15,6 +15,7 @@ import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.support.touch_controller.ControllerProxy
+import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -40,12 +41,21 @@ import org.greenrobot.eventbus.EventBus
 class LaunchGame {
     companion object {
         /**
-         * 改为启动游戏前进行登录，同时也能及时的刷新账号的信息（这明显更合理不是吗，PojavLauncher？）
+         * 改为启动游戏前进行的操作
+         * - 进行登录，同时也能及时的刷新账号的信息（这明显更合理不是吗，PojavLauncher？）
+         * - 复制 options.txt 文件到游戏目录
          * @param version 选择的版本
          */
         @JvmStatic
         fun preLaunch(context: Context, version: Version) {
             fun launch() {
+                //复制一份默认的选项配置文件到游戏目录
+                Task.runTask {
+                    Tools.copyAssetFile(context, "options.txt", version.getGameDir().absolutePath, false)
+                }.onThrowable {
+                    Logging.e("Launch Game", "Failed to copy options.txt files to the game directory!", it)
+                }.execute()
+
                 val versionName = version.getVersionName()
                 val mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName)
                 MinecraftDownloader().start(
