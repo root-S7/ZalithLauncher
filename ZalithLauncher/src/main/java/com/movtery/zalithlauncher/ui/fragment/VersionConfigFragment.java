@@ -103,14 +103,17 @@ public class VersionConfigFragment extends FragmentWithAnim {
             save();
             Tools.backToMainMenu(requireActivity());
         });
-
-        View.OnClickListener selectControl = v -> {
+        binding.controlName.setOnClickListener(v -> {
             mSelectPathMark = SELECT_CONTROL;
             Bundle bundle = new Bundle();
             bundle.putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true);
             ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, bundle);
-        };
-        View.OnClickListener selectCustomPath = v -> {
+        });
+        binding.resetControl.setOnClickListener(v -> {
+            binding.controlName.setText("");
+            mTempConfig.setControl("");
+        });
+        binding.customPath.setOnClickListener(v -> {
             mSelectPathMark = SELECT_CUSTOM_PATH;
             Bundle bundle = new Bundle();
             bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
@@ -120,22 +123,11 @@ public class VersionConfigFragment extends FragmentWithAnim {
             bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, mTempVersion.getVersionsFolder());
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
-        };
-
-        binding.controlName.setOnClickListener(selectControl);
-        binding.selectControl.setOnClickListener(selectControl);
-        binding.resetControl.setOnClickListener(v -> {
-            binding.controlName.setText("");
-            mTempConfig.setControl("");
         });
-
-        binding.customPath.setOnClickListener(selectCustomPath);
-        binding.selectCustomPath.setOnClickListener(selectCustomPath);
         binding.resetCustomPath.setOnClickListener(v -> {
             binding.customPath.setText("");
             mTempConfig.setCustomPath("");
         });
-
         binding.iconLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
         binding.iconReset.setOnClickListener(v -> resetIcon());
 
@@ -166,7 +158,6 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
     private void disableCustomPath(boolean disable) {
         binding.customPath.setEnabled(!disable);
-        binding.selectCustomPath.setEnabled(!disable);
         binding.resetCustomPath.setEnabled(!disable);
     }
 

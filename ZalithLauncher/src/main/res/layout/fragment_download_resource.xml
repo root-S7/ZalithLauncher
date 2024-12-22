@@ -197,24 +197,13 @@
                             android:id="@+id/selected_mc_version_view"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_marginEnd="@dimen/_4sdp"
                             android:background="@drawable/background_edit_box"
                             android:hint="@string/version_select_hint"
                             android:paddingHorizontal="@dimen/padding_heavy"
                             android:textSize="@dimen/_13ssp"
-                            app:layout_constraintEnd_toStartOf="@id/mc_version_button"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/mc_version_textview" />
-
-                        <com.movtery.zalithlauncher.ui.view.AnimButton
-                            android:id="@+id/mc_version_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:paddingHorizontal="@dimen/padding_large"
-                            android:text="@string/generic_select"
-                            app:layout_constraintBottom_toBottomOf="@id/selected_mc_version_view"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/selected_mc_version_view" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
