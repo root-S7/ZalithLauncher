@@ -28,7 +28,7 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:background="@drawable/background_item"
             android:text="@string/game_tip"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             android:visibility="gone"
             android:padding="@dimen/_8sdp"/>

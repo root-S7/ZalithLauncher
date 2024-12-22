@@ -24,7 +24,7 @@
             android:layout_marginStart="@dimen/_12sdp"
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/menu_bar_text"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
