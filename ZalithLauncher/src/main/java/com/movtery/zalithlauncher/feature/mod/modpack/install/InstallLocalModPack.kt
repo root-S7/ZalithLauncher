@@ -6,6 +6,7 @@ import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper
 import com.movtery.zalithlauncher.feature.download.platform.curseforge.CurseForgeModPackInstallHelper
 import com.movtery.zalithlauncher.feature.download.platform.modrinth.ModrinthModPackInstallHelper
 import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils
+import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta
 import com.movtery.zalithlauncher.feature.mod.modpack.MCBBSModPack
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils.ModPackEnum
@@ -30,7 +31,13 @@ class InstallLocalModPack {
             customVersionName: String
         ): ModLoaderWrapper? {
             try {
-                ZipFile(zipFile).use { modpackZipFile ->
+                runCatching {
+                    ZipFile(zipFile)
+                }.getOrElse {
+                    Logging.e("Install local ModPack", "This file doesn't seem to be a proper archive", it)
+                    showUnSupportDialog(context)
+                    return null
+                }.use { modpackZipFile ->
                     val modLoader: ModLoaderWrapper?
                     val versionPath = VersionsManager.getVersionPath(customVersionName)
 
@@ -67,20 +74,24 @@ class InstallLocalModPack {
                         }
 
                         else -> {
-                            TaskExecutors.runInUIThread {
-                                TipDialog.Builder(context)
-                                    .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
-                                    .setWarning()
-                                    .setShowCancel(true)
-                                    .setShowConfirm(false)
-                                    .buildDialog()
-                            }
+                            showUnSupportDialog(context)
                             return null
                         }
                     }
                 }
             } finally {
                 FileUtils.deleteQuietly(zipFile) // 删除文件（虽然文件通常来说并不会很大）
+            }
+        }
+
+        private fun showUnSupportDialog(context: Context) {
+            TaskExecutors.runInUIThread {
+                TipDialog.Builder(context)
+                    .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
+                    .setWarning()
+                    .setShowCancel(true)
+                    .setShowConfirm(false)
+                    .buildDialog()
             }
         }
 
