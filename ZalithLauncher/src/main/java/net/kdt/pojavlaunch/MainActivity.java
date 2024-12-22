@@ -680,9 +680,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
                 AllStaticSettings.scaleFactor = progress / 100f;
                 MainActivity.binding.mainGameRenderView.refreshSize();
-
-                //当分辨率缩放的时候，需要刷新一下Hotbar的判定
-                EventBus.getDefault().post(new RefreshHotbarEvent());
             } else if (s == binding.timeLongPressTrigger) {
                 AllSettings.getTimeLongPressTrigger().put(progress).save();
 

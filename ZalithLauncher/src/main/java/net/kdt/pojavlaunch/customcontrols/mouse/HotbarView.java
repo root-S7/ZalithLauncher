@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.customcontrols.mouse;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
@@ -76,6 +77,8 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
     }
 
     private void init() {
+        setAlpha(0);
+        setBackgroundColor(Color.parseColor("#80E64242"));
         adjustAnimPlayer.duration(800);
         adjustAnimPlayer.apply(new AnimPlayer.Entry(this, Animations.FadeOut));
     }

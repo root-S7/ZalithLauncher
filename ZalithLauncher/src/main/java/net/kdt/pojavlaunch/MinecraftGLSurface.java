@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.movtery.zalithlauncher.event.single.RefreshHotbarEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
@@ -38,6 +39,7 @@ import net.kdt.pojavlaunch.customcontrols.mouse.TouchEventProcessor;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.lwjgl.glfw.CallbackBridge;
 
 import fr.spse.gamepad_remapper.RemapperManager;
@@ -355,7 +357,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
         }
 
         CallbackBridge.sendUpdateWindowSize(windowWidth, windowHeight);
-
+        EventBus.getDefault().post(new RefreshHotbarEvent());
     }
 
     private void realStart(Surface surface){
