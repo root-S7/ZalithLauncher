@@ -372,7 +372,8 @@
     <string name="setting_category_experimental_patches">Experimentelle Patches</string>
     <string name="setting_category_support">Externer Support</string>
     <string name="setting_renderer_title">Renderer</string>
-    <string name="setting_renderer_name_ltw">LTW (Nur für 1.17+)</string>
+    <string name="setting_renderer_name_ltw">LTW (nur für 1.17+)</string>
+    <string name="setting_renderer_name_angle">Angle (nur für 1.17+)</string>
     <string name="setting_ignore_notch_title">Vollbildmodus</string>
     <string name="setting_ignore_notch_desc">Den Notch ignorieren und den Bildschirminhalt auf Vollbild erweitern für ein vollständigeres Eintauchen</string>
     <string name="setting_resolution_scaler_title">Auflösung anpassen</string>
