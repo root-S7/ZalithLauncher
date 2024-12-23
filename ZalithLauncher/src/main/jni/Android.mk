@@ -22,7 +22,7 @@ LOCAL_MODULE := Angle
 LOCAL_SHARED_LIBRARIES := angle_gles2
 LOCAL_SRC_FILES := angle/main.c angle/string_utils.c
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/angle
-LOCAL_CFLAGS += -g -rdynamic
+LOCAL_CFLAGS += -rdynamic
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -31,6 +31,7 @@ LOCAL_LDLIBS := -ldl -llog -landroid
 # -lGLESv2
 LOCAL_MODULE := pojavexec
 LOCAL_SHARED_LIBRARIES := bytehook
+LOCAL_CFLAGS += -rdynamic
 # LOCAL_CFLAGS += -DDEBUG
 # -DGLES_TEST
 LOCAL_SRC_FILES := \
