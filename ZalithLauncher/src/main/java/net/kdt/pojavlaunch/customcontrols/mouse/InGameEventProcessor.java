@@ -17,11 +17,9 @@ public class InGameEventProcessor implements TouchEventProcessor {
     private final PointerTracker mTracker = new PointerTracker();
     private final LeftClickGesture mLeftClickGesture = new LeftClickGesture(mGestureHandler);
     private final RightClickGesture mRightClickGesture = new RightClickGesture(mGestureHandler);
-    private final ContactHandler mContactHandler;
 
     public InGameEventProcessor(double sensitivity) {
         mSensitivity = sensitivity;
-        mContactHandler = AllSettings.getUseControllerProxy().getValue() ? ContactHandler.INSTANCE : null;
     }
 
     @Override
@@ -61,9 +59,9 @@ public class InGameEventProcessor implements TouchEventProcessor {
 
     @Override
     public void dispatchTouchEvent(MotionEvent event, View view) {
-        if (mContactHandler != null) {
+        if (AllSettings.getUseControllerProxy().getValue()) {
             //单独处理触摸事件，支持TouchController模组
-            mContactHandler.progressEvent(event, view);
+            ContactHandler.INSTANCE.progressEvent(event, view);
         }
     }
 
