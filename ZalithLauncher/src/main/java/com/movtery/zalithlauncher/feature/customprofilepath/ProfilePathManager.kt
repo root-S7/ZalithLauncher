@@ -39,7 +39,9 @@ class ProfilePathManager {
                                     val profilePathJsonObject = Tools.GLOBAL_GSON.fromJson(jsonObject[id], ProfilePathJsonObject::class.java)
                                     return profilePathJsonObject.path
                                 }
-                            }.getOrElse { e -> Logging.e("Read Profile", e.toString()) }
+                            }.getOrElse {
+                                Logging.e("Read Profile", "Failed to parse the game path", it)
+                            }
                         }
                     }
                 }
@@ -63,7 +65,7 @@ class ProfilePathManager {
                     Tools.GLOBAL_GSON.toJson(jsonObject, fileWriter)
                 }
             } catch (e: IOException) {
-                Logging.e("Write Profile", e.toString())
+                Logging.e("Write Profile", "Failed to write to game path configuration", e)
             }
         }
     }

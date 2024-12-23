@@ -72,7 +72,7 @@ class CheckNewNotice {
                             noticeInfo = NoticeInfo(title, content, noticeJson.date, noticeJson.numbering)
                             listener.onSuccessful(noticeInfo)
                         }.getOrElse { e ->
-                            Logging.e("Check New Notice", e.toString())
+                            Logging.e("Check New Notice", "Failed to resolve the notice.", e)
                         }
                     }
                     isChecking = false

@@ -85,7 +85,7 @@ class SeekBarSettingsWrapper(
                     try {
                         value = string.toInt()
                     } catch (e: NumberFormatException) {
-                        e("Custom Seek Bar", e.toString())
+                        e("SeekBarSettingsWrapper", "The data is illegal", e)
 
                         editBox.error = context.getString(R.string.generic_input_invalid)
                         return@setConfirmListener false

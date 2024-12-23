@@ -58,7 +58,7 @@ class FabricLikeUtils private constructor(
                 }
             }
         } catch (e: DownloadUtils.ParseException) {
-            e("Download Fabric Meta", e.toString())
+            e("Download Fabric Meta", "Failed to parse loader version list", e)
         }
         return null
     }

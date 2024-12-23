@@ -4,27 +4,34 @@ import android.util.Log
 import com.movtery.zalithlauncher.BuildConfig
 import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.utils.path.PathManager.Companion.DIR_LAUNCHER_LOG
-import com.movtery.zalithlauncher.utils.ZHTools
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import net.kdt.pojavlaunch.Tools
-import org.apache.commons.io.FileUtils
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.concurrent.Executors
 
 /**
  * 启动器日志记录，将软件日志及时写入本地文件存储
  */
 object Logging {
-    private val executor = Executors.newSingleThreadExecutor()
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val loggerMutex = Mutex()
+
+    @Volatile
+    private var isLauncherInfoWritten = false
     private var FILE_LAUNCHER_LOG: File? = null
 
     init {
         FILE_LAUNCHER_LOG = getLogFile()
-        writeLauncherInfo()
     }
 
     private fun getLogFile(): File {
@@ -53,45 +60,46 @@ object Logging {
     }
 
     private fun writeToFile(log: String, tag: Tag, mark: String) {
-        executor.execute {
-            synchronized(this) {
+        coroutineScope.launch {
+            val date = Date(System.currentTimeMillis())
+            val timeString = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(date)
+            val logString = "[$timeString] (${tag.name}) <$mark> $log"
+
+            withContext(Dispatchers.IO) {
+                appendToFile(logString)
+            }
+        }
+    }
+
+    private suspend fun appendToFile(string: String) {
+        loggerMutex.withLock {
+            runCatching {
                 FILE_LAUNCHER_LOG?.let { file ->
-                    if (file.exists() && FileUtils.sizeOf(file) >= 15 * 1024 * 1024) { //15MB
+                    if (file.exists() && file.length() >= 15 * 1024 * 1024) { // 15MB
                         FILE_LAUNCHER_LOG = getLogFile()
-                        writeLauncherInfo()
+                        isLauncherInfoWritten = false
                     }
                 }
 
-                val date = Date(ZHTools.getCurrentTimeMillis())
-                val timeString = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date)
-                val logString = "($timeString) [${tag.name}] <$mark> $log"
-
-                writeToFile(logString)
+                BufferedWriter(FileWriter(FILE_LAUNCHER_LOG, true)).use { writer ->
+                    if (!isLauncherInfoWritten) {
+                        isLauncherInfoWritten = true
+                        writer.append(getLauncherInfo()).append("\r\n\r\n")
+                    }
+                    writer.append(string).append("\r\n")
+                }
+            }.getOrElse { e ->
+                Log.e("Logging", "Failed to write log: ${Tools.printToString(e)}")
             }
         }
     }
 
-    private fun writeLauncherInfo() {
-        writeToFile(
-            """
-                =============== ${InfoCenter.APP_NAME} ===============
-                - Version Name : ${BuildConfig.VERSION_NAME}
-                - Version Code : ${BuildConfig.VERSION_CODE}
-                - Build Type : ${BuildConfig.BUILD_TYPE}
-
-            """.trimIndent()
-        )
-    }
-
-    private fun writeToFile(string: String) {
-        runCatching {
-            BufferedWriter(FileWriter(FILE_LAUNCHER_LOG, true)).use { writer ->
-                writer.append(string).append("\n")
-            }
-        }.getOrElse { e ->
-            Log.e("Logging", "Failed to write log: ${Tools.printToString(e)}")
-        }
-    }
+    private fun getLauncherInfo(): String = """
+        =============== ${InfoCenter.APP_NAME} ===============
+        - Version Name : ${BuildConfig.VERSION_NAME}
+        - Version Code : ${BuildConfig.VERSION_CODE}
+        - Build Type : ${BuildConfig.BUILD_TYPE}
+        """.trimIndent()
 
     @JvmStatic
     fun v(mark: String, verbose: String) {

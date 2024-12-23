@@ -238,7 +238,7 @@ public class MultiRTUtils {
                     // Libcore one support all Android versions
                     Os.symlink(tarEntry.getName(), tarEntry.getLinkName());
                 } catch (Throwable e) {
-                    Logging.e("MultiRT", e.toString());
+                    Logging.e("MultiRT", Tools.printToString(e));
                 }
 
             } else if (tarEntry.isDirectory()) {

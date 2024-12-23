@@ -58,24 +58,21 @@ public class AsyncVersionList {
 
 
     @SuppressWarnings("SameParameterValue")
-    private JMinecraftVersionList downloadVersionList(String mirror){
+    private JMinecraftVersionList downloadVersionList(String mirror) {
         JMinecraftVersionList list = null;
-        try{
+        try {
             Logging.i("ExtVL", "Syncing to external: " + mirror);
             String jsonString = downloadString(mirror);
             list = Tools.GLOBAL_GSON.fromJson(jsonString, JMinecraftVersionList.class);
-            Logging.i("ExtVL","Downloaded the version list, len=" + list.versions.length);
+            Logging.i("ExtVL", "Downloaded the version list, len=" + list.versions.length);
 
             // Then save the version list
             //TODO make it not save at times ?
             FileOutputStream fos = new FileOutputStream(PathManager.FILE_VERSION_LIST);
             fos.write(jsonString.getBytes());
             fos.close();
-
-
-
-        }catch (IOException e){
-            Logging.e("AsyncVersionList", e.toString());
+        } catch (IOException e) {
+            Logging.e("AsyncVersionList", Tools.printToString(e));
         }
         return list;
     }

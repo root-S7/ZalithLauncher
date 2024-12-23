@@ -49,7 +49,7 @@ class ModPackUtils {
                     }
                 }
             }.getOrElse { e ->
-                Logging.e("determineModpack", e.toString())
+                Logging.e("determineModpack", "There was a problem checking the ModPack", e)
             }
 
             return ModPackEnum.UNKNOWN

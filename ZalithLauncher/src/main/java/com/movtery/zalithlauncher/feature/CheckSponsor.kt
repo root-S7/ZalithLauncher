@@ -76,7 +76,7 @@ class CheckSponsor {
                             }
                             listener.onSuccessful(sponsorData)
                         }.getOrElse { e ->
-                            Logging.e("Load Sponsor Data", e.toString())
+                            Logging.e("Load Sponsor Data", "Failed to resolve sponsor list.", e)
                             listener.onFailure()
                         }
                     }
