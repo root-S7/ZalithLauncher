@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">Введенное значение слишком маленькое, минимум %s</string>
     <string name="generic_input_too_big">Введенное значение слишком большое, максимум %s</string>
     <string name="generic_copied">Скопировано</string>
+    <string name="generic_saved">Сохранено</string>
     <string name="generic_release">Официальная версия</string>
     <string name="generic_debug">Тестовая версия</string>
     <string name="generic_pre_release">Предрелизная версия</string>
@@ -242,6 +243,7 @@
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Включить изоляцию версий</string>
     <string name="pedit_reset_icon">Это сбросит установленную вами пользовательскую иконку, и операция необратима. Вы уверены, что хотите сбросить иконку версии?</string>
+    <string name="pedit_unsaved_tip">Вы внесли изменения в конфигурацию этой версии. Прямой возврат приведет к потере этих изменений. Вы уверены, что хотите непосредственно вернуться?</string>
     <string name="pedit_control">Раскладка управления</string>
     <string name="pedit_custom_path">Пользовательский путь</string>
     <string name="pedit_default">(Использовать глобальное значение по умолчанию)</string>

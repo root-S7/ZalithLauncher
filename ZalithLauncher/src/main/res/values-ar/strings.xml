@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">القيمة المدخلة صغيرة جدًا، يجب أن تكون على الأقل %s</string>
     <string name="generic_input_too_big">القيمة المدخلة كبيرة جدًا، يجب أن تكون على الأكثر %s</string>
     <string name="generic_copied">تم النسخ</string>
+    <string name="generic_saved">حفظ</string>
     <string name="generic_release">الإصدار الرسمي</string>
     <string name="generic_debug">إصدار تجريبي</string>
     <string name="generic_pre_release">إصدار ما قبل النشر</string>
@@ -242,6 +243,7 @@
     <!-- Profile -->
     <string name="pedit_isolation_enabled">تمكين عزل الإصدارات</string>
     <string name="pedit_reset_icon">سيتم إعادة تعيين الرمز المخصص الذي قمت بتحديده، وهذه العملية لا يمكن التراجع عنها. هل أنت متأكد أنك تريد إعادة تعيين رمز النسخة؟</string>
+    <string name="pedit_unsaved_tip">لقد قمت بتعديل تكوين هذا الإصدار. العودة مباشرة ستؤدي إلى فقدان هذه التغييرات. هل أنت متأكد من أنك تريد العودة مباشرة؟</string>
     <string name="pedit_control">تخطيط التحكم</string>
     <string name="pedit_custom_path">مسار مخصص</string>
     <string name="pedit_default">(استخدام القيمة الافتراضية العامة)</string>

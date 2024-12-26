@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">填寫的數值過小，至少需為 %s</string>
     <string name="generic_input_too_big">填寫的數值過大，最多只能為 %s</string>
     <string name="generic_copied">已複製</string>
+    <string name="generic_saved">已儲存</string>
     <string name="generic_release">正式版</string>
     <string name="generic_debug">測試版</string>
     <string name="generic_pre_release">預發布版</string>
@@ -242,6 +243,7 @@
     <!-- Profile -->
     <string name="pedit_isolation_enabled">啟用版本隔離</string>
     <string name="pedit_reset_icon">這將會重置你設定的自訂圖示，且操作不可逆，你確定要重置版本圖示嗎？</string>
+    <string name="pedit_unsaved_tip">您已對這個版本配置進行了修改，直接返回將會丢失這些更改。您確定要直接返回嗎？</string>
     <string name="pedit_control">控制佈局</string>
     <string name="pedit_custom_path">自訂路徑</string>
     <string name="pedit_default">（使用全域預設值）</string>

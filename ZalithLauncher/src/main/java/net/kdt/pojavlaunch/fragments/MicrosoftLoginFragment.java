@@ -14,16 +14,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentMicrosoftLoginBinding;
 import com.movtery.zalithlauncher.event.value.MicrosoftLoginEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.ui.fragment.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class MicrosoftLoginFragment extends Fragment {
+public class MicrosoftLoginFragment extends BaseFragment {
     public static final String TAG = "MICROSOFT_LOGIN_FRAGMENT";
     private FragmentMicrosoftLoginBinding binding;
     // Technically the client is blank (or there is none) when the fragment is initialized
@@ -93,6 +93,15 @@ public class MicrosoftLoginFragment extends Fragment {
     }
 
     @Override
+    public boolean onBackPressed() {
+        if (canGoBack()) {
+            goBack();
+            return false;
+        }
+        return super.onBackPressed();
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         // Since the value cannot be null, just create a "blank" client. This is done to not let Android
         // kill us if something happens after the state gets saved, when we can't do fragment transitions
@@ -112,10 +121,6 @@ public class MicrosoftLoginFragment extends Fragment {
 
     public void goBack() {
         binding.webView.goBack();
-    }
-
-    private void forceBack() {
-        requireActivity().getSupportFragmentManager().popBackStackImmediate();
     }
 
     /** Client to track when to sent the data to the launcher */

@@ -66,6 +66,7 @@ import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.AccountFragment;
+import com.movtery.zalithlauncher.ui.fragment.BaseFragment;
 import com.movtery.zalithlauncher.ui.fragment.DownloadFragment;
 import com.movtery.zalithlauncher.ui.fragment.SettingsFragment;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.ButtonType;
@@ -80,7 +81,6 @@ import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
-import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
@@ -155,7 +155,7 @@ public class LauncherActivity extends BaseActivity {
 
     @Subscribe()
     public void event(SwapToLoginEvent event) {
-        Fragment currentFragment = getVisibleFragment(binding.containerFragment.getId());
+        Fragment currentFragment = getCurrentFragment();
         //如果当前可见的Fragment不为空，则判断当前的Fragment是否为AccountFragment，不是就跳转至AccountFragment
         if (currentFragment == null || getVisibleFragment(AccountFragment.TAG) != null) return;
         ZHTools.swapFragmentWithAnim(currentFragment, AccountFragment.class, AccountFragment.TAG, null);
@@ -361,13 +361,12 @@ public class LauncherActivity extends BaseActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                MicrosoftLoginFragment fragment = (MicrosoftLoginFragment) getVisibleFragment(MicrosoftLoginFragment.TAG);
-                if (fragment != null) {
-                    if (fragment.canGoBack()) {
-                        fragment.goBack();
-                        return;
-                    }
+                Fragment currentFragment = getCurrentFragment();
+                if (currentFragment instanceof BaseFragment && !((BaseFragment) currentFragment).onBackPressed()) {
+                    //Fragment那边拒绝了返回事件
+                    return;
                 }
+
                 //如果栈中只剩下1个或没有Fragment，则直接退出启动器
                 if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
                     finish();
@@ -550,6 +549,10 @@ public class LauncherActivity extends BaseActivity {
 
     private Fragment getVisibleFragment(int id) {
         return checkFragmentAvailability(getSupportFragmentManager().findFragmentById(id));
+    }
+
+    private Fragment getCurrentFragment() {
+        return getVisibleFragment(binding.containerFragment.getId());
     }
 
     private Fragment checkFragmentAvailability(Fragment fragment) {

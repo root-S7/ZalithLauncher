@@ -61,6 +61,11 @@ class VersionIconUtils(
         FileUtils.deleteQuietly(iconFile)
     }
 
+    /**
+     * @return 获取当前版本的封面图标
+     */
+    fun getIconFile() = iconFile
+
     private fun getLoaderIcon(name: String): Int? {
         return if (name.equals("fabric", true)) R.drawable.ic_fabric
         else if (name.equals("forge", true)) R.drawable.ic_anvil

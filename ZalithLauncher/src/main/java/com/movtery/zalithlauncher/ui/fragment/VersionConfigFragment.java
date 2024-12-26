@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -49,8 +50,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private static final String SELECT_CUSTOM_PATH = "SELECT_CUSTOM_PATH";
 
     private FragmentVersionConfigBinding binding;
-    private Version mTempVersion = null;
-    private VersionConfig mTempConfig = null;
+    private VersionConfig mBackupConfig, mTempConfig = null;
     private List<String> mRenderNames;
     private VersionIconUtils mVersionIconUtils;
 
@@ -59,7 +59,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
             registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
                 if (result != null) {
                     AlertDialog dialog = ZHTools.showTaskRunningDialog(requireActivity());
-                    Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, VersionsManager.INSTANCE.getVersionIconFile(mTempVersion)))
+                    Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, mVersionIconUtils.getIconFile()))
                             .ended(TaskExecutors.getAndroidUI(), file -> refreshIcon(false))
                             .finallyTask(TaskExecutors.getAndroidUI(), dialog::dismiss)
                             .onThrowable(Tools::showErrorRemote)
@@ -97,7 +97,13 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // Set up behaviors
+        Version version = VersionsManager.INSTANCE.getCurrentVersion();
+        if (version == null) {
+            Tools.showError(requireActivity(), getString(R.string.version_manager_no_installed_version), new NoVersionException("There is no installed version"));
+            ZHTools.onBackPressed(requireActivity());
+            return;
+        }
+
         binding.cancelButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
         binding.saveButton.setOnClickListener(v -> {
             save();
@@ -121,7 +127,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
             bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false);
             bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
             bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
-            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, mTempVersion.getVersionsFolder());
+            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, version.getVersionsFolder());
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
         binding.resetCustomPath.setOnClickListener(v -> {
@@ -131,18 +137,16 @@ public class VersionConfigFragment extends FragmentWithAnim {
         binding.iconLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
         binding.iconReset.setOnClickListener(v -> resetIcon());
 
-        Version version = VersionsManager.INSTANCE.getCurrentVersion();
-        if (version == null) {
-            Tools.showError(requireActivity(), getString(R.string.version_manager_no_installed_version), new NoVersionException("There is no installed version"));
-            ZHTools.onBackPressed(requireActivity());
-            return;
+        VersionConfig versionConfig = version.getVersionConfig();
+        if (mTempConfig == null) {
+            mTempConfig = versionConfig;
         }
+        if (mBackupConfig == null) {
+            mBackupConfig = versionConfig.copy();
+        }
+        mVersionIconUtils = new VersionIconUtils(version);
 
-        mTempVersion = version;
-        mTempConfig = mTempVersion.getVersionConfig();
-        mVersionIconUtils = new VersionIconUtils(mTempVersion);
-
-        boolean isolation = mTempVersion.getVersionConfig().isIsolation();
+        boolean isolation = mTempConfig.isIsolation();
         binding.isolation.setChecked(isolation);
         disableCustomPath(isolation);
 
@@ -170,6 +174,20 @@ public class VersionConfigFragment extends FragmentWithAnim {
     public void onPause() {
         super.onPause();
         closeSpinner();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mTempConfig.checkDifferent(mBackupConfig)) {
+            new TipDialog.Builder(requireActivity())
+                    .setTitle(R.string.generic_warning)
+                    .setMessage(R.string.pedit_unsaved_tip)
+                    .setWarning()
+                    .setConfirmClickListener(checked -> forceBack())
+                    .buildDialog();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -260,7 +278,10 @@ public class VersionConfigFragment extends FragmentWithAnim {
         mTempConfig.setJavaArgs(argsText == null ? "" : argsText.toString());
 
         mTempConfig.save();
+        mBackupConfig = mTempConfig.copy();
         VersionsManager.INSTANCE.refresh();
+
+        Toast.makeText(requireActivity(), getString(R.string.generic_saved), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">The value is too small, it must be at least %s</string>
     <string name="generic_input_too_big">The value is too big, it can be at most %s</string>
     <string name="generic_copied">Copied</string>
+    <string name="generic_saved">Saved</string>
     <string name="generic_release">Release</string>
     <string name="generic_debug">Debug</string>
     <string name="generic_pre_release">Pre-release</string>
@@ -248,6 +249,7 @@
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Enable Version Isolation</string>
     <string name="pedit_reset_icon">This will reset the custom icon you set, and the operation is irreversible. Are you sure you want to reset the version icon?</string>
+    <string name="pedit_unsaved_tip">You have made modifications to this version configuration. Returning directly will lose these changes. Are you sure you want to return directly?</string>
     <string name="pedit_control">Control Layout</string>
     <string name="pedit_custom_path">Custom Path</string>
     <string name="pedit_default">(Use global default)</string>

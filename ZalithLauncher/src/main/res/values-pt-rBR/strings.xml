@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">O valor preenchido é muito pequeno, deve ser pelo menos %s</string>
     <string name="generic_input_too_big">O valor preenchido é muito grande, o máximo é %s</string>
     <string name="generic_copied">Copiado</string>
+    <string name="generic_saved">Salvo</string>
     <string name="generic_release">Versão oficial</string>
     <string name="generic_debug">Versão de teste</string>
     <string name="generic_pre_release">Versão preliminar</string>
@@ -242,6 +243,7 @@
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Habilitar Isolamento de Versão</string>
     <string name="pedit_reset_icon">Isso irá redefinir o ícone personalizado que você configurou, e a operação não pode ser desfeita. Tem certeza de que deseja redefinir o ícone da versão?</string>
+    <string name="pedit_unsaved_tip">Você fez alterações na configuração desta versão. Retornar diretamente irá perder essas alterações. Você tem certeza que quer retornar diretamente?</string>
     <string name="pedit_control">Layout de Controle</string>
     <string name="pedit_custom_path">Caminho personalizado</string>
     <string name="pedit_default">(Usar valor padrão global)</string>

@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">Der Wert ist zu klein, mindestens %s</string>
     <string name="generic_input_too_big">Der Wert ist zu groß, maximal %s</string>
     <string name="generic_copied">Kopiert</string>
+    <string name="generic_saved">Gespeichert</string>
     <string name="generic_release">Release</string>
     <string name="generic_debug">Testversion</string>
     <string name="generic_pre_release">Vorabversion</string>
@@ -242,6 +243,7 @@
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Versionstrennung aktivieren</string>
     <string name="pedit_reset_icon">Dadurch wird das benutzerdefinierte Symbol, das du festgelegt hast, zurückgesetzt, und der Vorgang ist nicht rückgängig zu machen. Bist du sicher, dass du das Versionssymbol zurücksetzen möchtest?</string>
+    <string name="pedit_unsaved_tip">Sie haben Änderungen an dieser Versionskonfiguration vorgenommen. Ein direktes Zurückkehren wird diese Änderungen verlieren. Sind Sie sicher, dass Sie direkt zurückkehren möchten?</string>
     <string name="pedit_control">Steuerungsraster</string>
     <string name="pedit_custom_path">Benutzerdefinierter Pfad</string>
     <string name="pedit_default">(Globale Standardeinstellung verwenden)</string>

@@ -45,6 +45,7 @@
     <string name="generic_input_too_small">Giá trị đã nhập quá nhỏ, cần ít nhất là %s</string>
     <string name="generic_input_too_big">Giá trị đã nhập quá lớn, tối đa chỉ là %s</string>
     <string name="generic_copied">Đã sao chép</string>
+    <string name="generic_saved">Đã lưu</string>
     <string name="generic_release">Phiên bản chính thức</string>
     <string name="generic_debug">Phiên bản thử nghiệm</string>
     <string name="generic_pre_release">Phiên bản phát hành trước</string>
@@ -242,6 +243,7 @@
     <!-- Profile -->
     <string name="pedit_isolation_enabled">Bật cách ly phiên bản</string>
     <string name="pedit_reset_icon">Điều này sẽ đặt lại biểu tượng tùy chỉnh bạn đã thiết lập và thao tác không thể hoàn tác. Bạn có chắc chắn muốn đặt lại biểu tượng phiên bản không?</string>
+    <string name="pedit_unsaved_tip">Bạn đã thực hiện thay đổi đối với cấu hình phiên bản này. Quay trở lại trực tiếp sẽ mất những thay đổi này. Bạn có chắc chắn muốn quay trở lại trực tiếp không?</string>
     <string name="pedit_control">Bố cục điều khiển</string>
     <string name="pedit_custom_path">Đường dẫn tùy chỉnh</string>
     <string name="pedit_default">（Sử dụng giá trị mặc định toàn cục）</string>

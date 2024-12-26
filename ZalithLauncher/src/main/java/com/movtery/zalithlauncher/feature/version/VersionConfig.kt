@@ -95,6 +95,15 @@ class VersionConfig(private var versionPath: File) : Parcelable {
 
     fun setCustomPath(customPath: String) { this.customPath = customPath }
 
+    fun checkDifferent(otherConfig: VersionConfig): Boolean {
+        return !(this.isolation == otherConfig.isolation &&
+                this.javaDir == otherConfig.javaDir &&
+                this.javaArgs == otherConfig.javaArgs &&
+                this.renderer == otherConfig.renderer &&
+                this.control == otherConfig.control &&
+                this.customPath == otherConfig.customPath)
+    }
+
     override fun toString(): String {
         return "VersionConfig{" +
                 "isolation=$isolation, " +
