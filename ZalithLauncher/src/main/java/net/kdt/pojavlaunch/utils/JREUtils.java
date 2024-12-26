@@ -511,7 +511,7 @@ public class JREUtils {
                 renderLibrary = "libOSMesa_8.so";
                 break;
             case "gallium_virgl":
-                renderLibrary = "libOSMesa_2205.so";
+                renderLibrary = "libOSMesa_2121.so";
                 break;
             case "gallium_panfrost":
                 renderLibrary = "libOSMesa_2300d.so";
