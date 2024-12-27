@@ -10,12 +10,18 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemModDownloadBinding
+import com.movtery.zalithlauncher.feature.download.enums.DependencyType
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
+import com.movtery.zalithlauncher.feature.version.VersionIconUtils
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 
 class ModListAdapter(
     private val fragment: ModListFragment,
     private val mData: MutableList<ModListItemBean>?
 ) : RecyclerView.Adapter<ModListAdapter.InnerHolder>() {
+    private val mCurrentVersion = VersionsManager.getCurrentVersion()
+    private val mIconUtils = lazy { mCurrentVersion?.run { VersionIconUtils(mCurrentVersion) } }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
         return InnerHolder(ItemModDownloadBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -41,6 +47,8 @@ class ModListAdapter(
     inner class InnerHolder(private val binding: ItemModDownloadBinding) : RecyclerView.ViewHolder(
         binding.root
     ) {
+        private val mContext = binding.root.context
+
         fun setData(item: ModListItemBean) {
             itemView.setOnClickListener {
                 fragment.switchToChild(
@@ -50,13 +58,35 @@ class ModListAdapter(
             }
             binding.apply {
                 modVersionId.text = item.title
-                val modLoaderInfo = getModLoaderInfo(binding.root.context, item.modloader)
+                val modLoaderInfo = getModLoaderInfo(mContext, item.modloader)
                 modloaderIcon.setImageDrawable(modLoaderInfo.first)
                 modLoaderInfo.second?.let { name ->
                     modloaderName.visibility = View.VISIBLE
                     modloaderName.text = name
                 } ?: run {
                     modloaderName.visibility = View.GONE
+                }
+
+                val visibility = if (item.isAdapt) run {
+                    mIconUtils.value?.start(currentVersionIcon)
+                    root.background.setTint(DependencyType.OPTIONAL.color)
+                    View.VISIBLE
+                } else run {
+                    root.background.setTintList(null)
+                    View.GONE
+                }
+
+                isAdapt.visibility = visibility
+                currentVersionIcon.visibility = visibility
+
+                if (item.isAdapt) {
+                    val versionName = mCurrentVersion?.getVersionName()
+                    isAdapt.apply {
+                        text = versionName?.run {
+                            mContext.getString(R.string.download_install_is_adapt, versionName)
+                        }
+                        isSelected = true
+                    }
                 }
             }
         }

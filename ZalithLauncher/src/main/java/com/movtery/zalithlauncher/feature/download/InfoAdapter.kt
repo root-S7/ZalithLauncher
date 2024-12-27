@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.download
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -132,17 +133,17 @@ class InfoAdapter(
                 tagsLayout.removeAllViews()
 
                 val downloadCount = NumberWithUnits.formatNumberWithUnit(item.downloadCount, ZHTools.isEnglish(mContext))
-                tagsLayout.addView(getTagTextView(R.string.download_info_downloads, downloadCount))
+                tagsLayout.addView(getTagTextView(mContext, R.string.download_info_downloads, downloadCount))
 
                 item.author?.let {
                     val authorSJ = StringJoiner(", ")
                     for (s in it) {
                         authorSJ.add(s)
                     }
-                    tagsLayout.addView(getTagTextView(R.string.download_info_author, authorSJ.toString()))
+                    tagsLayout.addView(getTagTextView(mContext, R.string.download_info_author, authorSJ.toString()))
                 }
 
-                tagsLayout.addView(getTagTextView(R.string.download_info_date, StringUtils.formatDate(item.uploadDate, Locale.getDefault(), TimeZone.getDefault())))
+                tagsLayout.addView(getTagTextView(mContext, R.string.download_info_date, StringUtils.formatDate(item.uploadDate, Locale.getDefault(), TimeZone.getDefault())))
                 if (item is ModInfoItem) {
                     val modloaderSJ = StringJoiner(", ")
                     for (s in item.modloaders) {
@@ -150,7 +151,7 @@ class InfoAdapter(
                     }
                     val modloaderText = if (modloaderSJ.length() > 0) modloaderSJ.toString()
                     else mContext.getString(R.string.generic_unknown)
-                    tagsLayout.addView(getTagTextView(R.string.download_info_modloader, modloaderText))
+                    tagsLayout.addView(getTagTextView(mContext, R.string.download_info_modloader, modloaderText))
                 }
 
                 item.iconUrl?.apply {
@@ -170,25 +171,10 @@ class InfoAdapter(
         }
 
         private fun addCategoryView(layout: FlexboxLayout, text: String) {
-            val inflater = LayoutInflater.from(mContext)
-            val textView = inflater.inflate(R.layout.item_mod_category_textview, layout, false) as TextView
+            val textView = createCategoryView(mContext)
             textView.text = text
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Tools.dpToPx(9F))
-
             layout.addView(textView)
-        }
-
-        private fun getTagTextView(string: Int, value: String): TextView {
-            val textView = TextView(mContext)
-            textView.text = StringUtils.insertSpace(mContext.getString(string), value)
-            val layoutParams = FlexboxLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            layoutParams.setMargins(0, 0, Tools.dpToPx(10f).toInt(), 0)
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Tools.dpToPx(9F))
-            textView.layoutParams = layoutParams
-            return textView
         }
     }
 
@@ -216,5 +202,36 @@ class InfoAdapter(
     companion object {
         private const val VIEW_TYPE_MOD_ITEM = 0
         private const val VIEW_TYPE_LOADING = 1
+
+        @JvmStatic
+        fun createCategoryView(context: Context): TextView {
+            return TextView(context).apply {
+                id = View.generateViewId()
+                layoutParams = ViewGroup.MarginLayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginEnd = context.resources.getDimensionPixelSize(R.dimen._4sdp)
+                    val verticalMargin = context.resources.getDimensionPixelSize(R.dimen._1sdp)
+                    topMargin = verticalMargin
+                    bottomMargin = verticalMargin
+                }
+                background = ContextCompat.getDrawable(context, R.drawable.background_mod_category)
+            }
+        }
+
+        @JvmStatic
+        fun getTagTextView(context: Context, string: Int, value: String): TextView {
+            val textView = TextView(context)
+            textView.text = StringUtils.insertSpace(context.getString(string), value)
+            val layoutParams = FlexboxLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutParams.setMargins(0, 0, Tools.dpToPx(10f).toInt(), 0)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Tools.dpToPx(9F))
+            textView.layoutParams = layoutParams
+            return textView
+        }
     }
 }

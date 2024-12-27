@@ -1,5 +1,8 @@
 package com.movtery.zalithlauncher.feature.download;
 
+import static com.movtery.zalithlauncher.feature.download.InfoAdapter.createCategoryView;
+import static com.movtery.zalithlauncher.feature.download.InfoAdapter.getTagTextView;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -30,7 +33,6 @@ import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.fragment.DownloadModFragment;
 import com.movtery.zalithlauncher.utils.NumberWithUnits;
 import com.movtery.zalithlauncher.utils.ZHTools;
-import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.Tools;
 
@@ -118,13 +120,13 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             binding.bodyTextview.setText(infoItem.getDescription());
 
             binding.tagsLayout.addView(
-                    getTagTextView(
+                    getTagTextView(context,
                             R.string.download_info_dependencies,
                             DependencyUtils.Companion.getTextFromType(context, infoItem.getDependencyType())
                     ));
 
             binding.tagsLayout.addView(
-                    getTagTextView(R.string.download_info_downloads, NumberWithUnits.formatNumberWithUnit(
+                    getTagTextView(context, R.string.download_info_downloads, NumberWithUnits.formatNumberWithUnit(
                             infoItem.getDownloadCount(),
                             //判断当前系统语言是否为英文
                             ZHTools.isEnglish(mParentFragment.requireActivity()))));
@@ -137,7 +139,7 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             if (modloaderSJ.length() > 0) modloaderText = modloaderSJ.toString();
             else modloaderText = context.getString(R.string.generic_unknown);
             binding.tagsLayout.addView(
-                    getTagTextView(R.string.download_info_modloader, modloaderText)
+                    getTagTextView(context, R.string.download_info_modloader, modloaderText)
             );
 
             binding.thumbnailImageview.setImageDrawable(null);
@@ -162,24 +164,10 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
         }
 
         private void addCategoryView(FlexboxLayout layout, String text) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            TextView textView = (TextView) inflater.inflate(R.layout.item_mod_category_textview, layout, false);
+            TextView textView = createCategoryView(context);
             textView.setText(text);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Tools.dpToPx(9F));
             layout.addView(textView);
-        }
-
-        private TextView getTagTextView(int string, String value) {
-            TextView textView = new TextView(context);
-            textView.setText(StringUtils.insertSpace(context.getString(string), value));
-            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
-            layoutParams.setMargins(0, 0, (int) Tools.dpToPx(10f), 0);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Tools.dpToPx(9F));
-            textView.setLayoutParams(layoutParams);
-            return textView;
         }
     }
 }

@@ -541,6 +541,7 @@
     <string name="download_install_dependencies_tool">أداة</string>
     <string name="download_install_dependencies_include">يتضمن</string>
     <string name="download_install">تنزيل %s</string>
+    <string name="download_install_is_adapt">الإصدار الحالي %s متاح</string>
     <string name="download_install_unpack_world_error">تعذر التعرف على هيكل الملف، فشل فك الضغط التلقائي، يرجى معالجة الملف يدويًا!</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">الرجاء تحديد ملف حزمة يدعمه المشغل للاستيراد!</string>

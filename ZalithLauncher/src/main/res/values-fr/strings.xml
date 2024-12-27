@@ -541,6 +541,7 @@
     <string name="download_install_dependencies_tool">Outil</string>
     <string name="download_install_dependencies_include">Comprend</string>
     <string name="download_install">Téléchargement de %s</string>
+    <string name="download_install_is_adapt">La version actuelle %s est disponible</string>
     <string name="download_install_unpack_world_error">Impossible de reconnaître la structure du fichier, l\'extraction automatique a échoué, veuillez traiter le fichier manuellement !</string>
     <!-- ModPack -->
     <string name="select_modpack_local_tip">Veuillez sélectionner un fichier de pack compatible avec l\'importation du lanceur !</string>
