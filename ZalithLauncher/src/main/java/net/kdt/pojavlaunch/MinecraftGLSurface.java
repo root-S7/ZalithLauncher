@@ -83,6 +83,9 @@ public class MinecraftGLSurface extends View implements GrabListener {
     private AndroidPointerCapture mPointerCapture;
     private boolean mLastGrabState = false;
 
+    private OnRenderingStartedListener mOnRenderingStartedListener = null;
+    private boolean mIsRenderingStarted = false;
+
     public MinecraftGLSurface(Context context) {
         this(context, null);
     }
@@ -133,7 +136,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
             });
 
             ((ViewGroup)getParent()).addView(surfaceView);
-        }else{
+        } else {
             TextureView textureView = new TextureView(getContext());
             textureView.setOpaque(true);
             textureView.setAlpha(1.0f);
@@ -164,7 +167,13 @@ public class MinecraftGLSurface extends View implements GrabListener {
                 }
 
                 @Override
-                public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surface) {}
+                public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surface) {
+                    if (!mIsRenderingStarted) {
+                        mIsRenderingStarted = true;
+                        //在正式渲染画面的时候，调用这个监听器，关闭启动器背景图像，防止一些设备的半透明问题
+                        if (mOnRenderingStartedListener != null) mOnRenderingStartedListener.isStarted();
+                    }
+                }
             });
 
             ((ViewGroup)getParent()).addView(textureView);
@@ -414,5 +423,13 @@ public class MinecraftGLSurface extends View implements GrabListener {
             mSurfaceReadyListener = listener;
             mSurfaceReadyListenerLock.notifyAll();
         }
+    }
+
+    public interface OnRenderingStartedListener {
+        void isStarted();
+    }
+
+    public void setOnRenderingStartedListener(OnRenderingStartedListener listener) {
+        mOnRenderingStartedListener = listener;
     }
 }

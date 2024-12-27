@@ -70,6 +70,14 @@ object BackgroundManager {
             .into(DrawableImageViewTarget(backgroundView))
     }
 
+    @JvmStatic
+    fun clearBackgroundImage(
+        backgroundView: ImageView
+    ) {
+        backgroundView.background = null
+        backgroundView.setImageDrawable(null)
+    }
+
     fun getBackgroundImage(backgroundType: BackgroundType): File? {
         val pngName = properties[backgroundType.name] as String?
         if (pngName == null || pngName == "null") return null

@@ -225,6 +225,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 }
             });
 
+            binding.mainGameRenderView.setOnRenderingStartedListener(() -> {
+                //彻底清除背景图片，确保一些设备不再出现“半透明渲染”的问题
+                BackgroundManager.clearBackgroundImage(binding.backgroundView);
+                Logging.i("Rendering Game", "The game rendering has started, " +
+                        "and the background image has been cleared to prevent certain issues from occurring.");
+            });
+
             if (AllSettings.getEnableLogOutput().getValue()) binding.mainLoggerView.setVisibilityWithAnim(true);
 
             String mcInfo = "";
