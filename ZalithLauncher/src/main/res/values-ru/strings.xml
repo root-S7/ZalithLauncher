@@ -339,7 +339,6 @@
     <string name="file_delete_dir_message">При удалении папки будут удалены все файлы внутри неё. Если в этой папке есть важные файлы, отмените эту операцию!</string>
     <string name="file_delete_multiple_items_title">Вы уверены, что хотите удалить выбранные элементы?</string>
     <string name="file_delete_multiple_items_message">Это действие навсегда удалит все выбранные элементы. Действуйте осторожно!</string>
-    <string name="file_rename_empty">Имя файла не может быть пустым!</string>
     <string name="file_rename_exitis">Имя файла конфликтует с существующим файлом!</string>
     <string name="file_external_storage">Внешнее хранилище</string>
     <string name="file_software_private">Приватная папка программы</string>

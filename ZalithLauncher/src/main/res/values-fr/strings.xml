@@ -339,7 +339,6 @@
     <string name="file_delete_dir_message">La suppression du dossier supprimera également tous les fichiers qu\'il contient. Si ce dossier contient des fichiers importants, veuillez annuler cette opération !</string>
     <string name="file_delete_multiple_items_title">Êtes-vous sûr de vouloir supprimer les éléments sélectionnés ?</string>
     <string name="file_delete_multiple_items_message">Cette action supprimera définitivement tous les éléments sélectionnés. Veuillez procéder avec prudence !</string>
-    <string name="file_rename_empty">Le nom du fichier ne peut pas être vide !</string>
     <string name="file_rename_exitis">Le nom du fichier est en conflit avec un fichier existant !</string>
     <string name="file_external_storage">Répertoire de stockage externe</string>
     <string name="file_software_private">Répertoire privé du logiciel</string>

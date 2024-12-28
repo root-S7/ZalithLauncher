@@ -121,15 +121,17 @@ class FileTools {
             EditTextDialog.Builder(context)
                 .setTitle(R.string.generic_rename)
                 .setEditText(getFileNameWithoutExtension(fileName, suffix))
+                .setAsRequired()
                 .setConfirmListener(ConfirmListener { editBox, _ ->
-                    val newName = editBox.text.toString().replace("/", "")
-                    if (fileName == newName) {
-                        return@ConfirmListener true
+                    val newName = editBox.text.toString()
+
+                    if (newName.contains("/")) {
+                        editBox.error = context.getString(R.string.generic_input_invalid_character, "/")
+                        return@ConfirmListener false
                     }
 
-                    if (newName.isEmpty()) {
-                        editBox.error = context.getString(R.string.file_rename_empty)
-                        return@ConfirmListener false
+                    if (fileName == newName) {
+                        return@ConfirmListener true
                     }
 
                     val newFile = File(fileParent, newName + suffix)
@@ -157,7 +159,13 @@ class FileTools {
                 .setEditText(fileName)
                 .setAsRequired()
                 .setConfirmListener(ConfirmListener { editBox, _ ->
-                    val newName = editBox.text.toString().replace("/", "")
+                    val newName = editBox.text.toString()
+
+                    if (newName.contains("/")) {
+                        editBox.error = context.getString(R.string.generic_input_invalid_character, "/")
+                        return@ConfirmListener false
+                    }
+
                     if (fileName == newName) {
                         return@ConfirmListener true
                     }

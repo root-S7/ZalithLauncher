@@ -339,7 +339,6 @@
     <string name="file_delete_dir_message">Beim Löschen des Ordners werden auch alle darin enthaltenen Dateien gelöscht. Wenn dieser Ordner wichtige Dateien enthält, breche diesen Vorgang ab!</string>
     <string name="file_delete_multiple_items_title">Bist du sicher, dass du die ausgewählten Elemente löschen möchtest?</string>
     <string name="file_delete_multiple_items_message">Diese Aktion wird alle ausgewählten Elemente dauerhaft löschen. Gehe vorsichtig vor!</string>
-    <string name="file_rename_empty">Der Dateiname darf nicht leer sein!</string>
     <string name="file_rename_exitis">Der Dateiname steht im Konflikt mit einer vorhandenen Datei!</string>
     <string name="file_external_storage">Externer Speicher</string>
     <string name="file_software_private">Software-Privatverzeichnis</string>

@@ -357,7 +357,6 @@
     <string name="file_delete_dir_message">删除文件夹时，会将此文件夹内部全部文件一并删除，如果这个文件夹内含有重要的文件，那么请取消此操作！</string>
     <string name="file_delete_multiple_items_title">你确定要删除已选的项目吗？</string>
     <string name="file_delete_multiple_items_message">此操作将永久删除全部已经选择的项目，请谨慎操作！</string>
-    <string name="file_rename_empty">文件名不能为空！</string>
     <string name="file_rename_exitis">文件名与现有文件相冲突！</string>
     <string name="file_external_storage">外部存储目录</string>
     <string name="file_software_private">软件私有目录</string>

@@ -345,7 +345,6 @@
     <string name="file_delete_dir_message">When deleting a folder, all files inside this folder will be deleted as well. If this folder contains important files, please cancel this operation!</string>
     <string name="file_delete_multiple_items_title">Are you sure you want to delete the selected items?</string>
     <string name="file_delete_multiple_items_message">This operation will permanently delete all selected items, please proceed with caution!</string>
-    <string name="file_rename_empty">File name cannot be empty!</string>
     <string name="file_rename_exitis">File name conflicts with an existing file!</string>
     <string name="file_external_storage">External storage directory</string>
     <string name="file_software_private">Software private directory</string>

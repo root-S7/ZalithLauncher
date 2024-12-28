@@ -339,7 +339,6 @@
     <string name="file_delete_dir_message">Ao excluir a pasta, todos os arquivos dentro dela serão excluídos juntos. Se esta pasta contiver arquivos importantes, cancele esta operação!</string>
     <string name="file_delete_multiple_items_title">Tem certeza de que deseja excluir os itens selecionados?</string>
     <string name="file_delete_multiple_items_message">Esta ação excluirá permanentemente todos os itens selecionados. Proceda com cautela!</string>
-    <string name="file_rename_empty">O nome do arquivo não pode estar vazio!</string>
     <string name="file_rename_exitis">O nome do arquivo está em conflito com um arquivo existente!</string>
     <string name="file_external_storage">Diretório de armazenamento externo</string>
     <string name="file_software_private">Diretório privado do software</string>

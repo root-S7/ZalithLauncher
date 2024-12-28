@@ -339,7 +339,6 @@
     <string name="file_delete_dir_message">刪除資料夾時，會將此資料夾內部全部檔案一併刪除，如果這個資料夾內含有重要的檔案，請取消此操作！</string>
     <string name="file_delete_multiple_items_title">你確定要刪除已選的項目嗎？</string>
     <string name="file_delete_multiple_items_message">此操作將永久刪除全部已選擇的項目，請謹慎操作！</string>
-    <string name="file_rename_empty">檔名不能為空！</string>
     <string name="file_rename_exitis">檔名與現有檔案衝突！</string>
     <string name="file_external_storage">外部儲存目錄</string>
     <string name="file_software_private">軟體私有目錄</string>

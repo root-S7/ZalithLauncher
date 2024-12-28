@@ -209,6 +209,11 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                         return
                     }
 
+                    if (string.contains("/")) {
+                        nameEdit.error = getString(R.string.generic_input_invalid_character, "/")
+                        return
+                    }
+
                     if (VersionsManager.isVersionExists(string, true)) {
                         nameEdit.error = getString(R.string.version_install_exists)
                         return

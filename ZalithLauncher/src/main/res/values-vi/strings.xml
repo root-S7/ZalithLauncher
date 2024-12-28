@@ -339,7 +339,6 @@
     <string name="file_delete_dir_message">Khi xóa thư mục, tất cả các tệp bên trong thư mục này sẽ bị xóa cùng, nếu thư mục này chứa các tệp quan trọng, vui lòng hủy bỏ thao tác này!</string>
     <string name="file_delete_multiple_items_title">Bạn có chắc muốn xóa các mục đã chọn không?</string>
     <string name="file_delete_multiple_items_message">Thao tác này sẽ xóa vĩnh viễn tất cả các mục đã chọn, vui lòng thao tác cẩn thận!</string>
-    <string name="file_rename_empty">Tên tệp không được để trống!</string>
     <string name="file_rename_exitis">Tên tệp xung đột với tệp hiện có!</string>
     <string name="file_external_storage">Thư mục lưu trữ bên ngoài</string>
     <string name="file_software_private">Thư mục riêng của phần mềm</string>

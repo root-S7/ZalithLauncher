@@ -234,6 +234,11 @@ object VersionsManager {
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
 
+                if (string.contains("/")) {
+                    editText.error = context.getString(R.string.generic_input_invalid_character, "/")
+                    return@setConfirmListener false
+                }
+
                 //与原始名称一致
                 if (string == version.getVersionName()) return@setConfirmListener true
 

@@ -339,7 +339,6 @@
     <string name="file_delete_dir_message">عند حذف المجلد، سيتم حذف جميع الملفات الموجودة داخله أيضًا، إذا كان هذا المجلد يحتوي على ملفات مهمة، فالرجاء إلغاء هذه العملية!</string>
     <string name="file_delete_multiple_items_title">هل أنت متأكد أنك تريد حذف العناصر المحددة؟</string>
     <string name="file_delete_multiple_items_message">ستؤدي هذه العملية إلى حذف جميع العناصر المحددة بشكل دائم، يرجى التأكد من العملية بحذر!</string>
-    <string name="file_rename_empty">لا يمكن أن يكون اسم الملف فارغًا!</string>
     <string name="file_rename_exitis">اسم الملف يتعارض مع ملف موجود!</string>
     <string name="file_external_storage">دليل التخزين الخارجي</string>
     <string name="file_software_private">دليل خاص بالبرنامج</string>
