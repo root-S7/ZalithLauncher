@@ -463,6 +463,8 @@
     <string name="setting_max_download_threads_desc">Maximum number of concurrent downloads when downloading multiple files simultaneously, but too many threads will cause launcher lag. 64 threads are sufficient!</string>
     <string name="setting_version_isolation_title">Version Isolation</string>
     <string name="setting_version_isolation_desc">Enable version isolation for the game version?</string>
+    <string name="setting_version_custom_info_title">Custom Info</string>
+    <string name="setting_version_custom_info_desc">Custom info will be displayed in the lower-left corner of the game’s main menu and the upper-left corner of the F3 debug screen. After adding the [zl_version] field, the launcher will replace it with the launcher version number.</string>
     <string name="setting_set_game_language_title">Auto Set Game Language</string>
     <string name="setting_set_game_language_desc">Automatically set the game language to the selected language when the game starts</string>
     <string name="setting_set_game_language_list">Set Game Language</string>

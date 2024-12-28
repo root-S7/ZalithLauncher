@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.setting
 
+import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.setting.unit.BooleanSettingUnit
 import com.movtery.zalithlauncher.setting.unit.IntSettingUnit
@@ -88,6 +89,9 @@ class AllSettings {
         // Game
         @JvmStatic
         val versionIsolation = BooleanSettingUnit("versionIsolation", false)
+
+        @JvmStatic
+        val versionCustomInfo = StringSettingUnit("versionCustomInfo", "${InfoCenter.LAUNCHER_NAME}[zl_version]")
 
         @JvmStatic
         val autoSetGameLanguage = BooleanSettingUnit("autoSetGameLanguage", true)

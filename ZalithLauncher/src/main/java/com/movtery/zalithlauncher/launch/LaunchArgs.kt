@@ -123,11 +123,11 @@ class LaunchArgs(
     }
 
     private fun setLauncherInfo(verArgMap: MutableMap<String, String>) {
-        val launcherName = InfoCenter.LAUNCHER_NAME
-        val launcherVersion = ZHTools.getVersionName()
-        verArgMap["launcher_name"] = launcherName
-        verArgMap["launcher_version"] = launcherVersion
-        verArgMap["version_type"] = "$launcherName$launcherVersion"
+        verArgMap["launcher_name"] = InfoCenter.LAUNCHER_NAME
+        verArgMap["launcher_version"] = ZHTools.getVersionName()
+        verArgMap["version_type"] = minecraftVersion.getCustomInfo()
+            .takeIf { it.isNotEmpty() && it.isNotBlank() }
+            ?: versionInfo.type
     }
 
     private fun splitAndFilterEmpty(arg: String): Array<String> {

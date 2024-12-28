@@ -457,6 +457,8 @@
     <string name="setting_max_download_threads_desc">Số luồng đồng thời tối đa khi tải xuống nhiều tệp đồng thời, nhưng quá nhiều luồng sẽ khiến trình khởi động trệ. 64 luồng đã đủ!</string>
     <string name="setting_version_isolation_title">Cách ly Phiên bản</string>
     <string name="setting_version_isolation_desc">Bật cách ly phiên bản cho phiên bản trò chơi?</string>
+    <string name="setting_version_custom_info_title">Thông tin tùy chỉnh</string>
+    <string name="setting_version_custom_info_desc">Thông tin tùy chỉnh sẽ hiển thị ở góc dưới bên trái của menu chính trong trò chơi và góc trên bên trái của màn hình gỡ lỗi F3. Sau khi thêm trường [zl_version], trình khởi chạy sẽ thay thế nó bằng số phiên bản của trình khởi chạy.</string>
     <string name="setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>
     <string name="setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi khởi động trò chơi</string>
     <string name="setting_set_game_language_list">Đặt ngôn ngữ trò chơi</string>

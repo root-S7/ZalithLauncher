@@ -18,6 +18,7 @@ class VersionConfig(private var versionPath: File) : Parcelable {
     private var renderer: String = ""
     private var control: String = ""
     private var customPath: String = ""
+    private var customInfo: String = ""
 
     constructor(
         filePath: File,
@@ -26,7 +27,8 @@ class VersionConfig(private var versionPath: File) : Parcelable {
         javaArgs: String = "",
         renderer: String = "",
         control: String = "",
-        customPath: String = ""
+        customPath: String = "",
+        customInfo: String = ""
     ) : this(filePath) {
         this.isolationType = isolationType
         this.javaDir = javaDir
@@ -34,6 +36,7 @@ class VersionConfig(private var versionPath: File) : Parcelable {
         this.renderer = renderer
         this.control = control
         this.customPath = customPath
+        this.customInfo = customInfo
     }
 
     fun copy(): VersionConfig = VersionConfig(versionPath, isolationType,
@@ -41,7 +44,8 @@ class VersionConfig(private var versionPath: File) : Parcelable {
         getStringNotNull(javaArgs),
         getStringNotNull(renderer),
         getStringNotNull(control),
-        getStringNotNull(customPath)
+        getStringNotNull(customPath),
+        getStringNotNull(customInfo)
     )
 
     fun save() {
@@ -78,11 +82,9 @@ class VersionConfig(private var versionPath: File) : Parcelable {
         IsolationType.DISABLE -> false
     }
 
-    fun getIsolationType() = isolationType
+    fun getIsolationType() = isolationType ?: IsolationType.FOLLOW_GLOBAL
 
-    fun setIsolationType(isolationType: IsolationType) {
-        this.isolationType = isolationType
-    }
+    fun setIsolationType(isolationType: IsolationType) { this.isolationType = isolationType }
 
     fun getJavaDir(): String = getStringNotNull(javaDir)
 
@@ -104,13 +106,18 @@ class VersionConfig(private var versionPath: File) : Parcelable {
 
     fun setCustomPath(customPath: String) { this.customPath = customPath }
 
+    fun getCustomInfo(): String = getStringNotNull(customInfo)
+
+    fun setCustomInfo(customInfo: String) { this.customInfo = customInfo }
+
     fun checkDifferent(otherConfig: VersionConfig): Boolean {
-        return !(this.isolationType == otherConfig.isolationType &&
-                this.javaDir == otherConfig.javaDir &&
-                this.javaArgs == otherConfig.javaArgs &&
-                this.renderer == otherConfig.renderer &&
-                this.control == otherConfig.control &&
-                this.customPath == otherConfig.customPath)
+        return !(this.getIsolationType() == otherConfig.getIsolationType() &&
+                this.getJavaDir() == otherConfig.getJavaDir() &&
+                this.getJavaArgs() == otherConfig.getJavaArgs() &&
+                this.getRenderer() == otherConfig.getRenderer() &&
+                this.getControl() == otherConfig.getControl() &&
+                this.getCustomPath() == otherConfig.getCustomPath() &&
+                this.getCustomInfo() == otherConfig.getCustomInfo())
     }
 
     override fun toString(): String {
@@ -121,7 +128,8 @@ class VersionConfig(private var versionPath: File) : Parcelable {
                 "javaArgs='${getStringNotNull(javaArgs)}', " +
                 "renderer='${getStringNotNull(renderer)}', " +
                 "control='${getStringNotNull(control)}', " +
-                "customPath='${getStringNotNull(customPath)}'}"
+                "customPath='${getStringNotNull(customPath)}', " +
+                "customInfo='${getStringNotNull(customInfo)}'}"
     }
 
     override fun describeContents(): Int = 0
@@ -134,6 +142,7 @@ class VersionConfig(private var versionPath: File) : Parcelable {
         dest.writeString(getStringNotNull(renderer))
         dest.writeString(getStringNotNull(control))
         dest.writeString(getStringNotNull(customPath))
+        dest.writeString(getStringNotNull(customInfo))
     }
 
     companion object CREATOR : Parcelable.Creator<VersionConfig> {
@@ -145,7 +154,8 @@ class VersionConfig(private var versionPath: File) : Parcelable {
             val renderer = parcel.readString().orEmpty()
             val control = parcel.readString().orEmpty()
             val customPath = parcel.readString().orEmpty()
-            return VersionConfig(versionPath, isolationType, javaDir, javaArgs, renderer, control, customPath)
+            val customInfo = parcel.readString().orEmpty()
+            return VersionConfig(versionPath, isolationType, javaDir, javaArgs, renderer, control, customPath, customInfo)
         }
 
         override fun newArray(size: Int): Array<VersionConfig?> {

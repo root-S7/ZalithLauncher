@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import java.io.File
@@ -74,6 +75,9 @@ class Version(
         return if (configControl.isNotEmpty()) File(PathManager.DIR_CTRLMAP_PATH, configControl).absolutePath
         else File(AllSettings.defaultCtrl.getValue()).absolutePath
     }
+
+    fun getCustomInfo(): String = versionConfig.getCustomInfo().getValueOrDefault(AllSettings.versionCustomInfo.getValue())
+        .replace("[zl_version]", ZHTools.getVersionName())
 
     fun getVersionInfo(): VersionInfo? {
         return runCatching {

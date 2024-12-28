@@ -457,6 +457,8 @@
     <string name="setting_max_download_threads_desc">同時下載多個檔案時的最大並發數，但線程數量過多將會導致啟動器卡頓，64 個線程已經足夠使用囉！</string>
     <string name="setting_version_isolation_title">版本隔離</string>
     <string name="setting_version_isolation_desc">是否為遊戲版本開啟版本隔離</string>
+    <string name="setting_version_custom_info_title">自訂資訊</string>
+    <string name="setting_version_custom_info_desc">自訂資訊將顯示在遊戲的主選單左下角和 F3 調試螢幕的左上角。添加 [zl_version] 欄位後，啟動器會將其替換為啟動器版本號</string>
     <string name="setting_set_game_language_title">自動設定遊戲語言</string>
     <string name="setting_set_game_language_desc">在遊戲啟動時，自動設定遊戲語言為選定的語言</string>
     <string name="setting_set_game_language_list">設定遊戲語言</string>

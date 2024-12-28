@@ -25,6 +25,7 @@ import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -113,6 +114,8 @@ public class VersionConfigFragment extends FragmentWithAnim {
             save();
             Tools.backToMainMenu(requireActivity());
         });
+        binding.customInfoEdit.addTextChangedListener((SimpleTextWatcher) s -> mTempConfig.setCustomInfo(getEditableValue(s)));
+        binding.jvmArgsEdit.addTextChangedListener((SimpleTextWatcher) s -> mTempConfig.setJavaArgs(getEditableValue(s)));
         binding.controlName.setOnClickListener(v -> {
             mSelectPathMark = SELECT_CONTROL;
             Bundle bundle = new Bundle();
@@ -175,6 +178,8 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
     @Override
     public boolean onBackPressed() {
+        System.out.println("Temp " + mTempConfig);
+        System.out.println("Backup " + mBackupConfig);
         if (mTempConfig.checkDifferent(mBackupConfig)) {
             new TipDialog.Builder(requireActivity())
                     .setTitle(R.string.generic_warning)
@@ -277,22 +282,22 @@ public class VersionConfigFragment extends FragmentWithAnim {
             else mTempConfig.setRenderer(mRenderNames.get(i1));
         });
 
+        binding.customInfoEdit.setText(mTempConfig.getCustomInfo());
         binding.jvmArgsEdit.setText(mTempConfig.getJavaArgs());
         binding.controlName.setText(mTempConfig.getControl());
         binding.customPath.setText(mTempConfig.getCustomPath().replaceFirst(ProfilePathManager.getCurrentPath(), "."));
     }
 
     private void save() {
-        //First, check for potential issues in the inputs
-        mTempConfig.setControl(binding.controlName.getText().toString());
-        Editable argsText = binding.jvmArgsEdit.getText();
-        mTempConfig.setJavaArgs(argsText == null ? "" : argsText.toString());
-
         mTempConfig.save();
         mBackupConfig = mTempConfig.copy();
         VersionsManager.INSTANCE.refresh();
 
         Toast.makeText(requireActivity(), getString(R.string.generic_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    private String getEditableValue(Editable editable) {
+        return editable == null ? "" : editable.toString();
     }
 
     @Override

@@ -457,6 +457,8 @@
     <string name="setting_max_download_threads_desc">Nombre maximal de téléchargements concurrents lors du téléchargement simultané de plusieurs fichiers, mais trop de threads peuvent ralentir le lanceur. 64 threads sont suffisants!</string>
     <string name="setting_version_isolation_title">Isolation de Version</string>
     <string name="setting_version_isolation_desc">Activer l\'isolation de version pour la version du jeu ?</string>
+    <string name="setting_version_custom_info_title">Informations personnalisées</string>
+    <string name="setting_version_custom_info_desc">Les informations personnalisées seront affichées dans le coin inférieur gauche du menu principal du jeu et dans le coin supérieur gauche de l\'écran de débogage F3. Après avoir ajouté le champ [zl_version], le lanceur le remplacera par le numéro de version du lanceur.</string>
     <string name="setting_set_game_language_title">Définir automatiquement la langue du jeu</string>
     <string name="setting_set_game_language_desc">Définir automatiquement la langue du jeu sur la langue sélectionnée au démarrage</string>
     <string name="setting_set_game_language_list">Définir la langue du jeu</string>

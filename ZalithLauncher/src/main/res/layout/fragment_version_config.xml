@@ -52,11 +52,43 @@
                         android:textColor="@color/settings_category"/>
 
                     <TextView
+                        android:id="@+id/custom_info_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/setting_version_custom_info_title" />
+
+                    <TextView
+                        android:id="@+id/custom_info_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10ssp"
+                        android:text="@string/setting_version_custom_info_desc" />
+
+                    <com.movtery.zalithlauncher.ui.view.AnimEditText
+                        android:id="@+id/custom_info_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_item"
+                        android:ems="10"
+                        android:hint="@string/pedit_default"
+                        android:inputType="text"
+                        android:paddingHorizontal="@dimen/padding_heavy"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <TextView
                         android:id="@+id/jvm_args_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/setting_java_args_title" />
+
+                    <TextView
+                        android:id="@+id/jvm_args_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10ssp"
+                        android:text="@string/setting_java_args_desc" />
 
                     <com.movtery.zalithlauncher.ui.view.AnimEditText
                         android:id="@+id/jvm_args_edit"

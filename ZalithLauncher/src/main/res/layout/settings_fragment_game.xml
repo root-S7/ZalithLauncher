@@ -59,6 +59,39 @@
                     android:layout_centerVertical="true" />
             </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
+            <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
+                android:id="@+id/versionCustomInfo_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/versionCustomInfo_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_version_custom_info_title"
+                    android:textColor="@color/black_or_white" />
+
+                <TextView
+                    android:id="@+id/versionCustomInfo_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/versionCustomInfo_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/setting_version_custom_info_desc" />
+
+                <com.movtery.zalithlauncher.ui.view.AnimEditText
+                    android:id="@+id/versionCustomInfo_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/versionCustomInfo_summary"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/background_edit_box"
+                    android:paddingHorizontal="@dimen/_8sdp" />
+            </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat

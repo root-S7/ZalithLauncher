@@ -457,6 +457,8 @@
     <string name="setting_max_download_threads_desc">عدد الحد الأقصى لتنزيلات متزامنة عند تنزيل عدة ملفات في وقت واحد، لكن الكثير من الخيوط سيؤدي إلى تباطؤ البداية. 64 خيط كافية!</string>
     <string name="setting_version_isolation_title">عزل الإصدار</string>
     <string name="setting_version_isolation_desc">هل تريد تمكين عزل الإصدار لإصدار اللعبة؟</string>
+    <string name="setting_version_custom_info_title">معلومات مخصصة</string>
+    <string name="setting_version_custom_info_desc">سيتم عرض المعلومات المخصصة في الزاوية السفلى اليسرى من القائمة الرئيسية للعبة وفي الزاوية العليا اليسرى من شاشة التصحيح F3. بعد إضافة حقل [zl_version]، سيستبدل المشغل به رقم إصدار المشغل.</string>
     <string name="setting_set_game_language_title">ضبط لغة اللعبة تلقائيًا</string>
     <string name="setting_set_game_language_desc">ضبط لغة اللعبة تلقائيًا على اللغة المحددة عند بدء تشغيل اللعبة</string>
     <string name="setting_set_game_language_list">ضبط لغة اللعبة</string>
