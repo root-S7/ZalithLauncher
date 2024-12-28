@@ -369,14 +369,14 @@
     <string name="setting_category_controller_settings">Controller settings</string>
     <string name="setting_category_java_tweaks">Java tweaks</string>
     <string name="setting_category_video">Video Settings</string>
-    <string name="setting_category_version">Version</string>
+    <string name="setting_category_version">Version Settings</string>
     <string name="setting_category_language">Language</string>
     <string name="setting_category_personalization">Personalization</string>
     <string name="setting_category_download">Downloads</string>
     <string name="setting_category_game">Game Settings</string>
-    <string name="setting_category_launcher">Launcher</string>
+    <string name="setting_category_launcher">Launcher Settings</string>
     <string name="setting_category_game_menu">Game Menu</string>
-    <string name="setting_category_experimental">Experimental</string>
+    <string name="setting_category_experimental">Experimental Settings</string>
     <string name="setting_category_experimental_patches">Experimental Patches</string>
     <string name="setting_category_support">External Support</string>
     <string name="setting_renderer_title">Renderer</string>

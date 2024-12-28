@@ -363,14 +363,14 @@
     <string name="setting_category_controller_settings">手把設定</string>
     <string name="setting_category_java_tweaks">Java 調整</string>
     <string name="setting_category_video">影片設定</string>
-    <string name="setting_category_version">版本</string>
+    <string name="setting_category_version">版本設定</string>
     <string name="setting_category_language">語言</string>
     <string name="setting_category_personalization">個性化</string>
     <string name="setting_category_download">下載</string>
     <string name="setting_category_game">遊戲設定</string>
-    <string name="setting_category_launcher">啟動器</string>
+    <string name="setting_category_launcher">啟動器設定</string>
     <string name="setting_category_game_menu">遊戲選單</string>
-    <string name="setting_category_experimental">實驗性</string>
+    <string name="setting_category_experimental">實驗性設定</string>
     <string name="setting_category_experimental_patches">實驗性補丁</string>
     <string name="setting_category_support">外部支援</string>
     <string name="setting_renderer_title">渲染器</string>

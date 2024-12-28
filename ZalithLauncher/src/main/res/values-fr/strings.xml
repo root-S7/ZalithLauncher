@@ -363,14 +363,14 @@
     <string name="setting_category_controller_settings">Paramètres de la manette</string>
     <string name="setting_category_java_tweaks">Réglages Java</string>
     <string name="setting_category_video">Paramètres vidéo</string>
-    <string name="setting_category_version">Version</string>
+    <string name="setting_category_version">Paramètres de version</string>
     <string name="setting_category_language">Langue</string>
     <string name="setting_category_personalization">Personnalisation</string>
     <string name="setting_category_download">Téléchargements</string>
     <string name="setting_category_game">Paramètres du jeu</string>
-    <string name="setting_category_launcher">Lanceur</string>
+    <string name="setting_category_launcher">Paramètres du lanceur</string>
     <string name="setting_category_game_menu">Menu du jeu</string>
-    <string name="setting_category_experimental">Expérimental</string>
+    <string name="setting_category_experimental">Paramètres expérimentaux</string>
     <string name="setting_category_experimental_patches">Patchs expérimentaux</string>
     <string name="setting_category_support">Support externe</string>
     <string name="setting_renderer_title">Moteur de rendu</string>

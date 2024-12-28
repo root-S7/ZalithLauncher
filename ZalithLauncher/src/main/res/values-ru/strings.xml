@@ -363,14 +363,14 @@
     <string name="setting_category_controller_settings">Настройки контроллера</string>
     <string name="setting_category_java_tweaks">Настройки Java</string>
     <string name="setting_category_video">Настройки видео</string>
-    <string name="setting_category_version">Версия</string>
+    <string name="setting_category_version">Настройки версии</string>
     <string name="setting_category_language">Язык</string>
     <string name="setting_category_personalization">Персонализация</string>
     <string name="setting_category_download">Загрузки</string>
     <string name="setting_category_game">Настройки игры</string>
-    <string name="setting_category_launcher">Запуск программы</string>
+    <string name="setting_category_launcher">Настройки лаунчера</string>
     <string name="setting_category_game_menu">Игровое меню</string>
-    <string name="setting_category_experimental">Экспериментальные</string>
+    <string name="setting_category_experimental">Экспериментальные настройки</string>
     <string name="setting_category_experimental_patches">Экспериментальные патчи</string>
     <string name="setting_category_support">Внешняя поддержка</string>
     <string name="setting_renderer_title">Рендерер</string>
