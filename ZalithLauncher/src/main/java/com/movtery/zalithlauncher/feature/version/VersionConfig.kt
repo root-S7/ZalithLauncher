@@ -39,7 +39,8 @@ class VersionConfig(private var versionPath: File) : Parcelable {
         this.customInfo = customInfo
     }
 
-    fun copy(): VersionConfig = VersionConfig(versionPath, isolationType,
+    fun copy(): VersionConfig = VersionConfig(versionPath,
+        getIsolationTypeNotNull(isolationType),
         getStringNotNull(javaDir),
         getStringNotNull(javaArgs),
         getStringNotNull(renderer),
@@ -76,13 +77,13 @@ class VersionConfig(private var versionPath: File) : Parcelable {
         this.versionPath = versionPath
     }
 
-    fun isIsolation(): Boolean = when(isolationType) {
+    fun isIsolation(): Boolean = when(getIsolationTypeNotNull(isolationType)) {
         IsolationType.FOLLOW_GLOBAL -> AllSettings.versionIsolation.getValue()
         IsolationType.ENABLE -> true
         IsolationType.DISABLE -> false
     }
 
-    fun getIsolationType() = isolationType ?: IsolationType.FOLLOW_GLOBAL
+    fun getIsolationType() = getIsolationTypeNotNull(isolationType)
 
     fun setIsolationType(isolationType: IsolationType) { this.isolationType = isolationType }
 
@@ -120,9 +121,11 @@ class VersionConfig(private var versionPath: File) : Parcelable {
                 this.getCustomInfo() == otherConfig.getCustomInfo())
     }
 
+    private fun getIsolationTypeNotNull(type: IsolationType?) = type ?: IsolationType.FOLLOW_GLOBAL
+
     override fun toString(): String {
         return "VersionConfig{" +
-                "isolationType=$isolationType, " +
+                "isolationType=${getIsolationTypeNotNull(isolationType)}, " +
                 "versionPath='$versionPath', " +
                 "javaDir='${getStringNotNull(javaDir)}', " +
                 "javaArgs='${getStringNotNull(javaArgs)}', " +
@@ -136,7 +139,7 @@ class VersionConfig(private var versionPath: File) : Parcelable {
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeString(versionPath.absolutePath)
-        dest.writeInt(isolationType.ordinal)
+        dest.writeInt(getIsolationTypeNotNull(isolationType).ordinal)
         dest.writeString(getStringNotNull(javaDir))
         dest.writeString(getStringNotNull(javaArgs))
         dest.writeString(getStringNotNull(renderer))
