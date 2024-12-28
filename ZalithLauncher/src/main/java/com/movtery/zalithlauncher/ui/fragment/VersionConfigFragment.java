@@ -25,9 +25,11 @@ import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionConfig;
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
+import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
+import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.skydoves.powerspinner.DefaultSpinnerAdapter;
@@ -43,6 +45,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import kotlin.enums.EnumEntries;
 
 public class VersionConfigFragment extends FragmentWithAnim {
     public static final String TAG = "VersionConfigFragment";
@@ -147,14 +151,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
         mVersionIconUtils = new VersionIconUtils(version);
 
         boolean isolation = mTempConfig.isIsolation();
-        binding.isolation.setChecked(isolation);
         disableCustomPath(isolation);
-
-        binding.isolation.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mTempConfig.setIsolation(isChecked);
-            disableCustomPath(isChecked);
-            closeSpinner();
-        });
 
         loadValues(view.getContext());
         refreshIcon(true);
@@ -244,6 +241,20 @@ public class VersionConfigFragment extends FragmentWithAnim {
                 Runtime runtime = runtimes.get(i1);
                 mTempConfig.setJavaDir(runtime.versionString == null ? "" : Tools.LAUNCHERPROFILES_RTPREFIX + runtime.name);
             }
+        });
+
+        // 版本隔离
+        EnumEntries<VersionConfig.IsolationType> isolationTypes = VersionConfig.IsolationType.getEntries();
+        ObjectSpinnerAdapter<VersionConfig.IsolationType> isolationAdapter = new ObjectSpinnerAdapter<>(binding.isolationType,
+                type -> VersionConfig.getIsolationString(requireActivity(), type));
+        isolationAdapter.setItems(isolationTypes);
+        binding.isolationType.setSpinnerAdapter(isolationAdapter);
+        binding.isolationType.selectItemByIndex(Math.min(Math.max(isolationTypes.indexOf(mTempConfig.getIsolationType()), 0), isolationTypes.size() - 1));
+        binding.isolationType.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<VersionConfig.IsolationType>) (i, s, i1, newItem) -> {
+            mTempConfig.setIsolationType(newItem);
+            if (newItem == VersionConfig.IsolationType.ENABLE) disableCustomPath(true);
+            else if (newItem == VersionConfig.IsolationType.DISABLE) disableCustomPath(false);
+            else disableCustomPath(AllSettings.getVersionIsolation().getValue());
         });
 
         // Renderer spinner

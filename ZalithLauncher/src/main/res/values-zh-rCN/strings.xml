@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Zalith Launcher -->
+    <string name="generic_open">开启</string>
     <string name="generic_close">关闭</string>
     <string name="generic_return">返回</string>
     <string name="generic_edit">编辑</string>
@@ -238,6 +239,7 @@
     <string name="version_manager_task_in_progress">任务执行中，暂时无法使用版本管理功能</string>
     <string name="version_manager_invalid">该版本无效</string>
     <string name="version_manager_no_installed_version">启动器没有找到已安装的 Minecraft！</string>
+    <string name="version_manager_isolation_type_follow_global">跟随启动器设置</string>
 
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>
@@ -481,8 +483,8 @@
     <string name="setting_download_source_desc">选择镜像下载源，而不是使用官方下载源</string>
     <string name="setting_max_download_threads_title">文件下载最大线程数</string>
     <string name="setting_max_download_threads_desc">同时下载多个文件时的最大并发数，但线程数量过多将会导致启动器卡顿，64 个线程已经足够使用了哦！</string>
-    <string name="setting_version_isolation_title">默认版本隔离</string>
-    <string name="setting_version_isolation_desc">安装新的版本时，是否默认选择版本隔离</string>
+    <string name="setting_version_isolation_title">版本隔离</string>
+    <string name="setting_version_isolation_desc">是否为游戏版本开启版本隔离</string>
     <string name="setting_set_game_language_title">自动设置游戏语言</string>
     <string name="setting_set_game_language_desc">在游戏启动时，自动设置游戏语言为选定的语言</string>
     <string name="setting_set_game_language_list">设置游戏语言</string>

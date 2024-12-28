@@ -81,7 +81,6 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
 
             back.setOnClickListener(clickListener)
             install.setOnClickListener(clickListener)
-            isolation.isChecked = AllSettings.versionIsolation.getValue()
         }
     }
 
@@ -182,10 +181,6 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
         checkIncompatible()
     }
 
-    private fun isolation(): Boolean {
-        return binding.isolation.isChecked
-    }
-
     override fun onClick(v: View) {
         val activity = requireActivity()
 
@@ -225,7 +220,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                     }
 
                     fun install() {
-                        EventBus.getDefault().post(InstallGameEvent(mcVersion, string, isolation(), organizeInstallationTasks(string)))
+                        EventBus.getDefault().post(InstallGameEvent(mcVersion, string, organizeInstallationTasks(string)))
                         Tools.backToMainMenu(activity)
                     }
 
@@ -251,7 +246,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
         val taskMap: MutableMap<Addon, InstallTaskItem> = EnumMap(Addon::class.java)
 
         fun getModPath(): File {
-            return if (isolation()) //启用版本隔离
+            return if (AllSettings.versionIsolation.getValue()) //启用了版本隔离
                 File(
                     ProfilePathHome.gameHome,
                     "versions${File.separator}$customVersionName${File.separator}mods"

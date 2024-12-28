@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.version
 
 import android.content.Context
+import com.google.gson.JsonParser
 import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
@@ -92,7 +93,7 @@ object VersionsManager {
                                 if (oldConfigFile.exists()) {
                                     runCatching {
                                         Tools.GLOBAL_GSON.fromJson(Tools.read(oldConfigFile), VersionConfig::class.java).apply {
-                                            setIsolation(true)
+                                            setIsolationType(VersionConfig.IsolationType.ENABLE)
                                             setVersionPath(versionFile)
                                             save()
                                         }
@@ -103,7 +104,18 @@ object VersionsManager {
                                     }
                                 }
                                 //读取此文件的内容，并解析为VersionConfig
-                                val config = Tools.GLOBAL_GSON.fromJson(Tools.read(configFile), VersionConfig::class.java)
+                                val configString = Tools.read(configFile)
+                                val config = Tools.GLOBAL_GSON.fromJson(configString, VersionConfig::class.java)
+                                runCatching {
+                                    JsonParser.parseString(configString).asJsonObject.apply {
+                                        if (has("isolation")) {
+                                            config.setIsolationType(
+                                                if (get("isolation").asBoolean) VersionConfig.IsolationType.ENABLE
+                                                else VersionConfig.IsolationType.DISABLE
+                                            )
+                                        }
+                                    }
+                                }.getOrElse { Logging.e("Refresh Versions", "Failed to parse the version isolation field of the old version.", it) }
                                 config.setVersionPath(versionFile)
                                 config
                             }.getOrElse { e ->
@@ -361,7 +373,7 @@ object VersionsManager {
         //保存版本配置文件
         version.getVersionConfig().copy().let { config ->
             config.setVersionPath(newVersion)
-            config.setIsolation(true)
+            config.setIsolationType(VersionConfig.IsolationType.ENABLE)
             config.saveWithThrowable()
         }
     }

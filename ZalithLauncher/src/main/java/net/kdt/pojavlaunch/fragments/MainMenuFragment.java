@@ -25,6 +25,7 @@ import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
+import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -105,6 +106,9 @@ public class MainMenuFragment extends FragmentWithAnim {
         });
 
         binding.playButton.setOnClickListener(v -> EventBus.getDefault().post(new LaunchGameEvent()));
+
+        binding.versionName.setSelected(true);
+        binding.versionInfo.setSelected(true);
     }
 
     @Override
@@ -118,15 +122,24 @@ public class MainMenuFragment extends FragmentWithAnim {
         if (event.getMode() == END) {
             TaskExecutors.runInUIThread(() -> {
                 Version version = VersionsManager.INSTANCE.getCurrentVersion();
+
+                int versionInfoVisibility;
                 if (version != null) {
                     binding.versionName.setText(version.getVersionName());
+                    VersionInfo versionInfo = version.getVersionInfo();
+                    if (versionInfo != null) {
+                        binding.versionInfo.setText(versionInfo.getInfoString());
+                        versionInfoVisibility = View.VISIBLE;
+                    } else versionInfoVisibility = View.GONE;
 
                     new VersionIconUtils(version).start(binding.versionIcon);
                     binding.managerProfileButton.setVisibility(View.VISIBLE);
                 } else {
                     binding.versionName.setText(R.string.version_no_versions);
                     binding.managerProfileButton.setVisibility(View.GONE);
+                    versionInfoVisibility = View.GONE;
                 }
+                binding.versionInfo.setVisibility(versionInfoVisibility);
             });
         }
     }

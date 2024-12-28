@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Zalith Launcher -->
+    <string name="generic_open">Ouvrir</string>
     <string name="generic_close">Fermer</string>
     <string name="generic_return">Retour</string>
     <string name="generic_edit">Éditer</string>
@@ -229,6 +230,7 @@
     <string name="version_manager_task_in_progress">Tâche en cours, la gestion des versions est temporairement indisponible</string>
     <string name="version_manager_invalid">Cette version est invalide</string>
     <string name="version_manager_no_installed_version">Le lanceur n\'a trouvé aucune version de Minecraft installée!</string>
+    <string name="version_manager_isolation_type_follow_global">Suivre les paramètres du lanceur</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s nécessite l\'autorisation de gérer tous les fichiers de l\'appareil pour fonctionner correctement. Veuillez activer les autorisations !</string>
     <string name="permissions_write_external_storage">%s nécessite l\'autorisation de gestion du stockage. Si l\'autorisation n\'est pas activée, cela peut entraîner des problèmes tels que l\'échec de l\'enregistrement ou de la décompression des fichiers de jeu. Veuillez accorder l\'autorisation pour assurer le bon fonctionnement.</string>
@@ -454,8 +456,8 @@
     <string name="setting_download_source_desc">Choisir une source de téléchargement miroir au lieu d\'utiliser la source officielle</string>
     <string name="setting_max_download_threads_title">Nombre maximal de threads de téléchargement</string>
     <string name="setting_max_download_threads_desc">Nombre maximal de téléchargements concurrents lors du téléchargement simultané de plusieurs fichiers, mais trop de threads peuvent ralentir le lanceur. 64 threads sont suffisants!</string>
-    <string name="setting_version_isolation_title">Isolation de version par défaut</string>
-    <string name="setting_version_isolation_desc">Lors de l\'installation d\'une nouvelle version, faut-il choisir l\'isolation de version par défaut ?</string>
+    <string name="setting_version_isolation_title">Isolation de Version</string>
+    <string name="setting_version_isolation_desc">Activer l\'isolation de version pour la version du jeu ?</string>
     <string name="setting_set_game_language_title">Définir automatiquement la langue du jeu</string>
     <string name="setting_set_game_language_desc">Définir automatiquement la langue du jeu sur la langue sélectionnée au démarrage</string>
     <string name="setting_set_game_language_list">Définir la langue du jeu</string>

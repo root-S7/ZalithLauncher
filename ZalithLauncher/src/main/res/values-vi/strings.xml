@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Zalith Launcher -->
+    <string name="generic_open">Mở</string>
     <string name="generic_close">Đóng</string>
     <string name="generic_return">Quay lại</string>
     <string name="generic_edit">Chỉnh sửa</string>
@@ -229,6 +230,7 @@
     <string name="version_manager_task_in_progress">Đang thực hiện tác vụ, quản lý phiên bản tạm thời không khả dụng</string>
     <string name="version_manager_invalid">Phiên bản này không hợp lệ</string>
     <string name="version_manager_no_installed_version">Khởi động không tìm thấy bất kỳ phiên bản Minecraft nào đã được cài đặt!</string>
+    <string name="version_manager_isolation_type_follow_global">Theo cài đặt của Trình khởi chạy</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
     <string name="permissions_write_external_storage">%s yêu cầu quyền quản lý bộ nhớ. Nếu quyền này không được bật, có thể gây ra các vấn đề như tệp trò chơi không thể lưu hoặc giải nén đúng cách. Vui lòng cấp quyền để đảm bảo các chức năng hoạt động đúng.</string>
@@ -454,8 +456,8 @@
     <string name="setting_download_source_desc">Chọn nguồn tải xuống lậu thay vì sử dụng nguồn tải xuống chính thức</string>
     <string name="setting_max_download_threads_title">Số luồng tải xuống tối đa</string>
     <string name="setting_max_download_threads_desc">Số luồng đồng thời tối đa khi tải xuống nhiều tệp đồng thời, nhưng quá nhiều luồng sẽ khiến trình khởi động trệ. 64 luồng đã đủ!</string>
-    <string name="setting_version_isolation_title">Cách ly phiên bản mặc định</string>
-    <string name="setting_version_isolation_desc">Khi cài đặt phiên bản mới, có nên mặc định chọn cách ly phiên bản không?</string>
+    <string name="setting_version_isolation_title">Cách ly Phiên bản</string>
+    <string name="setting_version_isolation_desc">Bật cách ly phiên bản cho phiên bản trò chơi?</string>
     <string name="setting_set_game_language_title">Tự động đặt ngôn ngữ trò chơi</string>
     <string name="setting_set_game_language_desc">Tự động đặt ngôn ngữ trò chơi thành ngôn ngữ đã chọn khi khởi động trò chơi</string>
     <string name="setting_set_game_language_list">Đặt ngôn ngữ trò chơi</string>

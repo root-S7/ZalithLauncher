@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Zalith Launcher -->
+    <string name="generic_open">Открыть</string>
     <string name="generic_close">Закрыть</string>
     <string name="generic_return">Вернуться</string>
     <string name="generic_edit">Редактировать</string>
@@ -229,6 +230,7 @@
     <string name="version_manager_task_in_progress">Задача в процессе, управление версиями временно недоступно</string>
     <string name="version_manager_invalid">Эта версия недействительна</string>
     <string name="version_manager_no_installed_version">Запускатель не нашёл установленную версию Minecraft!</string>
+    <string name="version_manager_isolation_type_follow_global">Следовать настройкам лаунчера</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
     <string name="permissions_write_external_storage">Для работы %s требуется разрешение на управление хранилищем. Если разрешение не предоставлено, могут возникнуть проблемы, такие как невозможность сохранения или распаковки игровых файлов. Пожалуйста, предоставьте разрешение для обеспечения корректной работы.</string>
@@ -454,8 +456,8 @@
     <string name="setting_download_source_desc">Выберите зеркальный источник загрузки вместо официального</string>
     <string name="setting_max_download_threads_title">Максимальное количество потоков для загрузки</string>
     <string name="setting_max_download_threads_desc">При одновременной загрузке нескольких файлов максимальное количество параллельных потоков, но слишком много потоков может привести к затормозкам запуска. 64 потока достаточно!</string>
-    <string name="setting_version_isolation_title">Изоляция версии по умолчанию</string>
-    <string name="setting_version_isolation_desc">При установке новой версии следует ли по умолчанию выбирать изоляцию версии?</string>
+    <string name="setting_version_isolation_title">Изоляция версии</string>
+    <string name="setting_version_isolation_desc">Включить изоляцию версии для версии игры?</string>
     <string name="setting_set_game_language_title">Автоматическая настройка языка игры</string>
     <string name="setting_set_game_language_desc">При запуске игры автоматически устанавливать язык игры на выбранный</string>
     <string name="setting_set_game_language_list">Установить язык игры</string>

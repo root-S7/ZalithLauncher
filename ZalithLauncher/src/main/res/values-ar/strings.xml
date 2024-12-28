@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Zalith Launcher -->
+    <string name="generic_open">فتح</string>
     <string name="generic_close">إغلاق</string>
     <string name="generic_return">عودة</string>
     <string name="generic_edit">تعديل</string>
@@ -229,6 +230,7 @@
     <string name="version_manager_task_in_progress">المهمة قيد التنفيذ، وظيفة إدارة الإصدارات غير متاحة مؤقتًا</string>
     <string name="version_manager_invalid">هذه النسخة غير صالحة</string>
     <string name="version_manager_no_installed_version">المُحَرّك لم يجد أي Minecraft مُثبّت!</string>
+    <string name="version_manager_isolation_type_follow_global">اتبع إعدادات المشغل</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s يحتاج إلى إمكانية التحكم في جميع ملفات الجهاز لاستخدام هذه الميزة بشكل صحيح، يرجى تمكين الإذن!</string>
     <string name="permissions_write_external_storage">يتطلب %s إذن إدارة التخزين. إذا لم يتم تمكين الإذن، فقد يؤدي ذلك إلى مشاكل مثل فشل حفظ ملفات اللعبة أو فك ضغطها بشكل صحيح. يرجى منح الإذن لضمان عمل الوظائف بشكل صحيح.</string>
@@ -454,8 +456,8 @@
     <string name="setting_download_source_desc">اختيار مصدر تنزيل مرآة بدلاً من استخدام المصدر الرسمي</string>
     <string name="setting_max_download_threads_title">عدد الحلقات الأقصى لتنزيل الملفات</string>
     <string name="setting_max_download_threads_desc">عدد الحد الأقصى لتنزيلات متزامنة عند تنزيل عدة ملفات في وقت واحد، لكن الكثير من الخيوط سيؤدي إلى تباطؤ البداية. 64 خيط كافية!</string>
-    <string name="setting_version_isolation_title">عزل الإصدار الافتراضي</string>
-    <string name="setting_version_isolation_desc">عند تثبيت إصدار جديد، هل يجب اختيار العزل الافتراضي للإصدار؟</string>
+    <string name="setting_version_isolation_title">عزل الإصدار</string>
+    <string name="setting_version_isolation_desc">هل تريد تمكين عزل الإصدار لإصدار اللعبة؟</string>
     <string name="setting_set_game_language_title">ضبط لغة اللعبة تلقائيًا</string>
     <string name="setting_set_game_language_desc">ضبط لغة اللعبة تلقائيًا على اللغة المحددة عند بدء تشغيل اللعبة</string>
     <string name="setting_set_game_language_list">ضبط لغة اللعبة</string>

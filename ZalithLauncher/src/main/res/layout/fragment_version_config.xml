@@ -105,16 +105,26 @@
                         android:textColor="@color/settings_category"
                         app:layout_constraintTop_toTopOf="parent"/>
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/isolation"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/isolation_type_title"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/setting_version_isolation_title"
+                        app:layout_constraintTop_toBottomOf="@id/version_settings_title" />
+
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:id="@+id/isolation_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/background_item"
-                        android:paddingStart="@dimen/_8sdp"
-                        android:text="@string/pedit_isolation_enabled"
-                        app:layout_constraintTop_toBottomOf="@id/version_settings_title"
-                        tools:ignore="RtlSymmetry" />
+                        android:paddingHorizontal="@dimen/padding_heavy"
+                        app:layout_constraintTop_toBottomOf="@id/isolation_type_title"
+                        app:spinner_arrow_tint="@color/primary_text"
+                        app:spinner_item_height="@dimen/_40sdp"
+                        app:spinner_popup_background="@drawable/background_edit_box"
+                        app:spinner_popup_max_height="@dimen/_240sdp"
+                        tools:paddingVertical="@dimen/_12sdp" />
 
                     <TextView
                         android:id="@+id/control_title"
@@ -123,7 +133,7 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/pedit_control"
                         app:layout_constraintStart_toStartOf="@+id/control_name"
-                        app:layout_constraintTop_toBottomOf="@+id/isolation" />
+                        app:layout_constraintTop_toBottomOf="@+id/isolation_type" />
 
                     <com.movtery.zalithlauncher.ui.view.AnimTextView
                         android:id="@+id/control_name"

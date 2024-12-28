@@ -15,7 +15,6 @@ import net.kdt.pojavlaunch.tasks.MinecraftDownloader
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import java.io.File
-import java.io.IOException
 import java.util.concurrent.atomic.AtomicReference
 
 class GameInstaller(
@@ -25,7 +24,6 @@ class GameInstaller(
     private val realVersion: String = installEvent.minecraftVersion
     private val customVersionName: String = installEvent.customVersionName
     private val taskMap: Map<Addon, InstallTaskItem> = installEvent.taskMap
-    private val isolation = installEvent.isIsolation
     private val targetVersionFolder = VersionsManager.getVersionPath(customVersionName)
     private val vanillaVersionFolder = VersionsManager.getVersionPath(realVersion)
 
@@ -44,11 +42,6 @@ class GameInstaller(
                 override fun onDownloadDone() {
                     val installModVersion = InstallingVersionEvent()
                     Task.runTask {
-                        if (isolation) {
-                            if (!targetVersionFolder.exists() && !targetVersionFolder.mkdirs()) throw IOException("Failed to create version folder!")
-                            VersionConfig.createIsolation(targetVersionFolder).saveWithThrowable() //保存版本配置文件（开启版本隔离）
-                        }
-
                         if (taskMap.isNotEmpty()) EventBus.getDefault().postSticky(installModVersion)
                         else {
                             //如果附加附件是空的，则表明只需要安装原版，需要确保这个自定义的版本文件夹内必定有原版的.json文件

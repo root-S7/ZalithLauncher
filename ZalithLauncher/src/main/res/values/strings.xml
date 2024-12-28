@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Zalith Launcher -->
+    <string name="generic_open">Open</string>
     <string name="generic_close">Close</string>
     <string name="generic_return">Return</string>
     <string name="generic_edit">Edit</string>
@@ -235,6 +236,7 @@
     <string name="version_manager_task_in_progress">Task in progress, version management is temporarily unavailable</string>
     <string name="version_manager_invalid">This version is invalid</string>
     <string name="version_manager_no_installed_version">Launcher did not find any installed Minecraft!</string>
+    <string name="version_manager_isolation_type_follow_global">Follow Launcher Settings</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s requires permission to manage all files on the device to use this feature properly. Please enable the permission!</string>
     <string name="permissions_write_external_storage">%s requires storage management permission. If the permission is not enabled, it may cause issues such as game files failing to save or decompress properly. Please grant the permission to ensure proper functionality.</string>
@@ -460,8 +462,8 @@
     <string name="setting_download_source_desc">Choose a mirror download source instead of using the official download source</string>
     <string name="setting_max_download_threads_title">Max Download Threads</string>
     <string name="setting_max_download_threads_desc">Maximum number of concurrent downloads when downloading multiple files simultaneously, but too many threads will cause launcher lag. 64 threads are sufficient!</string>
-    <string name="setting_version_isolation_title">Default Version Isolation</string>
-    <string name="setting_version_isolation_desc">When installing a new version, should version isolation be selected by default?</string>
+    <string name="setting_version_isolation_title">Version Isolation</string>
+    <string name="setting_version_isolation_desc">Enable version isolation for the game version?</string>
     <string name="setting_set_game_language_title">Auto Set Game Language</string>
     <string name="setting_set_game_language_desc">Automatically set the game language to the selected language when the game starts</string>
     <string name="setting_set_game_language_list">Set Game Language</string>

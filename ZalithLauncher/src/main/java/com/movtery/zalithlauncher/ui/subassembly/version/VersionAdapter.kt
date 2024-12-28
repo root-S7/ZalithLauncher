@@ -68,6 +68,7 @@ class VersionAdapter(
 
         fun bind(version: Version?) {
             binding.versionInfo.removeAllViews()
+            binding.version.isSelected = true
 
             version?.let {
                 binding.version.text = it.getVersionName()

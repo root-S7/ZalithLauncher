@@ -51,19 +51,8 @@
             android:autofillHints="name"
             android:hint="@string/generic_required"
             android:inputType="text"
-            app:layout_constraintEnd_toStartOf="@id/isolation"
-            app:layout_constraintStart_toEndOf="@id/name_title"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/isolation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:text="@string/pedit_isolation_enabled"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/install"
+            app:layout_constraintStart_toEndOf="@id/name_title"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
