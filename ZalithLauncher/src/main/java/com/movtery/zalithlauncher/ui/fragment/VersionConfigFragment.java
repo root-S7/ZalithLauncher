@@ -168,6 +168,7 @@ public class VersionConfigFragment extends FragmentWithAnim {
     private void closeSpinner() {
         binding.runtimeSpinner.dismiss();
         binding.rendererSpinner.dismiss();
+        binding.isolationType.dismiss();
     }
 
     @Override
