@@ -19,6 +19,7 @@ import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
 import com.movtery.zalithlauncher.feature.download.InfoViewModel
 import com.movtery.zalithlauncher.feature.download.ScreenshotAdapter
 import com.movtery.zalithlauncher.feature.download.VersionAdapter
+import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModVersionItem
@@ -162,31 +163,28 @@ class DownloadModFragment : ModListFragment() {
             .forEachIndexed { index: Int, entry: Map.Entry<Pair<String, ModLoader?>, List<VersionItem>> ->
                 currentTask?.apply { if (isCancelled) return }
 
-                val isAdapt: Boolean = currentVersion?.let { version ->
-                    val itemVersion = VersionNumber.asVersion(entry.key.first).canonical
-                    val currentVersionString = VersionNumber.asVersion(version.getVersionInfo()?.minecraftVersion ?: "").canonical
+                val isAdapt: Boolean = when (mInfoItem.classify) {
+                    Classify.MODPACK -> false
+                    else -> currentVersion?.let { version ->
+                        val itemVersion = VersionNumber.asVersion(entry.key.first).canonical
+                        val currentVersionString = VersionNumber.asVersion(version.getVersionInfo()?.minecraftVersion ?: "").canonical
 
-                    if (!Objects.equals(itemVersion, currentVersionString)) return@let false
+                        if (!Objects.equals(itemVersion, currentVersionString)) return@let false
 
-                    val modloader = entry.key.second
-                    val loaderInfo = version.getVersionInfo()?.loaderInfo
+                        val modloader = entry.key.second
+                        val loaderInfo = version.getVersionInfo()?.loaderInfo
 
-                    when {
-                        modloader == null -> {
+                        when {
                             //资源没有模组加载器信息，直接判定适配
-                            true
-                        }
-                        loaderInfo == null -> {
+                            modloader == null -> true
                             //资源有模组加载器，但当前版本没有模组加载器信息，不适配
                             //（不装模组加载器你想装什么模组？）
-                            false
-                        }
-                        else -> {
+                            loaderInfo == null -> false
                             //匹配模组加载器
-                            loaderInfo.any { loader -> Objects.equals(modloader.loaderName, loader.name) }
+                            else -> loaderInfo.any { loader -> Objects.equals(modloader.loaderName, loader.name) }
                         }
-                    }
-                } ?: false
+                    } ?: false
+                }
 
                 if (isAdapt) {
                     firstAdaptIndex ?: run {
