@@ -179,8 +179,6 @@ public class VersionConfigFragment extends FragmentWithAnim {
 
     @Override
     public boolean onBackPressed() {
-        System.out.println("Temp " + mTempConfig);
-        System.out.println("Backup " + mBackupConfig);
         if (mTempConfig.checkDifferent(mBackupConfig)) {
             new TipDialog.Builder(requireActivity())
                     .setTitle(R.string.generic_warning)
