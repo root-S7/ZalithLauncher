@@ -456,7 +456,7 @@
     <string name="setting_max_download_threads_title">Maximale Download-Threads</string>
     <string name="setting_max_download_threads_desc">Maximale Anzahl von gleichzeitigen Downloads bei gleichzeitigen Downloads mehrerer Dateien, aber zu viele Threads können zu Störungen beim Start führen. 64 Threads sind ausreichend!</string>
     <string name="setting_version_isolation_title">Versionsisolation</string>
-    <string name="setting_version_isolation_desc">Versionsisolation für die Spielversion aktivieren?</string>
+    <string name="setting_version_isolation_desc">Versionstrennung für die Spielversion aktivieren\nWenn deaktiviert, ist der Spielpfad .minecraft/\nWenn aktiviert, wird der Spielpfad zu .minecraft/versions/&lt;Versionsname&gt;/ geändert</string>
     <string name="setting_version_custom_info_title">Benutzerdefinierte Info</string>
     <string name="setting_version_custom_info_desc">Benutzerdefinierte Informationen werden in der unteren linken Ecke des Hauptmenüs des Spiels und in der oberen linken Ecke des F3-Debug-Bildschirms angezeigt. Nach dem Hinzufügen des Felds [zl_version] wird der Launcher es durch die Version des Launchers ersetzen.</string>
     <string name="setting_set_game_language_title">Automatische Spielsprachen-Einstellung</string>

@@ -456,7 +456,7 @@
     <string name="setting_max_download_threads_title">Максимальное количество потоков для загрузки</string>
     <string name="setting_max_download_threads_desc">При одновременной загрузке нескольких файлов максимальное количество параллельных потоков, но слишком много потоков может привести к затормозкам запуска. 64 потока достаточно!</string>
     <string name="setting_version_isolation_title">Изоляция версии</string>
-    <string name="setting_version_isolation_desc">Включить изоляцию версии для версии игры?</string>
+    <string name="setting_version_isolation_desc">Включить изоляцию версий для игры\nПри отключении путь к игре будет .minecraft/\nПри включении путь к игре изменится на .minecraft/versions/&lt;имя версии&gt;/</string>
     <string name="setting_version_custom_info_title">Пользовательская информация</string>
     <string name="setting_version_custom_info_desc">Пользовательская информация будет отображаться в нижнем левом углу главного меню игры и в верхнем левом углу экрана отладки F3. После добавления поля [zl_version] загрузчик заменит его на номер версии загрузчика.</string>
     <string name="setting_set_game_language_title">Автоматическая настройка языка игры</string>

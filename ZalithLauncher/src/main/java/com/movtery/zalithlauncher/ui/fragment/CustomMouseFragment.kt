@@ -41,7 +41,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
     }
 
     private lateinit var binding: FragmentCustomMouseBinding
-    private var openDocumentLauncher: ActivityResultLauncher<Array<String>>? = null
+    private lateinit var openDocumentLauncher: ActivityResultLauncher<Array<String>>
     private var fileRecyclerViewCreator: FileRecyclerViewCreator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +77,7 @@ class CustomMouseFragment : FragmentWithAnim(R.layout.fragment_custom_mouse) {
 
         binding.actionBar.apply {
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-            addFileButton.setOnClickListener { openDocumentLauncher?.launch(arrayOf("image/*")) }
+            addFileButton.setOnClickListener { openDocumentLauncher.launch(arrayOf("image/*")) }
             refreshButton.setOnClickListener { loadData() }
         }
 

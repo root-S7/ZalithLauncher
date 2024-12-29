@@ -1,314 +1,353 @@
-package com.movtery.zalithlauncher.ui.fragment;
+package com.movtery.zalithlauncher.ui.fragment
 
-import android.content.Context;
-import android.os.Bundle;
-import android.text.Editable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.content.Context
+import android.net.Uri
+import android.os.Bundle
+import android.text.Editable
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import com.movtery.anim.AnimPlayer
+import com.movtery.anim.animations.Animations
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.FragmentVersionConfigBinding
+import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.currentPath
+import com.movtery.zalithlauncher.feature.version.NoVersionException
+import com.movtery.zalithlauncher.feature.version.Version
+import com.movtery.zalithlauncher.feature.version.VersionConfig
+import com.movtery.zalithlauncher.feature.version.VersionConfig.CREATOR.getIsolationString
+import com.movtery.zalithlauncher.feature.version.VersionConfig.IsolationType
+import com.movtery.zalithlauncher.feature.version.VersionIconUtils
+import com.movtery.zalithlauncher.feature.version.VersionsManager.getCurrentVersion
+import com.movtery.zalithlauncher.feature.version.VersionsManager.refresh
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher
+import com.movtery.zalithlauncher.setting.AllSettings.Companion.versionIsolation
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors.Companion.getAndroidUI
+import com.movtery.zalithlauncher.ui.dialog.TipDialog
+import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter
+import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
+import com.skydoves.powerspinner.DefaultSpinnerAdapter
+import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.multirt.MultiRTUtils
+import net.kdt.pojavlaunch.multirt.Runtime
+import org.greenrobot.eventbus.EventBus
+import kotlin.enums.EnumEntries
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config), View.OnClickListener {
+    private lateinit var binding: FragmentVersionConfigBinding
+    private lateinit var currentVersion: Version
+    private lateinit var mVersionIconUtils: VersionIconUtils
+    private var mBackupConfig: VersionConfig? = null
+    private var mTempConfig: VersionConfig? = null
 
-import com.movtery.anim.AnimPlayer;
-import com.movtery.anim.animations.Animations;
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.databinding.FragmentVersionConfigBinding;
-import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
-import com.movtery.zalithlauncher.feature.version.NoVersionException;
-import com.movtery.zalithlauncher.feature.version.Version;
-import com.movtery.zalithlauncher.feature.version.VersionConfig;
-import com.movtery.zalithlauncher.feature.version.VersionIconUtils;
-import com.movtery.zalithlauncher.feature.version.VersionsManager;
-import com.movtery.zalithlauncher.listener.SimpleTextWatcher;
-import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.task.Task;
-import com.movtery.zalithlauncher.task.TaskExecutors;
-import com.movtery.zalithlauncher.ui.dialog.TipDialog;
-import com.movtery.zalithlauncher.ui.subassembly.adapter.ObjectSpinnerAdapter;
-import com.movtery.zalithlauncher.utils.ZHTools;
-import com.movtery.zalithlauncher.utils.file.FileTools;
-import com.skydoves.powerspinner.DefaultSpinnerAdapter;
-import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
-
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.multirt.MultiRTUtils;
-import net.kdt.pojavlaunch.multirt.Runtime;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
-import kotlin.enums.EnumEntries;
-
-public class VersionConfigFragment extends FragmentWithAnim {
-    public static final String TAG = "VersionConfigFragment";
-    private static final String SELECT_CONTROL = "SELECT_CONTROL";
-    private static final String SELECT_CUSTOM_PATH = "SELECT_CUSTOM_PATH";
-
-    private FragmentVersionConfigBinding binding;
-    private VersionConfig mBackupConfig, mTempConfig = null;
-    private List<String> mRenderNames;
-    private VersionIconUtils mVersionIconUtils;
-
-    private final AnimPlayer resetIconAnimPlayer = new AnimPlayer();
-    private final ActivityResultLauncher<String[]> openDocumentLauncher =
-            registerForActivityResult(new ActivityResultContracts.OpenDocument(), result -> {
-                if (result != null) {
-                    AlertDialog dialog = ZHTools.showTaskRunningDialog(requireActivity());
-                    Task.runTask(() -> FileTools.copyFileInBackground(requireActivity(), result, mVersionIconUtils.getIconFile()))
-                            .ended(TaskExecutors.getAndroidUI(), file -> refreshIcon(false))
-                            .finallyTask(TaskExecutors.getAndroidUI(), dialog::dismiss)
-                            .onThrowable(Tools::showErrorRemote)
-                            .execute();
-                }
-            });
-    private String mSelectPathMark = "";
-
-    public VersionConfigFragment() {
-        super(R.layout.fragment_version_config);
+    private val resetIconAnimPlayer = AnimPlayer()
+    private val openDocumentLauncher = registerForActivityResult<Array<String>, Uri>(ActivityResultContracts.OpenDocument()) { result: Uri? ->
+        result?.let {
+            val dialog = ZHTools.showTaskRunningDialog(requireActivity())
+            Task.runTask {
+                copyFileInBackground(requireActivity(), it, mVersionIconUtils.getIconFile())
+            }.ended(getAndroidUI()) { refreshIcon(false) }
+             .finallyTask(getAndroidUI()) { dialog.dismiss() }
+             .onThrowable { Tools.showErrorRemote(it) }
+             .execute()
+        }
     }
+    private var mSelectPathMark = ""
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FileSelectorEvent fileSelectorEvent = EventBus.getDefault().getStickyEvent(FileSelectorEvent.class);
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val fileSelectorEvent = EventBus.getDefault().getStickyEvent(FileSelectorEvent::class.java)
 
-        if (mTempConfig != null) {
-            if (fileSelectorEvent != null && fileSelectorEvent.getPath() != null) {
-                String path = fileSelectorEvent.getPath();
-                if (Objects.equals(mSelectPathMark, SELECT_CONTROL)) {
-                    mTempConfig.setControl(path);
-                }
-                else if (Objects.equals(mSelectPathMark, SELECT_CUSTOM_PATH)) {
-                    mTempConfig.setCustomPath(path);
-                }
+        fileSelectorEvent?.path?.let { path ->
+            when (mSelectPathMark) {
+                SELECT_CONTROL -> mTempConfig?.setControl(path)
+                SELECT_CUSTOM_PATH -> mTempConfig?.setCustomPath(path)
+                else -> {}
             }
         }
 
-        if (fileSelectorEvent != null) EventBus.getDefault().removeStickyEvent(fileSelectorEvent);
+        fileSelectorEvent?.let { EventBus.getDefault().removeStickyEvent(it) }
 
-        binding = FragmentVersionConfigBinding.inflate(getLayoutInflater());
-        return binding.getRoot();
+        binding = FragmentVersionConfigBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Version version = VersionsManager.INSTANCE.getCurrentVersion();
-        if (version == null) {
-            Tools.showError(requireActivity(), getString(R.string.version_manager_no_installed_version), new NoVersionException("There is no installed version"));
-            ZHTools.onBackPressed(requireActivity());
-            return;
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val version = getCurrentVersion()
+        version ?: run {
+            Tools.showError(requireActivity(), getString(R.string.version_manager_no_installed_version), NoVersionException("There is no installed version"))
+            ZHTools.onBackPressed(requireActivity())
+            return
+        }
+        currentVersion = version
+
+        val listener = this
+        binding.apply {
+            cancelButton.setOnClickListener(listener)
+            saveButton.setOnClickListener(listener)
+            iconLayout.setOnClickListener(listener)
+            iconReset.setOnClickListener(listener)
+
+            controlName.setOnClickListener(listener)
+            resetControl.setOnClickListener(listener)
+            customPath.setOnClickListener(listener)
+            resetCustomPath.setOnClickListener(listener)
+
+            customInfoEdit.addTextChangedListener(SimpleTextWatcher { s: Editable? ->
+                mTempConfig?.setCustomInfo(getEditableValue(s))
+            })
+            jvmArgsEdit.addTextChangedListener(SimpleTextWatcher { s: Editable? ->
+                mTempConfig?.setJavaArgs(getEditableValue(s))
+            })
         }
 
-        binding.cancelButton.setOnClickListener(v -> ZHTools.onBackPressed(requireActivity()));
-        binding.saveButton.setOnClickListener(v -> {
-            save();
-            Tools.backToMainMenu(requireActivity());
-        });
-        binding.customInfoEdit.addTextChangedListener((SimpleTextWatcher) s -> mTempConfig.setCustomInfo(getEditableValue(s)));
-        binding.jvmArgsEdit.addTextChangedListener((SimpleTextWatcher) s -> mTempConfig.setJavaArgs(getEditableValue(s)));
-        binding.controlName.setOnClickListener(v -> {
-            mSelectPathMark = SELECT_CONTROL;
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true);
-            ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, bundle);
-        });
-        binding.resetControl.setOnClickListener(v -> {
-            binding.controlName.setText("");
-            mTempConfig.setControl("");
-        });
-        binding.customPath.setOnClickListener(v -> {
-            mSelectPathMark = SELECT_CUSTOM_PATH;
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true);
-            bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false);
-            bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false);
-            bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false);
-            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath());
-            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, version.getVersionsFolder());
-            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
-        });
-        binding.resetCustomPath.setOnClickListener(v -> {
-            binding.customPath.setText("");
-            mTempConfig.setCustomPath("");
-        });
-        binding.iconLayout.setOnClickListener(v -> openDocumentLauncher.launch(new String[]{"image/*"}));
-        binding.iconReset.setOnClickListener(v -> resetIcon());
+        val versionConfig = currentVersion.getVersionConfig()
+        if (mTempConfig == null) mTempConfig = versionConfig
+        if (mBackupConfig == null) mBackupConfig = versionConfig.copy()
+        mVersionIconUtils = VersionIconUtils(currentVersion)
 
-        VersionConfig versionConfig = version.getVersionConfig();
-        if (mTempConfig == null) {
-            mTempConfig = versionConfig;
+        disableCustomPath(versionConfig.isIsolation())
+
+        loadValues(view.context)
+        refreshIcon(true)
+    }
+
+    private fun disableCustomPath(disable: Boolean) {
+        binding.customPath.isEnabled = !disable
+        binding.resetCustomPath.isEnabled = !disable
+    }
+
+    private fun closeSpinner() {
+        binding.runtimeSpinner.dismiss()
+        binding.rendererSpinner.dismiss()
+        binding.isolationType.dismiss()
+    }
+
+    override fun onClick(v: View?) {
+        val activity = requireActivity()
+        binding.apply {
+            when (v) {
+                cancelButton -> ZHTools.onBackPressed(activity)
+                saveButton -> {
+                    save()
+                    Tools.backToMainMenu(requireActivity())
+                }
+                iconLayout -> openDocumentLauncher.launch(arrayOf("image/*"))
+                iconReset -> resetIcon()
+
+                controlName -> {
+                    mSelectPathMark = SELECT_CONTROL
+                    ZHTools.swapFragmentWithAnim(
+                        this@VersionConfigFragment,
+                        ControlButtonFragment::class.java, ControlButtonFragment.TAG,
+                        Bundle().apply {
+                            putBoolean(ControlButtonFragment.BUNDLE_SELECT_CONTROL, true)
+                        }
+                    )
+                }
+                resetControl -> {
+                    controlName.text = ""
+                    mTempConfig?.setControl("")
+                }
+                customPath -> {
+                    mSelectPathMark = SELECT_CUSTOM_PATH
+                    ZHTools.swapFragmentWithAnim(
+                        this@VersionConfigFragment,
+                        FilesFragment::class.java, FilesFragment.TAG,
+                        Bundle().apply {
+                            putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
+                            putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
+                            putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
+                            putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false)
+                            putString(FilesFragment.BUNDLE_LOCK_PATH, currentPath)
+                            putString(FilesFragment.BUNDLE_LIST_PATH, currentVersion.getVersionsFolder())
+                        }
+                    )
+                }
+                resetCustomPath -> {
+                    customPath.text = ""
+                    mTempConfig?.setCustomPath("")
+                }
+                else -> {}
+            }
         }
-        if (mBackupConfig == null) {
-            mBackupConfig = versionConfig.copy();
+    }
+
+    override fun onPause() {
+        super.onPause()
+        closeSpinner()
+    }
+
+    override fun onBackPressed(): Boolean {
+        val tempConfig = mTempConfig ?: return true
+        val backupConfig = mBackupConfig ?: return true
+
+        if (tempConfig.checkDifferent(backupConfig)) {
+            TipDialog.Builder(requireActivity())
+                .setTitle(R.string.generic_warning)
+                .setMessage(R.string.pedit_unsaved_tip)
+                .setWarning()
+                .setConfirmClickListener { forceBack() }
+                .buildDialog()
+            return false
         }
-        mVersionIconUtils = new VersionIconUtils(version);
-
-        boolean isolation = mTempConfig.isIsolation();
-        disableCustomPath(isolation);
-
-        loadValues(view.getContext());
-        refreshIcon(true);
-    }
-
-    private void disableCustomPath(boolean disable) {
-        binding.customPath.setEnabled(!disable);
-        binding.resetCustomPath.setEnabled(!disable);
-    }
-
-    private void closeSpinner() {
-        binding.runtimeSpinner.dismiss();
-        binding.rendererSpinner.dismiss();
-        binding.isolationType.dismiss();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        closeSpinner();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        if (mTempConfig.checkDifferent(mBackupConfig)) {
-            new TipDialog.Builder(requireActivity())
-                    .setTitle(R.string.generic_warning)
-                    .setMessage(R.string.pedit_unsaved_tip)
-                    .setWarning()
-                    .setConfirmClickListener(checked -> forceBack())
-                    .buildDialog();
-            return false;
-        }
-        return true;
+        return true
     }
 
     /**
      * 刷新图标，并对重置图标的按钮播放显示或隐藏的动画
      * @param init 首次刷新不需要对重置按钮播放动画
      */
-    private void refreshIcon(boolean init) {
-        boolean isCustomIcon = mVersionIconUtils.start(binding.icon);
-        if (init) {
-            binding.iconReset.setVisibility(isCustomIcon ? View.VISIBLE : View.GONE);
-        } else {
-            resetIconAnimPlayer.clearEntries();
-            resetIconAnimPlayer.apply(new AnimPlayer.Entry(binding.iconReset, isCustomIcon ? Animations.BounceEnlarge : Animations.BounceShrink))
-                    .setOnStart(() -> {
-                        binding.iconReset.setVisibility(View.VISIBLE);
-                        binding.iconReset.setEnabled(false);
-                    })
-                    .setOnEnd(() -> {
-                        binding.iconReset.setVisibility(isCustomIcon ? View.VISIBLE : View.GONE);
-                        binding.iconReset.setEnabled(isCustomIcon);
-                    }).start();
-        }
-    }
-
-    private void resetIcon() {
-        new TipDialog.Builder(requireActivity())
-                .setMessage(R.string.pedit_reset_icon)
-                .setWarning()
-                .setConfirmClickListener(checked -> {
-                    mVersionIconUtils.resetIcon();
-                    refreshIcon(false);
-                }).buildDialog();
-    }
-
-    private void loadValues(@NonNull Context context) {
-        // Runtime spinner
-        List<Runtime> runtimes = MultiRTUtils.getRuntimes();
-        List<String> runtimeNames = new ArrayList<>();
-        runtimes.forEach(v -> runtimeNames.add(String.format("%s - %s", v.name, v.versionString == null ? getString(R.string.multirt_runtime_corrupt) : v.versionString)));
-        runtimeNames.add(getString(R.string.install_auto_select));
-        int jvmIndex = runtimeNames.size() - 1;
-        if (!mTempConfig.getJavaDir().isEmpty()) {
-            String selectedRuntime = mTempConfig.getJavaDir().substring(Tools.LAUNCHERPROFILES_RTPREFIX.length());
-            int nindex = runtimes.indexOf(new Runtime(selectedRuntime));
-            if (nindex != -1) jvmIndex = nindex;
-        }
-        DefaultSpinnerAdapter runtimeAdapter = new DefaultSpinnerAdapter(binding.runtimeSpinner);
-        runtimeAdapter.setItems(runtimeNames);
-        binding.runtimeSpinner.setSpinnerAdapter(runtimeAdapter);
-        binding.runtimeSpinner.selectItemByIndex(jvmIndex);
-        binding.runtimeSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
-            if (i1 == runtimeNames.size() - 1) mTempConfig.setJavaDir("");
-            else {
-                Runtime runtime = runtimes.get(i1);
-                mTempConfig.setJavaDir(runtime.versionString == null ? "" : Tools.LAUNCHERPROFILES_RTPREFIX + runtime.name);
+    private fun refreshIcon(init: Boolean) {
+        binding.apply {
+            val isCustomIcon = mVersionIconUtils.start(icon)
+            if (init) {
+                iconReset.visibility = if (isCustomIcon) View.VISIBLE else View.GONE
+            } else {
+                resetIconAnimPlayer.clearEntries()
+                resetIconAnimPlayer.apply(
+                    AnimPlayer.Entry(iconReset, if (isCustomIcon) Animations.BounceEnlarge else Animations.BounceShrink)
+                ).setOnStart {
+                    iconReset.visibility = View.VISIBLE
+                    iconReset.isEnabled = false
+                }.setOnEnd {
+                    iconReset.visibility = if (isCustomIcon) View.VISIBLE else View.GONE
+                    iconReset.isEnabled = isCustomIcon
+                }.start()
             }
-        });
-
-        // 版本隔离
-        EnumEntries<VersionConfig.IsolationType> isolationTypes = VersionConfig.IsolationType.getEntries();
-        ObjectSpinnerAdapter<VersionConfig.IsolationType> isolationAdapter = new ObjectSpinnerAdapter<>(binding.isolationType,
-                type -> VersionConfig.getIsolationString(requireActivity(), type));
-        isolationAdapter.setItems(isolationTypes);
-        binding.isolationType.setSpinnerAdapter(isolationAdapter);
-        binding.isolationType.selectItemByIndex(Math.min(Math.max(isolationTypes.indexOf(mTempConfig.getIsolationType()), 0), isolationTypes.size() - 1));
-        binding.isolationType.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<VersionConfig.IsolationType>) (i, s, i1, newItem) -> {
-            mTempConfig.setIsolationType(newItem);
-            if (newItem == VersionConfig.IsolationType.ENABLE) disableCustomPath(true);
-            else if (newItem == VersionConfig.IsolationType.DISABLE) disableCustomPath(false);
-            else disableCustomPath(AllSettings.getVersionIsolation().getValue());
-        });
-
-        // Renderer spinner
-        Tools.RenderersList renderersList = Tools.getCompatibleRenderers(context);
-        mRenderNames = renderersList.rendererIds;
-        List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
-        renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
-        renderList.add(context.getString(R.string.generic_default));
-        int rendererIndex = renderList.size() - 1;
-        if (!mTempConfig.getRenderer().isEmpty()) {
-            int nindex = mRenderNames.indexOf(mTempConfig.getRenderer());
-            if (nindex != -1) rendererIndex = nindex;
         }
-        DefaultSpinnerAdapter rendererAdapter = new DefaultSpinnerAdapter(binding.rendererSpinner);
-        rendererAdapter.setItems(renderList);
-        binding.rendererSpinner.setSpinnerAdapter(rendererAdapter);
-        binding.rendererSpinner.selectItemByIndex(rendererIndex);
-        binding.rendererSpinner.setOnSpinnerItemSelectedListener((OnSpinnerItemSelectedListener<String>) (i, s, i1, t1) -> {
-            if (i1 == renderList.size() - 1) mTempConfig.setRenderer("");
-            else mTempConfig.setRenderer(mRenderNames.get(i1));
-        });
-
-        binding.customInfoEdit.setText(mTempConfig.getCustomInfo());
-        binding.jvmArgsEdit.setText(mTempConfig.getJavaArgs());
-        binding.controlName.setText(mTempConfig.getControl());
-        binding.customPath.setText(mTempConfig.getCustomPath().replaceFirst(ProfilePathManager.getCurrentPath(), "."));
     }
 
-    private void save() {
-        mTempConfig.save();
-        mBackupConfig = mTempConfig.copy();
-        VersionsManager.INSTANCE.refresh();
-
-        Toast.makeText(requireActivity(), getString(R.string.generic_saved), Toast.LENGTH_SHORT).show();
+    private fun resetIcon() {
+        TipDialog.Builder(requireActivity())
+            .setMessage(R.string.pedit_reset_icon)
+            .setWarning()
+            .setConfirmClickListener {
+                mVersionIconUtils.resetIcon()
+                refreshIcon(false)
+            }.buildDialog()
     }
 
-    private String getEditableValue(Editable editable) {
-        return editable == null ? "" : editable.toString();
+    private fun loadValues(context: Context) {
+        mTempConfig?.let { config ->
+            binding.apply {
+                //版本隔离
+                val isolationTypes: EnumEntries<IsolationType> = IsolationType.entries
+                val isolationAdapter = ObjectSpinnerAdapter<IsolationType>(isolationType) { getIsolationString(requireActivity(), it) }
+                isolationAdapter.setItems(isolationTypes)
+                isolationType.setSpinnerAdapter(isolationAdapter)
+                isolationType.selectItemByIndex(
+                    isolationTypes.indexOf(config.getIsolationType())
+                        .coerceAtLeast(0)
+                        .coerceAtMost(isolationTypes.size - 1)
+                )
+                isolationType.setOnSpinnerItemSelectedListener(
+                    OnSpinnerItemSelectedListener { _: Int, _: IsolationType?, _: Int, newItem: IsolationType ->
+                        config.setIsolationType(newItem)
+                        when (newItem) {
+                            IsolationType.ENABLE -> disableCustomPath(true)
+                            IsolationType.DISABLE -> disableCustomPath(false)
+                            else -> disableCustomPath(versionIsolation.getValue())
+                        }
+                    })
+
+                //控制布局
+                controlName.text = config.getControl()
+                //自定义路径
+                customPath.text = config.getCustomPath().replaceFirst(currentPath.toRegex(), ".")
+
+                //渲染器
+                val renderersList = Tools.getCompatibleRenderers(context)
+                val rendererNames: MutableList<String> = ArrayList()
+                rendererNames.addAll(renderersList.rendererIds)
+                val renderList: MutableList<String> = ArrayList(renderersList.rendererDisplayNames.size + 1)
+                renderList.addAll(renderersList.rendererDisplayNames)
+                renderList.add(context.getString(R.string.generic_default))
+                var rendererIndex = renderList.size - 1
+                if (config.getRenderer().isNotEmpty()) {
+                    val index = rendererNames.indexOf(config.getRenderer())
+                    if (index != -1) rendererIndex = index
+                }
+                val rendererAdapter = DefaultSpinnerAdapter(rendererSpinner)
+                rendererAdapter.setItems(renderList)
+                rendererSpinner.setSpinnerAdapter(rendererAdapter)
+                rendererSpinner.selectItemByIndex(rendererIndex)
+                rendererSpinner.setOnSpinnerItemSelectedListener(
+                    OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
+                        if (i1 == renderList.size - 1) config.setRenderer("")
+                        else config.setRenderer(rendererNames[i1])
+                    })
+
+                //自定义信息
+                customInfoEdit.setText(config.getCustomInfo())
+                //JVM 启动参数
+                jvmArgsEdit.setText(config.getJavaArgs())
+
+                //Java 运行环境
+                val runtimes = MultiRTUtils.getRuntimes()
+                val runtimeNames: MutableList<String> = ArrayList()
+                runtimes.forEach { v: Runtime ->
+                    runtimeNames.add(String.format("%s - %s", v.name, v.versionString ?: getString(R.string.multirt_runtime_corrupt)))
+                }
+                runtimeNames.add(getString(R.string.install_auto_select))
+                var jvmIndex = runtimeNames.size - 1
+                if (config.getJavaDir().isNotEmpty()) {
+                    val selectedRuntime = config.getJavaDir().substring(Tools.LAUNCHERPROFILES_RTPREFIX.length)
+                    val index = runtimes.indexOf(Runtime(selectedRuntime))
+                    if (index != -1) jvmIndex = index
+                }
+                val runtimeAdapter = DefaultSpinnerAdapter(runtimeSpinner)
+                runtimeAdapter.setItems(runtimeNames)
+                runtimeSpinner.setSpinnerAdapter(runtimeAdapter)
+                runtimeSpinner.selectItemByIndex(jvmIndex)
+                runtimeSpinner.setOnSpinnerItemSelectedListener(
+                    OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
+                        if (i1 == runtimeNames.size - 1) config.setJavaDir("")
+                        else {
+                            val runtime = runtimes[i1]
+                            config.setJavaDir(if (runtime.versionString == null) "" else Tools.LAUNCHERPROFILES_RTPREFIX + runtime.name)
+                        }
+                    })
+            }
+        }
     }
 
-    @Override
-    public void slideIn(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(binding.editorLayout, Animations.BounceInDown))
-                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
-                .apply(new AnimPlayer.Entry(binding.iconLayout, Animations.Wobble));
+    private fun save() {
+        mTempConfig?.let {
+            it.save()
+            mBackupConfig = it
+        }
+        refresh()
+        Toast.makeText(requireActivity(), getString(R.string.generic_saved), Toast.LENGTH_SHORT).show()
     }
 
-    @Override
-    public void slideOut(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(binding.editorLayout, Animations.FadeOutUp))
-                .apply(new AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight));
+    private fun getEditableValue(editable: Editable?): String {
+        return editable?.toString() ?: ""
+    }
+
+    override fun slideIn(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(binding.editorLayout, Animations.BounceInDown))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
+            .apply(AnimPlayer.Entry(binding.iconLayout, Animations.Wobble))
+    }
+
+    override fun slideOut(animPlayer: AnimPlayer) {
+        animPlayer.apply(AnimPlayer.Entry(binding.editorLayout, Animations.FadeOutUp))
+            .apply(AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight))
+    }
+
+    companion object {
+        const val TAG: String = "VersionConfigFragment"
+        private const val SELECT_CONTROL = "SELECT_CONTROL"
+        private const val SELECT_CUSTOM_PATH = "SELECT_CUSTOM_PATH"
     }
 }
