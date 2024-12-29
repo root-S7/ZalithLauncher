@@ -8,13 +8,29 @@
     android:padding="@dimen/_8sdp"
     android:background="@drawable/background_item">
 
+    <RadioButton
+        android:id="@+id/radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Space
+        android:id="@+id/radio_button_space"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/radio_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <ImageView
         android:id="@+id/version_icon"
         android:layout_width="@dimen/_36sdp"
         android:layout_height="@dimen/_36sdp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_minecraft"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/radio_button_space"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="ContentDescription" />
@@ -30,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/version"
+            android:id="@+id/version_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
@@ -43,7 +59,7 @@
             tools:ignore="HardcodedText" />
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/version_info"
+            android:id="@+id/version_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

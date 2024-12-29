@@ -83,7 +83,6 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             versionsAdapter = VersionAdapter(this@VersionsListFragment, object : VersionAdapter.OnVersionItemClickListener {
                 override fun onVersionClick(version: Version) {
                     VersionsManager.saveCurrentVersion(version.getVersionName())
-                    Tools.backToMainMenu(requireActivity())
                 }
 
                 override fun onCreateVersion() {
@@ -180,8 +179,8 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     }
 
     private fun closeAllPopupWindow() {
-        versionsAdapter?.closeAllPopupWindow()
-        profilePathAdapter?.closeAllPopupWindow()
+        versionsAdapter?.closePopupWindow()
+        profilePathAdapter?.closePopupWindow()
     }
 
     override fun onStart() {

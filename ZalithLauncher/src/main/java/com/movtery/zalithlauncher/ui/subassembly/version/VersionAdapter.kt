@@ -1,12 +1,14 @@
 package com.movtery.zalithlauncher.ui.subassembly.version
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -31,20 +33,66 @@ class VersionAdapter(
     private val listener: OnVersionItemClickListener
 ) : RecyclerView.Adapter<VersionAdapter.ViewHolder>() {
     private val versions: MutableList<Version?> = ArrayList()
-    private val popupWindowMap: MutableMap<Version, PopupWindow> = HashMap()
+    //记录版本路径与之对应的RadioButton的Map
+    private val radioButtonMap: MutableMap<String, RadioButton> = HashMap()
+    private var currentVersion: String? = null
+    private var managerPopupWindow: PopupWindow = PopupWindow().apply {
+        isFocusable = true
+        isOutsideTouchable = true
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun refreshVersions(versions: List<Version?>) {
         this.versions.clear()
         this.versions.addAll(versions)
-
-        this.popupWindowMap.clear()
-
+        this.radioButtonMap.clear()
+        refreshCurrentVersion()
         notifyDataSetChanged()
     }
 
-    fun closeAllPopupWindow() {
-        popupWindowMap.forEach { (_, popupWindow) -> popupWindow.dismiss() }
+    fun closePopupWindow() {
+        managerPopupWindow.dismiss()
+    }
+
+    private fun refreshCurrentVersion() {
+        currentVersion = VersionsManager.getCurrentVersion()?.getVersionPath()?.absolutePath
+    }
+
+    private fun setCurrentVersion(context: Context, version: Version) {
+        if (version.isValid()) {
+            listener.onVersionClick(version)
+            refreshCurrentVersion()
+        } else {
+            //版本无效时，不能设置版本，默认点击就会提示用户删除
+            deleteVersion(version, context.getString(R.string.version_manager_delete_tip_invalid))
+        }
+        updateRadioButtonState()
+    }
+
+    private fun updateRadioButtonState() {
+        for ((key, value) in radioButtonMap) {
+            value.isChecked = currentVersion == key
+        }
+    }
+
+    //删除版本前提示用户，如果版本无效，那么默认点击事件就是删除版本
+    private fun deleteVersion(version: Version, deleteMessage: String) {
+        val context = parentFragment.requireActivity()
+
+        TipDialog.Builder(context)
+            .setTitle(context.getString(R.string.version_manager_delete))
+            .setMessage(deleteMessage)
+            .setWarning()
+            .setCancelable(false)
+            .setConfirmClickListener {
+                FileDeletionHandler(
+                    context,
+                    listOf(version.getVersionPath()),
+                    Task.runTask {
+                        VersionsManager.refresh()
+                    }
+                ).start()
+            }.buildDialog()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -62,54 +110,75 @@ class VersionAdapter(
 
         private fun String.addInfoIfNotBlank(setRed: Boolean = false) {
             takeIf { it.isNotBlank() }?.let { string ->
-                binding.versionInfo.addView(getInfoTextView(string, setRed))
+                binding.versionInfoLayout.addView(getInfoTextView(string, setRed))
             }
         }
 
         fun bind(version: Version?) {
-            binding.versionInfo.removeAllViews()
-            binding.version.isSelected = true
+            binding.apply {
+                versionInfoLayout.removeAllViews()
+                versionName.isSelected = true
 
-            version?.let {
-                binding.version.text = it.getVersionName()
+                version?.let {
+                    radioButtonMap[it.getVersionPath().absolutePath] = radioButton
+                    versionName.text = it.getVersionName()
 
-                if (!it.isValid()) {
-                    mContext.getString(R.string.version_manager_invalid).addInfoIfNotBlank(true)
-                }
-
-                if (it.getVersionConfig().isIsolation()) {
-                    mContext.getString(R.string.pedit_isolation_enabled).addInfoIfNotBlank()
-                }
-
-                it.getVersionInfo()?.let { versionInfo ->
-                    binding.versionInfo.addView(getInfoTextView(versionInfo.minecraftVersion))
-                    versionInfo.loaderInfo?.forEach { loaderInfo ->
-                        loaderInfo.name.addInfoIfNotBlank()
-                        loaderInfo.version.addInfoIfNotBlank()
+                    if (!it.isValid()) {
+                        mContext.getString(R.string.version_manager_invalid).addInfoIfNotBlank(true)
                     }
-                }
 
-                binding.operate.visibility = View.VISIBLE
-                binding.operate.setOnClickListener { _ ->
-                    showPopupWindow(binding.operate, it)
-                }
-
-                VersionIconUtils(it).start(binding.versionIcon)
-
-                binding.root.setOnClickListener { _ ->
-                    if (it.isValid()) {
-                        listener.onVersionClick(it)
-                    } else {
-                        //版本无效时，不能设置版本，默认点击就会提示用户删除
-                        deleteVersion(it, mContext.getString(R.string.version_manager_delete_tip_invalid))
+                    if (it.getVersionConfig().isIsolation()) {
+                        mContext.getString(R.string.pedit_isolation_enabled).addInfoIfNotBlank()
                     }
+
+                    it.getVersionInfo()?.let { versionInfo ->
+                        versionInfoLayout.addView(getInfoTextView(versionInfo.minecraftVersion))
+                        versionInfo.loaderInfo?.forEach { loaderInfo ->
+                            loaderInfo.name.addInfoIfNotBlank()
+                            loaderInfo.version.addInfoIfNotBlank()
+                        }
+                    }
+
+                    operate.setOnClickListener { _ ->
+                        showPopupWindow(operate, it)
+                    }
+
+                    VersionIconUtils(it).start(versionIcon)
+
+                    val onClickListener = View.OnClickListener { _ ->
+                        setCurrentVersion(mContext, it)
+                    }
+                    radioButton.setOnClickListener(onClickListener)
+                    root.setOnClickListener(onClickListener)
+
+                    setViewsVisibility(true)
+                    refreshRadioButtons(it)
+                    return
                 }
-                return
+                versionIcon.setImageDrawable(ContextCompat.getDrawable(root.context, R.drawable.ic_add))
+                versionName.setText(R.string.version_install_new)
+                root.setOnClickListener { listener.onCreateVersion() }
+
+                setViewsVisibility(false)
+                refreshRadioButtons(null)
             }
-            binding.versionIcon.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_add))
-            binding.version.setText(R.string.version_install_new)
-            binding.operate.visibility = View.GONE
-            binding.root.setOnClickListener { listener.onCreateVersion() }
+        }
+
+        private fun setViewsVisibility(show: Boolean) {
+            val visible = if (show) View.VISIBLE else View.GONE
+            binding.apply {
+                operate.visibility = visible
+                radioButton.visibility = visible
+                radioButtonSpace.visibility = visible
+            }
+        }
+
+        private fun refreshRadioButtons(version: Version?) {
+            version?.getVersionPath()?.absolutePath.let { versionPath ->
+                if (currentVersion == versionPath) {
+                    updateRadioButtonState()
+                }
+            }
         }
 
         private fun getInfoTextView(string: String, setRed: Boolean = false): TextView {
@@ -129,16 +198,7 @@ class VersionAdapter(
             anchorView: View,
             version: Version
         ) {
-            popupWindowMap[version]?.let {
-                it.showAsDropDown(anchorView, anchorView.measuredWidth, 0)
-                return
-            }
             val context = parentFragment.requireActivity()
-
-            val popupWindow = PopupWindow().apply {
-                isFocusable = true
-                isOutsideTouchable = true
-            }
 
             val viewBinding = ViewVersionManagerBinding.inflate(LayoutInflater.from(context)).apply {
                 val onClickListener = View.OnClickListener { v ->
@@ -150,7 +210,7 @@ class VersionAdapter(
                         delete -> deleteVersion(version, context.getString(R.string.version_manager_delete_tip, version.getVersionName()))
                         else -> {}
                     }
-                    popupWindow.dismiss()
+                    managerPopupWindow.dismiss()
                 }
                 gotoView.setOnClickListener(onClickListener)
                 gamePath.setOnClickListener(onClickListener)
@@ -158,34 +218,13 @@ class VersionAdapter(
                 copy.setOnClickListener(onClickListener)
                 delete.setOnClickListener(onClickListener)
             }
-            popupWindow.apply {
+            managerPopupWindow.apply {
                 viewBinding.root.measure(0, 0)
                 this.contentView = viewBinding.root
                 this.width = viewBinding.root.measuredWidth
                 this.height = viewBinding.root.measuredHeight
+                showAsDropDown(anchorView, anchorView.measuredWidth, 0)
             }
-            popupWindowMap[version] = popupWindow
-            popupWindow.showAsDropDown(anchorView, anchorView.measuredWidth, 0)
-        }
-
-        //删除版本前提示用户，如果版本无效，那么默认点击事件就是删除版本
-        private fun deleteVersion(version: Version, deleteMessage: String) {
-            val context = parentFragment.requireActivity()
-
-            TipDialog.Builder(context)
-                .setTitle(context.getString(R.string.version_manager_delete))
-                .setMessage(deleteMessage)
-                .setWarning()
-                .setCancelable(false)
-                .setConfirmClickListener {
-                    FileDeletionHandler(
-                        context,
-                        listOf(version.getVersionPath()),
-                        Task.runTask {
-                            VersionsManager.refresh()
-                        }
-                    ).start()
-                }.buildDialog()
         }
 
         private fun swapPath(path: String) {

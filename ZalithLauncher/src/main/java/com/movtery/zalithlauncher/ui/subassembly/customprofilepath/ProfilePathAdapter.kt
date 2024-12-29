@@ -21,7 +21,6 @@ import com.movtery.zalithlauncher.ui.fragment.FilesFragment
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
-import java.util.TreeMap
 
 class ProfilePathAdapter(
     private val fragment: FragmentWithAnim,
@@ -29,10 +28,13 @@ class ProfilePathAdapter(
 ) :
     RecyclerView.Adapter<ProfilePathAdapter.ViewHolder>() {
     private val mData: MutableList<ProfileItem> = ArrayList()
-    private val radioButtonMap: MutableMap<String, RadioButton> = TreeMap()
+    private val radioButtonMap: MutableMap<String, RadioButton> = HashMap()
     //如果没有存储权限，那么旧设置为默认路径
     private var currentId: String? = if (StoragePermissionsUtils.checkPermissions()) launcherProfile.getValue() else "default"
-    private val popupWindowMap: MutableMap<ProfileItem, PopupWindow> = HashMap()
+    private val managerPopupWindow: PopupWindow = PopupWindow().apply {
+        isFocusable = true
+        isOutsideTouchable = true
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -53,12 +55,11 @@ class ProfilePathAdapter(
     fun updateData(data: MutableList<ProfileItem>) {
         this.mData.clear()
         this.mData.addAll(data)
-        this.popupWindowMap.clear()
         refresh()
     }
 
-    fun closeAllPopupWindow() {
-        popupWindowMap.forEach { (_, popupWindow) -> popupWindow.dismiss() }
+    fun closePopupWindow() {
+        managerPopupWindow.dismiss()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -84,26 +85,29 @@ class ProfilePathAdapter(
 
     inner class ViewHolder(private val binding: ItemProfilePathBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun setView(profileItem: ProfileItem, position: Int) {
-            radioButtonMap[profileItem.id] = binding.radioButton
-            binding.title.text = profileItem.title
-            binding.path.text = profileItem.path
-            binding.path.isSelected = true
+            binding.apply {
+                radioButtonMap[profileItem.id] = radioButton
+                title.text = profileItem.title
+                path.text = profileItem.path
+                path.isSelected = true
 
-            val onClickListener = View.OnClickListener {
-                StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
-                    setPathId(profileItem.id)
+                val onClickListener = View.OnClickListener {
+                    StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
+                        setPathId(profileItem.id)
+                    }
                 }
-            }
-            itemView.setOnClickListener(onClickListener)
-            binding.radioButton.setOnClickListener(onClickListener)
+                root.setOnClickListener(onClickListener)
+                radioButton.setOnClickListener(onClickListener)
 
-            binding.operate.setOnClickListener {
-                showPopupWindow(binding.root, profileItem.id == "default", profileItem, position)
-            }
+                operate.setOnClickListener {
+                    showPopupWindow(root, profileItem.id == "default", profileItem, position)
+                }
 
-            if (currentId == profileItem.id) {
-                updateRadioButtonState(profileItem.id)
+                if (currentId == profileItem.id) {
+                    updateRadioButtonState(profileItem.id)
+                }
             }
         }
 
@@ -113,16 +117,7 @@ class ProfilePathAdapter(
             profileItem: ProfileItem,
             itemIndex: Int
         ) {
-            popupWindowMap[profileItem]?.let {
-                it.showAsDropDown(anchorView, anchorView.measuredWidth, 0)
-                return
-            }
             val context = anchorView.context
-
-            val popupWindow = PopupWindow().apply {
-                isFocusable = true
-                isOutsideTouchable = true
-            }
 
             val viewBinding = ViewPathManagerBinding.inflate(LayoutInflater.from(context)).apply {
                 val onClickListener = View.OnClickListener { v ->
@@ -165,7 +160,7 @@ class ProfilePathAdapter(
                         }
                         else -> {}
                     }
-                    popupWindow.dismiss()
+                    managerPopupWindow.dismiss()
                 }
                 gotoView.setOnClickListener(onClickListener)
                 rename.setOnClickListener(onClickListener)
@@ -175,14 +170,13 @@ class ProfilePathAdapter(
                     deleteLayout.visibility = View.GONE
                 }
             }
-            popupWindow.apply {
+            managerPopupWindow.apply {
                 viewBinding.root.measure(0, 0)
                 this.contentView = viewBinding.root
                 this.width = viewBinding.root.measuredWidth
                 this.height = viewBinding.root.measuredHeight
+                showAsDropDown(anchorView, anchorView.measuredWidth, 0)
             }
-            popupWindowMap[profileItem] = popupWindow
-            popupWindow.showAsDropDown(anchorView, anchorView.measuredWidth, 0)
         }
     }
 }
