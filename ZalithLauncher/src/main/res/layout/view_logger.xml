@@ -25,29 +25,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
-        android:id="@+id/content_log_toggle_autoscroll"
+        android:id="@+id/toggle_autoscroll"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:textOff="@string/log_view_button_scroll_off"
         android:textOn="@string/log_view_button_scroll_on"
         app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
-        app:layout_constraintEnd_toStartOf="@+id/content_log_toggle_log"
+        app:layout_constraintEnd_toStartOf="@+id/toggle_log"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
-        android:id="@+id/content_log_toggle_log"
+        android:id="@+id/toggle_log"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:textOff="@string/log_view_button_output_off"
         android:textOn="@string/log_view_button_output_on"
         app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
-        app:layout_constraintEnd_toStartOf="@+id/log_view_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/cancel"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/log_view_cancel"
+        android:id="@+id/cancel"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/_8sdp"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.kdt.DefocusableScrollView
-        android:id="@+id/content_log_scroll"
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:alpha="0.8"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/top_log_view">
 
         <TextView
-            android:id="@+id/content_log_view"
+            android:id="@+id/log_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"

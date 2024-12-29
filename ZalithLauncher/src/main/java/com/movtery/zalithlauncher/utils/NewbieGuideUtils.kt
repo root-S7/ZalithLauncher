@@ -39,6 +39,7 @@ class NewbieGuideUtils {
             }
         }
 
+        @JvmStatic
         fun showOnlyOne(tag: String): Boolean {
             println(tag)
             if (!NEWBIE_TAGS.contains(tag)) {
@@ -63,10 +64,18 @@ class NewbieGuideUtils {
             }.getOrElse { e -> e("Write Newbie Guide Tags", Tools.printToString(e)) }
         }
 
+        @JvmStatic
         fun getSimpleTarget(context: Context, view: View?, title: String, desc: String): TapTarget {
             return TapTarget.forView(view, title, desc)
                 .titleTextColor(TEXT_COLOR)
                 .descriptionTextColor(TEXT_COLOR)
+                .targetCircleColorInt(ContextCompat.getColor(context, TARGET_CIRCLE_COLOR))
+        }
+
+        @JvmStatic
+        fun getSimpleTarget(context: Context, view: View?, title: String): TapTarget {
+            return TapTarget.forView(view, title)
+                .titleTextColor(TEXT_COLOR)
                 .targetCircleColorInt(ContextCompat.getColor(context, TARGET_CIRCLE_COLOR))
         }
     }

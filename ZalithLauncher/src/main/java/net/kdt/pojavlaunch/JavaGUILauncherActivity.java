@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.kdt.LoggerView;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.event.value.JvmExitEvent;
@@ -26,6 +27,7 @@ import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
+import com.movtery.zalithlauncher.utils.NewbieGuideUtils;
 import com.movtery.zalithlauncher.utils.path.LibPath;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -172,7 +174,6 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         });
 
         try {
-
             placeMouseAt(CallbackBridge.physicalWidth / 2f, CallbackBridge.physicalHeight / 2f);
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -182,6 +183,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             mSubscribeJvmExitEvent = extras.getBoolean(SUBSCRIBE_JVM_EXIT_EVENT, false);
             if (extras.getBoolean(FORCE_SHOW_LOG, false)) {
                 mLoggerView.forceShow(this::forceClose);
+                showLogFloodWarning();
             }
 
             final String javaArgs = extras.getString("javaArgs");
@@ -212,7 +214,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     @Subscribe()
-    public void onJvmExitEvent(JvmExitEvent event) {
+    public void event(JvmExitEvent event) {
         if (mSubscribeJvmExitEvent) {
             ZHTools.killProcess();
         }
@@ -228,6 +230,15 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void showLogFloodWarning() {
+        if (NewbieGuideUtils.showOnlyOne("LogFloodWarning")) return;
+        TapTargetView.showFor(this,
+                NewbieGuideUtils.getSimpleTarget(this, mLoggerView.getBinding().toggleLog,
+                        getString(R.string.version_install_log_flood_warning)
+                )
+        );
     }
 
     private void startModInstallerWithUri(Uri uri, String jreName) {

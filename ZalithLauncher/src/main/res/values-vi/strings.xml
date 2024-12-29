@@ -211,6 +211,7 @@
     <string name="version_install_type_version">Tải và cài đặt dưới dạng phiên bản</string>
     <string name="version_install_type_mod">Tải và cài đặt dưới dạng Mod</string>
     <string name="version_install_optifine_and_forge">Một số phiên bản của OptiFine có thể không hoạt động trên Forge, nếu gặp sự cố crash hoặc không tương thích, hãy ưu tiên xóa bỏ OptiFine!</string>
+    <string name="version_install_log_flood_warning">Nếu nhật ký tràn màn hình và khiến thiết bị bị lag trong quá trình cài đặt, nhấp vào đây để đóng nhật ký!</string>
     <string name="version_manager_shortcuts">Phím tắt</string>
     <string name="version_manager_shortcuts_mods">Quản lý Mod</string>
     <string name="version_manager_shortcuts_version_path">Thư mục đường dẫn trò chơi</string>

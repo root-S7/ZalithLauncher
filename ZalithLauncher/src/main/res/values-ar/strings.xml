@@ -211,6 +211,7 @@
     <string name="version_install_type_version">تحميل وتثبيت كإصدار</string>
     <string name="version_install_type_mod">تحميل وتثبيت كـ Mod</string>
     <string name="version_install_optifine_and_forge">قد لا تعمل بعض إصدارات OptiFine مع Forge، في حالة حدوث تعطل أو مشاكل توافق، يرجى النظر أولاً في إزالة OptiFine!</string>
+    <string name="version_install_log_flood_warning">إذا تسببت سجلات التثبيت في إغراق الشاشة وتأخير الجهاز، انقر هنا لإغلاق السجلات!</string>
     <string name="version_manager_shortcuts">الاختصارات</string>
     <string name="version_manager_shortcuts_mods">إدارة Mod</string>
     <string name="version_manager_shortcuts_version_path">مجلد مسار اللعبة</string>

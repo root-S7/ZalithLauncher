@@ -220,6 +220,7 @@
     <string name="version_install_type_version">作为版本下载并安装</string>
     <string name="version_install_type_mod">作为模组下载并安装</string>
     <string name="version_install_optifine_and_forge">OptiFine 的一些版本在 Forge 上可能无法运行，如果出现崩溃或兼容性问题，请优先考虑删除 OptiFine！</string>
+    <string name="version_install_log_flood_warning">安装过程中如果日志刷屏导致设备卡顿，可点击这里关闭日志！</string>
     <string name="version_manager_shortcuts">快捷功能</string>
     <string name="version_manager_shortcuts_mods">模组管理</string>
     <string name="version_manager_shortcuts_version_path">游戏路径文件夹</string>

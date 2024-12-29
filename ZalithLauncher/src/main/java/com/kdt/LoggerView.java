@@ -3,17 +3,15 @@ package com.kdt;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.movtery.anim.animations.Animations;
-import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.ViewLoggerBinding;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
 
@@ -25,10 +23,7 @@ import net.kdt.pojavlaunch.Logger;
  */
 public class LoggerView extends ConstraintLayout {
     private Logger.eventLogListener mLogListener;
-    private ToggleButton mLogToggle;
-    private DefocusableScrollView mScrollView;
-    private TextView mLogTextView;
-    private ImageButton mCancelButton;
+    private ViewLoggerBinding binding;
     private boolean isShowing = false;
 
     public LoggerView(@NonNull Context context) {
@@ -44,7 +39,7 @@ public class LoggerView extends ConstraintLayout {
     public void setVisibility(int visibility) {
         super.setVisibility(visibility);
         // Triggers the log view shown state by default when viewing it
-        mLogToggle.setChecked(visibility == VISIBLE);
+        binding.toggleLog.setChecked(visibility == VISIBLE);
     }
 
     public void toggleViewWithAnim() {
@@ -67,63 +62,63 @@ public class LoggerView extends ConstraintLayout {
      */
     public void forceShow(OnCloseClickListener listener) {
         setVisibilityWithAnim(true);
-        mCancelButton.setOnClickListener(v -> listener.onClick());
+        binding.cancel.setOnClickListener(v -> listener.onClick());
     }
 
     /**
      * Inflate the layout, and add component behaviors
      */
-    private void init(){
-        inflate(getContext(), R.layout.view_logger, this);
-        mLogTextView = findViewById(R.id.content_log_view);
-        mLogTextView.setTypeface(Typeface.MONOSPACE);
+    private void init() {
+        binding = ViewLoggerBinding.inflate(LayoutInflater.from(getContext()), this, true);
+
+        binding.logView.setTypeface(Typeface.MONOSPACE);
         //TODO clamp the max text so it doesn't go oob
-        mLogTextView.setMaxLines(Integer.MAX_VALUE);
-        mLogTextView.setEllipsize(null);
-        mLogTextView.setVisibility(GONE);
+        binding.logView.setMaxLines(Integer.MAX_VALUE);
+        binding.logView.setEllipsize(null);
+        binding.logView.setVisibility(GONE);
 
         // Toggle log visibility
-        mLogToggle = findViewById(R.id.content_log_toggle_log);
-        mLogToggle.setOnCheckedChangeListener(
+        binding.toggleLog.setOnCheckedChangeListener(
                 (compoundButton, isChecked) -> {
-                    mLogTextView.setVisibility(isChecked ? VISIBLE : GONE);
-                    if(isChecked) {
+                    binding.logView.setVisibility(isChecked ? VISIBLE : GONE);
+                    if (isChecked) {
                         Logger.setLogListener(mLogListener);
-                    }else{
-                        mLogTextView.setText("");
+                    } else {
+                        binding.logView.setText("");
                         Logger.setLogListener(null); // Makes the JNI code be able to skip expensive logger callbacks
                         // NOTE: was tested by rapidly smashing the log on/off button, no sync issues found :)
                     }
                 });
-        mLogToggle.setChecked(false);
+        binding.toggleLog.setChecked(false);
 
         // Remove the loggerView from the user View
-        mCancelButton = findViewById(R.id.log_view_cancel);
-        mCancelButton.setOnClickListener(view -> setVisibilityWithAnim(false));
+        binding.cancel.setOnClickListener(view -> setVisibilityWithAnim(false));
 
         // Set the scroll view
-        mScrollView = findViewById(R.id.content_log_scroll);
-        mScrollView.setKeepFocusing(true);
+        binding.scroll.setKeepFocusing(true);
 
         //Set up the autoscroll switch
-        ToggleButton autoscrollToggle = findViewById(R.id.content_log_toggle_autoscroll);
-        autoscrollToggle.setOnCheckedChangeListener(
+        binding.toggleAutoscroll.setOnCheckedChangeListener(
                 (compoundButton, isChecked) -> {
-                    if(isChecked) mScrollView.fullScroll(View.FOCUS_DOWN);
-                    mScrollView.setKeepFocusing(isChecked);
+                    if (isChecked) binding.scroll.fullScroll(View.FOCUS_DOWN);
+                    binding.scroll.setKeepFocusing(isChecked);
                 }
         );
-        autoscrollToggle.setChecked(true);
+        binding.toggleAutoscroll.setChecked(true);
 
         // Listen to logs
         mLogListener = text -> {
-            if(mLogTextView.getVisibility() != VISIBLE) return;
+            if (binding.logView.getVisibility() != VISIBLE) return;
             post(() -> {
-                mLogTextView.append(text + '\n');
-                if(mScrollView.isKeepFocusing()) mScrollView.fullScroll(View.FOCUS_DOWN);
+                binding.logView.append(text + '\n');
+                if (binding.scroll.isKeepFocusing())
+                    binding.scroll.fullScroll(View.FOCUS_DOWN);
             });
-
         };
+    }
+
+    public ViewLoggerBinding getBinding() {
+        return binding;
     }
 
     public interface OnCloseClickListener {
