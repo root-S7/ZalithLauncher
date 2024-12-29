@@ -445,7 +445,9 @@
     <string name="setting_force_big_core_title">Принудительное выполнение на больших ядрах</string>
     <string name="setting_force_big_core_desc">Принудительно запускать потоки рендеринга Minecraft на ядре с максимальной частотой</string>
     <string name="setting_use_controller_proxy_title">Включить прокси-контроллер</string>
-    <string name="setting_use_controller_proxy_desc">Включите локальный клиент прокси-контроллера при запуске игры для связи с модулем TouchController, обеспечивая корректную работу сенсорного управления</string>
+    <string name="setting_use_controller_proxy_desc">Включите локальный клиент прокси-контроллера при запуске игры для связи с модом TouchController, чтобы обеспечить правильную работу сенсорного управления.</string>
+    <string name="setting_touch_controller_vibrate_duration_title">Продолжительность вибрации мода TouchController</string>
+    <string name="setting_touch_controller_vibrate_duration_desc">Настройте продолжительность вибрации для этого мода в зависимости от различных потребностей использования.</string>
     <string name="setting_verify_manifest_title">Проверка списка версий игры</string>
     <string name="setting_verify_manifest_desc">После включения лаунчер будет проверять список версий игры и библиотек</string>
     <string name="setting_resource_image_cache_title">Кэшировать изображения ресурсов</string>

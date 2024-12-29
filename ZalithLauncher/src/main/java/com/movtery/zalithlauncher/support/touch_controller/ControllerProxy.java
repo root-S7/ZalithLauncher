@@ -11,7 +11,6 @@ import net.kdt.pojavlaunch.Logger;
 
 import top.fifthlight.touchcontroller.proxy.client.LauncherProxyClient;
 import top.fifthlight.touchcontroller.proxy.client.MessageTransport;
-import top.fifthlight.touchcontroller.proxy.client.android.SimpleVibrationHandler;
 import top.fifthlight.touchcontroller.proxy.client.android.transport.UnixSocketTransportKt;
 
 /**
@@ -33,7 +32,7 @@ public final class ControllerProxy {
                 Os.setenv("TOUCH_CONTROLLER_PROXY_SOCKET", InfoCenter.LAUNCHER_NAME, true);
                 LauncherProxyClient client = new LauncherProxyClient(transport);
                 Vibrator vibrator = context.getSystemService(Vibrator.class);
-                SimpleVibrationHandler handler = new SimpleVibrationHandler(vibrator);
+                VibrationHandler handler = new VibrationHandler(vibrator);
                 client.setVibrationHandler(handler);
                 client.run();
                 Logger.appendToLog("TouchController: TouchController Proxy Client has been created!");

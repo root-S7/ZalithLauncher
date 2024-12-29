@@ -445,7 +445,9 @@
     <string name="setting_force_big_core_title">Buộc trình kết xuất chạy trên lõi lớn</string>
     <string name="setting_force_big_core_desc">Buộc luồng kết xuất của Minecraft chạy trên lõi có tần số cao nhất</string>
     <string name="setting_use_controller_proxy_title">Bật Proxy Điều Khiển</string>
-    <string name="setting_use_controller_proxy_desc">Bật ứng dụng proxy điều khiển cục bộ khi khởi động trò chơi để giao tiếp với mô-đun TouchController, đảm bảo chức năng điều khiển cảm ứng hoạt động bình thường</string>
+    <string name="setting_use_controller_proxy_desc">Kích hoạt khách hàng proxy điều khiển khi khởi động trò chơi để giao tiếp với mod TouchController, đảm bảo tính năng điều khiển cảm ứng hoạt động bình thường.</string>
+    <string name="setting_touch_controller_vibrate_duration_title">Thời gian rung của mod TouchController</string>
+    <string name="setting_touch_controller_vibrate_duration_desc">Cài đặt thời gian rung cho mod này để phù hợp với các nhu cầu sử dụng khác nhau.</string>
     <string name="setting_verify_manifest_title">Kiểm tra danh sách phiên bản trò chơi</string>
     <string name="setting_verify_manifest_desc">Khi bật, trình khởi chạy sẽ kiểm tra danh sách phiên bản trò chơi và thư viện</string>
     <string name="setting_resource_image_cache_title">Bộ nhớ đệm hình ảnh tài nguyên</string>

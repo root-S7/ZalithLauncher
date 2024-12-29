@@ -445,7 +445,9 @@
     <string name="setting_force_big_core_title">فرض تشغيل العارض على النواة الكبيرة</string>
     <string name="setting_force_big_core_desc">فرض تشغيل مؤشر ترابط عارض Minecraft على النواة التي تعمل بأعلى تردد</string>
     <string name="setting_use_controller_proxy_title">تمكين وكيل التحكم</string>
-    <string name="setting_use_controller_proxy_desc">قم بتمكين عميل وكيل التحكم المحلي عند تشغيل اللعبة للتواصل مع وحدة TouchController، لضمان عمل وظيفة التحكم باللمس بشكل صحيح</string>
+    <string name="setting_use_controller_proxy_desc">تمكين عميل الوكيل المحلي للتحكم عند بدء تشغيل اللعبة للتواصل مع مود TouchController، لضمان التشغيل الصحيح لوظائف التحكم باللمس.</string>
+    <string name="setting_touch_controller_vibrate_duration_title">مدة اهتزاز مود TouchController</string>
+    <string name="setting_touch_controller_vibrate_duration_desc">قم بتعيين مدة الاهتزاز لهذا المود ليتناسب مع احتياجات الاستخدام المختلفة.</string>
     <string name="setting_verify_manifest_title">التحقق من قائمة نسخ اللعبة</string>
     <string name="setting_verify_manifest_desc">عند التمكين، سيقوم المشغل بالتحقق من قائمة نسخ اللعبة والمكتبات</string>
     <string name="setting_resource_image_cache_title">تخزين صور الموارد مؤقتًا</string>

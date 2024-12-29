@@ -11,7 +11,6 @@
     <dimen name="padding_input_bottom">@dimen/padding_heavy</dimen>
     <dimen name="padding_input_top">@dimen/_11sdp</dimen>
     <!-- Fragment padding -->
-    <dimen name="fragment_padding_medium">@dimen/_10sdp</dimen>
     <!-- Misc paddings -->
     <dimen name="profile_editor_image_padding">@dimen/padding_small</dimen>
 </resources>

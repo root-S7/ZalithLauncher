@@ -445,7 +445,9 @@
     <string name="setting_force_big_core_title">Forçar o Renderizador a Rodar em Núcleos Grandes</string>
     <string name="setting_force_big_core_desc">Forçar a thread de renderização do Minecraft a rodar nos núcleos de maior frequência</string>
     <string name="setting_use_controller_proxy_title">Ativar Proxy de Controle</string>
-    <string name="setting_use_controller_proxy_desc">Ative o cliente proxy de controle local ao iniciar o jogo para se comunicar com o módulo TouchController, garantindo o funcionamento adequado dos controles de toque</string>
+    <string name="setting_use_controller_proxy_desc">Ative o cliente proxy do controlador local ao iniciar o jogo para se comunicar com o mod TouchController, garantindo o funcionamento adequado dos controles de tela sensível ao toque.</string>
+    <string name="setting_touch_controller_vibrate_duration_title">Duração da vibração do mod TouchController</string>
+    <string name="setting_touch_controller_vibrate_duration_desc">Defina a duração da vibração para este mod para atender a diferentes necessidades de uso.</string>
     <string name="setting_verify_manifest_title">Verificação da Lista de Versões do Jogo</string>
     <string name="setting_verify_manifest_desc">Quando habilitado, o lançador verificará a lista de versões do jogo e as bibliotecas</string>
     <string name="setting_resource_image_cache_title">Cachear imagens de recursos</string>

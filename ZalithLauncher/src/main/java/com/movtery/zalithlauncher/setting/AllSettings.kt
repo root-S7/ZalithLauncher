@@ -176,6 +176,9 @@ class AllSettings {
         @JvmStatic
         val useControllerProxy = BooleanSettingUnit("useControllerProxy", false)
 
+        @JvmStatic
+        val tcSupportDuration = IntSettingUnit("tcSupportDuration", 100)
+
         // Other
         @JvmStatic
         val currentAccount = StringSettingUnit("currentAccount", "")

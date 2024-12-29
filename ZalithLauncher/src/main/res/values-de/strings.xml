@@ -445,7 +445,9 @@
     <string name="setting_force_big_core_title">Renderer auf großen Kernen ausführen</string>
     <string name="setting_force_big_core_desc">Zwingt den Minecraft-Render-Thread, auf dem Kern mit der höchsten Frequenz zu laufen</string>
     <string name="setting_use_controller_proxy_title">Steuerungsproxy aktivieren</string>
-    <string name="setting_use_controller_proxy_desc">Aktivieren Sie den lokalen Steuerungsproxy-Client beim Starten des Spiels, um mit dem TouchController-Modul zu kommunizieren und die ordnungsgemäße Funktion der Touch-Steuerung sicherzustellen</string>
+    <string name="setting_use_controller_proxy_desc">Aktivieren Sie den lokalen Controller-Proxy-Client beim Starten des Spiels, um mit dem TouchController-Mod zu kommunizieren und die ordnungsgemäße Funktion der Touchscreen-Steuerung sicherzustellen.</string>
+    <string name="setting_touch_controller_vibrate_duration_title">TouchController Mod Vibrationsdauer</string>
+    <string name="setting_touch_controller_vibrate_duration_desc">Stellen Sie die Vibrationsdauer für dieses Mod ein, um unterschiedlichen Nutzungsanforderungen gerecht zu werden.</string>
     <string name="setting_verify_manifest_title">Überprüfung der Spielversionsliste</string>
     <string name="setting_verify_manifest_desc">Wenn aktiviert, überprüft der Launcher die Spielversionsliste sowie die Bibliotheken</string>
     <string name="setting_resource_image_cache_title">Ressourcenbilder zwischenspeichern</string>

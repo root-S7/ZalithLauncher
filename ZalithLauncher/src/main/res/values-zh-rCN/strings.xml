@@ -472,6 +472,8 @@
     <string name="setting_force_big_core_desc">强制 Minecraft 渲染线程在最高频率的核心运行</string>
     <string name="setting_use_controller_proxy_title">启用控制代理</string>
     <string name="setting_use_controller_proxy_desc">在启动游戏时启用本地控制代理客户端，用于与 TouchController 模组进行通信，确保触屏控制功能的正常使用</string>
+    <string name="setting_touch_controller_vibrate_duration_title">TouchController 模组震动持续时间</string>
+    <string name="setting_touch_controller_vibrate_duration_desc">设置该模组的震动持续时间，以适应不同的使用需求</string>
 
     <string name="setting_verify_manifest_title">游戏版本列表检查</string>
     <string name="setting_verify_manifest_desc">启用后，启动器将检查游戏版本列表以及库</string>
