@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.ui.fragment
+package com.movtery.zalithlauncher.ui.fragment.download.addon
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager

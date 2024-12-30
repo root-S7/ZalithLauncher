@@ -1,40 +1,32 @@
-package com.movtery.zalithlauncher.ui.fragment
+package com.movtery.zalithlauncher.ui.fragment.download.addon
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.event.sticky.SelectInstallTaskEvent
-import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.log.Logging.e
 import com.movtery.zalithlauncher.feature.mod.modloader.ModVersionListAdapter
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
-import com.movtery.zalithlauncher.feature.mod.modloader.OptiFineDownloadTask
-import com.movtery.zalithlauncher.feature.version.Addon
+import net.kdt.pojavlaunch.modloaders.FabricVersion
+import com.movtery.zalithlauncher.feature.mod.modloader.FabricLikeUtils
 import com.movtery.zalithlauncher.ui.fragment.InstallGameFragment.Companion.BUNDLE_MC_VERSION
-import net.kdt.pojavlaunch.modloaders.OptiFineUtils
-import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion
-import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersions
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Future
-import java.util.function.Consumer
 
-class DownloadOptiFineFragment : ModListFragment() {
-    companion object {
-        const val TAG: String = "DownloadOptiFineFragment"
-    }
-
+abstract class DownloadFabricLikeFragment(val utils: FabricLikeUtils, val icon: Int) : ModListFragment() {
     override fun init() {
-        setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_optifine))
-        setTitleText("OptiFine")
-        setLink("https://www.optifine.net/home")
-        setMCMod("https://www.mcmod.cn/class/36.html")
+        setIcon(ContextCompat.getDrawable(fragmentActivity!!, icon))
+        setTitleText(utils.name)
+        setLink(utils.webUrl)
+        setMCMod(utils.mcModUrl)
         setReleaseCheckBoxGone()
         super.init()
     }
 
-    override fun initRefresh(): Future<*> {
+    override fun initRefresh(): Future<*>? {
         return refresh(false)
     }
 
@@ -49,14 +41,14 @@ class DownloadOptiFineFragment : ModListFragment() {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val optiFineVersions = OptiFineUtils.downloadOptiFineVersions(force)
-                processModDetails(optiFineVersions)
+                val gameVersions = utils.downloadGameVersions(force)
+                processInfo(gameVersions, force)
             }.getOrElse { e ->
                 TaskExecutors.runInUIThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
-                Logging.e("DownloadOptiFineFragment", Tools.printToString(e))
+                e("DownloadFabricLike", Tools.printToString(e))
             }
         }
     }
@@ -68,41 +60,42 @@ class DownloadOptiFineFragment : ModListFragment() {
         }
     }
 
-    private fun processModDetails(optiFineVersions: OptiFineVersions?) {
-        optiFineVersions ?: run {
+    private fun processInfo(gameVersions: Array<FabricVersion>?, force: Boolean) {
+        if (gameVersions.isNullOrEmpty()) {
             empty()
             return
         }
 
         val mcVersion = arguments?.getString(BUNDLE_MC_VERSION) ?: throw IllegalArgumentException("The Minecraft version is not passed")
 
-        val mOptiFineVersions: MutableMap<String, MutableList<OptiFineVersion>> = HashMap()
-        optiFineVersions.optifineVersions.forEach(Consumer<List<OptiFineVersion>> { optiFineVersionList: List<OptiFineVersion> ->  //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
-            currentTask?.apply { if (isCancelled) return@Consumer }
+        val mFabricVersions: MutableList<FabricVersion> = ArrayList()
+        val loaderVersions: Array<FabricVersion>? = utils.downloadLoaderVersions(force)
+        gameVersions.forEach {
+            currentTask?.apply { if (isCancelled) return }
+            if (it.version == mcVersion) {
+                mFabricVersions.addAll(loaderVersions!!.toList())
+                return@forEach
+            }
+        }
 
-            optiFineVersionList.forEach(Consumer Consumer2@{ optiFineVersion: OptiFineVersion ->
-                currentTask?.apply { if (isCancelled) return@Consumer2 }
-                addIfAbsent(mOptiFineVersions, optiFineVersion.minecraftVersion.removePrefix("Minecraft").trim(), optiFineVersion)
-            })
-        })
+        currentTask?.apply { if (isCancelled) return }
 
-        if (currentTask!!.isCancelled) return
-
-        val mcOptiFineVersions = mOptiFineVersions[mcVersion] ?: mOptiFineVersions[mcVersion] ?: run {
+        if (mFabricVersions.isEmpty()) {
             empty()
             return
         }
 
-        val adapter = ModVersionListAdapter(R.drawable.ic_optifine, mcOptiFineVersions)
-        adapter.setOnItemClickListener { version: Any ->
+        //为整理好的Fabric版本设置Adapter
+        val adapter = ModVersionListAdapter(icon, mFabricVersions)
+        adapter.setOnItemClickListener { version ->
             if (isTaskRunning()) return@setOnItemClickListener false
+            val loaderVersion = (version as FabricVersion).version
 
-            val optifineVersion = version as OptiFineVersion
             EventBus.getDefault().postSticky(
                 SelectInstallTaskEvent(
-                    Addon.OPTIFINE,
-                    optifineVersion.versionName,
-                    OptiFineDownloadTask(optifineVersion)
+                    utils.addon,
+                    loaderVersion,
+                    utils.getDownloadTask(mcVersion, loaderVersion)
                 )
             )
             ZHTools.onBackPressed(requireActivity())
@@ -117,7 +110,7 @@ class DownloadOptiFineFragment : ModListFragment() {
                 recyclerView.layoutManager = LinearLayoutManager(fragmentActivity!!)
                 recyclerView.adapter = adapter
             }.getOrElse { e ->
-                Logging.e("Set Adapter", Tools.printToString(e))
+                e("Set Adapter", Tools.printToString(e))
             }
 
             componentProcessing(false)

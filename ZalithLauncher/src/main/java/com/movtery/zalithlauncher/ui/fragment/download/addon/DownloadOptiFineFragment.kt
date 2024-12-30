@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.ui.fragment
+package com.movtery.zalithlauncher.ui.fragment.download.addon
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,25 +10,27 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
-import com.movtery.zalithlauncher.feature.mod.modloader.ForgeDownloadTask
+import com.movtery.zalithlauncher.feature.mod.modloader.OptiFineDownloadTask
 import com.movtery.zalithlauncher.feature.version.Addon
 import com.movtery.zalithlauncher.ui.fragment.InstallGameFragment.Companion.BUNDLE_MC_VERSION
-import net.kdt.pojavlaunch.modloaders.ForgeUtils
+import net.kdt.pojavlaunch.modloaders.OptiFineUtils
+import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion
+import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersions
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Future
 import java.util.function.Consumer
 
-class DownloadForgeFragment : ModListFragment() {
+class DownloadOptiFineFragment : ModListFragment() {
     companion object {
-        const val TAG: String = "DownloadForgeFragment"
+        const val TAG: String = "DownloadOptiFineFragment"
     }
 
     override fun init() {
-        setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_anvil))
-        setTitleText("Forge")
-        setLink("https://forums.minecraftforge.net/")
-        setMCMod("https://www.mcmod.cn/class/30.html")
-        setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
+        setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_optifine))
+        setTitleText("OptiFine")
+        setLink("https://www.optifine.net/home")
+        setMCMod("https://www.mcmod.cn/class/36.html")
+        setReleaseCheckBoxGone()
         super.init()
     }
 
@@ -47,14 +49,14 @@ class DownloadForgeFragment : ModListFragment() {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                val forgeVersions = ForgeUtils.downloadForgeVersions(force)
-                processModDetails(forgeVersions)
+                val optiFineVersions = OptiFineUtils.downloadOptiFineVersions(force)
+                processModDetails(optiFineVersions)
             }.getOrElse { e ->
                 TaskExecutors.runInUIThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
-                Logging.e("DownloadForge", Tools.printToString(e))
+                Logging.e("DownloadOptiFineFragment", Tools.printToString(e))
             }
         }
     }
@@ -66,44 +68,43 @@ class DownloadForgeFragment : ModListFragment() {
         }
     }
 
-    private fun processModDetails(forgeVersions: List<String>?) {
-        forgeVersions ?: run {
+    private fun processModDetails(optiFineVersions: OptiFineVersions?) {
+        optiFineVersions ?: run {
             empty()
             return
         }
 
         val mcVersion = arguments?.getString(BUNDLE_MC_VERSION) ?: throw IllegalArgumentException("The Minecraft version is not passed")
 
-        val mForgeVersions: MutableMap<String, MutableList<String>> = HashMap()
-        forgeVersions.forEach(Consumer { forgeVersion: String ->
+        val mOptiFineVersions: MutableMap<String, MutableList<OptiFineVersion>> = HashMap()
+        optiFineVersions.optifineVersions.forEach(Consumer<List<OptiFineVersion>> { optiFineVersionList: List<OptiFineVersion> ->  //通过版本列表一层层遍历并合成为 Minecraft版本 + Optifine版本的Map集合
             currentTask?.apply { if (isCancelled) return@Consumer }
 
-            //查找并分组Minecraft版本与Forge版本
-            val dashIndex = forgeVersion.indexOf("-")
-            val gameVersion = forgeVersion.substring(0, dashIndex)
-            addIfAbsent(mForgeVersions, gameVersion, forgeVersion)
+            optiFineVersionList.forEach(Consumer Consumer2@{ optiFineVersion: OptiFineVersion ->
+                currentTask?.apply { if (isCancelled) return@Consumer2 }
+                addIfAbsent(mOptiFineVersions, optiFineVersion.minecraftVersion.removePrefix("Minecraft").trim(), optiFineVersion)
+            })
         })
 
-        currentTask?.apply { if (isCancelled) return }
+        if (currentTask!!.isCancelled) return
 
-        val mcForgeVersions = mForgeVersions[mcVersion] ?: run {
+        val mcOptiFineVersions = mOptiFineVersions[mcVersion] ?: mOptiFineVersions[mcVersion] ?: run {
             empty()
             return
         }
 
-        val adapter = ModVersionListAdapter(R.drawable.ic_anvil, mcForgeVersions)
+        val adapter = ModVersionListAdapter(R.drawable.ic_optifine, mcOptiFineVersions)
         adapter.setOnItemClickListener { version: Any ->
             if (isTaskRunning()) return@setOnItemClickListener false
 
-            val versionString = version.toString()
+            val optifineVersion = version as OptiFineVersion
             EventBus.getDefault().postSticky(
                 SelectInstallTaskEvent(
-                    Addon.FORGE,
-                    versionString,
-                    ForgeDownloadTask(versionString)
+                    Addon.OPTIFINE,
+                    optifineVersion.versionName,
+                    OptiFineDownloadTask(optifineVersion)
                 )
             )
-
             ZHTools.onBackPressed(requireActivity())
             true
         }

@@ -398,7 +398,6 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(filesLayout, Animations.BounceInDown))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
-                .apply(AnimPlayer.Entry(operateButtonsLayout, Animations.FadeInLeft))
         }
     }
 
@@ -406,7 +405,6 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(filesLayout, Animations.FadeOutUp))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.FadeOutRight))
-                .apply(AnimPlayer.Entry(operateButtonsLayout, Animations.BounceShrink))
         }
     }
 }

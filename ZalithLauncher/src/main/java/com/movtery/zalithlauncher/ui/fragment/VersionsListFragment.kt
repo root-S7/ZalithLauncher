@@ -207,7 +207,6 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(versionLayout, Animations.BounceInDown))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
-                .apply(AnimPlayer.Entry(operateView, Animations.FadeInLeft))
         }
     }
 

@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.ui.fragment.download
+package com.movtery.zalithlauncher.ui.fragment.download.resource
 
 import android.net.Uri
 import android.os.Bundle

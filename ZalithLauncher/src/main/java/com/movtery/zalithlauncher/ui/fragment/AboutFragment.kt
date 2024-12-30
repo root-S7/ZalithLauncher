@@ -200,9 +200,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     override fun slideIn(animPlayer: AnimPlayer) {
         animPlayer.apply(AnimPlayer.Entry(binding.infoLayout, Animations.BounceInDown))
             .apply(AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
-            .apply(AnimPlayer.Entry(binding.returnButton, Animations.FadeInLeft))
-            .apply(AnimPlayer.Entry(binding.githubButton, Animations.FadeInLeft))
-            .apply(AnimPlayer.Entry(binding.supportDevelopment, Animations.FadeInLeft))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {

@@ -16,11 +16,11 @@ import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
 import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.IN
 import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.OUT
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
-import com.movtery.zalithlauncher.ui.fragment.download.ModDownloadFragment
-import com.movtery.zalithlauncher.ui.fragment.download.ModPackDownloadFragment
-import com.movtery.zalithlauncher.ui.fragment.download.ResourcePackDownloadFragment
-import com.movtery.zalithlauncher.ui.fragment.download.ShaderPackDownloadFragment
-import com.movtery.zalithlauncher.ui.fragment.download.WorldDownloadFragment
+import com.movtery.zalithlauncher.ui.fragment.download.resource.ModDownloadFragment
+import com.movtery.zalithlauncher.ui.fragment.download.resource.ModPackDownloadFragment
+import com.movtery.zalithlauncher.ui.fragment.download.resource.ResourcePackDownloadFragment
+import com.movtery.zalithlauncher.ui.fragment.download.resource.ShaderPackDownloadFragment
+import com.movtery.zalithlauncher.ui.fragment.download.resource.WorldDownloadFragment
 import org.greenrobot.eventbus.EventBus
 
 class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {

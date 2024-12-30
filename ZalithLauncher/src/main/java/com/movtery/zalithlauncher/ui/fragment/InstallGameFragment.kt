@@ -24,6 +24,13 @@ import com.movtery.zalithlauncher.feature.version.InstallTaskItem
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
+import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadFabricApiFragment
+import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadFabricFragment
+import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadForgeFragment
+import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadNeoForgeFragment
+import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadOptiFineFragment
+import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadQuiltApiFragment
+import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadQuiltFragment
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.runtime.SelectRuntimeUtils
 import net.kdt.pojavlaunch.JavaGUILauncherActivity

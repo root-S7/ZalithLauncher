@@ -248,9 +248,6 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
                 .apply(AnimPlayer.Entry(icon, Animations.Wobble))
                 .apply(AnimPlayer.Entry(title, Animations.FadeInLeft))
                 .apply(AnimPlayer.Entry(description, Animations.FadeInLeft))
-                .apply(AnimPlayer.Entry(returnButton, Animations.FadeInLeft))
-                .apply(AnimPlayer.Entry(refreshButton, Animations.FadeInLeft))
-                .apply(AnimPlayer.Entry(releaseVersion, Animations.FadeInLeft))
         }
     }
 

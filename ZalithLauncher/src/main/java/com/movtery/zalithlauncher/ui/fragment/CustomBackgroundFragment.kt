@@ -20,6 +20,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentCustomBackgroundBinding
 import com.movtery.zalithlauncher.event.single.MainBackgroundChangeEvent
 import com.movtery.zalithlauncher.feature.background.BackgroundManager
+import com.movtery.zalithlauncher.feature.background.BackgroundManager.NULL
 import com.movtery.zalithlauncher.feature.background.BackgroundType
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
@@ -38,6 +39,7 @@ import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import java.io.File
+import java.util.EnumMap
 
 class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_background) {
     companion object {
@@ -45,9 +47,9 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
     }
 
     private lateinit var binding: FragmentCustomBackgroundBinding
-    private val backgroundMap: MutableMap<BackgroundType?, String?> = HashMap()
+    private val backgroundMap: MutableMap<BackgroundType, String> = EnumMap(BackgroundType::class.java)
     private var openDocumentLauncher: ActivityResultLauncher<Array<String>>? = null
-    private var backgroundType: BackgroundType? = null
+    private var backgroundType: BackgroundType = BackgroundType.MAIN_MENU
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,7 +148,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
             actionBar.apply {
                 pasteButton.setOnClickListener { _: View? ->
-                    backgroundMap[backgroundType] = "null"
+                    backgroundMap[backgroundType] = NULL
                     BackgroundManager.saveProperties(backgroundMap)
                     Toast.makeText(requireActivity(), getString(R.string.custom_background_reset, currentStatusName), Toast.LENGTH_SHORT).show()
                     refreshBackground()
@@ -183,9 +185,9 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private fun initBackgroundMap() {
         BackgroundManager.apply {
-            backgroundMap[BackgroundType.MAIN_MENU] = properties[BackgroundType.MAIN_MENU.name] as String?
-            backgroundMap[BackgroundType.CUSTOM_CONTROLS] = properties[BackgroundType.CUSTOM_CONTROLS.name] as String?
-            backgroundMap[BackgroundType.IN_GAME] = properties[BackgroundType.IN_GAME.name] as String?
+            backgroundMap[BackgroundType.MAIN_MENU] = properties[BackgroundType.MAIN_MENU.name] as String? ?: NULL
+            backgroundMap[BackgroundType.CUSTOM_CONTROLS] = properties[BackgroundType.CUSTOM_CONTROLS.name] as String? ?: NULL
+            backgroundMap[BackgroundType.IN_GAME] = properties[BackgroundType.IN_GAME.name] as String? ?: NULL
         }
     }
 
@@ -206,7 +208,6 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
             BackgroundType.MAIN_MENU -> getString(R.string.custom_background_main_menu)
             BackgroundType.CUSTOM_CONTROLS -> getString(R.string.option_edit_controls)
             BackgroundType.IN_GAME -> getString(R.string.custom_background_in_game)
-            else -> getString(R.string.generic_unknown)
         }
 
     private fun refreshType(index: Int) {
@@ -222,7 +223,7 @@ class CustomBackgroundFragment : FragmentWithAnim(R.layout.fragment_custom_backg
 
     private fun refreshBackgroundPreview() {
         binding.preview.let {
-            BackgroundManager.getBackgroundImage(backgroundType!!)?.apply {
+            BackgroundManager.getBackgroundImage(backgroundType)?.apply {
                 Glide.with(requireActivity())
                     .load(this)
                     .fitCenter()

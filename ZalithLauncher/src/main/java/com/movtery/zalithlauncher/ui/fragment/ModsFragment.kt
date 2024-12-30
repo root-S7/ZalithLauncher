@@ -337,7 +337,6 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(modsLayout, Animations.BounceInDown))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
-                .apply(AnimPlayer.Entry(operateButtonsLayout, Animations.FadeInLeft))
         }
     }
 
@@ -345,7 +344,6 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(modsLayout, Animations.FadeOutUp))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.FadeOutRight))
-                .apply(AnimPlayer.Entry(operateButtonsLayout, Animations.BounceShrink))
         }
     }
 }

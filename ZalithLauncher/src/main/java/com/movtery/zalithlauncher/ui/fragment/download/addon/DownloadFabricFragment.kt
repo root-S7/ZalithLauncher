@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.ui.fragment
+package com.movtery.zalithlauncher.ui.fragment.download.addon
 
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.mod.modloader.FabricLikeUtils

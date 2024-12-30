@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.ui.fragment
+package com.movtery.zalithlauncher.ui.fragment.download.addon
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -6,30 +6,28 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.event.sticky.SelectInstallTaskEvent
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modloader.ModVersionListAdapter
-import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeDownloadTask
-import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgeVersions
-import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgedForgeVersions
-import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.formatGameVersion
-import com.movtery.zalithlauncher.feature.version.Addon
 import com.movtery.zalithlauncher.task.TaskExecutors
-import com.movtery.zalithlauncher.ui.fragment.InstallGameFragment.Companion.BUNDLE_MC_VERSION
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
+import com.movtery.zalithlauncher.feature.mod.modloader.ForgeDownloadTask
+import com.movtery.zalithlauncher.feature.version.Addon
+import com.movtery.zalithlauncher.ui.fragment.InstallGameFragment.Companion.BUNDLE_MC_VERSION
+import net.kdt.pojavlaunch.modloaders.ForgeUtils
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Future
 import java.util.function.Consumer
 
-class DownloadNeoForgeFragment : ModListFragment() {
+class DownloadForgeFragment : ModListFragment() {
     companion object {
-        const val TAG: String = "DownloadNeoForgeFragment"
+        const val TAG: String = "DownloadForgeFragment"
     }
 
     override fun init() {
-        setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_neoforge))
-        setTitleText("NeoForge")
-        setLink("https://neoforged.net/")
-        setMCMod("https://www.mcmod.cn/class/11433.html")
+        setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_anvil))
+        setTitleText("Forge")
+        setLink("https://forums.minecraftforge.net/")
+        setMCMod("https://www.mcmod.cn/class/30.html")
         setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
         super.init()
     }
@@ -49,26 +47,16 @@ class DownloadNeoForgeFragment : ModListFragment() {
                     cancelFailedToLoad()
                     componentProcessing(true)
                 }
-                processModDetails(loadVersionList(force))
+                val forgeVersions = ForgeUtils.downloadForgeVersions(force)
+                processModDetails(forgeVersions)
             }.getOrElse { e ->
                 TaskExecutors.runInUIThread {
                     componentProcessing(false)
                     setFailedToLoad(e.toString())
                 }
-                Logging.e("DownloadNeoForgeFragment", Tools.printToString(e))
+                Logging.e("DownloadForge", Tools.printToString(e))
             }
         }
-    }
-
-    @Throws(Exception::class)
-    fun loadVersionList(force: Boolean): List<String> {
-        val versions: MutableList<String> = ArrayList()
-        versions.addAll(downloadNeoForgedForgeVersions(force))
-        versions.addAll(downloadNeoForgeVersions(force))
-
-        versions.reverse()
-
-        return versions
     }
 
     private fun empty() {
@@ -78,50 +66,44 @@ class DownloadNeoForgeFragment : ModListFragment() {
         }
     }
 
-    private fun processModDetails(neoForgeVersions: List<String>?) {
-        neoForgeVersions ?: run {
+    private fun processModDetails(forgeVersions: List<String>?) {
+        forgeVersions ?: run {
             empty()
             return
         }
 
         val mcVersion = arguments?.getString(BUNDLE_MC_VERSION) ?: throw IllegalArgumentException("The Minecraft version is not passed")
 
-        val mNeoForgeVersions: MutableMap<String, MutableList<String>> = HashMap()
-        neoForgeVersions.forEach(Consumer { neoForgeVersion: String ->
+        val mForgeVersions: MutableMap<String, MutableList<String>> = HashMap()
+        forgeVersions.forEach(Consumer { forgeVersion: String ->
             currentTask?.apply { if (isCancelled) return@Consumer }
-            //查找并分组Minecraft版本与NeoForge版本
-            val gameVersion: String
 
-            val isOldVersion = neoForgeVersion.contains("1.20.1")
-            gameVersion = if (isOldVersion) {
-                "1.20.1"
-            } else if (neoForgeVersion == "47.1.82") {
-                return@Consumer
-            } else { //1.20.2+
-                formatGameVersion(neoForgeVersion)
-            }
-            addIfAbsent(mNeoForgeVersions, gameVersion, neoForgeVersion)
+            //查找并分组Minecraft版本与Forge版本
+            val dashIndex = forgeVersion.indexOf("-")
+            val gameVersion = forgeVersion.substring(0, dashIndex)
+            addIfAbsent(mForgeVersions, gameVersion, forgeVersion)
         })
 
         currentTask?.apply { if (isCancelled) return }
 
-        val mcNeoForgeVersions = mNeoForgeVersions[mcVersion] ?: run {
+        val mcForgeVersions = mForgeVersions[mcVersion] ?: run {
             empty()
             return
         }
 
-        val adapter = ModVersionListAdapter(R.drawable.ic_neoforge, mcNeoForgeVersions)
-        adapter.setOnItemClickListener { version: Any? ->
+        val adapter = ModVersionListAdapter(R.drawable.ic_anvil, mcForgeVersions)
+        adapter.setOnItemClickListener { version: Any ->
             if (isTaskRunning()) return@setOnItemClickListener false
 
             val versionString = version.toString()
             EventBus.getDefault().postSticky(
                 SelectInstallTaskEvent(
-                    Addon.NEOFORGE,
+                    Addon.FORGE,
                     versionString,
-                    NeoForgeDownloadTask(versionString)
+                    ForgeDownloadTask(versionString)
                 )
             )
+
             ZHTools.onBackPressed(requireActivity())
             true
         }
