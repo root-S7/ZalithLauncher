@@ -45,7 +45,10 @@ class VersionAdapter(
     fun refreshVersions(versions: List<Version?>) {
         this.versions.clear()
         this.versions.addAll(versions)
-        this.radioButtonMap.clear()
+        this.radioButtonMap.apply {
+            forEach { (_, radioButton) -> radioButton.isChecked = false }
+            clear()
+        }
         refreshCurrentVersion()
         notifyDataSetChanged()
     }

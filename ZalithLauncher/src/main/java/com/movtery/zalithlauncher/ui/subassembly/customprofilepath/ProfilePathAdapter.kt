@@ -55,6 +55,10 @@ class ProfilePathAdapter(
     fun updateData(data: MutableList<ProfileItem>) {
         this.mData.clear()
         this.mData.addAll(data)
+        radioButtonMap.apply {
+            forEach { (_, radioButton) -> radioButton.isChecked = false }
+            clear()
+        }
         refresh()
     }
 
@@ -94,8 +98,10 @@ class ProfilePathAdapter(
                 path.isSelected = true
 
                 val onClickListener = View.OnClickListener {
-                    StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
-                        setPathId(profileItem.id)
+                    if (currentId != profileItem.id) {
+                        StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
+                            setPathId(profileItem.id)
+                        }
                     }
                 }
                 root.setOnClickListener(onClickListener)
