@@ -1,7 +1,13 @@
 package com.movtery.zalithlauncher.ui.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,9 +48,9 @@ import com.movtery.zalithlauncher.ui.subassembly.account.AccountAdapter
 import com.movtery.zalithlauncher.ui.subassembly.account.AccountAdapter.AccountUpdateListener
 import com.movtery.zalithlauncher.ui.subassembly.account.AccountViewWrapper
 import com.movtery.zalithlauncher.ui.subassembly.account.SelectAccountListener
-import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.NetworkUtils
+import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment
@@ -56,6 +62,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 import java.io.File
 import java.util.regex.Pattern
+
 
 class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClickListener {
     companion object {
@@ -230,6 +237,10 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
         }.execute()
     }
 
+    private fun SpannableString.spanText(start: Int, end: Int, what: Any) {
+        this.setSpan(what, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+
     private fun localLogin() {
         fun checkEditText(text: String, editText: EditText): Boolean {
             return if (text.isBlank() || text.isEmpty()) {
@@ -257,8 +268,30 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                         .setTitle(R.string.generic_warning)
                         .setMessage(R.string.account_local_account_invalid)
                         .setWarning()
+                        .setTextBeautifier { _, messageText ->
+                            val text = messageText.text.toString()
+                            val startTag = "[RED;BOLD]"
+                            val endTag = "[/RED;BOLD]"
+
+                            val startIndex = text.indexOf(startTag)
+                            val endIndex = text.indexOf(endTag)
+
+                            if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+                                val styledText = text.substring(startIndex + startTag.length, endIndex)
+                                val plainText = text.replace(startTag, "").replace(endTag, "")
+                                val adjustedEndIndex = startIndex + styledText.length
+
+                                val spannableString = SpannableString(plainText)
+                                spannableString.spanText(startIndex, adjustedEndIndex, ForegroundColorSpan(Color.RED))
+                                spannableString.spanText(startIndex, adjustedEndIndex, StyleSpan(Typeface.BOLD))
+
+                                messageText.text = spannableString
+                            }
+                        }
                         .setCenterMessage(false)
                         .setConfirmClickListener { startLogin(string) }
+                        .setCancelable(false)
+                        .setConfirmButtonCountdown(3000L)
                         .buildDialog()
                 } else startLogin(string)
 

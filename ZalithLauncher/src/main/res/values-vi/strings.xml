@@ -266,7 +266,7 @@
     <string name="account_microsoft_xerr_unauthorized">Thông tin đăng nhập tài khoản Microsoft của bạn có vẻ đã hết hạn, tình huống này thường xảy ra khi mật khẩu tài khoản bị thay đổi. Vui lòng xóa tài khoản hiện tại và đăng nhập lại để đặt lại thông tin đăng nhập của bạn.</string>
     <string name="account_local_account">Tài khoản ngoại tuyến</string>
     <string name="account_local_account_empty">Tên người dùng không được để trống!</string>
-    <string name="account_local_account_invalid">Tên người dùng hợp lệ chỉ hỗ trợ các chữ cái Anh (đại chữ và thường chữ), số và dấu gạch dưới. Độ dài phải trong khoảng 3 đến 16 ký tự, nếu không, trò chơi có thể không chạy đúng.\nVí dụ tên người dùng đúng: Name, Name_, Name123\nVí dụ tên người dùng sai: Name@, N ame, name_name_name_name\nNhưng nếu bạn đã sử dụng các mô-đun hoặc plugin liên quan để bỏ qua cơ chế này, thì bạn có thể tiếp tục sử dụng tên này. Nếu không, vui lòng đổi tên lại!</string>
+    <string name="account_local_account_invalid">Tên người dùng hợp lệ chỉ hỗ trợ các chữ cái tiếng Anh (viết hoa hoặc viết thường), số và dấu gạch dưới. Độ dài tên người dùng phải từ 3 đến 16 ký tự. [RED;BOLD]Nếu không, trò chơi có thể không hoạt động đúng cách.[/RED;BOLD]\nVí dụ về tên người dùng hợp lệ: Name, Name_, Name123\nVí dụ về tên người dùng không hợp lệ: Name@, N ame, name_name_name_name\nTuy nhiên, nếu bạn đang sử dụng mod hoặc plugin để loại bỏ hạn chế này, bạn có thể tiếp tục sử dụng tên này. Nếu không, vui lòng đổi tên!</string>
     <string name="account_login_local_name">Tên người dùng</string>
     <string name="account_login_start">Bắt đầu đăng nhập!</string>
     <string name="account_login_microsoft_progress">Đang đăng nhập vào tài khoản Microsoft: %s</string>

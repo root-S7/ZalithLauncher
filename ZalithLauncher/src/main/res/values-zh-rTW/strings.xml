@@ -266,7 +266,7 @@
     <string name="account_microsoft_xerr_unauthorized">你的微軟帳號登入資訊貌似已過期，這種情況常出現在帳號密碼被修改之後，請移除當前帳號並重新登入你的帳號，以重置你的登入資訊。</string>
     <string name="account_local_account">離線帳號</string>
     <string name="account_local_account_empty">使用者名稱不能為空！</string>
-    <string name="account_local_account_invalid">有效的使用者名稱僅支援英文大小寫字母、數字及下劃線。長度需在3至16個字元之間，否則遊戲可能無法正常運行。\n正確的使用者名稱範例：Name、Name_、Name123\n錯誤的使用者名稱範例：Name@、N ame、name_name_name_name\n但如果您已使用相關模組或插件來解除這項限制，則可繼續使用該名稱。否則，請重新命名！</string>
+    <string name="account_local_account_invalid">正常的使用者名稱僅支援英文字母（大小寫均可）、數字以及底線作為使用者名稱，長度不允許少於 3 字元，超過 16 字元，[RED;BOLD]否則可能將導致遊戲無法正常運行。[/RED;BOLD]\n正確的使用者名稱舉例：Name、Name_、Name123\n錯誤的使用者名稱舉例：Name@、N ame、name_name_name_name\n但如果你使用了相關模組或者插件能夠解除這一機制，那麼你可以繼續使用這個名字，否則請重新命名！</string>
     <string name="account_login_local_name">使用者名稱</string>
     <string name="account_login_start">開始登入！</string>
     <string name="account_login_microsoft_progress">正在登入 Microsoft 帳號：%s</string>

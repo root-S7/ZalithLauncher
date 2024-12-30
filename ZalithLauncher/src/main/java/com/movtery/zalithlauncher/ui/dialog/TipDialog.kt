@@ -1,7 +1,10 @@
 package com.movtery.zalithlauncher.ui.dialog
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.View
 import android.view.Window
@@ -22,7 +25,9 @@ class TipDialog private constructor(
     showCancel: Boolean,
     showConfirm: Boolean,
     centerMessage: Boolean,
+    private val confirmButtonCountdown: Long,
     private val warning: Boolean,
+    private val textBeautifier: TextBeautifier?,
     private val cancelListener: OnCancelClickListener?,
     private val confirmListener: OnConfirmClickListener?,
     private val dismissListener: OnDialogDismissListener?
@@ -41,6 +46,8 @@ class TipDialog private constructor(
 
             titleView.addText(title)
             messageView.addText(message)
+
+            textBeautifier?.beautify(titleView, messageView)
 
             cancel?.apply { cancelButton.text = this }
             confirm?.apply { confirmButton.text = this }
@@ -70,12 +77,47 @@ class TipDialog private constructor(
         }
     }
 
+    override fun show() {
+        super.show()
+        if (confirmButtonCountdown > 0) {
+            binding.confirmButton.apply {
+                isEnabled = false
+
+                val buttonText = text
+                var remainingTime = confirmButtonCountdown
+
+                val interval = 500L //更新频率
+                val handler = Handler(Looper.getMainLooper())
+                val runnable = object : Runnable {
+                    @SuppressLint("SetTextI18n")
+                    override fun run() {
+                        if (remainingTime > 0) {
+                            val secondsRemaining = (remainingTime / 1000.0).toInt()
+                            text = "$buttonText (${secondsRemaining}s)"
+                            remainingTime -= interval
+                            handler.postDelayed(this, interval)
+                        } else {
+                            isEnabled = true
+                            text = buttonText
+                        }
+                    }
+                }
+
+                handler.post(runnable)
+            }
+        }
+    }
+
     override fun dismiss() {
         if (dismissListener?.onDismiss() == false) return
         super.dismiss()
     }
 
     override fun onInit(): Window? = window
+
+    fun interface TextBeautifier {
+        fun beautify(titleText: TextView, messageText: TextView)
+    }
 
     fun interface OnCancelClickListener {
         fun onCancelClick()
@@ -95,9 +137,11 @@ class TipDialog private constructor(
         private var cancel: String? = null
         private var confirm: String? = null
         private var checkBox: String? = null
+        private var textBeautifier: TextBeautifier? = null
         private var cancelClickListener: OnCancelClickListener? = null
         private var confirmClickListener: OnConfirmClickListener? = null
         private var dialogDismissListener: OnDialogDismissListener? = null
+        private var confirmButtonCountdown: Long = 0L
         private var cancelable = true
         private var showCheckBox = false
         private var showCancel = true
@@ -106,12 +150,14 @@ class TipDialog private constructor(
         private var warning = false
 
         fun buildDialog(): TipDialog {
+            if (confirmButtonCountdown > 0 && cancelable) throw IllegalArgumentException("Before setting the confirm button countdown, please disable the cancelable option first.")
+
             val tipDialog = TipDialog(
                 this.context,
                 title, message, confirm, cancel, checkBox,
                 showCheckBox,
-                showCancel, showConfirm, centerMessage, warning,
-                cancelClickListener, confirmClickListener, dialogDismissListener
+                showCancel, showConfirm, centerMessage, confirmButtonCountdown, warning,
+                textBeautifier, cancelClickListener, confirmClickListener, dialogDismissListener
             )
             tipDialog.setCancelable(cancelable)
             tipDialog.show()
@@ -180,6 +226,12 @@ class TipDialog private constructor(
         }
 
         @CheckResult
+        fun setTextBeautifier(beautifier: TextBeautifier): Builder {
+            this.textBeautifier = beautifier
+            return this
+        }
+
+        @CheckResult
         fun setCancelClickListener(cancelClickListener: OnCancelClickListener?): Builder {
             this.cancelClickListener = cancelClickListener
             return this
@@ -194,6 +246,13 @@ class TipDialog private constructor(
         @CheckResult
         fun setDialogDismissListener(dialogDismissListener: OnDialogDismissListener?): Builder {
             this.dialogDismissListener = dialogDismissListener
+            return this
+        }
+
+        @CheckResult
+        fun setConfirmButtonCountdown(countdownMillis: Long): Builder {
+            if (countdownMillis < 0L) throw IllegalArgumentException("The countdown cannot be negative!")
+            this.confirmButtonCountdown = countdownMillis
             return this
         }
 
