@@ -34,7 +34,7 @@ class ModrinthCommonUtils {
                 }
             }
             return if (categories.isEmpty()) ""
-            else categories.joinToString(prefix = "[", postfix = "]") { "\"categories:$it\"" }
+            else categories.joinToString { "[\"categories:$it\"]" }
         }
 
         private fun putDefaultParams(params: HashMap<String, Any>, filters: Filters, previousCount: Int) {
