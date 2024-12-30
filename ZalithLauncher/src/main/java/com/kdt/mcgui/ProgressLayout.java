@@ -133,11 +133,17 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
 
         @Override
         public void onProgressUpdated(int progress, int resid, Object... va) {
-            post(()-> {
+            post(() -> {
                 textView.setProgress(progress);
-                if(resid != -1) textView.setText(getContext().getString(resid, va));
-                else if(va.length > 0 && va[0] != null)textView.setText((String)va[0]);
-                else textView.setText("");
+                String text;
+                try {
+                    if (resid != -1) text = getContext().getString(resid, va);
+                    else if (va.length > 0 && va[0] != null) text = (String) va[0];
+                    else text = "";
+                } catch (Throwable e) {
+                    text = "";
+                }
+                textView.setText(text);
             });
         }
 
