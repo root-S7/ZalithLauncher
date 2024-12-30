@@ -177,7 +177,7 @@ class AllSettings {
         val useControllerProxy = BooleanSettingUnit("useControllerProxy", false)
 
         @JvmStatic
-        val tcSupportDuration = IntSettingUnit("tcSupportDuration", 100)
+        val tcVibrateDuration = IntSettingUnit("tcVibrateDuration", 100)
 
         // Other
         @JvmStatic

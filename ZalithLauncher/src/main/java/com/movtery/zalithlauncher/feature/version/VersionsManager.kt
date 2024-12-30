@@ -268,6 +268,10 @@ object VersionsManager {
      * 重命名当前版本，但并不会在这里对即将重命名的名称，进行非法性判断
      */
     private fun renameVersion(version: Version, name: String) {
+        val currentVersionName = getCurrentVersion()?.getVersionName()
+        //如果当前的版本是即将被重命名的版本，那么就把将要重命名的名字设置为当前版本
+        if (version.getVersionName() == currentVersionName) saveCurrentVersion(name)
+
         val versionFolder = version.getVersionPath()
         val renameFolder = File(ProfilePathHome.versionsHome, name)
 

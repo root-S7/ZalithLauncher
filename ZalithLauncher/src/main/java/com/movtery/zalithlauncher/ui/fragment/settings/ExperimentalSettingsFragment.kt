@@ -51,12 +51,12 @@ class ExperimentalSettingsFragment :
 
         SeekBarSettingsWrapper(
             context,
-            AllSettings.tcSupportDuration,
-            binding.tcSupportDurationLayout,
-            binding.tcSupportDurationTitle,
-            binding.tcSupportDurationSummary,
-            binding.tcSupportDurationValue,
-            binding.tcSupportDuration,
+            AllSettings.tcVibrateDuration,
+            binding.tcVibrateDurationLayout,
+            binding.tcVibrateDurationTitle,
+            binding.tcVibrateDurationSummary,
+            binding.tcVibrateDurationValue,
+            binding.tcVibrateDuration,
             "ms"
         )
 
@@ -64,7 +64,7 @@ class ExperimentalSettingsFragment :
     }
 
     private fun refreshTouchControllerSettings() {
-        binding.tcSupportDurationLayout.visibility = if (AllSettings.useControllerProxy.getValue()) View.VISIBLE else View.GONE
+        binding.tcVibrateDurationLayout.visibility = if (AllSettings.useControllerProxy.getValue()) View.VISIBLE else View.GONE
     }
 
     override fun onChange() {

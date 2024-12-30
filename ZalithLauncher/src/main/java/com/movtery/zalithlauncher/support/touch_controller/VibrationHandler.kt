@@ -11,8 +11,8 @@ class VibrationHandler(private val vibrator: Vibrator) : LauncherProxyClient.Vib
     override fun viberate(kind: VibrateMessage.Kind) {
         runCatching {
             val effect = VibrationEffect.createOneShot(
-                500.coerceAtMost(80.coerceAtLeast(AllSettings.tcSupportDuration.getValue())).toLong(),
-                50
+                AllSettings.tcVibrateDuration.getValue().coerceAtMost(500).coerceAtLeast(80).toLong(),
+                VibrationEffect.DEFAULT_AMPLITUDE
             )
             vibrator.vibrate(effect)
         }.getOrElse {
