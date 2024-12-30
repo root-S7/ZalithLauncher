@@ -42,14 +42,9 @@ class FileTools {
 
         @JvmStatic
         fun copyFileInBackground(context: Context, fileUri: Uri, outputFile: File): File {
-            runCatching {
-                context.contentResolver.openInputStream(fileUri).use { inputStream ->
-                    FileUtils.copyInputStreamToFile(inputStream, outputFile)
-                }
-            }.getOrElse { e ->
-                throw RuntimeException(e)
+            context.contentResolver.openInputStream(fileUri).use { inputStream ->
+                FileUtils.copyInputStreamToFile(inputStream, outputFile)
             }
-
             return outputFile
         }
 
