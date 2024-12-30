@@ -14,7 +14,7 @@ class PathManager {
         lateinit var DIR_DATA: String //Initialized later to get context
         lateinit var DIR_CACHE: File
         lateinit var DIR_MULTIRT_HOME: String
-        @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/ZalithLauncher"
+        @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/${InfoCenter.LAUNCHER_NAME}"
         lateinit var DIR_LAUNCHER_LOG: String
         lateinit var DIR_CTRLMAP_PATH: String
         lateinit var DIR_ACCOUNT_NEW: String

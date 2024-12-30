@@ -19,7 +19,6 @@ class AccountUtils {
     companion object {
         @JvmStatic
         fun microsoftLogin(context: Context, account: MinecraftAccount, doneListener: DoneListener, errorListener: ErrorListener) {
-            // Perform login only if needed
             MicrosoftBackgroundLogin(true, account.msaRefreshToken)
                 .performLogin(context, account, doneListener, errorListener)
         }
@@ -78,8 +77,10 @@ class AccountUtils {
             }
         }
 
-        //修改自源代码：https://github.com/HMCL-dev/HMCL/blob/main/HMCLCore/src/main/java/org/jackhuang/hmcl/auth/authlibinjector/AuthlibInjectorServer.java#L60-#L76
-        //原项目版权归原作者所有，遵循GPL v3协议
+        /**
+         * 修改自源代码：[HMCL Core: AuthlibInjectorServer.java](https://github.com/HMCL-dev/HMCL/blob/main/HMCLCore/src/main/java/org/jackhuang/hmcl/auth/authlibinjector/AuthlibInjectorServer.java#L60-#L76)
+         * <br>原项目版权归原作者所有，遵循GPL v3协议
+         */
         fun tryGetFullServerUrl(baseUrl: String): String {
             fun String.addSlashIfMissing(): String {
                 if (!endsWith("/")) return "$this/"
@@ -107,8 +108,10 @@ class AccountUtils {
             return baseUrl
         }
 
-        //修改自源代码：https://github.com/HMCL-dev/HMCL/blob/main/HMCLCore/src/main/java/org/jackhuang/hmcl/auth/authlibinjector/AuthlibInjectorServer.java#L90-#L96
-        //原项目版权归原作者所有，遵循GPL v3协议
+        /**
+         * 修改自源代码：[HMCL Core: AuthlibInjectorServer.java](https://github.com/HMCL-dev/HMCL/blob/main/HMCLCore/src/main/java/org/jackhuang/hmcl/auth/authlibinjector/AuthlibInjectorServer.java#L90-#L96)
+         * <br>原项目版权归原作者所有，遵循GPL v3协议
+         */
         private fun addHttpsIfMissing(baseUrl: String): String {
             return if (!baseUrl.startsWith("http://", true) && !baseUrl.startsWith("https://")) {
                 "https://$baseUrl".lowercase(Locale.ROOT)

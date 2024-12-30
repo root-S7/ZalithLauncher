@@ -1,6 +1,6 @@
 package com.movtery.zalithlauncher.feature.customprofilepath
 
-import android.app.Activity
+import android.content.Context
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.Task
 import net.kdt.pojavlaunch.Tools
@@ -32,13 +32,13 @@ class ProfilePathHome {
          * 检查launcher_profiles.json文件是否存在，如果不存在，Forge将无法安装
          */
         @JvmStatic
-        fun checkForLauncherProfiles(activity: Activity) {
+        fun checkForLauncherProfiles(context: Context) {
             Task.runTask {
                 val launcherProfiles = "launcher_profiles.json"
                 val launcherProfilesFile = File(gameHome, launcherProfiles)
                 if (!launcherProfilesFile.exists()) {
                     //如果这个配置文件不存在，那么久复制一份，Forge安装需要这个文件
-                    Tools.copyAssetFile(activity, "launcher_profiles.json", gameHome, false)
+                    Tools.copyAssetFile(context, "launcher_profiles.json", gameHome, false)
                 }
             }.onThrowable { e ->
                 Logging.e("Unpack Launcher Profiles", Tools.printToString(e))
