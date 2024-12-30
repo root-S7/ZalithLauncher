@@ -26,6 +26,15 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 
 public class GameService extends Service {
     private final Messenger mMessenger = new Messenger(new IncomingHandler());
+    private static boolean isActive;
+
+    public static boolean isActive() {
+        return isActive;
+    }
+
+    public static void setActive(boolean active) {
+        isActive = active;
+    }
 
     @Override
     public void onCreate() {

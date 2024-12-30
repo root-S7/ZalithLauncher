@@ -109,7 +109,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     private ViewGameMenuBinding mGameMenuBinding;
     private ViewControlMenuBinding mControlSettingsBinding;
-    private boolean isActive;
     boolean isInEditor;
 
     private SimpleTextWatcher mInputWatcher;
@@ -219,10 +218,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                     if (AllSettings.getVirtualMouseStart().getValue()) {
                         binding.mainTouchpad.post(() -> binding.mainTouchpad.switchState());
                     }
-                    LaunchGame.runGame(this, active -> {
-                        isActive = active;
-                        return null;
-                    }, minecraftVersion, mVersionInfo);
+                    LaunchGame.runGame(this, minecraftVersion, mVersionInfo);
                 } catch (Throwable e) {
                     Tools.showErrorRemote(e);
                 }
@@ -509,8 +505,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        binding.mainGameRenderView.start(isActive, binding.mainTouchpad);
-        isActive = true;
+        binding.mainGameRenderView.start(GameService.isActive(), binding.mainTouchpad);
+        GameService.setActive(true);
     }
 
     @Override

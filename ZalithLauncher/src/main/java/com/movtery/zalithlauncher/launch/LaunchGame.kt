@@ -31,6 +31,7 @@ import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.plugins.FFmpegPlugin
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
+import net.kdt.pojavlaunch.services.GameService
 import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader
 import net.kdt.pojavlaunch.tasks.MinecraftDownloader
 import net.kdt.pojavlaunch.utils.JREUtils
@@ -114,7 +115,7 @@ class LaunchGame {
 
         @Throws(Throwable::class)
         @JvmStatic
-        fun runGame(activity: AppCompatActivity, setActive: (Boolean) -> Unit, minecraftVersion: Version, version: JMinecraftVersionList.Version) {
+        fun runGame(activity: AppCompatActivity, minecraftVersion: Version, version: JMinecraftVersionList.Version) {
             Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer.getValue() }
 
             if (!Tools.checkRendererCompatible(activity, Tools.LOCAL_RENDERER)) {
@@ -149,7 +150,7 @@ class LaunchGame {
 
             launch(activity, account, minecraftVersion, javaRuntime, customArgs)
             //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
-            activity.runOnUiThread { setActive(false) }
+            GameService.setActive(false)
         }
 
         private fun getRuntime(activity: Activity, version: Version, targetJavaVersion: Int): String {
