@@ -113,6 +113,7 @@
     <string name="newdl_starting">读取游戏元数据中…</string>
     <string name="newdl_downloading_metadata">下载游戏元数据中 (%s)</string>
     <string name="newdl_downloading_game_files">下载游戏文件中… (%d/%d, %.2f MB)</string>
+    <string name="newdl_downloading_game_files_size">下载游戏文件中… (%.2f/%.2f MB, %.2f MB/s)</string>
     <string name="log_view_button_scroll_off">自动滚动: 关闭</string>
     <string name="log_view_button_scroll_on">自动滚动: 开启</string>
     <string name="log_view_button_output_off">输出: 关闭</string>

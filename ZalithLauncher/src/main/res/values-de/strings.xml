@@ -110,6 +110,7 @@
     <string name="newdl_starting">Lese Spiel-Metadaten…</string>
     <string name="newdl_downloading_metadata">Lade Spiel-Metadaten herunter (%s)</string>
     <string name="newdl_downloading_game_files">Lade Spiel-Dateien herunter… (%d/%d, %.2f MB)</string>
+    <string name="newdl_downloading_game_files_size">Spieldateien werden heruntergeladen… (%.2f/%.2f MB, %.2f MB/s)</string>
     <string name="log_view_button_scroll_off">Automatisch scrollen: Aus</string>
     <string name="log_view_button_scroll_on">Automatisch scrollen: Ein</string>
     <string name="log_view_button_output_off">Ausgabe: Aus</string>

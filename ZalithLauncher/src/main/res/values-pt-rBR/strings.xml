@@ -110,6 +110,7 @@
     <string name="newdl_starting">Lendo metadados do jogo…</string>
     <string name="newdl_downloading_metadata">Baixando metadados do jogo (%s)</string>
     <string name="newdl_downloading_game_files">Baixando arquivos do jogo… (%d/%d, %.2f MB)</string>
+    <string name="newdl_downloading_game_files_size">Baixando arquivos do jogo… (%.2f/%.2f MB, %.2f MB/s)</string>
     <string name="log_view_button_scroll_off">Rolagem automática: Desligada</string>
     <string name="log_view_button_scroll_on">Rolagem automática: Ligada</string>
     <string name="log_view_button_output_off">Saída: Desligada</string>

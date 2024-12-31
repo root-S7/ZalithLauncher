@@ -110,6 +110,7 @@
     <string name="newdl_starting">Lecture des métadonnées du jeu en cours…</string>
     <string name="newdl_downloading_metadata">Téléchargement des métadonnées du jeu en cours (%s)</string>
     <string name="newdl_downloading_game_files">Téléchargement des fichiers du jeu… (%d/%d, %.2f MB)</string>
+    <string name="newdl_downloading_game_files_size">Téléchargement des fichiers du jeu… (%.2f/%.2f Mo, %.2f Mo/s)</string>
     <string name="log_view_button_scroll_off">Défilement automatique : Désactivé</string>
     <string name="log_view_button_scroll_on">Défilement automatique : Activé</string>
     <string name="log_view_button_output_off">Sortie : Désactivé</string>

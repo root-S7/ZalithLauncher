@@ -110,6 +110,7 @@
     <string name="newdl_starting">Чтение метаданных игры…</string>
     <string name="newdl_downloading_metadata">Загрузка метаданных игры (%s)</string>
     <string name="newdl_downloading_game_files">Загрузка файлов игры… (%d/%d, %.2f MB)</string>
+    <string name="newdl_downloading_game_files_size">Загрузка игровых файлов… (%.2f/%.2f МБ, %.2f МБ/с)</string>
     <string name="log_view_button_scroll_off">Автопрокрутка: Выкл</string>
     <string name="log_view_button_scroll_on">Автопрокрутка: Вкл</string>
     <string name="log_view_button_output_off">Вывод: Выкл</string>
