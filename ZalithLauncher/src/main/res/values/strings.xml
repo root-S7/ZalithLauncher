@@ -388,7 +388,7 @@
     <string name="setting_ignore_notch_desc">Ignore the notch and extend screen content to full screen for a more complete immersive experience</string>
     <string name="setting_resolution_scaler_title">Resolution Scaling</string>
     <string name="setting_resolution_scaler_desc">Allows adjusting the game\'s resolution, with native resolution set to 100%</string>
-    <string name="setting_use_surface_view_title">Use Alternate Surface Rendering</string>
+    <string name="setting_use_surface_view_title">Use Alternative Surface Rendering</string>
     <string name="setting_use_surface_view_desc">May help improve performance on devices limited by GPU capabilities</string>
     <string name="setting_sustained_performance_title">Enable Sustained Performance Mode</string>
     <string name="setting_force_vsync_title">Force V-Sync</string>

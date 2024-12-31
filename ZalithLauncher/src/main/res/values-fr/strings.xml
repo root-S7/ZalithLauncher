@@ -382,7 +382,7 @@
     <string name="setting_ignore_notch_desc">Ignorer l\'encoche et étendre le contenu de l\'écran en plein écran pour une immersion plus complète</string>
     <string name="setting_resolution_scaler_title">Ajustement de la résolution</string>
     <string name="setting_resolution_scaler_desc">Permet d\'ajuster la résolution de l\'écran du jeu, la résolution native est de 100%</string>
-    <string name="setting_use_surface_view_title">Utiliser le rendu de surface de secours</string>
+    <string name="setting_use_surface_view_title">Utiliser le rendu de surface alternatif</string>
     <string name="setting_use_surface_view_desc">Peut aider à améliorer les performances limitées par la puissance de la GPU</string>
     <string name="setting_sustained_performance_title">Activer le mode de performance soutenue</string>
     <string name="setting_force_vsync_title">Forcer la synchronisation verticale</string>

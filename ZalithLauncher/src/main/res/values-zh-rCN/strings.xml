@@ -404,7 +404,7 @@
     <string name="setting_ignore_notch_desc">忽略刘海屏并将屏幕内容扩展至全屏，给你以更完整的沉浸感</string>
     <string name="setting_resolution_scaler_title">分辨率调整</string>
     <string name="setting_resolution_scaler_desc">允许调整游戏画面分辨率，原生分辨率为 100%</string>
-    <string name="setting_use_surface_view_title">使用备用表面渲染</string>
+    <string name="setting_use_surface_view_title">使用备用 Surface 渲染</string>
     <string name="setting_use_surface_view_desc">可能有助于提升受 GPU 机能限制的性能</string>
     <string name="setting_sustained_performance_title">启用持续性能模式</string>
     <string name="setting_force_vsync_title">强制启用垂直同步</string>

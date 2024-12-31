@@ -382,7 +382,7 @@
     <string name="setting_ignore_notch_desc">Игнорировать вырез и расширить контент на весь экран для более полного погружения</string>
     <string name="setting_resolution_scaler_title">Масштабирование разрешения</string>
     <string name="setting_resolution_scaler_desc">Позволяет изменять разрешение игрового экрана, нативным разрешением является 100%</string>
-    <string name="setting_use_surface_view_title">Использовать альтернативный поверхностный рендеринг</string>
+    <string name="setting_use_surface_view_title">Использовать альтернативное отображение Surface</string>
     <string name="setting_use_surface_view_desc">Может помочь улучшить производительность, ограниченную возможностями GPU</string>
     <string name="setting_sustained_performance_title">Включить режим постоянного уровня производительности</string>
     <string name="setting_force_vsync_title">Принудительно включить вертикальную синхронизацию</string>

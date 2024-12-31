@@ -382,7 +382,7 @@
     <string name="setting_ignore_notch_desc">Bỏ qua màn hình tai thỏ và mở rộng nội dung màn hình đến toàn màn hình\nCung cấp cho bạn trải nghiệm chìm đắm đầy đủ hơn</string>
     <string name="setting_resolution_scaler_title">Điều chỉnh độ phân giải</string>
     <string name="setting_resolution_scaler_desc">Cho phép điều chỉnh độ phân giải hình ảnh trò chơi, độ phân giải gốc là 100%</string>
-    <string name="setting_use_surface_view_title">Sử dụng bề mặt kết xuất dự phòng</string>
+    <string name="setting_use_surface_view_title">Sử dụng kết xuất Surface thay thế</string>
     <string name="setting_use_surface_view_desc">Có thể giúp cải thiện hiệu suất bị giới hạn bởi khả năng GPU</string>
     <string name="setting_sustained_performance_title">Bật chế độ hiệu suất liên tục</string>
     <string name="setting_force_vsync_title">Buộc bật đồng bộ dọc</string>
