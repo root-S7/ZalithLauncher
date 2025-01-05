@@ -261,6 +261,11 @@ public class JREUtils {
             envMap.put("MESA_LIBRARY", loadGraphicsLibrary());
         }
 
+        if (LOCAL_RENDERER.equals("vulkan_zink")) {
+            envMap.put("MESA_GL_VERSION_OVERRIDE", "4.6");
+            envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
+        }
+
         envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
 
         if (!envMap.containsKey("LIBGL_ES") && LOCAL_RENDERER != null) {
