@@ -253,8 +253,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
             .setAsRequired()
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
-                val matcher = mLocalNamePattern.matcher(string)
-                if (matcher.find()) {
+                if (string.length <= 2 || string.length > 16 || mLocalNamePattern.matcher(string).find()) {
                     TipDialog.Builder(requireContext())
                         .setTitle(R.string.generic_warning)
                         .setMessage(R.string.account_local_account_invalid)
