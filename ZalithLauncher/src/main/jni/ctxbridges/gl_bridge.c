@@ -55,24 +55,6 @@ static void gl4esi_get_display_dimensions(int* width, int* height) {
     *height = 0;
 }
 
-static bool already_initialized = false;
-static void gl_init_gl4es_internals() {
-    if (already_initialized) return;
-    already_initialized = true;
-
-    void* gl4es = dlopen("libgl4es_114.so", RTLD_NOLOAD);
-    if (gl4es == NULL) return;
-
-    void (*set_getmainfbsize)(void (*new_getMainFBSize)(int* width, int* height));
-    set_getmainfbsize = dlsym(gl4es, "set_getmainfbsize");
-
-    if (set_getmainfbsize == NULL)
-        printf("gl4esinternals warning: gl4es was found but internals not initialized. expect rendering issues.\n");
-    else set_getmainfbsize(gl4esi_get_display_dimensions);
-
-    dlclose(gl4es);
-}
-
 gl_render_window_t* gl_init_context(gl_render_window_t *share) {
     gl_render_window_t* bundle = malloc(sizeof(gl_render_window_t));
     memset(bundle, 0, sizeof(gl_render_window_t));
@@ -159,7 +141,6 @@ void gl_swap_surface(gl_render_window_t* bundle) {
 }
 
 void gl_make_current(gl_render_window_t* bundle) {
-    gl_init_gl4es_internals();
 
     if (bundle == NULL)
     {
@@ -232,3 +213,21 @@ void gl_swap_interval(int swapInterval) {
 
     eglSwapInterval_p(g_EglDisplay, swapInterval);
 }
+
+JNIEXPORT void JNICALL
+Java_org_lwjgl_opengl_PojavRendererInit_nativeInitGl4esInternals(JNIEnv *env, jclass clazz,
+                                                            jobject function_provider) {
+    __android_log_print(ANDROID_LOG_INFO, g_LogTag, "GL4ES internals initializing...");
+    jclass funcProviderClass = (*env)->GetObjectClass(env, function_provider);
+    jmethodID method_getFunctionAddress = (*env)->GetMethodID(env, funcProviderClass, "getFunctionAddress", "(Ljava/lang/CharSequence;)J");
+#define GETSYM(N) ((*env)->CallLongMethod(env, function_provider, method_getFunctionAddress, (*env)->NewStringUTF(env, N)));
+
+    void (*set_getmainfbsize)(void (*new_getMainFBSize)(int* width, int* height)) = (void*)GETSYM("set_getmainfbsize");
+    if(set_getmainfbsize != NULL) {
+        __android_log_print(ANDROID_LOG_INFO, g_LogTag, "GL4ES internals initialized dimension callback");
+        set_getmainfbsize(gl4esi_get_display_dimensions);
+    }
+
+#undef GETSYM
+}
+
