@@ -14,11 +14,6 @@ public class RightClickGesture extends ValidatorGesture{
         super(mHandler);
     }
 
-    @Override
-    protected int getDelayValue() {
-        return 150;
-    }
-
     public final void inputEvent() {
         if(!mGestureEnabled) return;
         if(submit()) {
@@ -32,6 +27,11 @@ public class RightClickGesture extends ValidatorGesture{
     public void setMotion(float deltaX, float deltaY) {
         mGestureEndX += deltaX;
         mGestureEndY += deltaY;
+    }
+
+    @Override
+    protected int getGestureDelay() {
+        return 150;
     }
 
     @Override

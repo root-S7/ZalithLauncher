@@ -21,16 +21,16 @@ public class LeftClickGesture extends ValidatorGesture {
         super(handler);
     }
 
-    @Override
-    protected int getDelayValue() {
-        return AllStaticSettings.timeLongPressTrigger;
-    }
-
     public final void inputEvent() {
         if(submit()) {
             mGestureStartX = mGestureEndX = CallbackBridge.mouseX;
             mGestureStartY = mGestureEndY = CallbackBridge.mouseY;
         }
+    }
+
+    @Override
+    protected int getGestureDelay() {
+        return AllStaticSettings.timeLongPressTrigger;
     }
 
     @Override
