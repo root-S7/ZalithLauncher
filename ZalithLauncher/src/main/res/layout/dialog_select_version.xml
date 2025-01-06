@@ -9,7 +9,7 @@
     android:padding="@dimen/_8sdp">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/zh_version_tab"
+        android:id="@+id/version_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_edit_box"
@@ -20,7 +20,7 @@
         app:tabMode="fixed" />
 
     <com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionListView
-        android:id="@+id/zh_version"
+        android:id="@+id/version"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_8sdp"

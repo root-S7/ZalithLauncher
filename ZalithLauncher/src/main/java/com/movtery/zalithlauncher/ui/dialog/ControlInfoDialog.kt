@@ -1,83 +1,73 @@
-package com.movtery.zalithlauncher.ui.dialog;
+package com.movtery.zalithlauncher.ui.dialog
 
-import android.content.Context;
-import android.view.Window;
-import android.widget.TextView;
+import android.content.Context
+import android.os.Bundle
+import android.view.Window
+import android.widget.TextView
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.DialogControlInfoBinding
+import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
+import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData
+import com.movtery.zalithlauncher.ui.subassembly.customcontrols.EditControlData.Companion.loadCustomControlsFromFile
+import com.movtery.zalithlauncher.ui.subassembly.customcontrols.EditControlData.Companion.saveToFile
+import com.movtery.zalithlauncher.utils.path.PathManager
+import java.io.File
 
-import androidx.annotation.NonNull;
+class ControlInfoDialog(
+    context: Context,
+    private val controlInfoData: ControlInfoData,
+    private val task: Task<*>
+) :
+    FullScreenDialog(context), DialogInitializationListener {
+    private val binding = DialogControlInfoBinding.inflate(layoutInflater)
 
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.databinding.DialogControlInfoBinding;
-import com.movtery.zalithlauncher.task.Task;
-import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
-import com.movtery.zalithlauncher.ui.subassembly.customcontrols.EditControlData;
-import com.movtery.zalithlauncher.utils.path.PathManager;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setCancelable(false)
+        setContentView(binding.root)
 
-import net.kdt.pojavlaunch.customcontrols.CustomControls;
-
-import java.io.File;
-
-public class ControlInfoDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
-    private final DialogControlInfoBinding binding = DialogControlInfoBinding.inflate(getLayoutInflater());
-    private final ControlInfoData controlInfoData;
-
-    public ControlInfoDialog(@NonNull Context context, ControlInfoData controlInfoData, Task<?> task) {
-        super(context);
-        this.controlInfoData = controlInfoData;
-
-        setCancelable(false);
-        setContentView(binding.getRoot());
-
-        init(context, task);
-        DraggableDialog.initDialog(this);
+        init(context, task)
+        DraggableDialog.initDialog(this)
     }
 
-    private void init(Context context, Task<?> task) {
-        setTextOrDefault(binding.nameText, R.string.controls_info_name, controlInfoData.name);
-        setTextOrDefault(binding.fileNameText, R.string.controls_info_file_name, controlInfoData.fileName);
-        setTextOrDefault(binding.authorText, R.string.controls_info_author, controlInfoData.author);
-        setTextOrDefault(binding.versionText, R.string.controls_info_version, controlInfoData.version);
-        setTextOrDefault(binding.descText, R.string.controls_info_desc, controlInfoData.desc);
+    private fun init(context: Context, task: Task<*>) {
+        setTextOrDefault(binding.nameText, R.string.controls_info_name, controlInfoData.name)
+        setTextOrDefault(binding.fileNameText, R.string.controls_info_file_name, controlInfoData.fileName)
+        setTextOrDefault(binding.authorText, R.string.controls_info_author, controlInfoData.author)
+        setTextOrDefault(binding.versionText, R.string.controls_info_version, controlInfoData.version)
+        setTextOrDefault(binding.descText, R.string.controls_info_desc, controlInfoData.desc)
 
-        binding.closeButton.setOnClickListener(v -> this.dismiss());
-        binding.editButton.setOnClickListener(v -> {
-            EditControlInfoDialog editControlInfoDialog = new EditControlInfoDialog(context, false, controlInfoData.fileName, controlInfoData);
-            editControlInfoDialog.setTitle(context.getString(R.string.generic_edit));
-            editControlInfoDialog.setOnConfirmClickListener((fileName, controlInfoData) -> {
-                File controlFile = new File(PathManager.DIR_CTRLMAP_PATH, fileName);
+        binding.closeButton.setOnClickListener { this.dismiss() }
+        binding.editButton.setOnClickListener {
+            val editControlInfoDialog = EditControlInfoDialog(
+                context, false, controlInfoData.fileName,
+                controlInfoData
+            )
+            editControlInfoDialog.setTitle(context.getString(R.string.generic_edit))
+            editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData ->
+                val controlFile = File(PathManager.DIR_CTRLMAP_PATH, fileName)
+                loadCustomControlsFromFile(context, controlFile)?.let { customControls ->
+                    customControls.mControlInfoDataList.name = controlInfoData.name
+                    customControls.mControlInfoDataList.author = controlInfoData.author
+                    customControls.mControlInfoDataList.version = controlInfoData.version
+                    customControls.mControlInfoDataList.desc = controlInfoData.desc
 
-                CustomControls customControls = EditControlData.loadCustomControlsFromFile(context, controlFile);
-
-                if (customControls != null) {
-                    customControls.mControlInfoDataList.name = controlInfoData.name;
-                    customControls.mControlInfoDataList.author = controlInfoData.author;
-                    customControls.mControlInfoDataList.version = controlInfoData.version;
-                    customControls.mControlInfoDataList.desc = controlInfoData.desc;
-
-                    EditControlData.saveToFile(context, customControls, controlFile);
+                    saveToFile(context, customControls, controlFile)
                 }
 
-                task.execute();
-                editControlInfoDialog.dismiss();
-            });
-            editControlInfoDialog.show();
-            this.dismiss();
-        });
-    }
-
-    private void setTextOrDefault(TextView textView, int stringId, String value) {
-        String text = getContext().getString(stringId);
-        text += " ";
-        if (value != null && !value.isEmpty() && !value.equals("null")) {
-            text += value;
-        } else {
-            text += getContext().getString(R.string.generic_unknown);
+                task.execute()
+                editControlInfoDialog.dismiss()
+            }
+            editControlInfoDialog.show()
+            this.dismiss()
         }
-        textView.setText(text);
     }
 
-    @Override
-    public Window onInit() {
-        return getWindow();
+    private fun setTextOrDefault(textView: TextView, stringId: Int, value: String?) {
+        val text = "${context.getString(stringId)} ${value?.takeIf { it.isNotEmpty() && it != "null" } ?: context.getString(R.string.generic_unknown)}"
+        textView.text = text
     }
+
+    override fun onInit(): Window? = window
 }

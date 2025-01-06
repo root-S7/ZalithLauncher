@@ -115,7 +115,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                             }
 
                             true
-                        }.buildDialog()
+                        }.showDialog()
                 }
                 Classify.RESOURCE_PACK -> {
                     customPath(
@@ -160,6 +160,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
         EditTextDialog.Builder(context)
             .setTitle(R.string.download_install_custom_name)
             .setEditText("$fileName${file.nameWithoutExtension}".replace("/", "-"))
+            .setAsRequired()
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
                 if (string.contains("/")) {
@@ -180,7 +181,7 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                     ProgressLayout.setProgress(progressKey, 0, R.string.generic_waiting)
                 }
                 true
-            }.buildDialog()
+            }.showDialog()
     }
 
     abstract fun copy(): AbstractPlatformHelper

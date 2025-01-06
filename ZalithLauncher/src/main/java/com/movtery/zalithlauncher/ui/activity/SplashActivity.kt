@@ -70,7 +70,7 @@ class SplashActivity : BaseActivity() {
                 .setWarning()
                 .setConfirmClickListener { requestStoragePermissions() }
                 .setCancelClickListener { checkEnd() } //用户取消，那就跟随用户的意愿
-                .buildDialog()
+                .showDialog()
         } else {
             checkEnd()
         }

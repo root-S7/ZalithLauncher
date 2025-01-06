@@ -70,7 +70,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                     .setMessage(R.string.request_sponsorship_message)
                     .setConfirm(R.string.about_button_support_development)
                     .setConfirmClickListener { ZHTools.openLink(requireActivity(), UrlManager.URL_SUPPORT) }
-                    .buildDialog()
+                    .showDialog()
             }
 
             val aboutAdapter = AboutRecyclerAdapter(this@AboutFragment.mAboutData)

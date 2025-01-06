@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.ui.dialog
 
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.databinding.DialogSelectItemBinding
@@ -8,13 +9,10 @@ import com.movtery.zalithlauncher.databinding.DialogSelectItemBinding
 abstract class AbstractSelectDialog(context: Context) : FullScreenDialog(context) {
     protected val binding = DialogSelectItemBinding.inflate(layoutInflater)
 
-    init {
-        this.setContentView(binding.root)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         binding.closeButton.setOnClickListener { this.dismiss() }
-        setupDialog()
-    }
-
-    private fun setupDialog() {
         initDialog(binding.recyclerView)
     }
 

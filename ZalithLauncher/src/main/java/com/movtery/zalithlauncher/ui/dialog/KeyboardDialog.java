@@ -28,7 +28,6 @@ public class KeyboardDialog extends FullScreenDialog {
 
     public KeyboardDialog(@NonNull Context context) {
         super(context);
-        setContentView(binding.getRoot());
     }
 
     public KeyboardDialog(@NonNull Context context, boolean isGamepadMapper) {
@@ -44,6 +43,8 @@ public class KeyboardDialog extends FullScreenDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(binding.getRoot());
 
         Window window = getWindow();
         if (window != null) {

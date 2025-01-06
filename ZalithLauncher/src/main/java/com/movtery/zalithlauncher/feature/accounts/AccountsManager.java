@@ -83,7 +83,7 @@ public final class AccountsManager {
                             .setWarning()
                             .setConfirm(android.R.string.ok)
                             .setShowCancel(false)
-                            .buildDialog();
+                            .showDialog();
                 } else {
                     Tools.showError(activity, exception.toString(activity), exception.getCause());
                 }

@@ -148,7 +148,7 @@ class ProfilePathAdapter(
                                     mData[itemIndex].title = string
                                     refresh()
                                     true
-                                }.buildDialog()
+                                }.showDialog()
                         }
                         delete -> {
                             TipDialog.Builder(context)
@@ -162,7 +162,7 @@ class ProfilePathAdapter(
                                     }
                                     mData.removeAt(itemIndex)
                                     refresh()
-                                }.buildDialog()
+                                }.showDialog()
                         }
                         else -> {}
                     }

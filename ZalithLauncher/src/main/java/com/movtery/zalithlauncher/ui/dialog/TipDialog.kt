@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.ui.dialog
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -16,15 +17,15 @@ import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitialization
 
 class TipDialog private constructor(
     context: Context,
-    title: String?,
-    message: String?,
-    confirm: String?,
-    cancel: String?,
-    checkBoxText: String?,
-    showCheckBox: Boolean,
-    showCancel: Boolean,
-    showConfirm: Boolean,
-    centerMessage: Boolean,
+    private val title: String?,
+    private val message: String?,
+    private val confirm: String?,
+    private val cancel: String?,
+    private val checkBoxText: String?,
+    private val showCheckBox: Boolean,
+    private val showCancel: Boolean,
+    private val showConfirm: Boolean,
+    private val centerMessage: Boolean,
     private val confirmButtonCountdown: Long,
     private val warning: Boolean,
     private val textBeautifier: TextBeautifier?,
@@ -34,7 +35,9 @@ class TipDialog private constructor(
 ) : FullScreenDialog(context), DialogInitializationListener {
     private val binding = DialogTipBinding.inflate(layoutInflater)
 
-    init {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         fun TextView.addText(textString: String?) {
             this.text = textString
             textString ?: run { this.visibility = View.GONE }
@@ -79,6 +82,9 @@ class TipDialog private constructor(
 
     override fun show() {
         super.show()
+        //尝试修复一些设备上的View宽度不正确的问题，在这里进行测量
+        window?.findViewById<View>(android.R.id.content)?.measure(0, 0)
+
         if (confirmButtonCountdown > 0) {
             binding.confirmButton.apply {
                 isEnabled = false
@@ -150,18 +156,22 @@ class TipDialog private constructor(
         private var warning = false
 
         fun buildDialog(): TipDialog {
-            if (confirmButtonCountdown > 0 && cancelable) throw IllegalArgumentException("Before setting the confirm button countdown, please disable the cancelable option first.")
-
-            val tipDialog = TipDialog(
+            if (confirmButtonCountdown > 0 && cancelable)
+                throw IllegalArgumentException("Before setting the confirm button countdown, please disable the cancelable option first.")
+            return TipDialog(
                 this.context,
                 title, message, confirm, cancel, checkBox,
                 showCheckBox,
                 showCancel, showConfirm, centerMessage, confirmButtonCountdown, warning,
                 textBeautifier, cancelClickListener, confirmClickListener, dialogDismissListener
-            )
-            tipDialog.setCancelable(cancelable)
-            tipDialog.show()
-            return tipDialog
+            ).apply {
+                setCancelable(cancelable)
+                create()
+            }
+        }
+
+        fun showDialog() {
+            buildDialog().show()
         }
 
         @CheckResult

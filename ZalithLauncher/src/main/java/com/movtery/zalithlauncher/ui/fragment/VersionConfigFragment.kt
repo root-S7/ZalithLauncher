@@ -197,7 +197,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 .setMessage(R.string.pedit_unsaved_tip)
                 .setWarning()
                 .setConfirmClickListener { forceBack() }
-                .buildDialog()
+                .showDialog()
             return false
         }
         return true
@@ -234,7 +234,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
             .setConfirmClickListener {
                 mVersionIconUtils.resetIcon()
                 refreshIcon(false)
-            }.buildDialog()
+            }.showDialog()
     }
 
     private fun loadValues(context: Context) {

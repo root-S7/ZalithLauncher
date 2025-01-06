@@ -102,7 +102,7 @@ public final class ZHTools {
                     } catch (Throwable th) {
                         Logging.w(InfoCenter.LAUNCHER_NAME, "Could not enable System.exit() method!", th);
                     }
-                }).buildDialog();
+                }).showDialog();
     }
 
     /**
@@ -132,7 +132,7 @@ public final class ZHTools {
                         browserIntent = new Intent(Intent.ACTION_VIEW, uri);
                     }
                     context.startActivity(browserIntent);
-                }).buildDialog();
+                }).showDialog();
     }
 
     public static void swapFragmentWithAnim(

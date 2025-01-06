@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.ui.dialog
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -18,6 +19,7 @@ abstract class LifecycleAwareTipDialog: LifecycleEventObserver {
      * Note that any dismiss listeners added to the dialog must be wrapped
      * with wrapDismissListener().
      */
+    @SuppressLint("CheckResult")
     fun show(lifecycle: Lifecycle, builder: TipDialog.Builder) {
         this.mLifecycleEnded = false
         this.mLifecycle = lifecycle.apply {
@@ -32,7 +34,9 @@ abstract class LifecycleAwareTipDialog: LifecycleEventObserver {
             }
             addObserver(this@LifecycleAwareTipDialog)
         }
-        mDialog = builder.buildDialog()
+        mDialog = builder.buildDialog().apply {
+            show()
+        }
     }
 
     /**

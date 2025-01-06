@@ -107,7 +107,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
                         .setConfirmClickListener {
                             val absolutePath = file.absolutePath
                             AllSettings.defaultCtrl.put(absolutePath).save()
-                        }.buildDialog()
+                        }.showDialog()
                 }
             })
 
@@ -141,7 +141,7 @@ class ControlButtonFragment : FragmentWithAnim(R.layout.fragment_control_manager
             createFolderButton.setOnClickListener {
                 val editControlInfoDialog = EditControlInfoDialog(requireContext(), true, null, ControlInfoData())
                 editControlInfoDialog.setTitle(getString(R.string.controls_create_new))
-                editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData? ->
+                editControlInfoDialog.setOnConfirmClickListener { fileName: String, controlInfoData: ControlInfoData ->
                     val file = File(File(PathManager.DIR_CTRLMAP_PATH).absolutePath, "$fileName.json")
                     if (file.exists()) { //检查文件是否已经存在
                         editControlInfoDialog.fileNameEditBox.error =

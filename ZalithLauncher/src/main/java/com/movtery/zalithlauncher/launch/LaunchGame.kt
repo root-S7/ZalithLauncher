@@ -104,7 +104,7 @@ class LaunchGame {
                             .setWarning()
                             .setConfirmClickListener { launch() }
                             .setCenterMessage(false)
-                            .buildDialog()
+                            .showDialog()
                     }
 
                     setGameProgress(false)

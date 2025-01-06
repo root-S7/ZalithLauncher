@@ -261,7 +261,7 @@ object VersionsManager {
                 renameVersion(version, string)
 
                 true
-            }.buildDialog()
+            }.showDialog()
     }
 
     /**
@@ -340,7 +340,7 @@ object VersionsManager {
                     refresh()
                 }.execute()
                 true
-            }.buildDialog()
+            }.showDialog()
     }
 
     /**

@@ -107,7 +107,7 @@ class SeekBarSettingsWrapper(
 
                     seekbarView.progress = value
                     true
-                }.buildDialog()
+                }.showDialog()
         }
     }
 

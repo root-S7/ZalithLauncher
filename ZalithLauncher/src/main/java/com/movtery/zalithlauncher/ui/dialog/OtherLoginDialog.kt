@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.ui.dialog
 
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.widget.Toast
@@ -18,9 +19,12 @@ class OtherLoginDialog(
 ) : FullScreenDialog(context), View.OnClickListener, DialogInitializationListener {
     private val binding = DialogOtherLoginBinding.inflate(layoutInflater)
 
-    init {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         setContentView(binding.root)
         binding.apply {
+
             serverName.text = server.serverName
             if (server.register.isEmpty()) {
                 registryText.visibility = View.GONE

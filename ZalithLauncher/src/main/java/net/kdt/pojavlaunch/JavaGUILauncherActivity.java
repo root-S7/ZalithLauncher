@@ -357,7 +357,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 .setCenterMessage(false)
                 .setConfirmClickListener(checked -> finish())
                 .setCancelable(false)
-                .buildDialog());
+                .showDialog());
     }
 
     @Override

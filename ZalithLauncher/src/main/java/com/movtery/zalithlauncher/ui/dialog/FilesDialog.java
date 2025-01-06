@@ -1,10 +1,12 @@
 package com.movtery.zalithlauncher.ui.dialog;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.DialogOperationFileBinding;
@@ -18,30 +20,37 @@ import java.util.List;
 
 public class FilesDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
     private final DialogOperationFileBinding binding = DialogOperationFileBinding.inflate(getLayoutInflater());
-    private final File root;
-    private final List<File> selectedFiles;
+    private final FilesButton mFilesButton;
+    private final Task<?> mEndTask;
+    private final File mRoot;
+    private final List<File> mSelectedFiles;
     private String mFileSuffix;
     private OnCopyButtonClickListener mCopyClick;
     private OnMoreButtonClickListener mMoreClick;
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, Task<?> endTask, File root, List<File> selectedFiles) {
         super(context);
-        this.root = root;
-        this.selectedFiles = selectedFiles;
-
-        init(filesButton);
-        handleButtons(filesButton, endTask);
+        this.mFilesButton = filesButton;
+        this.mEndTask = endTask;
+        this.mRoot = root;
+        this.mSelectedFiles = selectedFiles;
     }
 
     public FilesDialog(@NonNull Context context, FilesButton filesButton, Task<?> endTask, File root, File file) {
         super(context);
-        this.root = root;
+        this.mFilesButton = filesButton;
+        this.mEndTask = endTask;
+        this.mRoot = root;
         List<File> singleFileList = new ArrayList<>();
         singleFileList.add(file);
-        this.selectedFiles = singleFileList;
+        this.mSelectedFiles = singleFileList;
+    }
 
-        init(filesButton);
-        handleButtons(filesButton, endTask);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(mFilesButton);
+        handleButtons(mFilesButton, mEndTask);
     }
 
     private void init(FilesButton filesButton) {
@@ -56,12 +65,13 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
                 closeDialog();
             });
         }
+
         DraggableDialog.initDialog(this);
     }
 
     private void handleButtons(FilesButton filesButton, Task<?> endTask) {
         binding.deleteView.setOnClickListener(view -> {
-            DeleteDialog deleteDialog = new DeleteDialog(getContext(), endTask, selectedFiles);
+            DeleteDialog deleteDialog = new DeleteDialog(getContext(), endTask, mSelectedFiles);
             deleteDialog.show();
             closeDialog();
         });
@@ -69,21 +79,21 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
         PasteFile pasteFile = PasteFile.getInstance();
         binding.copyView.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
-                pasteFile.setPaste(root, selectedFiles, PasteFile.PasteType.COPY); // 复制模式
+                pasteFile.setPaste(mRoot, mSelectedFiles, PasteFile.PasteType.COPY); // 复制模式
                 this.mCopyClick.onButtonClick();
             }
             closeDialog();
         });
         binding.moveView.setOnClickListener(v -> {
             if (this.mCopyClick != null) {
-                pasteFile.setPaste(root, selectedFiles, PasteFile.PasteType.MOVE); // 移动模式
+                pasteFile.setPaste(mRoot, mSelectedFiles, PasteFile.PasteType.MOVE); // 移动模式
                 this.mCopyClick.onButtonClick();
             }
             closeDialog();
         });
 
-        if (selectedFiles.size() == 1) { //单选模式
-            File file = selectedFiles.get(0);
+        if (mSelectedFiles.size() == 1) { //单选模式
+            File file = mSelectedFiles.get(0);
             binding.shareView.setOnClickListener(view -> {
                 FileTools.shareFile(getContext(), file);
                 closeDialog();
@@ -105,7 +115,7 @@ public class FilesDialog extends FullScreenDialog implements DraggableDialog.Dia
             setButtonClickable(false, binding.renameView);
         }
 
-        setDialogTexts(filesButton, selectedFiles.get(0));
+        setDialogTexts(filesButton, mSelectedFiles.get(0));
 
         setButtonClickable(filesButton.delete, binding.deleteView);
         setButtonClickable(filesButton.copy, binding.copyView);

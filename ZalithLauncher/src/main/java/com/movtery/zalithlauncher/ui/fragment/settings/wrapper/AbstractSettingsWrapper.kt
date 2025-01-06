@@ -21,7 +21,7 @@ abstract class AbstractSettingsWrapper(
             TipDialog.Builder(context)
                 .setTitle(R.string.setting_reboot_tip)
                 .setConfirmClickListener { ZHTools.killProcess() }
-                .buildDialog()
+                .showDialog()
         }
     }
 

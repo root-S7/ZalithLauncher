@@ -178,7 +178,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
 
                         fileRecyclerView.listFileAt(file)
                         true
-                    }.buildDialog()
+                    }.showDialog()
             }
 
             externalStorage.setOnClickListener {
@@ -242,7 +242,7 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                             fileRecyclerView.refreshPath()
                         }
                         true
-                    }.buildDialog()
+                    }.showDialog()
             }
             operateView.pasteButton.apply {
                 setOnClickListener {

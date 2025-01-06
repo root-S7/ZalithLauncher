@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.ui.dialog
 
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import android.view.Window
 import com.movtery.zalithlauncher.databinding.DialogProgressBinding
@@ -8,13 +9,17 @@ import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.formatFileSize
 
-class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenDialog(context),
-    DialogInitializationListener {
+class ProgressDialog(
+    context: Context,
+    private val listener: OnCancelListener
+) : FullScreenDialog(context), DialogInitializationListener {
     private val binding = DialogProgressBinding.inflate(layoutInflater)
 
-    init {
-        this.setContentView(binding.root)
-        this.setCancelable(false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(binding.root)
+        setCancelable(false)
 
         binding.progressBar.setMax(1000)
         binding.cancelButton.setOnClickListener {
@@ -26,7 +31,7 @@ class ProgressDialog(context: Context, listener: OnCancelListener) : FullScreenD
     }
 
     fun updateText(text: String?) {
-        text?.apply { binding.textView.text = this }
+        binding.textView.text = text
     }
 
     fun updateRate(processingRate: Long) {

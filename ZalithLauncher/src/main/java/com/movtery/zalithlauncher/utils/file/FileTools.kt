@@ -140,7 +140,7 @@ class FileTools {
                         endTask?.execute()
                     }
                     true
-                }).buildDialog()
+                }).showDialog()
         }
 
         @JvmStatic
@@ -176,7 +176,7 @@ class FileTools {
                         endTask?.execute()
                     }
                     true
-                }).buildDialog()
+                }).showDialog()
         }
 
         @JvmStatic

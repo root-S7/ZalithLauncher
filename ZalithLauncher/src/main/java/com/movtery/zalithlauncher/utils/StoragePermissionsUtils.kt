@@ -96,7 +96,7 @@ class StoragePermissionsUtils {
                 .setMessage(InfoCenter.replaceName(context, R.string.permissions_manage_external_storage))
                 .setConfirmClickListener { requestPermissions.onRequest() }
                 .setCancelable(false)
-                .buildDialog()
+                .showDialog()
         }
     }
 

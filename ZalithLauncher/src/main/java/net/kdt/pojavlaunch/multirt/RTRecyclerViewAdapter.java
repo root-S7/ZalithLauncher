@@ -194,7 +194,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             .setMessage(R.string.multirt_config_removeerror_last)
                             .setWarning()
                             .setShowCancel(false)
-                            .buildDialog();
+                            .showDialog();
                     return;
                 }
 

@@ -1,202 +1,247 @@
-package com.movtery.zalithlauncher.ui.dialog;
+package com.movtery.zalithlauncher.ui.dialog
 
-import android.content.Context;
-import android.text.Editable;
-import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
+import android.content.Context
+import android.os.Bundle
+import android.view.View
+import android.view.Window
+import android.widget.EditText
+import androidx.annotation.CheckResult
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.DialogEditTextBinding
+import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt.Companion.isEmptyOrBlank
 
-import androidx.annotation.CheckResult;
-import androidx.annotation.NonNull;
+class EditTextDialog private constructor(
+    private val context: Context,
+    private val title: String?,
+    private val message: String?,
+    private val editText: String?,
+    private val hintText: String?,
+    private val checkBox: String?,
+    private val confirm: String?,
+    private val emptyError: String?,
+    private val showCheckBox: Boolean,
+    private val inputType: Int,
+    private val cancelListener: View.OnClickListener?,
+    private val confirmListener: ConfirmListener?,
+    private val required: Boolean
+) : FullScreenDialog(context),
+    DialogInitializationListener {
+    private val binding = DialogEditTextBinding.inflate(layoutInflater)
 
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.databinding.DialogEditTextBinding;
-import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-public class EditTextDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
-    private final Context context;
-    private final DialogEditTextBinding binding = DialogEditTextBinding.inflate(getLayoutInflater());
-    private final String title, message, editText, hintText, checkBox, confirm;
-    private final View.OnClickListener cancelListener;
-    private final ConfirmListener confirmListener;
-    private final boolean showCheckBox;
-    private final int inputType;
-    private final boolean required;
+        this.setCancelable(false)
+        this.setContentView(binding.root)
 
-    private EditTextDialog(@NonNull Context context, String title, String message, String editText, String hintText, String checkBox, String confirm,
-                           boolean showCheckBox, int inputType,
-                           View.OnClickListener cancelListener, ConfirmListener confirmListener,
-                           boolean required) {
-        super(context);
-
-        this.context = context;
-
-        this.setCancelable(false);
-        this.setContentView(binding.getRoot());
-
-        this.title = title;
-        this.message = message;
-        this.editText = editText;
-        this.hintText = hintText;
-        this.checkBox = checkBox;
-        this.confirm = confirm;
-
-        this.showCheckBox = showCheckBox;
-        this.inputType = inputType;
-
-        this.cancelListener = cancelListener;
-        this.confirmListener = confirmListener;
-
-        this.required = required;
-
-        init();
-        DraggableDialog.initDialog(this);
+        init()
+        DraggableDialog.initDialog(this)
     }
 
-    private void init() {
-        if (this.title != null) {
-            binding.titleView.setText(this.title);
-        }
-        if (this.message != null) {
-            binding.messageView.setText(this.message);
-            binding.messageView.setVisibility(View.VISIBLE);
-        }
+    private fun init() {
+        binding.apply {
+            title?.let { titleView.text = it }
+            message?.let {
+                messageView.text = it
+                messageView.visibility = View.VISIBLE
+            }
+            editText?.let { textEdit.setText(it) }
+            hintText?.let { textEdit.hint = it } ?: run {
+                if (required) textEdit.setHint(R.string.generic_required)
+            }
 
-        if (editText != null) binding.textEdit.setText(editText);
-        if (hintText != null) binding.textEdit.setHint(hintText);
-        else if (required) binding.textEdit.setHint(R.string.generic_required);
+            confirm?.let { confirmButton.text = it }
+            if (showCheckBox) {
+                checkBox.visibility = View.VISIBLE
+                checkBox.text = this@EditTextDialog.checkBox
+            }
+            if (inputType != -1) textEdit.inputType = inputType
 
-        if (confirm != null) binding.confirmButton.setText(confirm);
-
-        if (showCheckBox) {
-            binding.checkBox.setVisibility(View.VISIBLE);
-            binding.checkBox.setText(this.checkBox);
-        }
-        if (inputType != -1) binding.textEdit.setInputType(inputType);
-
-        if (this.confirmListener != null) {
-            binding.confirmButton.setOnClickListener(v -> {
-                if (required) {
-                    Editable text = binding.textEdit.getText();
-                    boolean empty = text == null || StringUtilsKt.isEmptyOrBlank(text.toString());
-                    if (empty) {
-                        binding.textEdit.setError(context.getString(R.string.generic_error_field_empty));
-                        return;
+            confirmListener?.let {
+                confirmButton.setOnClickListener { _ ->
+                    if (required) {
+                        val text = textEdit.text.toString()
+                        if (isEmptyOrBlank(text)) {
+                            textEdit.error = emptyError ?: context.getString(R.string.generic_error_field_empty)
+                            return@setOnClickListener
+                        }
                     }
+                    val dismissDialog = it.onConfirm(textEdit, checkBox.isChecked)
+                    if (dismissDialog) dismiss()
                 }
-                boolean dismissDialog = confirmListener.onConfirm(binding.textEdit, binding.checkBox.isChecked());
-                if (dismissDialog) this.dismiss();
-            });
+            }
+
+            val cancelListener = cancelListener ?: View.OnClickListener { dismiss() }
+            cancelButton.setOnClickListener(cancelListener)
         }
-        View.OnClickListener cancelListener = this.cancelListener != null ? this.cancelListener : view -> this.dismiss();
-        binding.cancelButton.setOnClickListener(cancelListener);
     }
 
-    @Override
-    public Window onInit() {
-        return getWindow();
+    override fun onInit(): Window? = window
+
+    fun interface ConfirmListener {
+        fun onConfirm(editText: EditText, checked: Boolean): Boolean
     }
 
-    public interface ConfirmListener {
-        boolean onConfirm(EditText editText, boolean checked);
-    }
+    class Builder(private val context: Context) {
+        private var title: String? = null
+        private var message: String? = null
+        private var editText: String? = null
+        private var hintText: String? = null
+        private var checkBox: String? = null
+        private var confirm: String? = null
+        private var emptyError: String? = null
+        private var showCheckBox = false
+        private var inputType = -1
+        private var cancelListener: View.OnClickListener? = null
+        private var confirmListener: ConfirmListener? = null
+        private var required = false
 
-    public static class Builder {
-        private final Context context;
-        private String title, message, editText, hintText, checkBox, confirm;
-        private boolean showCheckBox = false;
-        private int inputType = -1;
-        private View.OnClickListener cancelListener;
-        private ConfirmListener confirmListener;
-        private boolean required = false;
-
-        public Builder(Context context) {
-            this.context = context;
+        /**
+         * 设置弹窗的标题栏文本
+         */
+        @CheckResult
+        fun setTitle(title: String): Builder {
+            this.title = title
+            return this
         }
 
+        /**
+         * 设置弹窗的标题栏文本
+         */
         @CheckResult
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
+        fun setTitle(title: Int): Builder {
+            return setTitle(context.getString(title))
         }
 
+        /**
+         * 设置弹窗的信息栏文本
+         */
         @CheckResult
-        public Builder setTitle(int title) {
-            return setTitle(context.getString(title));
+        fun setMessage(message: String): Builder {
+            this.message = message
+            return this
         }
 
+        /**
+         * 设置弹窗的信息栏文本
+         */
         @CheckResult
-        public Builder setMessage(String message) {
-            this.message = message;
-            return this;
+        fun setMessage(message: Int): Builder {
+            return setMessage(context.getString(message))
         }
 
+        /**
+         * 设置输入框的文本
+         */
         @CheckResult
-        public Builder setMessage(int message) {
-            return setMessage(context.getString(message));
+        fun setEditText(editText: String): Builder {
+            this.editText = editText
+            return this
         }
 
+        /**
+         * 设置输入框的Hint提示
+         */
         @CheckResult
-        public Builder setEditText(String editText) {
-            this.editText = editText;
-            return this;
+        fun setHintText(hintText: Int): Builder {
+            return setHintText(context.getString(hintText))
         }
 
+        /**
+         * 设置输入框的Hint提示
+         */
         @CheckResult
-        public Builder setHintText(int hintText) {
-            return setHintText(context.getString(hintText));
+        fun setHintText(hintText: String): Builder {
+            this.hintText = hintText
+            return this
         }
 
+        /**
+         * 设置确认按钮的文本
+         */
         @CheckResult
-        public Builder setHintText(String hintText) {
-            this.hintText = hintText;
-            return this;
+        fun setConfirmText(text: Int): Builder {
+            return setConfirmText(context.getString(text))
         }
 
+        /**
+         * 设置确认按钮的文本
+         */
         @CheckResult
-        public Builder setCancel(View.OnClickListener cancel) {
-            this.cancelListener = cancel;
-            return this;
+        fun setConfirmText(text: String): Builder {
+            this.confirm = text
+            return this
         }
 
+        /**
+         * 需要设置输入框为必填时，自定义其为空时报错提醒的文本
+         */
         @CheckResult
-        public Builder setConfirmText(int text) {
-            return setConfirmText(context.getString(text));
+        fun setEmptyErrorText(text: Int): Builder {
+            return setEmptyErrorText(context.getString(text))
         }
 
+        /**
+         * 需要设置输入框为必填时，自定义其为空时报错提醒的文本
+         */
         @CheckResult
-        public Builder setConfirmText(String text) {
-            this.confirm = text;
-            return this;
+        fun setEmptyErrorText(text: String): Builder {
+            this.emptyError = text
+            return this
         }
 
+        /**
+         * 设置是否启用弹窗的选择框
+         */
         @CheckResult
-        public Builder setShowCheckBox(boolean show) {
-            this.showCheckBox = show;
-            return this;
+        fun setShowCheckBox(show: Boolean): Builder {
+            this.showCheckBox = show
+            return this
         }
 
+        /**
+         * 设置选择框的文本
+         */
         @CheckResult
-        public Builder setCheckBoxText(int text) {
-            return setCheckBoxText(context.getString(text));
+        fun setCheckBoxText(text: Int): Builder {
+            return setCheckBoxText(context.getString(text))
         }
 
+        /**
+         * 设置选择框的文本
+         */
         @CheckResult
-        public Builder setCheckBoxText(String text) {
-            this.checkBox = text;
-            return this;
+        fun setCheckBoxText(text: String): Builder {
+            this.checkBox = text
+            return this
         }
 
+        /**
+         * 设置输入框的类型
+         */
         @CheckResult
-        public Builder setInputType(int inputType) {
-            this.inputType = inputType;
-            return this;
+        fun setInputType(inputType: Int): Builder {
+            this.inputType = inputType
+            return this
         }
 
+        /**
+         * 设置取消按钮的点击事件
+         */
         @CheckResult
-        public Builder setConfirmListener(ConfirmListener confirmListener) {
-            this.confirmListener = confirmListener;
-            return this;
+        fun setCancelListener(cancel: View.OnClickListener): Builder {
+            this.cancelListener = cancel
+            return this
+        }
+
+        /**
+         * 设置确认按钮的点击事件
+         */
+        @CheckResult
+        fun setConfirmListener(confirmListener: ConfirmListener): Builder {
+            this.confirmListener = confirmListener
+            return this
         }
 
         /**
@@ -204,16 +249,25 @@ public class EditTextDialog extends FullScreenDialog implements DraggableDialog.
          * 如果是，那么拦截点击事件并告知用户
          */
         @CheckResult
-        public Builder setAsRequired() {
-            this.required = true;
-            return this;
+        fun setAsRequired(): Builder {
+            this.required = true
+            return this
         }
 
-        public void buildDialog() {
-            new EditTextDialog(this.context, this.title, this.message, this.editText, this.hintText, this.checkBox, this.confirm,
-                    showCheckBox, inputType,
-                    this.cancelListener, this.confirmListener,
-                    this.required).show();
+        fun buildDialog(): EditTextDialog {
+            return EditTextDialog(
+                context,
+                title, message, editText, hintText, checkBox, confirm, emptyError,
+                showCheckBox, inputType,
+                cancelListener, confirmListener,
+                required
+            ).apply {
+                create()
+            }
+        }
+
+        fun showDialog() {
+            buildDialog().show()
         }
     }
 }

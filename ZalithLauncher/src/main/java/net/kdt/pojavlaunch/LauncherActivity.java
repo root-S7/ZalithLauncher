@@ -255,6 +255,7 @@ public class LauncherActivity extends BaseActivity {
         new EditTextDialog.Builder(this)
                 .setTitle(R.string.version_install_new)
                 .setEditText(dirGameModpackFile.getName())
+                .setAsRequired()
                 .setConfirmListener((editText, checked) -> {
                     String customName = editText.getText().toString();
 
@@ -299,7 +300,7 @@ public class LauncherActivity extends BaseActivity {
                     }).execute();
 
                     return true;
-                }).buildDialog();
+                }).showDialog();
     }
 
     @Subscribe()
@@ -580,7 +581,7 @@ public class LauncherActivity extends BaseActivity {
                 .setMessage(getString(R.string.notification_permission_dialog_text, InfoCenter.APP_NAME, InfoCenter.APP_NAME))
                 .setConfirmClickListener(checked -> askForNotificationPermission(null))
                 .setCancelClickListener(this::handleNoNotificationPermission)
-                .buildDialog();
+                .showDialog();
     }
 
     private void handleNoNotificationPermission() {

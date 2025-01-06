@@ -114,7 +114,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
                         .setCancelable(false)
                         .setConfirmClickListener { listener.onSave() }
                         .setCancelClickListener { buttonView.isChecked = false }
-                        .buildDialog()
+                        .showDialog()
                 } else {
                     listener.onSave()
                 }

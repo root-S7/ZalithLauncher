@@ -244,7 +244,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                             .setMessage(R.string.version_install_optifine_and_forge)
                             .setWarning()
                             .setConfirmClickListener { install() }
-                            .buildDialog()
+                            .showDialog()
                     } else install()
                 }
                 back -> ZHTools.onBackPressed(activity)

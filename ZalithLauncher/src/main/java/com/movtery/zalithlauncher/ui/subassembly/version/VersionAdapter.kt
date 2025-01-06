@@ -95,7 +95,7 @@ class VersionAdapter(
                         VersionsManager.refresh()
                     }
                 ).start()
-            }.buildDialog()
+            }.showDialog()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

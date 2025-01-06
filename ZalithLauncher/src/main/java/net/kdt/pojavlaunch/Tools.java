@@ -688,7 +688,7 @@ public final class Tools {
                     });
 
                     return true;
-                }).buildDialog();
+                }).showDialog();
     }
 
     /** Launch the mod installer activity. The Uri must be from our own content provider or

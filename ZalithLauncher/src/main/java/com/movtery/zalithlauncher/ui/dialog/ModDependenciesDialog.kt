@@ -15,22 +15,21 @@ import com.movtery.zalithlauncher.feature.download.item.DependenciesInfoItem
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 
 class ModDependenciesDialog(
-    parentFragment: Fragment,
-    infoItem: InfoItem,
-    mData: List<DependenciesInfoItem>,
-    install: () -> Unit
+    private val parentFragment: Fragment,
+    private val infoItem: InfoItem,
+    private val mData: List<DependenciesInfoItem>,
+    private val install: () -> Unit
 ) :
     FullScreenDialog(parentFragment.requireContext()) {
     private val binding = DialogModDependenciesBinding.inflate(layoutInflater)
 
-    init {
-        this.setCancelable(false)
-        this.setContentView(binding.root)
-        init(parentFragment, infoItem, mData.toMutableList(), install)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setCancelable(false)
+        setContentView(binding.root)
+
+        init(parentFragment, infoItem, mData.toMutableList(), install)
 
         window?.apply {
             setLayout(

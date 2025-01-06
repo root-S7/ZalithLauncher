@@ -91,7 +91,7 @@ class InstallLocalModPack {
                     .setWarning()
                     .setShowCancel(true)
                     .setShowConfirm(false)
-                    .buildDialog()
+                    .showDialog()
             }
         }
 

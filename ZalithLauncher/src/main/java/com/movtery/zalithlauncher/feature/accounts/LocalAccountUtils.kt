@@ -42,7 +42,7 @@ class LocalAccountUtils {
                 .setConfirm(confirm)
                 .setCancelClickListener { ZHTools.openLink(activity, UrlManager.URL_MINECRAFT) }
                 .setCancel(R.string.account_purchase_minecraft_account)
-                .buildDialog()
+                .showDialog()
         }
     }
 

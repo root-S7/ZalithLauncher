@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/_12sdp"
-    android:minWidth="@dimen/_480sdp">
+    android:paddingBottom="@dimen/_12sdp">
 
     <ImageButton
         android:id="@+id/editButton"
@@ -36,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
+        android:minWidth="@dimen/_480sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title">
 
@@ -48,7 +48,7 @@
                 android:id="@+id/nameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:text="Name"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
@@ -57,7 +57,7 @@
                 android:id="@+id/fileNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="File Name"
                 android:textStyle="bold"
@@ -69,7 +69,7 @@
                 android:id="@+id/authorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="Author"
                 android:textStyle="bold"
@@ -81,7 +81,7 @@
                 android:id="@+id/versionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="Version"
                 android:textStyle="bold"
@@ -93,7 +93,7 @@
                 android:id="@+id/descText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:text="Desc"
                 android:textStyle="bold"
@@ -105,8 +105,9 @@
                 android:id="@+id/closeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_12sdp"
+                android:minWidth="@dimen/_472sdp"
                 android:text="@string/generic_close" />
 
         </LinearLayout>

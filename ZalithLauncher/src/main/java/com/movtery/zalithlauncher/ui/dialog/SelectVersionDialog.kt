@@ -1,93 +1,84 @@
-package com.movtery.zalithlauncher.ui.dialog;
+package com.movtery.zalithlauncher.ui.dialog
 
-import android.content.Context;
+import android.content.Context
+import android.os.Bundle
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.DialogSelectVersionBinding
+import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedListener
+import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionType
 
-import androidx.annotation.NonNull;
+class SelectVersionDialog(context: Context) : FullScreenDialog(context) {
+    private val binding: DialogSelectVersionBinding = DialogSelectVersionBinding.inflate(layoutInflater)
+    private lateinit var releaseTab: TabLayout.Tab
+    private lateinit var snapshotTab: TabLayout.Tab
+    private lateinit var betaTab: TabLayout.Tab
+    private lateinit var alphaTab: TabLayout.Tab
+    private lateinit var returnTab: TabLayout.Tab
+    private var versionType: VersionType? = null
 
-import com.google.android.material.tabs.TabLayout;
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionListView;
-import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedListener;
-import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionType;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-public class SelectVersionDialog extends FullScreenDialog {
-    private TabLayout mTabLayout;
-    private TabLayout.Tab releaseTab, snapshotTab, betaTab, alphaTab, returnTab;
-    private VersionType versionType;
-    private VersionListView versionListView;
+        setCancelable(false)
+        setContentView(binding.root)
 
-    public SelectVersionDialog(@NonNull Context context) {
-        super(context);
-        setCancelable(false);
-        setContentView(R.layout.dialog_select_version);
-        init(context);
-    }
+        bindTab()
 
-    private void init(Context context) {
-        mTabLayout = findViewById(R.id.zh_version_tab);
-        bindTab(context);
-        versionListView = findViewById(R.id.zh_version);
+        binding.apply {
+            versionTab.addOnTabSelectedListener(object : OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    refresh(tab)
+                }
 
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                refresh(tab);
-            }
+                override fun onTabUnselected(tab: TabLayout.Tab) {
+                }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
+                override fun onTabReselected(tab: TabLayout.Tab) {
+                }
+            })
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-
-        refresh(mTabLayout.getTabAt(mTabLayout.getSelectedTabPosition()));
-    }
-
-    public void setOnVersionSelectedListener(VersionSelectedListener versionSelectedListener) {
-        this.versionListView.setVersionSelectedListener(versionSelectedListener);
-    }
-
-    private void refresh(TabLayout.Tab tab) {
-        setVersionType(tab);
-        versionListView.setVersionType(versionType);
-    }
-
-    private void setVersionType(TabLayout.Tab tab) {
-        if (tab == releaseTab) {
-            versionType = VersionType.RELEASE;
-        } else if (tab == snapshotTab) {
-            versionType = VersionType.SNAPSHOT;
-        } else if (tab == betaTab) {
-            versionType = VersionType.BETA;
-        } else if (tab == alphaTab) {
-            versionType = VersionType.ALPHA;
-        } else if (tab == returnTab) {
-            this.dismiss();
+            refresh(versionTab.getTabAt(versionTab.selectedTabPosition))
         }
     }
 
-    private void bindTab(Context context) {
-        releaseTab = mTabLayout.newTab();
-        snapshotTab = mTabLayout.newTab();
-        betaTab = mTabLayout.newTab();
-        alphaTab = mTabLayout.newTab();
-        returnTab = mTabLayout.newTab();
+    fun setOnVersionSelectedListener(versionSelectedListener: VersionSelectedListener?) {
+        binding.version.setVersionSelectedListener(versionSelectedListener)
+    }
 
-        releaseTab.setText(context.getString(R.string.generic_release));
-        snapshotTab.setText(context.getString(R.string.version_snapshot));
-        betaTab.setText(context.getString(R.string.version_beta));
-        alphaTab.setText(context.getString(R.string.version_alpha));
-        returnTab.setText(context.getString(R.string.generic_return));
+    private fun refresh(tab: TabLayout.Tab?) {
+        setVersionType(tab)
+        binding.version.setVersionType(versionType)
+    }
 
-        mTabLayout.addTab(releaseTab);
-        mTabLayout.addTab(snapshotTab);
-        mTabLayout.addTab(betaTab);
-        mTabLayout.addTab(alphaTab);
-        mTabLayout.addTab(returnTab);
+    private fun setVersionType(tab: TabLayout.Tab?) {
+        when (tab) {
+            releaseTab -> versionType = VersionType.RELEASE
+            snapshotTab -> versionType = VersionType.SNAPSHOT
+            betaTab -> versionType = VersionType.BETA
+            alphaTab -> versionType = VersionType.ALPHA
+            else -> dismiss()
+        }
+    }
 
-        mTabLayout.selectTab(releaseTab);
+    private fun bindTab() {
+        binding.versionTab.apply {
+            fun TabLayout.addNewTab(textRes: Int): TabLayout.Tab {
+                val tab = newTab().apply {
+                    setText(textRes)
+                }
+                addTab(tab)
+                return tab
+            }
+
+            releaseTab = addNewTab(R.string.generic_release)
+            snapshotTab = addNewTab(R.string.version_snapshot)
+            betaTab = addNewTab(R.string.version_beta)
+            alphaTab = addNewTab(R.string.version_alpha)
+            returnTab = addNewTab(R.string.generic_return)
+
+            selectTab(releaseTab)
+        }
     }
 }

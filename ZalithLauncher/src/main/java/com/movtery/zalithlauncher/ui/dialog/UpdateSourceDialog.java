@@ -2,10 +2,12 @@ package com.movtery.zalithlauncher.ui.dialog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.DialogUpdateSourceBinding;
@@ -19,8 +21,12 @@ public class UpdateSourceDialog extends FullScreenDialog implements DraggableDia
 
     public UpdateSourceDialog(@NonNull Context context, LauncherVersion launcherVersion) {
         super(context);
-
         this.launcherVersion = launcherVersion;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         this.setCancelable(true);
         this.setContentView(binding.getRoot());

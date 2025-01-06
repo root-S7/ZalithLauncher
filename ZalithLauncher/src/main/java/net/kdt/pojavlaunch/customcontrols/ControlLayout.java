@@ -554,7 +554,7 @@ public class ControlLayout extends FrameLayout {
 				.setTitle(R.string.customctrl_editor_exit_title)
 				.setMessage(R.string.customctrl_editor_exit_msg)
 				.setConfirmClickListener(checked -> exitListener.exitEditor())
-				.buildDialog();
+				.showDialog();
 	}
 
 	public boolean areControlVisible(){

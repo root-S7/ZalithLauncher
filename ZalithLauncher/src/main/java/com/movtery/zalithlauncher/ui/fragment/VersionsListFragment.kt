@@ -69,7 +69,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                             save(this.profilePathData)
                             refresh()
                             true
-                        }.buildDialog()
+                        }.showDialog()
                 }
             }
             EventBus.getDefault().removeStickyEvent(event)

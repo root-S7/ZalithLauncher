@@ -11,7 +11,8 @@ import androidx.annotation.NonNull;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.ui.subassembly.view.DraggableViewWrapper;
 
-public abstract class DraggableDialog {
+public final class DraggableDialog {
+    private DraggableDialog() {}
 
     public static void initDialog(DialogInitializationListener listener) {
         Window window = listener.onInit();

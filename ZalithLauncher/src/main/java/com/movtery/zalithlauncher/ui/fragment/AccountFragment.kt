@@ -143,7 +143,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                         if (accountFile.exists()) FileUtils.deleteQuietly(accountFile)
                         if (userSkinFile.exists()) FileUtils.deleteQuietly(userSkinFile)
                         reloadAccounts()
-                    }.buildDialog()
+                    }.showDialog()
             }
         })
 
@@ -242,13 +242,6 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     }
 
     private fun localLogin() {
-        fun checkEditText(text: String, editText: EditText): Boolean {
-            return if (text.isBlank() || text.isEmpty()) {
-                editText.error = getString(R.string.account_local_account_empty)
-                false
-            } else true
-        }
-
         fun startLogin(name: String) {
             EventBus.getDefault().post(LocalLoginEvent(name.trim()))
         }
@@ -256,13 +249,11 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
         EditTextDialog.Builder(requireActivity())
             .setTitle(R.string.account_login_local_name)
             .setConfirmText(R.string.generic_login)
+            .setEmptyErrorText(R.string.account_local_account_empty)
+            .setAsRequired()
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
-
-                if (!checkEditText(string, editText)) return@setConfirmListener false
-
                 val matcher = mLocalNamePattern.matcher(string)
-
                 if (matcher.find()) {
                     TipDialog.Builder(requireContext())
                         .setTitle(R.string.generic_warning)
@@ -292,11 +283,11 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                         .setConfirmClickListener { startLogin(string) }
                         .setCancelable(false)
                         .setConfirmButtonCountdown(3000L)
-                        .buildDialog()
+                        .showDialog()
                 } else startLogin(string)
 
                 true
-            }.buildDialog()
+            }.showDialog()
     }
 
     private fun otherLogin(index: Int) {
@@ -328,7 +319,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                                 requireActivity()
                             )
                         }
-                        .buildDialog()
+                        .showDialog()
                 }
             }).show()
     }
@@ -388,7 +379,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
             .setConfirmListener { editText, _ ->
                 addOtherServer(editText, type)
                 true
-            }.buildDialog()
+            }.showDialog()
     }
 
     private fun checkServerConfig() {
@@ -490,7 +481,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                             1
                         )
                     }
-                    .buildDialog()
+                    .showDialog()
 
                 else -> {}
             }

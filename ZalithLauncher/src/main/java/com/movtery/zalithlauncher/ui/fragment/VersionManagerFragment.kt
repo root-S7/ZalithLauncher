@@ -124,7 +124,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                                 }
                             ).start()
                         }
-                        .buildDialog()
+                        .showDialog()
                 }
                 else -> {}
             }

@@ -1,115 +1,103 @@
-package com.movtery.zalithlauncher.ui.dialog;
+package com.movtery.zalithlauncher.ui.dialog
 
-import android.content.Context;
-import android.view.Window;
-import android.widget.EditText;
+import android.content.Context
+import android.os.Bundle
+import android.view.Window
+import android.widget.EditText
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.DialogEditControlInfoBinding
+import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
+import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData
 
-import androidx.annotation.NonNull;
+class EditControlInfoDialog(
+    context: Context,
+    private val editFileName: Boolean,
+    private val mFileName: String?,
+    private val controlInfoData: ControlInfoData
+) :
+    FullScreenDialog(context), DialogInitializationListener {
+    private val binding = DialogEditControlInfoBinding.inflate(layoutInflater)
+    private var title: String? = null
+    private var mOnConfirmClickListener: OnConfirmClickListener? = null
 
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.databinding.DialogEditControlInfoBinding;
-import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlInfoData;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setCancelable(false)
+        setContentView(binding.root)
 
-public class EditControlInfoDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
-    private final DialogEditControlInfoBinding binding = DialogEditControlInfoBinding.inflate(getLayoutInflater());
-    private final ControlInfoData controlInfoData;
-    private final String mFileName;
-    private final boolean editFileName;
-    private String title;
-    private OnConfirmClickListener mOnConfirmClickListener;
+        binding.apply {
+            fileNameEdit.isEnabled = editFileName
+            //设置hint
+            fileNameEdit.setHint(R.string.generic_required) //必填
+            nameEdit.setHint(R.string.generic_optional) //选填
+            versionEdit.setHint(R.string.generic_optional)
+            authorEdit.setHint(R.string.generic_optional)
+            descEdit.setHint(R.string.generic_optional)
 
-    public EditControlInfoDialog(@NonNull Context context, boolean editFileName, String fileName, ControlInfoData controlInfoData) {
-        super(context);
+            cancelButton.setOnClickListener { dismiss() }
+            confirmButton.setOnClickListener { confirmClick() }
 
-        this.editFileName = editFileName;
-        this.controlInfoData = controlInfoData;
-        this.mFileName = fileName;
-
-        this.setCancelable(false);
-        this.setContentView(binding.getRoot());
-
-        initViews();
-        initButtons();
-        initData();
-        DraggableDialog.initDialog(this);
-    }
-
-    private void initViews() {
-        binding.fileNameEdit.setEnabled(editFileName);
-
-        //设置hint
-        binding.fileNameEdit.setHint(R.string.generic_required); //必填
-        binding.nameEdit.setHint(R.string.generic_optional); //选填
-        binding.versionEdit.setHint(R.string.generic_optional);
-        binding.authorEdit.setHint(R.string.generic_optional);
-        binding.descEdit.setHint(R.string.generic_optional);
-    }
-
-    private void initButtons() {
-        binding.cancelButton.setOnClickListener(v -> dismiss());
-        binding.confirmButton.setOnClickListener(v -> confirmClick());
-    }
-
-    private void confirmClick() {
-        if (binding.fileNameEdit.getText().toString().isEmpty()) {
-            binding.fileNameEdit.setError(getContext().getString(R.string.generic_error_field_empty));
-            return;
+            if (!mFileName.isNullOrEmpty() && mFileName != "null") fileNameEdit.setText(mFileName)
+            setValueIfNotNull(controlInfoData.name, nameEdit)
+            setValueIfNotNull(controlInfoData.version, versionEdit)
+            setValueIfNotNull(controlInfoData.author, authorEdit)
+            setValueIfNotNull(controlInfoData.desc, descEdit)
         }
-        updateControlInfoData();
-        if (mOnConfirmClickListener != null) {
-            mOnConfirmClickListener.OnClick(binding.fileNameEdit.getText().toString(), controlInfoData);
+        DraggableDialog.initDialog(this)
+    }
+
+    private fun confirmClick() {
+        val fileNameText = binding.fileNameEdit.text.toString()
+
+        if (fileNameText.isEmpty()) {
+            binding.fileNameEdit.error = context.getString(R.string.generic_error_field_empty)
+            return
         }
+
+        updateControlInfoData()
+        mOnConfirmClickListener?.onClick(
+            fileNameText,
+            controlInfoData
+        )
     }
 
-    private void updateControlInfoData() {
-        controlInfoData.name = getValueOrDefault(binding.nameEdit);
-        controlInfoData.version = getValueOrDefault(binding.versionEdit);
-        controlInfoData.author = getValueOrDefault(binding.authorEdit);
-        controlInfoData.desc = getValueOrDefault(binding.descEdit);
+    private fun updateControlInfoData() {
+        controlInfoData.name = getValueOrDefault(binding.nameEdit)
+        controlInfoData.version = getValueOrDefault(binding.versionEdit)
+        controlInfoData.author = getValueOrDefault(binding.authorEdit)
+        controlInfoData.desc = getValueOrDefault(binding.descEdit)
     }
 
-    private String getValueOrDefault(EditText editText) {
-        String value = editText.getText().toString();
-        return value.isEmpty() ? "null" : value;
+    private fun getValueOrDefault(editText: EditText): String {
+        val value = editText.text.toString()
+        return value.ifEmpty { "null" }
     }
 
-    private void initData() {
-        if (mFileName != null && !mFileName.isEmpty() && !mFileName.equals("null"))
-            binding.fileNameEdit.setText(mFileName);
-        setValueIfNotNull(controlInfoData.name, binding.nameEdit);
-        setValueIfNotNull(controlInfoData.version, binding.versionEdit);
-        setValueIfNotNull(controlInfoData.author, binding.authorEdit);
-        setValueIfNotNull(controlInfoData.desc, binding.descEdit);
+    private fun setValueIfNotNull(value: String?, editText: EditText) {
+        if (!value.isNullOrEmpty() && value != "null") editText.setText(value)
     }
 
-    private void setValueIfNotNull(String value, EditText editText) {
-        if (value != null && !value.isEmpty() && !value.equals("null")) editText.setText(value);
+    fun setOnConfirmClickListener(listener: OnConfirmClickListener) {
+        this.mOnConfirmClickListener = listener
     }
 
-    public void setOnConfirmClickListener(OnConfirmClickListener listener) {
-        this.mOnConfirmClickListener = listener;
+    val fileNameEditBox: EditText
+        get() = binding.fileNameEdit
+
+    fun setTitle(title: String?) {
+        this.title = title
     }
 
-    public EditText getFileNameEditBox() {
-        return binding.fileNameEdit;
+    override fun show() {
+        title?.takeIf { it.isNotEmpty() }?.let { binding.title.text = it }
+        super.show()
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    override fun onInit(): Window? {
+        return window
     }
 
-    @Override
-    public void show() {
-        if (title != null && !title.isEmpty()) binding.title.setText(title);
-        super.show();
-    }
-
-    @Override
-    public Window onInit() {
-        return getWindow();
-    }
-
-    public interface OnConfirmClickListener {
-        void OnClick(String fileName, ControlInfoData controlInfoData);
+    fun interface OnConfirmClickListener {
+        fun onClick(fileName: String, controlInfoData: ControlInfoData)
     }
 }
