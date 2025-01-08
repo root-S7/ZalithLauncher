@@ -180,6 +180,7 @@
     <string name="controls_info_default_desc">هذا هو ملف تخطيط التحكم الافتراضي، اضغط للتعامل مع تخطيط التحكم هذا.</string>
     <string name="controls_set_default_message">هل أنت متأكد أنك تريد تعيين تخطيط التحكم هذا كتخطيط التحكم الافتراضي؟</string>
     <string name="controls_nothing">لا يوجد هنا أي تخطيطات تحكم، سيتم إنشاء تخطيط تحكم افتراضي جديد عند إعادة تشغيل التطبيق</string>
+    <string name="controls_tip_set_default">اضغط مطولاً على تخطيط التحكم لتعيينه كتخطيط التحكم الافتراضي!</string>
     <string name="replacement_customcontrol">استبدال تخطيط التحكم</string>
     <string name="custom_control_title">إدارة تخطيطات التحكم</string>
     <string name="controller_button_start">بدء</string>

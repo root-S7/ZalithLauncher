@@ -180,6 +180,7 @@
     <string name="controls_info_default_desc">Đây là tệp bố cục điều khiển mặc định, nhấn để thao tác bố cục điều khiển này.</string>
     <string name="controls_set_default_message">Bạn có chắc chắn muốn đặt bố cục điều khiển này làm bố cục điều khiển mặc định không?</string>
     <string name="controls_nothing">Không có bố cục điều khiển nào ở đây, khởi động lại ứng dụng sẽ tạo một bố cục điều khiển mặc định mới</string>
+    <string name="controls_tip_set_default">Nhấn giữ bố cục điều khiển để đặt nó làm bố cục điều khiển mặc định!</string>
     <string name="replacement_customcontrol">Thay thế bố cục điều khiển</string>
     <string name="custom_control_title">Quản lý bố cục điều khiển</string>
     <string name="controller_button_start">Bắt đầu</string>

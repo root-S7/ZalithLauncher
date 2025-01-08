@@ -187,6 +187,7 @@
     <string name="controls_info_default_desc">这是默认的控制布局文件，点击可操作此控制布局。</string>
     <string name="controls_set_default_message">你确定要将此控制布局设置为默认控制布局吗？</string>
     <string name="controls_nothing">这里没有任何控制布局，重启应用将生成一份新的默认控制布局</string>
+    <string name="controls_tip_set_default">长按控制布局，可以将其设置为默认的控制布局哦！</string>
     <string name="replacement_customcontrol">更换控制布局</string>
     <string name="custom_control_title">管理控制布局</string>
 

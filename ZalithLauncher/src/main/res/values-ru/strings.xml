@@ -180,6 +180,7 @@
     <string name="controls_info_default_desc">Это файл раскладки управления по умолчанию, нажмите, чтобы управлять этой раскладкой.</string>
     <string name="controls_set_default_message">Вы уверены, что хотите установить эту раскладку управления как раскладку по умолчанию?</string>
     <string name="controls_nothing">Здесь нет раскладки управления, перезапуск приложения сгенерирует новую раскладку управления по умолчанию</string>
+    <string name="controls_tip_set_default">Нажмите и удерживайте макет управления, чтобы установить его в качестве макета управления по умолчанию!</string>
     <string name="replacement_customcontrol">Заменить раскладку управления</string>
     <string name="custom_control_title">Управление раскладками управления</string>
     <string name="controller_button_start">Старт</string>

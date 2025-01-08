@@ -180,6 +180,7 @@
     <string name="controls_info_default_desc">Ceci est le fichier de disposition de contrôles par défaut, cliquez pour manipuler cette disposition de contrôles.</string>
     <string name="controls_set_default_message">Êtes-vous sûr de vouloir définir cette disposition de contrôles comme disposition par défaut ?</string>
     <string name="controls_nothing">Il n\'y a aucune disposition de contrôles ici, redémarrer l\'application générera une nouvelle disposition de contrôles par défaut</string>
+    <string name="controls_tip_set_default">Appuyez longuement sur la disposition des commandes pour la définir comme disposition de contrôle par défaut !</string>
     <string name="replacement_customcontrol">Changer de disposition de contrôles</string>
     <string name="custom_control_title">Gérer les dispositions de contrôles</string>
     <string name="controller_button_start">Démarrer</string>

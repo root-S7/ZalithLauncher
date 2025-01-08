@@ -180,6 +180,7 @@
     <string name="controls_info_default_desc">Dies ist die Standard-Steuerungsdatei. Tippen Sie darauf, um dieses Steuerungsraster zu bearbeiten.</string>
     <string name="controls_set_default_message">Möchten Sie dieses Steuerungsraster wirklich als Standard festlegen?</string>
     <string name="controls_nothing">Hier gibt es keine Steuerungsraster. Beim Neustart der Anwendung wird ein neues Standard-Steuerungsraster generiert.</string>
+    <string name="controls_tip_set_default">Drücken Sie lange auf das Steuerungslayout, um es als Standardsteuerungslayout festzulegen!</string>
     <string name="replacement_customcontrol">Steuerungsraster ersetzen</string>
     <string name="custom_control_title">Steuerungsraster verwalten</string>
     <string name="controller_button_start">Start</string>

@@ -180,6 +180,7 @@
     <string name="controls_info_default_desc">這是默認的控制佈局文件，點擊可操作此控制佈局。</string>
     <string name="controls_set_default_message">你確定要將此控制佈局設置為默認控制佈局嗎？</string>
     <string name="controls_nothing">這裡沒有任何控制佈局，重啟應用將生成一份新的默認控制佈局</string>
+    <string name="controls_tip_set_default">長按控制佈局，可以將其設置為預設的控制佈局喔！</string>
     <string name="replacement_customcontrol">更換控制佈局</string>
     <string name="custom_control_title">管理控制佈局</string>
     <string name="controller_button_start">開始</string>

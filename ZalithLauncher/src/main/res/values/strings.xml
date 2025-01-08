@@ -181,6 +181,7 @@
     <string name="controls_info_default_desc">This is the default control layout file. Click to manipulate this layout.</string>
     <string name="controls_set_default_message">Are you sure you want to set this control layout as the default?</string>
     <string name="controls_nothing">There are no control layouts here. Restarting the app will generate a new default layout.</string>
+    <string name="controls_tip_set_default">Long press the control layout to set it as the default control layout!</string>
     <string name="replacement_customcontrol">Replace Control Layout</string>
     <string name="custom_control_title">Manage Control Layouts</string>
     <string name="controller_button_a" translatable="false">A</string>

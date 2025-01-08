@@ -180,6 +180,7 @@
     <string name="controls_info_default_desc">Este é o arquivo de layout de controle padrão, clique para manipular este layout de controle.</string>
     <string name="controls_set_default_message">Tem certeza de que deseja definir este layout de controle como o padrão?</string>
     <string name="controls_nothing">Não há nenhum layout de controle aqui, reiniciar o aplicativo gerará um novo layout de controle padrão</string>
+    <string name="controls_tip_set_default">Pressione e segure o layout de controle para defini-lo como o layout de controle padrão!</string>
     <string name="replacement_customcontrol">Substituir Layout de Controle</string>
     <string name="custom_control_title">Gerenciar Layouts de Controle</string>
     <string name="controller_button_start">Iniciar</string>
