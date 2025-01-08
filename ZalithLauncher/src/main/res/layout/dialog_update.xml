@@ -4,7 +4,7 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="@dimen/_480sdp"
+    android:minWidth="@dimen/dialog_min_width"
     android:orientation="vertical"
     android:padding="@dimen/_12sdp">
 

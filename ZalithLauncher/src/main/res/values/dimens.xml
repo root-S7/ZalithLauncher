@@ -10,7 +10,6 @@
     <!-- Input text padding -->
     <dimen name="padding_input_bottom">@dimen/padding_heavy</dimen>
     <dimen name="padding_input_top">@dimen/_11sdp</dimen>
-    <!-- Fragment padding -->
-    <!-- Misc paddings -->
-    <dimen name="profile_editor_image_padding">@dimen/padding_small</dimen>
+    <!--  Dialog min width  -->
+    <dimen name="dialog_min_width">@dimen/_480sdp</dimen>
 </resources>

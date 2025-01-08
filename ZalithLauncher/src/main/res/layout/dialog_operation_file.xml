@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingBottom="@dimen/_8sdp"
     android:baselineAligned="true"
-    android:minWidth="@dimen/_480sdp"
+    android:minWidth="@dimen/dialog_min_width"
     tools:ignore="ContentDescription">
 
     <ImageView

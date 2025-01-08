@@ -29,14 +29,14 @@ class SearchViewWrapper(private val fragment: Fragment) {
         setEnableEdgeAdsorption(false)
         addViewLifecycle(object : IFxViewLifecycle {
             override fun initView(holder: FxViewHolder) {
-                mSearchEditText = holder.getView(R.id.zh_search_edit_text)
-                val caseSensitive = holder.getView<CheckBox>(R.id.zh_search_case_sensitive)
-                val searchCountText = holder.getView<TextView>(R.id.zh_search_text)
+                mSearchEditText = holder.getView(R.id.edit_text)
+                val caseSensitive = holder.getView<CheckBox>(R.id.case_sensitive)
+                val searchCountText = holder.getView<TextView>(R.id.text)
 
-                holder.getView<ImageButton>(R.id.zh_search_search_button).setOnClickListener {
+                holder.getView<ImageButton>(R.id.search_button).setOnClickListener {
                     search(searchCountText, caseSensitive.isChecked)
                 }
-                holder.getView<CheckBox>(R.id.zh_search_show_search_results_only).setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+                holder.getView<CheckBox>(R.id.show_search_results_only).setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
                     showSearchResultsListener?.apply { onSearch(isChecked) }
                     if (mSearchEditText.getText().toString().isNotEmpty()) search(searchCountText, caseSensitive.isChecked)
                 }
