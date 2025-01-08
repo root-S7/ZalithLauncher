@@ -319,11 +319,11 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Subscribe()
-    public void event(AddFragmentEvent event) {
+    public synchronized void event(AddFragmentEvent event) {
         Fragment currentFragment = getCurrentFragment();
         if (currentFragment != null) {
             try {
-                AddFragmentEvent.ActivityCallBack activityCallBack = event.getActivityCallBack();
+                AddFragmentEvent.FragmentActivityCallBack activityCallBack = event.getFragmentActivityCallback();
                 if (activityCallBack != null) {
                     activityCallBack.callBack(currentFragment.requireActivity());
                 }
