@@ -1,26 +1,27 @@
 package com.movtery.zalithlauncher.ui.dialog
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.DialogModDependenciesBinding
 import com.movtery.zalithlauncher.feature.download.ModDependenciesAdapter
 import com.movtery.zalithlauncher.feature.download.item.DependenciesInfoItem
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
+import com.movtery.zalithlauncher.feature.log.Logging
 
 class ModDependenciesDialog(
-    private val parentFragment: Fragment,
+    context: Context,
     private val infoItem: InfoItem,
-    private val mData: List<DependenciesInfoItem>,
+    private val dependenciesData: List<DependenciesInfoItem>,
     private val install: () -> Unit
 ) :
-    FullScreenDialog(parentFragment.requireContext()) {
+    FullScreenDialog(context) {
     private val binding = DialogModDependenciesBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +29,6 @@ class ModDependenciesDialog(
 
         setCancelable(false)
         setContentView(binding.root)
-
-        init(parentFragment, infoItem, mData.toMutableList(), install)
 
         window?.apply {
             setLayout(
@@ -47,30 +46,35 @@ class ModDependenciesDialog(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        runCatching {
+            init()
+        }.getOrElse {
+            dismiss()
+            Logging.e("ModDependenciesDialog", "Initialization failed, dismiss attempted.", it)
+        }
     }
 
-    private fun init(
-        parentFragment: Fragment,
-        infoItem: InfoItem,
-        mData: MutableList<DependenciesInfoItem>,
-        install: () -> Unit
-    ) {
-        val context = parentFragment.requireContext()
+    private fun init() {
+        val data = dependenciesData.toMutableList().apply { this.sort() }
 
-        binding.titleView.text = context.getString(R.string.download_install_dependencies, infoItem.title)
-        binding.downloadButton.text = context.getString(R.string.download_install, infoItem.title)
+        binding.apply {
+            titleView.text = context.getString(R.string.download_install_dependencies, infoItem.title)
+            downloadButton.text = context.getString(R.string.download_install, infoItem.title)
 
-        mData.sort()
-        val adapter = ModDependenciesAdapter(parentFragment, infoItem, mData)
-        adapter.setOnItemCLickListener { this.dismiss() }
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards))
-        binding.recyclerView.adapter = adapter
+            recyclerView.apply {
+                layoutManager = LinearLayoutManager(context)
+                layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(context, R.anim.fade_downwards))
+                adapter = ModDependenciesAdapter(infoItem, data).apply {
+                    setOnItemCLickListener { dismiss() }
+                }
+            }
 
-        binding.closeButton.setOnClickListener { this.dismiss() }
-        binding.downloadButton.setOnClickListener {
-            install()
-            this.dismiss()
+            closeButton.setOnClickListener { dismiss() }
+            downloadButton.setOnClickListener {
+                install()
+                dismiss()
+            }
         }
     }
 }

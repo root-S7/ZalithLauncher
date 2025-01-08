@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.flexbox.FlexboxLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.ItemModDependenciesBinding;
+import com.movtery.zalithlauncher.event.value.AddFragmentEvent;
 import com.movtery.zalithlauncher.feature.download.enums.Category;
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader;
 import com.movtery.zalithlauncher.feature.download.enums.Platform;
@@ -36,6 +36,7 @@ import com.movtery.zalithlauncher.utils.ZHTools;
 
 import net.kdt.pojavlaunch.Tools;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jackhuang.hmcl.ui.versions.ModTranslations;
 
 import java.util.List;
@@ -43,13 +44,11 @@ import java.util.StringJoiner;
 import java.util.concurrent.Future;
 
 public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependenciesAdapter.InnerHolder> {
-    private final Fragment mParentFragment;
     private final InfoItem mInfoItem;
     private final List<DependenciesInfoItem> mData;
     private SetOnClickListener onClickListener;
 
-    public ModDependenciesAdapter(Fragment fragment, InfoItem item, List<DependenciesInfoItem> mData) {
-        this.mParentFragment = fragment;
+    public ModDependenciesAdapter(InfoItem item, List<DependenciesInfoItem> mData) {
         this.mInfoItem = item;
         this.mData = mData;
     }
@@ -120,16 +119,24 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             binding.bodyTextview.setText(infoItem.getDescription());
 
             binding.tagsLayout.addView(
-                    getTagTextView(context,
+                    getTagTextView(
+                            context,
                             R.string.download_info_dependencies,
                             DependencyUtils.Companion.getTextFromType(context, infoItem.getDependencyType())
-                    ));
+                    )
+            );
 
             binding.tagsLayout.addView(
-                    getTagTextView(context, R.string.download_info_downloads, NumberWithUnits.formatNumberWithUnit(
-                            infoItem.getDownloadCount(),
-                            //判断当前系统语言是否为英文
-                            ZHTools.isEnglish(mParentFragment.requireActivity()))));
+                    getTagTextView(
+                            context,
+                            R.string.download_info_downloads,
+                            NumberWithUnits.formatNumberWithUnit(
+                                    infoItem.getDownloadCount(),
+                                    //判断当前系统语言是否为英文
+                                    ZHTools.isEnglish(context)
+                            )
+                    )
+            );
 
             StringJoiner modloaderSJ = new StringJoiner(", ");
             for (ModLoader modloader : infoItem.getModloaders()) {
@@ -148,10 +155,14 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             builder.into(binding.thumbnailImageview);
 
             itemView.setOnClickListener(v -> {
-                InfoViewModel viewModel = new ViewModelProvider(mParentFragment.requireActivity()).get(InfoViewModel.class);
-                viewModel.setInfoItem(infoItem);
-                viewModel.setPlatformHelper(mInfoItem.getPlatform().getHelper());
-                ZHTools.addFragment(mParentFragment, DownloadModFragment.class, DownloadModFragment.TAG, null);
+                EventBus.getDefault().post(new AddFragmentEvent(
+                        DownloadModFragment.class, DownloadModFragment.TAG, null,
+                        fragmentActivity -> {
+                            InfoViewModel viewModel = new ViewModelProvider(fragmentActivity).get(InfoViewModel.class);
+                            viewModel.setInfoItem(infoItem);
+                            viewModel.setPlatformHelper(mInfoItem.getPlatform().getHelper());
+                        }
+                ));
 
                 if (onClickListener != null) onClickListener.onItemClick();
             });

@@ -35,6 +35,7 @@ import com.movtery.zalithlauncher.event.single.PageOpacityChangeEvent;
 import com.movtery.zalithlauncher.event.single.SwapToLoginEvent;
 import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent;
 import com.movtery.zalithlauncher.event.sticky.MinecraftVersionValueEvent;
+import com.movtery.zalithlauncher.event.value.AddFragmentEvent;
 import com.movtery.zalithlauncher.event.value.DownloadProgressKeyEvent;
 import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent;
 import com.movtery.zalithlauncher.event.value.InstallGameEvent;
@@ -314,6 +315,27 @@ public class LauncherActivity extends BaseActivity {
             binding.progressLayout.observe(event.getProgressKey());
         } else {
             binding.progressLayout.unObserve(event.getProgressKey());
+        }
+    }
+
+    @Subscribe()
+    public void event(AddFragmentEvent event) {
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment != null) {
+            try {
+                AddFragmentEvent.ActivityCallBack activityCallBack = event.getActivityCallBack();
+                if (activityCallBack != null) {
+                    activityCallBack.callBack(currentFragment.requireActivity());
+                }
+                ZHTools.addFragment(
+                        currentFragment,
+                        event.getFragmentClass(),
+                        event.getFragmentTag(),
+                        event.getBundle()
+                );
+            } catch (Exception e) {
+                Logging.e("LauncherActivity", "Failed attempt to jump to a new Fragment!", e);
+            }
         }
     }
 

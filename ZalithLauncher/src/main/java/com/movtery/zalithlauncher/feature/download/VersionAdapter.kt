@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayout
 import com.movtery.anim.animations.Animations
@@ -30,7 +29,6 @@ import java.util.StringJoiner
 import java.util.TimeZone
 
 class VersionAdapter(
-    private val parentFragment: Fragment,
     private val infoItem: InfoItem,
     private val platformHelper: AbstractPlatformHelper,
     private val mData: List<VersionItem>?
@@ -85,7 +83,7 @@ class VersionAdapter(
 
             itemView.setOnClickListener {
                 if (versionItem is ModVersionItem && versionItem.dependencies.isNotEmpty()) {
-                    ModDependenciesDialog(parentFragment, infoItem, versionItem.dependencies) {
+                    ModDependenciesDialog(mContext, infoItem, versionItem.dependencies) {
                         startInstall(versionItem)
                     }.show()
                 } else {

@@ -197,7 +197,7 @@ class DownloadModFragment : ModListFragment() {
                         entry.key.first,
                         entry.key.second,
                         isAdapt,
-                        VersionAdapter(this, mInfoItem, platformHelper, entry.value)
+                        VersionAdapter(mInfoItem, platformHelper, entry.value)
                     )
                 )
             }
