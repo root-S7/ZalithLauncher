@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/_12sdp">
+    android:paddingBottom="@dimen/_12sdp"
+    android:minWidth="@dimen/_480sdp">
 
     <ImageButton
         android:id="@+id/editButton"
@@ -35,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
-        android:minWidth="@dimen/_480sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title">
 

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:paddingHorizontal="@dimen/_12sdp"
-    android:minWidth="@dimen/_450sdp">
+    android:minWidth="@dimen/_480sdp">
 
     <ProgressBar
         android:id="@+id/progressView"
