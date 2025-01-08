@@ -16,7 +16,6 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileDeletionHandler
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import net.kdt.pojavlaunch.Tools
 import java.io.File
 
@@ -44,6 +43,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
             resourcePath.setOnClickListener(fragment)
             worldPath.setOnClickListener(fragment)
             shaderPath.setOnClickListener(fragment)
+            screenshotPath.setOnClickListener(fragment)
             logsPath.setOnClickListener(fragment)
             crashReportPath.setOnClickListener(fragment)
             versionEdit.setOnClickListener(fragment)
@@ -58,17 +58,17 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
         VersionsManager.refresh()
     }
 
-    private fun swapFilesFragment(lockPath: File, listPath: File) {
-        if (!lockPath.exists()) {
-            mkdirs(lockPath)
+    private fun File.mustExists(): File {
+        if (!exists()) {
+            mkdirs()
         }
-        if (!listPath.exists()) {
-            mkdirs(listPath)
-        }
+        return this
+    }
 
+    private fun swapFilesFragment(lockPath: File, listPath: File) {
         val bundle = Bundle()
-        bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, lockPath.absolutePath)
-        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, listPath.absolutePath)
+        bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, lockPath.mustExists().absolutePath)
+        bundle.putString(FilesFragment.BUNDLE_LIST_PATH, listPath.mustExists().absolutePath)
         bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false)
 
         ZHTools.swapFragmentWithAnim(this, FilesFragment::class.java, FilesFragment.TAG, bundle)
@@ -85,19 +85,15 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
         binding.apply {
             when (v) {
                 shortcutsMods -> {
-                    val modsPath = File(gameDirPath, "/mods")
-                    if (!modsPath.exists()) {
-                        mkdirs(modsPath)
-                    }
-
                     val bundle = Bundle()
-                    bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, modsPath.absolutePath)
+                    bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, File(gameDirPath, "/mods").mustExists().absolutePath)
                     ZHTools.swapFragmentWithAnim(this@VersionManagerFragment, ModsFragment::class.java, ModsFragment.TAG, bundle)
                 }
                 gamePath -> swapFilesFragment(gameDirPath, gameDirPath)
                 resourcePath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/resourcepacks"))
                 worldPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/saves"))
                 shaderPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/shaderpacks"))
+                screenshotPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/screenshots"))
                 logsPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/logs"))
                 crashReportPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/crash-reports"))
 

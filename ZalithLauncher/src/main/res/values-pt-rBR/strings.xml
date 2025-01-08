@@ -218,10 +218,11 @@
     <string name="version_manager_shortcuts_mods">Gerenciamento de Mods</string>
     <string name="version_manager_shortcuts_version_path">Pasta do caminho do jogo</string>
     <string name="version_manager_shortcuts_resource_path">Pasta do pacote de recursos</string>
-    <string name="version_manager_shortcuts_world_path">Pasta de salvamento de mundos</string>
-    <string name="version_manager_shortcuts_shader_path">Pasta do pacote de shaders</string>
+    <string name="version_manager_shortcuts_world_path">Pasta de salvamento do jogo</string>
+    <string name="version_manager_shortcuts_shader_path">Pasta do pacote de sombreadores</string>
+    <string name="version_manager_shortcuts_screenshot_path">Pasta de capturas de tela</string>
     <string name="version_manager_shortcuts_logs_path">Pasta de logs</string>
-    <string name="version_manager_shortcuts_crash_report_path">Pasta de relatórios de falha</string>
+    <string name="version_manager_shortcuts_crash_report_path">Pasta de relatórios de falhas</string>
     <string name="version_manager_edit">Editar versão</string>
     <string name="version_manager_rename">Renomear versão</string>
     <string name="version_manager_copy">Copiar versão</string>

@@ -220,6 +220,7 @@
     <string name="version_manager_shortcuts_resource_path">Ressourcenpaket-Ordner</string>
     <string name="version_manager_shortcuts_world_path">Welten-Speicherordner</string>
     <string name="version_manager_shortcuts_shader_path">Shader-Paket-Ordner</string>
+    <string name="version_manager_shortcuts_screenshot_path">Screenshot-Ordner</string>
     <string name="version_manager_shortcuts_logs_path">Protokolldatei-Ordner</string>
     <string name="version_manager_shortcuts_crash_report_path">Absturzbericht-Ordner</string>
     <string name="version_manager_edit">Version bearbeiten</string>

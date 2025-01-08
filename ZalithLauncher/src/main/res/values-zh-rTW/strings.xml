@@ -220,6 +220,7 @@
     <string name="version_manager_shortcuts_resource_path">資源包資料夾</string>
     <string name="version_manager_shortcuts_world_path">遊戲存檔資料夾</string>
     <string name="version_manager_shortcuts_shader_path">光影包資料夾</string>
+    <string name="version_manager_shortcuts_screenshot_path">螢幕截圖資料夾</string>
     <string name="version_manager_shortcuts_logs_path">日誌資料夾</string>
     <string name="version_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
     <string name="version_manager_edit">編輯版本</string>

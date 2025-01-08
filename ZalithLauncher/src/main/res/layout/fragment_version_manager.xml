@@ -23,7 +23,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:id="@+id/title_textview"
@@ -31,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:text="@string/version_manager_shortcuts"
 
                 android:textColor="@color/primary_text"
@@ -152,6 +152,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/world_path" />
 
             <ImageView
+                android:id="@+id/screenshot_icon"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:scaleType="fitCenter"
+                android:scaleX="0.95"
+                android:scaleY="0.95"
+                app:layout_constraintBottom_toBottomOf="@+id/screenshot_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/screenshot_path"
+                app:srcCompat="@drawable/ic_screenshot" />
+
+            <com.movtery.zalithlauncher.ui.view.AnimButton
+                android:id="@+id/screenshot_path"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_heavy"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@string/version_manager_shortcuts_screenshot_path"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/screenshot_icon"
+                app:layout_constraintTop_toBottomOf="@+id/shader_path" />
+
+            <ImageView
                 android:id="@+id/logs_icon"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
@@ -171,7 +195,7 @@
                 android:text="@string/version_manager_shortcuts_logs_path"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/logs_icon"
-                app:layout_constraintTop_toBottomOf="@+id/shader_path" />
+                app:layout_constraintTop_toBottomOf="@+id/screenshot_path" />
 
             <ImageView
                 android:id="@+id/crash_report_icon"
@@ -211,7 +235,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_12sdp">
 
             <TextView
                 android:id="@+id/title_manage_textview"
@@ -219,7 +244,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:text="@string/version_manager_title"
 
                 android:textColor="@color/primary_text"

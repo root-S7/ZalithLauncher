@@ -218,10 +218,11 @@
     <string name="version_manager_shortcuts_mods">Gestion des Mods</string>
     <string name="version_manager_shortcuts_version_path">Dossier du chemin du jeu</string>
     <string name="version_manager_shortcuts_resource_path">Dossier du pack de ressources</string>
-    <string name="version_manager_shortcuts_world_path">Dossier des sauvegardes de monde</string>
-    <string name="version_manager_shortcuts_shader_path">Dossier des packs de shaders</string>
+    <string name="version_manager_shortcuts_world_path">Dossier des sauvegardes du jeu</string>
+    <string name="version_manager_shortcuts_shader_path">Dossier du pack de shaders</string>
+    <string name="version_manager_shortcuts_screenshot_path">Dossier des captures d\'écran</string>
     <string name="version_manager_shortcuts_logs_path">Dossier des journaux</string>
-    <string name="version_manager_shortcuts_crash_report_path">Dossier des rapports de plantage</string>
+    <string name="version_manager_shortcuts_crash_report_path">Dossier des rapports de crash</string>
     <string name="version_manager_edit">Éditer la version</string>
     <string name="version_manager_rename">Renommer la version</string>
     <string name="version_manager_copy">Copier la version</string>

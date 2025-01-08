@@ -226,6 +226,7 @@
     <string name="version_manager_shortcuts_resource_path">Resource Pack Folder</string>
     <string name="version_manager_shortcuts_world_path">World Save Folder</string>
     <string name="version_manager_shortcuts_shader_path">Shader Pack Folder</string>
+    <string name="version_manager_shortcuts_screenshot_path">Screenshot Folder</string>
     <string name="version_manager_shortcuts_logs_path">Log Folder</string>
     <string name="version_manager_shortcuts_crash_report_path">Crash Report Folder</string>
     <string name="version_manager_edit">Edit Version</string>

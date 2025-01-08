@@ -216,12 +216,13 @@
     <string name="version_install_log_flood_warning">Nếu nhật ký tràn màn hình và khiến thiết bị bị lag trong quá trình cài đặt, nhấp vào đây để đóng nhật ký!</string>
     <string name="version_manager_shortcuts">Phím tắt</string>
     <string name="version_manager_shortcuts_mods">Quản lý Mod</string>
-    <string name="version_manager_shortcuts_version_path">Thư mục đường dẫn trò chơi</string>
+    <string name="version_manager_shortcuts_version_path">Thư mục đường dẫn game</string>
     <string name="version_manager_shortcuts_resource_path">Thư mục gói tài nguyên</string>
-    <string name="version_manager_shortcuts_world_path">Thư mục lưu trữ thế giới</string>
+    <string name="version_manager_shortcuts_world_path">Thư mục lưu game</string>
     <string name="version_manager_shortcuts_shader_path">Thư mục gói shader</string>
+    <string name="version_manager_shortcuts_screenshot_path">Thư mục ảnh chụp màn hình</string>
     <string name="version_manager_shortcuts_logs_path">Thư mục nhật ký</string>
-    <string name="version_manager_shortcuts_crash_report_path">Thư mục báo cáo lỗi</string>
+    <string name="version_manager_shortcuts_crash_report_path">Thư mục báo cáo sự cố</string>
     <string name="version_manager_edit">Chỉnh sửa phiên bản</string>
     <string name="version_manager_rename">Đổi tên phiên bản</string>
     <string name="version_manager_copy">Sao chép phiên bản</string>

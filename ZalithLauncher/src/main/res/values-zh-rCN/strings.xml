@@ -229,6 +229,7 @@
     <string name="version_manager_shortcuts_resource_path">资源包文件夹</string>
     <string name="version_manager_shortcuts_world_path">游戏存档文件夹</string>
     <string name="version_manager_shortcuts_shader_path">光影包文件夹</string>
+    <string name="version_manager_shortcuts_screenshot_path">屏幕截图文件夹</string>
     <string name="version_manager_shortcuts_logs_path">日志文件夹</string>
     <string name="version_manager_shortcuts_crash_report_path">崩溃报告文件夹</string>
     <string name="version_manager_edit">编辑版本</string>
