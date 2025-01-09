@@ -433,13 +433,19 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     }
 
     private fun deleteOtherServer(server: Server) {
-        checkServerConfig()
-        mOtherServerConfig?.server?.remove(server)
-        Tools.write(
-            mOtherServerConfigFile.absolutePath,
-            Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
-        )
-        refreshOtherServer()
+        TipDialog.Builder(requireActivity())
+            .setTitle(getString(R.string.account_remove_login_type_title, server.serverName))
+            .setMessage(R.string.account_remove_login_type_message)
+            .setWarning()
+            .setConfirmClickListener {
+                checkServerConfig()
+                mOtherServerConfig?.server?.remove(server)
+                Tools.write(
+                    mOtherServerConfigFile.absolutePath,
+                    Tools.GLOBAL_GSON.toJson(mOtherServerConfig, Servers::class.java)
+                )
+                refreshOtherServer()
+            }.showDialog()
     }
 
     override fun onStart() {

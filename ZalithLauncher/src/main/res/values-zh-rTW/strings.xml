@@ -271,6 +271,8 @@
     <string name="account_add">添加帳戶</string>
     <string name="account_no_saved_accounts">沒有已保存的帳戶</string>
     <string name="account_remove">此帳號將從啟動器內移除，你確定要這麼做嗎？</string>
+    <string name="account_remove_login_type_title">移除登入方式：%s</string>
+    <string name="account_remove_login_type_message">此登入方式將從啟動器中移除，但不會移除現有的帳號，您確定要這麼做嗎？</string>
     <string name="account_microsoft_account">微軟帳號</string>
     <string name="account_microsoft_xerr_unauthorized">你的微軟帳號登入資訊貌似已過期，這種情況常出現在帳號密碼被修改之後，請移除當前帳號並重新登入你的帳號，以重置你的登入資訊。</string>
     <string name="account_local_account">離線帳號</string>

@@ -284,6 +284,8 @@
     <string name="account_add">添加账户</string>
     <string name="account_no_saved_accounts">没有已保存的账户</string>
     <string name="account_remove">此账号将从启动器内移除，你确定要这么做吗？</string>
+    <string name="account_remove_login_type_title">移除登陆方式：%s</string>
+    <string name="account_remove_login_type_message">这个登陆方式将从启动器内移除，但并不会移除已有的账号，你确定要这么做吗？</string>
     <string name="account_microsoft_account">微软账号</string>
     <string name="account_microsoft_xerr_unauthorized">你的微软账号登录信息貌似已经过期，这种情况常出现在账户密码被修改之后，请移除当前帐号并重新登录你的账号，以重置的你的登录信息。</string>
     <string name="account_local_account">离线账号</string>

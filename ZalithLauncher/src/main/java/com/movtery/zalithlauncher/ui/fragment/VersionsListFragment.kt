@@ -247,6 +247,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 TipDialog.Builder(requireActivity())
                     .setTitle(R.string.version_manager_favorites_remove_category_title)
                     .setMessage(R.string.version_manager_favorites_remove_category_message)
+                    .setWarning()
                     .setConfirmClickListener {
                         FavoritesVersionUtils.removeCategory(categoryName)
                         refreshFavoritesCategory()

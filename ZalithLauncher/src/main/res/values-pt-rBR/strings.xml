@@ -271,6 +271,8 @@
     <string name="account_add">Adicionar conta</string>
     <string name="account_no_saved_accounts">Nenhuma conta salva</string>
     <string name="account_remove">Esta conta será removida do lançador. Você tem certeza de que deseja fazer isso?</string>
+    <string name="account_remove_login_type_title">Remover tipo de login: %s</string>
+    <string name="account_remove_login_type_message">Este tipo de login será removido do iniciador, mas não removerá sua conta existente. Você tem certeza que quer fazer isso?</string>
     <string name="account_microsoft_account">Conta Microsoft</string>
     <string name="account_microsoft_xerr_unauthorized">As informações de login da sua conta Microsoft parecem estar expiradas. Isso geralmente acontece quando a senha da conta foi alterada. Por favor, remova a conta atual e faça login novamente para redefinir suas informações de login.</string>
     <string name="account_local_account">Conta offline</string>

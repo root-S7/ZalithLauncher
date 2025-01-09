@@ -277,6 +277,8 @@
     <string name="account_add">Add Account</string>
     <string name="account_no_saved_accounts">No Saved Accounts</string>
     <string name="account_remove">This account will be removed from the launcher, are you sure you want to do this?</string>
+    <string name="account_remove_login_type_title">Remove Login Method: %s</string>
+    <string name="account_remove_login_type_message">This login method will be removed from the launcher, but it will not remove your existing account. Are you sure you want to do this?</string>
     <string name="account_microsoft_account">Microsoft Account</string>
     <string name="account_microsoft_xerr_unauthorized">Your Microsoft account login information seems to be expired, this often happens after the account password is changed. Please remove the current account and log in again to reset your login information.</string>
     <string name="account_local_account">Offline Account</string>

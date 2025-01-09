@@ -271,6 +271,8 @@
     <string name="account_add">Thêm tài khoản</string>
     <string name="account_no_saved_accounts">Không có tài khoản đã lưu</string>
     <string name="account_remove">Tài khoản này sẽ bị xóa khỏi trình khởi động, bạn có chắc chắn muốn làm điều này không?</string>
+    <string name="account_remove_login_type_title">Xóa phương thức đăng nhập: %s</string>
+    <string name="account_remove_login_type_message">Phương thức đăng nhập này sẽ được xóa khỏi trình khởi động, nhưng không xóa tài khoản hiện tại của bạn. Bạn có chắc chắn muốn làm như vậy không?</string>
     <string name="account_microsoft_account">Tài khoản Microsoft</string>
     <string name="account_microsoft_xerr_unauthorized">Thông tin đăng nhập tài khoản Microsoft của bạn có vẻ đã hết hạn, tình huống này thường xảy ra khi mật khẩu tài khoản bị thay đổi. Vui lòng xóa tài khoản hiện tại và đăng nhập lại để đặt lại thông tin đăng nhập của bạn.</string>
     <string name="account_local_account">Tài khoản ngoại tuyến</string>
