@@ -3,8 +3,10 @@ package com.movtery.zalithlauncher.feature.version
 import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.JsonParser
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.version.VersionsManager.getZalithVersionPath
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils.getStringNotNull
 import net.kdt.pojavlaunch.Tools
@@ -60,7 +62,7 @@ class VersionConfig(private var versionPath: File) : Parcelable {
     @Throws(Throwable::class)
     fun saveWithThrowable() {
         Logging.i("Save Version Config", "Trying to save: $this")
-        val zalithVersionPath = VersionsManager.getZalithVersionPath(versionPath)
+        val zalithVersionPath = getZalithVersionPath(versionPath)
         val configFile = File(zalithVersionPath, "VersionConfig.json")
         if (!zalithVersionPath.exists()) zalithVersionPath.mkdirs()
 
@@ -163,6 +165,49 @@ class VersionConfig(private var versionPath: File) : Parcelable {
 
         override fun newArray(size: Int): Array<VersionConfig?> {
             return arrayOfNulls(size)
+        }
+
+        @JvmStatic
+        fun parseConfig(versionPath: File): VersionConfig {
+            //兼容旧版本的版本隔离文件（识别并保存为新版本后，旧的版本隔离文件将被删除）
+            val oldConfigFile = File(getZalithVersionPath(versionPath), "ZalithVersion.cfg")
+            val configFile = File(getZalithVersionPath(versionPath), "VersionConfig.json")
+
+            return runCatching getConfig@{
+                if (oldConfigFile.exists()) {
+                    runCatching {
+                        Tools.GLOBAL_GSON.fromJson(Tools.read(oldConfigFile), VersionConfig::class.java).apply {
+                            setIsolationType(IsolationType.ENABLE)
+                            setVersionPath(versionPath)
+                            save()
+                        }
+                    }.getOrNull().let { config ->
+                        //移除旧的配置文件
+                        oldConfigFile.delete()
+                        config?.let { return@getConfig it }
+                    }
+                }
+                //读取此文件的内容，并解析为VersionConfig
+                val configString = Tools.read(configFile)
+                val config = Tools.GLOBAL_GSON.fromJson(configString, VersionConfig::class.java)
+                runCatching {
+                    JsonParser.parseString(configString).asJsonObject.apply {
+                        if (has("isolation")) {
+                            config.setIsolationType(
+                                if (get("isolation").asBoolean) IsolationType.ENABLE
+                                else IsolationType.DISABLE
+                            )
+                        }
+                    }
+                }.getOrElse { Logging.e("Refresh Versions", "Failed to parse the version isolation field of the old version.", it) }
+                config.setVersionPath(versionPath)
+                config
+            }.getOrElse { e ->
+                Logging.e("Refresh Versions", Tools.printToString(e))
+                val config = VersionConfig(versionPath)
+                config.save()
+                config
+            }
         }
 
         @JvmStatic
