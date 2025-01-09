@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.feature.mod.modloader
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
-import com.movtery.zalithlauncher.feature.version.InstallTask
+import com.movtery.zalithlauncher.feature.version.install.InstallTask
 import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper

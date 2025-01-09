@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.feature.version
+package com.movtery.zalithlauncher.feature.version.install
 
 import java.io.File
 

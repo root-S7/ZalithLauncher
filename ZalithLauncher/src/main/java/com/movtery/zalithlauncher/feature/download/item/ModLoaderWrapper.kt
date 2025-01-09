@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeDownloadTask
-import com.movtery.zalithlauncher.feature.version.InstallTask
+import com.movtery.zalithlauncher.feature.version.install.InstallTask
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import com.movtery.zalithlauncher.feature.mod.modloader.FabricLikeUtils
 import com.movtery.zalithlauncher.feature.mod.modloader.ForgeDownloadTask
-import com.movtery.zalithlauncher.feature.version.InstallArgsUtils
+import com.movtery.zalithlauncher.feature.version.install.InstallArgsUtils
 import java.io.File
 
 class ModLoaderWrapper(

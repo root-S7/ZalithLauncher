@@ -1,10 +1,12 @@
-package com.movtery.zalithlauncher.feature.version
+package com.movtery.zalithlauncher.feature.version.utils
 
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.feature.version.Version
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 import org.apache.commons.io.FileUtils
 
 /**

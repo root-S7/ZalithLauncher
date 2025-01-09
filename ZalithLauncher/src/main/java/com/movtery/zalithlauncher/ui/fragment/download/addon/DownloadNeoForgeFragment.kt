@@ -10,7 +10,7 @@ import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeDownloadTask
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgeVersions
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgedForgeVersions
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.formatGameVersion
-import com.movtery.zalithlauncher.feature.version.Addon
+import com.movtery.zalithlauncher.feature.version.install.Addon
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.fragment.InstallGameFragment.Companion.BUNDLE_MC_VERSION
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment

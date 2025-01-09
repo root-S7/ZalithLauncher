@@ -11,7 +11,7 @@ import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
 import com.movtery.zalithlauncher.feature.mod.modloader.OptiFineDownloadTask
-import com.movtery.zalithlauncher.feature.version.Addon
+import com.movtery.zalithlauncher.feature.version.install.Addon
 import com.movtery.zalithlauncher.ui.fragment.InstallGameFragment.Companion.BUNDLE_MC_VERSION
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils
 import net.kdt.pojavlaunch.modloaders.OptiFineUtils.OptiFineVersion

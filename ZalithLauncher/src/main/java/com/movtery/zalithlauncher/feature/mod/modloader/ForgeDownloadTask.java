@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.feature.version.InstallTask;
+import com.movtery.zalithlauncher.feature.version.install.InstallTask;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;

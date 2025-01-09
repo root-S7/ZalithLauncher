@@ -20,7 +20,7 @@ import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionConfig.CREATOR.getIsolationString
 import com.movtery.zalithlauncher.feature.version.VersionConfig.IsolationType
-import com.movtery.zalithlauncher.feature.version.VersionIconUtils
+import com.movtery.zalithlauncher.feature.version.utils.VersionIconUtils
 import com.movtery.zalithlauncher.feature.version.VersionsManager.getCurrentVersion
 import com.movtery.zalithlauncher.feature.version.VersionsManager.refresh
 import com.movtery.zalithlauncher.listener.SimpleTextWatcher

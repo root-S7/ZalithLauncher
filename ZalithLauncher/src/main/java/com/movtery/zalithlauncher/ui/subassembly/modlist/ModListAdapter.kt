@@ -12,7 +12,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemModDownloadBinding
 import com.movtery.zalithlauncher.feature.download.enums.DependencyType
 import com.movtery.zalithlauncher.feature.download.enums.ModLoader
-import com.movtery.zalithlauncher.feature.version.VersionIconUtils
+import com.movtery.zalithlauncher.feature.version.utils.VersionIconUtils
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 
 class ModListAdapter(

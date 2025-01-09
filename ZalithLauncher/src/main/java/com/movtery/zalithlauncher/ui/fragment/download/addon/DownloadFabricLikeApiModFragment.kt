@@ -15,7 +15,7 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.subassembly.modlist.ModListFragment
 import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
-import com.movtery.zalithlauncher.feature.version.Addon
+import com.movtery.zalithlauncher.feature.version.install.Addon
 import com.movtery.zalithlauncher.ui.fragment.InstallGameFragment.Companion.BUNDLE_MC_VERSION
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Future

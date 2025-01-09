@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.feature.version
+package com.movtery.zalithlauncher.feature.version.install
 
 enum class Addon(val addonName: String) {
     OPTIFINE("OptiFine"),

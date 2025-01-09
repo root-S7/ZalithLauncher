@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.feature.version
+package com.movtery.zalithlauncher.feature.version.install
 
 import android.content.Intent
 import com.google.gson.JsonParser

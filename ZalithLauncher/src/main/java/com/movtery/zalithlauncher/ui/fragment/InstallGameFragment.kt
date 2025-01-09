@@ -17,10 +17,10 @@ import com.movtery.zalithlauncher.databinding.FragmentInstallGameBinding
 import com.movtery.zalithlauncher.event.sticky.SelectInstallTaskEvent
 import com.movtery.zalithlauncher.event.value.InstallGameEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
-import com.movtery.zalithlauncher.feature.version.Addon
-import com.movtery.zalithlauncher.feature.version.InstallArgsUtils
-import com.movtery.zalithlauncher.feature.version.InstallTask
-import com.movtery.zalithlauncher.feature.version.InstallTaskItem
+import com.movtery.zalithlauncher.feature.version.install.Addon
+import com.movtery.zalithlauncher.feature.version.install.InstallArgsUtils
+import com.movtery.zalithlauncher.feature.version.install.InstallTask
+import com.movtery.zalithlauncher.feature.version.install.InstallTaskItem
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -276,7 +276,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                             }
                         }
                     } else {
-                        InstallTaskItem.EndTask {  _, file ->
+                        InstallTaskItem.EndTask { _, file ->
                             FileUtils.moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
                         }
                     }
@@ -303,11 +303,11 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                         }
                     }
                 }
-                Addon.FABRIC_API -> taskMap[addon] = InstallTaskItem(taskPair.first, true, taskPair.second) {  _, file ->
+                Addon.FABRIC_API -> taskMap[addon] = InstallTaskItem(taskPair.first, true, taskPair.second) { _, file ->
                     FileUtils.moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
                 }
                 Addon.QUILT -> taskMap[addon] = InstallTaskItem(taskPair.first, false, taskPair.second, null)
-                Addon.QSL -> taskMap[addon] = InstallTaskItem(taskPair.first, true, taskPair.second) {  _, file ->
+                Addon.QSL -> taskMap[addon] = InstallTaskItem(taskPair.first, true, taskPair.second) { _, file ->
                     FileUtils.moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
                 }
             }

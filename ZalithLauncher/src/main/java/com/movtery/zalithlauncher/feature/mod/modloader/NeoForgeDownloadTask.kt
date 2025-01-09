@@ -7,7 +7,7 @@ import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.downloadNeoForgedForgeVersions
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgeInstallerUrl
 import com.movtery.zalithlauncher.feature.mod.modloader.NeoForgeUtils.Companion.getNeoForgedForgeInstallerUrl
-import com.movtery.zalithlauncher.feature.version.InstallTask
+import com.movtery.zalithlauncher.feature.version.install.InstallTask
 import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Tools.DownloaderFeedback
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper

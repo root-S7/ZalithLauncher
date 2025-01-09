@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonSyntaxException
 import com.movtery.zalithlauncher.feature.log.Logging.e
-import com.movtery.zalithlauncher.feature.version.Addon
+import com.movtery.zalithlauncher.feature.version.install.Addon
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.FabricVersion
 import net.kdt.pojavlaunch.utils.DownloadUtils

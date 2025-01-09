@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.event.sticky
 
-import com.movtery.zalithlauncher.feature.version.Addon
-import com.movtery.zalithlauncher.feature.version.InstallTask
+import com.movtery.zalithlauncher.feature.version.install.Addon
+import com.movtery.zalithlauncher.feature.version.install.InstallTask
 
 /**
  * 选择安装任务后，将使用这个事件进行通知

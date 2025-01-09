@@ -1,4 +1,4 @@
-package com.movtery.zalithlauncher.feature.version
+package com.movtery.zalithlauncher.feature.version.utils
 
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import org.apache.commons.io.FileUtils
