@@ -25,7 +25,6 @@ import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import java.io.File
-import java.io.FileWriter
 
 /**
  * 所有版本管理者
@@ -70,6 +69,7 @@ object VersionsManager {
 
             try {
                 versions.clear()
+                CurrentGameInfo.refreshCurrentInfo()
 
                 val versionsHome = ProfilePathHome.versionsHome
                 File(versionsHome).listFiles()?.forEach { versionFile ->
@@ -116,32 +116,34 @@ object VersionsManager {
     fun getCurrentVersion(): Version? {
         if (versions.isEmpty()) return null
 
-        getPathConfigFile().apply {
-            fun returnVersionByFirst(): Version? {
-                versions.forEach { version ->
-                    if (version.isValid()) {
-                        //确保版本有效
-                        saveCurrentVersion(version.getVersionName())
-                        return version
-                    }
+        fun returnVersionByFirst(): Version? {
+            versions.forEach { version ->
+                if (version.isValid()) {
+                    //确保版本有效
+                    saveCurrentVersion(version.getVersionName())
+                    return version
                 }
-                //如果所有版本都无效，或者没有版本，那么久返回空
-                return null
             }
+            //如果所有版本都无效，或者没有版本，那么久返回空
+            return null
+        }
 
-            return if (exists()) {
-                runCatching {
-                    val string = Tools.read(this)
-                    getVersion(string) ?: run {
-                        return returnVersionByFirst()
-                    }
-                }.getOrElse { e ->
-                    Logging.e("Get Current Version", Tools.printToString(e))
-                    returnVersionByFirst()
-                }
-            } else returnVersionByFirst()
+        return runCatching {
+            val versionString = CurrentGameInfo.getCurrentInfo().version
+            getVersion(versionString) ?: run {
+                return returnVersionByFirst()
+            }
+        }.getOrElse { e ->
+            Logging.e("Get Current Version", Tools.printToString(e))
+            returnVersionByFirst()
         }
     }
+
+    /**
+     * 通过一个版本名称，检查当前存在的版本是否可用
+     * 该名称对应的版本不存在: false
+     */
+    fun checkVersionValidByName(name: String?): Boolean = getVersion(name)?.isValid() ?: false
 
     /**
      * @return 获取 Zalith 启动器版本标识文件夹
@@ -177,12 +179,12 @@ object VersionsManager {
      * 保存当前选择的版本
      */
     fun saveCurrentVersion(versionName: String) {
-        getPathConfigFile().apply {
-            runCatching {
-                if (!exists()) createNewFile()
-                FileWriter(this).use { it.write(versionName) }
-            }.getOrElse { e -> Logging.e("Save Current Version", Tools.printToString(e)) }
-        }
+        runCatching {
+            CurrentGameInfo.getCurrentInfo().apply {
+                version = versionName
+                saveCurrentInfo()
+            }
+        }.getOrElse { e -> Logging.e("Save Current Version", Tools.printToString(e)) }
     }
 
     /**
@@ -349,11 +351,6 @@ object VersionsManager {
             config.saveWithThrowable()
         }
     }
-
-    /**
-     * @return 获取当前路径的版本配置文件
-     */
-    private fun getPathConfigFile() = File(ProfilePathHome.gameHome, "CurrentVersion.cfg")
 
     private fun getVersion(name: String?): Version? {
         name?.let { versionName ->
