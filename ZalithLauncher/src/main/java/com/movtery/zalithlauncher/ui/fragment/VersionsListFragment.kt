@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.angcyo.tablayout.DslTabLayout
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionsListBinding
+import com.movtery.zalithlauncher.databinding.ItemFavoriteCategoryBinding
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.END
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.START
@@ -22,8 +25,12 @@ import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.C
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionsManager
+import com.movtery.zalithlauncher.feature.version.favorites.FavoritesVersionUtils
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
+import com.movtery.zalithlauncher.ui.dialog.FavoritesVersionDialog
+import com.movtery.zalithlauncher.ui.dialog.TipDialog
+import com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfilePathAdapter
 import com.movtery.zalithlauncher.ui.subassembly.version.VersionAdapter
@@ -45,6 +52,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     private val profilePathData: MutableList<ProfileItem> = ArrayList()
     private var versionsAdapter: VersionAdapter? = null
     private var profilePathAdapter: ProfilePathAdapter? = null
+    private val mFavoritesCategoryViewList: MutableList<View> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,15 +88,59 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
+            installNew.setOnClickListener {
+                ZHTools.swapFragmentWithAnim(this@VersionsListFragment, VersionSelectorFragment::class.java, VersionSelectorFragment.TAG, null)
+            }
+
+            fun refreshFavoritesCategoryTab(index: Int) {
+                when(index) {
+                    0 -> refreshVersions(true)
+                    else -> {
+                        val categoryName = FavoritesVersionUtils.getAllCategories()[index - 1]
+                        refreshVersions(false, categoryName)
+                    }
+                }
+            }
+
+            favoritesCategoryTab.observeIndexChange { _, toIndex, reselect, fromUser ->
+                if (fromUser && !reselect) {
+                    refreshFavoritesCategoryTab(toIndex)
+                }
+            }
+
+            addFavoritesCategory.setOnClickListener {
+                EditTextDialog.Builder(requireActivity())
+                    .setTitle(R.string.version_manager_favorites_write_category_name)
+                    .setAsRequired()
+                    .setConfirmListener { editText, _ ->
+                        FavoritesVersionUtils.addCategory(editText.text.toString())
+                        refreshFavoritesCategory()
+                        true
+                    }.showDialog()
+            }
+
             versionsAdapter = VersionAdapter(this@VersionsListFragment, object : VersionAdapter.OnVersionItemClickListener {
                 override fun onVersionClick(version: Version) {
                     VersionsManager.saveCurrentVersion(version.getVersionName())
                 }
 
-                override fun onCreateVersion() {
-                    ZHTools.swapFragmentWithAnim(this@VersionsListFragment, VersionSelectorFragment::class.java, VersionSelectorFragment.TAG, null)
+                override fun showFavoritesDialog(versionName: String) {
+                    if (FavoritesVersionUtils.getAllCategories().isNotEmpty()) {
+                        FavoritesVersionDialog(requireActivity(), versionName) {
+                            refreshFavoritesCategoryTab(favoritesCategoryTab.currentItemIndex)
+                        }.show()
+                    } else Toast.makeText(requireActivity(), getString(R.string.version_manager_favorites_dialog_no_categories), Toast.LENGTH_SHORT).show()
+                }
+
+                override fun isVersionFavorited(versionName: String): Boolean {
+                    //如果收藏栏选择的不是“全部”，那么当前版本一定会是被收藏的状态
+                    if (favoritesCategoryTab.currentItemIndex != 0) {
+                        return true
+                    }
+                    return FavoritesVersionUtils.getFavoritesMap().values.any { it.contains(versionName) }
                 }
             })
+
             versions.apply {
                 layoutAnimation = LayoutAnimationController(
                     AnimationUtils.loadAnimation(view.context, R.anim.fade_downwards)
@@ -154,27 +206,86 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         return false
     }
 
-    private fun refreshVersions() {
+    private fun refreshVersions(all: Boolean = true, favoritesCategory: String? = null) {
         versionsAdapter?.let {
             val versions = VersionsManager.getVersions()
-            versions.add(0, null)
-            it.refreshVersions(versions)
+
+            fun getVersions(): ArrayList<Version> {
+                if (all) return versions
+                else {
+                    val categoryName = favoritesCategory ?: ""
+                    val categoryVersions = FavoritesVersionUtils.getAllVersions(categoryName) ?: emptySet()
+                    return ArrayList<Version>().apply {
+                        versions.forEach { version ->
+                            if (categoryVersions.contains(version.getVersionName())) {
+                                add(version)
+                            }
+                        }
+                    }
+                }
+            }
+
+            it.refreshVersions(getVersions())
             binding.versions.scheduleLayoutAnimation()
+        }
+    }
+
+    private fun refreshFavoritesCategory() {
+        binding.favoritesCategoryTab.setCurrentItem(0)
+        refreshVersions()
+
+        mFavoritesCategoryViewList.forEach { view ->
+            binding.favoritesCategoryTab.removeView(view)
+        }
+        mFavoritesCategoryViewList.clear()
+
+        fun createView(categoryName: String): AnimRelativeLayout {
+            val p8 = Tools.dpToPx(8f).toInt()
+            val view = ItemFavoriteCategoryBinding.inflate(layoutInflater)
+            view.text.text = categoryName
+            view.delete.setOnClickListener {
+                TipDialog.Builder(requireActivity())
+                    .setTitle(R.string.version_manager_favorites_remove_category_title)
+                    .setMessage(R.string.version_manager_favorites_remove_category_message)
+                    .setConfirmClickListener {
+                        FavoritesVersionUtils.removeCategory(categoryName)
+                        refreshFavoritesCategory()
+                    }.showDialog()
+            }
+            view.root.layoutParams = DslTabLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            return view.root.apply {
+                setPadding(p8, 0, p8, 0)
+            }
+        }
+
+        FavoritesVersionUtils.getAllCategories().forEach { category ->
+            val view = createView(category)
+            mFavoritesCategoryViewList.add(view)
+            binding.favoritesCategoryTab.addView(view)
         }
     }
 
     @Subscribe
     fun event(event: RefreshVersionsEvent) {
-        TaskExecutors.runInUIThread {
-            when (event.mode) {
-                START -> binding.versions.isEnabled = false
-                END -> {
-                    refreshVersions()
-                    binding.versions.isEnabled = true
+        binding.apply {
+            TaskExecutors.runInUIThread {
+                when (event.mode) {
+                    START -> {
+                        versions.isEnabled = false
+                        favoritesCategoryTab.isEnabled = false
+                    }
+                    END -> {
+                        refreshFavoritesCategory()
+                        favoritesCategoryTab.isEnabled = true
+                        versions.isEnabled = true
+                    }
                 }
+                //无论刷新进度，都应该关闭所有的操作弹窗
+                closeAllPopupWindow()
             }
-            //无论刷新进度，都应该关闭所有的操作弹窗
-            closeAllPopupWindow()
         }
     }
 
@@ -205,14 +316,16 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
     override fun slideIn(animPlayer: AnimPlayer) {
         binding.apply {
-            animPlayer.apply(AnimPlayer.Entry(versionLayout, Animations.BounceInDown))
+            animPlayer.apply(AnimPlayer.Entry(versionsListLayout, Animations.BounceInUp))
+                .apply(AnimPlayer.Entry(versionTopBar, Animations.BounceInDown))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.BounceInLeft))
         }
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
         binding.apply {
-            animPlayer.apply(AnimPlayer.Entry(versionLayout, Animations.FadeOutUp))
+            animPlayer.apply(AnimPlayer.Entry(versionsListLayout, Animations.FadeOutDown))
+                .apply(AnimPlayer.Entry(versionTopBar, Animations.FadeOutUp))
                 .apply(AnimPlayer.Entry(operateLayout, Animations.FadeOutRight))
         }
     }

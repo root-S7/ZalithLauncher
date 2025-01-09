@@ -32,7 +32,7 @@ class VersionAdapter(
     private val parentFragment: Fragment,
     private val listener: OnVersionItemClickListener
 ) : RecyclerView.Adapter<VersionAdapter.ViewHolder>() {
-    private val versions: MutableList<Version?> = ArrayList()
+    private val versions: MutableList<Version> = ArrayList()
     //记录版本路径与之对应的RadioButton的Map
     private val radioButtonMap: MutableMap<String, RadioButton> = HashMap()
     private var currentVersion: String? = null
@@ -42,7 +42,7 @@ class VersionAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun refreshVersions(versions: List<Version?>) {
+    fun refreshVersions(versions: List<Version>) {
         this.versions.clear()
         this.versions.addAll(versions)
         this.radioButtonMap.apply {
@@ -117,12 +117,12 @@ class VersionAdapter(
             }
         }
 
-        fun bind(version: Version?) {
+        fun bind(version: Version) {
             binding.apply {
                 versionInfoLayout.removeAllViews()
                 versionName.isSelected = true
 
-                version?.let {
+                version.let {
                     radioButtonMap[it.getVersionPath().absolutePath] = radioButton
                     versionName.text = it.getVersionName()
 
@@ -142,6 +142,16 @@ class VersionAdapter(
                         }
                     }
 
+                    favorite.setOnClickListener { _ ->
+                        listener.showFavoritesDialog(version.getVersionName())
+                    }
+                    favorite.setImageDrawable(
+                        ContextCompat.getDrawable(mContext,
+                            if (listener.isVersionFavorited(version.getVersionName())) R.drawable.ic_favorite
+                            else R.drawable.ic_favorite_border
+                        )
+                    )
+
                     operate.setOnClickListener { _ ->
                         showPopupWindow(operate, it)
                     }
@@ -154,25 +164,9 @@ class VersionAdapter(
                     radioButton.setOnClickListener(onClickListener)
                     root.setOnClickListener(onClickListener)
 
-                    setViewsVisibility(true)
                     refreshRadioButtons(it)
                     return
                 }
-                versionIcon.setImageDrawable(ContextCompat.getDrawable(root.context, R.drawable.ic_add))
-                versionName.setText(R.string.version_install_new)
-                root.setOnClickListener { listener.onCreateVersion() }
-
-                setViewsVisibility(false)
-                refreshRadioButtons(null)
-            }
-        }
-
-        private fun setViewsVisibility(show: Boolean) {
-            val visible = if (show) View.VISIBLE else View.GONE
-            binding.apply {
-                operate.visibility = visible
-                radioButton.visibility = visible
-                radioButtonSpace.visibility = visible
             }
         }
 
@@ -244,6 +238,15 @@ class VersionAdapter(
 
     interface OnVersionItemClickListener {
         fun onVersionClick(version: Version)
-        fun onCreateVersion()
+
+        /**
+         * 用户点击了“收藏”按钮，检查并展示“收藏”弹窗
+         */
+        fun showFavoritesDialog(versionName: String)
+
+        /**
+         * 检查当前版本是否被收藏了
+         */
+        fun isVersionFavorited(versionName: String): Boolean
     }
 }

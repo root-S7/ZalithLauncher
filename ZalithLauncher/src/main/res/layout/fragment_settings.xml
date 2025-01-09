@@ -42,7 +42,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:tab_draw_indicator="true"
             app:tab_indicator_enable_flow="true"
-            app:tab_indicator_drawable="@drawable/settings_category_selected"
+            app:tab_indicator_drawable="@drawable/selector_bar_vertical"
             app:tab_indicator_x_offset="@dimen/_6sdp"
             app:tab_orientation="VERTICAL">
 

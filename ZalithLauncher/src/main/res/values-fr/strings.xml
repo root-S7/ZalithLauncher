@@ -235,6 +235,12 @@
     <string name="version_manager_invalid">Cette version est invalide</string>
     <string name="version_manager_no_installed_version">Le lanceur n\'a trouvé aucune version de Minecraft installée!</string>
     <string name="version_manager_isolation_type_follow_global">Suivre les paramètres du lanceur</string>
+    <string name="version_manager_favorites_add_category">Ajouter aux favoris</string>
+    <string name="version_manager_favorites_remove_category_title">Supprimer les favoris</string>
+    <string name="version_manager_favorites_remove_category_message">Êtes-vous sûr de vouloir supprimer ce favori ? Après la suppression, les informations du favori actuel seront effacées et cette opération ne peut pas être annulée !</string>
+    <string name="version_manager_favorites_write_category_name">Nommer le nouveau favori</string>
+    <string name="version_manager_favorites_dialog_title">Ajouter aux favoris</string>
+    <string name="version_manager_favorites_dialog_no_categories">Pas de favoris pour le moment, veuillez en ajouter un d\'abord !</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s nécessite l\'autorisation de gérer tous les fichiers de l\'appareil pour fonctionner correctement. Veuillez activer les autorisations !</string>
     <string name="permissions_write_external_storage">%s nécessite l\'autorisation de gestion du stockage. Si l\'autorisation n\'est pas activée, cela peut entraîner des problèmes tels que l\'échec de l\'enregistrement ou de la décompression des fichiers de jeu. Veuillez accorder l\'autorisation pour assurer le bon fonctionnement.</string>

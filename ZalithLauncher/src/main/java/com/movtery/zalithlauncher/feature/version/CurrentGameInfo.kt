@@ -62,7 +62,7 @@ class CurrentGameInfo {
         @SerializedName("version")
         var version: String? = null
         @SerializedName("favoritesInfo")
-        var favoritesMap: Map<String, List<String>>? = null
+        var favoritesMap: MutableMap<String, MutableSet<String>>? = null
 
         /**
          * 保存当前的游戏信息

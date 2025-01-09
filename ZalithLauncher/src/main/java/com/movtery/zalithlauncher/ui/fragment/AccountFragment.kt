@@ -365,9 +365,8 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
             mOtherServerList.forEach { server ->
                 val view = createView(server)
                 mOtherServerViewList.add(view)
+                binding.accountTypeTab.addView(view)
             }
-
-            mOtherServerViewList.forEach { view -> binding.accountTypeTab.addView(view) }
         }.execute()
     }
 
