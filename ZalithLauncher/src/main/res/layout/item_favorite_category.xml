@@ -2,26 +2,15 @@
 <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/_8sdp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingHorizontal="@dimen/_8sdp">
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:paddingHorizontal="@dimen/_8sdp"
+        android:maxLines="2"
         android:textColor="@color/black_or_white"/>
-
-    <ImageView
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/text"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_add"
-        android:rotation="45"
-        tools:ignore="ContentDescription" />
 
 </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>

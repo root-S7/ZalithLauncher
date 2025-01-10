@@ -81,7 +81,6 @@
         android:id="@+id/operate"
         android:layout_width="@dimen/_28sdp"
         android:layout_height="@dimen/_28sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:scaleType="centerCrop"
         android:scaleX="0.8"

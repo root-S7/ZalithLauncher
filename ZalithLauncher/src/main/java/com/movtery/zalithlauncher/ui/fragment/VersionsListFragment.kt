@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.angcyo.tablayout.DslTabLayout
 import com.google.gson.Gson
 import com.google.gson.JsonParser
@@ -16,6 +19,7 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionsListBinding
 import com.movtery.zalithlauncher.databinding.ItemFavoriteCategoryBinding
+import com.movtery.zalithlauncher.databinding.ViewVersionFavoritesActionBinding
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.END
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.START
@@ -53,6 +57,11 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     private var versionsAdapter: VersionAdapter? = null
     private var profilePathAdapter: ProfilePathAdapter? = null
     private val mFavoritesCategoryViewList: MutableList<View> = ArrayList()
+
+    private val mFavoritesActionPopupWindow: PopupWindow = PopupWindow().apply {
+        isFocusable = true
+        isOutsideTouchable = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -108,16 +117,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 }
             }
 
-            addFavoritesCategory.setOnClickListener {
-                EditTextDialog.Builder(requireActivity())
-                    .setTitle(R.string.version_manager_favorites_write_category_name)
-                    .setAsRequired()
-                    .setConfirmListener { editText, _ ->
-                        FavoritesVersionUtils.addCategory(editText.text.toString())
-                        refreshFavoritesCategory()
-                        true
-                    }.showDialog()
-            }
+            favoritesActions.setOnClickListener { showFavoritesActionPopupWindow(it) }
 
             versionsAdapter = VersionAdapter(this@VersionsListFragment, object : VersionAdapter.OnVersionItemClickListener {
                 override fun onVersionClick(version: Version) {
@@ -230,7 +230,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         }
     }
 
-    private fun refreshFavoritesCategory() {
+    private fun refreshFavoritesCategoryAndVersions() {
         binding.favoritesCategoryTab.setCurrentItem(0)
         refreshVersions()
 
@@ -240,26 +240,18 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         mFavoritesCategoryViewList.clear()
 
         fun createView(categoryName: String): AnimRelativeLayout {
-            val p8 = Tools.dpToPx(8f).toInt()
-            val view = ItemFavoriteCategoryBinding.inflate(layoutInflater)
-            view.text.text = categoryName
-            view.delete.setOnClickListener {
-                TipDialog.Builder(requireActivity())
-                    .setTitle(R.string.version_manager_favorites_remove_category_title)
-                    .setMessage(R.string.version_manager_favorites_remove_category_message)
-                    .setWarning()
-                    .setConfirmClickListener {
-                        FavoritesVersionUtils.removeCategory(categoryName)
-                        refreshFavoritesCategory()
-                    }.showDialog()
-            }
-            view.root.layoutParams = DslTabLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            return view.root.apply {
-                setPadding(p8, 0, p8, 0)
-            }
+            return ItemFavoriteCategoryBinding.inflate(layoutInflater).apply {
+                name.text = categoryName
+                root.layoutParams = DslTabLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                //长按删除
+                root.setOnLongClickListener {
+                    showFavoritesDeletePopupWindow(root, categoryName)
+                    true
+                }
+            }.root
         }
 
         FavoritesVersionUtils.getAllCategories().forEach { category ->
@@ -267,6 +259,52 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             mFavoritesCategoryViewList.add(view)
             binding.favoritesCategoryTab.addView(view)
         }
+    }
+
+    private fun refreshActionPopupWindow(anchorView: View, binding: ViewBinding) {
+        mFavoritesActionPopupWindow.apply {
+            binding.root.measure(0, 0)
+            this.contentView = binding.root
+            this.width = binding.root.measuredWidth
+            this.height = binding.root.measuredHeight
+            showAsDropDown(anchorView, anchorView.measuredWidth, 0)
+        }
+    }
+
+    private fun showFavoritesActionPopupWindow(anchorView: View) {
+        refreshActionPopupWindow(anchorView, ViewVersionFavoritesActionBinding.inflate(LayoutInflater.from(requireActivity())).apply {
+            addView.setOnClickListener {
+                EditTextDialog.Builder(requireActivity())
+                    .setTitle(R.string.version_manager_favorites_write_category_name)
+                    .setAsRequired()
+                    .setConfirmListener { editText, _ ->
+                        FavoritesVersionUtils.addCategory(editText.text.toString())
+                        refreshFavoritesCategoryAndVersions()
+                        true
+                    }.showDialog()
+                mFavoritesActionPopupWindow.dismiss()
+            }
+        })
+    }
+
+    private fun showFavoritesDeletePopupWindow(anchorView: View, categoryName: String) {
+        refreshActionPopupWindow(anchorView, ViewVersionFavoritesActionBinding.inflate(LayoutInflater.from(requireActivity())).apply {
+            addIcon.setImageDrawable(
+                ContextCompat.getDrawable(requireActivity(), R.drawable.ic_menu_delete_forever)
+            )
+            addView.setText(R.string.version_manager_favorites_remove_category_title)
+            addView.setOnClickListener {
+                TipDialog.Builder(requireActivity())
+                    .setTitle(R.string.version_manager_favorites_remove_category_title)
+                    .setMessage(R.string.version_manager_favorites_remove_category_message)
+                    .setWarning()
+                    .setConfirmClickListener {
+                        FavoritesVersionUtils.removeCategory(categoryName)
+                        refreshFavoritesCategoryAndVersions()
+                    }.showDialog()
+                mFavoritesActionPopupWindow.dismiss()
+            }
+        })
     }
 
     @Subscribe
@@ -279,7 +317,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                         favoritesCategoryTab.isEnabled = false
                     }
                     END -> {
-                        refreshFavoritesCategory()
+                        refreshFavoritesCategoryAndVersions()
                         favoritesCategoryTab.isEnabled = true
                         versions.isEnabled = true
                     }
@@ -293,6 +331,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     private fun closeAllPopupWindow() {
         versionsAdapter?.closePopupWindow()
         profilePathAdapter?.closePopupWindow()
+        mFavoritesActionPopupWindow.dismiss()
     }
 
     override fun onStart() {

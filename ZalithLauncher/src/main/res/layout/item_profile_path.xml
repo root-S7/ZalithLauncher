@@ -52,9 +52,8 @@
 
     <ImageButton
         android:id="@+id/operate"
-        android:layout_width="@dimen/_24sdp"
-        android:layout_height="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/profiles_path_settings"
         android:scaleType="centerCrop"

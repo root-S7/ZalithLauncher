@@ -33,8 +33,8 @@
                 android:padding="@dimen/_8sdp"
                 android:background="@drawable/background_card"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/favorites_category_tab"
-                app:layout_constraintBottom_toBottomOf="@id/favorites_category_tab">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <ImageView
                     android:id="@+id/install_icon"
@@ -55,67 +55,63 @@
 
             </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
-            <com.angcyo.tablayout.DslTabLayout
-                android:id="@+id/favorites_category_tab"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:background="@drawable/background_card"
-                android:padding="@dimen/_4sdp"
                 app:layout_constraintStart_toEndOf="@id/install_new"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/add_favorites_category"
-                app:tab_deselect_color="@color/black_or_white"
-                app:tab_select_color="@color/black_or_white"
-                app:tab_indicator_enable_flow="true"
-                app:tab_indicator_drawable="@drawable/selector_bar_horizontal"
-                app:tab_indicator_y_offset="@dimen/_4sdp">
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/all_category"
-                    android:layout_width="wrap_content"
+                <com.angcyo.tablayout.DslTabLayout
+                    android:id="@+id/favorites_category_tab"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/favorites_actions"
+                    app:tab_deselect_color="@color/black_or_white"
+                    app:tab_select_color="@color/black_or_white"
+                    app:tab_indicator_enable_flow="true"
+                    app:tab_indicator_drawable="@drawable/selector_bar_horizontal"
+                    app:tab_indicator_y_offset="@dimen/_4sdp">
 
-                    <com.movtery.zalithlauncher.ui.view.AnimTextView
+                    <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
+                        android:id="@+id/all_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        android:text="@string/generic_all"/>
+                        android:paddingHorizontal="@dimen/_8sdp">
 
-                </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
+                        <com.movtery.zalithlauncher.ui.view.AnimTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingHorizontal="@dimen/_8sdp"
+                            android:text="@string/generic_all"/>
 
-            </com.angcyo.tablayout.DslTabLayout>
+                    </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
-            <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
-                android:id="@+id/add_favorites_category"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:padding="@dimen/_8sdp"
-                android:background="@drawable/background_card"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/favorites_category_tab"
-                app:layout_constraintBottom_toBottomOf="@id/favorites_category_tab">
+                </com.angcyo.tablayout.DslTabLayout>
 
                 <ImageView
-                    android:id="@+id/add_favorites_category_icon"
+                    android:id="@+id/favorites_actions"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_add"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:scaleType="centerCrop"
+                    android:scaleX="0.92"
+                    android:scaleY="0.92"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_more"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="ContentDescription" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/add_favorites_category_icon"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:textColor="@color/primary_text"
-                    android:text="@string/version_manager_favorites_add_category" />
-
-            </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
