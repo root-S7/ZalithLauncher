@@ -44,7 +44,6 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.io.File
 import java.util.UUID
 
 class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
@@ -77,12 +76,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                         .setTitle(R.string.profiles_path_create_new_title)
                         .setAsRequired()
                         .setConfirmListener { editBox, _ ->
-                            val string = editBox.text.toString()
-
-                            profilePathData.add(ProfileItem(UUID.randomUUID().toString(), string, path))
-                            val nomediaFile = File(path, ".nomedia")
-                            if (!nomediaFile.exists()) nomediaFile.createNewFile()
-
+                            profilePathData.add(ProfileItem(UUID.randomUUID().toString(), editBox.text.toString(), path))
                             save(this.profilePathData)
                             refresh()
                             true

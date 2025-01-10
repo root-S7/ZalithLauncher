@@ -9,6 +9,7 @@ import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import net.kdt.pojavlaunch.Tools
+import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 
@@ -25,28 +26,35 @@ class ProfilePathManager {
         @JvmStatic
         val currentPath: String
             get() {
-                if (StoragePermissionsUtils.checkPermissions()) {
-                    //通过选中的id来获取当前路径
-                    val id = AllSettings.launcherProfile.getValue()
-                    if (id == "default") return defaultPath
-
-                    PathManager.FILE_PROFILE_PATH.apply {
-                        if (exists()) {
-                            runCatching {
-                                val read = Tools.read(this)
-                                val jsonObject = JsonParser.parseString(read).asJsonObject
-                                if (jsonObject.has(id)) {
-                                    val profilePathJsonObject = Tools.GLOBAL_GSON.fromJson(jsonObject[id], ProfilePathJsonObject::class.java)
-                                    return profilePathJsonObject.path
-                                }
-                            }.getOrElse {
-                                Logging.e("Read Profile", "Failed to parse the game path", it)
-                            }
+                return StoragePermissionsUtils.checkPermissions().let { hasPermissions ->
+                    if (!hasPermissions) defaultPath
+                    else {
+                        //通过选中的id来获取当前路径
+                        val id = AllSettings.launcherProfile.getValue()
+                        if (id == "default") defaultPath
+                        else {
+                            PathManager.FILE_PROFILE_PATH.takeIf { it.exists() }?.let { profilePath ->
+                                runCatching {
+                                    val read = Tools.read(profilePath)
+                                    val jsonObject = JsonParser.parseString(read).asJsonObject
+                                    jsonObject[id]?.let { profileJson ->
+                                        Tools.GLOBAL_GSON.fromJson(profileJson, ProfilePathJsonObject::class.java)?.path
+                                    }
+                                }.getOrElse {
+                                    Logging.e("Read Profile", "Failed to parse the game path", it)
+                                    defaultPath
+                                } ?: defaultPath
+                            } ?: defaultPath
                         }
                     }
+                }.apply {
+                    //标记这个目录，让系统别在这里获取媒体项目（图片等）
+                    runCatching {
+                        File(this, ".nomedia").takeIf { !it.exists() }?.apply { createNewFile() }
+                    }.getOrElse {
+                        Logging.e("No Media", "Unable to create a .nomedia file in the current directory.", it)
+                    }
                 }
-
-                return defaultPath
             }
 
         @JvmStatic
