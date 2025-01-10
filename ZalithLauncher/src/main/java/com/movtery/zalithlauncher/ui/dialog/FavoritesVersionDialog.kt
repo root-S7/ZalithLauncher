@@ -26,12 +26,7 @@ class FavoritesVersionDialog(
     override fun dismiss() {
         super.dismiss()
         Task.runTask {
-            val categorySet = mFavoritesAdapter.getSelectedCategorySet()
-            val allCategories = FavoritesVersionUtils.getAllCategories()
-            val missingCategories: Set<String> = allCategories.subtract(categorySet)
-
-            FavoritesVersionUtils.addVersionToCategory(versionName, *categorySet.toTypedArray())
-            FavoritesVersionUtils.removeVersionFromCategory(versionName, *missingCategories.toTypedArray())
+            FavoritesVersionUtils.saveVersionToFavorites(versionName, mFavoritesAdapter.getSelectedCategorySet())
         }.ended(TaskExecutors.getAndroidUI()) {
             favoritesChanged()
         }.execute()

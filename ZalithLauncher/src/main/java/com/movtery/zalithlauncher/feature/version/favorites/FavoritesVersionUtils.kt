@@ -10,14 +10,20 @@ class FavoritesVersionUtils {
             }
         }
 
+        private fun doInFavoritesMap(func: (MutableMap<String, MutableSet<String>>) -> Unit) {
+            CurrentGameInfo.getCurrentInfo().apply {
+                initFavoritesMap()
+                favoritesMap?.let { func(it) }
+                saveCurrentInfo()
+            }
+        }
+
         /**
          * 添加一个收藏夹
          */
         fun addCategory(categoryName: String) {
-            CurrentGameInfo.getCurrentInfo().apply {
-                initFavoritesMap()
-                favoritesMap?.set(categoryName, HashSet())
-                saveCurrentInfo()
+            doInFavoritesMap { map ->
+                map.takeIf { !it.containsKey(categoryName) }?.set(categoryName, HashSet())
             }
         }
 
@@ -25,45 +31,24 @@ class FavoritesVersionUtils {
          * 移除一个收藏夹
          */
         fun removeCategory(categoryName: String) {
-            CurrentGameInfo.getCurrentInfo().apply {
-                initFavoritesMap()
-                favoritesMap?.remove(categoryName)
-                saveCurrentInfo()
+            doInFavoritesMap { map ->
+                map.remove(categoryName)
             }
         }
 
         /**
-         * 将一个版本添加到一些收藏夹中
+         * 将版本存入指定的收藏夹，同时从未被指定的收藏夹中移除
          */
-        fun addVersionToCategory(versionName: String, vararg categories: String) {
-            operateVersionFromCategory(categories) { versionsList ->
-                versionsList.add(versionName)
-            }
-        }
-
-        /**
-         * 将一个版本从一些收藏夹内移除
-         */
-        fun removeVersionFromCategory(versionName: String, vararg categories: String) {
-            operateVersionFromCategory(categories) { versionsList ->
-                versionsList.remove(versionName)
-            }
-        }
-
-        private fun operateVersionFromCategory(categories: Array<out String>, operate: (MutableSet<String>) -> Unit) {
-            CurrentGameInfo.getCurrentInfo().apply {
-                initFavoritesMap()
-                favoritesMap?.let { map ->
-                    categories.forEach { category ->
-                        map[category] ?: run {
-                            map[category] = mutableSetOf()
-                        }
-                        map[category]?.let {
-                            operate(it)
-                        }
-                    }
+        fun saveVersionToFavorites(versionName: String, categories: Set<String>) {
+            doInFavoritesMap { map ->
+                categories.forEach { category ->
+                    map.getOrPut(category) { mutableSetOf() }.add(versionName)
                 }
-                saveCurrentInfo()
+
+                //遍历未指定的收藏夹，从这些收藏夹中移除版本（如果存在）
+                (getAllCategories().toSet() - categories).forEach { category ->
+                    map[category]?.remove(versionName)
+                }
             }
         }
 
