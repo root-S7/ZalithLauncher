@@ -2,6 +2,7 @@ package com.movtery.zalithlauncher.utils.path
 
 import com.movtery.zalithlauncher.BuildConfig
 import com.movtery.zalithlauncher.InfoCenter
+import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.IOException
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit
 class UrlManager {
     companion object {
         private const val URL_USER_AGENT: String = "${InfoCenter.LAUNCHER_NAME}/${BuildConfig.VERSION_NAME}"
+        @JvmField
         val TIME_OUT = Pair(8000L, TimeUnit.MILLISECONDS)
         const val URL_GITHUB_HOME: String = "https://api.github.com/repos/ZalithLauncher/Zalith-Info/contents/"
         const val URL_MCMOD: String = "https://www.mcmod.cn/"
@@ -47,6 +49,19 @@ class UrlManager {
             val request = Request.Builder().url(url).header("User-Agent", URL_USER_AGENT)
             body?.let{ request.post(it) }
             return request
+        }
+
+        @JvmStatic
+        fun createOkHttpClient(): OkHttpClient = createOkHttpClientBuilder().build()
+
+        /**
+         * 创建一个OkHttpClient，可自定义一些内容
+         */
+        @JvmStatic
+        fun createOkHttpClientBuilder(action: (OkHttpClient.Builder) -> Unit = { }): OkHttpClient.Builder {
+            return OkHttpClient.Builder()
+                .callTimeout(TIME_OUT.first, TIME_OUT.second)
+                .apply(action)
         }
     }
 }

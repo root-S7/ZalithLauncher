@@ -8,9 +8,12 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.path.UrlManager;
+
+import net.kdt.pojavlaunch.Tools;
 
 import org.apache.commons.io.FileUtils;
 
@@ -25,7 +28,6 @@ import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public final class UpdateLauncher {
@@ -41,7 +43,7 @@ public final class UpdateLauncher {
         this.launcherVersion = launcherVersion;
 
         this.destinationFilePath = UpdateUtils.sApkFile.getAbsolutePath();
-        this.call = new OkHttpClient().newCall(
+        this.call = UrlManager.createOkHttpClient().newCall(
                 UrlManager.createRequestBuilder(UpdateUtils.getDownloadUrl(launcherVersion, updateSource)).build()
         ); //获取请求对象
     }
@@ -103,11 +105,17 @@ public final class UpdateLauncher {
                             }
                         }, 0, 120);
 
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
-                            downloadedSize[0] += bytesRead;
+                        try {
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                outputStream.write(buffer, 0, bytesRead);
+                                downloadedSize[0] += bytesRead;
+                            }
+                            finish(outputFile);
+                        } catch (Exception e) {
+                            handleDownloadError(e);
                         }
-                        finish(outputFile);
+                    } catch (Exception e) {
+                        handleDownloadError(e);
                     }
                 }
             }
@@ -119,6 +127,16 @@ public final class UpdateLauncher {
         timer.cancel();
 
         UpdateUtils.installApk(context, outputFile);
+    }
+
+    private void handleDownloadError(Exception e) {
+        runInUIThread(() -> {
+            UpdateLauncher.this.dialog.dismiss();
+            Tools.showError(context, R.string.update_fail, e);
+        });
+        timer.cancel();
+        FileUtils.deleteQuietly(UpdateUtils.sApkFile);
+        Logging.e("Update Launcher", "There was an exception downloading the update!", e);
     }
 
     private void stop() {

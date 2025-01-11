@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging.e
-import com.movtery.zalithlauncher.utils.path.UrlManager.Companion.TIME_OUT
+import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.path.UrlManager.Companion.createRequestBuilder
 import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
 import net.kdt.pojavlaunch.Tools
@@ -18,12 +18,7 @@ import java.util.Objects
 import java.util.UUID
 
 object OtherLoginApi {
-    private var client: OkHttpClient = OkHttpClient.Builder()
-        .callTimeout(TIME_OUT.first, TIME_OUT.second)
-        .connectTimeout(TIME_OUT.first, TIME_OUT.second)
-        .readTimeout(TIME_OUT.first, TIME_OUT.second)
-        .writeTimeout(TIME_OUT.first, TIME_OUT.second)
-        .build()
+    private var client: OkHttpClient = UrlManager.createOkHttpClient()
     private var baseUrl: String? = null
 
     fun setBaseUrl(baseUrl: String) {

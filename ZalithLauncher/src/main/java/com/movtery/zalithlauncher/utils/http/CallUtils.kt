@@ -21,9 +21,9 @@ class CallUtils(
         chain.proceed(requestWithToken.build())
     }
 
-    val client: OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(tokenInterceptor)
-        .build()
+    val client: OkHttpClient = UrlManager.createOkHttpClientBuilder { builder ->
+        builder.addInterceptor(tokenInterceptor)
+    }.build()
 
     private val newCall: Call = client.newCall(UrlManager.createRequestBuilder(url).build())
 
