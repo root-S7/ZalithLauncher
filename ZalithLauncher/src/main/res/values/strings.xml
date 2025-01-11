@@ -242,11 +242,11 @@
     <string name="version_manager_no_installed_version">Launcher did not find any installed Minecraft!</string>
     <string name="version_manager_isolation_type_follow_global">Follow Launcher Settings</string>
     <string name="version_manager_favorites_add_category">Add Favorite</string>
-    <string name="version_manager_favorites_remove_category_title">Remove Favorite</string>
-    <string name="version_manager_favorites_remove_category_message">Are you sure you want to remove this favorite? After removal, the information in the current favorite will be cleared, and this operation cannot be undone!</string>
-    <string name="version_manager_favorites_write_category_name">Name New Favorite</string>
+    <string name="version_manager_favorites_remove_folder_title">Remove Favorite</string>
+    <string name="version_manager_favorites_remove_folder_message">Are you sure you want to remove this favorite? After removal, the information in the current favorite will be cleared, and this operation cannot be undone!</string>
+    <string name="version_manager_favorites_write_folder_name">Name New Favorite</string>
     <string name="version_manager_favorites_dialog_title">Add to Favorite</string>
-    <string name="version_manager_favorites_dialog_no_categories">No favorites yet, please add a favorite first!</string>
+    <string name="version_manager_favorites_dialog_no_folders">No favorites yet, please add a favorite first!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s requires permission to manage all files on the device to use this feature properly. Please enable the permission!</string>
     <string name="permissions_write_external_storage">%s requires storage management permission. If the permission is not enabled, it may cause issues such as game files failing to save or decompress properly. Please grant the permission to ensure proper functionality.</string>

@@ -245,11 +245,11 @@
     <string name="version_manager_no_installed_version">启动器没有找到已安装的 Minecraft！</string>
     <string name="version_manager_isolation_type_follow_global">跟随启动器设置</string>
     <string name="version_manager_favorites_add_category">添加收藏夹</string>
-    <string name="version_manager_favorites_remove_category_title">移除收藏夹</string>
-    <string name="version_manager_favorites_remove_category_message">你确定要移除这个收藏夹吗？移除后，当前收藏夹内的信息将被清除，且此操作不可撤销！</string>
-    <string name="version_manager_favorites_write_category_name">为新的收藏夹命名</string>
+    <string name="version_manager_favorites_remove_folder_title">移除收藏夹</string>
+    <string name="version_manager_favorites_remove_folder_message">你确定要移除这个收藏夹吗？移除后，当前收藏夹内的信息将被清除，且此操作不可撤销！</string>
+    <string name="version_manager_favorites_write_folder_name">为新的收藏夹命名</string>
     <string name="version_manager_favorites_dialog_title">添加到收藏夹</string>
-    <string name="version_manager_favorites_dialog_no_categories">还没有收藏夹，请先添加收藏夹！</string>
+    <string name="version_manager_favorites_dialog_no_folders">还没有收藏夹，请先添加收藏夹！</string>
 
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s 需要管理设备所有文件的权限，以便正常使用这个功能，请开启权限！</string>

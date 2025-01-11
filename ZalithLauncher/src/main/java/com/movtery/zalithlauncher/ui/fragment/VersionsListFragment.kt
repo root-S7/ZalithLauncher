@@ -18,7 +18,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionsListBinding
-import com.movtery.zalithlauncher.databinding.ItemFavoriteCategoryBinding
+import com.movtery.zalithlauncher.databinding.ItemFavoriteFolderBinding
 import com.movtery.zalithlauncher.databinding.ViewVersionFavoritesActionBinding
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.END
@@ -55,7 +55,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     private val profilePathData: MutableList<ProfileItem> = ArrayList()
     private var versionsAdapter: VersionAdapter? = null
     private var profilePathAdapter: ProfilePathAdapter? = null
-    private val mFavoritesCategoryViewList: MutableList<View> = ArrayList()
+    private val mFavoritesFolderViewList: MutableList<View> = ArrayList()
 
     private val mFavoritesActionPopupWindow: PopupWindow = PopupWindow().apply {
         isFocusable = true
@@ -95,19 +95,16 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 ZHTools.swapFragmentWithAnim(this@VersionsListFragment, VersionSelectorFragment::class.java, VersionSelectorFragment.TAG, null)
             }
 
-            fun refreshFavoritesCategoryTab(index: Int) {
+            fun refreshFavoritesFolderTab(index: Int) {
                 when(index) {
                     0 -> refreshVersions(true)
-                    else -> {
-                        val categoryName = FavoritesVersionUtils.getAllCategories()[index - 1]
-                        refreshVersions(false, categoryName)
-                    }
+                    else -> refreshVersions(false, FavoritesVersionUtils.getAllFolders()[index - 1])
                 }
             }
 
-            favoritesCategoryTab.observeIndexChange { _, toIndex, reselect, fromUser ->
+            favoritesFolderTab.observeIndexChange { _, toIndex, reselect, fromUser ->
                 if (fromUser && !reselect) {
-                    refreshFavoritesCategoryTab(toIndex)
+                    refreshFavoritesFolderTab(toIndex)
                 }
             }
 
@@ -119,16 +116,16 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 }
 
                 override fun showFavoritesDialog(versionName: String) {
-                    if (FavoritesVersionUtils.getAllCategories().isNotEmpty()) {
+                    if (FavoritesVersionUtils.getAllFolders().isNotEmpty()) {
                         FavoritesVersionDialog(requireActivity(), versionName) {
-                            refreshFavoritesCategoryTab(favoritesCategoryTab.currentItemIndex)
+                            refreshFavoritesFolderTab(favoritesFolderTab.currentItemIndex)
                         }.show()
-                    } else Toast.makeText(requireActivity(), getString(R.string.version_manager_favorites_dialog_no_categories), Toast.LENGTH_SHORT).show()
+                    } else Toast.makeText(requireActivity(), getString(R.string.version_manager_favorites_dialog_no_folders), Toast.LENGTH_SHORT).show()
                 }
 
                 override fun isVersionFavorited(versionName: String): Boolean {
                     //如果收藏栏选择的不是“全部”，那么当前版本一定会是被收藏的状态
-                    if (favoritesCategoryTab.currentItemIndex != 0) {
+                    if (favoritesFolderTab.currentItemIndex != 0) {
                         return true
                     }
                     return FavoritesVersionUtils.getFavoritesMap().values.any { it.contains(versionName) }
@@ -200,18 +197,18 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         return false
     }
 
-    private fun refreshVersions(all: Boolean = true, favoritesCategory: String? = null) {
+    private fun refreshVersions(all: Boolean = true, favoritesFolder: String? = null) {
         versionsAdapter?.let {
             val versions = VersionsManager.getVersions()
 
             fun getVersions(): ArrayList<Version> {
                 if (all) return versions
                 else {
-                    val categoryName = favoritesCategory ?: ""
-                    val categoryVersions = FavoritesVersionUtils.getAllVersions(categoryName) ?: emptySet()
+                    val folderName = favoritesFolder ?: ""
+                    val folderVersions = FavoritesVersionUtils.getAllVersions(folderName) ?: emptySet()
                     return ArrayList<Version>().apply {
                         versions.forEach { version ->
-                            if (categoryVersions.contains(version.getVersionName())) {
+                            if (folderVersions.contains(version.getVersionName())) {
                                 add(version)
                             }
                         }
@@ -224,34 +221,34 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         }
     }
 
-    private fun refreshFavoritesCategoryAndVersions() {
-        binding.favoritesCategoryTab.setCurrentItem(0)
+    private fun refreshFavoritesFolderAndVersions() {
+        binding.favoritesFolderTab.setCurrentItem(0)
         refreshVersions()
 
-        mFavoritesCategoryViewList.forEach { view ->
-            binding.favoritesCategoryTab.removeView(view)
+        mFavoritesFolderViewList.forEach { view ->
+            binding.favoritesFolderTab.removeView(view)
         }
-        mFavoritesCategoryViewList.clear()
+        mFavoritesFolderViewList.clear()
 
-        fun createView(categoryName: String): AnimRelativeLayout {
-            return ItemFavoriteCategoryBinding.inflate(layoutInflater).apply {
-                name.text = categoryName
+        fun createView(folderName: String): AnimRelativeLayout {
+            return ItemFavoriteFolderBinding.inflate(layoutInflater).apply {
+                name.text = folderName
                 root.layoutParams = DslTabLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 //长按删除
                 root.setOnLongClickListener {
-                    showFavoritesDeletePopupWindow(root, categoryName)
+                    showFavoritesDeletePopupWindow(root, folderName)
                     true
                 }
             }.root
         }
 
-        FavoritesVersionUtils.getAllCategories().forEach { category ->
-            val view = createView(category)
-            mFavoritesCategoryViewList.add(view)
-            binding.favoritesCategoryTab.addView(view)
+        FavoritesVersionUtils.getAllFolders().forEach { folderName ->
+            val view = createView(folderName)
+            mFavoritesFolderViewList.add(view)
+            binding.favoritesFolderTab.addView(view)
         }
     }
 
@@ -261,7 +258,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             this.contentView = binding.root
             this.width = binding.root.measuredWidth
             this.height = binding.root.measuredHeight
-            showAsDropDown(anchorView, anchorView.measuredWidth, 0)
+            showAsDropDown(anchorView)
         }
     }
 
@@ -269,11 +266,11 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         refreshActionPopupWindow(anchorView, ViewVersionFavoritesActionBinding.inflate(LayoutInflater.from(requireActivity())).apply {
             addView.setOnClickListener {
                 EditTextDialog.Builder(requireActivity())
-                    .setTitle(R.string.version_manager_favorites_write_category_name)
+                    .setTitle(R.string.version_manager_favorites_write_folder_name)
                     .setAsRequired()
                     .setConfirmListener { editText, _ ->
-                        FavoritesVersionUtils.addCategory(editText.text.toString())
-                        refreshFavoritesCategoryAndVersions()
+                        FavoritesVersionUtils.addFolder(editText.text.toString())
+                        refreshFavoritesFolderAndVersions()
                         true
                     }.showDialog()
                 mFavoritesActionPopupWindow.dismiss()
@@ -281,20 +278,20 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         })
     }
 
-    private fun showFavoritesDeletePopupWindow(anchorView: View, categoryName: String) {
+    private fun showFavoritesDeletePopupWindow(anchorView: View, folderName: String) {
         refreshActionPopupWindow(anchorView, ViewVersionFavoritesActionBinding.inflate(LayoutInflater.from(requireActivity())).apply {
             addIcon.setImageDrawable(
                 ContextCompat.getDrawable(requireActivity(), R.drawable.ic_menu_delete_forever)
             )
-            addView.setText(R.string.version_manager_favorites_remove_category_title)
+            addView.setText(R.string.version_manager_favorites_remove_folder_title)
             addView.setOnClickListener {
                 TipDialog.Builder(requireActivity())
-                    .setTitle(R.string.version_manager_favorites_remove_category_title)
-                    .setMessage(R.string.version_manager_favorites_remove_category_message)
+                    .setTitle(R.string.version_manager_favorites_remove_folder_title)
+                    .setMessage(R.string.version_manager_favorites_remove_folder_message)
                     .setWarning()
                     .setConfirmClickListener {
-                        FavoritesVersionUtils.removeCategory(categoryName)
-                        refreshFavoritesCategoryAndVersions()
+                        FavoritesVersionUtils.removeFolder(folderName)
+                        refreshFavoritesFolderAndVersions()
                     }.showDialog()
                 mFavoritesActionPopupWindow.dismiss()
             }
@@ -308,11 +305,11 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 when (event.mode) {
                     START -> {
                         versions.isEnabled = false
-                        favoritesCategoryTab.isEnabled = false
+                        favoritesFolderTab.isEnabled = false
                     }
                     END -> {
-                        refreshFavoritesCategoryAndVersions()
-                        favoritesCategoryTab.isEnabled = true
+                        refreshFavoritesFolderAndVersions()
+                        favoritesFolderTab.isEnabled = true
                         versions.isEnabled = true
                     }
                 }

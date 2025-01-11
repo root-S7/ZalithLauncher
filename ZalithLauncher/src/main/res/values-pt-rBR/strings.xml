@@ -236,11 +236,11 @@
     <string name="version_manager_no_installed_version">O lançador não encontrou nenhum Minecraft instalado!</string>
     <string name="version_manager_isolation_type_follow_global">Seguir as Configurações do Launcher</string>
     <string name="version_manager_favorites_add_category">Adicionar aos favoritos</string>
-    <string name="version_manager_favorites_remove_category_title">Remover os favoritos</string>
-    <string name="version_manager_favorites_remove_category_message">Você tem certeza que quer remover este favorito? Após a remoção, as informações do favorito atual serão apagadas e esta operação não poderá ser desfeita!</string>
-    <string name="version_manager_favorites_write_category_name">Nomear o novo favorito</string>
+    <string name="version_manager_favorites_remove_folder_title">Remover os favoritos</string>
+    <string name="version_manager_favorites_remove_folder_message">Você tem certeza que quer remover este favorito? Após a remoção, as informações do favorito atual serão apagadas e esta operação não poderá ser desfeita!</string>
+    <string name="version_manager_favorites_write_folder_name">Nomear o novo favorito</string>
     <string name="version_manager_favorites_dialog_title">Adicionar aos favoritos</string>
-    <string name="version_manager_favorites_dialog_no_categories">Ainda não há favoritos, por favor adicione um primeiro!</string>
+    <string name="version_manager_favorites_dialog_no_folders">Ainda não há favoritos, por favor adicione um primeiro!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s precisa da permissão para gerenciar todos os arquivos do dispositivo para usar esta funcionalidade corretamente, por favor, habilite a permissão!</string>
     <string name="permissions_write_external_storage">O %s requer permissão de gerenciamento de armazenamento. Se a permissão não estiver ativada, podem ocorrer problemas como falha ao salvar ou descompactar os arquivos do jogo. Conceda a permissão para garantir o funcionamento correto.</string>

@@ -236,11 +236,11 @@
     <string name="version_manager_no_installed_version">Запускатель не нашёл установленную версию Minecraft!</string>
     <string name="version_manager_isolation_type_follow_global">Следовать настройкам лаунчера</string>
     <string name="version_manager_favorites_add_category">Добавить в избранное</string>
-    <string name="version_manager_favorites_remove_category_title">Удалить избранное</string>
-    <string name="version_manager_favorites_remove_category_message">Вы уверены, что хотите удалить это избранное? После удаления информация в текущем избранном будет очищена, и эта операция не может быть отменена!</string>
-    <string name="version_manager_favorites_write_category_name">Назвать новый фаворит</string>
+    <string name="version_manager_favorites_remove_folder_title">Удалить избранное</string>
+    <string name="version_manager_favorites_remove_folder_message">Вы уверены, что хотите удалить это избранное? После удаления информация в текущем избранном будет очищена, и эта операция не может быть отменена!</string>
+    <string name="version_manager_favorites_write_folder_name">Назвать новый фаворит</string>
     <string name="version_manager_favorites_dialog_title">Добавить в избранное</string>
-    <string name="version_manager_favorites_dialog_no_categories">Еще нет избранного, пожалуйста, добавьте избранное сначала!</string>
+    <string name="version_manager_favorites_dialog_no_folders">Еще нет избранного, пожалуйста, добавьте избранное сначала!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
     <string name="permissions_write_external_storage">Для работы %s требуется разрешение на управление хранилищем. Если разрешение не предоставлено, могут возникнуть проблемы, такие как невозможность сохранения или распаковки игровых файлов. Пожалуйста, предоставьте разрешение для обеспечения корректной работы.</string>

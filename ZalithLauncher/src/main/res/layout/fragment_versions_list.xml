@@ -65,7 +65,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.angcyo.tablayout.DslTabLayout
-                    android:id="@+id/favorites_category_tab"
+                    android:id="@+id/favorites_folder_tab"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_8sdp"

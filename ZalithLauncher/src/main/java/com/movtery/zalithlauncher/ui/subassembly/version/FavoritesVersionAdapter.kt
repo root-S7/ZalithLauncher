@@ -8,7 +8,7 @@ import com.movtery.zalithlauncher.databinding.ItemFileListViewBinding
 import com.movtery.zalithlauncher.feature.version.favorites.FavoritesVersionUtils
 
 class FavoritesVersionAdapter(private val versionName: String) : RecyclerView.Adapter<FavoritesVersionAdapter.ViewHolder>() {
-    private val allCategories = FavoritesVersionUtils.getAllCategories()
+    private val allCategories = FavoritesVersionUtils.getAllFolders()
     private val favoritesMap = FavoritesVersionUtils.getFavoritesMap()
     private val selectedCategorySet: MutableSet<String> = HashSet()
 

@@ -236,11 +236,11 @@
     <string name="version_manager_no_installed_version">啟動器未找到已安裝的 Minecraft！</string>
     <string name="version_manager_isolation_type_follow_global">跟隨啟動器設定</string>
     <string name="version_manager_favorites_add_category">新增收藏夾</string>
-    <string name="version_manager_favorites_remove_category_title">移除收藏夾</string>
-    <string name="version_manager_favorites_remove_category_message">您確定要移除這個收藏夾嗎？移除後，當前收藏夾內的資訊將被清除，且此操作無法復原！</string>
-    <string name="version_manager_favorites_write_category_name">為新的收藏夾命名</string>
+    <string name="version_manager_favorites_remove_folder_title">移除收藏夾</string>
+    <string name="version_manager_favorites_remove_folder_message">您確定要移除這個收藏夾嗎？移除後，當前收藏夾內的資訊將被清除，且此操作無法復原！</string>
+    <string name="version_manager_favorites_write_folder_name">為新的收藏夾命名</string>
     <string name="version_manager_favorites_dialog_title">添加到收藏夾</string>
-    <string name="version_manager_favorites_dialog_no_categories">還沒有收藏夾，請先新增收藏夾！</string>
+    <string name="version_manager_favorites_dialog_no_folders">還沒有收藏夾，請先新增收藏夾！</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s 需要管理裝置所有檔案的權限，以便正常使用這個功能，請開啟權限！</string>
     <string name="permissions_write_external_storage">%s 需要授予存儲管理權限。如果未開啟權限，可能會導致遊戲文件無法正常保存、解壓等問題。請授予權限，以確保功能正常運行。</string>

@@ -236,11 +236,11 @@
     <string name="version_manager_no_installed_version">المُحَرّك لم يجد أي Minecraft مُثبّت!</string>
     <string name="version_manager_isolation_type_follow_global">اتبع إعدادات المشغل</string>
     <string name="version_manager_favorites_add_category">إضافة المفضل</string>
-    <string name="version_manager_favorites_remove_category_title">إزالة المفضل</string>
-    <string name="version_manager_favorites_remove_category_message">هل أنت متأكد من أنك تريد إزالة هذا المفضل؟ بعد الإزالة سيتم مسح المعلومات في المفضل الحالي ولا يمكن إعادة هذه العملية!</string>
-    <string name="version_manager_favorites_write_category_name">تسمية المفضل الجديد</string>
+    <string name="version_manager_favorites_remove_folder_title">إزالة المفضل</string>
+    <string name="version_manager_favorites_remove_folder_message">هل أنت متأكد من أنك تريد إزالة هذا المفضل؟ بعد الإزالة سيتم مسح المعلومات في المفضل الحالي ولا يمكن إعادة هذه العملية!</string>
+    <string name="version_manager_favorites_write_folder_name">تسمية المفضل الجديد</string>
     <string name="version_manager_favorites_dialog_title">إضافة إلى المفضل</string>
-    <string name="version_manager_favorites_dialog_no_categories">لا يوجد مفضلات حتى الآن، يرجى إضافة مفضل أولاً!</string>
+    <string name="version_manager_favorites_dialog_no_folders">لا يوجد مفضلات حتى الآن، يرجى إضافة مفضل أولاً!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s يحتاج إلى إمكانية التحكم في جميع ملفات الجهاز لاستخدام هذه الميزة بشكل صحيح، يرجى تمكين الإذن!</string>
     <string name="permissions_write_external_storage">يتطلب %s إذن إدارة التخزين. إذا لم يتم تمكين الإذن، فقد يؤدي ذلك إلى مشاكل مثل فشل حفظ ملفات اللعبة أو فك ضغطها بشكل صحيح. يرجى منح الإذن لضمان عمل الوظائف بشكل صحيح.</string>

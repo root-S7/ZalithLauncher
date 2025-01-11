@@ -236,11 +236,11 @@
     <string name="version_manager_no_installed_version">Khởi động không tìm thấy bất kỳ phiên bản Minecraft nào đã được cài đặt!</string>
     <string name="version_manager_isolation_type_follow_global">Theo cài đặt của Trình khởi chạy</string>
     <string name="version_manager_favorites_add_category">Thêm vào yêu thích</string>
-    <string name="version_manager_favorites_remove_category_title">Xóa yêu thích</string>
-    <string name="version_manager_favorites_remove_category_message">Bạn có chắc chắn muốn xóa yêu thích này không? Sau khi xóa, thông tin trong yêu thích hiện tại sẽ bị xóa và thao tác này không thể hoàn tác!</string>
-    <string name="version_manager_favorites_write_category_name">Đặt tên cho yêu thích mới</string>
+    <string name="version_manager_favorites_remove_folder_title">Xóa yêu thích</string>
+    <string name="version_manager_favorites_remove_folder_message">Bạn có chắc chắn muốn xóa yêu thích này không? Sau khi xóa, thông tin trong yêu thích hiện tại sẽ bị xóa và thao tác này không thể hoàn tác!</string>
+    <string name="version_manager_favorites_write_folder_name">Đặt tên cho yêu thích mới</string>
     <string name="version_manager_favorites_dialog_title">Thêm vào yêu thích</string>
-    <string name="version_manager_favorites_dialog_no_categories">Chưa có yêu thích nào, vui lòng thêm yêu thích trước!</string>
+    <string name="version_manager_favorites_dialog_no_folders">Chưa có yêu thích nào, vui lòng thêm yêu thích trước!</string>
     <!-- Profiles Path -->
     <string name="permissions_manage_external_storage">%s cần quyền quản lý tất cả các tệp trên thiết bị để sử dụng tính năng này bình thường, vui lòng bật quyền!</string>
     <string name="permissions_write_external_storage">%s yêu cầu quyền quản lý bộ nhớ. Nếu quyền này không được bật, có thể gây ra các vấn đề như tệp trò chơi không thể lưu hoặc giải nén đúng cách. Vui lòng cấp quyền để đảm bảo các chức năng hoạt động đúng.</string>
