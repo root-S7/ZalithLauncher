@@ -13,7 +13,10 @@ import com.movtery.zalithlauncher.utils.file.FileTools.Companion.mkdirs
 import com.movtery.zalithlauncher.utils.image.ImageUtils.Companion.isImage
 import java.io.File
 
-class SelectMouseDialog(context: Context, private val listener: MouseSelectedListener) : AbstractSelectDialog(context) {
+class SelectMouseDialog(
+    context: Context,
+    private val listener: MouseSelectedListener
+) : AbstractSelectDialog(context) {
 
     override fun initDialog(recyclerView: RecyclerView) {
         initView(recyclerView)

@@ -9,12 +9,13 @@ import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.multirt.RTRecyclerViewAdapter
 import net.kdt.pojavlaunch.multirt.Runtime
 
-class SelectRuntimeDialog(context: Context, private val listener: RuntimeSelectedListener) : AbstractSelectDialog(context) {
-    init {
-        this.setCancelable(false)
-    }
+class SelectRuntimeDialog(
+    context: Context,
+    private val listener: RuntimeSelectedListener
+) : AbstractSelectDialog(context) {
 
     override fun initDialog(recyclerView: RecyclerView) {
+        setCancelable(false)
         setTitleText(R.string.install_select_jre_environment)
         setMessageText(R.string.install_recommend_use_jre8)
 

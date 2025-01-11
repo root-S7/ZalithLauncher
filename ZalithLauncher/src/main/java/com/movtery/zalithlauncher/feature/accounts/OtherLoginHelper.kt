@@ -93,8 +93,7 @@ class OtherLoginHelper(
                     val selectRoleDialog = SelectRoleDialog(
                         context,
                         authResult.availableProfiles
-                    )
-                    selectRoleDialog.setOnSelectedListener { selectedProfile ->
+                    ) { selectedProfile ->
                         val profileId = selectedProfile.id
                         val account: MinecraftAccount = MinecraftAccount.loadFromProfileID(profileId) ?: MinecraftAccount()
                         writeAccount(account, authResult, selectedProfile.name, profileId, updateSkin = false)

@@ -522,8 +522,7 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void openLoadDialog() {
-		SelectControlsDialog dialog = new SelectControlsDialog(getContext());
-		dialog.setOnSelectedListener(file -> {
+		SelectControlsDialog dialog = new SelectControlsDialog(getContext(), file -> {
 			try {
 				loadLayout(file.getAbsolutePath());
 			} catch (IOException e) {
@@ -534,17 +533,15 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void openSetDefaultDialog() {
-		SelectControlsDialog dialog = new SelectControlsDialog(getContext());
-		dialog.setOnSelectedListener(file -> {
-            String absolutePath = file.getAbsolutePath();
-            try {
+		SelectControlsDialog dialog = new SelectControlsDialog(getContext(), file -> {
+			String absolutePath = file.getAbsolutePath();
+			try {
 				AllSettings.getDefaultCtrl().put(absolutePath).save();
 				loadLayout(absolutePath);
-            } catch (IOException|JsonSyntaxException e) {
-                Tools.showError(getContext(), e);
-            }
-            dialog.dismiss();
-        });
+			} catch (IOException|JsonSyntaxException e) {
+				Tools.showError(getContext(), e);
+			}
+		});
 		dialog.setTitleText(R.string.customctrl_selectdefault);
 		dialog.show();
 	}

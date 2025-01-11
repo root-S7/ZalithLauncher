@@ -626,14 +626,12 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
 
         private void replacementCustomControls() {
-            SelectControlsDialog dialog = new SelectControlsDialog(MainActivity.this);
-            dialog.setOnSelectedListener(file -> {
+            SelectControlsDialog dialog = new SelectControlsDialog(MainActivity.this, file -> {
                 try {
                     MainActivity.binding.mainControlLayout.loadLayout(file.getAbsolutePath());
                     //刷新：是否隐藏菜单按钮
                     mGameMenuWrapper.setVisibility(!MainActivity.binding.mainControlLayout.hasMenuButton());
                 } catch (IOException ignored) {}
-                dialog.dismiss();
             });
             dialog.setTitleText(R.string.replacement_customcontrol);
             dialog.show();

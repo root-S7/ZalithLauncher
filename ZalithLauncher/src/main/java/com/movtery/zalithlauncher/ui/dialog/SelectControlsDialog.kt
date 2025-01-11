@@ -6,16 +6,14 @@ import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlSelectedL
 import com.movtery.zalithlauncher.ui.subassembly.customcontrols.ControlsListViewCreator
 import java.io.File
 
-class SelectControlsDialog(context: Context) : AbstractSelectDialog(context) {
-    private var controlsListViewCreator: ControlsListViewCreator? = null
+class SelectControlsDialog(
+    context: Context,
+    private val selectedListener: SelectedListener
+) : AbstractSelectDialog(context) {
 
     override fun initDialog(recyclerView: RecyclerView) {
-        controlsListViewCreator = ControlsListViewCreator(context, recyclerView)
-        controlsListViewCreator?.listAtPath()
-    }
-
-    fun setOnSelectedListener(selectedListener: SelectedListener) {
-        controlsListViewCreator?.apply {
+        ControlsListViewCreator(context, recyclerView).apply {
+            listAtPath()
             setSelectedListener(object : ControlSelectedListener() {
                 override fun onItemSelected(file: File) {
                     selectedListener.onSelected(file)
