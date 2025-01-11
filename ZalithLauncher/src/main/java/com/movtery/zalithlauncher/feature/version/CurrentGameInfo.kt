@@ -30,10 +30,8 @@ class CurrentGameInfo {
                     if (oldConfigFile.exists()) {
                         runCatching {
                             val versionString = Tools.read(oldConfigFile)
-                            if (VersionsManager.checkVersionValidByName(versionString)) {
-                                version = versionString
-                                saveCurrentInfo()
-                            }
+                            version = versionString
+                            saveCurrentInfo()
                             oldConfigFile.delete()
                         }
                     }
@@ -69,7 +67,7 @@ class CurrentGameInfo {
          */
         fun saveCurrentInfo() {
             runCatching {
-                val jsonString = Tools.GLOBAL_GSON.toJson(currentInfo)
+                val jsonString = Tools.GLOBAL_GSON.toJson(this)
                 FileUtils.write(getInfoFile(), jsonString)
             }.getOrElse { e ->
                 Logging.e("saveCurrentInfo", "Failed to save current game info!", e)

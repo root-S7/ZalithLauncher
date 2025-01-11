@@ -140,12 +140,6 @@ object VersionsManager {
     }
 
     /**
-     * 通过一个版本名称，检查当前存在的版本是否可用
-     * 该名称对应的版本不存在: false
-     */
-    fun checkVersionValidByName(name: String?): Boolean = getVersion(name)?.isValid() ?: false
-
-    /**
      * @return 获取 Zalith 启动器版本标识文件夹
      */
     fun getZalithVersionPath(version: Version) = File(version.getVersionPath(), InfoCenter.LAUNCHER_NAME)
