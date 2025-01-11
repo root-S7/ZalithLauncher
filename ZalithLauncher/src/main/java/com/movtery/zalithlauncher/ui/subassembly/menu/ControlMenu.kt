@@ -94,20 +94,28 @@ class ControlMenu(
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        updateSeekbarValue(seekBar, !fromUser)
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+        updateSeekbarValue(seekBar, true)
+    }
+
+    private fun updateSeekbarValue(seekBar: SeekBar?, saveValue: Boolean) {
+        val progress = seekBar?.progress ?: 0
+
         binding.apply {
             when (seekBar) {
                 snappingDistance -> {
-                    AllSettings.buttonSnappingDistance.put(progress).save()
+                    if (saveValue) AllSettings.buttonSnappingDistance.put(progress).save()
                     MenuUtils.updateSeekbarValue(progress, snappingDistanceValue, "dp")
                 }
                 else -> {}
             }
         }
     }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         binding.apply {

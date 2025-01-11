@@ -56,18 +56,24 @@ class SeekBarSettingsWrapper(
         setSeekBarValueTextView()
 
         seekbarView.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            fun updateSeekbarValue(saveValue: Boolean) {
+                val progress = seekbarView.progress
+
                 listener?.onChange(progress)
-                unit.put(progress).save()
+                if (saveValue) unit.put(progress).save()
                 setSeekBarValueTextView()
                 checkShowRebootDialog(context)
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                updateSeekbarValue(!fromUser)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                setSeekBarValueTextView()
+                updateSeekbarValue(true)
             }
         })
 

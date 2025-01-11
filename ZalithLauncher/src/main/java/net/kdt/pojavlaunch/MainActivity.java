@@ -676,42 +676,50 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         @Override
         @SuppressLint("SetTextI18n")
         public void onProgressChanged(SeekBar s, int progress, boolean fromUser) {
-            if (s == binding.resolutionScaler) {
-                AllSettings.getResolutionRatio().put(progress).save();
+            updateSeekbarValue(s, !fromUser);
+        }
+        @Override public void onStartTrackingTouch(SeekBar s) {}
+        @Override public void onStopTrackingTouch(SeekBar s) {
+            updateSeekbarValue(s, true);
+        }
+
+        private void updateSeekbarValue(SeekBar seekbar, boolean saveValue) {
+            int progress = seekbar == null ? 0 : seekbar.getProgress();
+
+            if (seekbar == binding.resolutionScaler) {
+                if (saveValue) AllSettings.getResolutionRatio().put(progress).save();
 
                 MenuUtils.updateSeekbarValue(progress, binding.resolutionScalerValue, "%");
                 binding.resolutionScalerPreview.setText(VideoSettingsFragment.getResolutionRatioPreview(getResources(), progress));
 
                 AllStaticSettings.scaleFactor = progress / 100f;
                 MainActivity.binding.mainGameRenderView.refreshSize();
-            } else if (s == binding.timeLongPressTrigger) {
-                AllSettings.getTimeLongPressTrigger().put(progress).save();
+            } else if (seekbar == binding.timeLongPressTrigger) {
+                if (saveValue) AllSettings.getTimeLongPressTrigger().put(progress).save();
 
                 MenuUtils.updateSeekbarValue(progress, binding.timeLongPressTriggerValue, "ms");
                 AllStaticSettings.timeLongPressTrigger = progress;
-            } else if (s == binding.mouseSpeed) {
-                AllSettings.getMouseSpeed().put(progress).save();
+            } else if (seekbar == binding.mouseSpeed) {
+                if (saveValue) AllSettings.getMouseSpeed().put(progress).save();
 
                 MenuUtils.updateSeekbarValue(progress, binding.mouseSpeedValue, "%");
-            } else if (s == binding.gyroSensitivity) {
-                AllSettings.getGyroSensitivity().put(progress).save();
+            } else if (seekbar == binding.gyroSensitivity) {
+                if (saveValue) AllSettings.getGyroSensitivity().put(progress).save();
 
                 MenuUtils.updateSeekbarValue(progress, binding.gyroSensitivityValue, "%");
                 AllStaticSettings.gyroSensitivity = progress;
-            } else if (s == binding.hotbarWidth) {
-                AllSettings.getHotbarWidth().getValue().put(progress).save();
+            } else if (seekbar == binding.hotbarWidth) {
+                if (saveValue) AllSettings.getHotbarWidth().getValue().put(progress).save();
 
                 MenuUtils.updateSeekbarValue(progress, binding.hotbarWidthValue, "px");
                 EventBus.getDefault().post(new HotbarChangeEvent(progress, binding.hotbarHeight.getProgress()));
-            } else if (s == binding.hotbarHeight) {
-                AllSettings.getHotbarHeight().getValue().put(progress).save();
+            } else if (seekbar == binding.hotbarHeight) {
+                if (saveValue) AllSettings.getHotbarHeight().getValue().put(progress).save();
 
                 MenuUtils.updateSeekbarValue(progress, binding.hotbarHeightValue, "px");
                 EventBus.getDefault().post(new HotbarChangeEvent(binding.hotbarWidth.getProgress(), progress));
             }
         }
-        @Override public void onStartTrackingTouch(SeekBar s) {}
-        @Override public void onStopTrackingTouch(SeekBar s) {}
 
         @Override public void onCheckedChanged(CompoundButton v, boolean isChecked) {
             if (v == binding.disableGestures) {

@@ -141,7 +141,7 @@ class LauncherSettingsFragment() : AbstractSettingsFragment(R.layout.settings_fr
             binding.pageOpacity,
             "%"
         ).setOnSeekBarProgressChangeListener {
-            EventBus.getDefault().post(PageOpacityChangeEvent())
+            EventBus.getDefault().post(PageOpacityChangeEvent(it))
         }
 
         SwitchSettingsWrapper(

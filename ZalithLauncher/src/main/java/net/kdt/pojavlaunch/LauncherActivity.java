@@ -140,7 +140,7 @@ public class LauncherActivity extends BaseActivity {
 
     @Subscribe()
     public void event(PageOpacityChangeEvent event) {
-        setPageOpacity();
+        setPageOpacity(event.getProgress());
     }
 
     @Subscribe()
@@ -410,8 +410,8 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void processViews() {
-        setPageOpacity();
         refreshBackground();
+        setPageOpacity(AllSettings.getPageOpacity().getValue());
         mSettingsButtonWrapper = new SettingsButtonWrapper(binding.settingButton);
         mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(binding.settingButton, Animations.Pulse));
         binding.downloadButton.setOnClickListener(v -> {
@@ -476,7 +476,7 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setPageOpacity();
+        setPageOpacity(AllSettings.getPageOpacity().getValue());
         //避免切换回来的时候，找不到账号，应该在这里刷新账户
         accountsManager.reload();
     }
@@ -619,8 +619,8 @@ public class LauncherActivity extends BaseActivity {
         mRequestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
     }
 
-    private void setPageOpacity() {
-        float v = (float) AllSettings.getPageOpacity().getValue() / 100;
+    private void setPageOpacity(int pageOpacity) {
+        float v = (float) pageOpacity / 100;
         if (binding.containerFragment.getAlpha() != v) binding.containerFragment.setAlpha(v);
     }
 }
