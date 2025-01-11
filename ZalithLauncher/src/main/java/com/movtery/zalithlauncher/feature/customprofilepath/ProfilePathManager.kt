@@ -42,7 +42,7 @@ class ProfilePathManager {
                                 object : TypeToken<Map<String, ProfilePathJsonObject>>() {}.type
                             )
                             if (!sIsLauncherProfileChecked) {
-                                tryUnpackLauncherProfiles(ProfilePathHome.getGameHome())
+                                tryUnpackLauncherProfiles(defaultPath)
                                 dataMap.forEach { (_, json) ->
                                     tryUnpackLauncherProfiles("${json.path}/.minecraft")
                                 }
@@ -74,7 +74,7 @@ class ProfilePathManager {
                     if (!exists()) {
                         createNewFile()
                         writeText(
-                            """{"profiles":{"default":{"lastVersionId":"1.7.10"}},"selectedProfile":"default"}""".trimIndent()
+                            """{"profiles":{"default":{"lastVersionId":"latest-release"}},"selectedProfile":"default"}""".trimIndent()
                         )
                     }
                 }
