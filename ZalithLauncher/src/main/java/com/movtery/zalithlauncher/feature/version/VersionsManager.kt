@@ -9,6 +9,7 @@ import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.START
 import com.movtery.zalithlauncher.event.sticky.InstallingVersionEvent
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.version.favorites.FavoritesVersionUtils
 import com.movtery.zalithlauncher.feature.version.install.GameInstaller
 import com.movtery.zalithlauncher.feature.version.utils.VersionInfoUtils
 import com.movtery.zalithlauncher.task.Task
@@ -69,7 +70,6 @@ object VersionsManager {
 
             try {
                 versions.clear()
-                CurrentGameInfo.refreshCurrentInfo()
 
                 val versionsHome = ProfilePathHome.versionsHome
                 File(versionsHome).listFiles()?.forEach { versionFile ->
@@ -99,6 +99,7 @@ object VersionsManager {
                         }
                     }
                 }
+                CurrentGameInfo.refreshCurrentInfo()
 
                 Task.runTask {
                     GameInstaller.moveVersionFiles()
@@ -138,6 +139,11 @@ object VersionsManager {
             returnVersionByFirst()
         }
     }
+
+    /**
+     * @return 通过版本名，判断其版本是否存在
+     */
+    fun checkVersionExistsByName(versionName: String?): Boolean = getVersion(versionName)?.let { true } ?: false
 
     /**
      * @return 获取 Zalith 启动器版本标识文件夹
@@ -230,6 +236,9 @@ object VersionsManager {
         val currentVersionName = getCurrentVersion()?.getVersionName()
         //如果当前的版本是即将被重命名的版本，那么就把将要重命名的名字设置为当前版本
         if (version.getVersionName() == currentVersionName) saveCurrentVersion(name)
+
+        //尝试刷新收藏夹内的版本名称
+        FavoritesVersionUtils.renameVersion(version.getVersionName(), name)
 
         val versionFolder = version.getVersionPath()
         val renameFolder = File(ProfilePathHome.versionsHome, name)

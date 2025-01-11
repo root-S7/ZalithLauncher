@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.version.favorites
 
 import com.movtery.zalithlauncher.feature.version.CurrentGameInfo
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 
 class FavoritesVersionUtils {
     companion object {
@@ -15,6 +16,30 @@ class FavoritesVersionUtils {
                 initFavoritesMap()
                 favoritesMap?.let { func(it) }
                 saveCurrentInfo()
+            }
+        }
+
+        /**
+         * 刷新收藏夹内的版本，版本不存在则清除
+         */
+        fun refreshFavoritesFolder() {
+            doInFavoritesMap { map ->
+                map.entries.forEach { (folderName, versionNames) ->
+                    map[folderName] = versionNames.filter { VersionsManager.checkVersionExistsByName(it) }.toMutableSet()
+                }
+            }
+        }
+
+        /**
+         * 重命名版本时，将收藏夹内的同名版本也进行重命名
+         */
+        fun renameVersion(versionName: String, newVersionName: String) {
+            doInFavoritesMap { map ->
+                map.forEach { (_, versionNames) ->
+                    if (versionNames.remove(versionName)) {
+                        versionNames.add(newVersionName)
+                    }
+                }
             }
         }
 

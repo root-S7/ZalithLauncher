@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.feature.version
 import com.google.gson.annotations.SerializedName
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.version.favorites.FavoritesVersionUtils
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import java.io.File
@@ -48,6 +49,8 @@ class CurrentGameInfo {
                 Logging.e("getCurrentInfo", "Failed to identify the current game information!", e)
                 createDefault()
             }.syncOldVersion()
+
+            FavoritesVersionUtils.refreshFavoritesFolder()
         }
 
         /**
