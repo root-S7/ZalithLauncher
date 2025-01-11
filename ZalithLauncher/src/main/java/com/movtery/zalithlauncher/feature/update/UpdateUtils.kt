@@ -172,6 +172,7 @@ class UpdateUtils {
         fun installApk(context: Context, outputFile: File) {
             runInUIThread {
                 TipDialog.Builder(context)
+                    .setTitle(R.string.update)
                     .setMessage(StringUtils.insertNewline(context.getString(R.string.update_success), outputFile.absolutePath))
                     .setCenterMessage(false)
                     .setCancelable(false)

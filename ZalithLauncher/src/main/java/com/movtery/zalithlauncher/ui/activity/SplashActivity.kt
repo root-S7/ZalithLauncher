@@ -66,6 +66,7 @@ class SplashActivity : BaseActivity() {
         //但是并不强制要求用户必须授予权限，如果用户拒绝，那么之后产生的问题将由用户承担
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P && !StoragePermissionsUtils.hasStoragePermissions(this)) {
             TipDialog.Builder(this)
+                .setTitle(R.string.generic_warning)
                 .setMessage(InfoCenter.replaceName(this, R.string.permissions_write_external_storage))
                 .setWarning()
                 .setConfirmClickListener { requestStoragePermissions() }

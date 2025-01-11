@@ -229,6 +229,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
 
     private fun resetIcon() {
         TipDialog.Builder(requireActivity())
+            .setTitle(R.string.generic_warning)
             .setMessage(R.string.pedit_reset_icon)
             .setWarning()
             .setConfirmClickListener {

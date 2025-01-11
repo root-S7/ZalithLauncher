@@ -95,6 +95,7 @@ public final class ZHTools {
 
     public static void dialogForceClose(Context ctx) {
         new TipDialog.Builder(ctx)
+                .setTitle(R.string.option_force_close)
                 .setMessage(R.string.force_exit_confirm)
                 .setConfirmClickListener(checked -> {
                     try {

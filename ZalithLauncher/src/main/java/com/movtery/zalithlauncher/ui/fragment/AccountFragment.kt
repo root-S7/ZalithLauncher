@@ -132,6 +132,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
             override fun onDelete(account: MinecraftAccount) {
                 TipDialog.Builder(context)
+                    .setTitle(R.string.generic_warning)
                     .setMessage(R.string.account_remove)
                     .setConfirm(R.string.generic_delete)
                     .setWarning()

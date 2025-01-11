@@ -87,6 +87,7 @@ class InstallLocalModPack {
         private fun showUnSupportDialog(context: Context) {
             TaskExecutors.runInUIThread {
                 TipDialog.Builder(context)
+                    .setTitle(R.string.generic_warning)
                     .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
                     .setWarning()
                     .setShowCancel(true)
