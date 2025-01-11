@@ -226,7 +226,7 @@ class VersionAdapter(
 
         private fun swapPath(path: String) {
             val bundle = Bundle()
-            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.currentPath)
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath())
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, path)
             bundle.putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false)
             ZHTools.swapFragmentWithAnim(

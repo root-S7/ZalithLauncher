@@ -260,10 +260,10 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
         fun getModPath(): File {
             return if (AllSettings.versionIsolation.getValue()) //启用了版本隔离
                 File(
-                    ProfilePathHome.gameHome,
+                    ProfilePathHome.getGameHome(),
                     "versions${File.separator}$customVersionName${File.separator}mods"
                 )
-            else File(ProfilePathHome.gameHome, "mods")
+            else File(ProfilePathHome.getGameHome(), "mods")
         }
 
         addonMap.forEach { (addon, taskPair) ->

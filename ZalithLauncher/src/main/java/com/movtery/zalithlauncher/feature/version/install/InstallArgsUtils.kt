@@ -17,14 +17,14 @@ import java.util.zip.ZipOutputStream
 class InstallArgsUtils(private val mcVersion: String, private val loaderVersion: String) {
     fun setFabric(intent: Intent, jarFile: File, customName: String) {
         val args = "-DprofileName=\"$customName\" -javaagent:${LibPath.MIO_FABRIC_AGENT.absolutePath}" +
-                " -jar ${jarFile.absolutePath} client -mcversion \"$mcVersion\" -loader \"$loaderVersion\" -dir \"${ProfilePathHome.gameHome}\""
+                " -jar ${jarFile.absolutePath} client -mcversion \"$mcVersion\" -loader \"$loaderVersion\" -dir \"${ProfilePathHome.getGameHome()}\""
         intent.putExtra("javaArgs", args)
         intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
         intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true)
     }
 
     fun setQuilt(intent: Intent, jarFile: File) {
-        val args = "-jar ${jarFile.absolutePath} install client \"$mcVersion\" \"$loaderVersion\" --install-dir=\"${ProfilePathHome.gameHome}\""
+        val args = "-jar ${jarFile.absolutePath} install client \"$mcVersion\" \"$loaderVersion\" --install-dir=\"${ProfilePathHome.getGameHome()}\""
         intent.putExtra("javaArgs", args)
         intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
         intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true)
@@ -42,7 +42,7 @@ class InstallArgsUtils(private val mcVersion: String, private val loaderVersion:
     fun setNeoForge(intent: Intent, jarFile: File, customName: String) {
         forgeLikeCustomVersionName(jarFile, customName)
 
-        val args = "-jar ${jarFile.absolutePath} --installClient \"${ProfilePathHome.gameHome}\""
+        val args = "-jar ${jarFile.absolutePath} --installClient \"${ProfilePathHome.getGameHome()}\""
         intent.putExtra("javaArgs", args)
         intent.putExtra(JavaGUILauncherActivity.SUBSCRIBE_JVM_EXIT_EVENT, true)
         intent.putExtra(JavaGUILauncherActivity.FORCE_SHOW_LOG, true)

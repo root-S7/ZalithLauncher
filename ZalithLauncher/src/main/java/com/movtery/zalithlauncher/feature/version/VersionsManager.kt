@@ -45,7 +45,7 @@ object VersionsManager {
      * 检查版本是否已经存在
      */
     fun isVersionExists(versionName: String, checkJson: Boolean = false): Boolean {
-        val folder = File(ProfilePathHome.versionsHome, versionName)
+        val folder = File(ProfilePathHome.getVersionsHome(), versionName)
         //保证版本文件夹存在的同时，也应保证其版本json文件存在
         return if (checkJson) File(folder, "${folder.name}.json").exists()
         else folder.exists()
@@ -71,7 +71,7 @@ object VersionsManager {
             try {
                 versions.clear()
 
-                val versionsHome = ProfilePathHome.versionsHome
+                val versionsHome = ProfilePathHome.getVersionsHome()
                 File(versionsHome).listFiles()?.forEach { versionFile ->
                     runCatching {
                         if (versionFile.exists() && versionFile.isDirectory) {
@@ -173,7 +173,7 @@ object VersionsManager {
     /**
      * @return 通过名称获取版本的文件夹路径
      */
-    fun getVersionPath(name: String) = File(ProfilePathHome.versionsHome, name)
+    fun getVersionPath(name: String) = File(ProfilePathHome.getVersionsHome(), name)
 
     /**
      * 保存当前选择的版本
@@ -241,7 +241,7 @@ object VersionsManager {
         FavoritesVersionUtils.renameVersion(version.getVersionName(), name)
 
         val versionFolder = version.getVersionPath()
-        val renameFolder = File(ProfilePathHome.versionsHome, name)
+        val renameFolder = File(ProfilePathHome.getVersionsHome(), name)
 
         //不管重命名之后的文件夹是什么，只要这个文件夹存在，那么就必须删除
         //否则将出现问题

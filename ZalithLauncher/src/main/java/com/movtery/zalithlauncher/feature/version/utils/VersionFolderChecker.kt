@@ -18,7 +18,7 @@ class VersionFolderChecker {
             loaderName: String,
             loaderVersion: String
         ) {
-            val currentVersionsFolder = File(ProfilePathHome.versionsHome)
+            val currentVersionsFolder = File(ProfilePathHome.getVersionsHome())
             val cacheFile = File(currentVersionsFolder, CACHE_FILE_NAME)
 
             FileUtils.deleteQuietly(cacheFile)
@@ -33,7 +33,7 @@ class VersionFolderChecker {
          */
         @JvmStatic
         fun checkVersionsFolder(): Pair<Set<File>, LoaderInfo>? {
-            val currentVersionsFolder = File(ProfilePathHome.versionsHome)
+            val currentVersionsFolder = File(ProfilePathHome.getVersionsHome())
             val cacheFile = File(currentVersionsFolder, CACHE_FILE_NAME)
 
             if (cacheFile.exists()) {

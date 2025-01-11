@@ -4,7 +4,7 @@ import androidx.collection.ArrayMap
 import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.librariesHome
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.getLibrariesHome
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -72,7 +72,7 @@ class LaunchArgs(
 
         val varArgMap: MutableMap<String, String?> = android.util.ArrayMap()
         varArgMap["classpath_separator"] = ":"
-        varArgMap["library_directory"] = librariesHome
+        varArgMap["library_directory"] = getLibrariesHome()
         varArgMap["version_name"] = versionInfo.id
         varArgMap["natives_directory"] = PathManager.DIR_NATIVE_LIB
 
@@ -98,9 +98,9 @@ class LaunchArgs(
         verArgMap["auth_player_name"] = account.username
         verArgMap["auth_uuid"] = account.profileId.replace("-", "")
         verArgMap["auth_xuid"] = account.xuid
-        verArgMap["assets_root"] = ProfilePathHome.assetsHome
+        verArgMap["assets_root"] = ProfilePathHome.getAssetsHome()
         verArgMap["assets_index_name"] = versionInfo.assets
-        verArgMap["game_assets"] = ProfilePathHome.assetsHome
+        verArgMap["game_assets"] = ProfilePathHome.getAssetsHome()
         verArgMap["game_directory"] = gameDirPath.absolutePath
         verArgMap["user_properties"] = "{}"
         verArgMap["user_type"] = "msa"

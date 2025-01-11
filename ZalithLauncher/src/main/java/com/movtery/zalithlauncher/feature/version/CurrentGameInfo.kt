@@ -15,7 +15,7 @@ class CurrentGameInfo {
         /**
          * 获取当前游戏路径内的信息配置文件
          */
-        private fun getInfoFile() = File(ProfilePathHome.gameHome, "CurrentInfo.cfg")
+        private fun getInfoFile() = File(ProfilePathHome.getGameHome(), "CurrentInfo.cfg")
 
         fun refreshCurrentInfo() {
             fun createDefault() = CurrentInfo().apply {
@@ -27,7 +27,7 @@ class CurrentGameInfo {
              * 同步完成后，删除旧的“当前版本”配置文件
              */
             fun CurrentInfo.syncOldVersion(): CurrentInfo {
-                File(ProfilePathHome.gameHome, "CurrentVersion.cfg").let { oldConfigFile ->
+                File(ProfilePathHome.getGameHome(), "CurrentVersion.cfg").let { oldConfigFile ->
                     if (oldConfigFile.exists()) {
                         runCatching {
                             val versionString = Tools.read(oldConfigFile)

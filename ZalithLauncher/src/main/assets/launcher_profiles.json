@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "default": {
-      "gameDir": "./.minecraft/instance/default",
-      "lastVersionId": "1.7.10"
-    }
-  },
-  "selectedProfile": "default"
-}

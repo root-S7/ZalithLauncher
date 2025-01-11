@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ActivitySplashBinding
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.unpack.Components
 import com.movtery.zalithlauncher.feature.unpack.Jre
 import com.movtery.zalithlauncher.feature.unpack.UnpackComponentsTask
@@ -134,9 +133,6 @@ class SplashActivity : BaseActivity() {
         Task.runTask {
             UnpackSingleFilesTask(this).run()
         }.execute()
-
-        //检查 launcher_profiles.json 文件是否存在，不存在将会导致 Forge、NeoForge 等无法正常安装
-        ProfilePathHome.checkForLauncherProfiles(this)
 
         binding.startButton.isClickable = true
     }

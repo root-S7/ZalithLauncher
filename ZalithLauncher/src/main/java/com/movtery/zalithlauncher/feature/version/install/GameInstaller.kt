@@ -124,7 +124,7 @@ class GameInstaller(
         @JvmStatic
         fun moveVersionFiles() {
             val foldersPair = VersionFolderChecker.checkVersionsFolder() ?: return //缓存文件不存在，不检查
-            val versionFolder = File(ProfilePathHome.versionsHome, foldersPair.second.customVersion)
+            val versionFolder = File(ProfilePathHome.getVersionsHome(), foldersPair.second.customVersion)
 
             val loaderInfo = foldersPair.second
             if (!loaderInfo.name.equals("OptiFine", true)) return //仅用于OptiFine

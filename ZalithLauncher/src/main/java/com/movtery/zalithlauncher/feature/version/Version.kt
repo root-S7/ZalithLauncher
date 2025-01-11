@@ -59,7 +59,7 @@ class Version(
         return if (versionConfig.isIsolation()) versionConfig.getVersionPath()
         //未开启版本隔离可以使用自定义路径，如果自定义路径为空（则为未设置），那么返回默认游戏路径（.minecraft/）
         else if (versionConfig.getCustomPath().isNotEmpty()) File(versionConfig.getCustomPath())
-        else File(ProfilePathHome.gameHome)
+        else File(ProfilePathHome.getGameHome())
     }
 
     private fun String.getValueOrDefault(default: String): String = this.takeIf { it.isNotEmpty() } ?: default
