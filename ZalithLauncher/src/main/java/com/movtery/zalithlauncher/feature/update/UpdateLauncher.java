@@ -2,6 +2,7 @@ package com.movtery.zalithlauncher.feature.update;
 
 import static com.movtery.zalithlauncher.task.TaskExecutors.runInUIThread;
 import static com.movtery.zalithlauncher.utils.file.FileTools.formatFileSize;
+import static com.movtery.zalithlauncher.utils.path.UrlManager.TIME_OUT;
 
 import android.content.Context;
 
@@ -28,6 +29,7 @@ import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public final class UpdateLauncher {
@@ -43,9 +45,12 @@ public final class UpdateLauncher {
         this.launcherVersion = launcherVersion;
 
         this.destinationFilePath = UpdateUtils.sApkFile.getAbsolutePath();
-        this.call = UrlManager.createOkHttpClient().newCall(
-                UrlManager.createRequestBuilder(UpdateUtils.getDownloadUrl(launcherVersion, updateSource)).build()
-        ); //获取请求对象
+        this.call = new OkHttpClient.Builder()
+                .writeTimeout(TIME_OUT.getFirst(), TIME_OUT.getSecond())
+                .build()
+                .newCall(
+                        UrlManager.createRequestBuilder(UpdateUtils.getDownloadUrl(launcherVersion, updateSource)).build()
+                ); //获取请求对象
     }
 
     public void start() {
