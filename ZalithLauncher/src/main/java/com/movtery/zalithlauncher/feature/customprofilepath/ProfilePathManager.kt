@@ -44,7 +44,7 @@ class ProfilePathManager {
                             if (!sIsLauncherProfileChecked) {
                                 tryUnpackLauncherProfiles(defaultPath)
                                 dataMap.forEach { (_, json) ->
-                                    tryUnpackLauncherProfiles("${json.path}/.minecraft")
+                                    tryUnpackLauncherProfiles(json.path)
                                 }
                                 sIsLauncherProfileChecked = true
                             }
@@ -70,7 +70,7 @@ class ProfilePathManager {
          */
         private fun tryUnpackLauncherProfiles(path: String) {
             Task.runTask {
-                File(path, "launcher_profiles.json").run {
+                File(path, ".minecraft/launcher_profiles.json").run {
                     if (!exists()) {
                         createNewFile()
                         writeText(
