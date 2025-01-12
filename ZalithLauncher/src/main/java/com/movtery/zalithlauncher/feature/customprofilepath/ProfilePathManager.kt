@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.subassembly.customprofilepath.ProfileItem
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
@@ -19,7 +18,6 @@ typealias ProfilePathDataMap = Map<String, ProfilePathJsonObject>
 class ProfilePathManager {
     companion object {
         private val defaultPath: String = PathManager.DIR_GAME_HOME
-        private var sIsLauncherProfileChecked: Boolean = false
 
         @JvmStatic
         fun setCurrentPathId(id: String) {
@@ -41,13 +39,6 @@ class ProfilePathManager {
                             val dataMap = Tools.GLOBAL_GSON.fromJson<ProfilePathDataMap>(read,
                                 object : TypeToken<Map<String, ProfilePathJsonObject>>() {}.type
                             )
-                            if (!sIsLauncherProfileChecked) {
-                                tryUnpackLauncherProfiles(defaultPath)
-                                dataMap.forEach { (_, json) ->
-                                    tryUnpackLauncherProfiles(json.path)
-                                }
-                                sIsLauncherProfileChecked = true
-                            }
                             dataMap[id]?.path
                         }.getOrElse {
                             Logging.e("Read Profile", "Failed to parse the game path", it)
@@ -63,24 +54,6 @@ class ProfilePathManager {
             }.getOrElse {
                 Logging.e("No Media", "Unable to create a .nomedia file in the current directory.", it)
             }
-        }
-
-        /**
-         * 写入一个默认的 launcher_profiles.json 文件，不存在将会导致 Forge、NeoForge 等无法正常安装
-         */
-        private fun tryUnpackLauncherProfiles(path: String) {
-            Task.runTask {
-                File(path, ".minecraft/launcher_profiles.json").run {
-                    if (!exists()) {
-                        createNewFile()
-                        writeText(
-                            """{"profiles":{"default":{"lastVersionId":"latest-release"}},"selectedProfile":"default"}""".trimIndent()
-                        )
-                    }
-                }
-            }.onThrowable { e ->
-                Logging.e("Write launcher_profiles.json", Tools.printToString(e))
-            }.execute()
         }
 
         @JvmStatic

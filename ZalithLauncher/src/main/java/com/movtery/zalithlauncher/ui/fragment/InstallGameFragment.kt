@@ -16,6 +16,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentInstallGameBinding
 import com.movtery.zalithlauncher.event.sticky.SelectInstallTaskEvent
 import com.movtery.zalithlauncher.event.value.InstallGameEvent
+import com.movtery.zalithlauncher.utils.LauncherProfiles
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.version.install.Addon
 import com.movtery.zalithlauncher.feature.version.install.InstallArgsUtils
@@ -327,6 +328,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
         setArgs(intent, argUtils)
 
         SelectRuntimeUtils.selectRuntime(activity, activity.getString(R.string.version_install_new_modloader, addonName)) { jreName ->
+            LauncherProfiles.generateLauncherProfiles()
             intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName)
             activity.startActivity(intent)
         }

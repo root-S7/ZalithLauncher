@@ -34,6 +34,7 @@ import com.google.gson.GsonBuilder;
 import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
+import com.movtery.zalithlauncher.utils.LauncherProfiles;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
@@ -698,6 +699,7 @@ public final class Tools {
         Intent intent = new Intent(activity, JavaGUILauncherActivity.class);
         intent.putExtra("modUri", uri);
         SelectRuntimeUtils.selectRuntime(activity, null, jreName -> {
+            LauncherProfiles.generateLauncherProfiles();
             intent.putExtra(JavaGUILauncherActivity.EXTRAS_JRE_NAME, jreName);
             activity.startActivity(intent);
         });
