@@ -61,6 +61,7 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name="net.kdt.pojavlaunch.LauncherActivity"
+            android:windowSoftInputMode="adjustResize"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
