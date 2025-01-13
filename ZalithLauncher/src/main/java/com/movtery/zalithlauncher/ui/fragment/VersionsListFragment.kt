@@ -49,6 +49,18 @@ import java.util.UUID
 class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     companion object {
         const val TAG: String = "VersionsListFragment"
+        private var LAST_REFRESH_TIME: Long = 0L
+
+        /**
+         * 检查上次刷新时间，避免频繁刷新
+         * @return true: 不允许刷新
+         */
+        fun checkLastRefreshTime(): Boolean {
+            val currentTime = ZHTools.getCurrentTimeMillis()
+            if (currentTime - LAST_REFRESH_TIME < 100) return true
+            LAST_REFRESH_TIME = currentTime
+            return false
+        }
     }
 
     private lateinit var binding: FragmentVersionsListBinding
@@ -145,7 +157,10 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 this.adapter = profilePathAdapter
             }
 
-            refreshButton.setOnClickListener { refresh() }
+            refreshButton.setOnClickListener {
+                if (checkLastRefreshTime()) return@setOnClickListener
+                refresh()
+            }
             createPathButton.setOnClickListener {
                 StoragePermissionsUtils.checkPermissions(requireActivity(), R.string.profiles_path_create_new) {
                     val bundle = Bundle()

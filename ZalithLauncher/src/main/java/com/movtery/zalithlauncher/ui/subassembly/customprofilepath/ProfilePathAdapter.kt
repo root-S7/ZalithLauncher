@@ -19,6 +19,7 @@ import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.fragment.FilesFragment
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
+import com.movtery.zalithlauncher.ui.fragment.VersionsListFragment
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
 
@@ -101,6 +102,7 @@ class ProfilePathAdapter(
                 path.isSelected = true
 
                 val onClickListener = View.OnClickListener {
+                    if (VersionsListFragment.checkLastRefreshTime()) return@OnClickListener
                     if (currentId != profileItem.id) {
                         StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
                             setPathId(profileItem.id)
