@@ -387,7 +387,6 @@
     <string name="setting_category_experimental_patches">Patches experimentais</string>
     <string name="setting_category_support">Suporte Externo</string>
     <string name="setting_renderer_title">Renderizador</string>
-    <string name="setting_renderer_name_ltw">LTW (apenas para 1.17+)</string>
     <string name="setting_renderer_name_angle">Angle (apenas para 1.17+)</string>
     <string name="setting_ignore_notch_title">Modo Tela Cheia</string>
     <string name="setting_ignore_notch_desc">Ignorar o entalhe e expandir o conteúdo da tela para tela cheia, proporcionando uma experiência mais imersiva</string>

@@ -387,7 +387,6 @@
     <string name="setting_category_experimental_patches">Экспериментальные патчи</string>
     <string name="setting_category_support">Внешняя поддержка</string>
     <string name="setting_renderer_title">Рендерер</string>
-    <string name="setting_renderer_name_ltw">LTW (только для 1.17+)</string>
     <string name="setting_renderer_name_angle">Angle (только для 1.17+)</string>
     <string name="setting_ignore_notch_title">Полноэкранный режим</string>
     <string name="setting_ignore_notch_desc">Игнорировать вырез и расширить контент на весь экран для более полного погружения</string>
