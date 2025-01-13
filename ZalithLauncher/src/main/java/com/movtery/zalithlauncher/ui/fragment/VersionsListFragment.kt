@@ -111,10 +111,6 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             favoritesActions.setOnClickListener { showFavoritesActionPopupWindow(it) }
 
             versionsAdapter = VersionAdapter(this@VersionsListFragment, object : VersionAdapter.OnVersionItemClickListener {
-                override fun onVersionClick(version: Version) {
-                    VersionsManager.saveCurrentVersion(version.getVersionName())
-                }
-
                 override fun showFavoritesDialog(versionName: String) {
                     if (FavoritesVersionUtils.getAllFolders().isNotEmpty()) {
                         FavoritesVersionDialog(requireActivity(), versionName) {
