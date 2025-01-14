@@ -6,7 +6,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.setting.AllSettings
+import net.kdt.pojavlaunch.Tools
 
 /**
  * FCL、ZalithLauncher 渲染器插件
@@ -37,7 +37,7 @@ object RendererPlugin {
     @JvmStatic
     val selectedRenderer: Renderer?
         get() {
-            return getRendererList().find { it.id == AllSettings.renderer.getValue() }
+            return getRendererList().find { it.id == Tools.LOCAL_RENDERER }
         }
 
     @JvmStatic
