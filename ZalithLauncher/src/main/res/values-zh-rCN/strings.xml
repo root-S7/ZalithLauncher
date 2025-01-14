@@ -410,6 +410,7 @@
 
     <string name="setting_renderer_title">渲染器</string>
     <string name="setting_renderer_name_angle">Angle (仅限 1.17+)</string>
+    <string name="setting_renderer_from_plugins">来自 %s 插件</string>
     <string name="setting_ignore_notch_title">全屏模式</string>
     <string name="setting_ignore_notch_desc">忽略刘海屏并将屏幕内容扩展至全屏，给你以更完整的沉浸感</string>
     <string name="setting_resolution_scaler_title">分辨率调整</string>

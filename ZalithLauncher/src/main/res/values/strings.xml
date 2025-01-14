@@ -394,6 +394,7 @@
     <string name="setting_category_support">External Support</string>
     <string name="setting_renderer_title">Renderer</string>
     <string name="setting_renderer_name_angle">Angle (1.17+ only)</string>
+    <string name="setting_renderer_from_plugins">From %s Plugin</string>
     <string name="setting_ignore_notch_title">Fullscreen Mode</string>
     <string name="setting_ignore_notch_desc">Ignore the notch and extend screen content to full screen for a more complete immersive experience</string>
     <string name="setting_resolution_scaler_title">Resolution Scaling</string>

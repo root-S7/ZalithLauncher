@@ -34,6 +34,7 @@ import com.google.gson.GsonBuilder;
 import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
+import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
 import com.movtery.zalithlauncher.utils.LauncherProfiles;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
@@ -785,6 +786,21 @@ public final class Tools {
             if(rendererId.contains("zink") && !deviceHasZinkBinary) continue;
             rendererIds.add(rendererId);
             rendererNames.add(defaultRendererNames[i]);
+        }
+        // 渲染器插件
+        if (RendererPlugin.isAvailable()) {
+            RendererPlugin.getRendererList().forEach(renderer -> {
+                if (rendererIds.contains(renderer.getId())) {
+                    //尝试进行覆盖
+                    int rendererIndex = rendererIds.indexOf(renderer.getId());
+                    if (rendererIndex != -1) {
+                        rendererIds.remove(renderer.getId());
+                        rendererNames.remove(rendererIndex);
+                    }
+                }
+                rendererIds.add(renderer.getId());
+                rendererNames.add(renderer.getDes());
+            });
         }
         sCompatibleRenderers = new RenderersList(rendererIds,
                 rendererNames.toArray(new String[0]));

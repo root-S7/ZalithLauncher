@@ -11,6 +11,7 @@ import android.os.Build;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.unpack.Jre;
+import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -25,15 +26,15 @@ public class LauncherPreferences {
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
         PathManager.initContextConstants(ctx);
+        //加载渲染器插件
+        if (!RendererPlugin.isInitialized()) RendererPlugin.initRenderers(ctx);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         String javaArgs = AllSettings.getJavaArgs().getValue();
-        if (javaArgs != null) {
-            for (String arg : JREUtils.parseJavaArguments(javaArgs)) {
-                if (arg.startsWith(argLwjglLibname)) {
-                    // purge arg
-                    AllSettings.getJavaArgs().put(javaArgs.replace(arg, "")).save();
-                }
+        for (String arg : JREUtils.parseJavaArguments(javaArgs)) {
+            if (arg.startsWith(argLwjglLibname)) {
+                // purge arg
+                AllSettings.getJavaArgs().put(javaArgs.replace(arg, "")).save();
             }
         }
 
