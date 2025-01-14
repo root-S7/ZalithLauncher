@@ -100,7 +100,16 @@ object RendererPlugin {
                 rendererList.add(
                     Renderer(
                         pojavEnvPair.find { it.first == "POJAV_RENDERER" }?.second ?: renderer[0],
-                        "$des (${context.getString(R.string.setting_renderer_from_plugins)})",
+                        "$des (${
+                            context.getString(
+                                R.string.setting_renderer_from_plugins,
+                                runCatching {
+                                    context.packageManager.getApplicationLabel(info)
+                                }.getOrElse {
+                                    context.getString(R.string.generic_unknown)
+                                }
+                            )
+                        })",
                         renderer[1],
                         renderer[2],
                         nativeLibraryDir,
