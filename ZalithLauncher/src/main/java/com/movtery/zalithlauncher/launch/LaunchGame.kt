@@ -187,8 +187,9 @@ class LaunchGame {
                 mcInfo = info.getInfoString()
             }
 
-            val resources = context.resources
-            val renderers = resources.getStringArray(R.array.renderer).zip(resources.getStringArray(R.array.renderer_values))
+            val renderers = Tools.getCompatibleRenderers(context).run {
+                rendererDisplayNames.zip(rendererIds)
+            }
             val rendererName = renderers.find { it.second == Tools.LOCAL_RENDERER }?.first ?: "Parsing failed, original name: ${Tools.LOCAL_RENDERER}"
 
             Logger.appendToLog("--------- Start launching the game")
