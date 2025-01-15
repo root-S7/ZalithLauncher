@@ -388,6 +388,7 @@
     <string name="setting_renderer_title">渲染器</string>
     <string name="setting_renderer_name_angle">Angle (僅限 1.17+)</string>
     <string name="setting_renderer_from_plugins">來自 %s 插件</string>
+    <string name="setting_driver_title">Vulkan 驅動程式</string>
     <string name="setting_ignore_notch_title">全螢幕模式</string>
     <string name="setting_ignore_notch_desc">忽略劉海屏並將螢幕內容擴展至全螢幕，給你更完整的沉浸感</string>
     <string name="setting_resolution_scaler_title">解析度調整</string>

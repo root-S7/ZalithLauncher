@@ -388,6 +388,7 @@
     <string name="setting_renderer_title">Bộ kết xuất</string>
     <string name="setting_renderer_name_angle">Angle (chỉ dành cho 1.17+)</string>
     <string name="setting_renderer_from_plugins">Từ plugin %s</string>
+    <string name="setting_driver_title">Trình điều khiển Vulkan</string>
     <string name="setting_ignore_notch_title">Chế độ toàn màn hình</string>
     <string name="setting_ignore_notch_desc">Bỏ qua màn hình tai thỏ và mở rộng nội dung màn hình đến toàn màn hình\nCung cấp cho bạn trải nghiệm chìm đắm đầy đủ hơn</string>
     <string name="setting_resolution_scaler_title">Điều chỉnh độ phân giải</string>

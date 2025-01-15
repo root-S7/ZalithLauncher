@@ -388,6 +388,7 @@
     <string name="setting_renderer_title">Moteur de rendu</string>
     <string name="setting_renderer_name_angle">Angle (uniquement pour 1.17+)</string>
     <string name="setting_renderer_from_plugins">Depuis le plugin %s</string>
+    <string name="setting_driver_title">Pilote Vulkan</string>
     <string name="setting_ignore_notch_title">Mode plein écran</string>
     <string name="setting_ignore_notch_desc">Ignorer l\'encoche et étendre le contenu de l\'écran en plein écran pour une immersion plus complète</string>
     <string name="setting_resolution_scaler_title">Ajustement de la résolution</string>
