@@ -254,7 +254,7 @@ public class JREUtils {
             customRenderer.getEnv().forEach(envPair -> {
                 String envKey = envPair.getFirst();
                 String envValue = envPair.getSecond();
-                if (envKey.equals("DLOPEN") || envKey.equals("POJAV_RENDERER")) return;
+                if (envKey.equals("DLOPEN")) return;
                 if (envKey.equals("LIB_MESA_NAME")) {
                     envMap.put(envKey, customRenderer.getPath() + "/" + envValue);
                 } else {
