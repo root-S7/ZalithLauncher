@@ -54,7 +54,7 @@ object RendererPluginManager {
                     }
                     envPairList
                 }
-                val rendererId = pojavEnvPair.find { it.first == "POJAV_RENDERER" }?.second ?: renderer[0]
+                val rendererId = pojavEnvPair.find { it.first == "POJAV_RENDERER" || it.first == "SELECT_RENDERER" }?.second ?: renderer[0]
                 if (!rendererPluginList.any { it.id == rendererId }) {
                     rendererPluginList.add(
                         RendererPlugin(

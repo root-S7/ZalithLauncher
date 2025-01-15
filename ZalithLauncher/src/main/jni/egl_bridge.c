@@ -182,7 +182,7 @@ int pojavInitOpenGL() {
     if (!strcmp(forceVsync, "true"))
         pojav_environ->force_vsync = true;
 
-    const char *renderer = getenv("POJAV_RENDERER");
+    const char *renderer = getenv("SELECT_RENDERER");
 
     if (!strncmp("opengles", renderer, 8))
     {
