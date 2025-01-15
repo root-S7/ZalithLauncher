@@ -17,9 +17,9 @@
 
 - [x] 重构应用布局，更加美观更加合理。
 - [x] 内置简单的文件管理器，别再为安卓权限限制而烦恼了！
-- [x] 自定义游戏目录位置，允许设定在外部存储目录。
-- [x] 添加更多渲染器！
-- [x] 启动器内下载 Mod、ModPack、资源包、存档！
+- [x] 更好的版本管理，自定义游戏目录位置，允许设定在外部存储目录。
+- [x] 添加更多渲染器，可以使用渲染器插件！
+- [x] 启动器内下载模组、整合包、资源包、存档、光影包！
 - [x] 自定义虚拟鼠标图标，与自定义启动器背景图片。
 - [x] 浅色主题与深色主题自由选择。
 - [x] 以及更多功能！
@@ -33,8 +33,6 @@
 <h2 align="center">下载</h2>  
 
 - 前往 [Release](https://github.com/ZalithLauncher/ZalithLauncher/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。
-- (并不推荐) 前往 [Actions](https://github.com/ZalithLauncher/ZalithLauncher/actions) 查看最新的版本 ( 主线：main，其他任何支线均可忽略！)，  
-  进入后，点击 **ZalithLauncher** 下载 (Debug 为测试构建版本，Release 为发行构建版本)。
 
 <h2 align="center">协议</h2>
 
