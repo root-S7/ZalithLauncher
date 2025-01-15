@@ -294,7 +294,7 @@ public class JREUtils {
             envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
         }
 
-        envMap.put("SELECT_RENDERER", LOCAL_RENDERER);
+        envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
 
         if (!envMap.containsKey("LIBGL_ES") && LOCAL_RENDERER != null) {
             int glesMajor = getDetectedVersion();
