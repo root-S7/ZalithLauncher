@@ -22,6 +22,7 @@ import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
@@ -178,7 +179,7 @@ public class JREUtils {
         if (FFmpegPlugin.isAvailable) {
             ldLibraryPath.append(FFmpegPlugin.libraryPath).append(":");
         }
-        RendererPlugin customRenderer = RendererPlugin.getSelectedRendererPlugin();
+        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
         if (customRenderer != null) {
             ldLibraryPath.append(customRenderer.getPath()).append(":");
         }
@@ -246,7 +247,7 @@ public class JREUtils {
 
         String eglName = null;
 
-        RendererPlugin customRenderer = RendererPlugin.getSelectedRendererPlugin();
+        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
         if (customRenderer != null && LOCAL_RENDERER.equals(customRenderer.getId())) {
             customRenderer.getEnv().forEach(envPair -> {
                 String envKey = envPair.getFirst();
@@ -535,7 +536,7 @@ public class JREUtils {
      * @return The name of the loaded library
      */
     public static String loadGraphicsLibrary() {
-        RendererPlugin customRenderer = RendererPlugin.getSelectedRendererPlugin();
+        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
         if (LOCAL_RENDERER == null && customRenderer == null) return null;
         String renderLibrary;
         if (customRenderer != null) {

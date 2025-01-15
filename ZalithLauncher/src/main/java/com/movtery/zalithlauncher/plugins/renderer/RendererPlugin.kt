@@ -1,7 +1,5 @@
 package com.movtery.zalithlauncher.plugins.renderer
 
-import net.kdt.pojavlaunch.Tools
-
 data class RendererPlugin(
     val id: String,
     val des: String,
@@ -14,18 +12,5 @@ data class RendererPlugin(
         @JvmStatic
         internal val rendererPluginList: MutableList<RendererPlugin> = mutableListOf()
 
-        @JvmStatic
-        fun getRendererList() = ArrayList(rendererPluginList)
-
-        @JvmStatic
-        fun isAvailable(): Boolean {
-            return rendererPluginList.isNotEmpty()
-        }
-
-        @JvmStatic
-        val selectedRendererPlugin: RendererPlugin?
-            get() {
-                return getRendererList().find { it.id == Tools.LOCAL_RENDERER }
-            }
     }
 }
