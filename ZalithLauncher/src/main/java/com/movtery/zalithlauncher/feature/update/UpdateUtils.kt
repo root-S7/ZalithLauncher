@@ -134,8 +134,7 @@ class UpdateUtils {
         }
 
         @JvmStatic
-        fun getArchModel(): String? {
-            val arch = Tools.DEVICE_ARCHITECTURE
+        fun getArchModel(arch: Int = Tools.DEVICE_ARCHITECTURE): String? {
             if (arch == Architecture.ARCH_ARM64) return "arm64-v8a"
             if (arch == Architecture.ARCH_ARM) return "armeabi-v7a"
             if (arch == Architecture.ARCH_X86_64) return "x86_64"

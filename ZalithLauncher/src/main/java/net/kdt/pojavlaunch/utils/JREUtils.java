@@ -178,7 +178,7 @@ public class JREUtils {
         if (FFmpegPlugin.isAvailable) {
             ldLibraryPath.append(FFmpegPlugin.libraryPath).append(":");
         }
-        RendererPlugin.Renderer customRenderer = RendererPlugin.getSelectedRenderer();
+        RendererPlugin customRenderer = RendererPlugin.getSelectedRendererPlugin();
         if (customRenderer != null) {
             ldLibraryPath.append(customRenderer.getPath()).append(":");
         }
@@ -246,7 +246,7 @@ public class JREUtils {
 
         String eglName = null;
 
-        RendererPlugin.Renderer customRenderer = RendererPlugin.getSelectedRenderer();
+        RendererPlugin customRenderer = RendererPlugin.getSelectedRendererPlugin();
         if (customRenderer != null && LOCAL_RENDERER.equals(customRenderer.getId())) {
             customRenderer.getEnv().forEach(envPair -> {
                 String envKey = envPair.getFirst();
@@ -535,7 +535,7 @@ public class JREUtils {
      * @return The name of the loaded library
      */
     public static String loadGraphicsLibrary() {
-        RendererPlugin.Renderer customRenderer = RendererPlugin.getSelectedRenderer();
+        RendererPlugin customRenderer = RendererPlugin.getSelectedRendererPlugin();
         if (LOCAL_RENDERER == null && customRenderer == null) return null;
         String renderLibrary;
         if (customRenderer != null) {

@@ -24,6 +24,7 @@ class PathManager {
         lateinit var DIR_BACKGROUND: File
         lateinit var DIR_APP_CACHE: File
         lateinit var DIR_USER_SKIN: File
+        lateinit var DIR_INSTALLED_RENDERER_PLUGIN: File
 
         lateinit var FILE_SETTINGS: File
         lateinit var FILE_PROFILE_PATH: File
@@ -47,6 +48,7 @@ class PathManager {
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir!!
             DIR_USER_SKIN = File(DIR_FILE, "/user_skin")
+            DIR_INSTALLED_RENDERER_PLUGIN = File(DIR_FILE, "/renderer_plugins")
 
             FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
             FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
