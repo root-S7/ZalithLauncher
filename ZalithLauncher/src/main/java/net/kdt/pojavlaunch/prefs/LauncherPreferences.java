@@ -27,7 +27,7 @@ public class LauncherPreferences {
         //Required for the data folder.
         PathManager.initContextConstants(ctx);
         //加载渲染器插件
-        if (!RendererPlugin.isInitialized()) RendererPlugin.initRenderers(ctx);
+        RendererPlugin.initRenderers(ctx);
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         String javaArgs = AllSettings.getJavaArgs().getValue();

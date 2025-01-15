@@ -26,9 +26,6 @@ object RendererPlugin {
     private const val PACKAGE_FLAGS = PackageManager.GET_META_DATA or PackageManager.GET_SHARED_LIBRARY_FILES
 
     @JvmStatic
-    fun isInitialized() = isInitialized
-
-    @JvmStatic
     private val rendererList: MutableList<Renderer> = mutableListOf()
 
     @JvmStatic
@@ -43,8 +40,8 @@ object RendererPlugin {
     @JvmStatic
     @SuppressLint("QueryPermissionsNeeded")
     fun initRenderers(context: Context) {
-        rendererList.clear()
-
+        if (isInitialized) return
+        isInitialized = true
         val installedPackages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.packageManager.getInstalledPackages(
                 PackageManager.PackageInfoFlags.of(
@@ -64,7 +61,6 @@ object RendererPlugin {
                 parsePlugin(context, it.applicationInfo)
             }
         }
-        isInitialized = true
     }
 
     @JvmStatic
