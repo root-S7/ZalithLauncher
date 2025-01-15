@@ -7,10 +7,4 @@ data class RendererPlugin(
     val eglName: String,
     val path: String,
     val env: List<Pair<String, String>>
-) {
-    companion object {
-        @JvmStatic
-        internal val rendererPluginList: MutableList<RendererPlugin> = mutableListOf()
-
-    }
-}
+)

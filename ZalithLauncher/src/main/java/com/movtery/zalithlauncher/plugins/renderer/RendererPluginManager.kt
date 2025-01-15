@@ -59,7 +59,7 @@ object RendererPluginManager {
         PathManager.DIR_INSTALLED_RENDERER_PLUGIN.listFiles()?.let { files ->
             files.forEach { file ->
                 if (file.isDirectory) {
-                    parseLocalPlugin(file)
+                    parseLocalPlugin(context, file)
                 }
             }
         }
@@ -134,7 +134,7 @@ object RendererPluginManager {
      * ------------x86_64/ (x86_64架构)
      * ----------------渲染器库文件.so
      */
-    private fun parseLocalPlugin(directory: File) {
+    private fun parseLocalPlugin(context: Context, directory: File) {
         val archModel: String = UpdateUtils.getArchModel(Architecture.getDeviceArchitecture()) ?: return
         val libsDirectory: File = File(directory, "libs/$archModel").takeIf { it.exists() && it.isDirectory } ?: return
         val rendererConfigFile: File = File(directory, "renderer_config.json").takeIf { it.exists() && it.isFile } ?: return
@@ -142,10 +142,17 @@ object RendererPluginManager {
             Tools.GLOBAL_GSON.fromJson(Tools.read(rendererConfigFile), RendererConfig::class.java)
         }.getOrElse { return }
         rendererConfig.run {
-            if (!RendererPlugin.rendererPluginList.any { it.id == rendererId }) {
-                RendererPlugin.rendererPluginList.add(
+            if (!rendererPluginList.any { it.id == rendererId }) {
+                rendererPluginList.add(
                     RendererPlugin(
-                        rendererId, rendererDisplayName, glName, eglName, libsDirectory.absolutePath,
+                        rendererId,
+                        "$rendererDisplayName (${
+                            context.getString(
+                                R.string.setting_renderer_from_plugins,
+                                directory.name
+                            )
+                        })", glName, eglName,
+                        libsDirectory.absolutePath,
                         env.toList()
                     )
                 )
