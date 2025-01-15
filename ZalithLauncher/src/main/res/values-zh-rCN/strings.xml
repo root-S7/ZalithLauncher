@@ -388,7 +388,6 @@
     <string name="main_open_main_dir">打开主目录</string>
     <string name="main_install_jar_file">执行 .jar 文件</string>
     <string name="main_share_logs">分享日志文件</string>
-    <string name="main_share_crash_report">分享崩溃报告</string>
     <string name="main_launch">启动游戏</string>
 
     <string name="setting_category_control">控制设置</string>

@@ -8,13 +8,8 @@ import android.view.WindowManager
 import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ActivityErrorBinding
-import com.movtery.zalithlauncher.feature.version.VersionsManager
-import com.movtery.zalithlauncher.utils.path.PathManager
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getLatestFile
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.shareFile
-import com.movtery.zalithlauncher.utils.stringutils.StringUtils
+import com.movtery.zalithlauncher.utils.ZHTools
 import net.kdt.pojavlaunch.Tools
-import java.io.File
 
 class ErrorActivity : BaseActivity() {
     private lateinit var binding: ActivityErrorBinding
@@ -34,6 +29,7 @@ class ErrorActivity : BaseActivity() {
         binding.errorRestart.setOnClickListener {
             startActivity(Intent(this@ErrorActivity, SplashActivity::class.java))
         }
+        binding.shareLog.setOnClickListener { ZHTools.shareLogs(this) }
 
         if (extras.getBoolean(BUNDLE_IS_ERROR, true)) {
             showError(extras)
@@ -51,11 +47,7 @@ class ErrorActivity : BaseActivity() {
             return
         }
 
-        binding.errorButtons.visibility = View.GONE
         binding.errorTitle.setText(R.string.generic_wrong_tip)
-
-        val crashReportFile = getLatestFile(extras.getString(BUNDLE_CRASH_REPORTS_PATH), 15)
-        val logFile = File(PathManager.DIR_GAME_HOME, "latestlog.txt")
 
         val message = if (extras.getBoolean(BUNDLE_IS_SIGNAL)) R.string.game_singnal_message else R.string.game_exit_message
 
@@ -65,20 +57,10 @@ class ErrorActivity : BaseActivity() {
         }
         binding.errorTip.visibility = View.VISIBLE
         binding.errorNoScreenshot.visibility = View.VISIBLE
-        binding.crashShareCrashReport.visibility = if ((crashReportFile?.exists() == true)) View.VISIBLE else View.GONE
-        binding.crashShareLog.visibility = if (logFile.exists()) View.VISIBLE else View.GONE
-
-        crashReportFile?.let { file ->
-            binding.crashShareCrashReport.setOnClickListener {
-                shareFile(this, file)
-            }
-        }
-        binding.crashShareLog.setOnClickListener { Tools.shareLog(this) }
     }
 
     private fun showError(extras: Bundle) {
         binding.errorTitle.text = InfoCenter.replaceName(this, R.string.error_fatal)
-        binding.crashButtons.visibility = View.GONE
 
         val throwable = extras.getSerializable(BUNDLE_THROWABLE) as Throwable?
         val stackTrace = if (throwable != null) Tools.printToString(throwable) else "<null>"
@@ -86,20 +68,12 @@ class ErrorActivity : BaseActivity() {
         val errorText = "$strSavePath :\r\n\r\n$stackTrace"
 
         binding.errorText.text = errorText
-        binding.errorCopy.setOnClickListener { StringUtils.copyText("error", stackTrace, this@ErrorActivity) }
-        strSavePath?.let{
-            val crashFile = File(strSavePath)
-            binding.errorShare.setOnClickListener {
-                shareFile(this, crashFile)
-            }
-        }
     }
 
     companion object {
         private const val BUNDLE_IS_ERROR = "is_error"
         private const val BUNDLE_IS_SIGNAL = "is_signal"
         private const val BUNDLE_CODE = "code"
-        private const val BUNDLE_CRASH_REPORTS_PATH = "crash_reports_path"
         private const val BUNDLE_THROWABLE = "throwable"
         private const val BUNDLE_SAVE_PATH = "save_path"
 
@@ -115,12 +89,10 @@ class ErrorActivity : BaseActivity() {
         }
 
         @JvmStatic
-        @JvmOverloads
         fun showExitMessage(
             ctx: Context,
             code: Int,
-            isSignal: Boolean,
-            crashReportsPath: String? = getCrashReportsPath()?.absolutePath
+            isSignal: Boolean
         ) {
             val intent = Intent(ctx, ErrorActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -128,13 +100,7 @@ class ErrorActivity : BaseActivity() {
             intent.putExtra(BUNDLE_CODE, code)
             intent.putExtra(BUNDLE_IS_ERROR, false)
             intent.putExtra(BUNDLE_IS_SIGNAL, isSignal)
-            intent.putExtra(BUNDLE_CRASH_REPORTS_PATH, crashReportsPath)
             ctx.startActivity(intent)
-        }
-
-        private fun getCrashReportsPath(): File? {
-            val gameDir: File = VersionsManager.getCurrentVersion()?.getGameDir() ?: return null
-            return File(gameDir, "crash-reports")
         }
     }
 }

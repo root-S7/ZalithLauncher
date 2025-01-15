@@ -407,8 +407,7 @@ public class JREUtils {
         final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
         Logger.appendToLog("Java Exit code: " + exitCode);
         if (exitCode != 0) {
-            File crashReportPath = new File(gameDirectory, "crash-reports");
-            ErrorActivity.showExitMessage(activity, exitCode, false, crashReportPath.getAbsolutePath());
+            ErrorActivity.showExitMessage(activity, exitCode, false);
         }
         EventBus.getDefault().post(new JvmExitEvent(exitCode));
     }

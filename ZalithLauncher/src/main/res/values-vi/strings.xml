@@ -368,7 +368,6 @@
     <string name="main_open_main_dir">Mở thư mục chính</string>
     <string name="main_install_jar_file">Thực thi tệp .jar</string>
     <string name="main_share_logs">Chia sẻ tệp nhật ký</string>
-    <string name="main_share_crash_report">Chia sẻ báo cáo sự cố</string>
     <string name="main_launch">Bắt đầu trò chơi</string>
     <string name="setting_category_control">Cài đặt điều khiển</string>
     <string name="setting_category_virtual_mouse">Chuột ảo</string>

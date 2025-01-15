@@ -368,7 +368,6 @@
     <string name="main_open_main_dir">Открыть главную папку</string>
     <string name="main_install_jar_file">Запустить .jar файл</string>
     <string name="main_share_logs">Поделиться файлами логов</string>
-    <string name="main_share_crash_report">Поделиться отчетом о сбое</string>
     <string name="main_launch">Запустить игру</string>
     <string name="setting_category_control">Настройки управления</string>
     <string name="setting_category_virtual_mouse">Виртуальная мышь</string>

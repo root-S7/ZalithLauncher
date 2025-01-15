@@ -368,7 +368,6 @@
     <string name="main_open_main_dir">Hauptverzeichnis öffnen</string>
     <string name="main_install_jar_file">.jar-Datei ausführen</string>
     <string name="main_share_logs">Logdateien teilen</string>
-    <string name="main_share_crash_report">Absturzbericht teilen</string>
     <string name="main_launch">Spiel starten</string>
     <string name="setting_category_control">Steuerungseinstellungen</string>
     <string name="setting_category_virtual_mouse">Virtueller Mauszeiger</string>

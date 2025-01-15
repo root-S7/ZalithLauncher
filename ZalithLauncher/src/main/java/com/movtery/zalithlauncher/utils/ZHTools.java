@@ -16,6 +16,7 @@ import android.opengl.GLES20;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -38,17 +39,24 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
+import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 
+import net.kdt.pojavlaunch.Tools;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.zip.ZipOutputStream;
 
 public final class ZHTools {
     private ZHTools() {
@@ -330,6 +338,40 @@ public final class ZHTools {
 
         Logging.d("CheckVendor", "Running on Adreno GPU: " + isAdreno);
         return isAdreno;
+    }
+
+    public static synchronized void shareLogs(Context context) {
+        AlertDialog dialog = ZHTools.createTaskRunningDialog(context);
+
+        Task.runTask(() -> {
+                    File zipFile = new File(PathManager.DIR_APP_CACHE, "logs.zip");
+
+                    try (FileOutputStream fos = new FileOutputStream(zipFile);
+                         ZipOutputStream zos = new ZipOutputStream(fos)) {
+
+                        File logsFolder = new File(PathManager.DIR_LAUNCHER_LOG);
+                        if (logsFolder.exists() && logsFolder.isDirectory()) {
+                            FileTools.zipDirectory(logsFolder, "launcher_logs/", file -> {
+                                String fileName = file.getName();
+                                return fileName.equals("latestcrash.txt") || (fileName.startsWith("log") && fileName.endsWith(".txt"));
+                            }, zos);
+                        } else Log.d("Zip Log", "The launcher log does not exist or is not available");
+
+                        File latestLogFile = new File(PathManager.DIR_GAME_HOME, "/latestlog.txt");
+                        if (latestLogFile.exists() && latestLogFile.isFile()) {
+                            FileTools.zipFile(latestLogFile, latestLogFile.getName(), zos);
+                        } else Log.d("Zip Log", "The game run log does not exist");
+                    }
+
+                    return zipFile;
+                }).beforeStart(TaskExecutors.getAndroidUI(), dialog::show)
+                .ended(TaskExecutors.getAndroidUI(), zipFile -> {
+                    if (zipFile != null) {
+                        FileTools.shareFile(context, zipFile);
+                    }
+                }).onThrowable(t -> Logging.e("Zip Log", Tools.printToString(t)))
+                .finallyTask(TaskExecutors.getAndroidUI(), dialog::dismiss)
+                .execute();
     }
 
     public static void getWebViewAfterProcessing(WebView view) {
