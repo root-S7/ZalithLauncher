@@ -11,6 +11,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.SettingsFragmentVideoBinding
+import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllStaticSettings
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -44,6 +45,17 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             binding.rendererValue,
             renderers.rendererDisplayNames,
             renderers.rendererIds.toTypedArray()
+        )
+
+        val driverNames = DriverPluginManager.getDriverNameList().toTypedArray()
+        ListSettingsWrapper(
+            context,
+            AllSettings.driver,
+            binding.driverLayout,
+            binding.driverTitle,
+            binding.driverValue,
+            driverNames,
+            driverNames
         )
 
         val ignoreNotch = SwitchSettingsWrapper(

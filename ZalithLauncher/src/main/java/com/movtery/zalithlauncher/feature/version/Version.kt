@@ -66,6 +66,8 @@ class Version(
 
     fun getRenderer(): String = versionConfig.getRenderer().getValueOrDefault(AllSettings.renderer.getValue())
 
+    fun getDriver(): String = versionConfig.getDriver().getValueOrDefault(AllSettings.driver.getValue())
+
     fun getJavaDir(): String = versionConfig.getJavaDir().getValueOrDefault(AllSettings.defaultRuntime.getValue())
 
     fun getJavaArgs(): String = versionConfig.getJavaArgs().getValueOrDefault(AllSettings.javaArgs.getValue())

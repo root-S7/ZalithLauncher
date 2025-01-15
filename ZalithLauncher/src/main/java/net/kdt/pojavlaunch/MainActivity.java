@@ -53,6 +53,7 @@ import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.launch.LaunchGame;
 import com.movtery.zalithlauncher.listener.SimpleTextWatcher;
+import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -190,6 +191,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
 
             Logging.i("RdrDebug","__P_renderer=" + minecraftVersion.getRenderer());
             Tools.LOCAL_RENDERER = minecraftVersion.getRenderer();
+            DriverPluginManager.setDriverByName(minecraftVersion.getDriver());
 
             setTitle("Minecraft " + minecraftVersion.getVersionName());
 

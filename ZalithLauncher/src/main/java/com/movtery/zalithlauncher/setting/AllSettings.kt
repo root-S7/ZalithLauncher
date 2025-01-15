@@ -17,6 +17,9 @@ class AllSettings {
         val renderer = StringSettingUnit("renderer", "opengles2")
 
         @JvmStatic
+        val driver = StringSettingUnit("driver", "Turnip")
+
+        @JvmStatic
         val ignoreNotch = BooleanSettingUnit("ignoreNotch", true)
 
         @JvmStatic

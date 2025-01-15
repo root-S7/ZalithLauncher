@@ -1,13 +1,9 @@
 package com.movtery.zalithlauncher.plugins.renderer
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.update.UpdateUtils
-import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.Tools
 import java.io.File
@@ -17,10 +13,6 @@ import java.io.File
  * [FCL Renderer Plugin](https://github.com/FCL-Team/FCLRendererPlugin)
  */
 object RendererPluginManager {
-    private var isInitialized: Boolean = false
-    private const val PACKAGE_FLAGS = PackageManager.GET_META_DATA or PackageManager.GET_SHARED_LIBRARY_FILES
-
-    @JvmStatic
     private val rendererPluginList: MutableList<RendererPlugin> = mutableListOf()
 
     @JvmStatic
@@ -37,38 +29,10 @@ object RendererPluginManager {
             return getRendererList().find { it.id == Tools.LOCAL_RENDERER }
         }
 
-    @JvmStatic
-    @SuppressLint("QueryPermissionsNeeded")
-    fun initRenderers(context: Context) {
-        if (isInitialized) return
-        isInitialized = true
-        //尝试进行解析软件渲染器插件
-        val queryIntentActivities =
-            context.packageManager.queryIntentActivities(Intent("android.intent.action.MAIN"), PACKAGE_FLAGS)
-        queryIntentActivities.forEach {
-            val activityInfo = it.activityInfo
-            val packageName = activityInfo.packageName
-            if (
-                packageName.startsWith("com.movtery.zalithplugin.renderer") ||
-                packageName.startsWith("com.mio.plugin.renderer")
-            ) {
-                parseApkPlugin(context, activityInfo.applicationInfo)
-            }
-        }
-        //尝试解析本地渲染器插件
-        PathManager.DIR_INSTALLED_RENDERER_PLUGIN.listFiles()?.let { files ->
-            files.forEach { file ->
-                if (file.isDirectory) {
-                    parseLocalPlugin(context, file)
-                }
-            }
-        }
-    }
-
     /**
      * 解析 ZalithLauncher、FCL 渲染器插件
      */
-    private fun parseApkPlugin(context: Context, info: ApplicationInfo) {
+    internal fun parseApkPlugin(context: Context, info: ApplicationInfo) {
         if (info.flags and ApplicationInfo.FLAG_SYSTEM == 0) {
             val metaData = info.metaData ?: return
             if (
@@ -134,7 +98,7 @@ object RendererPluginManager {
      * ------------x86_64/ (x86_64架构)
      * ----------------渲染器库文件.so
      */
-    private fun parseLocalPlugin(context: Context, directory: File) {
+    internal fun parseLocalPlugin(context: Context, directory: File) {
         val archModel: String = UpdateUtils.getArchModel(Architecture.getDeviceArchitecture()) ?: return
         val libsDirectory: File = File(directory, "libs/$archModel").takeIf { it.exists() && it.isDirectory } ?: return
         val rendererConfigFile: File = File(directory, "renderer_config.json").takeIf { it.exists() && it.isFile } ?: return

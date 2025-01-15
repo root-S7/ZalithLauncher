@@ -24,6 +24,7 @@ import com.movtery.zalithlauncher.feature.version.utils.VersionIconUtils
 import com.movtery.zalithlauncher.feature.version.VersionsManager.getCurrentVersion
 import com.movtery.zalithlauncher.feature.version.VersionsManager.refresh
 import com.movtery.zalithlauncher.listener.SimpleTextWatcher
+import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.versionIsolation
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors.Companion.getAndroidUI
@@ -268,8 +269,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
 
                 //渲染器
                 val renderersList = Tools.getCompatibleRenderers(context)
-                val rendererNames: MutableList<String> = ArrayList()
-                rendererNames.addAll(renderersList.rendererIds)
+                val rendererNames: MutableList<String> = ArrayList(renderersList.rendererIds)
                 val renderList: MutableList<String> = ArrayList(renderersList.rendererDisplayNames.size + 1)
                 renderList.addAll(renderersList.rendererDisplayNames)
                 renderList.add(context.getString(R.string.generic_default))
@@ -286,6 +286,25 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                     OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
                         if (i1 == renderList.size - 1) config.setRenderer("")
                         else config.setRenderer(rendererNames[i1])
+                    })
+
+                //驱动器
+                val driverNames = DriverPluginManager.getDriverNameList()
+                val driverList = ArrayList(driverNames)
+                driverList.add(context.getString(R.string.generic_default))
+                var driverIndex = driverList.size - 1
+                if (config.getDriver().isNotEmpty()) {
+                    val index = driverNames.indexOf(config.getDriver())
+                    if (index != -1) driverIndex = index
+                }
+                val driverAdapter = DefaultSpinnerAdapter(driverSpinner)
+                driverAdapter.setItems(driverList)
+                driverSpinner.setSpinnerAdapter(driverAdapter)
+                driverSpinner.selectItemByIndex(driverIndex)
+                driverSpinner.setOnSpinnerItemSelectedListener(
+                    OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
+                        if (i1 == driverList.size - 1) config.setDriver("")
+                        else config.setDriver(driverNames[i1])
                     })
 
                 //自定义信息
