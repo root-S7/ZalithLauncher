@@ -114,6 +114,9 @@
                     android:id="@+id/ignoreNotch_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/ignoreNotch"
                     android:text="@string/setting_ignore_notch_title"
                     android:textColor="@color/black_or_white" />
 
@@ -146,6 +149,8 @@
                     android:id="@+id/resolutionRatio_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:text="@string/setting_resolution_scaler_title"
@@ -206,6 +211,9 @@
                     android:id="@+id/sustainedPerformance_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/sustainedPerformance"
                     android:text="@string/setting_sustained_performance_title"
                     android:textColor="@color/black_or_white" />
 
@@ -238,6 +246,9 @@
                     android:id="@+id/alternate_surface_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/alternate_surface"
                     android:text="@string/setting_use_surface_view_title"
                     android:textColor="@color/black_or_white" />
 
@@ -270,6 +281,9 @@
                     android:id="@+id/force_vsync_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/force_vsync"
                     android:text="@string/setting_force_vsync_title"
                     android:textColor="@color/black_or_white" />
 
@@ -302,6 +316,9 @@
                     android:id="@+id/vsync_in_zink_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/vsync_in_zink"
                     android:text="@string/setting_vsync_in_zink_title"
                     android:textColor="@color/black_or_white" />
 
@@ -334,6 +351,9 @@
                     android:id="@+id/zinkPreferSystemDriver_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/zinkPreferSystemDriver"
                     android:text="@string/setting_vulkan_driver_system_title"
                     android:textColor="@color/black_or_white" />
 

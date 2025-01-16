@@ -38,6 +38,9 @@
                     android:id="@+id/version_isolation_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/version_isolation"
                     android:text="@string/setting_version_isolation_title"
                     android:textColor="@color/black_or_white" />
 
@@ -70,6 +73,8 @@
                     android:id="@+id/versionCustomInfo_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/setting_version_custom_info_title"
                     android:textColor="@color/black_or_white" />
 
@@ -121,6 +126,9 @@
                     android:id="@+id/autoSetGameLanguage_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/autoSetGameLanguage"
                     android:text="@string/setting_set_game_language_title"
                     android:textColor="@color/black_or_white" />
 
@@ -154,6 +162,9 @@
                     android:id="@+id/gameLanguageOverridden_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/gameLanguageOverridden"
                     android:text="@string/setting_set_game_language_overridden_title"
                     android:textColor="@color/black_or_white" />
 
@@ -186,6 +197,8 @@
                     android:id="@+id/setGameLanguage_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/setting_set_game_language_list"
                     android:textColor="@color/black_or_white" />
 
@@ -228,6 +241,8 @@
                     android:id="@+id/install_jre_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/setting_java_multirt_title"
                     android:textColor="@color/black_or_white" />
 
@@ -252,6 +267,8 @@
                     android:id="@+id/selectRuntimeMode_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/setting_java_select_runtime_title"
                     android:textColor="@color/black_or_white" />
 
@@ -285,6 +302,8 @@
                     android:id="@+id/javaArgs_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/setting_java_args_title"
                     android:textColor="@color/black_or_white" />
 
@@ -317,6 +336,8 @@
                     android:id="@+id/allocation_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:text="@string/setting_java_memory_title"
@@ -373,6 +394,9 @@
                     android:id="@+id/java_sandbox_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/java_sandbox"
                     android:text="@string/setting_java_sandbox_title"
                     android:textColor="@color/black_or_white" />
 
@@ -423,6 +447,9 @@
                     android:id="@+id/gameMenuShowMemory_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/gameMenuShowMemory"
                     android:text="@string/setting_game_menu_show_memory_title"
                     android:textColor="@color/black_or_white" />
 
@@ -456,6 +483,8 @@
                     android:id="@+id/gameMenuMemoryText_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/setting_game_menu_memory_text_title"
                     android:textColor="@color/black_or_white" />
 
@@ -489,6 +518,8 @@
                     android:id="@+id/gameMenuLocation_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="@string/setting_game_menu_location_title"
                     android:textColor="@color/black_or_white" />
 
@@ -512,6 +543,8 @@
                     android:id="@+id/gameMenuAlpha_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:text="@string/setting_game_menu_alpha_title"

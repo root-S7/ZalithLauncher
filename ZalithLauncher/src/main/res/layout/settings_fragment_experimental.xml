@@ -38,6 +38,9 @@
                     android:id="@+id/dump_shaders_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/dump_shaders"
                     android:text="@string/setting_shader_dump_title"
                     android:textColor="@color/black_or_white" />
 
@@ -70,6 +73,9 @@
                     android:id="@+id/bigCoreAffinity_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/bigCoreAffinity"
                     android:text="@string/setting_force_big_core_title"
                     android:textColor="@color/black_or_white" />
 
@@ -120,6 +126,9 @@
                     android:id="@+id/useControllerProxy_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_toStartOf="@+id/useControllerProxy"
                     android:text="@string/setting_use_controller_proxy_title"
                     android:textColor="@color/black_or_white" />
 
@@ -151,6 +160,8 @@
                     android:id="@+id/tcVibrateDuration_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:text="@string/setting_touch_controller_vibrate_duration_title"
