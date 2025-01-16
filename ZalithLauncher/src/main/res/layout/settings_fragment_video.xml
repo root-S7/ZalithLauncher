@@ -38,6 +38,9 @@
                     android:id="@+id/renderer_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/renderer_download"
                     android:text="@string/setting_renderer_title"
                     android:textColor="@color/black_or_white" />
 
@@ -45,10 +48,21 @@
                     android:id="@+id/renderer_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_below="@+id/renderer_title"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
+                    android:layout_toStartOf="@id/renderer_download"
                     android:text="@string/generic_default" />
+
+                <ImageButton
+                    android:id="@+id/renderer_download"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/setting_category_download"
+                    android:src="@drawable/ic_download"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
             </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
             <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout
@@ -62,6 +76,9 @@
                     android:id="@+id/driver_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/driver_download"
                     android:text="@string/setting_driver_title"
                     android:textColor="@color/black_or_white" />
 
@@ -69,10 +86,21 @@
                     android:id="@+id/driver_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_below="@+id/driver_title"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
+                    android:layout_toStartOf="@id/driver_download"
                     android:text="@string/generic_default" />
+
+                <ImageButton
+                    android:id="@+id/driver_download"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/setting_category_download"
+                    android:src="@drawable/ic_download"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
             </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
             <com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout

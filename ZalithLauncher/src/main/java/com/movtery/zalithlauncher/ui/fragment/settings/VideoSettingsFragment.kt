@@ -19,6 +19,7 @@ import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.ListSettingsWrapp
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SeekBarSettingsWrapper
 import com.movtery.zalithlauncher.ui.fragment.settings.wrapper.SwitchSettingsWrapper
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.path.UrlManager
 import net.kdt.pojavlaunch.Tools
 
 class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_video, SettingCategory.VIDEO) {
@@ -34,7 +35,7 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val context = requireContext()
+        val context = requireActivity()
 
         val renderers = Tools.getCompatibleRenderers(context)
         ListSettingsWrapper(
@@ -47,6 +48,8 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             renderers.rendererIds.toTypedArray()
         )
 
+        binding.rendererDownload.setOnClickListener { ZHTools.openLink(context, UrlManager.URL_FCL_RENDERER_PLUGIN) }
+
         val driverNames = DriverPluginManager.getDriverNameList().toTypedArray()
         ListSettingsWrapper(
             context,
@@ -57,6 +60,8 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             driverNames,
             driverNames
         )
+
+        binding.driverDownload.setOnClickListener { ZHTools.openLink(context, UrlManager.URL_FCL_DRIVER_PLUGIN) }
 
         val ignoreNotch = SwitchSettingsWrapper(
             context,

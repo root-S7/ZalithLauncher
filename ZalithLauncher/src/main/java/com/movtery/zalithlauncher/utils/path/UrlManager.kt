@@ -22,6 +22,8 @@ class UrlManager {
         const val URL_MINECRAFT_VERSION_REPOS: String = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
         const val URL_SUPPORT: String = "https://afdian.com/a/MovTery"
         const val URL_HOME: String = "https://github.com/ZalithLauncher/ZalithLauncher"
+        const val URL_FCL_RENDERER_PLUGIN: String = "https://github.com/FCL-Team/FCLRendererPlugin/releases/tag/Renderer"
+        const val URL_FCL_DRIVER_PLUGIN: String = "https://github.com/FCL-Team/FCLDriverPlugin/releases/tag/Turnip"
 
         @JvmStatic
         fun createConnection(url: URL): URLConnection {
