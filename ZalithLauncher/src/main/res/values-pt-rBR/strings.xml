@@ -388,6 +388,12 @@
     <string name="setting_renderer_title">Renderizador</string>
     <string name="setting_renderer_name_angle">Angle (apenas para 1.17+)</string>
     <string name="setting_renderer_from_plugins">Do plugin %s</string>
+    <string name="setting_renderer_local_import_title">Importação de Renderizador Local</string>
+    <string name="setting_renderer_local_import_desc">Além de instalar plugins de renderização por software, o lançador também oferece suporte para importar plugins de renderizador localmente. No entanto, alguns dispositivos podem não ser capazes de usar plugins de renderizador local, então use com cautela!</string>
+    <string name="setting_renderer_local_import_restart">Novo renderizador importado. Por favor, reinicie o lançador para carregá-lo!</string>
+    <string name="setting_renderer_local_import_failed">Falha ao importar o plugin de renderizador. O formato do arquivo compactado pode estar incorreto ou o plugin pode entrar em conflito com outros plugins!</string>
+    <string name="setting_renderer_local_manage">Gerenciar Plugins de Renderizador Local</string>
+    <string name="setting_renderer_local_delete">Tem certeza de que deseja excluir este plugin de renderizador? Esta ação não pode ser desfeita!</string>
     <string name="setting_driver_title">Driver Vulkan</string>
     <string name="setting_ignore_notch_title">Modo Tela Cheia</string>
     <string name="setting_ignore_notch_desc">Ignorar o entalhe e expandir o conteúdo da tela para tela cheia, proporcionando uma experiência mais imersiva</string>

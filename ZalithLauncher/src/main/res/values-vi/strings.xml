@@ -388,6 +388,12 @@
     <string name="setting_renderer_title">Bộ kết xuất</string>
     <string name="setting_renderer_name_angle">Angle (chỉ dành cho 1.17+)</string>
     <string name="setting_renderer_from_plugins">Từ plugin %s</string>
+    <string name="setting_renderer_local_import_title">Nhập khẩu Bộ xử lý đồ họa cục bộ</string>
+    <string name="setting_renderer_local_import_desc">Ngoài việc cài đặt plugin xử lý phần mềm, trình khởi chạy cũng hỗ trợ nhập khẩu plugin xử lý đồ họa từ địa phương. Tuy nhiên, một số thiết bị có thể không sử dụng được plugin đồ họa cục bộ, hãy sử dụng thận trọng!</string>
+    <string name="setting_renderer_local_import_restart">Bộ xử lý đồ họa mới đã được nhập khẩu. Vui lòng khởi động lại trình khởi chạy để tải!</string>
+    <string name="setting_renderer_local_import_failed">Không thể nhập khẩu plugin bộ xử lý đồ họa. Định dạng tệp nén có thể không đúng hoặc plugin có thể xung đột với các plugin khác!</string>
+    <string name="setting_renderer_local_manage">Quản lý plugin bộ xử lý đồ họa cục bộ</string>
+    <string name="setting_renderer_local_delete">Bạn có chắc chắn muốn xóa plugin bộ xử lý đồ họa này không? Hành động này không thể hoàn tác!</string>
     <string name="setting_driver_title">Trình điều khiển Vulkan</string>
     <string name="setting_ignore_notch_title">Chế độ toàn màn hình</string>
     <string name="setting_ignore_notch_desc">Bỏ qua màn hình tai thỏ và mở rộng nội dung màn hình đến toàn màn hình\nCung cấp cho bạn trải nghiệm chìm đắm đầy đủ hơn</string>

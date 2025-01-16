@@ -388,6 +388,12 @@
     <string name="setting_renderer_title">Рендерер</string>
     <string name="setting_renderer_name_angle">Angle (только для 1.17+)</string>
     <string name="setting_renderer_from_plugins">Из плагина %s</string>
+    <string name="setting_renderer_local_import_title">Локальный импорт рендерера</string>
+    <string name="setting_renderer_local_import_desc">Помимо установки плагинов программного рендеринга, загрузчик также поддерживает локальный импорт плагинов рендерера. Однако некоторые устройства могут не поддерживать локальные плагины рендерера, будьте осторожны!</string>
+    <string name="setting_renderer_local_import_restart">Новый рендерер импортирован. Пожалуйста, перезапустите загрузчик, чтобы загрузить его!</string>
+    <string name="setting_renderer_local_import_failed">Не удалось импортировать плагин рендерера. Формат сжатого файла может быть неправильным или плагин может конфликтовать с другими плагинами!</string>
+    <string name="setting_renderer_local_manage">Управление локальными плагинами рендерера</string>
+    <string name="setting_renderer_local_delete">Вы уверены, что хотите удалить этот плагин рендерера? Это действие необратимо!</string>
     <string name="setting_driver_title">Драйвер Vulkan</string>
     <string name="setting_ignore_notch_title">Полноэкранный режим</string>
     <string name="setting_ignore_notch_desc">Игнорировать вырез и расширить контент на весь экран для более полного погружения</string>

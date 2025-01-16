@@ -388,6 +388,12 @@
     <string name="setting_renderer_title">渲染器</string>
     <string name="setting_renderer_name_angle">Angle (僅限 1.17+)</string>
     <string name="setting_renderer_from_plugins">來自 %s 插件</string>
+    <string name="setting_renderer_local_import_title">本地導入渲染器</string>
+    <string name="setting_renderer_local_import_desc">除了安裝軟體渲染器插件之外，啟動器還支持在本地導入渲染器插件，不過一些設備可能無法使用本地渲染器插件，請謹慎使用！</string>
+    <string name="setting_renderer_local_import_restart">已導入新的渲染器，請重啟啟動器以加載！</string>
+    <string name="setting_renderer_local_import_failed">沒有導入成功的渲染器插件，可能是壓縮包文件格式不正確，或者該插件與其他插件衝突了！</string>
+    <string name="setting_renderer_local_manage">管理本地渲染器插件</string>
+    <string name="setting_renderer_local_delete">你確定要刪除這個渲染器插件嗎？這個操作不可逆！</string>
     <string name="setting_driver_title">Vulkan 驅動程式</string>
     <string name="setting_ignore_notch_title">全螢幕模式</string>
     <string name="setting_ignore_notch_desc">忽略劉海屏並將螢幕內容擴展至全螢幕，給你更完整的沉浸感</string>

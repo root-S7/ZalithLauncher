@@ -3,20 +3,36 @@ package com.movtery.zalithlauncher.plugins.renderer
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.update.UpdateUtils
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.utils.ZipUtils
 import java.io.File
+import java.io.InputStreamReader
+import java.util.zip.ZipFile
 
 /**
- * FCL、ZalithLauncher 渲染器插件，同时支持使用本地渲染器插件（暂时没有启动器内导入方案）
+ * FCL、ZalithLauncher 渲染器插件，同时支持使用本地渲染器插件
  * [FCL Renderer Plugin](https://github.com/FCL-Team/FCLRendererPlugin)
  */
 object RendererPluginManager {
     private val rendererPluginList: MutableList<RendererPlugin> = mutableListOf()
+    private val localRendererPluginList: MutableList<LocalRendererPlugin> = mutableListOf()
 
     @JvmStatic
     fun getRendererList() = ArrayList(rendererPluginList)
+
+    @JvmStatic
+    fun getAllLocalRendererList() = ArrayList(localRendererPluginList)
+
+    @JvmStatic
+    fun markLocalRendererDeleted(index: Int) {
+        if (index in localRendererPluginList.indices) {
+            localRendererPluginList[index].isDeleted = true
+        }
+    }
 
     @JvmStatic
     fun isAvailable(): Boolean {
@@ -82,7 +98,7 @@ object RendererPluginManager {
 
     /**
      * 从本地 `/files/renderer_plugins/` 目录下尝试解析渲染器插件
-     * 只是一个备用方案，暂时不支持直接导入
+     * @return 是否是符合要求的插件
      *
      * 渲染器文件夹格式
      * renderer_plugins/
@@ -98,14 +114,21 @@ object RendererPluginManager {
      * ------------x86_64/ (x86_64架构)
      * ----------------渲染器库文件.so
      */
-    internal fun parseLocalPlugin(context: Context, directory: File) {
-        val archModel: String = UpdateUtils.getArchModel(Architecture.getDeviceArchitecture()) ?: return
-        val libsDirectory: File = File(directory, "libs/$archModel").takeIf { it.exists() && it.isDirectory } ?: return
-        val rendererConfigFile: File = File(directory, "renderer_config.json").takeIf { it.exists() && it.isFile } ?: return
+    internal fun parseLocalPlugin(context: Context, directory: File): Boolean {
+        val archModel: String = UpdateUtils.getArchModel(Architecture.getDeviceArchitecture()) ?: return false
+        val libsDirectory: File = File(directory, "libs/$archModel").takeIf { it.exists() && it.isDirectory } ?: return false
+        val rendererConfigFile: File = File(directory, "renderer_config.json").takeIf { it.exists() && it.isFile } ?: return false
         val rendererConfig: RendererConfig = runCatching {
             Tools.GLOBAL_GSON.fromJson(Tools.read(rendererConfigFile), RendererConfig::class.java)
-        }.getOrElse { return }
+        }.getOrElse { return false }
         rendererConfig.run {
+            localRendererPluginList.add(
+                LocalRendererPlugin(
+                    rendererId,
+                    rendererDisplayName,
+                    directory
+                )
+            )
             if (!rendererPluginList.any { it.id == rendererId }) {
                 rendererPluginList.add(
                     RendererPlugin(
@@ -121,6 +144,42 @@ object RendererPluginManager {
                     )
                 )
             }
+        }
+        return true
+    }
+
+    /**
+     * 导入本地渲染器插件
+     */
+    fun importLocalRendererPlugin(pluginFile: File): Boolean {
+        if (!pluginFile.exists() || !pluginFile.isFile) {
+            Logging.i("importLocalRendererPlugin", "The compressed file does not exist or is not a valid file.")
+            return false
+        }
+
+        return try {
+            ZipFile(pluginFile).use { pluginZip ->
+                val configEntry = pluginZip.entries().asSequence().find { it.name == "renderer_config.json" }
+                    ?: throw IllegalArgumentException("The plugin package does not meet the requirements!")
+
+                val rendererConfig = pluginZip.getInputStream(configEntry).use { inputStream ->
+                    val configContent = InputStreamReader(inputStream).readText()
+                    Tools.GLOBAL_GSON.fromJson(configContent, RendererConfig::class.java)
+                }
+
+                val rendererId = rendererConfig.rendererId
+                val pluginFolder: File = File(
+                    PathManager.DIR_INSTALLED_RENDERER_PLUGIN,
+                    rendererId
+                ).takeIf { !(it.exists() && it.isDirectory) && !rendererPluginList.any { plugin -> plugin.id == rendererId } }
+                    ?: throw IllegalArgumentException("The renderer plugin $rendererId already exists!")
+
+                ZipUtils.zipExtract(pluginZip, "", pluginFolder)
+            }
+            true
+        } catch (e: Exception) {
+            Logging.i("importLocalRendererPlugin", "Error: ${e.message}")
+            false
         }
     }
 }

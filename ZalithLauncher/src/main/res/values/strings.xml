@@ -394,6 +394,12 @@
     <string name="setting_renderer_title">Renderer</string>
     <string name="setting_renderer_name_angle">Angle (1.17+ only)</string>
     <string name="setting_renderer_from_plugins">From %s Plugin</string>
+    <string name="setting_renderer_local_import_title">Local Renderer Import</string>
+    <string name="setting_renderer_local_import_desc">In addition to installing software-rendering plugins, the launcher also supports importing renderer plugins locally. However, some devices may not be able to use local renderer plugins, so use with caution!</string>
+    <string name="setting_renderer_local_import_restart">New renderer imported. Please restart the launcher to load it!</string>
+    <string name="setting_renderer_local_import_failed">Failed to import the renderer plugin. The file format of the compressed package might be incorrect, or the plugin may conflict with other plugins!</string>
+    <string name="setting_renderer_local_manage">Manage Local Renderer Plugins</string>
+    <string name="setting_renderer_local_delete">Are you sure you want to delete this renderer plugin? This action cannot be undone!</string>
     <string name="setting_driver_title">Vulkan Driver</string>
     <string name="setting_ignore_notch_title">Fullscreen Mode</string>
     <string name="setting_ignore_notch_desc">Ignore the notch and extend screen content to full screen for a more complete immersive experience</string>

@@ -388,6 +388,12 @@
     <string name="setting_renderer_title">Renderer</string>
     <string name="setting_renderer_name_angle">Angle (nur für 1.17+)</string>
     <string name="setting_renderer_from_plugins">Von %s-Plugin</string>
+    <string name="setting_renderer_local_import_title">Lokale Renderer-Import</string>
+    <string name="setting_renderer_local_import_desc">Zusätzlich zur Installation von Software-Rendering-Plugins unterstützt der Launcher auch den lokalen Import von Renderer-Plugins. Einige Geräte können jedoch möglicherweise keine lokalen Renderer-Plugins verwenden, daher ist Vorsicht geboten!</string>
+    <string name="setting_renderer_local_import_restart">Neuer Renderer importiert. Bitte starten Sie den Launcher neu, um ihn zu laden!</string>
+    <string name="setting_renderer_local_import_failed">Fehler beim Importieren des Renderer-Plugins. Das Dateiformat des komprimierten Pakets könnte falsch sein oder das Plugin könnte mit anderen Plugins in Konflikt stehen!</string>
+    <string name="setting_renderer_local_manage">Lokale Renderer-Plugins verwalten</string>
+    <string name="setting_renderer_local_delete">Möchten Sie dieses Renderer-Plugin wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden!</string>
     <string name="setting_driver_title">Vulkan-Treiber</string>
     <string name="setting_ignore_notch_title">Vollbildmodus</string>
     <string name="setting_ignore_notch_desc">Den Notch ignorieren und den Bildschirminhalt auf Vollbild erweitern für ein vollständigeres Eintauchen</string>

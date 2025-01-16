@@ -44,7 +44,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     private lateinit var binding: FragmentModsBinding
     private lateinit var mSearchViewWrapper: SearchViewWrapper
     private lateinit var mRootPath: String
-    private var openDocumentLauncher: ActivityResultLauncher<Any>? = null
+    private lateinit var openDocumentLauncher: ActivityResultLauncher<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -202,7 +202,7 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
                         String.format(getString(R.string.file_add_file_tip), suffix),
                         Toast.LENGTH_SHORT
                     ).show()
-                    openDocumentLauncher?.launch(suffix)
+                    openDocumentLauncher.launch(suffix)
                 }
 
                 pasteButton.setOnClickListener {

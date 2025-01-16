@@ -388,6 +388,12 @@
     <string name="setting_renderer_title">Moteur de rendu</string>
     <string name="setting_renderer_name_angle">Angle (uniquement pour 1.17+)</string>
     <string name="setting_renderer_from_plugins">Depuis le plugin %s</string>
+    <string name="setting_renderer_local_import_title">Importation du rendu local</string>
+    <string name="setting_renderer_local_import_desc">En plus d\'installer des plugins de rendu logiciel, le lanceur prend également en charge l\'importation de plugins de rendu localement. Cependant, certains appareils peuvent ne pas pouvoir utiliser les plugins de rendu local, veuillez donc l\'utiliser avec précaution !</string>
+    <string name="setting_renderer_local_import_restart">Nouveau rendu importé. Veuillez redémarrer le lanceur pour le charger !</string>
+    <string name="setting_renderer_local_import_failed">L\'importation du plugin de rendu a échoué. Le format du fichier compressé pourrait être incorrect, ou le plugin pourrait entrer en conflit avec d\'autres plugins !</string>
+    <string name="setting_renderer_local_manage">Gérer les plugins de rendu locaux</string>
+    <string name="setting_renderer_local_delete">Êtes-vous sûr de vouloir supprimer ce plugin de rendu ? Cette action est irréversible !</string>
     <string name="setting_driver_title">Pilote Vulkan</string>
     <string name="setting_ignore_notch_title">Mode plein écran</string>
     <string name="setting_ignore_notch_desc">Ignorer l\'encoche et étendre le contenu de l\'écran en plein écran pour une immersion plus complète</string>
