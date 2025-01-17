@@ -1,9 +1,11 @@
 package com.movtery.zalithlauncher.plugins.renderer
 
 data class RendererConfig(
-    val rendererId: String,
-    val rendererDisplayName: String,
-    val glName: String,
-    val eglName: String,
-    val env: Map<String, String>
+    val pluginVersion: Int,
+    var rendererId: String,
+    var rendererDisplayName: String,
+    var glName: String,
+    var eglName: String,
+    val boatEnv: MutableMap<String, String>,
+    val pojavEnv: MutableMap<String, String>
 )

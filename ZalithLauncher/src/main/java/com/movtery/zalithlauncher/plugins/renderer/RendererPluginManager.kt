@@ -9,8 +9,9 @@ import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.utils.ZipUtils
+import java.io.DataInputStream
 import java.io.File
-import java.io.InputStreamReader
+import java.io.FileInputStream
 import java.util.zip.ZipFile
 
 /**
@@ -117,9 +118,9 @@ object RendererPluginManager {
     internal fun parseLocalPlugin(context: Context, directory: File): Boolean {
         val archModel: String = UpdateUtils.getArchModel(Architecture.getDeviceArchitecture()) ?: return false
         val libsDirectory: File = File(directory, "libs/$archModel").takeIf { it.exists() && it.isDirectory } ?: return false
-        val rendererConfigFile: File = File(directory, "renderer_config.json").takeIf { it.exists() && it.isFile } ?: return false
+        val rendererConfigFile: File = File(directory, "config").takeIf { it.exists() && it.isFile } ?: return false
         val rendererConfig: RendererConfig = runCatching {
-            Tools.GLOBAL_GSON.fromJson(Tools.read(rendererConfigFile), RendererConfig::class.java)
+            Tools.GLOBAL_GSON.fromJson(readLocalRendererPluginConfig(rendererConfigFile), RendererConfig::class.java)
         }.getOrElse { return false }
         rendererConfig.run {
             localRendererPluginList.add(
@@ -140,12 +141,20 @@ object RendererPluginManager {
                             )
                         })", glName, eglName,
                         libsDirectory.absolutePath,
-                        env.toList()
+                        pojavEnv.toList()
                     )
                 )
             }
         }
         return true
+    }
+
+    private fun readLocalRendererPluginConfig(configFile: File): String {
+        return FileInputStream(configFile).use { fileInputStream ->
+            DataInputStream(fileInputStream).use { dataInputStream ->
+                dataInputStream.readUTF()
+            }
+        }
     }
 
     /**
@@ -159,12 +168,14 @@ object RendererPluginManager {
 
         return try {
             ZipFile(pluginFile).use { pluginZip ->
-                val configEntry = pluginZip.entries().asSequence().find { it.name == "renderer_config.json" }
+                val configEntry = pluginZip.entries().asSequence().find { it.name == "config" }
                     ?: throw IllegalArgumentException("The plugin package does not meet the requirements!")
 
                 val rendererConfig = pluginZip.getInputStream(configEntry).use { inputStream ->
-                    val configContent = InputStreamReader(inputStream).readText()
-                    Tools.GLOBAL_GSON.fromJson(configContent, RendererConfig::class.java)
+                    DataInputStream(inputStream).use { dataInputStream ->
+                        val configContent = dataInputStream.readUTF()
+                        Tools.GLOBAL_GSON.fromJson(configContent, RendererConfig::class.java)
+                    }
                 }
 
                 val rendererId = rendererConfig.rendererId
