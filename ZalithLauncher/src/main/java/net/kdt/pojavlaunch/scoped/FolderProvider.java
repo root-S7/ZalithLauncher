@@ -138,12 +138,12 @@ public class FolderProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
-        if(Tools.checkStorageRoot(getContext())) {
-            Tools.initStorageConstants(getContext());
-        }else {
+        if (Tools.checkStorageRoot()) {
+            PathManager.initContextConstants(getContext());
+        } else {
             return false;
         }
-        BASE_DIR = new File(Tools.DIR_GAME_HOME);
+        BASE_DIR = new File(PathManager.DIR_GAME_HOME);
         mContentResolver = getContext().getContentResolver();
         mStorageProviderAuthortiy = getContext().getString(R.string.storageProviderAuthorities);
         return true;
