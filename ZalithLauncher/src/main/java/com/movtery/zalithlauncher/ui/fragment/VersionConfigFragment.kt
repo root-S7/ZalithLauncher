@@ -184,8 +184,13 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
     }
 
     override fun onPause() {
-        super.onPause()
         closeSpinner()
+        super.onPause()
+    }
+
+    override fun onDestroyView() {
+        closeSpinner()
+        super.onDestroyView()
     }
 
     override fun onBackPressed(): Boolean {
@@ -247,6 +252,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val isolationAdapter = ObjectSpinnerAdapter<IsolationType>(isolationType) { getIsolationString(requireActivity(), it) }
                 isolationAdapter.setItems(isolationTypes)
                 isolationType.setSpinnerAdapter(isolationAdapter)
+                isolationType.lifecycleOwner = this@VersionConfigFragment
                 isolationType.selectItemByIndex(
                     isolationTypes.indexOf(config.getIsolationType())
                         .coerceAtLeast(0)
@@ -281,6 +287,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val rendererAdapter = DefaultSpinnerAdapter(rendererSpinner)
                 rendererAdapter.setItems(renderList)
                 rendererSpinner.setSpinnerAdapter(rendererAdapter)
+                rendererSpinner.lifecycleOwner = this@VersionConfigFragment
                 rendererSpinner.selectItemByIndex(rendererIndex)
                 rendererSpinner.setOnSpinnerItemSelectedListener(
                     OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
@@ -300,6 +307,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val driverAdapter = DefaultSpinnerAdapter(driverSpinner)
                 driverAdapter.setItems(driverList)
                 driverSpinner.setSpinnerAdapter(driverAdapter)
+                driverSpinner.lifecycleOwner = this@VersionConfigFragment
                 driverSpinner.selectItemByIndex(driverIndex)
                 driverSpinner.setOnSpinnerItemSelectedListener(
                     OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
@@ -328,6 +336,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val runtimeAdapter = DefaultSpinnerAdapter(runtimeSpinner)
                 runtimeAdapter.setItems(runtimeNames)
                 runtimeSpinner.setSpinnerAdapter(runtimeAdapter)
+                runtimeSpinner.lifecycleOwner = this@VersionConfigFragment
                 runtimeSpinner.selectItemByIndex(jvmIndex)
                 runtimeSpinner.setOnSpinnerItemSelectedListener(
                     OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->

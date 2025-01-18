@@ -152,20 +152,20 @@ abstract class AbstractResourceDownloadFragment(
         binding.apply {
             initInstallButton(binding.installButton)
 
-            platformSpinner.setSpinnerAdapter(mPlatformAdapter)
+            setSpinner(platformSpinner, mPlatformAdapter)
             setSpinnerListener<Platform>(platformSpinner) {
                 if (mCurrentPlatform == it) return@setSpinnerListener
                 mCurrentPlatform = it
                 search()
             }
 
-            sortSpinner.setSpinnerAdapter(mSortAdapter)
+            setSpinner(sortSpinner, mSortAdapter)
             setSpinnerListener<Sort>(sortSpinner) { mFilters.sort = it }
 
-            categorySpinner.setSpinnerAdapter(mCategoryAdapter)
+            setSpinner(categorySpinner, mCategoryAdapter)
             setSpinnerListener<Category>(binding.categorySpinner) { mFilters.category = it }
 
-            modloaderSpinner.setSpinnerAdapter(mModLoaderAdapter)
+            setSpinner(modloaderSpinner, mModLoaderAdapter)
             setSpinnerListener<ModLoader>(modloaderSpinner) {
                 mFilters.modloader = it.takeIf { loader -> loader != ModLoader.ALL }
             }
@@ -183,6 +183,13 @@ abstract class AbstractResourceDownloadFragment(
 
         showModLoader()
         checkSearch()
+    }
+
+    private fun setSpinner(spinner: PowerSpinnerView, adapter: ObjectSpinnerAdapter<*>) {
+        spinner.apply {
+            setSpinnerAdapter(adapter)
+            lifecycleOwner = this@AbstractResourceDownloadFragment
+        }
     }
 
     private fun initSpinnerIndex() {
@@ -207,6 +214,11 @@ abstract class AbstractResourceDownloadFragment(
     override fun onPause() {
         closeSpinner()
         super.onPause()
+    }
+
+    override fun onDestroyView() {
+        closeSpinner()
+        super.onDestroyView()
     }
 
     private fun onSearchFinished() {
