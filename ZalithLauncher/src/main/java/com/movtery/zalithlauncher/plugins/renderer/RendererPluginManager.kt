@@ -61,17 +61,27 @@ object RendererPluginManager {
                 val pojavEnvString = metaData.getString("pojavEnv") ?: return
                 val nativeLibraryDir = info.nativeLibraryDir
                 val renderer = rendererString.split(":")
-                val pojavEnvPair = pojavEnvString.split(":").run {
-                    val envPairList = mutableListOf<Pair<String, String>>()
-                    forEach { envString ->
-                        if (envString.contains("=")) {
-                            val stringList = envString.split("=")
-                            envPairList.add(Pair(stringList[0], stringList[1]))
+
+                var rendererId: String = renderer[0]
+                val envList = mutableListOf<Pair<String, String>>()
+                val dlopenList = mutableListOf<String>()
+                pojavEnvString.split(":").forEach { envString ->
+                    if (envString.contains("=")) {
+                        val stringList = envString.split("=")
+                        val key = stringList[0]
+                        val value = stringList[1]
+                        when (key) {
+                            "POJAV_RENDERER" -> rendererId = value
+                            "DLOPEN" -> {
+                                value.split(",").forEach { lib ->
+                                    dlopenList.add(lib)
+                                }
+                            }
+                            else -> envList.add(Pair(key, value))
                         }
                     }
-                    envPairList
                 }
-                val rendererId = pojavEnvPair.find { it.first == "POJAV_RENDERER" }?.second ?: renderer[0]
+
                 if (!rendererPluginList.any { it.id == rendererId }) {
                     rendererPluginList.add(
                         RendererPlugin(
@@ -89,7 +99,8 @@ object RendererPluginManager {
                             renderer[1],
                             renderer[2],
                             nativeLibraryDir,
-                            pojavEnvPair
+                            envList,
+                            dlopenList
                         )
                     )
                 }
@@ -121,7 +132,10 @@ object RendererPluginManager {
         val rendererConfigFile: File = File(directory, "config").takeIf { it.exists() && it.isFile } ?: return false
         val rendererConfig: RendererConfig = runCatching {
             Tools.GLOBAL_GSON.fromJson(readLocalRendererPluginConfig(rendererConfigFile), RendererConfig::class.java)
-        }.getOrElse { return false }
+        }.getOrElse { e ->
+            Logging.e("LocalRendererPlugin", "Failed to parse the configuration file", e)
+            return false
+        }
         rendererConfig.run {
             localRendererPluginList.add(
                 LocalRendererPlugin(
@@ -141,7 +155,8 @@ object RendererPluginManager {
                             )
                         })", glName, eglName,
                         libsDirectory.absolutePath,
-                        pojavEnv.toList()
+                        pojavEnv.toList(),
+                        dlopenList ?: emptyList()
                     )
                 )
             }
@@ -171,7 +186,7 @@ object RendererPluginManager {
                 val configEntry = pluginZip.entries().asSequence().find { it.name == "config" }
                     ?: throw IllegalArgumentException("The plugin package does not meet the requirements!")
 
-                val rendererConfig = pluginZip.getInputStream(configEntry).use { inputStream ->
+                val rendererConfig: RendererConfig = pluginZip.getInputStream(configEntry).use { inputStream ->
                     DataInputStream(inputStream).use { dataInputStream ->
                         val configContent = dataInputStream.readUTF()
                         Tools.GLOBAL_GSON.fromJson(configContent, RendererConfig::class.java)

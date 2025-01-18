@@ -6,6 +6,7 @@ data class RendererConfig(
     var rendererDisplayName: String,
     var glName: String,
     var eglName: String,
-    val boatEnv: MutableMap<String, String>,
-    val pojavEnv: MutableMap<String, String>
+    val boatEnv: Map<String, String>,
+    val pojavEnv: Map<String, String>,
+    val dlopenList: List<String>?
 )

@@ -254,7 +254,6 @@ public class JREUtils {
             customRenderer.getEnv().forEach(envPair -> {
                 String envKey = envPair.getFirst();
                 String envValue = envPair.getSecond();
-                if (envKey.equals("DLOPEN")) return;
                 if (envKey.equals("LIB_MESA_NAME")) {
                     envMap.put(envKey, customRenderer.getPath() + "/" + envValue);
                 } else {
@@ -544,14 +543,7 @@ public class JREUtils {
         String renderLibrary;
         if (customRenderer != null) {
             renderLibrary = customRenderer.getGlName();
-            customRenderer.getEnv().forEach(envPair -> {
-                if (envPair.getFirst().equals("DLOPEN")) {
-                    String[] libs = envPair.getSecond().split(",");
-                    for (String lib : libs) {
-                        dlopen(customRenderer.getPath() + "/" + lib);
-                    }
-                }
-            });
+            customRenderer.getDlopen().forEach(lib -> dlopen(customRenderer.getPath() + "/" + lib));
         } else {
             switch (LOCAL_RENDERER){
                 case "opengles2":
