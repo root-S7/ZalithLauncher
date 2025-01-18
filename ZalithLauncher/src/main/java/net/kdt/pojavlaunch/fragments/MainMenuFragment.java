@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.FragmentLauncherBinding;
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
@@ -24,19 +26,13 @@ import com.movtery.zalithlauncher.feature.version.utils.VersionIconUtils;
 import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.task.TaskExecutors;
-import com.movtery.zalithlauncher.ui.fragment.AboutFragment;
-import com.movtery.zalithlauncher.ui.fragment.ControlButtonFragment;
-import com.movtery.zalithlauncher.ui.fragment.FilesFragment;
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim;
+import com.movtery.zalithlauncher.ui.fragment.LauncherMenuFragment;
 import com.movtery.zalithlauncher.ui.fragment.VersionManagerFragment;
 import com.movtery.zalithlauncher.ui.fragment.VersionsListFragment;
 import com.movtery.zalithlauncher.ui.subassembly.account.AccountViewWrapper;
-import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
-
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -62,20 +58,7 @@ public class MainMenuFragment extends FragmentWithAnim {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.aboutButton.setText(InfoCenter.replaceName(requireActivity(), R.string.about_tab));
-        binding.aboutButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null));
-        binding.customControlButton.setOnClickListener(v -> ZHTools.swapFragmentWithAnim(this, ControlButtonFragment.class, ControlButtonFragment.TAG, null));
-        binding.openMainDirButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, PathManager.DIR_GAME_HOME);
-            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
-        });
-        binding.installJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
-        binding.installJarButton.setOnLongClickListener(v -> {
-            runInstallerWithConfirmation(true);
-            return true;
-        });
-        binding.shareLogsButton.setOnClickListener(v -> ZHTools.shareLogs(requireActivity()));
+        initViewPager();
 
         binding.version.setOnClickListener(v -> {
             if (!isTaskRunning()) {
@@ -99,6 +82,12 @@ public class MainMenuFragment extends FragmentWithAnim {
 
         binding.versionName.setSelected(true);
         binding.versionInfo.setSelected(true);
+    }
+
+    private void initViewPager() {
+        binding.launcherMenuPager.setAdapter(new ViewPagerAdapter(this, binding.launcherMenuPager));
+        binding.launcherMenuPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        binding.launcherMenuPager.setOffscreenPageLimit(1);
     }
 
     @Override
@@ -151,13 +140,6 @@ public class MainMenuFragment extends FragmentWithAnim {
         EventBus.getDefault().unregister(this);
     }
 
-    private void runInstallerWithConfirmation(boolean isCustomArgs) {
-        if (ProgressKeeper.getTaskCount() == 0)
-            Tools.installMod(requireActivity(), isCustomArgs);
-        else
-            Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
-    }
-
     @Override
     public void slideIn(AnimPlayer animPlayer) {
         animPlayer.apply(new AnimPlayer.Entry(binding.launcherMenu, Animations.BounceInDown))
@@ -170,5 +152,26 @@ public class MainMenuFragment extends FragmentWithAnim {
         animPlayer.apply(new AnimPlayer.Entry(binding.launcherMenu, Animations.FadeOutUp))
                 .apply(new AnimPlayer.Entry(binding.playLayout, Animations.FadeOutRight))
                 .apply(new AnimPlayer.Entry(binding.playButtonsLayout, Animations.BounceShrink));
+    }
+
+    private static class ViewPagerAdapter extends FragmentStateAdapter {
+        private final ViewPager2 mViewPager;
+
+        public ViewPagerAdapter(@NonNull Fragment fragment, ViewPager2 viewPager) {
+            super(fragment.requireActivity());
+            mViewPager = viewPager;
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            if (position == 0) return new LauncherMenuFragment();
+            else return new LauncherMenuFragment.EmptyMenuFragment(mViewPager);
+        }
+
+        @Override
+        public int getItemCount() {
+            return 2;
+        }
     }
 }

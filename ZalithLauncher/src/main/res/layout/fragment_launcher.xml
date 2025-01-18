@@ -20,85 +20,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/launcher_menu_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/about_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/background_item"
-                    android:drawableStart="@drawable/ic_about"
-                    android:textColor="@color/primary_text" />
-
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/custom_control_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/background_item"
-                    android:drawableStart="@drawable/ic_menu_custom_controls"
-                    android:text="@string/custom_control_title"
-                    android:textColor="@color/primary_text" />
-
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/open_main_dir_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/background_item"
-                    android:drawableStart="@drawable/ic_folder"
-                    android:text="@string/main_open_main_dir"
-                    android:textColor="@color/primary_text" />
-
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/install_jar_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/background_item"
-                    android:drawableStart="@drawable/ic_java"
-                    android:text="@string/main_install_jar_file"
-                    android:textColor="@color/primary_text" />
-
-                <com.kdt.mcgui.LauncherMenuButton
-                    android:id="@+id/share_logs_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/background_item"
-                    android:drawableStart="@drawable/ic_share"
-                    android:text="@string/main_share_logs"
-                    android:textColor="@color/primary_text" />
-            </LinearLayout>
-        </ScrollView>
+            android:layout_height="match_parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
