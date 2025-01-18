@@ -89,15 +89,14 @@ body:
     attributes:
       label: Selected Renderer / 选择的渲染器
       description: |
-        The renderer may be the root cause of the issue. If this is not a game-related problem, please ignore and leave this field blank.
-        渲染器可能会是问题的根本原因，如果此问题并非游戏问题，请忽略此项不填。
+        The renderer might be the root cause of the issue. If this is not a game-related problem, please ignore this field and leave it blank. (Issues caused by renderer plugins are not supported.)
+        渲染器可能会是问题的根本原因，如果此问题并非游戏问题，请忽略此项不填。（渲染器插件导致的问题不受支持）
       options:
         - 'GL4ES'
         - 'Vulkan Zink'
         - 'VirGLRenderer'
         - 'Freedreno'
         - 'Panfrost'
-        - 'LTW'
         - 'Angle'
     validations:
       required: false
@@ -109,7 +108,7 @@ body:
       description: |
         Providing detailed information about the device will help me troubleshoot the issue.
         提供设备的详细信息，有助于我排查问题。
-      placeholder: OPPO A5, Android 11, arm64
+      placeholder: Android 11, arm64
     validations:
       required: true
 
