@@ -90,6 +90,10 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void loadLayout(CustomControls controlLayout) {
+		boolean sanitizedModified = false;
+		if(controlLayout != null) {
+			sanitizedModified = LayoutSanitizer.sanitizeLayout(controlLayout);
+		}
 		mInfoData = controlLayout == null ? null : controlLayout.mControlInfoDataList;
 		if (mInfoData == null) {
 			mInfoData = new ControlInfoData();
@@ -133,7 +137,7 @@ public class ControlLayout extends FrameLayout {
 
 		mLayout.scaledAt = AllSettings.getButtonScale().getValue();
 
-		setModified(false);
+		setModified(sanitizedModified);
 		mButtons = null;
 		getButtonChildren(); // Force refresh
 	} // loadLayout
