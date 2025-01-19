@@ -26,8 +26,6 @@ import java.util.concurrent.Callable;
 
 @SuppressWarnings("IOStreamConstructor")
 public class DownloadUtils {
-    private static final int TIME_OUT = 8000;
-
     public static void download(String url, OutputStream os) throws IOException {
         download(new URL(url), os);
     }
@@ -37,7 +35,6 @@ public class DownloadUtils {
         try {
             HttpURLConnection conn = UrlManager.createHttpConnection(url);
             conn.setDoInput(true);
-            conn.setReadTimeout(TIME_OUT);
             conn.connect();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException("Server returned HTTP " + conn.getResponseCode()
@@ -79,7 +76,7 @@ public class DownloadUtils {
         FileUtils.ensureParentDirectory(outputFile);
 
         HttpURLConnection conn = (HttpURLConnection) new URL(urlInput).openConnection();
-        conn.setReadTimeout(TIME_OUT);
+        conn.setReadTimeout(UrlManager.TIME_OUT.getFirst());
         InputStream readStr = conn.getInputStream();
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             int current;

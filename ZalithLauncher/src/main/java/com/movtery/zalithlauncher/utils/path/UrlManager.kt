@@ -15,7 +15,7 @@ class UrlManager {
     companion object {
         private const val URL_USER_AGENT: String = "${InfoCenter.LAUNCHER_NAME}/${BuildConfig.VERSION_NAME}"
         @JvmField
-        val TIME_OUT = Pair(8000L, TimeUnit.MILLISECONDS)
+        val TIME_OUT = Pair(8000, TimeUnit.MILLISECONDS)
         const val URL_GITHUB_HOME: String = "https://api.github.com/repos/ZalithLauncher/Zalith-Info/contents/"
         const val URL_MCMOD: String = "https://www.mcmod.cn/"
         const val URL_MINECRAFT: String = "https://www.minecraft.net/"
@@ -29,8 +29,8 @@ class UrlManager {
         fun createConnection(url: URL): URLConnection {
             val connection = url.openConnection()
             connection.setRequestProperty("User-Agent", URL_USER_AGENT)
-            connection.setConnectTimeout(TIME_OUT.first.toInt())
-            connection.setReadTimeout(TIME_OUT.first.toInt())
+            connection.setConnectTimeout(TIME_OUT.first)
+            connection.setReadTimeout(TIME_OUT.first)
 
             return connection
         }
@@ -62,7 +62,7 @@ class UrlManager {
         @JvmStatic
         fun createOkHttpClientBuilder(action: (OkHttpClient.Builder) -> Unit = { }): OkHttpClient.Builder {
             return OkHttpClient.Builder()
-                .callTimeout(TIME_OUT.first, TIME_OUT.second)
+                .callTimeout(TIME_OUT.first.toLong(), TIME_OUT.second)
                 .apply(action)
         }
     }
