@@ -19,12 +19,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
 
 @SuppressWarnings("IOStreamConstructor")
 public class DownloadUtils {
+    private static final int TIME_OUT = 8000;
+
     public static void download(String url, OutputStream os) throws IOException {
         download(new URL(url), os);
     }
@@ -34,6 +37,7 @@ public class DownloadUtils {
         try {
             HttpURLConnection conn = UrlManager.createHttpConnection(url);
             conn.setDoInput(true);
+            conn.setReadTimeout(TIME_OUT);
             conn.connect();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException("Server returned HTTP " + conn.getResponseCode()
@@ -41,6 +45,8 @@ public class DownloadUtils {
             }
             is = conn.getInputStream();
             IOUtils.copy(is, os);
+        } catch (SocketTimeoutException e) {
+            throw new IOException("Download timed out: " + url, e);
         } catch (IOException e) {
             throw new IOException("Unable to download from " + url, e);
         } finally {
@@ -73,6 +79,7 @@ public class DownloadUtils {
         FileUtils.ensureParentDirectory(outputFile);
 
         HttpURLConnection conn = (HttpURLConnection) new URL(urlInput).openConnection();
+        conn.setReadTimeout(TIME_OUT);
         InputStream readStr = conn.getInputStream();
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             int current;
@@ -87,8 +94,9 @@ public class DownloadUtils {
                 monitor.updateProgress(overall, length);
             }
             conn.disconnect();
+        } catch (SocketTimeoutException e) {
+            throw new IOException("Download timed out: " + urlInput, e);
         }
-
     }
 
     public static <T> T downloadStringCached(String url, String cacheName, boolean force, ParseCallback<T> parseCallback) throws IOException, ParseException{
