@@ -65,13 +65,15 @@ android {
     }
 
     buildTypes {
+        def storageProviderId = nameId + ".storage_provider." + UUID.randomUUID().toString().replace("-", "").substring(0, 6)
+
         debug {
             applicationIdSuffix '.debug'
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'storageProviderAuthorities', nameId + '.scoped.gamefolder.debug'
+            resValue 'string', 'storageProviderAuthorities', storageProviderId + '.debug'
         }
         proguard {
             initWith debug
@@ -89,7 +91,7 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'storageProviderAuthorities', nameId + '.scoped.gamefolder'
+            resValue 'string', 'storageProviderAuthorities', storageProviderId
             signingConfig signingConfigs.releaseBuild
         }
     }
