@@ -19,10 +19,8 @@ import androidx.core.app.ActivityCompat;
 import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.context.LocaleHelper;
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.setting.LegacySettingsSync;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -36,12 +34,11 @@ import java.util.Date;
 import java.util.Objects;
 
 public class PojavApplication extends Application {
-	public static final String CRASH_REPORT_TAG = "PojavCrashReport";
+	public static final String CRASH_REPORT_TAG = "ZalithCrashReport";
 
 	@Override
 	public void onCreate() {
 		ContextExecutor.setApplication(this);
-		LegacySettingsSync.check(this);
 
 		Thread.setDefaultUncaughtExceptionHandler((thread, th) -> {
 			boolean storagePermAllowed = (Build.VERSION.SDK_INT >= 29 || ActivityCompat.checkSelfPermission(PojavApplication.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) && Tools.checkStorageRoot();
