@@ -62,11 +62,11 @@ void* loadTurnipVulkan() {
     if (!checkAdrenoGraphics())
         return NULL;
 
-    const char* native_dir = getenv("TURNIP_DIR");
+    const char* native_dir = getenv("DRIVER_PATH");
     const char* cache_dir = getenv("TMPDIR");
 
     if (!native_dir) 
-        native_dir = getenv("POJAV_NATIVEDIR");
+        return NULL;
 
     if (!linker_ns_load(native_dir))
         return NULL;
