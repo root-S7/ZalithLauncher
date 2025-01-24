@@ -51,8 +51,8 @@ public class PojavApplication extends Application {
 				crashStream.append(" - Time: ").append(DateFormat.getDateTimeInstance().format(new Date())).append("\n");
 				crashStream.append(" - Device: ").append(Build.PRODUCT).append(" ").append(Build.MODEL).append("\n");
 				crashStream.append(" - Android version: ").append(Build.VERSION.RELEASE).append("\n");
-				crashStream.append(" - Crash stack trace:\n");
 				crashStream.append(" - Launcher version: ").append(getVersionName()).append(" (").append(String.valueOf(getVersionCode())).append(")").append("\n");
+				crashStream.append(" - Crash stack trace:\n");
 				crashStream.append(Log.getStackTraceString(th));
 				crashStream.close();
 			} catch (Throwable throwable) {
@@ -86,7 +86,6 @@ public class PojavApplication extends Application {
 
 		//设置主题
 		String launcherTheme = AllSettings.getLauncherTheme().getValue();
-		Objects.requireNonNull(launcherTheme);
 		if (!Objects.equals(launcherTheme, "system")) {
 			switch (launcherTheme) {
 				case "light" :
