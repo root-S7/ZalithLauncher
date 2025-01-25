@@ -40,7 +40,7 @@ class UpdateUtils {
          */
         @JvmStatic
         fun checkDownloadedPackage(context: Context, force: Boolean, ignore: Boolean) {
-            val isRelease = ZHTools.isRelease() || ZHTools.isPreRelease()
+            val isRelease = (ZHTools.isRelease() || ZHTools.isPreRelease()) && !ZHTools.isDebug()
 
             if (sApkFile.exists()) {
                 val packageManager = context.packageManager

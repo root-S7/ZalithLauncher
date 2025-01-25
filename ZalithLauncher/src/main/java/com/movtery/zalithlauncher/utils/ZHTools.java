@@ -224,6 +224,13 @@ public final class ZHTools {
         return Objects.equals(BuildConfig.BUILD_TYPE, "release");
     }
 
+    /**
+     * @return 启动器是否为测试版
+     */
+    public static boolean isDebug() {
+        return Objects.equals(BuildConfig.BUILD_TYPE, "debug");
+    }
+
     //获取版本状态信息
     public static String getVersionStatus(Context context) {
         String status;
