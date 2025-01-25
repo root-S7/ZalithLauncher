@@ -3,9 +3,11 @@
     <color name="black_or_white">#000000</color>
 
     <color name="background_app">#BDD9DD</color>
+    <color name="background_app_error">#DDBDBD</color>
     <color name="background_overlay">#CFCFCF</color>
     <color name="background_status_bar">#EDEDED</color>
     <color name="background_menu_top">#2D8B9C</color>
+    <color name="background_menu_top_error">#9C2D2D</color>
     <color name="background_menu_element">#3299AB</color>
 
     <color name="button_background">#DDE0E1</color>

@@ -60,7 +60,7 @@ public class PojavApplication extends Application {
 				Logging.e(CRASH_REPORT_TAG, " - The crash stack trace was:", th);
 			}
 
-			ErrorActivity.showError(PojavApplication.this, crashFile.getAbsolutePath(), th);
+			ErrorActivity.showLauncherCrash(PojavApplication.this, crashFile.getAbsolutePath(), th);
 			ZHTools.killProcess();
 		});
 		
