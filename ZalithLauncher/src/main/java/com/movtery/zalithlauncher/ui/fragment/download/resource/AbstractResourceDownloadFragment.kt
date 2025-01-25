@@ -165,10 +165,17 @@ abstract class AbstractResourceDownloadFragment(
             setSpinner(categorySpinner, mCategoryAdapter)
             setSpinnerListener<Category>(binding.categorySpinner) { mFilters.category = it }
 
-            setSpinner(modloaderSpinner, mModLoaderAdapter)
-            setSpinnerListener<ModLoader>(modloaderSpinner) {
-                mFilters.modloader = it.takeIf { loader -> loader != ModLoader.ALL }
+            modloaderLayout.visibility = if (showModloader) {
+                setSpinner(modloaderSpinner, mModLoaderAdapter)
+                setSpinnerListener<ModLoader>(modloaderSpinner) {
+                    mFilters.modloader = it.takeIf { loader -> loader != ModLoader.ALL }
+                }
+                View.VISIBLE
+            } else {
+                mFilters.modloader = null
+                View.GONE
             }
+
             initSpinnerIndex()
 
             reset.setOnClickListener {
@@ -181,13 +188,13 @@ abstract class AbstractResourceDownloadFragment(
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         }
 
-        showModLoader()
         checkSearch()
     }
 
     private fun setSpinner(spinner: PowerSpinnerView, adapter: ObjectSpinnerAdapter<*>) {
         spinner.apply {
             setSpinnerAdapter(adapter)
+            setIsFocusable(true)
             lifecycleOwner = this@AbstractResourceDownloadFragment
         }
     }
@@ -197,7 +204,7 @@ abstract class AbstractResourceDownloadFragment(
             platformSpinner.selectItemByIndex(recommendedPlatform.ordinal)
             sortSpinner.selectItemByIndex(0)
             categorySpinner.selectItemByIndex(0)
-            modloaderSpinner.selectItemByIndex(0)
+            if (showModloader) modloaderSpinner.selectItemByIndex(0)
         }
     }
 
@@ -207,6 +214,7 @@ abstract class AbstractResourceDownloadFragment(
     }
 
     override fun onStop() {
+        closeSpinner()
         super.onStop()
         EventBus.getDefault().unregister(this)
     }
@@ -280,18 +288,6 @@ abstract class AbstractResourceDownloadFragment(
         binding.sortSpinner.dismiss()
         binding.categorySpinner.dismiss()
         binding.modloaderSpinner.dismiss()
-    }
-
-    private fun showModLoader() {
-        binding.apply {
-            modloaderLayout.visibility = if (showModloader) View.VISIBLE else View.GONE
-            if (showModloader) {
-                modloaderSpinner.setSpinnerAdapter(mModLoaderAdapter)
-                modloaderSpinner.selectItemByIndex(0)
-            } else {
-                mFilters.modloader = null
-            }
-        }
     }
 
     /**

@@ -34,6 +34,7 @@ import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.copyFileInBackground
 import com.skydoves.powerspinner.DefaultSpinnerAdapter
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
+import com.skydoves.powerspinner.PowerSpinnerView
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.multirt.MultiRTUtils
 import net.kdt.pojavlaunch.multirt.Runtime
@@ -109,6 +110,8 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
             jvmArgsEdit.addTextChangedListener(SimpleTextWatcher { s: Editable? ->
                 mTempConfig?.setJavaArgs(getEditableValue(s))
             })
+
+            initSpinners(isolationType, rendererSpinner, driverSpinner, runtimeSpinner)
         }
 
         val versionConfig = currentVersion.getVersionConfig()
@@ -127,10 +130,20 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
         binding.resetCustomPath.isEnabled = !disable
     }
 
+    private fun initSpinners(vararg spinners: PowerSpinnerView) {
+        spinners.forEach { spinner ->
+            spinner.apply {
+                setIsFocusable(true)
+                lifecycleOwner = this@VersionConfigFragment
+            }
+        }
+    }
+
     private fun closeSpinner() {
-        binding.runtimeSpinner.dismiss()
-        binding.rendererSpinner.dismiss()
         binding.isolationType.dismiss()
+        binding.rendererSpinner.dismiss()
+        binding.driverSpinner.dismiss()
+        binding.runtimeSpinner.dismiss()
     }
 
     override fun onClick(v: View?) {
@@ -252,7 +265,6 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val isolationAdapter = ObjectSpinnerAdapter<IsolationType>(isolationType) { getIsolationString(requireActivity(), it) }
                 isolationAdapter.setItems(isolationTypes)
                 isolationType.setSpinnerAdapter(isolationAdapter)
-                isolationType.lifecycleOwner = this@VersionConfigFragment
                 isolationType.selectItemByIndex(
                     isolationTypes.indexOf(config.getIsolationType())
                         .coerceAtLeast(0)
@@ -287,7 +299,6 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val rendererAdapter = DefaultSpinnerAdapter(rendererSpinner)
                 rendererAdapter.setItems(renderList)
                 rendererSpinner.setSpinnerAdapter(rendererAdapter)
-                rendererSpinner.lifecycleOwner = this@VersionConfigFragment
                 rendererSpinner.selectItemByIndex(rendererIndex)
                 rendererSpinner.setOnSpinnerItemSelectedListener(
                     OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
@@ -307,7 +318,6 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val driverAdapter = DefaultSpinnerAdapter(driverSpinner)
                 driverAdapter.setItems(driverList)
                 driverSpinner.setSpinnerAdapter(driverAdapter)
-                driverSpinner.lifecycleOwner = this@VersionConfigFragment
                 driverSpinner.selectItemByIndex(driverIndex)
                 driverSpinner.setOnSpinnerItemSelectedListener(
                     OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->
@@ -336,7 +346,6 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 val runtimeAdapter = DefaultSpinnerAdapter(runtimeSpinner)
                 runtimeAdapter.setItems(runtimeNames)
                 runtimeSpinner.setSpinnerAdapter(runtimeAdapter)
-                runtimeSpinner.lifecycleOwner = this@VersionConfigFragment
                 runtimeSpinner.selectItemByIndex(jvmIndex)
                 runtimeSpinner.setOnSpinnerItemSelectedListener(
                     OnSpinnerItemSelectedListener { _: Int, _: String?, i1: Int, _: String? ->

@@ -613,6 +613,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             );
             hotbarTypeAdapter.setItems(HotbarType.getEntries());
             this.binding.hotbarType.setSpinnerAdapter(hotbarTypeAdapter);
+            this.binding.hotbarType.setIsFocusable(true);
             this.binding.hotbarType.setOnSpinnerItemSelectedListener(this);
             this.binding.hotbarType.selectItemByIndex(HotbarUtils.getCurrentTypeIndex());
 
@@ -774,7 +775,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         @Override public void onDrawerStateChanged(int newState) {
             //需要在菜单状态改变的时候，关闭Hotbar类型的Spinner，这个库并没有自动关闭的功能，所以需要这么做
             //关掉！关掉！一定要关掉！
-            binding.hotbarType.dismiss();
+            closeSpinner();
         }
 
         public void closeSpinner() {
