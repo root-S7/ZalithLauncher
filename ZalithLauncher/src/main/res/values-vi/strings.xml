@@ -499,6 +499,8 @@
     <string name="setting_page_opacity_desc">Cài đặt độ mờ của trang chính của trình khởi động</string>
     <string name="setting_quit_launcher_title">Thoát trình khởi động</string>
     <string name="setting_quit_launcher_desc">Khi ứng dụng bắt đầu chạy trò chơi, có thoát trình khởi động hay không</string>
+    <string name="setting_accept_pre_release_updates_title">Nhận cập nhật phiên bản thử nghiệm</string>
+    <string name="setting_accept_pre_release_updates_desc">Cài đặt này xác định liệu trình khởi chạy có thể nhận cập nhật phiên bản thử nghiệm hay không</string>
     <string name="setting_ask_for_notification_title">Cho phép thông báo</string>
     <string name="setting_ask_for_notification_desc">Nhấp để yêu cầu lại quyền thông báo, điều này là cần thiết để tải xuống các tệp trò chơi ở chế độ nền bình thường</string>
     <string name="setting_game_menu_show_memory_title">Hiển thị thông tin bộ nhớ thời gian thực</string>

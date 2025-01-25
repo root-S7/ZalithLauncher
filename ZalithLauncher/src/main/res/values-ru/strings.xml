@@ -499,6 +499,8 @@
     <string name="setting_page_opacity_desc">Установить непрозрачность основных страниц лаунчера</string>
     <string name="setting_quit_launcher_title">Выйти из лаунчера</string>
     <string name="setting_quit_launcher_desc">Выйти из лаунчера при запуске игры</string>
+    <string name="setting_accept_pre_release_updates_title">Получать обновления предварительных версий</string>
+    <string name="setting_accept_pre_release_updates_desc">Этот параметр определяет, может ли загрузчик получать обновления предварительных версий</string>
     <string name="setting_ask_for_notification_title">Разрешить уведомления</string>
     <string name="setting_ask_for_notification_desc">Нажмите, чтобы повторно запросить разрешение на уведомления, необходимое для правильной загрузки файлов игры в фоновом режиме</string>
     <string name="setting_game_menu_show_memory_title">Отображать информацию о памяти в реальном времени</string>

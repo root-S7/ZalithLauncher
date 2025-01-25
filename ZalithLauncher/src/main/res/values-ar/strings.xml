@@ -499,6 +499,8 @@
     <string name="setting_page_opacity_desc">تعيين عتامة الصفحة الرئيسية للمشغل</string>
     <string name="setting_quit_launcher_title">الخروج من المشغل</string>
     <string name="setting_quit_launcher_desc">ما إذا كان سيتم الخروج من المشغل عندما يبدأ التطبيق في تشغيل اللعبة</string>
+    <string name="setting_accept_pre_release_updates_title">تلقي تحديثات الإصدارات التجريبية</string>
+    <string name="setting_accept_pre_release_updates_desc">هذا الإعداد يحدد ما إذا كان المشغل يمكنه تلقي تحديثات الإصدارات التجريبية</string>
     <string name="setting_ask_for_notification_title">السماح بالإشعارات</string>
     <string name="setting_ask_for_notification_desc">يمكنك النقر لإعادة طلب إذن الإشعارات، وهو ضروري لتنزيل ملفات اللعبة في الخلفية بشكل طبيعي</string>
     <string name="setting_game_menu_show_memory_title">عرض معلومات الذاكرة في الوقت الفعلي</string>

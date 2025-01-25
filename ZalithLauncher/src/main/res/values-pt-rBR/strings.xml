@@ -499,6 +499,8 @@
     <string name="setting_page_opacity_desc">Definir a opacidade das páginas principais do lançador</string>
     <string name="setting_quit_launcher_title">Sair do Lançador</string>
     <string name="setting_quit_launcher_desc">Definir se o lançador deve ser fechado quando o aplicativo começar a executar o jogo</string>
+    <string name="setting_accept_pre_release_updates_title">Receber Atualizações de Pré-lançamento</string>
+    <string name="setting_accept_pre_release_updates_desc">Essa configuração determina se o lançador pode receber atualizações de pré-lançamento</string>
     <string name="setting_ask_for_notification_title">Permitir Notificações</string>
     <string name="setting_ask_for_notification_desc">Clique para solicitar novamente a permissão de notificações, necessária para que os arquivos do jogo sejam baixados corretamente em segundo plano</string>
     <string name="setting_game_menu_show_memory_title">Exibir Informações de Memória em Tempo Real</string>

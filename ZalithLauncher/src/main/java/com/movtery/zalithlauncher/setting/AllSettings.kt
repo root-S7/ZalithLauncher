@@ -169,6 +169,9 @@ class AllSettings {
         @JvmStatic
         val quitLauncher = BooleanSettingUnit("quitLauncher", true)
 
+        @JvmStatic
+        val acceptPreReleaseUpdates = BooleanSettingUnit("acceptPreReleaseUpdates", false)
+
         // Experimental
         @JvmStatic
         val dumpShaders = BooleanSettingUnit("dump_shaders", false)

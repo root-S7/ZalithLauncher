@@ -499,6 +499,8 @@
     <string name="setting_page_opacity_desc">Legt die Opazität der Hauptseiten des Launchers fest</string>
     <string name="setting_quit_launcher_title">Launcher beenden</string>
     <string name="setting_quit_launcher_desc">Legt fest, ob der Launcher beendet werden soll, wenn die Anwendung das Spiel startet</string>
+    <string name="setting_accept_pre_release_updates_title">Vorabversions-Updates empfangen</string>
+    <string name="setting_accept_pre_release_updates_desc">Diese Einstellung legt fest, ob der Launcher Vorabversions-Updates empfangen kann</string>
     <string name="setting_ask_for_notification_title">Benachrichtigungen zulassen</string>
     <string name="setting_ask_for_notification_desc">Klicken Sie hier, um erneut um Erlaubnis für Benachrichtigungen zu bitten. Dies ist notwendig, damit die Spieldateien im Hintergrund korrekt heruntergeladen werden können</string>
     <string name="setting_game_menu_show_memory_title">Speicherinformationen in Echtzeit anzeigen</string>

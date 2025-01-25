@@ -526,6 +526,8 @@
     <string name="setting_page_opacity_desc">设置启动器主要页面的不透明度</string>
     <string name="setting_quit_launcher_title">退出启动器</string>
     <string name="setting_quit_launcher_desc">在应用正式开始运行游戏时，是否退出启动器</string>
+    <string name="setting_accept_pre_release_updates_title">接收预发布版更新</string>
+    <string name="setting_accept_pre_release_updates_desc">这项设置将决定启动器是否能够收到预发布版更新</string>
     <string name="setting_ask_for_notification_title">允许通知</string>
     <string name="setting_ask_for_notification_desc">单击可重新请求通知权限，这是游戏文件在后台正常下载所必需的</string>
     

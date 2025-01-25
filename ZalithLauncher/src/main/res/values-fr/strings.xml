@@ -499,6 +499,8 @@
     <string name="setting_page_opacity_desc">Définir l\'opacité de la page principale du lanceur</string>
     <string name="setting_quit_launcher_title">Quitter le lanceur</string>
     <string name="setting_quit_launcher_desc">Quitter le lanceur lorsque l\'application commence à exécuter le jeu</string>
+    <string name="setting_accept_pre_release_updates_title">Recevoir les mises à jour préliminaires</string>
+    <string name="setting_accept_pre_release_updates_desc">Ce paramètre détermine si le lanceur peut recevoir des mises à jour préliminaires</string>
     <string name="setting_ask_for_notification_title">Autoriser les notifications</string>
     <string name="setting_ask_for_notification_desc">Cliquez pour demander à nouveau l\'autorisation de notification, nécessaire pour le téléchargement normal des fichiers du jeu en arrière-plan</string>
     <string name="setting_game_menu_show_memory_title">Afficher les informations sur la mémoire en temps réel</string>

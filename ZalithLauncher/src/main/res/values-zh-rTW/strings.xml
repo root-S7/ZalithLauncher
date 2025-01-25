@@ -499,6 +499,8 @@
     <string name="setting_page_opacity_desc">設定啟動器主要頁面的不透明度</string>
     <string name="setting_quit_launcher_title">退出啟動器</string>
     <string name="setting_quit_launcher_desc">在應用正式開始運行遊戲時，是否退出啟動器</string>
+    <string name="setting_accept_pre_release_updates_title">接收預發布版更新</string>
+    <string name="setting_accept_pre_release_updates_desc">此設定將決定啟動器是否能夠接收預發布版更新</string>
     <string name="setting_ask_for_notification_title">允許通知</string>
     <string name="setting_ask_for_notification_desc">單擊可重新請求通知權限，這是遊戲文件在後台正常下載所必需的</string>
     <string name="setting_game_menu_show_memory_title">即時顯示記憶體資訊</string>

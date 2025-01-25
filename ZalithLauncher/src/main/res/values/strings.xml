@@ -505,6 +505,8 @@
     <string name="setting_page_opacity_desc">Set the opacity of the main pages in the launcher</string>
     <string name="setting_quit_launcher_title">Quit Launcher</string>
     <string name="setting_quit_launcher_desc">Whether to quit the launcher when the application officially starts the game</string>
+    <string name="setting_accept_pre_release_updates_title">Receive Pre-release Updates</string>
+    <string name="setting_accept_pre_release_updates_desc">This setting determines whether the launcher can receive pre-release updates</string>
     <string name="setting_ask_for_notification_title">Allow Notifications</string>
     <string name="setting_ask_for_notification_desc">Click to re-request notification permissions, which are necessary for the normal background download of game files</string>
     <string name="setting_game_menu_show_memory_title">Real-time Memory Info Display</string>
