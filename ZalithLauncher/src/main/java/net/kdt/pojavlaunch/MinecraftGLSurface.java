@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -248,7 +249,7 @@ public class MinecraftGLSurface extends View implements GrabListener {
                 CallbackBridge.sendCursorPos(CallbackBridge.mouseX, CallbackBridge.mouseY);
                 return true;
             case MotionEvent.ACTION_SCROLL:
-                CallbackBridge.sendScroll((double) event.getAxisValue(MotionEvent.AXIS_HSCROLL), (double) event.getAxisValue(MotionEvent.AXIS_VSCROLL));
+                CallbackBridge.sendScroll(event.getAxisValue(MotionEvent.AXIS_HSCROLL), event.getAxisValue(MotionEvent.AXIS_VSCROLL));
                 return true;
             case MotionEvent.ACTION_BUTTON_PRESS:
                 return sendMouseButtonUnconverted(event.getActionButton(),true);
@@ -347,8 +348,14 @@ public class MinecraftGLSurface extends View implements GrabListener {
 
     /** Called when the size need to be set at any point during the surface lifecycle **/
     public void refreshSize(){
-        windowWidth = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.widthPixels, AllStaticSettings.scaleFactor);
-        windowHeight = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.heightPixels, AllStaticSettings.scaleFactor);
+        int newWidth = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.widthPixels, AllStaticSettings.scaleFactor);
+        int newHeight = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.heightPixels, AllStaticSettings.scaleFactor);
+        if (newHeight < 1 || newWidth < 1) {
+            Log.e("MGLSurface", String.format("Impossible resolution : %dx%d", newWidth, newHeight));
+            return;
+        }
+        windowWidth = newWidth;
+        windowHeight = newHeight;
         if(mSurface == null){
             Logging.w("MGLSurface", "Attempt to refresh size on null surface");
             return;
