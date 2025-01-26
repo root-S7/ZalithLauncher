@@ -16,6 +16,7 @@ class LibPath {
         @JvmField val MIO_FABRIC_AGENT = File(COMPONENTS_DIR, "MioFabricAgent.jar")
 
         @JvmField val MIO_LIB_FIXER = File(COMPONENTS_DIR, "MioLibFixer.jar")
+        @JvmField val MOD_TRIMMER = File(COMPONENTS_DIR, "ModTrimmer.jar")
 
         @JvmField val AUTHLIB_INJECTOR = File(OTHER_LOGIN_DIR, "authlib-injector.jar")
         @JvmField val NIDE_8_AUTH = File(OTHER_LOGIN_DIR, "nide8auth.jar")

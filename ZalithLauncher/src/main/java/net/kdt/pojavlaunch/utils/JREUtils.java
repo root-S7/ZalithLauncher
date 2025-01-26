@@ -377,6 +377,8 @@ public class JREUtils {
 
         //禁用flite缺失、lwjgl兼容性警告的日志输出
         userArgs.add("-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
+        //尝试禁用Sodium模组对PojavLauncher的警告
+        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.getAbsolutePath());
 
         //Add automatically generated args
         userArgs.add("-Xms" + AllSettings.getRamAllocation().getValue().getValue() + "M");
