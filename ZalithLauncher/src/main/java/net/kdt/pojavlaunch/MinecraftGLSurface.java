@@ -10,7 +10,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -42,6 +41,8 @@ import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.lwjgl.glfw.CallbackBridge;
+
+import java.util.Locale;
 
 import fr.spse.gamepad_remapper.RemapperManager;
 import fr.spse.gamepad_remapper.RemapperView;
@@ -347,11 +348,11 @@ public class MinecraftGLSurface extends View implements GrabListener {
 
 
     /** Called when the size need to be set at any point during the surface lifecycle **/
-    public void refreshSize(){
+    public void refreshSize() {
         int newWidth = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.widthPixels, AllStaticSettings.scaleFactor);
         int newHeight = Tools.getDisplayFriendlyRes(Tools.currentDisplayMetrics.heightPixels, AllStaticSettings.scaleFactor);
         if (newHeight < 1 || newWidth < 1) {
-            Log.e("MGLSurface", String.format("Impossible resolution : %dx%d", newWidth, newHeight));
+            Logging.e("MGLSurface", String.format(Locale.getDefault(), "Impossible resolution : %dx%d", newWidth, newHeight));
             return;
         }
         windowWidth = newWidth;
