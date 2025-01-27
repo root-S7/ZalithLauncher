@@ -22,6 +22,7 @@ import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.launch.UserArgsCallBack;
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
@@ -346,7 +347,14 @@ public class JREUtils {
         }
     }
 
-    public static void launchJavaVM(final AppCompatActivity activity, final Runtime runtime, File gameDirectory, final List<String> JVMArgs, final String userArgsString) throws Throwable {
+    public static void launchJavaVM(
+            final AppCompatActivity activity,
+            final Runtime runtime,
+            File gameDirectory,
+            final List<String> JVMArgs,
+            final String userArgsString,
+            final UserArgsCallBack argsCallBack
+    ) throws Throwable {
         String runtimeHome = MultiRTUtils.getRuntimeHome(runtime.name).getAbsolutePath();
 
         JREUtils.relocateLibPath(runtime, runtimeHome);
@@ -377,8 +385,7 @@ public class JREUtils {
 
         //禁用flite缺失、lwjgl兼容性警告的日志输出
         userArgs.add("-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
-        //尝试禁用Sodium模组对PojavLauncher的警告
-        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.getAbsolutePath());
+        if (argsCallBack != null) argsCallBack.callback(userArgs);
 
         //Add automatically generated args
         userArgs.add("-Xms" + AllSettings.getRamAllocation().getValue().getValue() + "M");

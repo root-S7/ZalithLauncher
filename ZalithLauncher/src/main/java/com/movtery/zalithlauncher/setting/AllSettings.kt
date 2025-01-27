@@ -180,9 +180,6 @@ class AllSettings {
         val bigCoreAffinity = BooleanSettingUnit("bigCoreAffinity", false)
 
         @JvmStatic
-        val useControllerProxy = BooleanSettingUnit("useControllerProxy", false)
-
-        @JvmStatic
         val tcVibrateDuration = IntSettingUnit("tcVibrateDuration", 100)
 
         // Other

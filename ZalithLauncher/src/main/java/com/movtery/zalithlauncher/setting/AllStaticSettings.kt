@@ -45,5 +45,10 @@ class AllStaticSettings {
          * 陀螺仪反转Y轴 Boolean
          */
         @JvmField var gyroInvertY = AllSettings.gyroInvertY.getValue()
+
+        /**
+         * 使用控制代理 Boolean
+         */
+        @JvmField var useControllerProxy = false
     }
 }

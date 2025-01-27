@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.movtery.zalithlauncher.setting.AllSettings;
+import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.support.touch_controller.ContactHandler;
 
 import org.lwjgl.glfw.CallbackBridge;
@@ -17,11 +18,9 @@ public class InGameEventProcessor implements TouchEventProcessor {
     private final PointerTracker mTracker = new PointerTracker();
     private final LeftClickGesture mLeftClickGesture = new LeftClickGesture(mGestureHandler);
     private final RightClickGesture mRightClickGesture = new RightClickGesture(mGestureHandler);
-    private final boolean mUseControllerProxy;
 
     public InGameEventProcessor(double sensitivity) {
         mSensitivity = sensitivity;
-        mUseControllerProxy = AllSettings.getUseControllerProxy().getValue();
     }
 
     @Override
@@ -61,7 +60,7 @@ public class InGameEventProcessor implements TouchEventProcessor {
 
     @Override
     public void dispatchTouchEvent(MotionEvent event, View view) {
-        if (mUseControllerProxy) {
+        if (AllStaticSettings.useControllerProxy) {
             //单独处理触摸事件，支持TouchController模组
             ContactHandler.INSTANCE.progressEvent(event, view);
         }

@@ -12,8 +12,11 @@ import com.movtery.zalithlauncher.feature.accounts.AccountType
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.mod.parser.ModInfo
+import com.movtery.zalithlauncher.feature.mod.parser.ModParser
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.setting.AllStaticSettings
 import com.movtery.zalithlauncher.support.touch_controller.ControllerProxy
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
@@ -21,6 +24,7 @@ import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.NetworkUtils
+import com.movtery.zalithlauncher.utils.path.LibPath
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.JMinecraftVersionList
@@ -37,6 +41,7 @@ import net.kdt.pojavlaunch.tasks.MinecraftDownloader
 import net.kdt.pojavlaunch.utils.JREUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import org.greenrobot.eventbus.EventBus
+import java.io.File
 
 class LaunchGame {
     companion object {
@@ -237,10 +242,30 @@ class LaunchGame {
                 launchClassPath
             ).getAllArgs()
 
-            FFmpegPlugin.discover(activity)
-            if (AllSettings.useControllerProxy.getValue()) ControllerProxy.startProxy(activity)
+            checkAllMods(minecraftVersion) { modInfoList ->
+                FFmpegPlugin.discover(activity)
+                if (modInfoList.isNotEmpty()) {
+                    Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
+                }
 
-            JREUtils.launchJavaVM(activity, runtime, gameDirPath, launchArgs, customArgs)
+                if (modInfoList.any { it.id == "touchcontroller" }) {
+                    Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
+                    ControllerProxy.startProxy(activity)
+                    AllStaticSettings.useControllerProxy = true
+                }
+
+                val hasSodiumOrEmbeddium = modInfoList.any { it.id == "sodium" || it.id == "embeddium" }
+                if (hasSodiumOrEmbeddium) {
+                    Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
+                }
+
+                JREUtils.launchJavaVM(activity, runtime, gameDirPath, launchArgs, customArgs) { userArgs ->
+                    if (hasSodiumOrEmbeddium) {
+                        //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
+                        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
+                    }
+                }
+            }
         }
 
         private fun checkMemory(activity: AppCompatActivity) {
@@ -269,6 +294,21 @@ class LaunchGame {
                 // actually launching the game, thus giving us the opportunity
                 // to start after the activity is shown again
             }
+        }
+
+        /**
+         * 获取当前版本的所有模组的魔族信息(数量较多可能导致性能问题)
+         */
+        private fun checkAllMods(minecraftVersion: Version, onEnded: (List<ModInfo>) -> Unit) {
+            File(minecraftVersion.getGameDir(), "mods").apply {
+                if (exists() && isDirectory && (listFiles()?.isNotEmpty() == true)) {
+                    ModParser().parseAllMods(this) { modInfoList ->
+                        onEnded(modInfoList)
+                    }
+                    return
+                }
+            }
+            onEnded(emptyList())
         }
     }
 }

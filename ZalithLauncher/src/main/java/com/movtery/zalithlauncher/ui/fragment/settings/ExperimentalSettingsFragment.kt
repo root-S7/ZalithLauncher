@@ -42,13 +42,6 @@ class ExperimentalSettingsFragment :
             binding.bigCoreAffinity
         )
 
-        SwitchSettingsWrapper(
-            context,
-            AllSettings.useControllerProxy,
-            binding.useControllerProxyLayout,
-            binding.useControllerProxy
-        )
-
         SeekBarSettingsWrapper(
             context,
             AllSettings.tcVibrateDuration,
@@ -59,17 +52,6 @@ class ExperimentalSettingsFragment :
             binding.tcVibrateDuration,
             "ms"
         )
-
-        refreshTouchControllerSettings()
-    }
-
-    private fun refreshTouchControllerSettings() {
-        binding.tcVibrateDurationLayout.visibility = if (AllSettings.useControllerProxy.getValue()) View.VISIBLE else View.GONE
-    }
-
-    override fun onChange() {
-        super.onChange()
-        refreshTouchControllerSettings()
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
