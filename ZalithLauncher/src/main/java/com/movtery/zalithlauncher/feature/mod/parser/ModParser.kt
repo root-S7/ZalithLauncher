@@ -26,43 +26,23 @@ class ModParser {
             if (modsFolder.exists() && modsFolder.isDirectory) {
                 val files = modsFolder.listFiles()?.filter { it.extension.equals("jar", true) } ?: emptyList()
 
-                runBlocking(Dispatchers.IO) {
+                runBlocking {
                     val semaphore = Semaphore(calculateThreadCount(files.size))
-                    val deferredResults = files.map { modFile ->
-                        async {
+                    val deferredResults = mutableListOf<Deferred<Unit>>()
+
+                    files.forEach { modFile ->
+                        val deferred = async(Dispatchers.IO) {
                             semaphore.withPermit {
-                                runCatching {
-                                    JarInputStream(FileInputStream(modFile)).use readJar@{ jarInputStream ->
-                                        var entry: JarEntry?
-                                        while (jarInputStream.nextJarEntry.also { entry = it } != null) {
-                                            entry?.let { file ->
-                                                when (file.name) {
-                                                    //Fabric 模组标识文件
-                                                    "fabric.mod.json" -> {
-                                                        val string = jarInputStream.bufferedReader().use(BufferedReader::readText)
-                                                        val modInfo = parseFabricModJson(string)
-                                                        synchronized(modInfoList) { modInfoList.add(modInfo) }
-                                                        return@readJar
-                                                    }
-                                                    //NeoForge 或者 Forge 模组的标识文件
-                                                    "META-INF/neoforge.mods.toml", "META-INF/mods.toml" -> {
-                                                        val string = jarInputStream.bufferedReader().use(BufferedReader::readText)
-                                                        val modInfo = parseForgeLikeModToml(string)
-                                                        modInfo?.let {
-                                                            synchronized(modInfoList) { modInfoList.add(it) }
-                                                        }
-                                                        return@readJar
-                                                    }
-                                                    else -> {}
-                                                }
-                                            }
-                                        }
+                                try {
+                                    JarInputStream(FileInputStream(modFile)).use { jarInputStream ->
+                                        parseJarEntries(jarInputStream, modInfoList)
                                     }
-                                }.onFailure { e ->
+                                } catch (e: Exception) {
                                     Logging.e("ModParser", "Failed to parse the Mod file ${modFile.name}!", e)
                                 }
                             }
                         }
+                        deferredResults.add(deferred)
                     }
 
                     //等待所有解析任务完成
@@ -74,6 +54,29 @@ class ModParser {
         }.finallyTask {
             listener.onParseEnded(modInfoList)
         }.execute()
+    }
+
+    private fun parseJarEntries(
+        jarInputStream: JarInputStream,
+        modInfoList: MutableList<ModInfo>
+    ) {
+        var entry: JarEntry?
+        while (jarInputStream.nextJarEntry.also { entry = it } != null) {
+            entry?.let { file ->
+                when (file.name) {
+                    "fabric.mod.json" -> {
+                        val modInfo = parseFabricModJson(jarInputStream.bufferedReader().use(BufferedReader::readText))
+                        modInfoList.add(modInfo)
+                        return@let
+                    }
+                    "META-INF/neoforge.mods.toml", "META-INF/mods.toml" -> {
+                        val modInfo = parseForgeLikeModToml(jarInputStream.bufferedReader().use(BufferedReader::readText))
+                        modInfo?.let { modInfoList.add(it) }
+                        return@let
+                    }
+                }
+            }
+        }
     }
 
     private fun calculateThreadCount(fileCount: Int): Int {
