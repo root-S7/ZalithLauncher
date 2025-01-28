@@ -10,9 +10,9 @@ import kotlinx.coroutines.sync.Semaphore
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
-import java.util.jar.JarEntry
 import java.util.jar.JarInputStream
 import kotlin.jvm.Throws
+import java.util.concurrent.ConcurrentLinkedQueue
 
 class ModParser {
     /**
@@ -21,7 +21,7 @@ class ModParser {
      * @param listener 解析监听器
      */
     fun parseAllMods(modsFolder: File, listener: ModParserListener) {
-        val modInfoList: MutableList<ModInfo> = mutableListOf()
+        val modInfoList: ConcurrentLinkedQueue<ModInfo> = ConcurrentLinkedQueue()
 
         Task.runTask {
             if (modsFolder.exists() && modsFolder.isDirectory) {
@@ -31,22 +31,16 @@ class ModParser {
                     val semaphore = Semaphore(calculateThreadCount(files.size))
                     val deferredResults = mutableListOf<Deferred<Unit>>()
 
-                    files.forEach { modFile ->
-                        val deferred = async(Dispatchers.IO) {
-                            semaphore.withPermit {
-                                try {
-                                    JarInputStream(FileInputStream(modFile)).use { jarInputStream ->
-                                        parseJarEntries(jarInputStream) { modInfo ->
-                                            modInfoList.add(modInfo)
-                                            listener.onProgress(modInfo)
-                                        }
+                    files.chunked(calculateThreadCount(files.size)).forEach { batch ->
+                        deferredResults.addAll(
+                            batch.map { modFile ->
+                                async(Dispatchers.IO) {
+                                    semaphore.withPermit {
+                                        parseModFile(modFile, modInfoList, listener)
                                     }
-                                } catch (e: Exception) {
-                                    Logging.e("ModParser", "Failed to parse the Mod file ${modFile.name}!", e)
                                 }
                             }
-                        }
-                        deferredResults.add(deferred)
+                        )
                     }
 
                     //等待所有解析任务完成
@@ -54,52 +48,56 @@ class ModParser {
                 }
             }
         }.onThrowable { e ->
-            Logging.e("ModParser", "An exception occurred while parsing all mods.!", e)
+            Logging.e("ModParser", "An exception occurred while parsing all mods!", e)
         }.finallyTask {
-            listener.onParseEnded(modInfoList)
+            listener.onParseEnded(modInfoList.toList())
         }.execute()
     }
 
-    @Throws(Throwable::class)
-    private fun parseJarEntries(
+    private fun parseModFile(
+        modFile: File,
+        modInfoList: ConcurrentLinkedQueue<ModInfo>,
+        listener: ModParserListener
+    ) {
+        try {
+            JarInputStream(FileInputStream(modFile)).use { jarInputStream ->
+                parseJarEntriesOptimized(jarInputStream) { modInfo ->
+                    modInfoList.add(modInfo)
+                    listener.onProgress(modInfo)
+                }
+            }
+        } catch (e: Exception) {
+            Logging.e("ModParser", "Failed to parse the Mod file ${modFile.name}!", e)
+        }
+    }
+
+    private fun parseJarEntriesOptimized(
         jarInputStream: JarInputStream,
         parseSuccessCallback: (ModInfo) -> Unit
     ) {
-        fun parseAndAddIntoList(parse: (info: String) -> ModInfo?) {
-            val modInfo = parse(jarInputStream.bufferedReader().use(BufferedReader::readText))
-            modInfo?.let {
-                parseSuccessCallback(it)
-            }
-        }
+        val entries = generateSequence { jarInputStream.nextJarEntry }
+        val supportedFiles = setOf("fabric.mod.json", "quilt.mod.json", "META-INF/neoforge.mods.toml", "META-INF/mods.toml", "mcmod.info")
+        val targetEntry = entries.firstOrNull { it.name in supportedFiles }
 
-        var entry: JarEntry?
-        while (jarInputStream.nextJarEntry.also { entry = it } != null) {
-            entry?.let { file ->
-                when (file.name) {
-                    //Fabric
-                    "fabric.mod.json" -> {
-                        parseAndAddIntoList { parseFabricModJson(it) }
-                        return
-                    }
-                    //Quilt
-                    "quilt.mod.json" -> {
-                        parseAndAddIntoList { parseQuiltModJson(it) }
-                        return
-                    }
-                    //Forge、NeoForge
-                    "META-INF/neoforge.mods.toml", "META-INF/mods.toml" -> {
-                        parseAndAddIntoList { parseForgeLikeModToml(it) }
-                        return
-                    }
-                    //旧版 Forge
-                    "mcmod.info" -> {
-                        parseAndAddIntoList { parseOldForgeModInfo(it) }
-                        return
-                    }
-                    else -> {}
-                }
-            }
+        targetEntry?.let { file ->
+            parseTargetFile(jarInputStream, file.name, parseSuccessCallback)
         }
+    }
+
+    private fun parseTargetFile(
+        jarInputStream: JarInputStream,
+        fileName: String,
+        parseSuccessCallback: (ModInfo) -> Unit
+    ) {
+        val content = jarInputStream.bufferedReader().use(BufferedReader::readText)
+        val modInfo = when (fileName) {
+            "fabric.mod.json" -> parseFabricModJson(content)
+            "quilt.mod.json" -> parseQuiltModJson(content)
+            "META-INF/neoforge.mods.toml", "META-INF/mods.toml" -> parseForgeLikeModToml(content)
+            "mcmod.info" -> parseOldForgeModInfo(content)
+            else -> null
+        }
+        modInfo?.let(parseSuccessCallback)
     }
 
     private fun calculateThreadCount(fileCount: Int): Int {
