@@ -45,7 +45,6 @@ import org.lwjgl.glfw.CallbackBridge;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +56,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 
-public class JREUtils {
+public final class JREUtils {
     private JREUtils() {}
 
     public static String LD_LIBRARY_PATH;
@@ -306,7 +305,7 @@ public class JREUtils {
                 envMap.put(line.substring(0, index), line.substring(index + 1));
             }
             reader.close();
-        } else return;
+        }
     }
 
     private static void checkAndUsedJSPH(Map<String, String> envMap, final Runtime runtime) {
@@ -357,12 +356,11 @@ public class JREUtils {
     private static void launchJavaVM(
             final AppCompatActivity activity,
             String runtimeHome,
-            final Runtime runtime,
             File gameDirectory,
             final List<String> JVMArgs,
             final String userArgsString,
             final UserArgsCallBack argsCallBack
-    ) throws Throwable {
+    ) {
         List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
         //Remove arguments that can interfere with the good working of the launcher
         purgeArg(userArgs,"-Xms");
@@ -406,8 +404,8 @@ public class JREUtils {
             Logger.appendToLog("JVMArg: " + arg);
         }
 
-        JREUtils.setupExitMethod(activity.getApplication());
-        JREUtils.initializeGameExitHook();
+        setupExitMethod(activity.getApplication());
+        initializeGameExitHook();
         chdir(gameDirectory == null ? ProfilePathHome.getGameHome() : gameDirectory.getAbsolutePath());
         userArgs.add(0,"java"); //argv[0] is the program name according to C standard.
 
@@ -428,21 +426,16 @@ public class JREUtils {
             final UserArgsCallBack argsCallBack
     ) throws Throwable {
         String runtimeHome = MultiRTUtils.getRuntimeHome(runtime.name).getAbsolutePath();
-        try {
 
-            JREUtils.relocateLibPath(runtime, runtimeHome);
+        relocateLibPath(runtime, runtimeHome);
 
-            setEnv(runtimeHome, runtime);
+        setEnv(runtimeHome, runtime);
 
-            initJavaRuntime(runtimeHome);
+        initJavaRuntime(runtimeHome);
 
-            initGraphicAndSoundEngine();
+        initGraphicAndSoundEngine();
 
-            launchJavaVM(activity, runtimeHome, runtime, gameDirectory, JVMArgs, userArgsString, argsCallBack);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        launchJavaVM(activity, runtimeHome, gameDirectory, JVMArgs, userArgsString, argsCallBack);
     }
 
     /**
