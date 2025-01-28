@@ -25,7 +25,10 @@ class ModParser {
 
         Task.runTask {
             if (modsFolder.exists() && modsFolder.isDirectory) {
-                val files = modsFolder.listFiles()?.filter { it.extension.equals("jar", true) } ?: return@runTask
+                val files = modsFolder.listFiles()
+                    ?.filter { it.extension.equals("jar", true) }
+                    ?.takeIf { it.isNotEmpty() }
+                    ?: return@runTask
 
                 runBlocking {
                     val semaphore = Semaphore(calculateThreadCount(files.size))
