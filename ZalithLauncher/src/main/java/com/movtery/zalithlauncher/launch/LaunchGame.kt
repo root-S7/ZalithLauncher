@@ -14,6 +14,7 @@ import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.parser.ModInfo
 import com.movtery.zalithlauncher.feature.mod.parser.ModParser
+import com.movtery.zalithlauncher.feature.mod.parser.ModParserListener
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllStaticSettings
@@ -297,14 +298,22 @@ class LaunchGame {
         }
 
         /**
-         * 获取当前版本的所有模组的魔族信息(数量较多可能导致性能问题)
+         * 获取当前版本的所有模组的模组信息，并实时打印至日志内，方便检查问题
          */
         private fun checkAllMods(minecraftVersion: Version, onEnded: (List<ModInfo>) -> Unit) {
             File(minecraftVersion.getGameDir(), "mods").apply {
                 if (exists() && isDirectory && (listFiles()?.isNotEmpty() == true)) {
-                    ModParser().parseAllMods(this) { modInfoList ->
-                        onEnded(modInfoList)
-                    }
+                    ModParser().parseAllMods(this, object : ModParserListener {
+                        override fun onProgress(recentlyParsedModInfo: ModInfo) {
+                            Logger.appendToLog(
+                                "Mod Perception: Parsed Mod ${recentlyParsedModInfo.name} (Mod ID: ${recentlyParsedModInfo.id}, Mod Version: ${recentlyParsedModInfo.version})"
+                            )
+                        }
+
+                        override fun onParseEnded(modInfoList: List<ModInfo>) {
+                            onEnded(modInfoList)
+                        }
+                    })
                     return
                 }
             }

@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.feature.mod.parser
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import com.moandjiezana.toml.Toml
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -24,7 +25,7 @@ class ModParser {
 
         Task.runTask {
             if (modsFolder.exists() && modsFolder.isDirectory) {
-                val files = modsFolder.listFiles()?.filter { it.extension.equals("jar", true) } ?: emptyList()
+                val files = modsFolder.listFiles()?.filter { it.extension.equals("jar", true) } ?: return@runTask
 
                 runBlocking {
                     val semaphore = Semaphore(calculateThreadCount(files.size))
@@ -35,7 +36,10 @@ class ModParser {
                             semaphore.withPermit {
                                 try {
                                     JarInputStream(FileInputStream(modFile)).use { jarInputStream ->
-                                        parseJarEntries(jarInputStream, modInfoList)
+                                        parseJarEntries(jarInputStream) { modInfo ->
+                                            modInfoList.add(modInfo)
+                                            listener.onProgress(modInfo)
+                                        }
                                     }
                                 } catch (e: Exception) {
                                     Logging.e("ModParser", "Failed to parse the Mod file ${modFile.name}!", e)
@@ -56,24 +60,43 @@ class ModParser {
         }.execute()
     }
 
+    @Throws(Throwable::class)
     private fun parseJarEntries(
         jarInputStream: JarInputStream,
-        modInfoList: MutableList<ModInfo>
+        parseSuccessCallback: (ModInfo) -> Unit
     ) {
+        fun parseAndAddIntoList(parse: (info: String) -> ModInfo?) {
+            val modInfo = parse(jarInputStream.bufferedReader().use(BufferedReader::readText))
+            modInfo?.let {
+                parseSuccessCallback(it)
+            }
+        }
+
         var entry: JarEntry?
         while (jarInputStream.nextJarEntry.also { entry = it } != null) {
             entry?.let { file ->
                 when (file.name) {
+                    //Fabric
                     "fabric.mod.json" -> {
-                        val modInfo = parseFabricModJson(jarInputStream.bufferedReader().use(BufferedReader::readText))
-                        modInfoList.add(modInfo)
-                        return@let
+                        parseAndAddIntoList { parseFabricModJson(it) }
+                        return
                     }
+                    //Quilt
+                    "quilt.mod.json" -> {
+                        parseAndAddIntoList { parseQuiltModJson(it) }
+                        return
+                    }
+                    //Forge、NeoForge
                     "META-INF/neoforge.mods.toml", "META-INF/mods.toml" -> {
-                        val modInfo = parseForgeLikeModToml(jarInputStream.bufferedReader().use(BufferedReader::readText))
-                        modInfo?.let { modInfoList.add(it) }
-                        return@let
+                        parseAndAddIntoList { parseForgeLikeModToml(it) }
+                        return
                     }
+                    //旧版 Forge
+                    "mcmod.info" -> {
+                        parseAndAddIntoList { parseOldForgeModInfo(it) }
+                        return
+                    }
+                    else -> {}
                 }
             }
         }
@@ -111,6 +134,19 @@ class ModParser {
     }
 
     @Throws(Throwable::class)
+    private fun parseQuiltModJson(jsonString: String): ModInfo {
+        val quiltLoader = JsonParser.parseString(jsonString).asJsonObject.get("quilt_loader").asJsonObject
+        val metaData = quiltLoader.get("metadata").asJsonObject
+        return ModInfo(
+            quiltLoader.get("id").asString,
+            quiltLoader.get("version").asString,
+            metaData.get("name").asString,
+            metaData.get("description").asString,
+            metaData.get("contributors").asJsonObject.keySet().toTypedArray()
+        )
+    }
+
+    @Throws(Throwable::class)
     private fun parseForgeLikeModToml(tomlString: String): ModInfo? {
         val toml = Toml().read(tomlString)
         val mod = toml.getTables("mods").firstOrNull() ?: return null
@@ -130,6 +166,31 @@ class ModParser {
         } ?: emptyArray()
 
         return ModInfo(modId, version, displayName, description, authors)
+    }
+
+    @Throws(Throwable::class)
+    private fun parseOldForgeModInfo(mcmodInfo: String): ModInfo? {
+        val jsonObject = JsonParser.parseString(mcmodInfo).asJsonArray[0].asJsonObject
+        val modId = jsonObject.get("modid")?.asString ?: return null
+        val version = jsonObject.get("version")?.asString ?: return null
+        val name = jsonObject.get("name")?.asString ?: return null
+        val description = jsonObject.get("description")?.asString ?: ""
+
+        val authors =
+            if (jsonObject.has("authorList"))
+                jsonObject.get("authorList").asJsonArray.toStringArray()
+            else
+                jsonObject.get("authors").asJsonArray.toStringArray()
+
+        return ModInfo(modId, version, name, description, authors)
+    }
+
+    private fun JsonArray.toStringArray(): Array<String> {
+        val list: MutableList<String> = mutableListOf()
+        forEach { element ->
+            list.add(element.asString)
+        }
+        return list.toTypedArray()
     }
 
     /**
