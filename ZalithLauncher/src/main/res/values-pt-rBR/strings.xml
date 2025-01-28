@@ -223,7 +223,6 @@
     <string name="version_manager_shortcuts_screenshot_path">Pasta de capturas de tela</string>
     <string name="version_manager_shortcuts_logs_path">Pasta de logs</string>
     <string name="version_manager_shortcuts_crash_report_path">Pasta de relatórios de falhas</string>
-    <string name="version_manager_settings">Configurações de versão</string>
     <string name="version_manager_rename">Renomear versão</string>
     <string name="version_manager_copy">Copiar versão</string>
     <string name="version_manager_copy_tip">Copiar a versão atual como uma nova, com isolamento de versão ativado por padrão. Se "Copiar todos os arquivos" abaixo estiver ativado, todos os arquivos gerados pela versão atual (pacotes de recursos, arquivos salvos, configurações do jogo, etc.) também serão copiados.</string>

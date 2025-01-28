@@ -223,7 +223,6 @@
     <string name="version_manager_shortcuts_screenshot_path">Thư mục ảnh chụp màn hình</string>
     <string name="version_manager_shortcuts_logs_path">Thư mục nhật ký</string>
     <string name="version_manager_shortcuts_crash_report_path">Thư mục báo cáo sự cố</string>
-    <string name="version_manager_settings">Cài đặt phiên bản</string>
     <string name="version_manager_rename">Đổi tên phiên bản</string>
     <string name="version_manager_copy">Sao chép phiên bản</string>
     <string name="version_manager_copy_tip">Sao chép phiên bản hiện tại thành một phiên bản mới với cách ly phiên bản được kích hoạt mặc định. Nếu "Sao chép tất cả tệp" bên dưới được kích hoạt, tất cả tệp được tạo bởi phiên bản hiện tại (gói tài nguyên, lưu trữ, thiết lập trò chơi, v.v.) cũng sẽ được sao chép.</string>

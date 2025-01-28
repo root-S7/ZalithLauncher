@@ -223,7 +223,6 @@
     <string name="version_manager_shortcuts_screenshot_path">螢幕截圖資料夾</string>
     <string name="version_manager_shortcuts_logs_path">日誌資料夾</string>
     <string name="version_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
-    <string name="version_manager_settings">版本設定</string>
     <string name="version_manager_rename">重新命名版本</string>
     <string name="version_manager_copy">複製版本</string>
     <string name="version_manager_copy_tip">將當前版本復製為一個新版本，並預設開啟版本隔離。若開啟下方的“復製所有檔案”，則會同時復製當前版本產生的所有檔案（資源包、存檔、遊戲設置等）。</string>

@@ -97,7 +97,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.movtery.zalithlauncher.ui.view.AnimEditText
-                    android:id="@+id/version_settings"
+                    android:id="@+id/version_edit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_6sdp"
@@ -130,7 +130,7 @@
                     android:paddingHorizontal="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@+id/version_settings"
+                    app:layout_constraintStart_toEndOf="@+id/version_edit"
                     app:layout_constraintTop_toBottomOf="@+id/textView_author"
                     tools:ignore="LabelFor" />
 
