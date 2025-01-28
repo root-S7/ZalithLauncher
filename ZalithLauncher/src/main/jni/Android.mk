@@ -13,21 +13,6 @@ LOCAL_PATH := $(HERE_PATH)
 
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := angle_gles2
-LOCAL_SRC_FILES := angle/angle-gles/$(TARGET_ARCH_ABI)/libGLESv2_angle.so
-include $(PREBUILT_SHARED_LIBRARY)
-
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := Angle
-LOCAL_SHARED_LIBRARIES := angle_gles2
-LOCAL_SRC_FILES := angle/main.c angle/string_utils.c
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/angle
-LOCAL_CFLAGS += -rdynamic
-include $(BUILD_SHARED_LIBRARY)
-
-
-include $(CLEAR_VARS)
 LOCAL_LDLIBS := -ldl -llog -landroid
 LOCAL_MODULE := pojavexec
 LOCAL_SHARED_LIBRARIES := driver_helper
@@ -35,6 +20,7 @@ LOCAL_CFLAGS += -rdynamic
 LOCAL_SRC_FILES := \
     bigcoreaffinity.c \
     egl_bridge.c \
+    ctxbridges/br_loader.c \
     ctxbridges/gl_bridge.c \
     ctxbridges/osm_bridge.c \
     ctxbridges/egl_loader.c \

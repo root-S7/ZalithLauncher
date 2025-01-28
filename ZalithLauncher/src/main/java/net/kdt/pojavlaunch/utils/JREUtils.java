@@ -45,6 +45,7 @@ import org.lwjgl.glfw.CallbackBridge;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -196,9 +197,7 @@ public class JREUtils {
         LD_LIBRARY_PATH = ldLibraryPath.toString();
     }
 
-    private static void setJavaEnv(String jreHome) throws Throwable {
-        Map<String, String> envMap = new ArrayMap<>();
-
+    private static void setJavaEnv(Map<String, String> envMap, String jreHome) {
         envMap.put("POJAV_NATIVEDIR", DIR_NATIVE_LIB);
         envMap.put("DRIVER_PATH", DriverPluginManager.getDriver().getPath());
         envMap.put("JAVA_HOME", jreHome);
@@ -221,15 +220,6 @@ public class JREUtils {
         if (FFmpegPlugin.isAvailable)
             envMap.put("POJAV_FFMPEG_PATH", FFmpegPlugin.executablePath);
 
-        for (Map.Entry<String, String> env : envMap.entrySet()) {
-            Logger.appendToLog("Added custom env: " + env.getKey() + "=" + env.getValue());
-            try {
-                Os.setenv(env.getKey(), env.getValue(), true);
-            }catch (NullPointerException exception){
-                Logging.e("JREUtils", exception.toString());
-            }
-        }
-
         File serverFile = new File(jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/server/libjvm.so");
         jvmLibraryPath = jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/" + (serverFile.exists() ? "server" : "client");
         Logging.d("DynamicLoader","Base LD_LIBRARY_PATH: "+LD_LIBRARY_PATH);
@@ -237,8 +227,8 @@ public class JREUtils {
         setLdLibraryPath(jvmLibraryPath+":"+LD_LIBRARY_PATH);
     }
 
-    private static void setRendererEnv() throws Throwable {
-        Map<String, String> envMap = new ArrayMap<>();
+    private static void setRendererEnv(Map<String, String> envMap) {
+        String eglName = null;
 
         if (LOCAL_RENDERER.startsWith("opengles2")) {
             envMap.put("LIBGL_ES", "2");
@@ -247,8 +237,6 @@ public class JREUtils {
             envMap.put("LIBGL_NOINTOVLHACK", "1");
             envMap.put("LIBGL_NORMALIZE", "1");
         }
-
-        String eglName = null;
 
         RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
         if (customRenderer != null && LOCAL_RENDERER.equals(customRenderer.getId())) {
@@ -267,11 +255,6 @@ public class JREUtils {
             } else {
                 eglName = customEglName;
             }
-        }
-
-        if (LOCAL_RENDERER.equals("opengles3_angle")) {
-            envMap.put("LIBGL_ES", "3");
-            eglName = "libEGL_angle.so";
         }
 
         if (eglName != null) envMap.put("POJAVEXEC_EGL", eglName);
@@ -311,62 +294,75 @@ public class JREUtils {
                 envMap.put("LIBGL_ES", "3");
             }
         }
-
-        for (Map.Entry<String, String> env : envMap.entrySet()) {
-            Logger.appendToLog("Added custom env: " + env.getKey() + "=" + env.getValue());
-            try {
-                Os.setenv(env.getKey(), env.getValue(), true);
-            } catch (NullPointerException exception) {
-                Logging.e("JREUtils", exception.toString());
-            }
-        }
-
     }
 
-    private static void setCustomEnv() throws Throwable {
-        Map<String, String> envMap = new ArrayMap<>();
+    private static void setCustomEnv(Map<String, String> envMap) throws Throwable {
         File customEnvFile = new File(PathManager.DIR_GAME_HOME, "custom_env.txt");
         if (customEnvFile.exists() && customEnvFile.isFile()) {
             BufferedReader reader = new BufferedReader(new FileReader(customEnvFile));
             String line;
             while ((line = reader.readLine()) != null) {
-                // Not use split() as only split first one
                 int index = line.indexOf("=");
                 envMap.put(line.substring(0, index), line.substring(index + 1));
             }
             reader.close();
         } else return;
+    }
+
+    private static void checkAndUsedJSPH(Map<String, String> envMap, final Runtime runtime) {
+        boolean onUseJSPH = runtime.javaVersion > 11;
+        if (!onUseJSPH) return;
+        File dir = new File(DIR_NATIVE_LIB);
+        if (!dir.isDirectory()) return;
+        String jsphName = runtime.javaVersion == 17 ? "libjsph17" : "libjsph21";
+        File[] files = dir.listFiles((dir1, name) -> name.startsWith(jsphName));
+        if (files != null && files.length > 0) {
+            String libName = DIR_NATIVE_LIB + "/" + jsphName + ".so";
+            envMap.put("JSP", libName);
+        }
+    }
+
+    private static void setEnv(String jreHome, final Runtime runtime) throws Throwable {
+        Map<String, String> envMap = new ArrayMap<>();
+
+        setJavaEnv(envMap, jreHome);
+        setCustomEnv(envMap);
+        checkAndUsedJSPH(envMap, runtime);
+
+        if (LOCAL_RENDERER != null)
+            setRendererEnv(envMap);
 
         for (Map.Entry<String, String> env : envMap.entrySet()) {
             Logger.appendToLog("Added custom env: " + env.getKey() + "=" + env.getValue());
             try {
                 Os.setenv(env.getKey(), env.getValue(), true);
-            } catch (NullPointerException exception) {
+            }catch (NullPointerException exception){
                 Logging.e("JREUtils", exception.toString());
             }
         }
     }
 
-    public static void launchJavaVM(
+    private static void initGraphicAndSoundEngine() {
+        String rendererLib = loadGraphicsLibrary();
+        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
+
+        if (customRenderer != null)
+            customRenderer.getDlopen().forEach(lib -> dlopen(customRenderer.getPath() + "/" + lib));
+
+        if (!dlopen(rendererLib) && !dlopen(findInLdLibPath(rendererLib)))
+            Logging.e("RENDER_LIBRARY", "Failed to load renderer " + rendererLib);
+
+    }
+
+    private static void launchJavaVM(
             final AppCompatActivity activity,
+            String runtimeHome,
             final Runtime runtime,
             File gameDirectory,
             final List<String> JVMArgs,
             final String userArgsString,
             final UserArgsCallBack argsCallBack
     ) throws Throwable {
-        String runtimeHome = MultiRTUtils.getRuntimeHome(runtime.name).getAbsolutePath();
-
-        JREUtils.relocateLibPath(runtime, runtimeHome);
-
-        if (runtime.javaVersion > 8) {
-            String libName = runtime.javaVersion == 17 ? "/libjsph17.so" : "/libjsph21.so";
-            Os.setenv("JSP", DIR_NATIVE_LIB + libName, true);
-        }
-        setCustomEnv();
-        setJavaEnv(runtimeHome);
-        if (LOCAL_RENDERER != null) setRendererEnv();
-
         List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
         //Remove arguments that can interfere with the good working of the launcher
         purgeArg(userArgs,"-Xms");
@@ -410,7 +406,6 @@ public class JREUtils {
             Logger.appendToLog("JVMArg: " + arg);
         }
 
-        initJavaRuntime(runtimeHome);
         JREUtils.setupExitMethod(activity.getApplication());
         JREUtils.initializeGameExitHook();
         chdir(gameDirectory == null ? ProfilePathHome.getGameHome() : gameDirectory.getAbsolutePath());
@@ -422,6 +417,32 @@ public class JREUtils {
             ErrorActivity.showExitMessage(activity, exitCode, false);
         }
         EventBus.getDefault().post(new JvmExitEvent(exitCode));
+    }
+
+    public static void launchWithUtils(
+            final AppCompatActivity activity,
+            final Runtime runtime,
+            File gameDirectory,
+            final List<String> JVMArgs,
+            final String userArgsString,
+            final UserArgsCallBack argsCallBack
+    ) throws Throwable {
+        String runtimeHome = MultiRTUtils.getRuntimeHome(runtime.name).getAbsolutePath();
+        try {
+
+            JREUtils.relocateLibPath(runtime, runtimeHome);
+
+            setEnv(runtimeHome, runtime);
+
+            initJavaRuntime(runtimeHome);
+
+            initGraphicAndSoundEngine();
+
+            launchJavaVM(activity, runtimeHome, runtime, gameDirectory, JVMArgs, userArgsString, argsCallBack);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -547,42 +568,32 @@ public class JREUtils {
      * @return The name of the loaded library
      */
     public static String loadGraphicsLibrary() {
-        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
-        if (LOCAL_RENDERER == null && customRenderer == null) return null;
         String renderLibrary;
-        if (customRenderer != null) {
-            renderLibrary = customRenderer.getGlName();
-            customRenderer.getDlopen().forEach(lib -> dlopen(customRenderer.getPath() + "/" + lib));
-        } else {
-            switch (LOCAL_RENDERER){
-                case "opengles2":
-                    renderLibrary = "libgl4es_114.so";
-                    break;
-                case "vulkan_zink":
-                case "gallium_freedreno":
-                    renderLibrary = "libOSMesa_8.so";
-                    break;
-                case "gallium_virgl":
-                    renderLibrary = "libOSMesa_2121.so";
-                    break;
-                case "gallium_panfrost":
-                    renderLibrary = "libOSMesa_2300d.so";
-                    break;
-                case "opengles3_angle":
-                    renderLibrary = "libAngle.so";
-                    break;
-                default:
-                    Logging.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
-                    renderLibrary = "libgl4es_114.so";
-                    break;
-            }
-        }
+        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
 
-        if (!dlopen(renderLibrary) && !dlopen(findInLdLibPath(renderLibrary))) {
-            Logging.e("RENDER_LIBRARY","Failed to load renderer " + renderLibrary + ". Falling back to GL4ES 1.1.4");
-            LOCAL_RENDERER = "opengles2";
-            renderLibrary = "libgl4es_114.so";
-            dlopen(DIR_NATIVE_LIB + "/libgl4es_114.so");
+        if (LOCAL_RENDERER == null && customRenderer == null) return null;
+
+        if (customRenderer != null)
+            return customRenderer.getGlName();
+
+        switch (LOCAL_RENDERER) {
+            case "opengles2":
+                renderLibrary = "libgl4es_114.so";
+                break;
+            case "vulkan_zink":
+            case "gallium_freedreno":
+                renderLibrary = "libOSMesa_8.so";
+                break;
+            case "gallium_virgl":
+                renderLibrary = "libOSMesa_2121.so";
+                break;
+            case "gallium_panfrost":
+                renderLibrary = "libOSMesa_2300d.so";
+                break;
+            default:
+                Logging.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
+                renderLibrary = "libgl4es_114.so";
+                break;
         }
         return renderLibrary;
     }
