@@ -46,7 +46,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
             screenshotPath.setOnClickListener(fragment)
             logsPath.setOnClickListener(fragment)
             crashReportPath.setOnClickListener(fragment)
-            versionEdit.setOnClickListener(fragment)
+            versionSettings.setOnClickListener(fragment)
             versionRename.setOnClickListener(fragment)
             versionCopy.setOnClickListener(fragment)
             versionDelete.setOnClickListener(fragment)
@@ -97,7 +97,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                 logsPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/logs"))
                 crashReportPath -> swapFilesFragment(gameDirPath, File(gameDirPath, "/crash-reports"))
 
-                versionEdit -> ZHTools.swapFragmentWithAnim(this@VersionManagerFragment, VersionConfigFragment::class.java, VersionConfigFragment.TAG, null)
+                versionSettings -> ZHTools.swapFragmentWithAnim(this@VersionManagerFragment, VersionConfigFragment::class.java, VersionConfigFragment.TAG, null)
                 versionRename -> {
                     VersionsManager.openRenameDialog(activity, version) {
                         Tools.backToMainMenu(activity) //重命名前，为了不出现问题，需要退出当前Fragment

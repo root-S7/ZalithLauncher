@@ -253,25 +253,25 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/edit_version_icon"
+                android:id="@+id/version_settings_icon"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/version_edit"
+                app:layout_constraintBottom_toBottomOf="@+id/version_settings"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/version_edit"
+                app:layout_constraintTop_toTopOf="@+id/version_settings"
                 app:srcCompat="@drawable/ic_setting" />
 
             <com.movtery.zalithlauncher.ui.view.AnimButton
-                android:id="@+id/version_edit"
+                android:id="@+id/version_settings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_heavy"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/version_manager_edit"
+                android:text="@string/version_manager_settings"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/edit_version_icon"
+                app:layout_constraintStart_toEndOf="@+id/version_settings_icon"
                 app:layout_constraintTop_toBottomOf="@+id/title_manage_textview" />
 
             <ImageView
@@ -294,7 +294,7 @@
                 android:text="@string/version_manager_rename"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/rename_version_icon"
-                app:layout_constraintTop_toBottomOf="@+id/version_edit" />
+                app:layout_constraintTop_toBottomOf="@+id/version_settings" />
 
             <ImageView
                 android:id="@+id/copy_version_icon"

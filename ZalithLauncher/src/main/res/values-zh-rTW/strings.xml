@@ -223,7 +223,7 @@
     <string name="version_manager_shortcuts_screenshot_path">螢幕截圖資料夾</string>
     <string name="version_manager_shortcuts_logs_path">日誌資料夾</string>
     <string name="version_manager_shortcuts_crash_report_path">崩潰報告資料夾</string>
-    <string name="version_manager_edit">編輯版本</string>
+    <string name="version_manager_settings">版本設定</string>
     <string name="version_manager_rename">重新命名版本</string>
     <string name="version_manager_copy">複製版本</string>
     <string name="version_manager_copy_tip">將當前版本復製為一個新版本，並預設開啟版本隔離。若開啟下方的“復製所有檔案”，則會同時復製當前版本產生的所有檔案（資源包、存檔、遊戲設置等）。</string>
@@ -397,7 +397,7 @@
     <string name="setting_renderer_local_delete">你確定要刪除這個渲染器插件嗎？這個操作不可逆！</string>
     <string name="setting_driver_title">Vulkan 驅動程式</string>
     <string name="setting_ignore_notch_title">全螢幕模式</string>
-    <string name="setting_ignore_notch_desc">忽略劉海屏並將螢幕內容擴展至全螢幕，給你更完整的沉浸感</string>
+    <string name="setting_ignore_notch_desc">忽略劉海螢幕並將螢幕內容擴展至全螢幕，給你更完整的沉浸感</string>
     <string name="setting_resolution_scaler_title">解析度調整</string>
     <string name="setting_resolution_scaler_desc">允許調整遊戲畫面解析度，原生解析度為 100%</string>
     <string name="setting_use_surface_view_title">使用備用 Surface 渲染</string>

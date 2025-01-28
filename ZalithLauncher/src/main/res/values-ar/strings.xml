@@ -223,7 +223,7 @@
     <string name="version_manager_shortcuts_screenshot_path">مجلد لقطات الشاشة</string>
     <string name="version_manager_shortcuts_logs_path">مجلد السجلات</string>
     <string name="version_manager_shortcuts_crash_report_path">مجلد تقارير الأعطال</string>
-    <string name="version_manager_edit">تحرير الإصدار</string>
+    <string name="version_manager_settings">إعدادات النسخة</string>
     <string name="version_manager_rename">إعادة تسمية الإصدار</string>
     <string name="version_manager_copy">نسخ النسخة</string>
     <string name="version_manager_copy_tip">نسخ الإصدار الحالي كإصدار جديد مع تفعيل عزل الإصدارات بشكل افتراضي. إذا تم تفعيل "نسخ جميع الملفات" في الأسفل، فسيتم نسخ جميع الملفات التي تم إنشاؤها بواسطة الإصدار الحالي (حزم الموارد، الملفات المحفوظة، إعدادات اللعبة، إلخ.) أيضًا.</string>
@@ -397,7 +397,7 @@
     <string name="setting_renderer_local_delete">Möchten Sie dieses Renderer-Plugin wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden!</string>
     <string name="setting_driver_title">برنامج تشغيل Vulkan</string>
     <string name="setting_ignore_notch_title">وضع ملء الشاشة</string>
-    <string name="setting_ignore_notch_desc">تجاهل الشق وتمد المحتوى إلى كامل الشاشة لتجربة غامرة أكثر تكاملاً</string>
+    <string name="setting_ignore_notch_desc">تجاهل الشق وتمديد محتوى الشاشة إلى وضع ملء الشاشة للحصول على تجربة أكثر غمرًا</string>
     <string name="setting_resolution_scaler_title">ضبط الدقة</string>
     <string name="setting_resolution_scaler_desc">يسمح بتعديل دقة اللعبة، حيث تكون الدقة الأصلية 100%</string>
     <string name="setting_use_surface_view_title">استخدام عرض سطح بديل</string>

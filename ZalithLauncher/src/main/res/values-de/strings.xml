@@ -223,7 +223,7 @@
     <string name="version_manager_shortcuts_screenshot_path">Screenshot-Ordner</string>
     <string name="version_manager_shortcuts_logs_path">Protokolldatei-Ordner</string>
     <string name="version_manager_shortcuts_crash_report_path">Absturzbericht-Ordner</string>
-    <string name="version_manager_edit">Version bearbeiten</string>
+    <string name="version_manager_settings">Versionseinstellungen</string>
     <string name="version_manager_rename">Version umbenennen</string>
     <string name="version_manager_copy">Version kopieren</string>
     <string name="version_manager_copy_tip">Die aktuelle Version als neue kopieren und Versionsisolation standardmäßig aktivieren. Wenn "Alle Dateien kopieren" unten aktiviert ist, werden auch alle von der aktuellen Version erzeugte Dateien (Ressourcenpakete, Spielstände, Spieleinstellungen etc.) kopiert.</string>
@@ -397,7 +397,7 @@
     <string name="setting_renderer_local_delete">Möchten Sie dieses Renderer-Plugin wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden!</string>
     <string name="setting_driver_title">Vulkan-Treiber</string>
     <string name="setting_ignore_notch_title">Vollbildmodus</string>
-    <string name="setting_ignore_notch_desc">Den Notch ignorieren und den Bildschirminhalt auf Vollbild erweitern für ein vollständigeres Eintauchen</string>
+    <string name="setting_ignore_notch_desc">Ignorieren Sie die Notch und erweitern Sie den Bildschirminhalt auf den gesamten Bildschirm für ein vollständigeres Erlebnis</string>
     <string name="setting_resolution_scaler_title">Auflösung anpassen</string>
     <string name="setting_resolution_scaler_desc">Ermöglicht die Anpassung der Spielbildschirmauflösung, die native Auflösung beträgt 100%</string>
     <string name="setting_use_surface_view_title">Alternative Surface Rendering verwenden</string>

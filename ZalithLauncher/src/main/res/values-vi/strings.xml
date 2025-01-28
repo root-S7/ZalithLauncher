@@ -223,7 +223,7 @@
     <string name="version_manager_shortcuts_screenshot_path">Thư mục ảnh chụp màn hình</string>
     <string name="version_manager_shortcuts_logs_path">Thư mục nhật ký</string>
     <string name="version_manager_shortcuts_crash_report_path">Thư mục báo cáo sự cố</string>
-    <string name="version_manager_edit">Chỉnh sửa phiên bản</string>
+    <string name="version_manager_settings">Cài đặt phiên bản</string>
     <string name="version_manager_rename">Đổi tên phiên bản</string>
     <string name="version_manager_copy">Sao chép phiên bản</string>
     <string name="version_manager_copy_tip">Sao chép phiên bản hiện tại thành một phiên bản mới với cách ly phiên bản được kích hoạt mặc định. Nếu "Sao chép tất cả tệp" bên dưới được kích hoạt, tất cả tệp được tạo bởi phiên bản hiện tại (gói tài nguyên, lưu trữ, thiết lập trò chơi, v.v.) cũng sẽ được sao chép.</string>
@@ -397,7 +397,7 @@
     <string name="setting_renderer_local_delete">Bạn có chắc chắn muốn xóa plugin bộ xử lý đồ họa này không? Hành động này không thể hoàn tác!</string>
     <string name="setting_driver_title">Trình điều khiển Vulkan</string>
     <string name="setting_ignore_notch_title">Chế độ toàn màn hình</string>
-    <string name="setting_ignore_notch_desc">Bỏ qua màn hình tai thỏ và mở rộng nội dung màn hình đến toàn màn hình\nCung cấp cho bạn trải nghiệm chìm đắm đầy đủ hơn</string>
+    <string name="setting_ignore_notch_desc">Bỏ qua phần notch và mở rộng nội dung màn hình ra toàn màn hình để có trải nghiệm sống động hơn</string>
     <string name="setting_resolution_scaler_title">Điều chỉnh độ phân giải</string>
     <string name="setting_resolution_scaler_desc">Cho phép điều chỉnh độ phân giải hình ảnh trò chơi, độ phân giải gốc là 100%</string>
     <string name="setting_use_surface_view_title">Sử dụng kết xuất Surface thay thế</string>

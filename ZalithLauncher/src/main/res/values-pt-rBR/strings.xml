@@ -223,7 +223,7 @@
     <string name="version_manager_shortcuts_screenshot_path">Pasta de capturas de tela</string>
     <string name="version_manager_shortcuts_logs_path">Pasta de logs</string>
     <string name="version_manager_shortcuts_crash_report_path">Pasta de relatórios de falhas</string>
-    <string name="version_manager_edit">Editar versão</string>
+    <string name="version_manager_settings">Configurações de versão</string>
     <string name="version_manager_rename">Renomear versão</string>
     <string name="version_manager_copy">Copiar versão</string>
     <string name="version_manager_copy_tip">Copiar a versão atual como uma nova, com isolamento de versão ativado por padrão. Se "Copiar todos os arquivos" abaixo estiver ativado, todos os arquivos gerados pela versão atual (pacotes de recursos, arquivos salvos, configurações do jogo, etc.) também serão copiados.</string>
@@ -397,7 +397,7 @@
     <string name="setting_renderer_local_delete">Tem certeza de que deseja excluir este plugin de renderizador? Esta ação não pode ser desfeita!</string>
     <string name="setting_driver_title">Driver Vulkan</string>
     <string name="setting_ignore_notch_title">Modo Tela Cheia</string>
-    <string name="setting_ignore_notch_desc">Ignorar o entalhe e expandir o conteúdo da tela para tela cheia, proporcionando uma experiência mais imersiva</string>
+    <string name="setting_ignore_notch_desc">Ignorar o entalhe e estender o conteúdo da tela para a tela cheia para uma experiência mais imersiva</string>
     <string name="setting_resolution_scaler_title">Ajuste de Resolução</string>
     <string name="setting_resolution_scaler_desc">Permite ajustar a resolução da tela do jogo, a resolução nativa é 100%</string>
     <string name="setting_use_surface_view_title">Usar renderização de superfície alternativa</string>
