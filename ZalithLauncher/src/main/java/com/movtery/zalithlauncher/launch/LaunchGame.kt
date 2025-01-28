@@ -260,7 +260,7 @@ class LaunchGame {
                     Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
                 }
 
-                JREUtils.launchJavaVM(activity, runtime, gameDirPath, launchArgs, customArgs) { userArgs ->
+                JREUtils.launchWithUtils(activity, runtime, gameDirPath, launchArgs, customArgs) { userArgs ->
                     if (hasSodiumOrEmbeddium) {
                         //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
                         userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)

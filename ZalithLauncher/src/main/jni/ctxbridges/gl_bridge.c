@@ -93,8 +93,7 @@ gl_render_window_t* gl_init_context(gl_render_window_t *share) {
     {
         EGLBoolean bindResult;
 
-        if (!strcmp(getenv("POJAV_RENDERER"), "opengles3_angle")
-         || !strncmp(getenv("POJAV_RENDERER"), "opengles3_desktopgl", 19))
+        if (!strncmp(getenv("POJAV_RENDERER"), "opengles3_desktopgl", 19))
         {
             printf("EGLBridge: Binding to OpenGL\n");
             bindResult = eglBindAPI_p(EGL_OPENGL_API);
