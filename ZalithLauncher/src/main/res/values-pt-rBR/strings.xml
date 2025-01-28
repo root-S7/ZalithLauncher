@@ -386,7 +386,6 @@
     <string name="setting_category_experimental_patches">Patches experimentais</string>
     <string name="setting_category_support">Suporte Externo</string>
     <string name="setting_renderer_title">Renderizador</string>
-    <string name="setting_renderer_name_angle">Angle (apenas para 1.17+)</string>
     <string name="setting_renderer_from_plugins">Do plugin %s</string>
     <string name="setting_renderer_local_import_title">Importação de Renderizador Local</string>
     <string name="setting_renderer_local_import_desc">Além de instalar plugins de renderização por software, o lançador também oferece suporte para importar plugins de renderizador localmente. No entanto, alguns dispositivos podem não ser capazes de usar plugins de renderizador local, então use com cautela!</string>

@@ -3,7 +3,6 @@ package net.kdt.pojavlaunch.utils;
 import static com.movtery.zalithlauncher.utils.path.PathManager.DIR_NATIVE_LIB;
 import static net.kdt.pojavlaunch.Architecture.ARCH_X86;
 import static net.kdt.pojavlaunch.Architecture.is64BitsDevice;
-import static net.kdt.pojavlaunch.Tools.LOCAL_RENDERER;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
 import android.content.Context;
@@ -26,6 +25,8 @@ import com.movtery.zalithlauncher.launch.UserArgsCallBack;
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
+import com.movtery.zalithlauncher.renderer.AbstractRenderer;
+import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
 import com.movtery.zalithlauncher.utils.path.LibPath;
@@ -227,9 +228,10 @@ public final class JREUtils {
     }
 
     private static void setRendererEnv(Map<String, String> envMap) {
-        String eglName = null;
+        AbstractRenderer currentRenderer = Renderers.INSTANCE.getCurrentRenderer();
+        String rendererId = currentRenderer.getRendererId();
 
-        if (LOCAL_RENDERER.startsWith("opengles2")) {
+        if (rendererId.startsWith("opengles2")) {
             envMap.put("LIBGL_ES", "2");
             envMap.put("LIBGL_MIPMAP", "3");
             envMap.put("LIBGL_NOERROR", "1");
@@ -237,32 +239,12 @@ public final class JREUtils {
             envMap.put("LIBGL_NORMALIZE", "1");
         }
 
-        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
-        if (customRenderer != null && LOCAL_RENDERER.equals(customRenderer.getId())) {
-            customRenderer.getEnv().forEach(envPair -> {
-                String envKey = envPair.getFirst();
-                String envValue = envPair.getSecond();
-                if (envKey.equals("LIB_MESA_NAME")) {
-                    envMap.put(envKey, customRenderer.getPath() + "/" + envValue);
-                } else {
-                    envMap.put(envKey, envValue);
-                }
-            });
-            String customEglName = customRenderer.getEglName();
-            if (customEglName.startsWith("/")) {
-                eglName = customRenderer.getPath() + customEglName;
-            } else {
-                eglName = customEglName;
-            }
-        }
+        envMap.putAll(currentRenderer.getRendererEnv().getValue());
 
+        String eglName = currentRenderer.getRendererEGL();
         if (eglName != null) envMap.put("POJAVEXEC_EGL", eglName);
 
-        if (LOCAL_RENDERER.equals("gallium_virgl")) {
-            envMap.put("VTEST_SOCKET_NAME", new File(PathManager.DIR_CACHE, ".virgl_test").getAbsolutePath());
-        }
-
-        if (!LOCAL_RENDERER.startsWith("opengles")) {
+        if (!rendererId.startsWith("opengles")) {
             envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
             envMap.put("MESA_GLSL_CACHE_DIR", PathManager.DIR_CACHE.getAbsolutePath());
             envMap.put("force_glsl_extensions_warn", "true");
@@ -271,22 +253,17 @@ public final class JREUtils {
             envMap.put("MESA_LIBRARY", loadGraphicsLibrary());
         }
 
-        if (LOCAL_RENDERER.equals("vulkan_zink")) {
-            envMap.put("MESA_GL_VERSION_OVERRIDE", "4.6");
-            envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
-        }
+        envMap.put("POJAV_RENDERER", rendererId);
 
-        envMap.put("POJAV_RENDERER", LOCAL_RENDERER);
-
-        if (!envMap.containsKey("LIBGL_ES") && LOCAL_RENDERER != null) {
+        if (!envMap.containsKey("LIBGL_ES")) {
             int glesMajor = getDetectedVersion();
             Logging.i("glesDetect","GLES version detected: "+glesMajor);
 
             if (glesMajor < 3) {
                 //fallback to 2 since it's the minimum for the entire app
                 envMap.put("LIBGL_ES","2");
-            } else if (LOCAL_RENDERER.startsWith("opengles")) {
-                envMap.put("LIBGL_ES", LOCAL_RENDERER.replace("opengles", "").replace("_5", ""));
+            } else if (rendererId.startsWith("opengles")) {
+                envMap.put("LIBGL_ES", rendererId.replace("opengles", "").replace("_5", ""));
             } else {
                 // TODO if can: other backends such as Vulkan.
                 // Sure, they should provide GLES 3 support.
@@ -328,8 +305,7 @@ public final class JREUtils {
         setCustomEnv(envMap);
         checkAndUsedJSPH(envMap, runtime);
 
-        if (LOCAL_RENDERER != null)
-            setRendererEnv(envMap);
+        if (Renderers.INSTANCE.isCurrentRendererValid()) setRendererEnv(envMap);
 
         for (Map.Entry<String, String> env : envMap.entrySet()) {
             Logger.appendToLog("Added custom env: " + env.getKey() + "=" + env.getValue());
@@ -345,12 +321,13 @@ public final class JREUtils {
         String rendererLib = loadGraphicsLibrary();
         RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
 
-        if (customRenderer != null)
+        if (customRenderer != null) {
             customRenderer.getDlopen().forEach(lib -> dlopen(customRenderer.getPath() + "/" + lib));
+        }
 
-        if (!dlopen(rendererLib) && !dlopen(findInLdLibPath(rendererLib)))
+        if (!dlopen(rendererLib) && !dlopen(findInLdLibPath(rendererLib))) {
             Logging.e("RENDER_LIBRARY", "Failed to load renderer " + rendererLib);
-
+        }
     }
 
     private static void launchJavaVM(
@@ -384,7 +361,7 @@ public final class JREUtils {
         //Add automatically generated args
         userArgs.add("-Xms" + AllSettings.getRamAllocation().getValue().getValue() + "M");
         userArgs.add("-Xmx" + AllSettings.getRamAllocation().getValue().getValue() + "M");
-        if (LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + loadGraphicsLibrary());
+        if (Renderers.INSTANCE.isCurrentRendererValid()) userArgs.add("-Dorg.lwjgl.opengl.libname=" + loadGraphicsLibrary());
 
         // Force LWJGL to use the Freetype library intended for it, instead of using the one
         // that we ship with Java (since it may be older than what's needed)
@@ -561,34 +538,8 @@ public final class JREUtils {
      * @return The name of the loaded library
      */
     public static String loadGraphicsLibrary() {
-        String renderLibrary;
-        RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
-
-        if (LOCAL_RENDERER == null && customRenderer == null) return null;
-
-        if (customRenderer != null)
-            return customRenderer.getGlName();
-
-        switch (LOCAL_RENDERER) {
-            case "opengles2":
-                renderLibrary = "libgl4es_114.so";
-                break;
-            case "vulkan_zink":
-            case "gallium_freedreno":
-                renderLibrary = "libOSMesa_8.so";
-                break;
-            case "gallium_virgl":
-                renderLibrary = "libOSMesa_2121.so";
-                break;
-            case "gallium_panfrost":
-                renderLibrary = "libOSMesa_2300d.so";
-                break;
-            default:
-                Logging.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
-                renderLibrary = "libgl4es_114.so";
-                break;
-        }
-        return renderLibrary;
+        if (!Renderers.INSTANCE.isCurrentRendererValid()) return null;
+        else return Renderers.INSTANCE.getCurrentRenderer().getRendererLibrary();
     }
 
     /**

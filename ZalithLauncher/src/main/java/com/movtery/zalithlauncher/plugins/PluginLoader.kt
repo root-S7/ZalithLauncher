@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager
+import com.movtery.zalithlauncher.renderer.AbstractRenderer
+import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.utils.path.PathManager
 import org.apache.commons.io.FileUtils
 
@@ -43,6 +45,30 @@ object PluginLoader {
                     //不符合要求的渲染器插件，将被删除！
                     FileUtils.deleteQuietly(file)
                 }
+            }
+        }
+
+        if (RendererPluginManager.isAvailable()) {
+            RendererPluginManager.getRendererList().forEach { rendererPlugin ->
+                Renderers.addRenderer(
+                    object : AbstractRenderer {
+                        override fun getRendererId(): String = rendererPlugin.id
+
+                        override fun getUniqueIdentifier(): String = rendererPlugin.uniqueIdentifier
+
+                        override fun getRendererName(): String = rendererPlugin.des
+
+                        override fun getRendererEnv(): Lazy<Map<String, String>> = lazy {
+                            RendererPluginManager.progressEnvMap(rendererPlugin)
+                        }
+
+                        override fun getDlopenLibrary(): Lazy<List<String>> = lazy { rendererPlugin.dlopen }
+
+                        override fun getRendererLibrary(): String = rendererPlugin.glName
+
+                        override fun getRendererEGL(): String = rendererPlugin.eglName
+                    }
+                )
             }
         }
     }

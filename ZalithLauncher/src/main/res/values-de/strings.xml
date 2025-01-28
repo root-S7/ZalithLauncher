@@ -386,7 +386,6 @@
     <string name="setting_category_experimental_patches">Experimentelle Patches</string>
     <string name="setting_category_support">Externer Support</string>
     <string name="setting_renderer_title">Renderer</string>
-    <string name="setting_renderer_name_angle">Angle (nur für 1.17+)</string>
     <string name="setting_renderer_from_plugins">Von %s-Plugin</string>
     <string name="setting_renderer_local_import_title">Lokale Renderer-Import</string>
     <string name="setting_renderer_local_import_desc">Zusätzlich zur Installation von Software-Rendering-Plugins unterstützt der Launcher auch den lokalen Import von Renderer-Plugins. Einige Geräte können jedoch möglicherweise keine lokalen Renderer-Plugins verwenden, daher ist Vorsicht geboten!</string>

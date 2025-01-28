@@ -386,7 +386,6 @@
     <string name="setting_category_experimental_patches">Bản vá thử nghiệm</string>
     <string name="setting_category_support">Hỗ trợ bên ngoài</string>
     <string name="setting_renderer_title">Bộ kết xuất</string>
-    <string name="setting_renderer_name_angle">Angle (chỉ dành cho 1.17+)</string>
     <string name="setting_renderer_from_plugins">Từ plugin %s</string>
     <string name="setting_renderer_local_import_title">Nhập khẩu Bộ xử lý đồ họa cục bộ</string>
     <string name="setting_renderer_local_import_desc">Ngoài việc cài đặt plugin xử lý phần mềm, trình khởi chạy cũng hỗ trợ nhập khẩu plugin xử lý đồ họa từ địa phương. Tuy nhiên, một số thiết bị có thể không sử dụng được plugin đồ họa cục bộ, hãy sử dụng thận trọng!</string>

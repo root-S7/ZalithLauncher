@@ -1,5 +1,7 @@
 package com.movtery.zalithlauncher.utils.stringutils
 
+import java.util.UUID
+
 class StringUtilsKt {
     companion object {
         @JvmStatic
@@ -32,6 +34,13 @@ class StringUtilsKt {
                 result = result.replace(match.value, char.toString())
             }
             return result
+        }
+
+        @JvmStatic
+        fun generateUniqueUUID(checkForConflict: (uuid: String) -> Boolean): String {
+            val uuid = UUID.randomUUID().toString().lowercase()
+            if (checkForConflict(uuid)) return generateUniqueUUID(checkForConflict)
+            return uuid
         }
     }
 }

@@ -12,6 +12,7 @@ import android.os.Build;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.unpack.Jre;
 import com.movtery.zalithlauncher.plugins.PluginLoader;
+import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.setting.Settings;
@@ -26,6 +27,8 @@ public class LauncherPreferences {
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
         PathManager.initContextConstants(ctx);
+        //加载渲染器
+        Renderers.INSTANCE.init();
         //加载插件
         PluginLoader.loadAllPlugins(ctx);
 

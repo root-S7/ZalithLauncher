@@ -16,6 +16,7 @@ import com.movtery.zalithlauncher.feature.mod.parser.ModInfo
 import com.movtery.zalithlauncher.feature.mod.parser.ModParser
 import com.movtery.zalithlauncher.feature.mod.parser.ModParserListener
 import com.movtery.zalithlauncher.feature.version.Version
+import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllStaticSettings
 import com.movtery.zalithlauncher.support.touch_controller.ControllerProxy
@@ -122,14 +123,8 @@ class LaunchGame {
         @Throws(Throwable::class)
         @JvmStatic
         fun runGame(activity: AppCompatActivity, minecraftVersion: Version, version: JMinecraftVersionList.Version) {
-            Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer.getValue() }
-
-            if (!Tools.checkRendererCompatible(activity, Tools.LOCAL_RENDERER)) {
-                val renderersList = Tools.getCompatibleRenderers(activity)
-                val firstCompatibleRenderer = renderersList.rendererIds[0]
-                Logging.w("runGame", "Incompatible renderer ${Tools.LOCAL_RENDERER} will be replaced with $firstCompatibleRenderer")
-                Tools.LOCAL_RENDERER = firstCompatibleRenderer
-                Tools.releaseCache()
+            if (!Renderers.isCurrentRendererValid()) {
+                Renderers.setCurrentRenderer(activity, AllSettings.renderer.getValue())
             }
 
             var account = AccountsManager.getInstance().currentAccount
@@ -146,7 +141,6 @@ class LaunchGame {
             val javaRuntime = getRuntime(activity, minecraftVersion, version.javaVersion?.majorVersion ?: 8)
 
             printLauncherInfo(
-                activity,
                 minecraftVersion,
                 customArgs.takeIf { it.isNotBlank() } ?: "NONE",
                 javaRuntime,
@@ -182,7 +176,6 @@ class LaunchGame {
         }
 
         private fun printLauncherInfo(
-            context: Context,
             minecraftVersion: Version,
             javaArguments: String,
             javaRuntime: String,
@@ -193,17 +186,12 @@ class LaunchGame {
                 mcInfo = info.getInfoString()
             }
 
-            val renderers = Tools.getCompatibleRenderers(context).run {
-                rendererDisplayNames.zip(rendererIds)
-            }
-            val rendererName = renderers.find { it.second == Tools.LOCAL_RENDERER }?.first ?: "Parsing failed, original name: ${Tools.LOCAL_RENDERER}"
-
             Logger.appendToLog("--------- Start launching the game")
             Logger.appendToLog("Info: Launcher version: ${ZHTools.getVersionName()} (${ZHTools.getVersionCode()})")
             Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
             Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
-            Logger.appendToLog("Info: Renderer: $rendererName")
+            Logger.appendToLog("Info: Renderer: ${Renderers.getCurrentRenderer().getRendererName()}")
             Logger.appendToLog("Info: Selected Minecraft version: ${minecraftVersion.getVersionName()}")
             Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Game Path: ${minecraftVersion.getGameDir().absolutePath} (Isolation: ${minecraftVersion.isIsolation()})")
