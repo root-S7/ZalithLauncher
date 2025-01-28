@@ -228,6 +228,23 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     .setConfirmListener { editBox, _ ->
                         val name = editBox.text.toString()
 
+                        if (name.contains("/")) {
+                            val folderNames = name.split("/")
+                            if (folderNames.any {
+                                FileTools.isFilenameInvalid(
+                                    it,
+                                    { illegalCharacters ->
+                                        editBox.error = getString(R.string.generic_input_invalid_character, illegalCharacters)
+                                    },
+                                    { invalidLength ->
+                                        editBox.error = getString(R.string.file_invalid_length, invalidLength, 255)
+                                    }
+                                )
+                            }) return@setConfirmListener false
+                        } else if (FileTools.isFilenameInvalid(editBox)) {
+                            return@setConfirmListener false
+                        }
+
                         val folder = File(fileRecyclerView.fullPath, name)
 
                         if (folder.exists()) {

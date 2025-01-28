@@ -360,6 +360,7 @@
     <string name="file_operation_file">Operando arquivo… (%s / %s, %d)</string>
     <string name="file_jump_to_path">Ir para o caminho</string>
     <string name="file_nothing">Nenhum arquivo encontrado!</string>
+    <string name="file_invalid_length">Nome muito longo! (Comprimento atual: %d, Comprimento máximo: %d)</string>
     <!-- Search View -->
     <string name="search_case_sensitive">Diferencia maiúsculas de minúsculas</string>
     <string name="search_only_show_results">Mostrar apenas resultados da pesquisa</string>

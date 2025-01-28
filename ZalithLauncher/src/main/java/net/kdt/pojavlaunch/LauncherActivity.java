@@ -75,6 +75,7 @@ import com.movtery.zalithlauncher.ui.subassembly.view.DraggableViewWrapper;
 import com.movtery.zalithlauncher.ui.view.AnimButton;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
+import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.stringutils.ShiftDirection;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
@@ -259,8 +260,7 @@ public class LauncherActivity extends BaseActivity {
                 .setConfirmListener((editText, checked) -> {
                     String customName = editText.getText().toString();
 
-                    if (customName.contains("/")) {
-                        editText.setError(getString(R.string.generic_input_invalid_character, "/"));
+                    if (FileTools.isFilenameInvalid(editText)) {
                         return false;
                     }
 

@@ -360,6 +360,7 @@
     <string name="file_operation_file">جاري العمل على الملف… (%s / %s, %d)</string>
     <string name="file_jump_to_path">الانتقال إلى المسار</string>
     <string name="file_nothing">لم يتم العثور على أي ملفات!</string>
+    <string name="file_invalid_length">الاسم طويل جدًا! (الطول الحالي: %d، الحد الأقصى للطول: %d)</string>
     <!-- Search View -->
     <string name="search_case_sensitive">حساسية الحالة</string>
     <string name="search_only_show_results">عرض نتائج البحث فقط</string>

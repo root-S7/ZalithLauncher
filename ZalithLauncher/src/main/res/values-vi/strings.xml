@@ -360,6 +360,7 @@
     <string name="file_operation_file">Đang thao tác tệp… (%s / %s, %d)</string>
     <string name="file_jump_to_path">Nhảy đến đường dẫn</string>
     <string name="file_nothing">Không tìm thấy tệp nào cả!</string>
+    <string name="file_invalid_length">Tên quá dài! (Độ dài hiện tại: %d, Độ dài tối đa: %d)</string>
     <!-- Search View -->
     <string name="search_case_sensitive">Phân biệt chữ hoa chữ thường</string>
     <string name="search_only_show_results">Chỉ hiển thị kết quả tìm kiếm</string>

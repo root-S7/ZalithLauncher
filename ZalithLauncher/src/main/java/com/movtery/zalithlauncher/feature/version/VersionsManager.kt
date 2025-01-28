@@ -188,8 +188,7 @@ object VersionsManager {
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
 
-                if (string.contains("/")) {
-                    editText.error = context.getString(R.string.generic_input_invalid_character, "/")
+                if (FileTools.isFilenameInvalid(editText)) {
                     return@setConfirmListener false
                 }
 

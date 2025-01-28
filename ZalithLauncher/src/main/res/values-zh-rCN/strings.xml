@@ -378,6 +378,7 @@
     <string name="file_operation_file">正在操作文件中… (%s / %s, %d)</string>
     <string name="file_jump_to_path">跳转至路径</string>
     <string name="file_nothing">没有找到任何文件哦！</string>
+    <string name="file_invalid_length">名称过长！(当前长度：%d，最大长度：%d)</string>
 
     <!-- Search View -->
     <string name="search_case_sensitive">区分大小写</string>

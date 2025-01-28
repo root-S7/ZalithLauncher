@@ -33,6 +33,7 @@ import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadOptiFineFra
 import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadQuiltApiFragment
 import com.movtery.zalithlauncher.ui.fragment.download.addon.DownloadQuiltFragment
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.runtime.SelectRuntimeUtils
 import net.kdt.pojavlaunch.JavaGUILauncherActivity
 import net.kdt.pojavlaunch.Tools
@@ -217,8 +218,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                         return
                     }
 
-                    if (string.contains("/")) {
-                        nameEdit.error = getString(R.string.generic_input_invalid_character, "/")
+                    if (FileTools.isFilenameInvalid(nameEdit)) {
                         return
                     }
 

@@ -360,6 +360,7 @@
     <string name="file_operation_file">正在操作檔案中… (%s / %s, %d)</string>
     <string name="file_jump_to_path">跳轉至路徑</string>
     <string name="file_nothing">沒有找到任何檔案哦！</string>
+    <string name="file_invalid_length">名稱過長！(目前長度：%d，最大長度：%d)</string>
     <!-- Search View -->
     <string name="search_case_sensitive">區分大小寫</string>
     <string name="search_only_show_results">僅展示搜尋結果</string>

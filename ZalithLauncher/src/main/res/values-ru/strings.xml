@@ -360,6 +360,7 @@
     <string name="file_operation_file">Выполняется операция с файлом… (%s / %s, %d)</string>
     <string name="file_jump_to_path">Перейти к пути</string>
     <string name="file_nothing">Файлы не найдены!</string>
+    <string name="file_invalid_length">Имя слишком длинное! (Текущая длина: %d, Максимальная длина: %d)</string>
     <!-- Search View -->
     <string name="search_case_sensitive">Учитывать регистр</string>
     <string name="search_only_show_results">Показывать только результаты поиска</string>

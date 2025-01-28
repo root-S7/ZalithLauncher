@@ -360,6 +360,7 @@
     <string name="file_operation_file">Datei wird bearbeitet… (%s / %s, %d)</string>
     <string name="file_jump_to_path">Zu Pfad springen</string>
     <string name="file_nothing">Es wurden keine Dateien gefunden!</string>
+    <string name="file_invalid_length">Name zu lang! (Aktuelle Länge: %d, Maximale Länge: %d)</string>
     <!-- Search View -->
     <string name="search_case_sensitive">Groß-/Kleinschreibung beachten</string>
     <string name="search_only_show_results">Nur Suchergebnisse anzeigen</string>

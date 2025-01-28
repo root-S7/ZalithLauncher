@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
+import android.widget.EditText
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
@@ -23,6 +24,8 @@ import java.util.zip.ZipOutputStream
 
 class FileTools {
     companion object {
+        const val INVALID_CHARACTERS_REGEX = "[\\\\/:*?\"<>|\\t\\n]"
+
         @JvmStatic
         fun mkdir(dir: File): Boolean {
             return dir.mkdir()
@@ -46,6 +49,66 @@ class FileTools {
                 FileUtils.copyInputStreamToFile(inputStream, outputFile)
             }
             return outputFile
+        }
+
+        @JvmStatic
+        fun ensureValidFilename(str: String): String =
+            str.trim().replace(INVALID_CHARACTERS_REGEX.toRegex(), "-").run {
+                if (length > 255) substring(0, 255)
+                else this
+            }
+
+        @Throws(InvalidFilenameException::class)
+        @JvmStatic
+        fun checkFilenameValidity(str: String) {
+            val illegalCharsRegex = INVALID_CHARACTERS_REGEX.toRegex()
+
+            val illegalChars = illegalCharsRegex.findAll(str)
+                .map { it.value }
+                .distinct()
+                .joinToString("")
+
+            if (illegalChars.isNotEmpty()) {
+                throw InvalidFilenameException("The filename contains illegal characters", illegalChars)
+            }
+
+            if (str.length > 255) {
+                throw InvalidFilenameException("Invalid filename length", str.length)
+            }
+        }
+
+        @JvmStatic
+        fun isFilenameInvalid(
+            str: String,
+            containsIllegalCharacters: (illegalCharacters: String) -> Unit,
+            isInvalidLength: (invalidLength: Int) -> Unit
+        ): Boolean {
+            try {
+                checkFilenameValidity(str)
+            } catch (e: InvalidFilenameException) {
+                if (e.containsIllegalCharacters()) {
+                    containsIllegalCharacters(e.illegalCharacters)
+                    return true
+                } else if (e.isInvalidLength) {
+                    isInvalidLength(e.invalidLength)
+                    return true
+                }
+            }
+            return false
+        }
+
+        @JvmStatic
+        fun isFilenameInvalid(editText: EditText): Boolean {
+            val str = editText.text.toString()
+            return isFilenameInvalid(
+                str,
+                { illegalCharacters ->
+                    editText.error = editText.context.getString(R.string.generic_input_invalid_character, illegalCharacters)
+                },
+                { invalidLength ->
+                    editText.error = editText.context.getString(R.string.file_invalid_length, invalidLength, 255)
+                }
+            )
         }
 
         @JvmStatic
@@ -120,8 +183,7 @@ class FileTools {
                 .setConfirmListener(ConfirmListener { editBox, _ ->
                     val newName = editBox.text.toString()
 
-                    if (newName.contains("/")) {
-                        editBox.error = context.getString(R.string.generic_input_invalid_character, "/")
+                    if (isFilenameInvalid(editBox)) {
                         return@ConfirmListener false
                     }
 
@@ -156,8 +218,7 @@ class FileTools {
                 .setConfirmListener(ConfirmListener { editBox, _ ->
                     val newName = editBox.text.toString()
 
-                    if (newName.contains("/")) {
-                        editBox.error = context.getString(R.string.generic_input_invalid_character, "/")
+                    if (isFilenameInvalid(editBox)) {
                         return@ConfirmListener false
                     }
 

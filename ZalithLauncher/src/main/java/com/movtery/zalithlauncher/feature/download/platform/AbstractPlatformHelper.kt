@@ -20,6 +20,7 @@ import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.file.FileTools
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
 import net.kdt.pojavlaunch.utils.DownloadUtils
@@ -68,11 +69,10 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                 Classify.MODPACK -> {
                     EditTextDialog.Builder(context)
                         .setTitle(R.string.version_install_new)
-                        .setEditText(infoItem.title.replace("/", "-"))
+                        .setEditText(FileTools.ensureValidFilename(infoItem.title))
                         .setConfirmListener { editText, _ ->
                             val customName = editText.text.toString()
-                            if (customName.contains("/")) {
-                                editText.error = context.getString(R.string.generic_input_invalid_character, "/")
+                            if (FileTools.isFilenameInvalid(editText)) {
                                 return@setConfirmListener false
                             }
 
@@ -153,12 +153,11 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
 
         EditTextDialog.Builder(context)
             .setTitle(R.string.download_install_custom_name)
-            .setEditText("$fileName${file.nameWithoutExtension}".replace("/", "-"))
+            .setEditText(FileTools.ensureValidFilename("$fileName${file.nameWithoutExtension}"))
             .setAsRequired()
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
-                if (string.contains("/")) {
-                    editText.error = context.getString(R.string.generic_input_invalid_character, "/")
+                if (FileTools.isFilenameInvalid(editText)) {
                     return@setConfirmListener false
                 }
 

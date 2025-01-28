@@ -366,6 +366,7 @@
     <string name="file_operation_file">Operating file… (%s / %s, %d)</string>
     <string name="file_jump_to_path">Jump to path</string>
     <string name="file_nothing">No files found!</string>
+    <string name="file_invalid_length">Name too long! (Current length: %d, Maximum length: %d)</string>
     <!-- Search View -->
     <string name="search_case_sensitive">Case sensitive</string>
     <string name="search_only_show_results">Show only search results</string>
