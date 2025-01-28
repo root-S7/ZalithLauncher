@@ -88,29 +88,27 @@ object RendererPluginManager {
                     }
                 }
 
-                if (!rendererPluginList.any { it.id == rendererId }) {
-                    rendererPluginList.add(
-                        RendererPlugin(
-                            rendererId,
-                            "$des (${
-                                context.getString(
-                                    R.string.setting_renderer_from_plugins,
-                                    runCatching {
-                                        context.packageManager.getApplicationLabel(info)
-                                    }.getOrElse {
-                                        context.getString(R.string.generic_unknown)
-                                    }
-                                )
-                            })",
-                            info.packageName,
-                            renderer[1],
-                            renderer[2].progressEglName(nativeLibraryDir),
-                            nativeLibraryDir,
-                            envList,
-                            dlopenList
-                        )
+                rendererPluginList.add(
+                    RendererPlugin(
+                        rendererId,
+                        "$des (${
+                            context.getString(
+                                R.string.setting_renderer_from_plugins,
+                                runCatching {
+                                    context.packageManager.getApplicationLabel(info)
+                                }.getOrElse {
+                                    context.getString(R.string.generic_unknown)
+                                }
+                            )
+                        })",
+                        info.packageName,
+                        renderer[1],
+                        renderer[2].progressEglName(nativeLibraryDir),
+                        nativeLibraryDir,
+                        envList,
+                        dlopenList
                     )
-                }
+                )
             }
         }
     }
@@ -151,26 +149,24 @@ object RendererPluginManager {
                     directory
                 )
             )
-            if (!rendererPluginList.any { it.id == rendererId }) {
-                val libPath = libsDirectory.absolutePath
-                rendererPluginList.add(
-                    RendererPlugin(
-                        rendererId,
-                        "$rendererDisplayName (${
-                            context.getString(
-                                R.string.setting_renderer_from_plugins,
-                                directory.name
-                            )
-                        })",
-                        directory.name,
-                        glName,
-                        eglName.progressEglName(libPath),
-                        libPath,
-                        pojavEnv,
-                        dlopenList ?: emptyList()
-                    )
+            val libPath = libsDirectory.absolutePath
+            rendererPluginList.add(
+                RendererPlugin(
+                    rendererId,
+                    "$rendererDisplayName (${
+                        context.getString(
+                            R.string.setting_renderer_from_plugins,
+                            directory.name
+                        )
+                    })",
+                    directory.name,
+                    glName,
+                    eglName.progressEglName(libPath),
+                    libPath,
+                    pojavEnv,
+                    dlopenList ?: emptyList()
                 )
-            }
+            )
         }
         return true
     }
@@ -207,19 +203,17 @@ object RendererPluginManager {
                 val configEntry = pluginZip.entries().asSequence().find { it.name == "config" }
                     ?: throw IllegalArgumentException("The plugin package does not meet the requirements!")
 
-                val rendererConfig: RendererConfig = pluginZip.getInputStream(configEntry).use { inputStream ->
+                pluginZip.getInputStream(configEntry).use { inputStream ->
                     DataInputStream(inputStream).use { dataInputStream ->
                         val configContent = dataInputStream.readUTF()
                         Tools.GLOBAL_GSON.fromJson(configContent, RendererConfig::class.java)
                     }
                 }
 
-                val rendererId = rendererConfig.rendererId
-                val pluginFolder: File = File(
+                val pluginFolder = File(
                     PathManager.DIR_INSTALLED_RENDERER_PLUGIN,
                     StringUtilsKt.generateUniqueUUID { File(PathManager.DIR_INSTALLED_RENDERER_PLUGIN, it).exists() }
-                ).takeIf { !(it.exists() && it.isDirectory) }
-                    ?: throw IllegalArgumentException("The renderer plugin $rendererId already exists!")
+                )
 
                 ZipUtils.zipExtract(pluginZip, "", pluginFolder)
             }
