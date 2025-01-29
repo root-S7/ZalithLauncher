@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.renderer
 /**
  * 启动器渲染器实现
  */
-interface AbstractRenderer {
+interface RendererInterface {
     /**
      * 获取渲染器的ID
      */

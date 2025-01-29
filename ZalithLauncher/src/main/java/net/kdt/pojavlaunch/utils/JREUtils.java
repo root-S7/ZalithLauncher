@@ -25,7 +25,7 @@ import com.movtery.zalithlauncher.launch.UserArgsCallBack;
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
-import com.movtery.zalithlauncher.renderer.AbstractRenderer;
+import com.movtery.zalithlauncher.renderer.RendererInterface;
 import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
@@ -227,7 +227,7 @@ public final class JREUtils {
     }
 
     private static void setRendererEnv(Map<String, String> envMap) {
-        AbstractRenderer currentRenderer = Renderers.INSTANCE.getCurrentRenderer();
+        RendererInterface currentRenderer = Renderers.INSTANCE.getCurrentRenderer();
         String rendererId = currentRenderer.getRendererId();
 
         if (rendererId.startsWith("opengles2")) {

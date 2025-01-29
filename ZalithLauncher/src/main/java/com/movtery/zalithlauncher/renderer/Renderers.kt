@@ -14,9 +14,9 @@ import net.kdt.pojavlaunch.Tools
  * 启动器所有渲染器总管理者，启动器内置的渲染器与渲染器插件加载的渲染器，都会加载到这里
  */
 object Renderers {
-    private val renderers: MutableList<AbstractRenderer> = mutableListOf()
-    private var compatibleRenderers: Pair<RenderersList, MutableList<AbstractRenderer>>? = null
-    private var currentRenderer: AbstractRenderer? = null
+    private val renderers: MutableList<RendererInterface> = mutableListOf()
+    private var compatibleRenderers: Pair<RenderersList, MutableList<RendererInterface>>? = null
+    private var currentRenderer: RendererInterface? = null
     private var isInitialized: Boolean = false
 
     fun init() {
@@ -35,12 +35,12 @@ object Renderers {
     /**
      * 获取兼容当前设备的所有渲染器
      */
-    fun getCompatibleRenderers(context: Context): Pair<RenderersList, List<AbstractRenderer>> = compatibleRenderers ?: run {
+    fun getCompatibleRenderers(context: Context): Pair<RenderersList, List<RendererInterface>> = compatibleRenderers ?: run {
         val deviceHasVulkan = Tools.checkVulkanSupport(context.packageManager)
         // Currently, only 32-bit x86 does not have the Zink binary
         val deviceHasZinkBinary = !(Architecture.is32BitsDevice() && Architecture.isx86Device())
 
-        val compatibleRenderers1: MutableList<AbstractRenderer> = mutableListOf()
+        val compatibleRenderers1: MutableList<RendererInterface> = mutableListOf()
         renderers.forEach { renderer ->
             if (renderer.getRendererId().contains("vulkan") && !deviceHasVulkan) return@forEach
             if (renderer.getRendererId().contains("zink") && !deviceHasZinkBinary) return@forEach
@@ -63,7 +63,7 @@ object Renderers {
      * 加入一些渲染器
      */
     @JvmStatic
-    fun addRenderers(vararg renderers: AbstractRenderer) {
+    fun addRenderers(vararg renderers: RendererInterface) {
         renderers.forEach { renderer ->
             addRenderer(renderer)
         }
@@ -73,7 +73,7 @@ object Renderers {
      * 加入单个渲染器
      */
     @JvmStatic
-    fun addRenderer(renderer: AbstractRenderer): Boolean {
+    fun addRenderer(renderer: RendererInterface): Boolean {
         return if (this.renderers.any { it.getUniqueIdentifier() == renderer.getUniqueIdentifier() }) {
             Logging.w("Renderers", "The unique identifier of this renderer (${renderer.getRendererName()} - ${renderer.getUniqueIdentifier()}) conflicts with an already loaded renderer. " +
                     "Normally, this shouldn't happen. You deliberately caused this conflict, didn't you, user?")
@@ -106,7 +106,7 @@ object Renderers {
     /**
      * 获取当前的渲染器
      */
-    fun getCurrentRenderer(): AbstractRenderer {
+    fun getCurrentRenderer(): RendererInterface {
         if (!isInitialized) throw IllegalStateException("Uninitialized renderer!")
         return currentRenderer ?: throw IllegalStateException("Current renderer not set")
     }

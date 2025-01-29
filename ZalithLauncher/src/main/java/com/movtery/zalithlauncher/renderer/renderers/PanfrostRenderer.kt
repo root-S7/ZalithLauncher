@@ -1,8 +1,8 @@
 package com.movtery.zalithlauncher.renderer.renderers
 
-import com.movtery.zalithlauncher.renderer.AbstractRenderer
+import com.movtery.zalithlauncher.renderer.RendererInterface
 
-class PanfrostRenderer : AbstractRenderer {
+class PanfrostRenderer : RendererInterface {
     override fun getRendererId(): String = "gallium_panfrost"
 
     override fun getUniqueIdentifier(): String = "9b2808c4-11af-4c72-a9c6-94c940396475"

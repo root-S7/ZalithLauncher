@@ -1,10 +1,10 @@
 package com.movtery.zalithlauncher.renderer.renderers
 
-import com.movtery.zalithlauncher.renderer.AbstractRenderer
+import com.movtery.zalithlauncher.renderer.RendererInterface
 import com.movtery.zalithlauncher.utils.path.PathManager
 import java.io.File
 
-class VirGLRenderer : AbstractRenderer {
+class VirGLRenderer : RendererInterface {
     override fun getRendererId(): String = "gallium_virgl"
 
     override fun getUniqueIdentifier(): String = "a3ccc1fe-de3f-4a81-8c45-2485181b63b3"

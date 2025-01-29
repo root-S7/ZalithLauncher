@@ -1,8 +1,8 @@
 package com.movtery.zalithlauncher.renderer.renderers
 
-import com.movtery.zalithlauncher.renderer.AbstractRenderer
+import com.movtery.zalithlauncher.renderer.RendererInterface
 
-class FreedrenoRenderer : AbstractRenderer {
+class FreedrenoRenderer : RendererInterface {
     override fun getRendererId(): String = "gallium_freedreno"
 
     override fun getUniqueIdentifier(): String = "1ad7249f-5784-4f00-bc72-174b3578ee46"
