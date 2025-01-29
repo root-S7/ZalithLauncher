@@ -116,7 +116,6 @@ public final class JREUtils {
         for (File f : locateLibs(new File(jreHome, Tools.DIRNAME_HOME_JRE))) {
             dlopen(f.getAbsolutePath());
         }
-        dlopen(DIR_NATIVE_LIB + "/libopenal.so");
     }
 
     public static void redirectAndPrintJRELog() {
@@ -318,6 +317,8 @@ public final class JREUtils {
     }
 
     private static void initGraphicAndSoundEngine() {
+        dlopen(DIR_NATIVE_LIB + "/libopenal.so");
+
         String rendererLib = loadGraphicsLibrary();
         RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
 
