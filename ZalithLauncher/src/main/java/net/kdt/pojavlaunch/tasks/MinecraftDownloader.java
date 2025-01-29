@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.tasks;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -402,10 +400,10 @@ public class MinecraftDownloader {
                 // The hash is a 40-byte download.
                 mInternetUsageCounter.getAndAdd(40);
             }catch (IOException e) {
-                Log.i("MinecraftDownloader", "Failed to download hash", e);
+                Logging.i("MinecraftDownloader", "Failed to download hash", e);
             }
             if(resultHash != null) {
-                Log.i("MinecraftDownloader", "Got hash: "+resultHash+ " for "+FileUtils.getFileName(mTargetUrl));
+                Logging.i("MinecraftDownloader", "Got hash: "+resultHash+ " for "+FileUtils.getFileName(mTargetUrl));
                 mTargetSha1 = resultHash;
             }
         }

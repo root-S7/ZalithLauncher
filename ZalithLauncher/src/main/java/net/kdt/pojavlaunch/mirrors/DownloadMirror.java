@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.mirrors;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
@@ -103,12 +101,12 @@ public class DownloadMirror {
         try {
             resultString = DownloadUtils.downloadString(getMirrorMapping(downloadClass,urlInput));
         }catch (FileNotFoundException e) {
-            Log.w("DownloadMirror", "Failed to download string from mirror", e);
+            Logging.w("DownloadMirror", "Failed to download string from mirror", e);
         }
         if(Tools.isValidString(resultString)) {
             return resultString;
         }else {
-            Log.w("DownloadMirror", "Downloaded string is invalid, falling back to default");
+            Logging.w("DownloadMirror", "Downloaded string is invalid, falling back to default");
         }
         return DownloadUtils.downloadString(urlInput);
     }
