@@ -24,12 +24,21 @@ object RendererPluginManager {
     private val rendererPluginList: MutableList<RendererPlugin> = mutableListOf()
     private val localRendererPluginList: MutableList<LocalRendererPlugin> = mutableListOf()
 
+    /**
+     * 获取当前渲染器插件加载的所有渲染器
+     */
     @JvmStatic
     fun getRendererList() = ArrayList(rendererPluginList)
 
+    /**
+     * 获取当前本地渲染器插件加载的所有渲染器
+     */
     @JvmStatic
     fun getAllLocalRendererList() = ArrayList(localRendererPluginList)
 
+    /**
+     * 标记一个本地渲染器已被移除
+     */
     @JvmStatic
     fun markLocalRendererDeleted(index: Int) {
         if (index in localRendererPluginList.indices) {
@@ -37,11 +46,18 @@ object RendererPluginManager {
         }
     }
 
+    /**
+     * @return 是可用的
+     */
     @JvmStatic
     fun isAvailable(): Boolean {
         return rendererPluginList.isNotEmpty()
     }
 
+    /**
+     * 当前选择的渲染器插件所加载的渲染器
+     * 根据总渲染器管理者选择的渲染器的渲染器唯一标识符进行判断
+     */
     @JvmStatic
     val selectedRendererPlugin: RendererPlugin?
         get() {

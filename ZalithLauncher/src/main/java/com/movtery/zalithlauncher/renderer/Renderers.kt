@@ -23,13 +23,13 @@ object Renderers {
         if (isInitialized) return
         isInitialized = true
 
-        renderers.apply {
-            add(GL4ESRenderer())
-            add(VulkanZinkRenderer())
-            add(VirGLRenderer())
-            add(FreedrenoRenderer())
-            add(PanfrostRenderer())
-        }
+        addRenderers(
+            GL4ESRenderer(),
+            VulkanZinkRenderer(),
+            VirGLRenderer(),
+            FreedrenoRenderer(),
+            PanfrostRenderer()
+        )
     }
 
     /**
@@ -59,8 +59,23 @@ object Renderers {
         rendererPair
     }
 
+    /**
+     * 加入一些渲染器
+     */
+    @JvmStatic
+    fun addRenderers(vararg renderers: AbstractRenderer) {
+        renderers.forEach { renderer ->
+            addRenderer(renderer)
+        }
+    }
+
+    /**
+     * 加入单个渲染器
+     */
+    @JvmStatic
     fun addRenderer(renderer: AbstractRenderer) {
         this.renderers.add(renderer)
+        Logging.i("Renderers", "Renderer loaded: ${renderer.getRendererName()} (${renderer.getRendererId()} - ${renderer.getUniqueIdentifier()})")
     }
 
     /**
