@@ -28,7 +28,15 @@ object RendererPluginManager {
      * 获取当前渲染器插件加载的所有渲染器
      */
     @JvmStatic
-    fun getRendererList() = ArrayList(rendererPluginList)
+    fun getRendererList() = rendererPluginList
+
+    /**
+     * 移除某些已加载的渲染器
+     */
+    @JvmStatic
+    fun removeRenderer(rendererPlugins: Collection<RendererPlugin>) {
+        rendererPluginList.removeAll(rendererPlugins)
+    }
 
     /**
      * 获取当前本地渲染器插件加载的所有渲染器
@@ -61,7 +69,7 @@ object RendererPluginManager {
     @JvmStatic
     val selectedRendererPlugin: RendererPlugin?
         get() {
-            return getRendererList().find {
+            return rendererPluginList.find {
                 it.uniqueIdentifier == runCatching {
                     Renderers.getCurrentRenderer().getUniqueIdentifier()
                 }.getOrNull()
@@ -157,9 +165,11 @@ object RendererPluginManager {
             Logging.e("LocalRendererPlugin", "Failed to parse the configuration file", e)
             return false
         }
+        val uniqueIdentifier = directory.name
         rendererConfig.run {
             localRendererPluginList.add(
                 LocalRendererPlugin(
+                    uniqueIdentifier,
                     rendererId,
                     rendererDisplayName,
                     directory
@@ -172,10 +182,10 @@ object RendererPluginManager {
                     "$rendererDisplayName (${
                         context.getString(
                             R.string.setting_renderer_from_plugins,
-                            directory.name
+                            uniqueIdentifier
                         )
                     })",
-                    directory.name,
+                    uniqueIdentifier,
                     glName,
                     eglName.progressEglName(libPath),
                     libPath,

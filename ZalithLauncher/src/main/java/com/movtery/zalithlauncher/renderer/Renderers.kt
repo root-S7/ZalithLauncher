@@ -73,9 +73,16 @@ object Renderers {
      * 加入单个渲染器
      */
     @JvmStatic
-    fun addRenderer(renderer: AbstractRenderer) {
-        this.renderers.add(renderer)
-        Logging.i("Renderers", "Renderer loaded: ${renderer.getRendererName()} (${renderer.getRendererId()} - ${renderer.getUniqueIdentifier()})")
+    fun addRenderer(renderer: AbstractRenderer): Boolean {
+        return if (this.renderers.any { it.getUniqueIdentifier() == renderer.getUniqueIdentifier() }) {
+            Logging.w("Renderers", "The unique identifier of this renderer (${renderer.getRendererName()} - ${renderer.getUniqueIdentifier()}) conflicts with an already loaded renderer. " +
+                    "Normally, this shouldn't happen. You deliberately caused this conflict, didn't you, user?")
+            false
+        } else {
+            this.renderers.add(renderer)
+            Logging.i("Renderers", "Renderer loaded: ${renderer.getRendererName()} (${renderer.getRendererId()} - ${renderer.getUniqueIdentifier()})")
+            true
+        }
     }
 
     /**
@@ -86,7 +93,7 @@ object Renderers {
         val compatibleRenderers = getCompatibleRenderers(context).second
         currentRenderer = compatibleRenderers.find { it.getUniqueIdentifier() == uniqueIdentifier } ?: run {
             val renderer = compatibleRenderers[0]
-            Logging.w("runGame", "Incompatible renderer $uniqueIdentifier will be replaced with ${renderer.getUniqueIdentifier()} (${renderer.getRendererName()})")
+            Logging.w("Renderers", "Incompatible renderer $uniqueIdentifier will be replaced with ${renderer.getUniqueIdentifier()} (${renderer.getRendererName()})")
             renderer
         }
     }

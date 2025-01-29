@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
+import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager
 import com.movtery.zalithlauncher.renderer.AbstractRenderer
 import com.movtery.zalithlauncher.renderer.Renderers
@@ -49,8 +50,9 @@ object PluginLoader {
         }
 
         if (RendererPluginManager.isAvailable()) {
+            val failedToLoadList: MutableList<RendererPlugin> = mutableListOf()
             RendererPluginManager.getRendererList().forEach { rendererPlugin ->
-                Renderers.addRenderer(
+                val isSuccess = Renderers.addRenderer(
                     object : AbstractRenderer {
                         override fun getRendererId(): String = rendererPlugin.id
 
@@ -69,7 +71,9 @@ object PluginLoader {
                         override fun getRendererEGL(): String = rendererPlugin.eglName
                     }
                 )
+                if (!isSuccess) failedToLoadList.add(rendererPlugin)
             }
+            if (failedToLoadList.isNotEmpty()) RendererPluginManager.removeRenderer(failedToLoadList)
         }
     }
 }

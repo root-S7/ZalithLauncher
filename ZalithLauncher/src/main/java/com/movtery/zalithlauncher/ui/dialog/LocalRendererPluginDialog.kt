@@ -39,6 +39,7 @@ class LocalRendererPluginDialog(
             @SuppressLint("NotifyDataSetChanged")
             fun bind(renderer: LocalRendererPlugin, position: Int) {
                 binding.apply {
+                    rendererIdentifier.text = renderer.uniqueIdentifier
                     rendererName.text = renderer.rendererName
                     rendererId.text = renderer.rendererId
 
