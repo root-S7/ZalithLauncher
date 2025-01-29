@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
+import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager
+import com.movtery.zalithlauncher.renderer.RendererInterface
+import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.utils.path.PathManager
 import org.apache.commons.io.FileUtils
 
@@ -44,6 +47,33 @@ object PluginLoader {
                     FileUtils.deleteQuietly(file)
                 }
             }
+        }
+
+        if (RendererPluginManager.isAvailable()) {
+            val failedToLoadList: MutableList<RendererPlugin> = mutableListOf()
+            RendererPluginManager.getRendererList().forEach { rendererPlugin ->
+                val isSuccess = Renderers.addRenderer(
+                    object : RendererInterface {
+                        override fun getRendererId(): String = rendererPlugin.id
+
+                        override fun getUniqueIdentifier(): String = rendererPlugin.uniqueIdentifier
+
+                        override fun getRendererName(): String = rendererPlugin.des
+
+                        override fun getRendererEnv(): Lazy<Map<String, String>> = lazy {
+                            RendererPluginManager.progressEnvMap(rendererPlugin)
+                        }
+
+                        override fun getDlopenLibrary(): Lazy<List<String>> = lazy { rendererPlugin.dlopen }
+
+                        override fun getRendererLibrary(): String = rendererPlugin.glName
+
+                        override fun getRendererEGL(): String = rendererPlugin.eglName
+                    }
+                )
+                if (!isSuccess) failedToLoadList.add(rendererPlugin)
+            }
+            if (failedToLoadList.isNotEmpty()) RendererPluginManager.removeRenderer(failedToLoadList)
         }
     }
 }

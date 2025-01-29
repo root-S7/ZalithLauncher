@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -21,7 +20,6 @@ import android.provider.OpenableColumns;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +32,6 @@ import com.google.gson.GsonBuilder;
 import com.movtery.zalithlauncher.InfoCenter;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
-import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.utils.LauncherProfiles;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
@@ -44,7 +41,6 @@ import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
-import com.movtery.zalithlauncher.utils.file.FileTools;
 import com.movtery.zalithlauncher.utils.runtime.SelectRuntimeUtils;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
@@ -83,11 +79,9 @@ public final class Tools {
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String LAUNCHERPROFILES_RTPREFIX = "pojav://";
     private final static boolean isClientFirst = false;
-    public static String LOCAL_RENDERER = null;
     public static int DEVICE_ARCHITECTURE;
     // New since 3.0.0
     public static String DIRNAME_HOME_JRE = "lib";
-    private static RenderersList sCompatibleRenderers;
 
     /**
      * Checks if the Pojav's storage root is accessible and read-writable
@@ -741,31 +735,6 @@ public final class Tools {
         return string != null && !string.isEmpty();
     }
 
-    /**
-     * Triggers the share intent chooser, with the latestlog file attached to it
-     */
-    public static void shareLog(Context context) {
-        FileTools.shareFile(context, "latestlog.txt", PathManager.DIR_GAME_HOME + "/latestlog.txt");
-    }
-
-    /** Mesure the textview height, given its current parameters */
-    public static int mesureTextviewHeight(TextView t) {
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(t.getWidth(), View.MeasureSpec.AT_MOST);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        t.measure(widthMeasureSpec, heightMeasureSpec);
-        return t.getMeasuredHeight();
-    }
-
-    public static class RenderersList {
-        public final List<String> rendererIds;
-        public final String[] rendererDisplayNames;
-
-        public RenderersList(List<String> rendererIds, String[] rendererDisplayNames) {
-            this.rendererIds = rendererIds;
-            this.rendererDisplayNames = rendererDisplayNames;
-        }
-    }
-
     public static boolean checkVulkanSupport(PackageManager packageManager) {
         return packageManager.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_LEVEL) &&
                 packageManager.hasSystemFeature(PackageManager.FEATURE_VULKAN_HARDWARE_VERSION);
@@ -774,55 +743,5 @@ public final class Tools {
     public static <T> T getWeakReference(WeakReference<T> weakReference) {
         if(weakReference == null) return null;
         return weakReference.get();
-    }
-
-    /** Return the renderers that are compatible with this device */
-    public static RenderersList getCompatibleRenderers(Context context) {
-        if(sCompatibleRenderers != null) return sCompatibleRenderers;
-        Resources resources = context.getResources();
-        String[] defaultRenderers = resources.getStringArray(R.array.renderer_values);
-        String[] defaultRendererNames = resources.getStringArray(R.array.renderer);
-        boolean deviceHasVulkan = checkVulkanSupport(context.getPackageManager());
-        // Currently, only 32-bit x86 does not have the Zink binary
-        boolean deviceHasZinkBinary = !(Architecture.is32BitsDevice() && Architecture.isx86Device());
-        List<String> rendererIds = new ArrayList<>(defaultRenderers.length);
-        List<String> rendererNames = new ArrayList<>(defaultRendererNames.length);
-        for(int i = 0; i < defaultRenderers.length; i++) {
-            String rendererId = defaultRenderers[i];
-            if(rendererId.contains("vulkan") && !deviceHasVulkan) continue;
-            if(rendererId.contains("zink") && !deviceHasZinkBinary) continue;
-            rendererIds.add(rendererId);
-            rendererNames.add(defaultRendererNames[i]);
-        }
-        // 渲染器插件
-        if (RendererPluginManager.isAvailable()) {
-            RendererPluginManager.getRendererList().forEach(renderer -> {
-                if (rendererIds.contains(renderer.getId())) {
-                    //尝试进行覆盖
-                    int rendererIndex = rendererIds.indexOf(renderer.getId());
-                    if (rendererIndex != -1) {
-                        rendererIds.remove(renderer.getId());
-                        rendererNames.remove(rendererIndex);
-                    }
-                }
-                rendererIds.add(renderer.getId());
-                rendererNames.add(renderer.getDes());
-            });
-        }
-        sCompatibleRenderers = new RenderersList(rendererIds,
-                rendererNames.toArray(new String[0]));
-
-        return sCompatibleRenderers;
-    }
-
-    /** Checks if the renderer Id is compatible with the current device */
-    public static boolean checkRendererCompatible(Context context, String rendererName) {
-         return getCompatibleRenderers(context).rendererIds.contains(rendererName);
-    }
-
-    /** Releases the cache of compatible renderers. */
-    public static void releaseCache() {
-        sCompatibleRenderers = null;
-        System.gc();
     }
 }

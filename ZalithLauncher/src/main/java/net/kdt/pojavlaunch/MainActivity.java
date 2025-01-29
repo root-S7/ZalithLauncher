@@ -54,6 +54,7 @@ import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.launch.LaunchGame;
 import com.movtery.zalithlauncher.listener.SimpleTextWatcher;
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
+import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -191,7 +192,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             binding.mainTouchCharInput.setCharacterSender(new LwjglCharSender());
 
             Logging.i("RdrDebug","__P_renderer=" + minecraftVersion.getRenderer());
-            Tools.LOCAL_RENDERER = minecraftVersion.getRenderer();
+            Renderers.INSTANCE.setCurrentRenderer(this, minecraftVersion.getRenderer(), false);
             DriverPluginManager.setDriverByName(minecraftVersion.getDriver());
 
             setTitle("Minecraft " + minecraftVersion.getVersionName());

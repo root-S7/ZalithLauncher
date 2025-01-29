@@ -386,7 +386,6 @@
     <string name="setting_category_experimental_patches">Экспериментальные патчи</string>
     <string name="setting_category_support">Внешняя поддержка</string>
     <string name="setting_renderer_title">Рендерер</string>
-    <string name="setting_renderer_name_angle">Angle (только для 1.17+)</string>
     <string name="setting_renderer_from_plugins">Из плагина %s</string>
     <string name="setting_renderer_local_import_title">Локальный импорт рендерера</string>
     <string name="setting_renderer_local_import_desc">Помимо установки плагинов программного рендеринга, загрузчик также поддерживает локальный импорт плагинов рендерера. Однако некоторые устройства могут не поддерживать локальные плагины рендерера, будьте осторожны!</string>

@@ -5,7 +5,9 @@ import android.content.pm.ApplicationInfo
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.update.UpdateUtils
+import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.utils.path.PathManager
+import com.movtery.zalithlauncher.utils.stringutils.StringUtilsKt
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.utils.ZipUtils
@@ -22,12 +24,29 @@ object RendererPluginManager {
     private val rendererPluginList: MutableList<RendererPlugin> = mutableListOf()
     private val localRendererPluginList: MutableList<LocalRendererPlugin> = mutableListOf()
 
+    /**
+     * 获取当前渲染器插件加载的所有渲染器
+     */
     @JvmStatic
-    fun getRendererList() = ArrayList(rendererPluginList)
+    fun getRendererList() = rendererPluginList
 
+    /**
+     * 移除某些已加载的渲染器
+     */
+    @JvmStatic
+    fun removeRenderer(rendererPlugins: Collection<RendererPlugin>) {
+        rendererPluginList.removeAll(rendererPlugins)
+    }
+
+    /**
+     * 获取当前本地渲染器插件加载的所有渲染器
+     */
     @JvmStatic
     fun getAllLocalRendererList() = ArrayList(localRendererPluginList)
 
+    /**
+     * 标记一个本地渲染器已被移除
+     */
     @JvmStatic
     fun markLocalRendererDeleted(index: Int) {
         if (index in localRendererPluginList.indices) {
@@ -35,15 +54,26 @@ object RendererPluginManager {
         }
     }
 
+    /**
+     * @return 是可用的
+     */
     @JvmStatic
     fun isAvailable(): Boolean {
         return rendererPluginList.isNotEmpty()
     }
 
+    /**
+     * 当前选择的渲染器插件所加载的渲染器
+     * 根据总渲染器管理者选择的渲染器的渲染器唯一标识符进行判断
+     */
     @JvmStatic
     val selectedRendererPlugin: RendererPlugin?
         get() {
-            return getRendererList().find { it.id == Tools.LOCAL_RENDERER }
+            return rendererPluginList.find {
+                it.uniqueIdentifier == runCatching {
+                    Renderers.getCurrentRenderer().getUniqueIdentifier()
+                }.getOrNull()
+            }
         }
 
     /**
@@ -63,7 +93,7 @@ object RendererPluginManager {
                 val renderer = rendererString.split(":")
 
                 var rendererId: String = renderer[0]
-                val envList = mutableListOf<Pair<String, String>>()
+                val envList = mutableMapOf<String, String>()
                 val dlopenList = mutableListOf<String>()
                 pojavEnvString.split(":").forEach { envString ->
                     if (envString.contains("=")) {
@@ -77,33 +107,32 @@ object RendererPluginManager {
                                     dlopenList.add(lib)
                                 }
                             }
-                            else -> envList.add(Pair(key, value))
+                            else -> envList[key] = value
                         }
                     }
                 }
 
-                if (!rendererPluginList.any { it.id == rendererId }) {
-                    rendererPluginList.add(
-                        RendererPlugin(
-                            rendererId,
-                            "$des (${
-                                context.getString(
-                                    R.string.setting_renderer_from_plugins,
-                                    runCatching {
-                                        context.packageManager.getApplicationLabel(info)
-                                    }.getOrElse {
-                                        context.getString(R.string.generic_unknown)
-                                    }
-                                )
-                            })",
-                            renderer[1],
-                            renderer[2],
-                            nativeLibraryDir,
-                            envList,
-                            dlopenList
-                        )
+                rendererPluginList.add(
+                    RendererPlugin(
+                        rendererId,
+                        "$des (${
+                            context.getString(
+                                R.string.setting_renderer_from_plugins,
+                                runCatching {
+                                    context.packageManager.getApplicationLabel(info)
+                                }.getOrElse {
+                                    context.getString(R.string.generic_unknown)
+                                }
+                            )
+                        })",
+                        info.packageName,
+                        renderer[1],
+                        renderer[2].progressEglName(nativeLibraryDir),
+                        nativeLibraryDir,
+                        envList,
+                        dlopenList
                     )
-                }
+                )
             }
         }
     }
@@ -136,33 +165,47 @@ object RendererPluginManager {
             Logging.e("LocalRendererPlugin", "Failed to parse the configuration file", e)
             return false
         }
+        val uniqueIdentifier = directory.name
         rendererConfig.run {
             localRendererPluginList.add(
                 LocalRendererPlugin(
+                    uniqueIdentifier,
                     rendererId,
                     rendererDisplayName,
                     directory
                 )
             )
-            if (!rendererPluginList.any { it.id == rendererId }) {
-                rendererPluginList.add(
-                    RendererPlugin(
-                        rendererId,
-                        "$rendererDisplayName (${
-                            context.getString(
-                                R.string.setting_renderer_from_plugins,
-                                directory.name
-                            )
-                        })", glName, eglName,
-                        libsDirectory.absolutePath,
-                        pojavEnv.toList(),
-                        dlopenList ?: emptyList()
-                    )
+            val libPath = libsDirectory.absolutePath
+            rendererPluginList.add(
+                RendererPlugin(
+                    rendererId,
+                    "$rendererDisplayName (${
+                        context.getString(
+                            R.string.setting_renderer_from_plugins,
+                            uniqueIdentifier
+                        )
+                    })",
+                    uniqueIdentifier,
+                    glName,
+                    eglName.progressEglName(libPath),
+                    libPath,
+                    pojavEnv.filter { it.key != "POJAV_RENDERER" },
+                    dlopenList ?: emptyList()
                 )
-            }
+            )
         }
         return true
     }
+
+    fun progressEnvMap(rendererPlugin: RendererPlugin): Map<String, String> {
+        return rendererPlugin.env.mapValues { (key, value) ->
+            if (key == "LIB_MESA_NAME") "${rendererPlugin.path}/$value" else value
+        }
+    }
+
+    private fun String.progressEglName(libPath: String): String =
+        if (startsWith("/")) "$libPath$this"
+        else this
 
     private fun readLocalRendererPluginConfig(configFile: File): String {
         return FileInputStream(configFile).use { fileInputStream ->
@@ -186,19 +229,24 @@ object RendererPluginManager {
                 val configEntry = pluginZip.entries().asSequence().find { it.name == "config" }
                     ?: throw IllegalArgumentException("The plugin package does not meet the requirements!")
 
-                val rendererConfig: RendererConfig = pluginZip.getInputStream(configEntry).use { inputStream ->
+                pluginZip.getInputStream(configEntry).use { inputStream ->
                     DataInputStream(inputStream).use { dataInputStream ->
                         val configContent = dataInputStream.readUTF()
                         Tools.GLOBAL_GSON.fromJson(configContent, RendererConfig::class.java)
                     }
                 }
 
-                val rendererId = rendererConfig.rendererId
-                val pluginFolder: File = File(
+                val pluginFolder = File(
                     PathManager.DIR_INSTALLED_RENDERER_PLUGIN,
-                    rendererId
-                ).takeIf { !(it.exists() && it.isDirectory) && !rendererPluginList.any { plugin -> plugin.id == rendererId } }
-                    ?: throw IllegalArgumentException("The renderer plugin $rendererId already exists!")
+                    StringUtilsKt.generateUniqueUUID(
+                        { string ->
+                            string.replace("-", "").substring(0, 8)
+                        },
+                        { uuid ->
+                            File(PathManager.DIR_INSTALLED_RENDERER_PLUGIN, uuid).exists()
+                        }
+                    )
+                )
 
                 ZipUtils.zipExtract(pluginZip, "", pluginFolder)
             }

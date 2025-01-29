@@ -25,6 +25,7 @@ import com.movtery.zalithlauncher.feature.version.VersionsManager.getCurrentVers
 import com.movtery.zalithlauncher.feature.version.VersionsManager.refresh
 import com.movtery.zalithlauncher.listener.SimpleTextWatcher
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
+import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.versionIsolation
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors.Companion.getAndroidUI
@@ -286,10 +287,10 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 customPath.text = config.getCustomPath().replaceFirst(getCurrentPath().toRegex(), ".")
 
                 //渲染器
-                val renderersList = Tools.getCompatibleRenderers(context)
-                val rendererNames: MutableList<String> = ArrayList(renderersList.rendererIds)
-                val renderList: MutableList<String> = ArrayList(renderersList.rendererDisplayNames.size + 1)
-                renderList.addAll(renderersList.rendererDisplayNames)
+                val renderersList = Renderers.getCompatibleRenderers(context).first
+                val rendererNames: MutableList<String> = ArrayList(renderersList.rendererIdentifier)
+                val renderList: MutableList<String> = ArrayList(renderersList.rendererNames.size + 1)
+                renderList.addAll(renderersList.rendererNames)
                 renderList.add(context.getString(R.string.generic_default))
                 var rendererIndex = renderList.size - 1
                 if (config.getRenderer().isNotEmpty()) {

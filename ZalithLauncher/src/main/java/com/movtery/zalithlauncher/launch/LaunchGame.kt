@@ -16,6 +16,7 @@ import com.movtery.zalithlauncher.feature.mod.parser.ModInfo
 import com.movtery.zalithlauncher.feature.mod.parser.ModParser
 import com.movtery.zalithlauncher.feature.mod.parser.ModParserListener
 import com.movtery.zalithlauncher.feature.version.Version
+import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllStaticSettings
 import com.movtery.zalithlauncher.support.touch_controller.ControllerProxy
@@ -122,14 +123,8 @@ class LaunchGame {
         @Throws(Throwable::class)
         @JvmStatic
         fun runGame(activity: AppCompatActivity, minecraftVersion: Version, version: JMinecraftVersionList.Version) {
-            Tools.LOCAL_RENDERER ?: run { Tools.LOCAL_RENDERER = AllSettings.renderer.getValue() }
-
-            if (!Tools.checkRendererCompatible(activity, Tools.LOCAL_RENDERER)) {
-                val renderersList = Tools.getCompatibleRenderers(activity)
-                val firstCompatibleRenderer = renderersList.rendererIds[0]
-                Logging.w("runGame", "Incompatible renderer ${Tools.LOCAL_RENDERER} will be replaced with $firstCompatibleRenderer")
-                Tools.LOCAL_RENDERER = firstCompatibleRenderer
-                Tools.releaseCache()
+            if (!Renderers.isCurrentRendererValid()) {
+                Renderers.setCurrentRenderer(activity, AllSettings.renderer.getValue())
             }
 
             var account = AccountsManager.getInstance().currentAccount
@@ -146,17 +141,40 @@ class LaunchGame {
             val javaRuntime = getRuntime(activity, minecraftVersion, version.javaVersion?.majorVersion ?: 8)
 
             printLauncherInfo(
-                activity,
                 minecraftVersion,
                 customArgs.takeIf { it.isNotBlank() } ?: "NONE",
                 javaRuntime,
                 account
             )
-            JREUtils.redirectAndPrintJRELog()
 
-            launch(activity, account, minecraftVersion, javaRuntime, customArgs)
-            //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
-            GameService.setActive(false)
+            checkAllMods(minecraftVersion) { modInfoList ->
+                if (modInfoList.isNotEmpty()) {
+                    Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
+                }
+
+                if (modInfoList.any { it.id == "touchcontroller" }) {
+                    Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
+                    ControllerProxy.startProxy(activity)
+                    AllStaticSettings.useControllerProxy = true
+                }
+
+                val hasSodiumOrEmbeddium = modInfoList.any { it.id == "sodium" || it.id == "embeddium" }
+                if (hasSodiumOrEmbeddium) {
+                    Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
+                }
+
+                JREUtils.redirectAndPrintJRELog()
+
+                launch(activity, account, minecraftVersion, javaRuntime, customArgs) { userArgs ->
+                    if (hasSodiumOrEmbeddium) {
+                        //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
+                        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
+                    }
+                }
+
+                //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
+                GameService.setActive(false)
+            }
         }
 
         private fun getRuntime(activity: Activity, version: Version, targetJavaVersion: Int): String {
@@ -182,7 +200,6 @@ class LaunchGame {
         }
 
         private fun printLauncherInfo(
-            context: Context,
             minecraftVersion: Version,
             javaArguments: String,
             javaRuntime: String,
@@ -193,17 +210,12 @@ class LaunchGame {
                 mcInfo = info.getInfoString()
             }
 
-            val renderers = Tools.getCompatibleRenderers(context).run {
-                rendererDisplayNames.zip(rendererIds)
-            }
-            val rendererName = renderers.find { it.second == Tools.LOCAL_RENDERER }?.first ?: "Parsing failed, original name: ${Tools.LOCAL_RENDERER}"
-
             Logger.appendToLog("--------- Start launching the game")
             Logger.appendToLog("Info: Launcher version: ${ZHTools.getVersionName()} (${ZHTools.getVersionCode()})")
             Logger.appendToLog("Info: Architecture: ${Architecture.archAsString(Tools.DEVICE_ARCHITECTURE)}")
             Logger.appendToLog("Info: Device model: ${StringUtils.insertSpace(Build.MANUFACTURER, Build.MODEL)}")
             Logger.appendToLog("Info: API version: ${Build.VERSION.SDK_INT}")
-            Logger.appendToLog("Info: Renderer: $rendererName")
+            Logger.appendToLog("Info: Renderer: ${Renderers.getCurrentRenderer().getRendererName()}")
             Logger.appendToLog("Info: Selected Minecraft version: ${minecraftVersion.getVersionName()}")
             Logger.appendToLog("Info: Minecraft Info: $mcInfo")
             Logger.appendToLog("Info: Game Path: ${minecraftVersion.getGameDir().absolutePath} (Isolation: ${minecraftVersion.isIsolation()})")
@@ -220,7 +232,8 @@ class LaunchGame {
             account: MinecraftAccount,
             minecraftVersion: Version,
             javaRuntime: String,
-            customArgs: String
+            customArgs: String,
+            argsCallBack: UserArgsCallBack
         ) {
             checkMemory(activity)
 
@@ -243,30 +256,9 @@ class LaunchGame {
                 launchClassPath
             ).getAllArgs()
 
-            checkAllMods(minecraftVersion) { modInfoList ->
-                FFmpegPlugin.discover(activity)
-                if (modInfoList.isNotEmpty()) {
-                    Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
-                }
+            FFmpegPlugin.discover(activity)
 
-                if (modInfoList.any { it.id == "touchcontroller" }) {
-                    Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
-                    ControllerProxy.startProxy(activity)
-                    AllStaticSettings.useControllerProxy = true
-                }
-
-                val hasSodiumOrEmbeddium = modInfoList.any { it.id == "sodium" || it.id == "embeddium" }
-                if (hasSodiumOrEmbeddium) {
-                    Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
-                }
-
-                JREUtils.launchWithUtils(activity, runtime, gameDirPath, launchArgs, customArgs) { userArgs ->
-                    if (hasSodiumOrEmbeddium) {
-                        //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
-                        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
-                    }
-                }
-            }
+            JREUtils.launchWithUtils(activity, runtime, gameDirPath, launchArgs, customArgs, argsCallBack)
         }
 
         private fun checkMemory(activity: AppCompatActivity) {

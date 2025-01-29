@@ -408,7 +408,6 @@
     <string name="setting_category_support">外部支持</string>
 
     <string name="setting_renderer_title">渲染器</string>
-    <string name="setting_renderer_name_angle">Angle (仅限 1.17+)</string>
     <string name="setting_renderer_from_plugins">来自 %s 插件</string>
     <string name="setting_renderer_local_import_title">本地导入渲染器</string>
     <string name="setting_renderer_local_import_desc">除了安装软件式渲染器插件之外，启动器还支持在本地导入渲染器插件，不过一些设备可能无法使用本地渲染器插件，请谨慎使用！</string>

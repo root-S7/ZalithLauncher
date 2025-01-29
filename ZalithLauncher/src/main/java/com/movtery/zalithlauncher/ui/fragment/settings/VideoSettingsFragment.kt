@@ -16,6 +16,7 @@ import com.movtery.zalithlauncher.databinding.SettingsFragmentVideoBinding
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager
+import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllStaticSettings
 import com.movtery.zalithlauncher.task.Task
@@ -103,15 +104,15 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val context = requireActivity()
 
-        val renderers = Tools.getCompatibleRenderers(context)
+        val renderers = Renderers.getCompatibleRenderers(context).first
         ListSettingsWrapper(
             context,
             AllSettings.renderer,
             binding.rendererLayout,
             binding.rendererTitle,
             binding.rendererValue,
-            renderers.rendererDisplayNames,
-            renderers.rendererIds.toTypedArray()
+            renderers.rendererNames.toTypedArray(),
+            renderers.rendererIdentifier.toTypedArray()
         )
 
         binding.rendererDownload.setOnClickListener { ZHTools.openLink(context, UrlManager.URL_FCL_RENDERER_PLUGIN) }

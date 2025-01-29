@@ -386,7 +386,6 @@
     <string name="setting_category_experimental_patches">تصحيحات تجريبية</string>
     <string name="setting_category_support">الدعم الخارجي</string>
     <string name="setting_renderer_title">العارض</string>
-    <string name="setting_renderer_name_angle">Angle (للإصدارات 1.17+ فقط)</string>
     <string name="setting_renderer_from_plugins">من ملحق %s</string>
     <string name="setting_renderer_local_import_title">Lokale Renderer-Import</string>
     <string name="setting_renderer_local_import_desc">Zusätzlich zur Installation von Software-Rendering-Plugins unterstützt der Launcher auch den lokalen Import von Renderer-Plugins. Einige Geräte können jedoch möglicherweise keine lokalen Renderer-Plugins verwenden, daher ist Vorsicht geboten!</string>

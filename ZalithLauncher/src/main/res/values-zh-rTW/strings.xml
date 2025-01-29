@@ -386,7 +386,6 @@
     <string name="setting_category_experimental_patches">實驗性補丁</string>
     <string name="setting_category_support">外部支援</string>
     <string name="setting_renderer_title">渲染器</string>
-    <string name="setting_renderer_name_angle">Angle (僅限 1.17+)</string>
     <string name="setting_renderer_from_plugins">來自 %s 插件</string>
     <string name="setting_renderer_local_import_title">本地導入渲染器</string>
     <string name="setting_renderer_local_import_desc">除了安裝軟體渲染器插件之外，啟動器還支持在本地導入渲染器插件，不過一些設備可能無法使用本地渲染器插件，請謹慎使用！</string>
