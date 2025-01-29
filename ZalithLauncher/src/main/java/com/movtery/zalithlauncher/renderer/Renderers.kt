@@ -87,14 +87,19 @@ object Renderers {
 
     /**
      * 设置当前的渲染器
+     * @param context 用于初始化适配当前设备的渲染器
+     * @param uniqueIdentifier 渲染器的唯一标识符，用于找到当前想要设置的渲染器
+     * @param retryToFirstOnFailure 如果未找到匹配的渲染器，是否跳回渲染器列表的首个渲染器
      */
-    fun setCurrentRenderer(context: Context, uniqueIdentifier: String) {
+    fun setCurrentRenderer(context: Context, uniqueIdentifier: String, retryToFirstOnFailure: Boolean = true) {
         if (!isInitialized) throw IllegalStateException("Uninitialized renderer!")
         val compatibleRenderers = getCompatibleRenderers(context).second
         currentRenderer = compatibleRenderers.find { it.getUniqueIdentifier() == uniqueIdentifier } ?: run {
-            val renderer = compatibleRenderers[0]
-            Logging.w("Renderers", "Incompatible renderer $uniqueIdentifier will be replaced with ${renderer.getUniqueIdentifier()} (${renderer.getRendererName()})")
-            renderer
+            if (retryToFirstOnFailure) {
+                val renderer = compatibleRenderers[0]
+                Logging.w("Renderers", "Incompatible renderer $uniqueIdentifier will be replaced with ${renderer.getUniqueIdentifier()} (${renderer.getRendererName()})")
+                renderer
+            } else null
         }
     }
 

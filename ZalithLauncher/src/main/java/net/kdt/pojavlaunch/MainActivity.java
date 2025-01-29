@@ -192,7 +192,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             binding.mainTouchCharInput.setCharacterSender(new LwjglCharSender());
 
             Logging.i("RdrDebug","__P_renderer=" + minecraftVersion.getRenderer());
-            Renderers.INSTANCE.setCurrentRenderer(this, minecraftVersion.getRenderer());
+            Renderers.INSTANCE.setCurrentRenderer(this, minecraftVersion.getRenderer(), false);
             DriverPluginManager.setDriverByName(minecraftVersion.getDriver());
 
             setTitle("Minecraft " + minecraftVersion.getVersionName());
