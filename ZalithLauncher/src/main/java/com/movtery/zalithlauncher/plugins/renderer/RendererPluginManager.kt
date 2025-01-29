@@ -163,7 +163,7 @@ object RendererPluginManager {
                     glName,
                     eglName.progressEglName(libPath),
                     libPath,
-                    pojavEnv,
+                    pojavEnv.filter { it.key != "POJAV_RENDERER" },
                     dlopenList ?: emptyList()
                 )
             )
@@ -212,7 +212,14 @@ object RendererPluginManager {
 
                 val pluginFolder = File(
                     PathManager.DIR_INSTALLED_RENDERER_PLUGIN,
-                    StringUtilsKt.generateUniqueUUID { File(PathManager.DIR_INSTALLED_RENDERER_PLUGIN, it).exists() }
+                    StringUtilsKt.generateUniqueUUID(
+                        { string ->
+                            string.replace("-", "").substring(0, 8)
+                        },
+                        { uuid ->
+                            File(PathManager.DIR_INSTALLED_RENDERER_PLUGIN, uuid).exists()
+                        }
+                    )
                 )
 
                 ZipUtils.zipExtract(pluginZip, "", pluginFolder)

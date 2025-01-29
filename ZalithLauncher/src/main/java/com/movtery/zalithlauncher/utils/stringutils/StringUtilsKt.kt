@@ -36,11 +36,23 @@ class StringUtilsKt {
             return result
         }
 
+        /**
+         * 生成一个唯一UUID，以及防止与已存在的UUID冲突
+         * @param processString 若需要操作字符串，可以使用它
+         * @param checkForConflict 若需要防止与已存在的UUID冲突，可以用它检查是否有冲突，如果返回true，则递归重新生成一个
+         */
         @JvmStatic
-        fun generateUniqueUUID(checkForConflict: (uuid: String) -> Boolean): String {
+        fun generateUniqueUUID(
+            processString: ((String) -> String)? = null,
+            checkForConflict: ((String) -> Boolean)? = null
+        ): String {
             val uuid = UUID.randomUUID().toString().lowercase()
-            if (checkForConflict(uuid)) return generateUniqueUUID(checkForConflict)
-            return uuid
+            val progressedUuid = processString?.invoke(uuid) ?: uuid
+            return if (checkForConflict?.invoke(progressedUuid) == true) {
+                generateUniqueUUID(processString, checkForConflict)
+            } else {
+                progressedUuid
+            }
         }
     }
 }
