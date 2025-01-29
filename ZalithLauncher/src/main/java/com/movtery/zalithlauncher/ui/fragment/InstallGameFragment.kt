@@ -278,7 +278,7 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                         }
                     } else {
                         InstallTaskItem.EndTask { _, file ->
-                            FileUtils.moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
+                            moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
                         }
                     }
                     taskMap[addon] = InstallTaskItem(taskPair.first, mapSize > 1, taskPair.second, endTask)
@@ -305,15 +305,21 @@ class InstallGameFragment : FragmentWithAnim(R.layout.fragment_install_game), Vi
                     }
                 }
                 Addon.FABRIC_API -> taskMap[addon] = InstallTaskItem(taskPair.first, true, taskPair.second) { _, file ->
-                    FileUtils.moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
+                    moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
                 }
                 Addon.QUILT -> taskMap[addon] = InstallTaskItem(taskPair.first, false, taskPair.second, null)
                 Addon.QSL -> taskMap[addon] = InstallTaskItem(taskPair.first, true, taskPair.second) { _, file ->
-                    FileUtils.moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
+                    moveFile(file, File(getModPath(), "${taskPair.first}.jar"))
                 }
             }
         }
         return taskMap
+    }
+
+    @Throws(Throwable::class)
+    private fun moveFile(file: File, file1: File) {
+        if (file1.exists()) FileUtils.deleteQuietly(file1)
+        FileUtils.moveFile(file, file1)
     }
 
     /**
