@@ -146,11 +146,35 @@ class LaunchGame {
                 javaRuntime,
                 account
             )
-            JREUtils.redirectAndPrintJRELog()
 
-            launch(activity, account, minecraftVersion, javaRuntime, customArgs)
-            //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
-            GameService.setActive(false)
+            checkAllMods(minecraftVersion) { modInfoList ->
+                if (modInfoList.isNotEmpty()) {
+                    Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
+                }
+
+                if (modInfoList.any { it.id == "touchcontroller" }) {
+                    Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
+                    ControllerProxy.startProxy(activity)
+                    AllStaticSettings.useControllerProxy = true
+                }
+
+                val hasSodiumOrEmbeddium = modInfoList.any { it.id == "sodium" || it.id == "embeddium" }
+                if (hasSodiumOrEmbeddium) {
+                    Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
+                }
+
+                JREUtils.redirectAndPrintJRELog()
+
+                launch(activity, account, minecraftVersion, javaRuntime, customArgs) { userArgs ->
+                    if (hasSodiumOrEmbeddium) {
+                        //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
+                        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
+                    }
+                }
+
+                //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
+                GameService.setActive(false)
+            }
         }
 
         private fun getRuntime(activity: Activity, version: Version, targetJavaVersion: Int): String {
@@ -208,7 +232,8 @@ class LaunchGame {
             account: MinecraftAccount,
             minecraftVersion: Version,
             javaRuntime: String,
-            customArgs: String
+            customArgs: String,
+            argsCallBack: UserArgsCallBack
         ) {
             checkMemory(activity)
 
@@ -231,30 +256,9 @@ class LaunchGame {
                 launchClassPath
             ).getAllArgs()
 
-            checkAllMods(minecraftVersion) { modInfoList ->
-                FFmpegPlugin.discover(activity)
-                if (modInfoList.isNotEmpty()) {
-                    Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
-                }
+            FFmpegPlugin.discover(activity)
 
-                if (modInfoList.any { it.id == "touchcontroller" }) {
-                    Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
-                    ControllerProxy.startProxy(activity)
-                    AllStaticSettings.useControllerProxy = true
-                }
-
-                val hasSodiumOrEmbeddium = modInfoList.any { it.id == "sodium" || it.id == "embeddium" }
-                if (hasSodiumOrEmbeddium) {
-                    Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
-                }
-
-                JREUtils.launchWithUtils(activity, runtime, gameDirPath, launchArgs, customArgs) { userArgs ->
-                    if (hasSodiumOrEmbeddium) {
-                        //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
-                        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
-                    }
-                }
-            }
+            JREUtils.launchWithUtils(activity, runtime, gameDirPath, launchArgs, customArgs, argsCallBack)
         }
 
         private fun checkMemory(activity: AppCompatActivity) {
