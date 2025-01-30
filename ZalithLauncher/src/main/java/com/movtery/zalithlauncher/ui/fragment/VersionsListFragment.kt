@@ -49,18 +49,6 @@ import java.util.UUID
 class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     companion object {
         const val TAG: String = "VersionsListFragment"
-        private var LAST_REFRESH_TIME: Long = 0L
-
-        /**
-         * 检查上次刷新时间，避免频繁刷新
-         * @return true: 不允许刷新
-         */
-        fun checkLastRefreshTime(): Boolean {
-            val currentTime = ZHTools.getCurrentTimeMillis()
-            if (currentTime - LAST_REFRESH_TIME < 100) return true
-            LAST_REFRESH_TIME = currentTime
-            return false
-        }
     }
 
     private lateinit var binding: FragmentVersionsListBinding
@@ -148,7 +136,9 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 this.adapter = versionsAdapter
             }
 
-            profilePathAdapter = ProfilePathAdapter(this@VersionsListFragment, profilesPath)
+            profilePathAdapter = ProfilePathAdapter(this@VersionsListFragment, profilesPath) {
+                !refreshButton.isEnabled
+            }
             profilesPath.apply {
                 layoutAnimation = LayoutAnimationController(
                     AnimationUtils.loadAnimation(view.context, R.anim.fade_downwards)
@@ -158,7 +148,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             }
 
             refreshButton.setOnClickListener {
-                if (checkLastRefreshTime()) return@setOnClickListener
+                refreshButton.isEnabled = false
                 refresh(true)
             }
             createPathButton.setOnClickListener {
@@ -315,13 +305,17 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             TaskExecutors.runInUIThread {
                 when (event.mode) {
                     START -> {
-                        versions.isEnabled = false
+                        refreshButton.isEnabled = false
                         favoritesFolderTab.isEnabled = false
+                        versions.visibility = View.GONE
+                        refreshVersions.visibility = View.VISIBLE
                     }
                     END -> {
                         refreshFavoritesFolderAndVersions()
                         favoritesFolderTab.isEnabled = true
-                        versions.isEnabled = true
+                        refreshButton.isEnabled = true
+                        versions.visibility = View.VISIBLE
+                        refreshVersions.visibility = View.GONE
                     }
                 }
                 //无论刷新进度，都应该关闭所有的操作弹窗
