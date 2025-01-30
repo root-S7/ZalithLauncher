@@ -196,6 +196,14 @@ public final class JREUtils {
         LD_LIBRARY_PATH = ldLibraryPath.toString();
     }
 
+    private static void initLdLibraryPath(String jreHome) {
+        File serverFile = new File(jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/server/libjvm.so");
+        jvmLibraryPath = jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/" + (serverFile.exists() ? "server" : "client");
+        Logging.d("DynamicLoader","Base LD_LIBRARY_PATH: " + LD_LIBRARY_PATH);
+        Logging.d("DynamicLoader","Internal LD_LIBRARY_PATH: "+jvmLibraryPath + ":" + LD_LIBRARY_PATH);
+        setLdLibraryPath(jvmLibraryPath + ":" + LD_LIBRARY_PATH);
+    }
+
     private static void setJavaEnv(Map<String, String> envMap, String jreHome) {
         envMap.put("POJAV_NATIVEDIR", DIR_NATIVE_LIB);
         envMap.put("DRIVER_PATH", DriverPluginManager.getDriver().getPath());
@@ -218,12 +226,6 @@ public final class JREUtils {
             envMap.put("POJAV_BIG_CORE_AFFINITY", "1");
         if (FFmpegPlugin.isAvailable)
             envMap.put("POJAV_FFMPEG_PATH", FFmpegPlugin.executablePath);
-
-        File serverFile = new File(jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/server/libjvm.so");
-        jvmLibraryPath = jreHome + "/" + Tools.DIRNAME_HOME_JRE + "/" + (serverFile.exists() ? "server" : "client");
-        Logging.d("DynamicLoader","Base LD_LIBRARY_PATH: "+LD_LIBRARY_PATH);
-        Logging.d("DynamicLoader","Internal LD_LIBRARY_PATH: "+jvmLibraryPath+":"+LD_LIBRARY_PATH);
-        setLdLibraryPath(jvmLibraryPath+":"+LD_LIBRARY_PATH);
     }
 
     private static void setRendererEnv(Map<String, String> envMap) {
@@ -297,14 +299,18 @@ public final class JREUtils {
         }
     }
 
-    private static void setEnv(String jreHome, final Runtime runtime) throws Throwable {
+    private static void setEnv(String jreHome, final Runtime runtime, boolean renderer) throws Throwable {
         Map<String, String> envMap = new ArrayMap<>();
 
         setJavaEnv(envMap, jreHome);
         setCustomEnv(envMap);
-        checkAndUsedJSPH(envMap, runtime);
 
-        if (Renderers.INSTANCE.isCurrentRendererValid()) setRendererEnv(envMap);
+        if (renderer) {
+            checkAndUsedJSPH(envMap, runtime);
+
+            if (Renderers.INSTANCE.isCurrentRendererValid())
+                setRendererEnv(envMap);
+        }
 
         for (Map.Entry<String, String> env : envMap.entrySet()) {
             Logger.appendToLog("Added custom env: " + env.getKey() + "=" + env.getValue());
@@ -316,8 +322,10 @@ public final class JREUtils {
         }
     }
 
-    private static void initGraphicAndSoundEngine() {
+    private static void initGraphicAndSoundEngine(boolean renderer) {
         dlopen(DIR_NATIVE_LIB + "/libopenal.so");
+
+        if (!renderer) return;
 
         String rendererLib = loadGraphicsLibrary();
         RendererPlugin customRenderer = RendererPluginManager.getSelectedRendererPlugin();
@@ -407,11 +415,13 @@ public final class JREUtils {
 
         relocateLibPath(runtime, runtimeHome);
 
-        setEnv(runtimeHome, runtime);
+        initLdLibraryPath(runtimeHome);
+
+        setEnv(runtimeHome, runtime, gameDirectory != null);
 
         initJavaRuntime(runtimeHome);
 
-        initGraphicAndSoundEngine();
+        initGraphicAndSoundEngine(gameDirectory != null);
 
         launchJavaVM(activity, runtimeHome, gameDirectory, JVMArgs, userArgsString, argsCallBack);
     }
