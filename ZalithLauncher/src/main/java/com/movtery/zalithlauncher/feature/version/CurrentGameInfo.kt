@@ -3,80 +3,78 @@ package com.movtery.zalithlauncher.feature.version
 import com.google.gson.annotations.SerializedName
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.feature.version.favorites.FavoritesVersionUtils
 import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
 
-class CurrentGameInfo {
-    companion object {
-        private lateinit var currentInfo: CurrentInfo
-
-        /**
-         * 获取当前游戏路径内的信息配置文件
-         */
-        private fun getInfoFile() = File(ProfilePathHome.getGameHome(), "CurrentInfo.cfg")
-
-        fun refreshCurrentInfo() {
-            fun createDefault() = CurrentInfo().apply {
-                saveCurrentInfo()
-            }
-
-            /**
-             * 检查旧的“当前版本”配置文件，如果存在，那么将其同步为新的格式
-             * 同步完成后，删除旧的“当前版本”配置文件
-             */
-            fun CurrentInfo.syncOldVersion(): CurrentInfo {
-                File(ProfilePathHome.getGameHome(), "CurrentVersion.cfg").let { oldConfigFile ->
-                    if (oldConfigFile.exists()) {
-                        runCatching {
-                            val versionString = Tools.read(oldConfigFile)
-                            version = versionString
-                            saveCurrentInfo()
-                            oldConfigFile.delete()
-                        }
-                    }
-                }
-                return this
-            }
-
-            currentInfo = runCatching {
-                val infoFile = getInfoFile()
-                if (infoFile.exists()) {
-                    Tools.GLOBAL_GSON.fromJson(Tools.read(infoFile), CurrentInfo::class.java)
-                } else createDefault()
-            }.getOrElse { e ->
-                Logging.e("getCurrentInfo", "Failed to identify the current game information!", e)
-                createDefault()
-            }.syncOldVersion()
-
-            FavoritesVersionUtils.refreshFavoritesFolder()
+/**
+ * 当前游戏状态信息（支持旧配置迁移）
+ * @property version 当前选择的版本名称
+ * @property favoritesMap 收藏夹映射表 <收藏夹名称, 包含的版本集合>
+ */
+data class CurrentGameInfo(
+    @SerializedName("version")
+    var version: String = "",
+    @SerializedName("favoritesInfo")
+    val favoritesMap: MutableMap<String, MutableSet<String>> = ConcurrentHashMap()
+) {
+    /**
+     * 原子化保存当前状态到文件
+     */
+    fun saveCurrentInfo() {
+        val infoFile = getInfoFile()
+        runCatching {
+            FileUtils.writeByteArrayToFile(
+                infoFile,
+                Tools.GLOBAL_GSON.toJson(this).toByteArray(Charsets.UTF_8)
+            )
+        }.onFailure { e ->
+            Logging.e("CurrentGameInfo", "Save failed: ${infoFile.absolutePath}", e)
         }
-
-        /**
-         * 获取当前游戏信息（当前版本、收藏夹内容）
-         */
-        fun getCurrentInfo(): CurrentInfo = currentInfo
     }
 
-    class CurrentInfo {
-        @SerializedName("version")
-        var version: String? = null
-        @SerializedName("favoritesInfo")
-        var favoritesMap: MutableMap<String, MutableSet<String>>? = null
+    companion object {
+        private fun getInfoFile() = File(ProfilePathHome.getGameHome(), "CurrentInfo.cfg")
+
+        private fun getLegacyInfoFile() = File(ProfilePathHome.getGameHome(), "CurrentVersion.cfg")
 
         /**
-         * 保存当前的游戏信息
+         * 刷新并返回最新的游戏信息（自动处理旧配置迁移）
          */
-        fun saveCurrentInfo() {
-            runCatching {
-                val jsonString = Tools.GLOBAL_GSON.toJson(this)
-                FileUtils.write(getInfoFile(), jsonString)
-            }.getOrElse { e ->
-                Logging.e("saveCurrentInfo", "Failed to save current game info!", e)
+        fun refreshCurrentInfo(): CurrentGameInfo {
+            val infoFile = getInfoFile()
+            val legacyInfoFile = getLegacyInfoFile()
+
+            return try {
+                when {
+                    infoFile.exists() -> loadFromJsonFile(infoFile)
+                    legacyInfoFile.exists() -> migrateLegacyConfig(legacyInfoFile)
+                    else -> createNewConfig()
+                }.applyPostActions()
+            } catch (e: Exception) {
+                Logging.e("CurrentGameInfo", "Refresh failed", e)
+                createNewConfig().applyPostActions()
             }
         }
 
-        override fun toString(): String = "CurrentInfo{version='$version', favoritesMap='$favoritesMap'}"
+        private fun loadFromJsonFile(infoFile: File): CurrentGameInfo {
+            return Tools.GLOBAL_GSON.fromJson(infoFile.readText(), CurrentGameInfo::class.java)
+                .also { info -> checkNotNull(info) { "Deserialization returned null" } }
+        }
+
+        private fun migrateLegacyConfig(infoFile: File): CurrentGameInfo {
+            return CurrentGameInfo().apply {
+                version = infoFile.takeIf { it.exists() }?.readText() ?: ""
+                infoFile.delete()
+            }
+        }
+
+        private fun createNewConfig() = CurrentGameInfo()
+
+        private fun CurrentGameInfo.applyPostActions(): CurrentGameInfo {
+            saveCurrentInfo()
+            return this
+        }
     }
 }

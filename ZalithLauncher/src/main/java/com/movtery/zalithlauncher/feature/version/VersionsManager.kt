@@ -15,6 +15,7 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,20 +25,32 @@ import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import java.io.File
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * 所有版本管理者
  * @see Version
  */
 object VersionsManager {
-    private val versions: MutableList<Version> = ArrayList()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val versions = CopyOnWriteArrayList<Version>()
+
+    /**
+     * @return 获取当前的游戏信息
+     */
+    lateinit var currentGameInfo: CurrentGameInfo
+        private set
+
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + CoroutineName("VersionsManager"))
+
     private val refreshMutex = Mutex()
+
+    var isRefreshing: Boolean = false
+        private set
 
     /**
      * @return 全部的版本数据
      */
-    fun getVersions() = ArrayList(versions)
+    fun getVersions() = versions.toList()
 
     /**
      * 检查版本是否已经存在
@@ -56,47 +69,56 @@ object VersionsManager {
     fun refresh(refreshVersionInfo: Boolean = false) {
         coroutineScope.launch {
             refreshMutex.withLock {
-                EventBus.getDefault().post(RefreshVersionsEvent(START))
+                handleRefreshOperation(refreshVersionInfo)
+            }
+        }
+    }
 
-                try {
-                    versions.clear()
+    private fun handleRefreshOperation(refreshVersionInfo: Boolean) {
+        isRefreshing = true
+        EventBus.getDefault().post(RefreshVersionsEvent(START))
 
-                    val versionsHome = ProfilePathHome.getVersionsHome()
-                    File(versionsHome).listFiles()?.forEach { versionFile ->
-                        runCatching {
-                            if (versionFile.exists() && versionFile.isDirectory) {
-                                var isVersion = false
+        versions.clear()
 
-                                //通过判断是否存在版本的.json文件，来确定其是否为一个版本
-                                val jsonFile = File(versionFile, "${versionFile.name}.json")
-                                if (jsonFile.exists() && jsonFile.isFile) {
-                                    isVersion = true
-                                    val versionInfoFile = File(getZalithVersionPath(versionFile), "VersionInfo.json")
-                                    if (refreshVersionInfo) FileUtils.deleteQuietly(versionInfoFile)
-                                    if (!versionInfoFile.exists()) {
-                                        VersionInfoUtils.parseJson(jsonFile)?.save(versionFile)
-                                    }
-                                }
+        val versionsHome: String = ProfilePathHome.getVersionsHome()
+        File(versionsHome).listFiles()?.forEach { versionFile ->
+            runCatching {
+                processVersionFile(versionsHome, versionFile, refreshVersionInfo)
+            }
+        }
 
-                                val versionConfig = VersionConfig.parseConfig(versionFile)
+        currentGameInfo = CurrentGameInfo.refreshCurrentInfo()
 
-                                versions.add(
-                                    Version(
-                                        versionsHome,
-                                        versionFile.absolutePath,
-                                        versionConfig,
-                                        isVersion
-                                    )
-                                )
-                            }
-                        }
-                    }
-                    CurrentGameInfo.refreshCurrentInfo()
-                } finally {
-                    //使用事件通知版本已刷新
-                    EventBus.getDefault().post(RefreshVersionsEvent(END))
+        //使用事件通知版本已刷新
+        EventBus.getDefault().post(RefreshVersionsEvent(END))
+        isRefreshing = false
+    }
+
+    private fun processVersionFile(versionsHome: String, versionFile: File, refreshVersionInfo: Boolean) {
+        if (versionFile.exists() && versionFile.isDirectory) {
+            var isVersion = false
+
+            //通过判断是否存在版本的.json文件，来确定其是否为一个版本
+            val jsonFile = File(versionFile, "${versionFile.name}.json")
+            if (jsonFile.exists() && jsonFile.isFile) {
+                isVersion = true
+                val versionInfoFile = File(getZalithVersionPath(versionFile), "VersionInfo.json")
+                if (refreshVersionInfo) FileUtils.deleteQuietly(versionInfoFile)
+                if (!versionInfoFile.exists()) {
+                    VersionInfoUtils.parseJson(jsonFile)?.save(versionFile)
                 }
             }
+
+            val versionConfig = VersionConfig.parseConfig(versionFile)
+
+            versions.add(
+                Version(
+                    versionsHome,
+                    versionFile.absolutePath,
+                    versionConfig,
+                    isVersion
+                )
+            )
         }
     }
 
@@ -114,12 +136,12 @@ object VersionsManager {
                     return version
                 }
             }
-            //如果所有版本都无效，或者没有版本，那么久返回空
+            //如果所有版本都无效，或者没有版本，那么就返回 null
             return null
         }
 
         return runCatching {
-            val versionString = CurrentGameInfo.getCurrentInfo().version
+            val versionString = currentGameInfo.version
             getVersion(versionString) ?: run {
                 return returnVersionByFirst()
             }
@@ -132,7 +154,8 @@ object VersionsManager {
     /**
      * @return 通过版本名，判断其版本是否存在
      */
-    fun checkVersionExistsByName(versionName: String?): Boolean = getVersion(versionName)?.let { true } ?: false
+    fun checkVersionExistsByName(versionName: String?) =
+        versionName?.let { name -> versions.any { it.getVersionName() == name } } ?: false
 
     /**
      * @return 获取 Zalith 启动器版本标识文件夹
@@ -169,11 +192,31 @@ object VersionsManager {
      */
     fun saveCurrentVersion(versionName: String) {
         runCatching {
-            CurrentGameInfo.getCurrentInfo().apply {
+            currentGameInfo.apply {
                 version = versionName
                 saveCurrentInfo()
             }
         }.getOrElse { e -> Logging.e("Save Current Version", Tools.printToString(e)) }
+    }
+
+    private fun validateVersionName(
+        context: Context,
+        newName: String,
+        originalName: String,
+        versionInfo: VersionInfo?
+    ): String? {
+        return when {
+            //与原始名称一致
+            newName == originalName -> null
+            isVersionExists(newName, true) ->
+                context.getString(R.string.version_install_exists)
+            versionInfo?.loaderInfo?.takeIf { it.isNotEmpty() }?.let {
+                //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
+                newName == versionInfo.minecraftVersion
+            } ?: false ->
+                context.getString(R.string.version_install_cannot_use_mc_name)
+            else -> null
+        }
     }
 
     /**
@@ -192,22 +235,10 @@ object VersionsManager {
                     return@setConfirmListener false
                 }
 
-                //与原始名称一致
-                if (string == version.getVersionName()) return@setConfirmListener true
-
-                if (isVersionExists(string, true)) {
-                    editText.error = context.getString(R.string.version_install_exists)
+                val error = validateVersionName(context, string, version.getVersionName(), version.getVersionInfo())
+                error?.let {
+                    editText.error = it
                     return@setConfirmListener false
-                }
-
-                version.getVersionInfo()?.let { info ->
-                    //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
-                    info.loaderInfo?.let { loaderInfo ->
-                        if (loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
-                            editText.error = context.getString(R.string.version_install_cannot_use_mc_name)
-                            return@setConfirmListener false
-                        }
-                    }
                 }
 
                 beforeRename?.invoke()
@@ -267,22 +298,15 @@ object VersionsManager {
             .setAsRequired()
             .setConfirmListener { editText, checked ->
                 val string = editText.text.toString()
-                //与原始名称一致
-                if (string == version.getVersionName()) return@setConfirmListener true
 
-                if (isVersionExists(string, true)) {
-                    editText.error = context.getString(R.string.version_install_exists)
+                if (FileTools.isFilenameInvalid(editText)) {
                     return@setConfirmListener false
                 }
 
-                version.getVersionInfo()?.let { info ->
-                    //如果这个版本是有ModLoader加载器信息的，则不允许修改为与原版名称一致的名称，防止冲突
-                    info.loaderInfo?.let { loaderInfo ->
-                        if (loaderInfo.isNotEmpty() && string == info.minecraftVersion) {
-                            editText.error = context.getString(R.string.version_install_cannot_use_mc_name)
-                            return@setConfirmListener false
-                        }
-                    }
+                val error = validateVersionName(context, string, version.getVersionName(), version.getVersionInfo())
+                error?.let {
+                    editText.error = it
+                    return@setConfirmListener false
                 }
 
                 Task.runTask {

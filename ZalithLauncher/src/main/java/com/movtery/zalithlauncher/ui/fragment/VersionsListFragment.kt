@@ -98,7 +98,10 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             fun refreshFavoritesFolderTab(index: Int) {
                 when(index) {
                     0 -> refreshVersions(true)
-                    else -> refreshVersions(false, FavoritesVersionUtils.getAllFolders()[index - 1])
+                    else -> refreshVersions(
+                        false,
+                        FavoritesVersionUtils.getFavoritesStructure().keys.toList()[index - 1]
+                    )
                 }
             }
 
@@ -112,7 +115,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
             versionsAdapter = VersionAdapter(this@VersionsListFragment, object : VersionAdapter.OnVersionItemClickListener {
                 override fun showFavoritesDialog(versionName: String) {
-                    if (FavoritesVersionUtils.getAllFolders().isNotEmpty()) {
+                    if (FavoritesVersionUtils.getFavoritesStructure().isNotEmpty()) {
                         FavoritesVersionDialog(requireActivity(), versionName) {
                             refreshFavoritesFolderTab(favoritesFolderTab.currentItemIndex)
                         }.show()
@@ -124,7 +127,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                     if (favoritesFolderTab.currentItemIndex != 0) {
                         return true
                     }
-                    return FavoritesVersionUtils.getFavoritesMap().values.any { it.contains(versionName) }
+                    return FavoritesVersionUtils.getFavoritesStructure().values.any { it.contains(versionName) }
                 }
             })
 
@@ -136,9 +139,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 this.adapter = versionsAdapter
             }
 
-            profilePathAdapter = ProfilePathAdapter(this@VersionsListFragment, profilesPath) {
-                !refreshButton.isEnabled
-            }
+            profilePathAdapter = ProfilePathAdapter(this@VersionsListFragment, profilesPath)
             profilesPath.apply {
                 layoutAnimation = LayoutAnimationController(
                     AnimationUtils.loadAnimation(view.context, R.anim.fade_downwards)
@@ -202,11 +203,11 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         versionsAdapter?.let {
             val versions = VersionsManager.getVersions()
 
-            fun getVersions(): ArrayList<Version> {
+            fun getVersions(): List<Version> {
                 if (all) return versions
                 else {
                     val folderName = favoritesFolder ?: ""
-                    val folderVersions = FavoritesVersionUtils.getAllVersions(folderName) ?: emptySet()
+                    val folderVersions = FavoritesVersionUtils.getValidVersions(folderName)
                     return ArrayList<Version>().apply {
                         versions.forEach { version ->
                             if (folderVersions.contains(version.getVersionName())) {
@@ -246,7 +247,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
             }.root
         }
 
-        FavoritesVersionUtils.getAllFolders().forEach { folderName ->
+        FavoritesVersionUtils.getFavoritesStructure().forEach { (folderName, _) ->
             val view = createView(folderName)
             mFavoritesFolderViewList.add(view)
             binding.favoritesFolderTab.addView(view)

@@ -14,6 +14,7 @@ import com.movtery.zalithlauncher.databinding.ItemProfilePathBinding
 import com.movtery.zalithlauncher.databinding.ViewPathManagerBinding
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.save
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.setCurrentPathId
+import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.launcherProfile
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -24,8 +25,7 @@ import com.movtery.zalithlauncher.utils.ZHTools
 
 class ProfilePathAdapter(
     private val fragment: FragmentWithAnim,
-    private val view: RecyclerView,
-    private val checkClickEventAvailability: () -> Boolean
+    private val view: RecyclerView
 ) :
     RecyclerView.Adapter<ProfilePathAdapter.ViewHolder>() {
     private val mData: MutableList<ProfileItem> = ArrayList()
@@ -102,8 +102,7 @@ class ProfilePathAdapter(
                 path.isSelected = true
 
                 val onClickListener = View.OnClickListener {
-                    if (checkClickEventAvailability()) return@OnClickListener
-                    if (currentId != profileItem.id) {
+                    if (!VersionsManager.isRefreshing && currentId != profileItem.id) {
                         StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
                             setPathId(profileItem.id)
                         }

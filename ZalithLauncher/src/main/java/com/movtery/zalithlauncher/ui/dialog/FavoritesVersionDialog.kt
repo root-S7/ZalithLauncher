@@ -26,7 +26,7 @@ class FavoritesVersionDialog(
     override fun dismiss() {
         super.dismiss()
         Task.runTask {
-            FavoritesVersionUtils.saveVersionToFavorites(versionName, mFavoritesAdapter.getSelectedCategorySet())
+            FavoritesVersionUtils.updateVersionFolders(versionName, mFavoritesAdapter.getSelectedCategorySet())
         }.ended(TaskExecutors.getAndroidUI()) {
             favoritesChanged()
         }.execute()
