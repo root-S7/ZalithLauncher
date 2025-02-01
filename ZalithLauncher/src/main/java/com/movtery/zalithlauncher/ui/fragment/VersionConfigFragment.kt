@@ -22,7 +22,6 @@ import com.movtery.zalithlauncher.feature.version.VersionConfig.CREATOR.getIsola
 import com.movtery.zalithlauncher.feature.version.VersionConfig.IsolationType
 import com.movtery.zalithlauncher.feature.version.utils.VersionIconUtils
 import com.movtery.zalithlauncher.feature.version.VersionsManager.getCurrentVersion
-import com.movtery.zalithlauncher.feature.version.VersionsManager.refresh
 import com.movtery.zalithlauncher.listener.SimpleTextWatcher
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
 import com.movtery.zalithlauncher.renderer.Renderers
@@ -365,7 +364,6 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
             it.save()
             mBackupConfig = it
         }
-        refresh()
         Toast.makeText(requireActivity(), getString(R.string.generic_saved), Toast.LENGTH_SHORT).show()
     }
 

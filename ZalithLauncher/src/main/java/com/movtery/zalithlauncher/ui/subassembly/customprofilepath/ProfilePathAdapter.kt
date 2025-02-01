@@ -102,7 +102,7 @@ class ProfilePathAdapter(
                 path.isSelected = true
 
                 val onClickListener = View.OnClickListener {
-                    if (!VersionsManager.isRefreshing && currentId != profileItem.id) {
+                    if (VersionsManager.canRefresh() && currentId != profileItem.id) {
                         StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
                             setPathId(profileItem.id)
                         }

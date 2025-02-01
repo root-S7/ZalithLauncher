@@ -41,11 +41,15 @@ object VersionsManager {
         private set
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO + CoroutineName("VersionsManager"))
-
     private val refreshMutex = Mutex()
+    private var isRefreshing: Boolean = false
+    private var lastRefreshTime = 0L
 
-    var isRefreshing: Boolean = false
-        private set
+    /**
+     * @return 检查是否可以刷新
+     */
+    @JvmStatic
+    fun canRefresh() = !isRefreshing && ZHTools.getCurrentTimeMillis() - lastRefreshTime > 200
 
     /**
      * @return 全部的版本数据
@@ -69,6 +73,7 @@ object VersionsManager {
     fun refresh(refreshVersionInfo: Boolean = false) {
         coroutineScope.launch {
             refreshMutex.withLock {
+                lastRefreshTime = ZHTools.getCurrentTimeMillis()
                 handleRefreshOperation(refreshVersionInfo)
             }
         }
