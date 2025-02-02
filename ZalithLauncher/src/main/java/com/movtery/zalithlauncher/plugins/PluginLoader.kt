@@ -22,11 +22,12 @@ object PluginLoader {
 
     @JvmStatic
     @SuppressLint("QueryPermissionsNeeded")
-    fun loadAllPlugins(context: Context) {
-        if (isInitialized) return
+    fun loadAllPlugins(context: Context, force: Boolean = false) {
+        if (isInitialized && !force) return
         isInitialized = true
 
-        DriverPluginManager.initDriver(context)
+        DriverPluginManager.initDriver(context, force)
+        if (force) RendererPluginManager.clearPlugin()
 
         val queryIntentActivities =
             context.packageManager.queryIntentActivities(

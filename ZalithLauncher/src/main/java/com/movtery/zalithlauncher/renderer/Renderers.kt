@@ -19,9 +19,15 @@ object Renderers {
     private var currentRenderer: RendererInterface? = null
     private var isInitialized: Boolean = false
 
-    fun init() {
-        if (isInitialized) return
+    fun init(reset: Boolean = false) {
+        if (isInitialized && !reset) return
         isInitialized = true
+
+        if (reset) {
+            renderers.clear()
+            compatibleRenderers = null
+            currentRenderer = null
+        }
 
         addRenderers(
             GL4ESRenderer(),

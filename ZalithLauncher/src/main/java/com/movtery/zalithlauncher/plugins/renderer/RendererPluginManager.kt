@@ -42,17 +42,7 @@ object RendererPluginManager {
      * 获取当前本地渲染器插件加载的所有渲染器
      */
     @JvmStatic
-    fun getAllLocalRendererList() = ArrayList(localRendererPluginList)
-
-    /**
-     * 标记一个本地渲染器已被移除
-     */
-    @JvmStatic
-    fun markLocalRendererDeleted(index: Int) {
-        if (index in localRendererPluginList.indices) {
-            localRendererPluginList[index].isDeleted = true
-        }
-    }
+    fun getAllLocalRendererList() = localRendererPluginList
 
     /**
      * @return 是可用的
@@ -77,9 +67,17 @@ object RendererPluginManager {
         }
 
     /**
+     * 清除渲染器插件
+     */
+    fun clearPlugin() {
+        rendererPluginList.clear()
+        localRendererPluginList.clear()
+    }
+
+    /**
      * 解析 ZalithLauncher、FCL 渲染器插件
      */
-    internal fun parseApkPlugin(context: Context, info: ApplicationInfo) {
+    fun parseApkPlugin(context: Context, info: ApplicationInfo) {
         if (info.flags and ApplicationInfo.FLAG_SYSTEM == 0) {
             val metaData = info.metaData ?: return
             if (
@@ -155,7 +153,7 @@ object RendererPluginManager {
      * ------------x86_64/ (x86_64架构)
      * ----------------渲染器库文件.so
      */
-    internal fun parseLocalPlugin(context: Context, directory: File): Boolean {
+    fun parseLocalPlugin(context: Context, directory: File): Boolean {
         val archModel: String = UpdateUtils.getArchModel(Architecture.getDeviceArchitecture()) ?: return false
         val libsDirectory: File = File(directory, "libs/$archModel").takeIf { it.exists() && it.isDirectory } ?: return false
         val rendererConfigFile: File = File(directory, "config").takeIf { it.exists() && it.isFile } ?: return false

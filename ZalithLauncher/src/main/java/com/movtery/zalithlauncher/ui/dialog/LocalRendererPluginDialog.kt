@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemLocalRendererViewBinding
+import com.movtery.zalithlauncher.plugins.PluginLoader
 import com.movtery.zalithlauncher.plugins.renderer.LocalRendererPlugin
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager
+import com.movtery.zalithlauncher.renderer.Renderers
 import org.apache.commons.io.FileUtils
 
 class LocalRendererPluginDialog(
@@ -19,16 +21,20 @@ class LocalRendererPluginDialog(
         setTitleText(R.string.setting_renderer_local_manage)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = LocalRendererPluginAdapter()
+        recyclerView.adapter = LocalRendererPluginAdapter {
+            this.dismiss()
+        }
     }
 
-    private class LocalRendererPluginAdapter : RecyclerView.Adapter<LocalRendererPluginAdapter.ViewHolder>() {
+    private class LocalRendererPluginAdapter(
+        private val onNoPlugin: () -> Unit
+    ) : RecyclerView.Adapter<LocalRendererPluginAdapter.ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(ItemLocalRendererViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bind(RendererPluginManager.getAllLocalRendererList()[position], position)
+            holder.bind(RendererPluginManager.getAllLocalRendererList()[position])
         }
 
         override fun getItemCount(): Int = RendererPluginManager.getAllLocalRendererList().size
@@ -37,7 +43,7 @@ class LocalRendererPluginDialog(
             private val binding: ItemLocalRendererViewBinding
         ) : RecyclerView.ViewHolder(binding.root) {
             @SuppressLint("NotifyDataSetChanged")
-            fun bind(renderer: LocalRendererPlugin, position: Int) {
+            fun bind(renderer: LocalRendererPlugin) {
                 binding.apply {
                     rendererIdentifier.text = renderer.uniqueIdentifier
                     rendererName.text = renderer.rendererName
@@ -50,14 +56,12 @@ class LocalRendererPluginDialog(
                             .setWarning()
                             .setConfirmClickListener {
                                 FileUtils.deleteQuietly(renderer.folderPath)
-                                RendererPluginManager.markLocalRendererDeleted(position)
-                                notifyItemChanged(position)
+                                Renderers.init(true)
+                                PluginLoader.loadAllPlugins(root.context, true)
+                                if (RendererPluginManager.getAllLocalRendererList().isNotEmpty()) {
+                                    notifyDataSetChanged()
+                                } else onNoPlugin()
                             }.showDialog()
-                    }
-
-                    if (renderer.isDeleted) {
-                        delete.isEnabled = false
-                        delete.alpha = 0.5f
                     }
                 }
             }

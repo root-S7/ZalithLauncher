@@ -24,7 +24,12 @@ object DriverPluginManager {
     @JvmStatic
     fun getDriver(): Driver = currentDriver
 
-    internal fun initDriver(context: Context) {
+    /**
+     * 初始化驱动器
+     * @param reset 是否清除已有插件
+     */
+    fun initDriver(context: Context, reset: Boolean) {
+        if (reset) driverList.clear()
         driverList.add(Driver("Turnip", context.applicationInfo.nativeLibraryDir))
         setDriverByName(AllSettings.driver.getValue())
     }
@@ -32,7 +37,7 @@ object DriverPluginManager {
     /**
      * 通用 FCL 插件
      */
-    internal fun parsePlugin(info: ApplicationInfo) {
+    fun parsePlugin(info: ApplicationInfo) {
         if (info.flags and ApplicationInfo.FLAG_SYSTEM == 0) {
             val metaData = info.metaData ?: return
             if (metaData.getBoolean("fclPlugin", false)) {
