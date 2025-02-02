@@ -51,10 +51,10 @@ data class CurrentGameInfo(
                     infoFile.exists() -> loadFromJsonFile(infoFile)
                     legacyInfoFile.exists() -> migrateLegacyConfig(legacyInfoFile)
                     else -> createNewConfig()
-                }.applyPostActions()
+                }
             } catch (e: Exception) {
                 Logging.e("CurrentGameInfo", "Refresh failed", e)
-                createNewConfig().applyPostActions()
+                createNewConfig()
             }
         }
 
@@ -67,10 +67,10 @@ data class CurrentGameInfo(
             return CurrentGameInfo().apply {
                 version = infoFile.takeIf { it.exists() }?.readText() ?: ""
                 infoFile.delete()
-            }
+            }.applyPostActions()
         }
 
-        private fun createNewConfig() = CurrentGameInfo()
+        private fun createNewConfig() = CurrentGameInfo().applyPostActions()
 
         private fun CurrentGameInfo.applyPostActions(): CurrentGameInfo {
             saveCurrentInfo()
