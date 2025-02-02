@@ -11,27 +11,17 @@ import android.os.Build;
 
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.unpack.Jre;
-import com.movtery.zalithlauncher.plugins.PluginLoader;
-import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.setting.Settings;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
-import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.utils.JREUtils;
 
 public class LauncherPreferences {
-    public static void loadPreferences(Context ctx) {
-        //Required for the data folder.
-        PathManager.initContextConstants(ctx);
-        //加载渲染器
-        Renderers.INSTANCE.init();
-        //加载插件
-        PluginLoader.loadAllPlugins(ctx);
-
+    public static void loadPreferences() {
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         String javaArgs = AllSettings.getJavaArgs().getValue();
         for (String arg : JREUtils.parseJavaArguments(javaArgs)) {

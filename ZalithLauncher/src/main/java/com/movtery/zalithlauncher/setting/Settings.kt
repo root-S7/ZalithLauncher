@@ -12,99 +12,113 @@ import net.kdt.pojavlaunch.Tools
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import java.lang.reflect.Type
-import java.util.Objects
+import java.util.concurrent.ConcurrentHashMap
 
 class Settings {
     companion object {
         private val GSON: Gson = GsonBuilder().disableHtmlEscaping().create()
 
-        private var settings: List<SettingAttribute> = refresh()
+        private val settingsLock = Any()
+        private var settingsMap = ConcurrentHashMap<String, SettingAttribute>()
 
-        private fun refresh(): List<SettingAttribute> {
+        private fun refreshSettingsMap(): Map<String, SettingAttribute> {
             return PathManager.FILE_SETTINGS.takeIf { it.exists() }?.let { file ->
                 try {
                     val jsonString = Tools.read(file)
                     val listType: Type = object : TypeToken<List<SettingAttribute>>() {}.type
-                    GSON.fromJson(jsonString, listType)
-                } catch (e: Throwable) {
-                    Logging.e("Settings", Tools.printToString(e))
-                    emptyList()
+                    GSON.fromJson<List<SettingAttribute>>(jsonString, listType)
+                        .associateBy { it.key }
+                } catch (e: Exception) {
+                    Logging.e("Settings", "Failed to refresh settings: ${Tools.printToString(e)}")
+                    emptyMap()
                 }
-            } ?: emptyList()
+            } ?: emptyMap()
         }
 
+        /**
+         * 刷新启动器的所有设置项
+         */
+        @Synchronized
         fun refreshSettings() {
-            settings = refresh()
+            settingsMap = ConcurrentHashMap(refreshSettingsMap())
         }
     }
 
-    class Manager {
+    class Manager private constructor() {
         companion object {
+            /**
+             * 在启动器设置中获取键对应的值
+             */
             fun <T> getValue(key: String, defaultValue: T, parser: (String) -> T?): T {
-                settings.forEach {
-                    if (Objects.equals(it.key, key)) {
-                        return it.value?.let { value -> parser(value) } ?: defaultValue
-                    }
-                }
-                return defaultValue
+                return settingsMap[key]?.value?.let { parser(it) } ?: defaultValue
             }
 
+            /**
+             * 检查启动器设置中，是否存在某个键
+             */
             @JvmStatic
             fun contains(key: String): Boolean {
-                return settings.any { it.key == key }
+                return settingsMap.containsKey(key)
             }
 
+            /**
+             * 在启动器设置中存入键值
+             */
             @JvmStatic
             @CheckResult
             fun put(key: String, value: Any) = SettingBuilder().put(key, value)
         }
 
         class SettingBuilder {
-            private val valueMap: MutableMap<String, Any?> = HashMap()
+            private val valueMap = ConcurrentHashMap<String, Any>()
 
+            /**
+             * 在启动器设置中存入键值
+             */
             @CheckResult
             fun put(key: String, value: Any): SettingBuilder {
                 valueMap[key] = value
                 return this
             }
 
+            /**
+             * 在启动器设置中存入键值
+             * @param unit 设置单元
+             */
             @CheckResult
             fun put(unit: AbstractSettingUnit<*>, value: Any): SettingBuilder {
-                valueMap[unit.key] = value
-                return this
+                return put(unit.key, value)
             }
 
             fun save() {
                 val settingsFile = PathManager.FILE_SETTINGS
-                if (!settingsFile.exists()) settingsFile.createNewFile()
-
-                val currentSettings = settings.toMutableList()
+                val newSettings = ConcurrentHashMap(settingsMap)
 
                 valueMap.forEach { (key, value) ->
-                    val attribute = currentSettings.find { it.key == key }
+                    newSettings[key] = SettingAttribute(key, value.toString())
+                }
 
-                    if (attribute != null) {
-                        attribute.value = value.toString()
-                    } else {
-                        val newAttribute = SettingAttribute().apply {
-                            this.key = key
-                            this.value = value.toString()
+                synchronized(settingsLock) {
+                    runCatching {
+                        if (!settingsFile.exists() && !settingsFile.createNewFile()) {
+                            throw IllegalStateException("Failed to create settings file")
                         }
-                        currentSettings.add(newAttribute)
+
+                        val settingsList = newSettings.values.toList()
+                        val json = GSON.toJson(settingsList)
+                        FileUtils.write(settingsFile, json, Charsets.UTF_8)
+                        refreshSettings()
+                        EventBus.getDefault().post(SettingsChangeEvent())
+                    }.onFailure { e ->
+                        Logging.e("SettingBuilder", "Save failed!", e)
                     }
                 }
-
-                val json = GSON.toJson(currentSettings)
-
-                runCatching {
-                    FileUtils.write(settingsFile, json)
-                    refreshSettings()
-                }.getOrElse { e ->
-                    Logging.e("SettingBuilder", Tools.printToString(e))
-                }
-
-                EventBus.getDefault().post(SettingsChangeEvent())
             }
         }
     }
+
+    private class SettingAttribute(
+        var key: String = "",
+        var value: String? = null
+    )
 }

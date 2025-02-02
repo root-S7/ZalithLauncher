@@ -34,7 +34,7 @@ abstract class AbstractSettingsFragment(layoutId: Int, private val category: Set
 
     @CallSuper
     protected open fun onChange() {
-        LauncherPreferences.loadPreferences(context)
+        LauncherPreferences.loadPreferences()
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {}
