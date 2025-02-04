@@ -109,7 +109,7 @@ android {
                 javaVersions.each { javaVersion ->
                     def runtimeDir = new File([assetsDir, "components/${javaVersion}"].join(File.separator))
                     fileTree(dir: runtimeDir, include: ['*.tar.xz']).each { file ->
-                        if (arch != 'all' && !file.name.contains(arch) && !file.name.contains("universal")) {
+                        if (arch != 'all' && !file.getName().contains("universal") && file.getName() != "bin-${arch}.tar.xz" ) {
                             println("delete:${file} : ${delete(file)}")
                         }
                     }
