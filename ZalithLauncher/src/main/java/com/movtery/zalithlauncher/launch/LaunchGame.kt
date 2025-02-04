@@ -20,7 +20,6 @@ import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllStaticSettings
 import com.movtery.zalithlauncher.support.touch_controller.ControllerProxy
-import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
@@ -56,13 +55,6 @@ class LaunchGame {
         @JvmStatic
         fun preLaunch(context: Context, version: Version) {
             fun launch() {
-                //复制一份默认的选项配置文件到游戏目录
-                Task.runTask {
-                    Tools.copyAssetFile(context, "options.txt", version.getGameDir().absolutePath, false)
-                }.onThrowable {
-                    Logging.e("Launch Game", "Failed to copy options.txt files to the game directory!", it)
-                }.execute()
-
                 val versionName = version.getVersionName()
                 val mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName)
                 MinecraftDownloader().start(

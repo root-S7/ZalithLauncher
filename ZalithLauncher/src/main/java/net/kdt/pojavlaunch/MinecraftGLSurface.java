@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import static net.kdt.pojavlaunch.MainActivity.touchCharInput;
-import static net.kdt.pojavlaunch.utils.MCOptionUtils.getMcScale;
 import static org.lwjgl.glfw.CallbackBridge.sendMouseButton;
 import static org.lwjgl.glfw.CallbackBridge.windowHeight;
 import static org.lwjgl.glfw.CallbackBridge.windowWidth;
@@ -23,6 +22,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.movtery.zalithlauncher.event.single.RefreshHotbarEvent;
+import com.movtery.zalithlauncher.feature.MCOptions;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
@@ -37,7 +37,6 @@ import net.kdt.pojavlaunch.customcontrols.mouse.InGUIEventProcessor;
 import net.kdt.pojavlaunch.customcontrols.mouse.InGameEventProcessor;
 import net.kdt.pojavlaunch.customcontrols.mouse.TouchEventProcessor;
 import net.kdt.pojavlaunch.utils.JREUtils;
-import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.lwjgl.glfw.CallbackBridge;
@@ -382,11 +381,11 @@ public class MinecraftGLSurface extends View implements GrabListener {
         refreshSize();
 
         //Load Minecraft options:
-        MCOptionUtils.set("fullscreen", "false");
-        MCOptionUtils.set("overrideWidth", String.valueOf(windowWidth));
-        MCOptionUtils.set("overrideHeight", String.valueOf(windowHeight));
-        MCOptionUtils.save();
-        getMcScale();
+        MCOptions.INSTANCE.set("fullscreen", "false");
+        MCOptions.INSTANCE.set("overrideWidth", String.valueOf(windowWidth));
+        MCOptions.INSTANCE.set("overrideHeight", String.valueOf(windowHeight));
+        MCOptions.INSTANCE.save();
+        MCOptions.INSTANCE.getMcScale();
 
         JREUtils.setupBridgeWindow(surface);
 

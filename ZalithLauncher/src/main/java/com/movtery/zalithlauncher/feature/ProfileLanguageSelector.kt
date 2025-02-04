@@ -5,7 +5,6 @@ import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.MCVersionRegex
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.utils.MCOptionUtils
 import org.jackhuang.hmcl.util.versioning.VersionNumber
 import org.jackhuang.hmcl.util.versioning.VersionRange
 
@@ -52,10 +51,10 @@ class ProfileLanguageSelector {
 
         @JvmStatic
         fun setGameLanguage(version: Version, overridden: Boolean) {
-            if (MCOptionUtils.containsKey("lang") && !overridden) return
+            if (MCOptions.containsKey("lang") && !overridden) return
             val language = getLanguage(version, AllSettings.setGameLanguage.getValue())
             Logging.i("ProfileLanguageSelector", "The game language has been set to: $language")
-            MCOptionUtils.set("lang", language)
+            MCOptions.set("lang", language)
         }
     }
 }

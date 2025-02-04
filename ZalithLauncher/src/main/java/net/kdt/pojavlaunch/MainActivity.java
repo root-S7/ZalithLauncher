@@ -43,8 +43,8 @@ import com.movtery.zalithlauncher.databinding.ActivityGameBinding;
 import com.movtery.zalithlauncher.databinding.ViewControlMenuBinding;
 import com.movtery.zalithlauncher.databinding.ViewGameMenuBinding;
 import com.movtery.zalithlauncher.event.single.RefreshHotbarEvent;
-import com.movtery.zalithlauncher.event.sticky.RunningVersionEvent;
 import com.movtery.zalithlauncher.event.value.HotbarChangeEvent;
+import com.movtery.zalithlauncher.feature.MCOptions;
 import com.movtery.zalithlauncher.feature.ProfileLanguageSelector;
 import com.movtery.zalithlauncher.feature.background.BackgroundManager;
 import com.movtery.zalithlauncher.feature.background.BackgroundType;
@@ -85,7 +85,6 @@ import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.services.GameService;
-import net.kdt.pojavlaunch.utils.MCOptionUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.lwjgl.glfw.CallbackBridge;
@@ -106,8 +105,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private GyroControl mGyroControl;
     private KeyboardDialog keyboardDialog;
 
-    Version minecraftVersion;
-    private RunningVersionEvent runningVersionEvent;
+    private Version minecraftVersion;
 
     private ViewGameMenuBinding mGameMenuBinding;
     private ViewControlMenuBinding mControlSettingsBinding;
@@ -124,10 +122,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         minecraftVersion = getIntent().getParcelableExtra(INTENT_VERSION);
         if (minecraftVersion == null) throw new RuntimeException("The game version is not selected!");
 
-        runningVersionEvent = new RunningVersionEvent(minecraftVersion);
-        EventBus.getDefault().postSticky(runningVersionEvent);
-
-        MCOptionUtils.load(minecraftVersion);
+        MCOptions.INSTANCE.setup(this, () -> minecraftVersion);
         if (AllSettings.getAutoSetGameLanguage().getValue()) {
             ProfileLanguageSelector.setGameLanguage(minecraftVersion, AllSettings.getGameLanguageOverridden().getValue());
         }
@@ -317,7 +312,6 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().removeStickyEvent(runningVersionEvent);
         mMenuSettingsInitListener.closeSpinner();
         CallbackBridge.removeGrabListener(binding.mainTouchpad);
         CallbackBridge.removeGrabListener(binding.mainGameRenderView);

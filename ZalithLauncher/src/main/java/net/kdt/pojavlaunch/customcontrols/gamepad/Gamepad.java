@@ -19,7 +19,6 @@ import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.DIRECTI
 import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.DIRECTION_SOUTH_WEST;
 import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.DIRECTION_WEST;
 import static net.kdt.pojavlaunch.customcontrols.gamepad.GamepadJoystick.isJoystickEvent;
-import static net.kdt.pojavlaunch.utils.MCOptionUtils.getMcScale;
 import static org.lwjgl.glfw.CallbackBridge.sendKeyPress;
 import static org.lwjgl.glfw.CallbackBridge.sendMouseButton;
 
@@ -36,6 +35,7 @@ import android.widget.ImageView;
 import androidx.core.math.MathUtils;
 
 import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
+import com.movtery.zalithlauncher.feature.MCOptions;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.utils.ZHTools;
@@ -109,7 +109,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
         mPointerImageView.setImageDrawable(ZHTools.customMouse(ctx));
         mPointerImageView.getDrawable().setFilterBitmap(false);
 
-        int size = (int) ((22 * getMcScale()) / AllStaticSettings.scaleFactor);
+        int size = (int) ((22 * MCOptions.INSTANCE.getMcScale()) / AllStaticSettings.scaleFactor);
         mPointerImageView.setLayoutParams(new FrameLayout.LayoutParams(size, size));
 
         mMapProvider = mapProvider;
@@ -147,7 +147,7 @@ public class Gamepad implements GrabListener, GamepadHandler {
 
     @Subscribe
     public void event(MCOptionChangeEvent event) {
-        notifyGUISizeChange(getMcScale());
+        notifyGUISizeChange(MCOptions.INSTANCE.getMcScale());
     }
 
     public void notifyGUISizeChange(int newSize){

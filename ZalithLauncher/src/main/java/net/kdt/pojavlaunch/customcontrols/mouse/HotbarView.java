@@ -17,6 +17,7 @@ import com.movtery.anim.animations.Animations;
 import com.movtery.zalithlauncher.event.single.MCOptionChangeEvent;
 import com.movtery.zalithlauncher.event.single.RefreshHotbarEvent;
 import com.movtery.zalithlauncher.event.value.HotbarChangeEvent;
+import com.movtery.zalithlauncher.feature.MCOptions;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
 import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarType;
@@ -25,7 +26,6 @@ import com.movtery.zalithlauncher.ui.subassembly.hotbar.HotbarUtils;
 import net.kdt.pojavlaunch.GrabListener;
 import net.kdt.pojavlaunch.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.utils.MCOptionUtils;
 import net.kdt.pojavlaunch.utils.MathUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -119,7 +119,7 @@ public class HotbarView extends View implements View.OnLayoutChangeListener, Run
      */
     @Subscribe
     public void event(MCOptionChangeEvent event) {
-        mGuiScale = MCOptionUtils.getMcScale();
+        mGuiScale = MCOptions.INSTANCE.getMcScale();
         post(this);
     }
 
