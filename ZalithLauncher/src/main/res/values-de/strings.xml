@@ -554,8 +554,8 @@
     <string name="download_search_platform_not_supported">Die aktuelle Plattform unterstützt das Herunterladen dieses Typs von Ressourcen oder diese Kategoriefilterung nicht!</string>
     <string name="download_install_custom_name">Benutzerdefinierter Dateiname</string>
     <string name="download_install_download_file">Ressourcendatei wird heruntergeladen (%.2fMB / %.2fMB)</string>
-    <string name="download_install_dependencies">%s hat die folgenden Abhängigkeits-Mods</string>
-    <string name="download_install_dependencies_tip">Bitte laden Sie die entsprechenden Abhängigkeits-Mods nach Bedarf herunter. Fehlende notwendige Abhängigkeits-Mods verhindern das Ausführen des Spiels!</string>
+    <string name="download_install_dependencies">%s hat die folgenden Abhängigkeiten oder inkompatiblen Mods</string>
+    <string name="download_install_dependencies_tip">Bitte laden Sie die erforderlichen Abhängigkeits-Mods nach Bedarf herunter. Fehlende notwendige Abhängigkeiten oder inkompatible Mods können dazu führen, dass das Spiel nicht startet!</string>
     <string name="download_install_dependencies_required">Erforderlich</string>
     <string name="download_install_dependencies_optional">Optional</string>
     <string name="download_install_dependencies_incompatible">Inkompatibel</string>

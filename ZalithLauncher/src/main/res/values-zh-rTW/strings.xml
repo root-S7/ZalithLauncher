@@ -554,8 +554,8 @@
     <string name="download_search_platform_not_supported">當前平台不支持下載這類資源，或不支持此類別篩選！</string>
     <string name="download_install_custom_name">自訂檔案名稱</string>
     <string name="download_install_download_file">正在下載資源檔案（%.2fMB / %.2fMB）</string>
-    <string name="download_install_dependencies">%s 有以下的依賴模組</string>
-    <string name="download_install_dependencies_tip">請根據需求下載對應的依賴模組，缺少必要的依賴模組將導致遊戲無法運行！</string>
+    <string name="download_install_dependencies">%s 有以下相依性或不相容的模組</string>
+    <string name="download_install_dependencies_tip">請根據需求下載對應的相依模組，缺少必要的相依模組，或安裝了不相容的模組，將導致遊戲無法運行！</string>
     <string name="download_install_dependencies_required">需裝</string>
     <string name="download_install_dependencies_optional">可選</string>
     <string name="download_install_dependencies_incompatible">不兼容</string>

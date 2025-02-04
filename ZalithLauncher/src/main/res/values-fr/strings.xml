@@ -554,8 +554,8 @@
     <string name="download_search_platform_not_supported">La plateforme actuelle ne prend pas en charge le téléchargement de ce type de ressource ou ce filtre de catégorie!</string>
     <string name="download_install_custom_name">Nom de Fichier Personnalisé</string>
     <string name="download_install_download_file">Téléchargement du Fichier de Ressource (%.2fMB / %.2fMB)</string>
-    <string name="download_install_dependencies">%s a les Mods de dépendance suivants</string>
-    <string name="download_install_dependencies_tip">Veuillez télécharger les Mods de dépendance correspondants selon vos besoins. Le manque de Mods de dépendance nécessaires empêchera le fonctionnement du jeu!</string>
+    <string name="download_install_dependencies">%s a les dépendances suivantes ou des mods incompatibles</string>
+    <string name="download_install_dependencies_tip">Veuillez télécharger les mods de dépendance requis selon vos besoins. L\'absence de dépendances essentielles ou l\'installation de mods incompatibles peut empêcher le jeu de fonctionner !</string>
     <string name="download_install_dependencies_required">Requis</string>
     <string name="download_install_dependencies_optional">Optionnel</string>
     <string name="download_install_dependencies_incompatible">Incompatible</string>

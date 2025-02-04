@@ -554,8 +554,8 @@
     <string name="download_search_platform_not_supported">Nền tảng hiện tại không hỗ trợ tải xuống loại tài nguyên này hoặc bộ lọc loại này!</string>
     <string name="download_install_custom_name">Tên tệp tùy chỉnh</string>
     <string name="download_install_download_file">Đang tải tệp tài nguyên (%.2fMB / %.2fMB)</string>
-    <string name="download_install_dependencies">%s có các Mods phụ thuộc sau đây</string>
-    <string name="download_install_dependencies_tip">Vui lòng tải xuống các Mods phụ thuộc tương ứng theo nhu cầu. Thiếu các Mods phụ thuộc cần thiết sẽ khiến trò chơi không thể chạy!</string>
+    <string name="download_install_dependencies">%s có các mod phụ thuộc hoặc mod không tương thích sau</string>
+    <string name="download_install_dependencies_tip">Vui lòng tải xuống các mod phụ thuộc cần thiết theo nhu cầu. Thiếu các mod phụ thuộc quan trọng hoặc cài đặt mod không tương thích có thể khiến trò chơi không thể chạy!</string>
     <string name="download_install_dependencies_required">Cần thiết</string>
     <string name="download_install_dependencies_optional">Tùy chọn</string>
     <string name="download_install_dependencies_incompatible">Không tương thích</string>

@@ -554,8 +554,8 @@
     <string name="download_search_platform_not_supported">المنصة الحالية لا تدعم تنزيل هذا النوع من الموارد، أو لا تدعم تصفية الفئات هذه!</string>
     <string name="download_install_custom_name">اسم ملف مخصص</string>
     <string name="download_install_download_file">جارٍ تحميل ملف المورد (%.2fMB / %.2fMB)</string>
-    <string name="download_install_dependencies">%s لديه مودات اعتماد التالية</string>
-    <string name="download_install_dependencies_tip">يرجى تحميل مودات الاعتماد المقابلة حسب الحاجة. إن عدم وجود مودات الاعتماد اللازمة سيؤدي إلى عدم تشغيل اللعبة!</string>
+    <string name="download_install_dependencies">%s لديه التبعيات التالية أو تعديلات غير متوافقة</string>
+    <string name="download_install_dependencies_tip">يرجى تنزيل تعديلات التبعيات المطلوبة حسب الحاجة. قد يؤدي فقدان التبعيات الضرورية أو تثبيت تعديلات غير متوافقة إلى عدم تشغيل اللعبة!</string>
     <string name="download_install_dependencies_required">مطلوب</string>
     <string name="download_install_dependencies_optional">اختياري</string>
     <string name="download_install_dependencies_incompatible">غير متوافق</string>
