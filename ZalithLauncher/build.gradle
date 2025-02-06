@@ -15,6 +15,17 @@ def getCFApiKey = {
     return "DUMMY"
 }
 
+def getQQGroupKey(int number) {
+    String key = System.getenv("QQ_GROUP_KEY_" + number)
+    if (key != null) return key
+    File qqGroupKeyFile = new File("./qq_group_key_" + number + ".txt")
+    if (qqGroupKeyFile.canRead() && qqGroupKeyFile.isFile()) {
+        return qqGroupKeyFile.text
+    }
+    logger.warn('BUILD: The QQ key is not provided, the QQ group chat join verification code generator will be disabled !')
+    return "NULL"
+}
+
 configurations {
     instrumentedClasspath {
         canBeConsumed = false
@@ -31,6 +42,12 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs += ["$buildDir/generated/source/zalith/InfoDistributor"]
+        }
     }
 
     signingConfigs {
@@ -56,7 +73,6 @@ android {
         versionCode 139890
         versionName "1.3.9.9_pre-release"
         multiDexEnabled true //important
-        resValue 'string', 'curseforge_api_key', getCFApiKey()
         buildConfigField "boolean", "IS_PRE_RELEASE", "true"
 
         stringfog {
@@ -185,6 +201,31 @@ android {
         enabled = true
     }
 }
+
+tasks.register('generateInfoDistributor') {
+    def outputDir = file("$buildDir/generated/source/zalith/InfoDistributor")
+    outputs.dir outputDir
+    doLast {
+        def packagePath = "com/movtery/zalithlauncher"
+        def javaFile = new File(outputDir, "${packagePath}/InfoDistributor.java")
+
+        javaFile.parentFile.mkdirs()
+        javaFile.text = """\
+/**
+ * Automatically generated file. DO NOT MODIFY
+ */
+package com.movtery.zalithlauncher;
+
+public final class InfoDistributor {
+    public static final String CURSEFORGE_API_KEY = "${getCFApiKey()}";
+    public static final String QQ_KEY_1 = "${getQQGroupKey(1)}";
+    public static final String QQ_KEY_2 = "${getQQGroupKey(2)}";
+}
+"""
+    }
+}
+
+preBuild.dependsOn generateInfoDistributor
 
 dependencies {
     implementation 'javax.annotation:javax.annotation-api:1.3.2'

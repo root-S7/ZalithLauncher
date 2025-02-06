@@ -1,5 +1,6 @@
 package com.movtery.zalithlauncher.feature.download.utils
 
+import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.download.Filters
@@ -14,7 +15,7 @@ class PlatformUtils {
     companion object {
         fun createCurseForgeApi() = ApiHandler(
             "https://api.curseforge.com/v1",
-            ContextExecutor.getString(R.string.curseforge_api_key)
+            InfoDistributor.CURSEFORGE_API_KEY
         )
 
         /**

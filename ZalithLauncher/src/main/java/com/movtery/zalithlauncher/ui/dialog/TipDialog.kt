@@ -26,6 +26,7 @@ class TipDialog private constructor(
     private val showCancel: Boolean,
     private val showConfirm: Boolean,
     private val centerMessage: Boolean,
+    private var selectable: Boolean,
     private val confirmButtonCountdown: Long,
     private val warning: Boolean,
     private val textBeautifier: TextBeautifier?,
@@ -49,6 +50,8 @@ class TipDialog private constructor(
 
             titleView.addText(title)
             messageView.addText(message)
+
+            messageView.setTextIsSelectable(selectable)
 
             textBeautifier?.beautify(titleView, messageView)
 
@@ -153,6 +156,7 @@ class TipDialog private constructor(
         private var showCancel = true
         private var showConfirm = true
         private var centerMessage = true
+        private var selectable = false
         private var warning = false
 
         fun buildDialog(): TipDialog {
@@ -162,7 +166,7 @@ class TipDialog private constructor(
                 this.context,
                 title, message, confirm, cancel, checkBox,
                 showCheckBox,
-                showCancel, showConfirm, centerMessage, confirmButtonCountdown, warning,
+                showCancel, showConfirm, centerMessage, selectable, confirmButtonCountdown, warning,
                 textBeautifier, cancelClickListener, confirmClickListener, dialogDismissListener
             ).apply {
                 setCancelable(cancelable)
@@ -287,6 +291,12 @@ class TipDialog private constructor(
         @CheckResult
         fun setCenterMessage(center: Boolean): Builder {
             this.centerMessage = center
+            return this
+        }
+
+        @CheckResult
+        fun setSelectable(selectable: Boolean): Builder {
+            this.selectable = selectable
             return this
         }
 

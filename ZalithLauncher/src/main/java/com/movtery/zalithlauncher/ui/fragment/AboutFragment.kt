@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.ui.fragment
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.check
 import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.getSponsorData
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.task.TaskExecutors
+import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
@@ -24,8 +26,10 @@ import com.movtery.zalithlauncher.ui.subassembly.about.AboutRecyclerAdapter
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorRecyclerAdapter
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.group.QQGroup
 import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
+import net.kdt.pojavlaunch.Tools
 
 class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     companion object {
@@ -82,6 +86,46 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                 mSponsorAdapter?.let {
                     it.updateItems(getSponsorData())
                     sponsorAll.visibility = View.GONE
+                }
+            }
+
+            if (QQGroup.hasKey()) {
+                qqGroupButton.visibility = View.VISIBLE
+                qqGroupButton.setOnClickListener {
+                    TipDialog.Builder(context)
+                        .setTitle("QQ")
+                        .setMessage(context.getString(R.string.about_qq_group, InfoCenter.APP_NAME, InfoCenter.QQ_GROUP))
+                        .setSelectable(true)
+                        .setConfirm(R.string.about_qq_group_generate_button)
+                        .setConfirmClickListener {
+                            EditTextDialog.Builder(context)
+                                .setTitle(R.string.about_qq_group_generate_button)
+                                .setMessage(R.string.about_qq_group_generate_edit)
+                                .setAsRequired()
+                                .setInputType(InputType.TYPE_CLASS_NUMBER)
+                                .setConfirmText(R.string.generic_confirm)
+                                .setConfirmListener { editBox, _ ->
+                                    val string = editBox.text.toString()
+
+                                    runCatching {
+                                        val code = QQGroup.generateQQJoinGroupCode(string.toLong())
+
+                                        TipDialog.Builder(context)
+                                            .setTitle(R.string.about_qq_group_generate_button)
+                                            .setMessage(context.getString(R.string.about_qq_group_generate_success, code))
+                                            .setSelectable(true)
+                                            .setConfirm(android.R.string.copy)
+                                            .setConfirmClickListener {
+                                                StringUtils.copyText("text", code, context)
+                                            }.showDialog()
+                                    }.onFailure { e ->
+                                        Tools.showError(context, R.string.about_qq_group_generate_fail, e)
+                                        return@setConfirmListener false
+                                    }
+
+                                    true
+                                }.showDialog()
+                        }.showDialog()
                 }
             }
         }
