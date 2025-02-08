@@ -250,7 +250,7 @@ class LaunchGame {
 
             FFmpegPlugin.discover(activity)
 
-            JREUtils.launchWithUtils(activity, runtime, gameDirPath, launchArgs, customArgs, argsCallBack)
+            JREUtils.launchWithUtils(activity, runtime, minecraftVersion, launchArgs, customArgs, argsCallBack)
         }
 
         private fun checkMemory(activity: AppCompatActivity) {

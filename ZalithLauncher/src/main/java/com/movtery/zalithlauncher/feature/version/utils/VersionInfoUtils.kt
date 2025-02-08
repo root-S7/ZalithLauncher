@@ -10,11 +10,7 @@ import java.io.File
 
 class VersionInfoUtils {
     companion object {
-        private data class LoaderDetectionResult(val name: String, val version: String) {
-            companion object {
-                val UNKNOWN = LoaderDetectionResult("Unknown", "")
-            }
-        }
+        val UNKNOWN = VersionInfo.LoaderInfo("Unknown", "")
 
         // "1.20.4-OptiFine_HD_U_I7_pre3"       -> Pair("OptiFine", "HD_U_I7_pre3")
         // "1.21.3-OptiFine_HD_U_J2_pre6"       -> Pair("OptiFine", "HD_U_J2_pre6")
@@ -34,35 +30,35 @@ class VersionInfoUtils {
         // "quilt-loader-0.27.1-beta.1-1.21.3"  -> Pair("Quilt", "0.27.1-beta.1")
         private val QUILT_REGEX = """quilt-loader-([\w.-]+)-\d+\.\d+""".toRegex()
 
-        private val LOADER_DETECTORS = listOf<(String) -> LoaderDetectionResult?>(
+        private val LOADER_DETECTORS = listOf<(String) -> VersionInfo.LoaderInfo?>(
             { id ->
                 OPTIFINE_ID_REGEX.find(id)?.let {
-                    LoaderDetectionResult("OptiFine", it.groupValues[1])
+                    VersionInfo.LoaderInfo("OptiFine", it.groupValues[1])
                 }
             },
             { id ->
                 FORGE_REGEX.find(id)?.let {
-                    LoaderDetectionResult("Forge", it.groupValues[1])
+                    VersionInfo.LoaderInfo("Forge", it.groupValues[1])
                 }
             },
             { id ->
                 FORGE_OLD_REGEX.find(id)?.let {
-                    LoaderDetectionResult("Forge", it.groupValues[1])
+                    VersionInfo.LoaderInfo("Forge", it.groupValues[1])
                 }
             },
             { id ->
                 NEOFORGE_REGEX.find(id)?.let {
-                    LoaderDetectionResult("NeoForge", it.groupValues[1])
+                    VersionInfo.LoaderInfo("NeoForge", it.groupValues[1])
                 }
             },
             { id ->
                 FABRIC_REGEX.find(id)?.let {
-                    LoaderDetectionResult("Fabric", it.groupValues[1])
+                    VersionInfo.LoaderInfo("Fabric", it.groupValues[1])
                 }
             },
             { id ->
                 QUILT_REGEX.find(id)?.let {
-                    LoaderDetectionResult("Quilt", it.groupValues[1])
+                    VersionInfo.LoaderInfo("Quilt", it.groupValues[1])
                 }
             }
         )
@@ -80,9 +76,10 @@ class VersionInfoUtils {
 
                 val (versionId, loaderInfo) = processVersionInfo(jsonObject)
                 VersionInfo(versionId, loaderInfo?.let { arrayOf(it) })
-            }.onFailure {
+            }.getOrElse {
                 Logging.e("VersionInfoUtils", "Error parsing version json", it)
-            }.getOrNull()
+                null
+            }
         }
 
         private fun processVersionInfo(jsonObject: JsonObject): Pair<String, VersionInfo.LoaderInfo?> {
@@ -112,21 +109,20 @@ class VersionInfoUtils {
             //需要检查libraries列表，查看是否有OptiFine，以确认是否为OptiFine版本
             val libResult = idResult ?: checkOptiFineInLibraries(libraries)
 
-            val finalResult = libResult ?: LoaderDetectionResult.UNKNOWN
-            return VersionInfo.LoaderInfo(finalResult.name, finalResult.version)
+            return libResult ?: UNKNOWN
         }
 
         /**
          * 通过库中是否有optifine来判断当前版本是否为一个OptiFine版本
          */
-        private fun checkOptiFineInLibraries(libraries: JsonArray?): LoaderDetectionResult? {
+        private fun checkOptiFineInLibraries(libraries: JsonArray?): VersionInfo.LoaderInfo? {
             return libraries?.firstOrNull { library ->
                 runCatching {
                     library.asJsonObject.get("name").asString.startsWith("optifine:OptiFine:")
                 }.getOrNull() ?: false
             }?.let { library ->
                 val version = library.asJsonObject.get("name").asString.split(':')[2]
-                LoaderDetectionResult("OptiFine", version)
+                VersionInfo.LoaderInfo("OptiFine", version)
             }
         }
     }

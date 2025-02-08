@@ -27,13 +27,22 @@ class VersionInfo(
         return infoList.joinToString(", ")
     }
 
-
-    class LoaderInfo(
+    data class LoaderInfo(
         val name: String,
         val version: String
     ) {
-        override fun toString(): String {
-            return "LoaderInfo{name='$name', version='$version'}"
+        /**
+         * 通过加载器名称，获得对应的环境变量键名
+         */
+        fun getLoaderEnvKey(): String? {
+            return when(name) {
+                "OptiFine" -> "INST_OPTIFINE"
+                "Forge" -> "INST_FORGE"
+                "NeoForge" -> "INST_NEOFORGE"
+                "Fabric" -> "INST_FABRIC"
+                "Quilt" -> "INST_QUILT"
+                else -> null
+            }
         }
     }
 
@@ -47,6 +56,6 @@ class VersionInfo(
                 val json = Tools.GLOBAL_GSON.toJson(this)
                 it.write(json)
             }
-        }.getOrElse { e -> Logging.e("Save Version Info", Tools.printToString(e)) }
+        }.onFailure { e -> Logging.e("Save Version Info", Tools.printToString(e)) }
     }
 }

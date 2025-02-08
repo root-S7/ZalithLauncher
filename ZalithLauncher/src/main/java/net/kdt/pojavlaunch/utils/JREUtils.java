@@ -21,6 +21,8 @@ import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.feature.version.Version;
+import com.movtery.zalithlauncher.feature.version.VersionInfo;
 import com.movtery.zalithlauncher.launch.UserArgsCallBack;
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
@@ -299,17 +301,27 @@ public final class JREUtils {
         }
     }
 
-    private static void setEnv(String jreHome, final Runtime runtime, boolean renderer) throws Throwable {
+    private static void setEnv(String jreHome, final Runtime runtime, Version gameVersion) throws Throwable {
         Map<String, String> envMap = new ArrayMap<>();
 
         setJavaEnv(envMap, jreHome);
         setCustomEnv(envMap);
 
-        if (renderer) {
+        if (gameVersion != null) {
             checkAndUsedJSPH(envMap, runtime);
 
-            if (Renderers.INSTANCE.isCurrentRendererValid())
+            VersionInfo versionInfo = gameVersion.getVersionInfo();
+            if (versionInfo != null && versionInfo.getLoaderInfo() != null) {
+                for (VersionInfo.LoaderInfo loaderInfo : versionInfo.getLoaderInfo()) {
+                    if (loaderInfo.getLoaderEnvKey() != null) {
+                        envMap.put(loaderInfo.getLoaderEnvKey(), "1");
+                    }
+                }
+            }
+
+            if (Renderers.INSTANCE.isCurrentRendererValid()) {
                 setRendererEnv(envMap);
+            }
         }
 
         for (Map.Entry<String, String> env : envMap.entrySet()) {
@@ -342,7 +354,7 @@ public final class JREUtils {
     private static void launchJavaVM(
             final AppCompatActivity activity,
             String runtimeHome,
-            File gameDirectory,
+            Version gameVersion,
             final List<String> JVMArgs,
             final String userArgsString,
             final UserArgsCallBack argsCallBack
@@ -392,7 +404,7 @@ public final class JREUtils {
 
         setupExitMethod(activity.getApplication());
         initializeGameExitHook();
-        chdir(gameDirectory == null ? ProfilePathHome.getGameHome() : gameDirectory.getAbsolutePath());
+        chdir(gameVersion == null ? ProfilePathHome.getGameHome() : gameVersion.getGameDir().getAbsolutePath());
         userArgs.add(0,"java"); //argv[0] is the program name according to C standard.
 
         final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
@@ -406,7 +418,7 @@ public final class JREUtils {
     public static void launchWithUtils(
             final AppCompatActivity activity,
             final Runtime runtime,
-            File gameDirectory,
+            Version gameVersion,
             final List<String> JVMArgs,
             final String userArgsString,
             final UserArgsCallBack argsCallBack
@@ -417,13 +429,13 @@ public final class JREUtils {
 
         initLdLibraryPath(runtimeHome);
 
-        setEnv(runtimeHome, runtime, gameDirectory != null);
+        setEnv(runtimeHome, runtime, gameVersion);
 
         initJavaRuntime(runtimeHome);
 
-        initGraphicAndSoundEngine(gameDirectory != null);
+        initGraphicAndSoundEngine(gameVersion != null);
 
-        launchJavaVM(activity, runtimeHome, gameDirectory, JVMArgs, userArgsString, argsCallBack);
+        launchJavaVM(activity, runtimeHome, gameVersion, JVMArgs, userArgsString, argsCallBack);
     }
 
     /**
