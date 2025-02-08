@@ -41,6 +41,7 @@ class VersionInfo(
                 "NeoForge" -> "INST_NEOFORGE"
                 "Fabric" -> "INST_FABRIC"
                 "Quilt" -> "INST_QUILT"
+                "LiteLoader" -> "INST_LITELOADER"
                 else -> null
             }
         }
