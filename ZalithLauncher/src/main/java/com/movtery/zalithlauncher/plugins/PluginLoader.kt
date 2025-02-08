@@ -61,9 +61,7 @@ object PluginLoader {
 
                         override fun getRendererName(): String = rendererPlugin.des
 
-                        override fun getRendererEnv(): Lazy<Map<String, String>> = lazy {
-                            RendererPluginManager.progressEnvMap(rendererPlugin)
-                        }
+                        override fun getRendererEnv(): Lazy<Map<String, String>> = lazy { rendererPlugin.env }
 
                         override fun getDlopenLibrary(): Lazy<List<String>> = lazy { rendererPlugin.dlopen }
 

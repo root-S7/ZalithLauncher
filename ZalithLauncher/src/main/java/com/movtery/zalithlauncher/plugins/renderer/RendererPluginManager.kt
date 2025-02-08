@@ -105,6 +105,7 @@ object RendererPluginManager {
                                     dlopenList.add(lib)
                                 }
                             }
+                            "LIB_MESA_NAME" -> envList[key] = "$nativeLibraryDir/$value"
                             else -> envList[key] = value
                         }
                     }
@@ -193,12 +194,6 @@ object RendererPluginManager {
             )
         }
         return true
-    }
-
-    fun progressEnvMap(rendererPlugin: RendererPlugin): Map<String, String> {
-        return rendererPlugin.env.mapValues { (key, value) ->
-            if (key == "LIB_MESA_NAME") "${rendererPlugin.path}/$value" else value
-        }
     }
 
     private fun String.progressEglName(libPath: String): String =

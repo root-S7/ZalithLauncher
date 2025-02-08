@@ -550,7 +550,14 @@ public final class JREUtils {
      */
     public static String loadGraphicsLibrary() {
         if (!Renderers.INSTANCE.isCurrentRendererValid()) return null;
-        else return Renderers.INSTANCE.getCurrentRenderer().getRendererLibrary();
+        else {
+            RendererPlugin rendererPlugin = RendererPluginManager.getSelectedRendererPlugin();
+            if (rendererPlugin != null) {
+                return rendererPlugin.getPath() + "/" + rendererPlugin.getGlName();
+            } else {
+                return Renderers.INSTANCE.getCurrentRenderer().getRendererLibrary();
+            }
+        }
     }
 
     /**
