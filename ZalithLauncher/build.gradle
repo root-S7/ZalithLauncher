@@ -26,6 +26,8 @@ def getQQGroupKey(int number) {
     return "NULL"
 }
 
+def generatedZalithDir = file("$buildDir/generated/source/zalith/java")
+
 configurations {
     instrumentedClasspath {
         canBeConsumed = false
@@ -42,12 +44,6 @@ android {
 
     lintOptions {
         abortOnError false
-    }
-
-    sourceSets {
-        main {
-            java.srcDirs += ["$buildDir/generated/source/zalith/InfoDistributor"]
-        }
     }
 
     signingConfigs {
@@ -114,6 +110,14 @@ android {
     }
 
     applicationVariants.configureEach { variant ->
+        variant.addJavaSourceFoldersToModel(generatedZalithDir)
+
+        variant.sourceSets.each { sourceSet ->
+            if (sourceSet.name == "main") {
+                sourceSet.java.srcDirs += generatedZalithDir
+            }
+        }
+
         variant.outputs.configureEach { output ->
             def abi = output.getFilter(ABI) ?: "all"
 
@@ -202,26 +206,30 @@ android {
     }
 }
 
-tasks.register('generateInfoDistributor') {
-    def outputDir = file("$buildDir/generated/source/zalith/InfoDistributor")
-    outputs.dir outputDir
+
+tasks.register("generateInfoDistributor") {
+    def packageName = "com.movtery.zalithlauncher"
+    def className = "InfoDistributor"
+    def outputDir = new File(generatedZalithDir, packageName.replace(".", "/"))
+
     doLast {
-        def packagePath = "com/movtery/zalithlauncher"
-        def javaFile = new File(outputDir, "${packagePath}/InfoDistributor.java")
+        outputDir.mkdirs()
+        def javaFile = new File(outputDir, "${className}.java")
 
-        javaFile.parentFile.mkdirs()
         javaFile.text = """\
-/**
- * Automatically generated file. DO NOT MODIFY
- */
-package com.movtery.zalithlauncher;
+            /**
+             * Automatically generated file. DO NOT MODIFY
+             */
+            package $packageName;
 
-public final class InfoDistributor {
-    public static final String CURSEFORGE_API_KEY = "${getCFApiKey()}";
-    public static final String QQ_KEY_1 = "${getQQGroupKey(1)}";
-    public static final String QQ_KEY_2 = "${getQQGroupKey(2)}";
-}
-"""
+            public class $className {
+                public static final String CURSEFORGE_API_KEY = "${getCFApiKey()}";
+                public static final String QQ_KEY_1 = "${getQQGroupKey(1)}";
+                public static final String QQ_KEY_2 = "${getQQGroupKey(2)}";
+            }
+        """.stripIndent()
+
+        println "Generated Java file: ${javaFile.absolutePath}"
     }
 }
 
