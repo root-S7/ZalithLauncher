@@ -23,7 +23,7 @@ import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutRecyclerAdapter
-import com.movtery.zalithlauncher.ui.subassembly.about.SponsorItemBean
+import com.movtery.zalithlauncher.ui.subassembly.about.SponsorMeta
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorRecyclerAdapter
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.group.QQGroup
@@ -84,7 +84,7 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             }
             sponsorAll.setOnClickListener { _ ->
                 mSponsorAdapter?.let {
-                    it.updateItems(getSponsorData())
+                    it.updateCount(getSponsorData()?.sponsors?.size ?: 0)
                     sponsorAll.visibility = View.GONE
                 }
             }
@@ -219,13 +219,13 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     private fun loadSponsorData() {
         check(object : CheckSponsor.CheckListener {
             override fun onFailure() { setSponsorVisible(false) }
-            override fun onSuccessful(data: List<SponsorItemBean>?) { setSponsorVisible(true) }
+            override fun onSuccessful(data: SponsorMeta?) { setSponsorVisible(true) }
         })
     }
 
     private fun setSponsorVisible(visible: Boolean) {
         TaskExecutors.runInUIThread {
-            mSponsorAdapter = SponsorRecyclerAdapter(getSponsorData()?.take(8))
+            mSponsorAdapter = SponsorRecyclerAdapter(getSponsorData(), 8)
             try {
                 binding.sponsorLayout.visibility = if (visible) View.VISIBLE else View.GONE
 

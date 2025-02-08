@@ -9,16 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.databinding.ItemSponsorViewBinding;
 
-import java.util.List;
-
 public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecyclerAdapter.Holder> {
-    private final List<SponsorItemBean> mData;
+    private final SponsorMeta mMeta;
+    private int mItemCount;
 
-    public SponsorRecyclerAdapter(List<SponsorItemBean> items) {
-        this.mData = items;
+    public SponsorRecyclerAdapter(SponsorMeta meta, int itemCount) {
+        this.mMeta = meta;
+        this.mItemCount = itemCount;
     }
 
     @NonNull
@@ -29,21 +30,17 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.setData(mData.get(position));
+        holder.bind(mMeta.sponsors[position]);
     }
 
     @Override
     public int getItemCount() {
-        if (mData != null) {
-            return mData.size();
-        }
-        return 0;
+        return mItemCount;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateItems(List<SponsorItemBean> items) {
-        mData.clear();
-        mData.addAll(items);
+    public void updateCount(int count) {
+        mItemCount = count;
         notifyDataSetChanged();
     }
 
@@ -56,12 +53,16 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        public void setData(SponsorItemBean itemBean) {
-            float amount = itemBean.getAmount();
+        public void bind(SponsorMeta.Sponsor sponsor) {
+            float amount = sponsor.getAmount();
 
-            binding.nameView.setText(itemBean.getName());
-            binding.timeView.setText(itemBean.getTime());
+            binding.nameView.setText(sponsor.getName());
+            binding.timeView.setText(sponsor.getTime());
             binding.amountView.setText(String.format("￥%s", amount));
+
+            Glide.with(binding.avatarView)
+                    .load(sponsor.getAvatar())
+                    .into(binding.avatarView);
 
             Drawable background = itemView.getBackground();
             if (amount >= 12.0f) {

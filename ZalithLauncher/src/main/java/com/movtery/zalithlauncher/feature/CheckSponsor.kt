@@ -1,7 +1,6 @@
 package com.movtery.zalithlauncher.feature
 
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.ui.subassembly.about.SponsorItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.SponsorMeta
 import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
@@ -16,12 +15,12 @@ import java.util.Objects
 
 class CheckSponsor {
     companion object {
-        private var sponsorData: ArrayList<SponsorItemBean>? = null
+        private var sponsorMeta: SponsorMeta? = null
         private var isChecking = false
 
         @JvmStatic
-        fun getSponsorData(): List<SponsorItemBean>? {
-            return sponsorData
+        fun getSponsorData(): SponsorMeta? {
+            return sponsorMeta
         }
 
         @JvmStatic
@@ -32,8 +31,8 @@ class CheckSponsor {
             }
             isChecking = true
 
-            sponsorData?.let {
-                listener.onSuccessful(sponsorData)
+            sponsorMeta?.let {
+                listener.onSuccessful(sponsorMeta)
                 isChecking = false
                 return
             }
@@ -58,23 +57,11 @@ class CheckSponsor {
                             //base64解码，因为这里读取的是一个经过Base64加密后的文本
                             val rawJson = StringUtils.decodeBase64(rawBase64)
 
-                            val sponsorMeta =
-                                Tools.GLOBAL_GSON.fromJson(rawJson, SponsorMeta::class.java)
-                            if (sponsorMeta.sponsors.isEmpty()) {
+                            sponsorMeta = Tools.GLOBAL_GSON.fromJson(rawJson, SponsorMeta::class.java).takeIf { it.sponsors.isNotEmpty() } ?: run {
                                 listener.onFailure()
                                 return
                             }
-                            sponsorData = ArrayList()
-                            for (sponsor in sponsorMeta.sponsors) {
-                                sponsorData?.add(
-                                    SponsorItemBean(
-                                        sponsor.name,
-                                        sponsor.time,
-                                        sponsor.amount
-                                    )
-                                )
-                            }
-                            listener.onSuccessful(sponsorData)
+                            listener.onSuccessful(sponsorMeta)
                         }.getOrElse { e ->
                             Logging.e("Load Sponsor Data", "Failed to resolve sponsor list.", e)
                             listener.onFailure()
@@ -89,6 +76,6 @@ class CheckSponsor {
     interface CheckListener {
         fun onFailure()
 
-        fun onSuccessful(data: List<SponsorItemBean>?)
+        fun onSuccessful(data: SponsorMeta?)
     }
 }
