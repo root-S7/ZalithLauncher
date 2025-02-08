@@ -1311,17 +1311,26 @@ public class GLFW
 */
 
     /** Array version of: {@link #glfwGetMonitorContentScale GetMonitorContentScale} */
-/*
+
     public static void glfwGetMonitorContentScale(@NativeType("GLFWmonitor *") long monitor, @Nullable @NativeType("float *") float[] xscale, @Nullable @NativeType("float *") float[] yscale) {
-        long __functionAddress = Functions.GetMonitorContentScale;
         if (CHECKS) {
             // check(monitor);
             checkSafe(xscale, 1);
             checkSafe(yscale, 1);
         }
-        invokePPPV(monitor, xscale, yscale, __functionAddress);
+        xscale[0] = 1;
+        yscale[0] = 1;
     }
-*/
+
+    public static void glfwGetMonitorContentScale(@NativeType("GLFWmonitor *") long monitor, @NativeType("float *") @Nullable FloatBuffer xscale, @NativeType("float *") @Nullable FloatBuffer yscale) {
+        if (CHECKS) {
+            // check(monitor);
+            checkSafe(xscale, 1);
+            checkSafe(yscale, 1);
+        }
+        xscale.put(0, 1);
+        yscale.put(0, 1);
+    }
 
     /** Array version of: {@link #glfwGetWindowPos GetWindowPos} */
     public static void glfwGetWindowPos(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("int *") int[] xpos, @Nullable @NativeType("int *") int[] ypos) {
@@ -1381,7 +1390,7 @@ public class GLFW
         }
         invokePPPV(window, xscale, yscale, __functionAddress);
     }
-*/
+
 
     /** Array version of: {@link #glfwGetCursorPos GetCursorPos} */
     public static void glfwGetCursorPos(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("double *") double[] xpos, @Nullable @NativeType("double *") double[] ypos) {
