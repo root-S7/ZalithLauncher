@@ -250,7 +250,8 @@ public class MinecraftDownloader {
                                   long size, boolean skipIfFailed) throws IOException {
         FileUtils.ensureParentDirectory(targetFile);
         mTotalFileCount++;
-        if(size < 0) {
+        // Only attempt to check size if we still use the size counter and didn't switch to file counter.
+        if(size <= 0 && !mUseFileCounter) {
             size = DownloadMirror.getContentLengthMirrored(downloadClass, url);
         }
         if(size < 0) {
