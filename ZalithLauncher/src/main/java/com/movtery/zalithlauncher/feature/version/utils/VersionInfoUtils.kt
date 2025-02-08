@@ -10,6 +10,41 @@ import java.io.File
 
 class VersionInfoUtils {
     companion object {
+        private val VERSION_PATTERN = """(\d+\.\d+\.\d+|\d{2}w\d{2}[a-z])"""
+
+        // "1.20.4-OptiFine_HD_U_I7_pre3"       -> 1.20.4
+        // "1.21.3-OptiFine_HD_U_J2_pre6"       -> 1.21.3
+        private val OPTIFINE_ID_REGEX = """$VERSION_PATTERN-OptiFine""".toRegex()
+        // "1.20.2-forge-48.1.0"                -> 1.20.2
+        // "1.21.3-forge-53.0.23"               -> 1.21.3
+        private val FORGE_REGEX = """$VERSION_PATTERN-forge""".toRegex()
+        // "1.7.10-Forge10.13.4.1614-1.7.10"    -> 1.7.10
+        private val FORGE_OLD_REGEX = """^$VERSION_PATTERN-Forge""".toRegex()
+        // "fabric-loader-0.15.7-1.20.4"        -> 1.20.4
+        // "fabric-loader-0.16.9-1.21.3"        -> 1.21.3
+        private val FABRIC_REGEX = """fabric-loader-[\w.-]+-$VERSION_PATTERN""".toRegex()
+        // "quilt-loader-0.23.1-1.20.4"         -> 1.20.4
+        // "quilt-loader-0.27.1-beta.1-1.21.3"  -> 1.21.3
+        private val QUILT_REGEX = """quilt-loader-[\w.-]+-$VERSION_PATTERN""".toRegex()
+
+        private val LOADER_DETECTORS = listOf<(String) -> String?>(
+            { id ->
+                OPTIFINE_ID_REGEX.find(id)?.groupValues?.get(1)
+            },
+            { id ->
+                FORGE_REGEX.find(id)?.groupValues?.get(1)
+            },
+            { id ->
+                FORGE_OLD_REGEX.find(id)?.groupValues?.get(1)
+            },
+            { id ->
+                FABRIC_REGEX.find(id)?.groupValues?.get(1)
+            },
+            { id ->
+                QUILT_REGEX.find(id)?.groupValues?.get(1)
+            }
+        )
+
         /**
          * 在版本的json文件中，找到版本信息，识别其是否有id这个键
          * @return 版本号、ModLoader信息
@@ -47,17 +82,10 @@ class VersionInfoUtils {
                 }
             }
 
-            //从版本ID中解析
-            val versionId = json["id"].asString
-            return when {
-                //1.19.2-forge-43.1.0 → 1.19.2
-                versionId.contains('-') -> versionId.substringBefore('-')
-
-                //快照版本：23w13a
-                versionId.any { it.isLetter() } -> versionId
-
-                else -> versionId
-            }
+            val id = json["id"].asString
+            return if (json.has("inheritsFrom")) json["inheritsFrom"].asString
+            //尝试从ID中解析MC版本
+            else LOADER_DETECTORS.firstNotNullOfOrNull { it(id) } ?: id
         }
 
         /**
