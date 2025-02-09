@@ -69,11 +69,14 @@ class VersionIconUtils(
     fun getIconFile() = iconFile
 
     private fun getLoaderIcon(name: String): Int? {
-        return if (name.equals("fabric", true)) R.drawable.ic_fabric
-        else if (name.equals("forge", true)) R.drawable.ic_anvil
-        else if (name.equals("quilt", true)) R.drawable.ic_quilt
-        else if (name.equals("neoforge", true)) R.drawable.ic_neoforge
-        else if (name.equals("optifine", true)) R.drawable.ic_optifine
-        else null
+        return when(name.lowercase()) {
+            "fabric" -> R.drawable.ic_fabric
+            "forge" -> R.drawable.ic_anvil
+            "quilt" -> R.drawable.ic_quilt
+            "neoforge" -> R.drawable.ic_neoforge
+            "optifine" -> R.drawable.ic_optifine
+            "liteloader" -> R.drawable.ic_chicken_old
+            else -> null
+        }
     }
 }
