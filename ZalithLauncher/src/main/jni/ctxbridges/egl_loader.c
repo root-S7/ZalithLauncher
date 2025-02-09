@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <dlfcn.h>
+#include <string.h>
 #include "br_loader.h"
 #include "egl_loader.h"
 
@@ -29,12 +30,23 @@ EGLBoolean (*eglQuerySurface_p)(EGLDisplay display, EGLSurface surface, EGLint a
 
 void dlsym_EGL() {
     void* dl_handle = NULL;
-    if (getenv("POJAVEXEC_EGL"))
-        dl_handle = dlopen(getenv("POJAVEXEC_EGL"), RTLD_LOCAL|RTLD_LAZY);
+    char* eglName = NULL;
+    char* gles = getenv("LIBGL_GLES");
+
+    if (gles && !strncmp(gles, "libGLESv2_angle.so", 18))
+    {
+        eglName = "libEGL_angle.so";
+    } else {
+        eglName = getenv("POJAVEXEC_EGL");
+    }
+
+    if (eglName)
+        dl_handle = dlopen(eglName, RTLD_LOCAL | RTLD_LAZY);
+
     if (dl_handle == NULL)
-        dl_handle = dlopen("libEGL.so", RTLD_LOCAL|RTLD_LAZY);
-    if (dl_handle == NULL)
-        abort();
+        dl_handle = dlopen("libEGL.so", RTLD_LOCAL | RTLD_LAZY);
+
+    if (dl_handle == NULL) abort();
 
     eglBindAPI_p = GLGetProcAddress(dl_handle, "eglBindAPI");
     eglChooseConfig_p = GLGetProcAddress(dl_handle, "eglChooseConfig");
