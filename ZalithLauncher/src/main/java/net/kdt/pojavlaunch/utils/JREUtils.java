@@ -247,16 +247,18 @@ public final class JREUtils {
         String eglName = currentRenderer.getRendererEGL();
         if (eglName != null) envMap.put("POJAVEXEC_EGL", eglName);
 
+        envMap.put("POJAV_RENDERER", rendererId);
+
+        if (RendererPluginManager.getSelectedRendererPlugin() != null) return;
+
         if (!rendererId.startsWith("opengles")) {
             envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
             envMap.put("MESA_GLSL_CACHE_DIR", PathManager.DIR_CACHE.getAbsolutePath());
             envMap.put("force_glsl_extensions_warn", "true");
             envMap.put("allow_higher_compat_version", "true");
             envMap.put("allow_glsl_extension_directive_midshader", "true");
-            envMap.put("MESA_LIBRARY", loadGraphicsLibrary());
+            envMap.put("LIB_MESA_NAME", loadGraphicsLibrary());
         }
-
-        envMap.put("POJAV_RENDERER", rendererId);
 
         if (!envMap.containsKey("LIBGL_ES")) {
             int glesMajor = getDetectedVersion();

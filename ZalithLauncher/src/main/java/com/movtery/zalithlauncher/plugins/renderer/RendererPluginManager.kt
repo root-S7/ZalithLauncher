@@ -105,7 +105,7 @@ object RendererPluginManager {
                                     dlopenList.add(lib)
                                 }
                             }
-                            "LIB_MESA_NAME" -> envList[key] = "$nativeLibraryDir/$value"
+                            "LIB_MESA_NAME", "MESA_LIBRARY" -> envList[key] = "$nativeLibraryDir/$value"
                             else -> envList[key] = value
                         }
                     }
