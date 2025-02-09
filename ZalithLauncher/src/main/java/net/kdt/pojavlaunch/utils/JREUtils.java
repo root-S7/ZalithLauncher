@@ -31,6 +31,7 @@ import com.movtery.zalithlauncher.renderer.RendererInterface;
 import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
+import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.path.LibPath;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.oracle.dalvik.VMLauncher;
@@ -324,6 +325,8 @@ public final class JREUtils {
             if (Renderers.INSTANCE.isCurrentRendererValid()) {
                 setRendererEnv(envMap);
             }
+
+            envMap.put("ZALITH_VERSION_CODE", String.valueOf(ZHTools.getVersionCode()));
         }
 
         for (Map.Entry<String, String> env : envMap.entrySet()) {
