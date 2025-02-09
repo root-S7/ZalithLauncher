@@ -635,6 +635,7 @@
     <string name="about_qq_group_generate_fail">Не удалось сгенерировать код. Введённые данные, возможно, не являются корректным QQ-номером, или возникла ошибка в алгоритме генерации кода!</string>
     <string name="about_contributors">Авторы и Благодарности:</string>
     <string name="about_sponsors">Благодарности спонсорам:</string>
+    <string name="about_sponsors_list">Просмотр списка спонсоров</string>
     <string name="about_sponsors_desc">Ниже приведены все спонсоры, поддерживающие разработку, огромное спасибо!</string>
     <string name="about_sponsors_amount">Время и Общая сумма</string>
     <string name="about_button_support_development">Поддержать разработку</string>

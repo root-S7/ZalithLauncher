@@ -1,35 +1,23 @@
 package com.movtery.zalithlauncher.ui.fragment
 
-import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
-import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentAboutBinding
-import com.movtery.zalithlauncher.feature.CheckSponsor
-import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.check
-import com.movtery.zalithlauncher.feature.CheckSponsor.Companion.getSponsorData
-import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.task.TaskExecutors
-import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
-import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean
-import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
-import com.movtery.zalithlauncher.ui.subassembly.about.AboutRecyclerAdapter
-import com.movtery.zalithlauncher.ui.subassembly.about.SponsorMeta
-import com.movtery.zalithlauncher.ui.subassembly.about.SponsorRecyclerAdapter
+import com.movtery.zalithlauncher.ui.fragment.about.AboutInfoPageFragment
+import com.movtery.zalithlauncher.ui.fragment.about.AboutSponsorPageFragment
 import com.movtery.zalithlauncher.utils.ZHTools
-import com.movtery.zalithlauncher.utils.group.QQGroup
 import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.Tools
 
 class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     companion object {
@@ -37,8 +25,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     }
 
     private lateinit var binding: FragmentAboutBinding
-    private val mAboutData: MutableList<AboutItemBean> = ArrayList()
-    private var mSponsorAdapter: SponsorRecyclerAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,15 +36,9 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        loadSponsorData()
-        loadAboutData(requireContext().resources)
-
-        val context = requireActivity()
+        initViewPager()
 
         binding.apply {
-            dec1.text = InfoCenter.replaceName(context, R.string.about_dec1)
-            dec2.text = InfoCenter.replaceName(context, R.string.about_dec2)
-            dec3.text = InfoCenter.replaceName(context, R.string.about_dec3)
             appInfo.text = StringUtils.insertNewline(StringUtils.insertSpace(getString(R.string.about_version_name), ZHTools.getVersionName()),
                 StringUtils.insertSpace(getString(R.string.about_version_code), ZHTools.getVersionCode()),
                 StringUtils.insertSpace(getString(R.string.about_last_update_time), ZHTools.getLastUpdateTime(requireContext())),
@@ -66,8 +46,6 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
             appInfo.setOnClickListener{ StringUtils.copyText("text", appInfo.text.toString(), requireContext()) }
 
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
-            githubButton.setOnClickListener { ZHTools.openLink(requireActivity(), UrlManager.URL_HOME) }
-            licenseButton.setOnClickListener { ZHTools.openLink(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
             supportDevelopment.setOnClickListener {
                 TipDialog.Builder(requireActivity())
                     .setTitle(R.string.request_sponsorship_title)
@@ -76,179 +54,38 @@ class AboutFragment : FragmentWithAnim(R.layout.fragment_about) {
                     .setConfirmClickListener { ZHTools.openLink(requireActivity(), UrlManager.URL_SUPPORT) }
                     .showDialog()
             }
-
-            val aboutAdapter = AboutRecyclerAdapter(this@AboutFragment.mAboutData)
-            aboutRecycler.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = aboutAdapter
-            }
-            sponsorAll.setOnClickListener { _ ->
-                mSponsorAdapter?.let {
-                    it.updateCount(getSponsorData()?.sponsors?.size ?: 0)
-                    sponsorAll.visibility = View.GONE
-                }
-            }
-
-            if (QQGroup.hasKey()) {
-                qqGroupButton.visibility = View.VISIBLE
-                qqGroupButton.setOnClickListener {
-                    TipDialog.Builder(context)
-                        .setTitle("QQ")
-                        .setMessage(context.getString(R.string.about_qq_group, InfoCenter.APP_NAME, InfoCenter.QQ_GROUP))
-                        .setSelectable(true)
-                        .setConfirm(R.string.about_qq_group_generate_button)
-                        .setConfirmClickListener {
-                            EditTextDialog.Builder(context)
-                                .setTitle(R.string.about_qq_group_generate_button)
-                                .setMessage(R.string.about_qq_group_generate_edit)
-                                .setAsRequired()
-                                .setInputType(InputType.TYPE_CLASS_NUMBER)
-                                .setConfirmText(R.string.generic_confirm)
-                                .setConfirmListener { editBox, _ ->
-                                    val string = editBox.text.toString()
-
-                                    runCatching {
-                                        val code = QQGroup.generateQQJoinGroupCode(string.toLong())
-
-                                        TipDialog.Builder(context)
-                                            .setTitle(R.string.about_qq_group_generate_button)
-                                            .setMessage(context.getString(R.string.about_qq_group_generate_success, code))
-                                            .setSelectable(true)
-                                            .setConfirm(android.R.string.copy)
-                                            .setConfirmClickListener {
-                                                StringUtils.copyText("text", code, context)
-                                            }.showDialog()
-                                    }.onFailure { e ->
-                                        Tools.showError(context, R.string.about_qq_group_generate_fail, e)
-                                        return@setConfirmListener false
-                                    }
-
-                                    true
-                                }.showDialog()
-                        }.showDialog()
-                }
-            }
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun loadAboutData(resources: Resources) {
-        mAboutData.clear()
-
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.ic_pojav_full, requireContext().theme),
-                "PojavLauncherTeam",
-                getString(R.string.about_PojavLauncher_desc),
-                AboutItemButtonBean(requireActivity(), "Github", "https://github.com/PojavLauncherTeam/PojavLauncher")
-            )
-        )
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_movtery, requireContext().theme),
-                "墨北MovTery",
-                getString(R.string.about_MovTery_desc),
-                AboutItemButtonBean(
-                    requireActivity(),
-                    getString(R.string.about_access_space),
-                    "https://space.bilibili.com/2008204513"
-                )
-            )
-        )
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_mcmod, requireContext().theme),
-                "MC 百科",
-                getString(R.string.about_mcmod_desc),
-                AboutItemButtonBean(
-                    requireActivity(),
-                    getString(R.string.about_access_link),
-                    UrlManager.URL_MCMOD)
-            )
-        )
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_verafirefly, requireContext().theme),
-                "Vera-Firefly",
-                getString(R.string.about_VeraFirefly_desc),
-                AboutItemButtonBean(
-                    requireActivity(),
-                    getString(R.string.about_access_space),
-                    "https://space.bilibili.com/1412062866"
-                )
-            )
-        )
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_lingmuqiuzhu, requireContext().theme),
-                "柃木湫竹",
-                getString(R.string.about_LingMuQiuZhu_desc),
-                AboutItemButtonBean(
-                    requireActivity(),
-                    getString(R.string.about_access_space),
-                    "https://space.bilibili.com/515165764"
-                )
-            )
-        )
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_shirosakimio, requireContext().theme),
-                "ShirosakiMio",
-                getString(R.string.about_ShirosakiMio_desc),
-                AboutItemButtonBean(
-                    requireActivity(),
-                    getString(R.string.about_access_space),
-                    "https://space.bilibili.com/35801833"
-                )
-            )
-        )
-        mAboutData.add(
-            AboutItemBean(
-                resources.getDrawable(R.drawable.image_about_bangbang93, requireContext().theme),
-                "bangbang93",
-                getString(R.string.about_bangbang93_desc),
-                AboutItemButtonBean(
-                    requireActivity(),
-                    getString(R.string.about_button_support_development),
-                    "https://afdian.com/a/bangbang93"
-                )
-            )
-        )
-    }
-
-    private fun loadSponsorData() {
-        check(object : CheckSponsor.CheckListener {
-            override fun onFailure() { setSponsorVisible(false) }
-            override fun onSuccessful(data: SponsorMeta?) { setSponsorVisible(true) }
-        })
-    }
-
-    private fun setSponsorVisible(visible: Boolean) {
-        TaskExecutors.runInUIThread {
-            mSponsorAdapter = SponsorRecyclerAdapter(getSponsorData(), 8)
-            try {
-                binding.sponsorLayout.visibility = if (visible) View.VISIBLE else View.GONE
-
-                if (visible) {
-                    binding.sponsorRecycler.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
-                        adapter = mSponsorAdapter
-                    }
-                }
-            } catch (e: Exception) {
-                Logging.e("setSponsorVisible", e.toString())
-            }
+    private fun initViewPager() {
+        binding.infoViewPager.apply {
+            adapter = ViewPagerAdapter(requireActivity(), this)
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            offscreenPageLimit = 1
         }
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(binding.infoLayout, Animations.BounceInDown))
+        animPlayer.apply(AnimPlayer.Entry(binding.infoViewPager, Animations.BounceInDown))
             .apply(AnimPlayer.Entry(binding.operateLayout, Animations.BounceInLeft))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
-        animPlayer.apply(AnimPlayer.Entry(binding.infoLayout, Animations.FadeOutUp))
+        animPlayer.apply(AnimPlayer.Entry(binding.infoViewPager, Animations.FadeOutUp))
         animPlayer.apply(AnimPlayer.Entry(binding.operateLayout, Animations.FadeOutRight))
+    }
+
+    private class ViewPagerAdapter(
+        fragmentActivity: FragmentActivity,
+        private val viewPager: ViewPager2
+    ): FragmentStateAdapter(fragmentActivity) {
+        override fun getItemCount(): Int = 2
+        override fun createFragment(position: Int): Fragment {
+            return when(position) {
+                0 -> AboutInfoPageFragment(viewPager)
+                else -> AboutSponsorPageFragment()
+            }
+        }
     }
 }
 

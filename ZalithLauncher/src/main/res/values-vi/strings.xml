@@ -635,6 +635,7 @@
     <string name="about_qq_group_generate_fail">Tạo mã thất bại. Nội dung nhập vào có vẻ không phải là số QQ hợp lệ hoặc có lỗi trong thuật toán mã xác minh!</string>
     <string name="about_contributors">Những người đóng góp và Lời cảm ơn:</string>
     <string name="about_sponsors">Lời cảm ơn tới các nhà tài trợ:</string>
+    <string name="about_sponsors_list">Xem danh sách nhà tài trợ</string>
     <string name="about_sponsors_desc">Dưới đây là tất cả các nhà tài trợ đã hỗ trợ phát triển, xin cảm ơn rất nhiều!</string>
     <string name="about_sponsors_amount">Thời gian và Tổng số tiền</string>
     <string name="about_button_support_development">Tài trợ phát triển</string>

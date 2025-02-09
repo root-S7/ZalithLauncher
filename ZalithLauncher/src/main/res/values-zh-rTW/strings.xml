@@ -635,6 +635,7 @@
     <string name="about_qq_group_generate_fail">生成失敗，填入的內容貌似並不是一個正常的 QQ 號，或者驗證碼算法存在問題！</string>
     <string name="about_contributors">貢獻者與鳴謝:</string>
     <string name="about_sponsors">贊助者鳴謝:</string>
+    <string name="about_sponsors_list">查看贊助者清單</string>
     <string name="about_sponsors_desc">以下是所有支持開發的贊助者們，萬分感謝！</string>
     <string name="about_sponsors_amount">時間與總金額</string>
     <string name="about_button_support_development">贊助開發</string>

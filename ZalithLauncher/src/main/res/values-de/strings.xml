@@ -635,6 +635,7 @@
     <string name="about_qq_group_generate_fail">Generierung fehlgeschlagen. Die eingegebene Information scheint keine gültige QQ-Nummer zu sein oder es gibt ein Problem mit dem Algorithmus zur Code-Erstellung!</string>
     <string name="about_contributors">Beiträger und Danksagungen:</string>
     <string name="about_sponsors">Danksagungen an Sponsoren:</string>
+    <string name="about_sponsors_list">Sponsorenliste anzeigen</string>
     <string name="about_sponsors_desc">Hier sind alle Sponsoren, die die Entwicklung unterstützen, vielen Dank!</string>
     <string name="about_sponsors_amount">Zeit und Gesamtbetrag</string>
     <string name="about_button_support_development">Entwicklung unterstützen</string>

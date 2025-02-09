@@ -15,11 +15,9 @@ import com.movtery.zalithlauncher.databinding.ItemSponsorViewBinding;
 
 public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecyclerAdapter.Holder> {
     private final SponsorMeta mMeta;
-    private int mItemCount;
 
-    public SponsorRecyclerAdapter(SponsorMeta meta, int itemCount) {
+    public SponsorRecyclerAdapter(SponsorMeta meta) {
         this.mMeta = meta;
-        this.mItemCount = itemCount;
     }
 
     @NonNull
@@ -35,13 +33,7 @@ public class SponsorRecyclerAdapter extends RecyclerView.Adapter<SponsorRecycler
 
     @Override
     public int getItemCount() {
-        return mItemCount;
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateCount(int count) {
-        mItemCount = count;
-        notifyDataSetChanged();
+        return mMeta.sponsors.length;
     }
 
     public static class Holder extends RecyclerView.ViewHolder {

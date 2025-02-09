@@ -635,6 +635,7 @@
     <string name="about_qq_group_generate_fail">Falha na geração. O conteúdo inserido não parece ser um número QQ válido, ou pode haver um problema com o algoritmo de verificação!</string>
     <string name="about_contributors">Contribuidores e Agradecimentos:</string>
     <string name="about_sponsors">Agradecimentos aos patrocinadores:</string>
+    <string name="about_sponsors_list">Ver lista de patrocinadores</string>
     <string name="about_sponsors_desc">Abaixo estão todos os patrocinadores que apoiam o desenvolvimento, muito obrigado!</string>
     <string name="about_sponsors_amount">Tempo e Valor Total</string>
     <string name="about_button_support_development">Patrocinar o Desenvolvimento</string>

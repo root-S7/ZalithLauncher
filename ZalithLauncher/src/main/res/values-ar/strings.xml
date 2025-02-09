@@ -635,6 +635,7 @@
     <string name="about_qq_group_generate_fail">فشل الإنشاء. يبدو أن المحتوى المُدخل ليس رقم QQ صالحًا، أو قد تكون هناك مشكلة في خوارزمية رمز التحقق!</string>
     <string name="about_contributors">المساهمون والتقديرات:</string>
     <string name="about_sponsors">شكر خاص للجهات الراعية:</string>
+    <string name="about_sponsors_list">عرض قائمة الرعاة</string>
     <string name="about_sponsors_desc">هؤلاء هم جميع الرعاة الذين يدعمون التطوير، شكرًا جزيلًا لكم!</string>
     <string name="about_sponsors_amount">الوقت والإجمالي</string>
     <string name="about_button_support_development">دعم التطوير</string>

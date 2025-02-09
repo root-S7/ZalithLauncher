@@ -641,6 +641,7 @@
     <string name="about_qq_group_generate_fail">Generation failed. The entered content does not appear to be a valid QQ number, or there may be an issue with the verification code algorithm!</string>
     <string name="about_contributors">Contributors and Acknowledgements:</string>
     <string name="about_sponsors">Acknowledgements to Sponsors:</string>
+    <string name="about_sponsors_list">View Sponsors List</string>
     <string name="about_sponsors_desc">The following are all the sponsors who support the development, thank you very much!</string>
     <string name="about_sponsors_amount">Time and Total Amount</string>
     <string name="about_button_support_development">Sponsor Development</string>
