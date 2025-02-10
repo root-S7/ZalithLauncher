@@ -46,7 +46,7 @@ class VersionInfoUtils {
         )
 
         /**
-         * 在版本的json文件中，找到版本信息，识别其是否有id这个键
+         * 在版本的json文件中，找到版本信息
          * @return 版本号、ModLoader信息
          */
         fun parseJson(jsonFile: File): VersionInfo? {
