@@ -43,14 +43,14 @@ class AboutSponsorPageFragment : Fragment(R.layout.fragment_about_sponsor_page) 
     private fun setSponsorVisible(visible: Boolean) {
         TaskExecutors.runInUIThread {
             try {
-                binding.sponsorLayout.visibility = if (visible) View.VISIBLE else View.GONE
-
-                if (visible) {
+                binding.sponsorLayout.visibility = if (visible) {
                     binding.sponsorRecycler.apply {
                         layoutManager = LinearLayoutManager(requireContext())
                         adapter = SponsorRecyclerAdapter(getSponsorData())
                     }
-                }
+                    binding.loadingProgress.visibility = View.GONE
+                    View.VISIBLE
+                } else View.GONE
             } catch (e: Exception) {
                 Logging.e("setSponsorVisible", e.toString())
             }
