@@ -53,11 +53,6 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        VersionsManager.refresh()
-    }
-
     private fun File.mustExists(): File {
         if (!exists()) {
             mkdirs()
@@ -114,7 +109,7 @@ class VersionManagerFragment : FragmentWithAnim(R.layout.fragment_version_manage
                                 activity,
                                 listOf(version.getVersionPath()),
                                 Task.runTask {
-                                    VersionsManager.refresh()
+                                    VersionsManager.refresh("VersionManagerFragment:versionDelete")
                                 }.ended(TaskExecutors.getAndroidUI()) {
                                     Tools.backToMainMenu(activity)
                                 }

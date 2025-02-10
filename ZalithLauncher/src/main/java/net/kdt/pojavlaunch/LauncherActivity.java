@@ -375,6 +375,16 @@ public class LauncherActivity extends BaseActivity {
         }).execute();
     }
 
+    @Override
+    protected String getVersionsRefreshTag() {
+        return "LauncherActivity";
+    }
+
+    @Override
+    protected boolean canRefreshVersions() {
+        return true;
+    }
+
     private void processFragment() {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override

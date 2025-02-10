@@ -14,7 +14,7 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionConfigBinding
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.getCurrentPath
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager
 import com.movtery.zalithlauncher.feature.version.NoVersionException
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionConfig
@@ -182,7 +182,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                             putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
                             putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
                             putBoolean(FilesFragment.BUNDLE_QUICK_ACCESS_PATHS, false)
-                            putString(FilesFragment.BUNDLE_LOCK_PATH, getCurrentPath())
+                            putString(FilesFragment.BUNDLE_LOCK_PATH, ProfilePathManager.getCurrentPath())
                             putString(FilesFragment.BUNDLE_LIST_PATH, currentVersion.getVersionsFolder())
                         }
                     )
@@ -283,7 +283,7 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
                 //控制布局
                 controlName.text = config.getControl()
                 //自定义路径
-                customPath.text = config.getCustomPath().replaceFirst(getCurrentPath().toRegex(), ".")
+                customPath.text = config.getCustomPath().replaceFirst(ProfilePathManager.getCurrentPath().toRegex(), ".")
 
                 //渲染器
                 val renderersList = Renderers.getCompatibleRenderers(context).first

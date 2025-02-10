@@ -10,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.context.LocaleHelper;
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
+import com.movtery.zalithlauncher.feature.version.VersionsManager;
+import com.movtery.zalithlauncher.plugins.PluginLoader;
+import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
 
 import net.kdt.pojavlaunch.MissingStorageActivity;
@@ -28,6 +32,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         LocaleHelper.Companion.setLocale(this);
         Tools.setFullscreen(this);
         Tools.updateWindowSize(this);
+
+        checkStoragePermissions();
+        //加载渲染器
+        Renderers.INSTANCE.init(false);
+        //加载插件
+        PluginLoader.loadAllPlugins(this, false);
+        //刷新游戏路径
+        ProfilePathManager.INSTANCE.refreshPath();
+        refreshVersions();
     }
 
     @Override
@@ -38,8 +51,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             startActivity(new Intent(this, MissingStorageActivity.class));
             finish();
         }
-        //检查所有文件管理权限
-        StoragePermissionsUtils.checkPermissions(this);
+
+        checkStoragePermissions();
+        refreshVersions();
     }
 
     @Override
@@ -58,5 +72,23 @@ public abstract class BaseActivity extends AppCompatActivity {
     /** @return Whether or not the notch should be ignored */
     public boolean shouldIgnoreNotch() {
         return true;
+    }
+
+    private void checkStoragePermissions() {
+        //检查所有文件管理权限
+        StoragePermissionsUtils.checkPermissions(this);
+    }
+
+    private void refreshVersions() {
+        //刷新版本
+        if (canRefreshVersions()) VersionsManager.INSTANCE.refresh(getVersionsRefreshTag(), false);
+    }
+
+    protected String getVersionsRefreshTag() {
+        return "BaseActivity";
+    }
+
+    protected boolean canRefreshVersions() {
+        return false;
     }
 }

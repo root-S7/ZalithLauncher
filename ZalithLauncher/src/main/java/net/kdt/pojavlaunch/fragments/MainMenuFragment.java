@@ -99,38 +99,36 @@ public class MainMenuFragment extends FragmentWithAnim {
 
         binding.versionName.setSelected(true);
         binding.versionInfo.setSelected(true);
+
+        refreshCurrentVersion();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        VersionsManager.INSTANCE.refresh(false);
+    private void refreshCurrentVersion() {
+        Version version = VersionsManager.INSTANCE.getCurrentVersion();
+
+        int versionInfoVisibility;
+        if (version != null) {
+            binding.versionName.setText(version.getVersionName());
+            VersionInfo versionInfo = version.getVersionInfo();
+            if (versionInfo != null) {
+                binding.versionInfo.setText(versionInfo.getInfoString());
+                versionInfoVisibility = View.VISIBLE;
+            } else versionInfoVisibility = View.GONE;
+
+            new VersionIconUtils(version).start(binding.versionIcon);
+            binding.managerProfileButton.setVisibility(View.VISIBLE);
+        } else {
+            binding.versionName.setText(R.string.version_no_versions);
+            binding.managerProfileButton.setVisibility(View.GONE);
+            versionInfoVisibility = View.GONE;
+        }
+        binding.versionInfo.setVisibility(versionInfoVisibility);
     }
 
     @Subscribe()
     public void event(RefreshVersionsEvent event) {
         if (event.getMode() == END) {
-            TaskExecutors.runInUIThread(() -> {
-                Version version = VersionsManager.INSTANCE.getCurrentVersion();
-
-                int versionInfoVisibility;
-                if (version != null) {
-                    binding.versionName.setText(version.getVersionName());
-                    VersionInfo versionInfo = version.getVersionInfo();
-                    if (versionInfo != null) {
-                        binding.versionInfo.setText(versionInfo.getInfoString());
-                        versionInfoVisibility = View.VISIBLE;
-                    } else versionInfoVisibility = View.GONE;
-
-                    new VersionIconUtils(version).start(binding.versionIcon);
-                    binding.managerProfileButton.setVisibility(View.VISIBLE);
-                } else {
-                    binding.versionName.setText(R.string.version_no_versions);
-                    binding.managerProfileButton.setVisibility(View.GONE);
-                    versionInfoVisibility = View.GONE;
-                }
-                binding.versionInfo.setVisibility(versionInfoVisibility);
-            });
+            TaskExecutors.runInUIThread(this::refreshCurrentVersion);
         }
     }
 

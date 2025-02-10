@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemProfilePathBinding
 import com.movtery.zalithlauncher.databinding.ViewPathManagerBinding
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.save
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.setCurrentPathId
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.setCurrentPathId
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.launcherProfile
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
@@ -58,6 +58,7 @@ class ProfilePathAdapter(
 
     override fun getItemCount(): Int = mData.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(data: MutableList<ProfileItem>) {
         this.mData.clear()
         this.mData.addAll(data)
@@ -65,19 +66,20 @@ class ProfilePathAdapter(
             forEach { radioButton -> radioButton.isChecked = false }
             clear()
         }
-        refresh()
-    }
-
-    fun closePopupWindow() {
-        managerPopupWindow.dismiss()
+        notifyDataSetChanged()
+        view.scheduleLayoutAnimation()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun refresh() {
-        save(this.mData)
-
+        ProfilePathManager.save(mData)
+        ProfilePathManager.refreshPath()
         notifyDataSetChanged()
         view.scheduleLayoutAnimation()
+    }
+
+    fun closePopupWindow() {
+        managerPopupWindow.dismiss()
     }
 
     private fun setPathId(id: String) {

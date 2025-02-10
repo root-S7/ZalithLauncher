@@ -49,7 +49,7 @@ object VersionsManager {
      * @return 检查是否可以刷新
      */
     @JvmStatic
-    fun canRefresh() = !isRefreshing && ZHTools.getCurrentTimeMillis() - lastRefreshTime > 200
+    fun canRefresh() = !isRefreshing && ZHTools.getCurrentTimeMillis() - lastRefreshTime > 500
 
     /**
      * @return 全部的版本数据
@@ -68,9 +68,11 @@ object VersionsManager {
 
     /**
      * 异步刷新当前的版本列表，刷新完成后，将使用一个事件进行通知，不过这个事件并不会在UI线程执行
+     * @param tag 标记是谁发起了版本刷新任务，方便debug
      * @see com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
      */
-    fun refresh(refreshVersionInfo: Boolean = false) {
+    fun refresh(tag: String, refreshVersionInfo: Boolean = false) {
+        Logging.i("VersionsManager", "$tag initiated the refresh version task")
         coroutineScope.launch {
             refreshMutex.withLock {
                 lastRefreshTime = ZHTools.getCurrentTimeMillis()
@@ -116,14 +118,15 @@ object VersionsManager {
 
             val versionConfig = VersionConfig.parseConfig(versionFile)
 
-            versions.add(
-                Version(
-                    versionsHome,
-                    versionFile.absolutePath,
-                    versionConfig,
-                    isVersion
-                )
+            val version = Version(
+                versionsHome,
+                versionFile.absolutePath,
+                versionConfig,
+                isVersion
             )
+            versions.add(version)
+
+            Logging.i("VersionsManager", "Identified and added version: $version")
         }
     }
 
@@ -134,15 +137,10 @@ object VersionsManager {
         if (versions.isEmpty()) return null
 
         fun returnVersionByFirst(): Version? {
-            versions.forEach { version ->
-                if (version.isValid()) {
-                    //确保版本有效
-                    saveCurrentVersion(version.getVersionName())
-                    return version
-                }
+            return versions.find { it.isValid() }?.apply {
+                //确保版本有效
+                saveCurrentVersion(getVersionName())
             }
-            //如果所有版本都无效，或者没有版本，那么就返回 null
-            return null
         }
 
         return runCatching {
@@ -201,18 +199,15 @@ object VersionsManager {
                 version = versionName
                 saveCurrentInfo()
             }
-        }.getOrElse { e -> Logging.e("Save Current Version", Tools.printToString(e)) }
+        }.onFailure { e -> Logging.e("Save Current Version", Tools.printToString(e)) }
     }
 
     private fun validateVersionName(
         context: Context,
         newName: String,
-        originalName: String,
         versionInfo: VersionInfo?
     ): String? {
         return when {
-            //与原始名称一致
-            newName == originalName -> null
             isVersionExists(newName, true) ->
                 context.getString(R.string.version_install_exists)
             versionInfo?.loaderInfo?.takeIf { it.isNotEmpty() }?.let {
@@ -236,11 +231,14 @@ object VersionsManager {
             .setConfirmListener { editText, _ ->
                 val string = editText.text.toString()
 
+                //与原始名称一致
+                if (string == version.getVersionName()) return@setConfirmListener true
+
                 if (FileTools.isFilenameInvalid(editText)) {
                     return@setConfirmListener false
                 }
 
-                val error = validateVersionName(context, string, version.getVersionName(), version.getVersionInfo())
+                val error = validateVersionName(context, string, version.getVersionInfo())
                 error?.let {
                     editText.error = it
                     return@setConfirmListener false
@@ -286,7 +284,7 @@ object VersionsManager {
         FileUtils.deleteQuietly(versionFolder)
 
         //重命名后，需要刷新列表
-        refresh()
+        refresh("VersionsManager:renameVersion")
     }
 
     /**
@@ -304,11 +302,14 @@ object VersionsManager {
             .setConfirmListener { editText, checked ->
                 val string = editText.text.toString()
 
+                //与原始名称一致
+                if (string == version.getVersionName()) return@setConfirmListener true
+
                 if (FileTools.isFilenameInvalid(editText)) {
                     return@setConfirmListener false
                 }
 
-                val error = validateVersionName(context, string, version.getVersionName(), version.getVersionInfo())
+                val error = validateVersionName(context, string, version.getVersionInfo())
                 error?.let {
                     editText.error = it
                     return@setConfirmListener false
@@ -322,7 +323,7 @@ object VersionsManager {
                     Tools.showErrorRemote(e)
                 }.finallyTask(TaskExecutors.getAndroidUI()) {
                     dialog.dismiss()
-                    refresh()
+                    refresh("VersionsManager:openCopyDialog")
                 }.execute()
                 true
             }.showDialog()
@@ -374,11 +375,7 @@ object VersionsManager {
 
     private fun getVersion(name: String?): Version? {
         name?.let { versionName ->
-            versions.forEach { version ->
-                if (version.getVersionName() == versionName) {
-                    return version.takeIf { it.isValid() }
-                }
-            }
+            return versions.find { it.getVersionName() == versionName }?.takeIf { it.isValid() }
         }
         return null
     }

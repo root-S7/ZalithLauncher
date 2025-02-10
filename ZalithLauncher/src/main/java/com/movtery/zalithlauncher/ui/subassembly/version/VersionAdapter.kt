@@ -82,7 +82,7 @@ class VersionAdapter(
                     context,
                     listOf(version.getVersionPath()),
                     Task.runTask {
-                        VersionsManager.refresh()
+                        VersionsManager.refresh("VersionAdapter:deleteVersion")
                     }
                 ).start()
             }.showDialog()

@@ -43,9 +43,9 @@ class Version(
     fun getVersionConfig() = versionConfig
 
     /**
-     * @return 版本的有效性
+     * @return 版本的有效性：是否存在版本JSON文件、版本文件夹是否存在
      */
-    fun isValid() = isValid
+    fun isValid() = isValid && getVersionPath().exists()
 
     /**
      * @return 是否开启了版本隔离

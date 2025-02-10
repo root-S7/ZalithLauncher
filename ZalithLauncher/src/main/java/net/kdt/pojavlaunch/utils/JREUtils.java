@@ -457,7 +457,7 @@ public final class JREUtils {
                 "-Djava.home=" + runtimeHome,
                 "-Djava.io.tmpdir=" + PathManager.DIR_CACHE.getAbsolutePath(),
                 "-Djna.boot.library.path=" + DIR_NATIVE_LIB,
-                "-Duser.home=" + ProfilePathManager.getCurrentPath(),
+                "-Duser.home=" + ProfilePathManager.INSTANCE.getCurrentPath(),
                 "-Duser.language=" + System.getProperty("user.language"),
                 "-Dos.name=Linux",
                 "-Dos.version=Android-" + Build.VERSION.RELEASE,

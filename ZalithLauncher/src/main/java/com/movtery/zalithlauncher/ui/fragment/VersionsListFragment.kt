@@ -12,8 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.angcyo.tablayout.DslTabLayout
-import com.google.gson.Gson
-import com.google.gson.JsonParser
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
@@ -24,9 +22,7 @@ import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.END
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.START
 import com.movtery.zalithlauncher.event.sticky.FileSelectorEvent
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathJsonObject
-import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager.Companion.save
-import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.feature.version.favorites.FavoritesVersionUtils
@@ -41,7 +37,6 @@ import com.movtery.zalithlauncher.ui.subassembly.version.VersionAdapter
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
-import net.kdt.pojavlaunch.Tools
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.UUID
@@ -52,7 +47,6 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     }
 
     private lateinit var binding: FragmentVersionsListBinding
-    private val profilePathData: MutableList<ProfileItem> = ArrayList()
     private var versionsAdapter: VersionAdapter? = null
     private var profilePathAdapter: ProfilePathAdapter? = null
     private val mFavoritesFolderViewList: MutableList<View> = ArrayList()
@@ -71,13 +65,12 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
         selectorEvent?.let { event ->
             event.path?.let { path ->
-                if (path.isNotEmpty() && !isAddedPath(path)) {
+                if (path.isNotEmpty() && !ProfilePathManager.containsPath(path)) {
                     EditTextDialog.Builder(requireContext())
                         .setTitle(R.string.profiles_path_create_new_title)
                         .setAsRequired()
                         .setConfirmListener { editBox, _ ->
-                            profilePathData.add(ProfileItem(UUID.randomUUID().toString(), editBox.text.toString(), path))
-                            save(this.profilePathData)
+                            ProfilePathManager.addPath(ProfileItem(UUID.randomUUID().toString(), editBox.text.toString(), path))
                             refresh()
                             true
                         }.showDialog()
@@ -150,7 +143,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
             refreshButton.setOnClickListener {
                 refreshButton.isEnabled = false
-                refresh(true)
+                refresh(refreshVersions = true, refreshVersionInfo = true)
             }
             createPathButton.setOnClickListener {
                 StoragePermissionsUtils.checkPermissions(requireActivity(), R.string.profiles_path_create_new) {
@@ -167,36 +160,18 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
         refresh()
     }
 
-    private fun refresh(refreshVersionInfo: Boolean = false) {
-        VersionsManager.refresh(refreshVersionInfo)
+    private fun refresh(refreshVersions: Boolean = false, refreshVersionInfo: Boolean = false) {
+        ProfilePathManager.refreshPath()
 
-        profilePathData.clear()
-        profilePathData.add(ProfileItem("default", getString(R.string.profiles_path_default), PathManager.DIR_GAME_HOME))
+        if (refreshVersions) VersionsManager.refresh("VersionListFragment:refresh", refreshVersionInfo)
+        else refreshFavoritesFolderAndVersions()
 
-        runCatching {
-            val json: String
-            if (PathManager.FILE_PROFILE_PATH.exists()) {
-                json = Tools.read(PathManager.FILE_PROFILE_PATH)
-                if (json.isEmpty()) return@runCatching
-            } else return@runCatching
-
-            val jsonObject = JsonParser.parseString(json).asJsonObject
-
-            for (key in jsonObject.keySet()) {
-                val profilePathId = Gson().fromJson(jsonObject[key], ProfilePathJsonObject::class.java)
-                val item = ProfileItem(key, profilePathId.title, profilePathId.path)
-                profilePathData.add(item)
-            }
-        }.getOrElse { e -> Logging.e("refresh profile data", Tools.printToString(e)) }
-
-        profilePathAdapter?.updateData(this.profilePathData)
-    }
-
-    private fun isAddedPath(path: String): Boolean {
-        for (mDatum in this.profilePathData) {
-            if (mDatum.path == path) return true
+        val path: MutableList<ProfileItem> = ArrayList<ProfileItem>().apply {
+            add(ProfileItem("default", getString(R.string.profiles_path_default), PathManager.DIR_GAME_HOME))
+            addAll(ProfilePathManager.getAllPath())
         }
-        return false
+
+        profilePathAdapter?.updateData(path)
     }
 
     private fun refreshVersions(all: Boolean = true, favoritesFolder: String? = null) {
@@ -334,11 +309,6 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
-        versionsAdapter?.let {
-            //为了避免界面初始化的时候连续刷新两次（OnViewCreated最后会刷新一次）
-            //这里需要确保VersionAdapter已经完成初始化，才会刷新
-            VersionsManager.refresh()
-        }
     }
 
     override fun onStop() {
