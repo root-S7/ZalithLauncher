@@ -66,8 +66,8 @@ android {
         applicationId nameId
         minSdkVersion 26
         targetSdkVersion 34
-        versionCode 139901
-        versionName "1.3.9.9"
+        versionCode 139910
+        versionName "1.4.0_pre-release"
         multiDexEnabled true //important
         buildConfigField "boolean", "IS_PRE_RELEASE", "true"
 
