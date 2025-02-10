@@ -62,7 +62,7 @@ public class MinecraftAccount {
     }
 
     public static MinecraftAccount loadFromProfileID(String profileID) {
-        for (MinecraftAccount account : AccountsManager.getInstance().getAllAccount()) {
+        for (MinecraftAccount account : AccountsManager.INSTANCE.getAllAccounts()) {
             if (Objects.equals(account.profileId, profileID)) return account;
         }
         return null;

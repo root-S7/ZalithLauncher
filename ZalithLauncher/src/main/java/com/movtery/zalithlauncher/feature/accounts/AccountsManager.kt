@@ -1,172 +1,132 @@
-package com.movtery.zalithlauncher.feature.accounts;
+package com.movtery.zalithlauncher.feature.accounts
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.widget.Toast;
+import android.content.Context
+import android.widget.Toast
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.context.ContextExecutor
+import com.movtery.zalithlauncher.context.ContextExecutor.Companion.showToast
+import com.movtery.zalithlauncher.event.single.AccountUpdateEvent
+import com.movtery.zalithlauncher.feature.accounts.AccountUtils.Companion.isMicrosoftAccount
+import com.movtery.zalithlauncher.feature.accounts.AccountUtils.Companion.isNoLoginRequired
+import com.movtery.zalithlauncher.feature.accounts.AccountUtils.Companion.isOtherLoginAccount
+import com.movtery.zalithlauncher.feature.accounts.AccountUtils.Companion.microsoftLogin
+import com.movtery.zalithlauncher.feature.accounts.AccountUtils.Companion.otherLogin
+import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.task.TaskExecutors
+import com.movtery.zalithlauncher.ui.dialog.TipDialog
+import com.movtery.zalithlauncher.utils.path.PathManager
+import net.kdt.pojavlaunch.Tools
+import net.kdt.pojavlaunch.authenticator.listener.DoneListener
+import net.kdt.pojavlaunch.authenticator.listener.ErrorListener
+import net.kdt.pojavlaunch.authenticator.microsoft.PresentedException
+import net.kdt.pojavlaunch.value.MinecraftAccount
+import org.greenrobot.eventbus.EventBus
+import java.io.File
+import java.io.IOException
+import java.util.concurrent.CopyOnWriteArrayList
 
-import androidx.annotation.NonNull;
+object AccountsManager {
+    private val accountsLock = Any()
+    private val accounts = CopyOnWriteArrayList<MinecraftAccount>()
 
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.context.ContextExecutor;
-import com.movtery.zalithlauncher.event.single.AccountUpdateEvent;
-import com.movtery.zalithlauncher.feature.log.Logging;
-import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.task.TaskExecutors;
-import com.movtery.zalithlauncher.ui.dialog.TipDialog;
-import com.movtery.zalithlauncher.utils.path.PathManager;
+    val doneListener by lazy {
+        DoneListener { account ->
+            TaskExecutors.runInUIThread {
+                showToast(R.string.account_login_done, Toast.LENGTH_SHORT)
+            }
 
-import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.authenticator.listener.DoneListener;
-import net.kdt.pojavlaunch.authenticator.listener.ErrorListener;
-import net.kdt.pojavlaunch.authenticator.microsoft.PresentedException;
-import net.kdt.pojavlaunch.value.MinecraftAccount;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-public final class AccountsManager {
-    @SuppressLint("StaticFieldLeak")
-    private static volatile AccountsManager accountsManager;
-    private final List<MinecraftAccount> accounts = new ArrayList<>();
-    private DoneListener mDoneListener;
-    private ErrorListener mErrorListener;
-
-    private AccountsManager() {
-    }
-
-    public static AccountsManager getInstance() {
-        if (accountsManager == null) {
-            synchronized (AccountsManager.class) {
-                if (accountsManager == null) {
-                    accountsManager = new AccountsManager();
-                    //确保完全初始化，初始化完成之后，初始化监听器，然后执行刷新操作
-                    accountsManager.initListener();
-                    accountsManager.reload();
+            synchronized(accountsLock) {
+                if (accounts.any { it.uniqueUUID == account.uniqueUUID }) {
+                    EventBus.getDefault().post(AccountUpdateEvent())
+                    return@DoneListener
                 }
-                return accountsManager;
+
+                reloadInternal()
+                if (accounts.isEmpty()) currentAccount = account
+                else EventBus.getDefault().post(AccountUpdateEvent())
             }
         }
-        return accountsManager;
     }
 
-    @SuppressLint("ObjectAnimatorBinding")
-    private void initListener() {
-        mDoneListener = account -> {
-            TaskExecutors.runInUIThread(() -> ContextExecutor.showToast(R.string.account_login_done, Toast.LENGTH_SHORT));
-
-            //检查账号是否已存在
-            if (getAllAccount().contains(account)) {
-                EventBus.getDefault().post(new AccountUpdateEvent());
-                return;
-            }
-
-            reload();
-
-            if (getAllAccount().isEmpty()) setCurrentAccount(account);
-            else EventBus.getDefault().post(new AccountUpdateEvent());
-        };
-
-        mErrorListener = errorMessage -> TaskExecutors.runInUIThread(() -> {
-            Activity activity = ContextExecutor.getActivity();
-            if (errorMessage instanceof PresentedException) {
-                PresentedException exception = (PresentedException) errorMessage;
-                Throwable cause = exception.getCause();
-                if (cause == null) {
-                    new TipDialog.Builder(activity)
-                            .setTitle(R.string.generic_error)
-                            .setMessage(exception.toString(activity))
-                            .setWarning()
-                            .setConfirm(android.R.string.ok)
-                            .setShowCancel(false)
-                            .showDialog();
-                } else {
-                    Tools.showError(activity, exception.toString(activity), exception.getCause());
+    val errorListener by lazy {
+        ErrorListener { error ->
+            ContextExecutor.executeTaskWithAllContext { context ->
+                when (error) {
+                    is PresentedException -> handlePresentedException(context, error)
+                    else -> Tools.showError(context, error)
                 }
-            } else {
-                Tools.showError(activity, errorMessage);
             }
-        });
-    }
-
-    public void performLogin(final Context context, MinecraftAccount minecraftAccount) {
-        performLogin(context, minecraftAccount, getDoneListener(), getErrorListener());
-    }
-
-    public void performLogin(final Context context, MinecraftAccount minecraftAccount, DoneListener doneListener, ErrorListener errorListener) {
-        if (AccountUtils.isNoLoginRequired(minecraftAccount)) {
-            doneListener.onLoginDone(minecraftAccount);
-            return;
-        }
-
-        if (AccountUtils.isOtherLoginAccount(minecraftAccount)) {
-            AccountUtils.otherLogin(context, minecraftAccount, doneListener, errorListener);
-            return;
-        }
-
-        if (AccountUtils.isMicrosoftAccount(minecraftAccount)) {
-            AccountUtils.microsoftLogin(context, minecraftAccount, doneListener, errorListener);
         }
     }
 
-    public void reload() {
-        accounts.clear();
-        File accountsPath = new File(PathManager.DIR_ACCOUNT_NEW);
-        if (accountsPath.exists() && accountsPath.isDirectory()) {
-            File[] files = accountsPath.listFiles();
-            if (files != null) {
-                for (File accountFile : files) {
-                    try {
-                        String jsonString = Tools.read(accountFile);
-                        MinecraftAccount account = MinecraftAccount.parse(jsonString);
-                        if (account != null) accounts.add(account);
-                    } catch (IOException e) {
-                        Logging.e("AccountsManager", String.format("File %s is not recognized as a profile for an account", accountFile.getName()));
+    @JvmOverloads
+    fun performLogin(
+        context: Context,
+        minecraftAccount: MinecraftAccount,
+        doneListener1: DoneListener = doneListener,
+        errorListener1: ErrorListener = errorListener
+    ) {
+        when {
+            isNoLoginRequired(minecraftAccount) -> doneListener1.onLoginDone(minecraftAccount)
+            isOtherLoginAccount(minecraftAccount) -> otherLogin(context, minecraftAccount, doneListener1, errorListener1)
+            isMicrosoftAccount(minecraftAccount) -> microsoftLogin(context, minecraftAccount, doneListener1, errorListener1)
+        }
+    }
+
+    fun reload() {
+        synchronized(accountsLock) {
+            reloadInternal()
+        }
+    }
+
+    var currentAccount: MinecraftAccount?
+        get() = synchronized(accountsLock) {
+            MinecraftAccount.loadFromUniqueUUID(AllSettings.currentAccount.getValue())
+                ?: accounts.firstOrNull()?.also { currentAccount = it }
+        }
+        set(value) {
+            requireNotNull(value) { "Account cannot be null" }
+            AllSettings.currentAccount.put(value.uniqueUUID).save()
+            EventBus.getDefault().post(AccountUpdateEvent())
+        }
+
+    val allAccounts: List<MinecraftAccount>
+        get() = synchronized(accountsLock) { accounts.toList() }
+
+    fun hasMicrosoftAccount(): Boolean = synchronized(accountsLock) {
+        accounts.any(::isMicrosoftAccount)
+    }
+
+    private fun reloadInternal() {
+        accounts.clear()
+        File(PathManager.DIR_ACCOUNT_NEW).takeIf { it.exists() && it.isDirectory }
+            ?.listFiles()
+            ?.forEach { file ->
+                try {
+                    MinecraftAccount.parse(Tools.read(file))?.let {
+                        if (!accounts.contains(it)) accounts.add(it)
                     }
+                } catch (e: IOException) {
+                    Logging.e("AccountsManager", "Failed to read account file: ${file.name}", e)
+                } catch (e: Exception) {
+                    Logging.e("AccountsManager", "Invalid account format in file: ${file.name}", e)
                 }
             }
+        Logging.i("AccountsManager", "Reloaded ${accounts.size} accounts")
+    }
+
+    private fun handlePresentedException(activity: Context, exception: PresentedException) {
+        exception.cause?.let {
+            Tools.showError(activity, exception.toString(activity), it)
+        } ?: run {
+            TipDialog.Builder(activity)
+                .setTitle(R.string.generic_error)
+                .setMessage(exception.toString(activity))
+                .setWarning()
+                .setConfirm(android.R.string.ok)
+                .setShowCancel(false)
+                .showDialog()
         }
-        Logging.i("AccountsManager", "Reload complete.");
-    }
-
-    public MinecraftAccount getCurrentAccount() {
-        MinecraftAccount account = MinecraftAccount.loadFromUniqueUUID(AllSettings.getCurrentAccount().getValue());
-        if (account == null) {
-            if (getAllAccount().isEmpty()) return null;
-            MinecraftAccount account1 = getAllAccount().get(0);
-            setCurrentAccount(account1);
-            return account1;
-        }
-        return account;
-    }
-
-    public List<MinecraftAccount> getAllAccount() {
-        return new ArrayList<>(accounts);
-    }
-
-    public boolean haveMicrosoftAccount() {
-        for (MinecraftAccount account : accounts) {
-            if (AccountUtils.isMicrosoftAccount(account)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void setCurrentAccount(@NonNull MinecraftAccount account) {
-        AllSettings.getCurrentAccount().put(account.getUniqueUUID()).save();
-        EventBus.getDefault().post(new AccountUpdateEvent());
-    }
-
-    public DoneListener getDoneListener() {
-        return mDoneListener;
-    }
-
-    public ErrorListener getErrorListener() {
-        return mErrorListener;
     }
 }

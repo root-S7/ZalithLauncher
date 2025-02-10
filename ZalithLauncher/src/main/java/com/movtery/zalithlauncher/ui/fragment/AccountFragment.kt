@@ -71,14 +71,13 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
     private lateinit var binding: FragmentAccountBinding
     private lateinit var mAccountViewWrapper: AccountViewWrapper
-    private val mAccountManager = AccountsManager.getInstance()
-    private val mAccountsData: MutableList<MinecraftAccount> = mAccountManager.allAccount
+    private val mAccountsData: MutableList<MinecraftAccount> = AccountsManager.allAccounts.toMutableList()
     private val mAccountAdapter = AccountAdapter(mAccountsData)
 
     private val selectAccountListener = object : SelectAccountListener {
         override fun onSelect(account: MinecraftAccount) {
             if (!isTaskRunning()) {
-                mAccountManager.currentAccount = account
+                AccountsManager.currentAccount = account
             } else {
                 TaskExecutors.runInUIThread {
                     Toast.makeText(
@@ -124,7 +123,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                         Toast.makeText(context, R.string.account_login_no_network, Toast.LENGTH_SHORT).show()
                         return
                     }
-                    mAccountManager.performLogin(context, account)
+                    AccountsManager.performLogin(context, account)
                 } else {
                     Toast.makeText(context, R.string.tasks_ongoing, Toast.LENGTH_SHORT).show()
                 }
@@ -223,7 +222,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     @SuppressLint("NotifyDataSetChanged")
     private fun reloadRecyclerView() {
         this.mAccountsData.clear()
-        mAccountsData.addAll(mAccountManager.allAccount)
+        mAccountsData.addAll(AccountsManager.allAccounts)
 
         this.mAccountAdapter.notifyDataSetChanged()
         binding.accountsRecycler.scheduleLayoutAnimation()
@@ -231,7 +230,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
     private fun reloadAccounts() {
         Task.runTask {
-            mAccountManager.reload()
+            AccountsManager.reload()
         }.ended(TaskExecutors.getAndroidUI()) {
             reloadRecyclerView()
             mAccountViewWrapper.refreshAccountInfo()

@@ -75,15 +75,13 @@ class LaunchGame {
                 return
             }
 
-            val accountsManager = AccountsManager.getInstance()
-
-            if (AccountUtils.isNoLoginRequired(accountsManager.currentAccount)) {
+            if (AccountUtils.isNoLoginRequired(AccountsManager.currentAccount)) {
                 launch()
                 return
             }
 
-            accountsManager.performLogin(
-                context, accountsManager.currentAccount,
+            AccountsManager.performLogin(
+                context, AccountsManager.currentAccount!!,
                 { _ ->
                     EventBus.getDefault().post(AccountUpdateEvent())
                     TaskExecutors.runInUIThread {
@@ -119,7 +117,7 @@ class LaunchGame {
                 Renderers.setCurrentRenderer(activity, AllSettings.renderer.getValue())
             }
 
-            var account = AccountsManager.getInstance().currentAccount
+            var account = AccountsManager.currentAccount!!
             if (!NetworkUtils.isNetworkAvailable(activity)) {
                 //没有网络时，将账号视为离线账号
                 account = MinecraftAccount().apply {

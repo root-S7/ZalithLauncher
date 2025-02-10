@@ -100,7 +100,6 @@ import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
     private final AnimPlayer noticeAnimPlayer = new AnimPlayer();
-    private final AccountsManager accountsManager = AccountsManager.getInstance();
     public final ActivityResultLauncher<Object> modInstallerLauncher =
             registerForActivityResult(new OpenDocumentWithExtension("jar"), (uris) -> {
                 if (uris != null) {
@@ -175,7 +174,7 @@ public class LauncherActivity extends BaseActivity {
             return;
         }
 
-        if (accountsManager.getAllAccount().isEmpty()) {
+        if (AccountsManager.INSTANCE.getAllAccounts().isEmpty()) {
             Toast.makeText(this, R.string.account_no_saved_accounts, Toast.LENGTH_LONG).show();
             EventBus.getDefault().post(new SwapToLoginEvent());
             return;
@@ -207,8 +206,8 @@ public class LauncherActivity extends BaseActivity {
     public void event(MicrosoftLoginEvent event) {
         new MicrosoftBackgroundLogin(false, event.getUri().getQueryParameter("code")).performLogin(
                 this, null,
-                accountsManager.getDoneListener(),
-                accountsManager.getErrorListener()
+                AccountsManager.INSTANCE.getDoneListener(),
+                AccountsManager.INSTANCE.getErrorListener()
         );
     }
 
@@ -219,7 +218,7 @@ public class LauncherActivity extends BaseActivity {
                     Logging.i("Account", "Saved the account : " + event.getAccount().username);
                     return null;
                 }).onThrowable(e -> Logging.e("Account", "Failed to save the account : " + e))
-                .finallyTask(() -> accountsManager.getDoneListener().onLoginDone(event.getAccount()))
+                .finallyTask(() -> AccountsManager.INSTANCE.getDoneListener().onLoginDone(event.getAccount()))
                 .execute();
     }
 
@@ -236,7 +235,7 @@ public class LauncherActivity extends BaseActivity {
             Logging.e("Account", "Failed to save the account : " + e);
         }
 
-        accountsManager.getDoneListener().onLoginDone(localAccount);
+        AccountsManager.INSTANCE.getDoneListener().onLoginDone(localAccount);
     }
 
     @Subscribe()
@@ -375,16 +374,6 @@ public class LauncherActivity extends BaseActivity {
         }).execute();
     }
 
-    @Override
-    protected String getVersionsRefreshTag() {
-        return "LauncherActivity";
-    }
-
-    @Override
-    protected boolean canRefreshVersions() {
-        return true;
-    }
-
     private void processFragment() {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -482,8 +471,7 @@ public class LauncherActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setPageOpacity(AllSettings.getPageOpacity().getValue());
-        //避免切换回来的时候，找不到账号，应该在这里刷新账户
-        accountsManager.reload();
+        VersionsManager.INSTANCE.refresh("LauncherActivity:onResume", false);
     }
 
     @Override

@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.context.LocaleHelper;
+import com.movtery.zalithlauncher.feature.accounts.AccountsManager;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
-import com.movtery.zalithlauncher.feature.version.VersionsManager;
 import com.movtery.zalithlauncher.plugins.PluginLoader;
 import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
@@ -40,7 +40,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         PluginLoader.loadAllPlugins(this, false);
         //刷新游戏路径
         ProfilePathManager.INSTANCE.refreshPath();
-        refreshVersions();
     }
 
     @Override
@@ -53,7 +52,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         checkStoragePermissions();
-        refreshVersions();
+
+        AccountsManager.INSTANCE.reload();
     }
 
     @Override
@@ -77,18 +77,5 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void checkStoragePermissions() {
         //检查所有文件管理权限
         StoragePermissionsUtils.checkPermissions(this);
-    }
-
-    private void refreshVersions() {
-        //刷新版本
-        if (canRefreshVersions()) VersionsManager.INSTANCE.refresh(getVersionsRefreshTag(), false);
-    }
-
-    protected String getVersionsRefreshTag() {
-        return "BaseActivity";
-    }
-
-    protected boolean canRefreshVersions() {
-        return false;
     }
 }

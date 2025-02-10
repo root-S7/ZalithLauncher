@@ -26,7 +26,7 @@ class AccountViewWrapper(private val parentFragment: FragmentWithAnim? = null, v
 
     fun refreshAccountInfo() {
         binding.apply {
-            val account = AccountsManager.getInstance().currentAccount
+            val account = AccountsManager.currentAccount
             account ?: run {
                 if (parentFragment == null) {
                     userIcon.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_help))
