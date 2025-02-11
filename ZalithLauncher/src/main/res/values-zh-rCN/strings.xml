@@ -94,7 +94,7 @@
     <string name="microsoft_login_retry_later">你的操作过于频繁，请稍后再试</string>
     <string name="storage_required">%s 需要连接外部存储，请重新连接并重启软件</string>
     <string name="dialog_select_jar">选择 Jar 文件</string>
-    <string name="version_select_hint">选择版本</string>
+    <string name="version_select_hint">选择版本（长按重置）</string>
     <string name="notif_error_occured">出现了一个错误</string>
     <string name="notif_error_occured_desc">点击查看详细信息</string>
     <string name="input_preview_tip">预览输入框，捕获软键盘输入，仅供参考:</string>

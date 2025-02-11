@@ -92,7 +92,7 @@
     <string name="microsoft_login_retry_later">Hoạt động của bạn quá nhiều, vui lòng thử lại sau</string>
     <string name="storage_required">%s yêu cầu kết nối bộ nhớ ngoài, vui lòng kết nối lại và khởi động lại phần mềm</string>
     <string name="dialog_select_jar">Chọn tệp Jar</string>
-    <string name="version_select_hint">Chọn phiên bản</string>
+    <string name="version_select_hint">Chọn bản (Nhấn giữ để đặt lại)</string>
     <string name="notif_error_occured">Đã xảy ra lỗi</string>
     <string name="notif_error_occured_desc">Nhấn vào đây để xem chi tiết</string>
     <string name="input_preview_tip">Xem trước khung nhập liệu, ghi lại đầu vào từ bàn phím mềm, chỉ để tham khảo:</string>

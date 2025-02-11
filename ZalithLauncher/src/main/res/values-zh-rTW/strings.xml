@@ -92,7 +92,7 @@
     <string name="microsoft_login_retry_later">你的操作過於頻繁，請稍後再試</string>
     <string name="storage_required">%s 需要連接外部儲存，請重新連接並重新啟動軟體</string>
     <string name="dialog_select_jar">選擇 Jar 檔案</string>
-    <string name="version_select_hint">選擇版本</string>
+    <string name="version_select_hint">選擇版本（長按重置）</string>
     <string name="notif_error_occured">發生了一個錯誤</string>
     <string name="notif_error_occured_desc">點擊查看詳細資訊</string>
     <string name="input_preview_tip">預覽輸入框，捕獲軟鍵盤輸入，僅供參考：</string>

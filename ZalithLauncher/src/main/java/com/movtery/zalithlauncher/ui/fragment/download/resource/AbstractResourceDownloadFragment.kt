@@ -141,6 +141,10 @@ abstract class AbstractResourceDownloadFragment(
                 })
                 selectVersionDialog.show()
             }
+            selectedMcVersionView.setOnLongClickListener {
+                selectedMcVersionView.text = null
+                true
+            }
         }
 
         // 初始化 Spinner

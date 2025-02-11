@@ -92,7 +92,7 @@
     <string name="microsoft_login_retry_later">Vous avez effectué trop d\'opérations, veuillez réessayer plus tard</string>
     <string name="storage_required">%s nécessite une connexion à un stockage externe, veuillez reconnecter et redémarrer l\'application</string>
     <string name="dialog_select_jar">Sélectionner un fichier Jar</string>
-    <string name="version_select_hint">Sélectionner une version</string>
+    <string name="version_select_hint">Choisir version (Appui long pour réinit.)</string>
     <string name="notif_error_occured">Une erreur est survenue</string>
     <string name="notif_error_occured_desc">Cliquez pour voir les détails</string>
     <string name="input_preview_tip">Aperçu du champ de saisie, capture l\'entrée du clavier virtuel, à titre de référence uniquement :</string>

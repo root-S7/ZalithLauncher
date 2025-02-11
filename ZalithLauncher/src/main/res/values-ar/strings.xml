@@ -92,7 +92,7 @@
     <string name="microsoft_login_retry_later">لقد قمت بالكثير من المحاولات، يرجى المحاولة مرة أخرى لاحقًا</string>
     <string name="storage_required">%s يتطلب الاتصال بالتخزين الخارجي، يرجى إعادة الاتصال وإعادة تشغيل البرنامج</string>
     <string name="dialog_select_jar">اختيار ملف Jar</string>
-    <string name="version_select_hint">اختيار الإصدار</string>
+    <string name="version_select_hint">اختر الإصدار (اضغط مطولًا لإعادة التعيين)</string>
     <string name="notif_error_occured">حدث خطأ</string>
     <string name="notif_error_occured_desc">انقر لعرض التفاصيل</string>
     <string name="input_preview_tip">معاينة مربع الإدخال، التقاط إدخال لوحة المفاتيح الافتراضية، للمرجعية فقط:</string>

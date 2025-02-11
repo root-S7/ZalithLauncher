@@ -92,7 +92,7 @@
     <string name="microsoft_login_retry_later">Deine Aktionen sind zu häufig, bitte versuche es später erneut</string>
     <string name="storage_required">%s benötigt eine externe Speicherverbindung, bitte erneut verbinden und die Software neu starten</string>
     <string name="dialog_select_jar">Jar-Datei auswählen</string>
-    <string name="version_select_hint">Version auswählen</string>
+    <string name="version_select_hint">Version wählen (Lange drücken zum Zurücksetzen)</string>
     <string name="notif_error_occured">Ein Fehler ist aufgetreten</string>
     <string name="notif_error_occured_desc">Klicken Sie hier, um Details anzuzeigen</string>
     <string name="input_preview_tip">Eingabevorschau-Feld, erfasst die Eingabe der Soft-Tastatur, nur als Referenz:</string>

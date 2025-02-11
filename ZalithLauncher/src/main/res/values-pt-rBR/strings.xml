@@ -92,7 +92,7 @@
     <string name="microsoft_login_retry_later">Suas ações estão sendo realizadas com muita frequência, tente novamente mais tarde</string>
     <string name="storage_required">O %s requer armazenamento externo, reconecte e reinicie o software</string>
     <string name="dialog_select_jar">Selecionar Arquivo Jar</string>
-    <string name="version_select_hint">Selecionar Versão</string>
+    <string name="version_select_hint">Escolher versão (Segure para resetar)</string>
     <string name="notif_error_occured">Ocorreu um erro</string>
     <string name="notif_error_occured_desc">Clique para ver detalhes</string>
     <string name="input_preview_tip">Pré-visualização da entrada, captura a entrada do teclado virtual, apenas para referência:</string>

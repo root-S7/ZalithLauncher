@@ -93,7 +93,7 @@
     <string name="storage_required">%s requires external storage, please reconnect and restart the software</string>
     <string name="dialog_select_jar">Select Jar File</string>
     <string name="percent_format" translatable="false">%d%%</string>
-    <string name="version_select_hint">Select Version</string>
+    <string name="version_select_hint">Select version (Long press to reset)</string>
     <string name="notif_error_occured">An error occurred</string>
     <string name="notif_error_occured_desc">Click to view details</string>
     <string name="input_preview_tip">Input preview box, capturing soft keyboard input, for reference only:</string>
