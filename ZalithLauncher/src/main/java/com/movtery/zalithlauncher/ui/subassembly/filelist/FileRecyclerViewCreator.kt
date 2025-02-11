@@ -27,6 +27,8 @@ class FileRecyclerViewCreator(
     @JvmField
     val fileRecyclerAdapter: FileRecyclerAdapter = FileRecyclerAdapter()
     private val mainRecyclerView: RecyclerView
+    private val itemBeans: MutableList<FileItemBean> = mutableListOf()
+    private var filterString: String? = null
 
     init {
         fileRecyclerAdapter.setOnItemClickListener(onItemClickListener)
@@ -48,8 +50,28 @@ class FileRecyclerViewCreator(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun loadData(itemBeans: List<FileItemBean>?) {
-        fileRecyclerAdapter.updateItems(itemBeans)
+    fun loadData(itemBeans: List<FileItemBean>) {
+        this.itemBeans.apply {
+            clear()
+            addAll(itemBeans)
+        }
+        updateWithFilter()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setFilterString(string: String?) {
+        this.filterString = string
+        updateWithFilter()
+    }
+
+    private fun updateWithFilter() {
+        fileRecyclerAdapter.updateItems(
+            filterString?.takeIf { it.isNotEmpty() }?.let { string ->
+                itemBeans.filter {
+                    it.name.contains(string, true)
+                }
+            } ?: itemBeans
+        )
         mainRecyclerView.scheduleLayoutAnimation()
     }
 

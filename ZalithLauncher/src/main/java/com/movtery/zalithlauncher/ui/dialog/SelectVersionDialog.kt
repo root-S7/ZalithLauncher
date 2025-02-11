@@ -6,6 +6,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.DialogSelectVersionBinding
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedListener
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionType
 
@@ -37,6 +38,11 @@ class SelectVersionDialog(context: Context) : FullScreenDialog(context) {
 
                 override fun onTabReselected(tab: TabLayout.Tab) {
                 }
+            })
+
+            searchVersion.addTextChangedListener(SimpleTextWatcher { editable ->
+                val string = editable?.toString() ?: ""
+                version.setFilterString(string)
             })
 
             refresh(versionTab.getTabAt(versionTab.selectedTabPosition))

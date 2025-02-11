@@ -11,6 +11,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionBinding
+import com.movtery.zalithlauncher.listener.SimpleTextWatcher
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedListener
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionType
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -54,6 +55,11 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
 
                 override fun onTabReselected(tab: TabLayout.Tab) {
                 }
+            })
+
+            searchVersion.addTextChangedListener(SimpleTextWatcher { editable ->
+                val string = editable?.toString() ?: ""
+                version.setFilterString(string)
             })
 
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }

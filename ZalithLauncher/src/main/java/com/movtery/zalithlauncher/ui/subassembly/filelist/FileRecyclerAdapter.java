@@ -56,6 +56,10 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
         notifyDataSetChanged();
     }
 
+    public List<FileItemBean> getData() {
+        return mData;
+    }
+
     public boolean isNoFile() {
         return (mData.size() == 1 && !mData.get(0).isCanCheck) || mData.isEmpty();
     }

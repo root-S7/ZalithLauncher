@@ -112,6 +112,10 @@ public class VersionListView extends LinearLayout {
         showVersions(versionType);
     }
 
+    public void setFilterString(String filterString) {
+        this.fileRecyclerViewCreator.setFilterString(filterString);
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     private List<FileItemBean> showVersions(VersionType versionType) {
         switch (versionType) {
