@@ -126,7 +126,9 @@ object VersionsManager {
             )
             versions.add(version)
 
-            Logging.i("VersionsManager", "Identified and added version: $version")
+            Logging.i("VersionsManager", "Identified and added version: ${version.getVersionName()}, " +
+                    "Path: (${version.getVersionPath()}), " +
+                    "Info: ${version.getVersionInfo()?.getInfoString()}")
         }
     }
 
