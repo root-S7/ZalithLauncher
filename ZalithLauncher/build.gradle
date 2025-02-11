@@ -69,7 +69,7 @@ android {
         versionCode 140000
         versionName "1.4.0"
         multiDexEnabled true //important
-        buildConfigField "boolean", "IS_PRE_RELEASE", "false"
+        buildConfigField "boolean", "IS_PRE_RELEASE", "true"
 
         stringfog {
             implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
