@@ -8,7 +8,6 @@ import com.movtery.zalithlauncher.feature.login.OtherLoginApi
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectRoleDialog
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import java.util.Objects
 
@@ -45,7 +44,11 @@ class OtherLoginHelper(
         }.beforeStart(TaskExecutors.getAndroidUI()) {
             listener.onLoading()
         }.onThrowable { e ->
-            Logging.e("Other Login", Tools.printToString(e))
+            val message = "An exception was encountered while performing the login task."
+            Logging.e("Other Login", message, e)
+            TaskExecutors.runInUIThread {
+                listener.onFailed(e.message ?: message)
+            }
         }.execute()
     }
 
@@ -171,7 +174,11 @@ class OtherLoginHelper(
         }.beforeStart(TaskExecutors.getAndroidUI()) {
             listener.onLoading()
         }.onThrowable { e ->
-            Logging.e("Other Login", Tools.printToString(e))
+            val message = "An exception was encountered while performing the refresh task."
+            Logging.e("Other Login", message, e)
+            TaskExecutors.runInUIThread {
+                listener.onFailed(e.message ?: message)
+            }
         }.execute()
     }
 

@@ -71,42 +71,35 @@ object OtherLoginApi {
         callLogin(data, "/authserver/refresh", listener)
     }
 
-    @Throws(IOException::class)
     private fun callLogin(data: String, url: String, listener: Listener) {
         val body = data.toRequestBody("application/json".toMediaTypeOrNull())
         val call = client.newCall(createRequestBuilder(baseUrl + url, body).build())
 
-        runCatching {
-            call.execute().use { response ->
-                val res = response.body?.string()
-                if (response.code == 200) {
-                    val result = Gson().fromJson(res, AuthResult::class.java)
-                    listener.onSuccess(result)
-                } else {
-                    var errorMessage: String = res ?: "null"
-                    runCatching parseMessage@{
-                        if (errorMessage == "null") return@parseMessage
+        call.execute().use { response ->
+            val res = response.body?.string()
+            if (response.code == 200) {
+                val result = Gson().fromJson(res, AuthResult::class.java)
+                listener.onSuccess(result)
+            } else {
+                var errorMessage: String = res ?: "null"
+                runCatching parseMessage@{
+                    if (errorMessage == "null") return@parseMessage
 
-                        val jsonObject = JSONObject(errorMessage)
-                        errorMessage = if (jsonObject.has("errorMessage")) {
-                            jsonObject.getString("errorMessage")
-                        } else if (jsonObject.has("message")) {
-                            jsonObject.getString("message")
-                        } else {
-                            Logging.e("Other Login", "The error message returned by the server could not be retrieved.")
-                            return@parseMessage
-                        }
+                    val jsonObject = JSONObject(errorMessage)
+                    errorMessage = if (jsonObject.has("errorMessage")) {
+                        jsonObject.getString("errorMessage")
+                    } else if (jsonObject.has("message")) {
+                        jsonObject.getString("message")
+                    } else {
+                        Logging.e("Other Login", "The error message returned by the server could not be retrieved.")
+                        return@parseMessage
+                    }
 
-                        if (errorMessage.contains("\\u"))
-                            errorMessage = StringUtilsKt.decodeUnicode(errorMessage.replace("\\\\u", "\\u"))
-                    }.onFailure { e -> Logging.e("Other Login", Tools.printToString(e)) }
-                    listener.onFailed("(${response.code}) $errorMessage")
-                }
+                    if (errorMessage.contains("\\u"))
+                        errorMessage = StringUtilsKt.decodeUnicode(errorMessage.replace("\\\\u", "\\u"))
+                }.onFailure { e -> Logging.e("Other Login", Tools.printToString(e)) }
+                listener.onFailed("(${response.code}) $errorMessage")
             }
-        }.onFailure { e ->
-            val message = "Encountered an exception during login"
-            Logging.e("Other Login", message, e)
-            listener.onFailed(e.message ?: message)
         }
     }
 

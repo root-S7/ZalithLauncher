@@ -306,6 +306,8 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                 }
 
                 override fun onFailed(error: String) {
+                    mProgressDialog.dismiss()
+
                     TipDialog.Builder(requireActivity())
                         .setTitle(R.string.generic_warning)
                         .setMessage(getString(R.string.other_login_error) + error)
