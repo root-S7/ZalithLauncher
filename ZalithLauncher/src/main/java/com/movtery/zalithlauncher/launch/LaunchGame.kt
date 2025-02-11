@@ -54,7 +54,9 @@ class LaunchGame {
          */
         @JvmStatic
         fun preLaunch(context: Context, version: Version) {
-            fun launch() {
+            fun launch(setOfflineAccount: Boolean = false) {
+                version.offlineAccountLogin = setOfflineAccount
+
                 val versionName = version.getVersionName()
                 val mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName)
                 MinecraftDownloader().start(
@@ -68,10 +70,9 @@ class LaunchGame {
             }
 
             if (!NetworkUtils.isNetworkAvailable(context)) {
-                // 网络未链接，无法登录，但是依旧允许玩家启动游戏
-                // 在启动时会再检查网络情况，如果仍未连接网络，那么将会临时创建一个同名的离线账号启动游戏
+                // 网络未链接，无法登录，但是依旧允许玩家启动游戏 (临时创建一个同名的离线账号启动游戏)
                 Toast.makeText(context, context.getString(R.string.account_login_no_network), Toast.LENGTH_SHORT).show()
-                launch()
+                launch(true)
                 return
             }
 
@@ -99,7 +100,7 @@ class LaunchGame {
                             .setTitle(R.string.generic_error)
                             .setMessage("${context.getString(R.string.account_login_skip)}\r\n$errorMessage")
                             .setWarning()
-                            .setConfirmClickListener { launch() }
+                            .setConfirmClickListener { launch(true) }
                             .setCenterMessage(false)
                             .showDialog()
                     }
@@ -118,8 +119,7 @@ class LaunchGame {
             }
 
             var account = AccountsManager.currentAccount!!
-            if (!NetworkUtils.isNetworkAvailable(activity)) {
-                //没有网络时，将账号视为离线账号
+            if (minecraftVersion.offlineAccountLogin) {
                 account = MinecraftAccount().apply {
                     this.username = account.username
                     this.accountType = AccountType.LOCAL.type

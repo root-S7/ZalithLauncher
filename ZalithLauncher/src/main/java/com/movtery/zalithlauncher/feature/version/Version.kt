@@ -23,6 +23,11 @@ class Version(
     private val isValid: Boolean
 ) :Parcelable {
     /**
+     * 控制是否将当前账号视为离线账号启动游戏
+     */
+    var offlineAccountLogin: Boolean = false
+
+    /**
      * @return 获取版本所属的版本文件夹
      */
     fun getVersionsFolder(): String = versionsFolder
@@ -88,25 +93,30 @@ class Version(
         }.getOrElse { null }
     }
 
-    override fun toString(): String {
-        return "Version{versionPath:'$versionPath', versionConfig:'$versionConfig'}"
-    }
+    private fun Boolean.getInt(): Int = if (this) 1 else 0
 
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeStringList(listOf(versionsFolder, versionPath))
         dest.writeParcelable(versionConfig, flags)
-        dest.writeInt(if (isValid) 1 else 0)
+        dest.writeInt(isValid.getInt())
+        dest.writeInt(offlineAccountLogin.getInt())
     }
 
     companion object CREATOR : Parcelable.Creator<Version> {
+        private fun Int.toBoolean(): Boolean = this != 0
+
         override fun createFromParcel(parcel: Parcel): Version {
             val stringList = ArrayList<String>()
             parcel.readStringList(stringList)
             val versionConfig = parcel.readParcelable<VersionConfig>(VersionConfig::class.java.classLoader)!!
-            val isValid = parcel.readInt() != 0
-            return Version(stringList[0], stringList[1], versionConfig, isValid)
+            val isValid = parcel.readInt().toBoolean()
+            val offlineAccount = parcel.readInt().toBoolean()
+
+            return Version(stringList[0], stringList[1], versionConfig, isValid).apply {
+                offlineAccountLogin = offlineAccount
+            }
         }
 
         override fun newArray(size: Int): Array<Version?> {
