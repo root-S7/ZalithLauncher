@@ -33,7 +33,7 @@ class LaunchArgs(
         argsList.addAll(getJavaArgs())
         argsList.addAll(getMinecraftJVMArgs())
         argsList.add("-cp")
-        argsList.add("${Tools.getLWJGL3ClassPath()}:$launchClassPath")
+        argsList.add("$launchClassPath:${Tools.getLWJGL3ClassPath()}")
 
         argsList.add(versionInfo.mainClass)
         argsList.addAll(getMinecraftClientArgs())
