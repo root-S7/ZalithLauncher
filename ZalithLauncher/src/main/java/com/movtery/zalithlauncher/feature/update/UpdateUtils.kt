@@ -17,6 +17,7 @@ import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.CallUtils
 import com.movtery.zalithlauncher.utils.http.CallUtils.CallbackListener
+import com.movtery.zalithlauncher.utils.http.NetworkUtils
 import com.movtery.zalithlauncher.utils.path.UrlManager
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Architecture
@@ -40,6 +41,11 @@ class UpdateUtils {
          */
         @JvmStatic
         fun checkDownloadedPackage(context: Context, force: Boolean, ignore: Boolean) {
+            if (force && !NetworkUtils.isNetworkAvailable(context)) {
+                Toast.makeText(context, context.getString(R.string.generic_no_network), Toast.LENGTH_SHORT).show()
+                return
+            }
+
             val isRelease = (ZHTools.isRelease() || ZHTools.isPreRelease()) && !ZHTools.isDebug()
 
             if (sApkFile.exists()) {

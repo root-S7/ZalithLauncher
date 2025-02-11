@@ -41,6 +41,7 @@
     <string name="generic_login">Đăng nhập</string>
     <string name="generic_wrong_tip">Đã xảy ra sự cố</string>
     <string name="generic_no_more_reminders">Không nhắc lại</string>
+    <string name="generic_no_network">Không kết nối được internet. Vui lòng kiểm tra kết nối mạng của thiết bị!</string>
     <string name="generic_input_invalid">Nội dung đã nhập không hợp lệ, vui lòng nhập lại</string>
     <string name="generic_input_invalid_character">Tên chứa ký tự không hợp lệ: "%s"</string>
     <string name="generic_input_too_small">Giá trị đã nhập quá nhỏ, cần ít nhất là %s</string>

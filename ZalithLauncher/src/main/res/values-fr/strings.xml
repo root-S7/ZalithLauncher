@@ -41,6 +41,7 @@
     <string name="generic_login">Connexion</string>
     <string name="generic_wrong_tip">Il y a eu un problème</string>
     <string name="generic_no_more_reminders">Ne plus rappeler</string>
+    <string name="generic_no_network">Pas connecté à Internet. Veuillez vérifier la connexion réseau de votre appareil !</string>
     <string name="generic_input_invalid">Le contenu saisi n\'est pas valide, veuillez réessayer</string>
     <string name="generic_input_invalid_character">Le nom contient un caractère invalide : "%s"</string>
     <string name="generic_input_too_small">La valeur saisie est trop petite, elle doit être au moins %s</string>

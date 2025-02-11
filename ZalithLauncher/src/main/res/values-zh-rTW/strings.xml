@@ -41,6 +41,7 @@
     <string name="generic_login">登入</string>
     <string name="generic_wrong_tip">發生了一些問題</string>
     <string name="generic_no_more_reminders">不再提醒</string>
+    <string name="generic_no_network">未連接到網際網路，請檢查設備的網路連線！</string>
     <string name="generic_input_invalid">填寫的內容不符合要求，請重新輸入</string>
     <string name="generic_input_invalid_character">名稱內包含無效字元："%s"</string>
     <string name="generic_input_too_small">填寫的數值過小，至少需為 %s</string>

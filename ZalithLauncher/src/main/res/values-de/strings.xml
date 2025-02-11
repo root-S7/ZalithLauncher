@@ -41,6 +41,7 @@
     <string name="generic_login">Anmelden</string>
     <string name="generic_wrong_tip">Es gab ein Problem</string>
     <string name="generic_no_more_reminders">Nicht mehr erinnern</string>
+    <string name="generic_no_network">Keine Internetverbindung. Bitte überprüfen Sie die Netzwerkverbindung Ihres Geräts!</string>
     <string name="generic_input_invalid">Die Eingabe ist ungültig, bitte erneut eingeben</string>
     <string name="generic_input_invalid_character">Der Name enthält ein ungültiges Zeichen: "%s"</string>
     <string name="generic_input_too_small">Der Wert ist zu klein, mindestens %s</string>

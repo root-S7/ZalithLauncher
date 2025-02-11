@@ -41,6 +41,7 @@
     <string name="generic_login">登录</string>
     <string name="generic_wrong_tip">出现了一些问题</string>
     <string name="generic_no_more_reminders">不再提醒</string>
+    <string name="generic_no_network">未连接到互联网，请检查设备网络连接！</string>
     <string name="generic_input_invalid">填写的内容不符合要求，请重新输入</string>
     <string name="generic_input_invalid_character">名称内包含无效字符："%s"</string>
     <string name="generic_input_too_small">填写的值过小，至少需要为 %s</string>
