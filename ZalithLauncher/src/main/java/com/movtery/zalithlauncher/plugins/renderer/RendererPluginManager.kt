@@ -22,6 +22,7 @@ import java.util.zip.ZipFile
  */
 object RendererPluginManager {
     private val rendererPluginList: MutableList<RendererPlugin> = mutableListOf()
+    private val apkRendererPluginList: MutableList<ApkRendererPlugin> = mutableListOf()
     private val localRendererPluginList: MutableList<LocalRendererPlugin> = mutableListOf()
 
     /**
@@ -71,6 +72,7 @@ object RendererPluginManager {
      */
     fun clearPlugin() {
         rendererPluginList.clear()
+        apkRendererPluginList.clear()
         localRendererPluginList.clear()
     }
 
@@ -111,8 +113,10 @@ object RendererPluginManager {
                     }
                 }
 
+                val packageName = info.packageName
+
                 rendererPluginList.add(
-                    RendererPlugin(
+                    ApkRendererPlugin(
                         rendererId,
                         "$des (${
                             context.getString(
@@ -124,12 +128,13 @@ object RendererPluginManager {
                                 }
                             )
                         })",
-                        info.packageName,
+                        packageName,
                         renderer[1],
                         renderer[2].progressEglName(nativeLibraryDir),
                         nativeLibraryDir,
                         envList,
-                        dlopenList
+                        dlopenList,
+                        packageName
                     )
                 )
             }
@@ -166,32 +171,27 @@ object RendererPluginManager {
         }
         val uniqueIdentifier = directory.name
         rendererConfig.run {
-            localRendererPluginList.add(
-                LocalRendererPlugin(
-                    uniqueIdentifier,
-                    rendererId,
-                    rendererDisplayName,
-                    directory
-                )
-            )
             val libPath = libsDirectory.absolutePath
-            rendererPluginList.add(
-                RendererPlugin(
-                    rendererId,
-                    "$rendererDisplayName (${
-                        context.getString(
-                            R.string.setting_renderer_from_plugins,
-                            uniqueIdentifier
-                        )
-                    })",
-                    uniqueIdentifier,
-                    glName,
-                    eglName.progressEglName(libPath),
-                    libPath,
-                    pojavEnv.filter { it.key != "POJAV_RENDERER" },
-                    dlopenList ?: emptyList()
-                )
+
+            val plugin = LocalRendererPlugin(
+                rendererId,
+                "$rendererDisplayName (${
+                    context.getString(
+                        R.string.setting_renderer_from_plugins,
+                        uniqueIdentifier
+                    )
+                })",
+                uniqueIdentifier,
+                glName,
+                eglName.progressEglName(libPath),
+                libPath,
+                pojavEnv.filter { it.key != "POJAV_RENDERER" },
+                dlopenList ?: emptyList(),
+                directory
             )
+
+            rendererPluginList.add(plugin)
+            localRendererPluginList.add(plugin)
         }
         return true
     }

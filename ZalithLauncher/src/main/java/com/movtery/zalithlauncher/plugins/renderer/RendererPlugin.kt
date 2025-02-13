@@ -1,8 +1,8 @@
 package com.movtery.zalithlauncher.plugins.renderer
 
-data class RendererPlugin(
+abstract class RendererPlugin(
     val id: String,
-    val des: String,
+    val displayName: String,
     val uniqueIdentifier: String,
     val glName: String,
     val eglName: String,

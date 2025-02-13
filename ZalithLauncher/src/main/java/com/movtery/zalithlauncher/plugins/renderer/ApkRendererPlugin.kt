@@ -1,8 +1,6 @@
 package com.movtery.zalithlauncher.plugins.renderer
 
-import java.io.File
-
-class LocalRendererPlugin(
+class ApkRendererPlugin(
     id: String,
     displayName: String,
     uniqueIdentifier: String,
@@ -11,7 +9,7 @@ class LocalRendererPlugin(
     path: String,
     env: Map<String, String>,
     dlopen: List<String>,
-    val folderPath: File
+    val packageName: String
 ) : RendererPlugin(
     id, displayName, uniqueIdentifier, glName, eglName, path, env, dlopen
 )

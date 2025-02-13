@@ -46,8 +46,8 @@ class LocalRendererPluginDialog(
             fun bind(renderer: LocalRendererPlugin) {
                 binding.apply {
                     rendererIdentifier.text = renderer.uniqueIdentifier
-                    rendererName.text = renderer.rendererName
-                    rendererId.text = renderer.rendererId
+                    rendererName.text = renderer.displayName
+                    rendererId.text = renderer.id
 
                     delete.setOnClickListener {
                         TipDialog.Builder(binding.root.context)
