@@ -59,6 +59,8 @@ import com.movtery.zalithlauncher.feature.version.install.GameInstaller;
 import com.movtery.zalithlauncher.feature.version.install.InstallTask;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
+import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
+import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
@@ -73,6 +75,7 @@ import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.SettingsButtonWrapper;
 import com.movtery.zalithlauncher.ui.subassembly.view.DraggableViewWrapper;
 import com.movtery.zalithlauncher.ui.view.AnimButton;
+import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
 import com.movtery.zalithlauncher.utils.file.FileTools;
@@ -92,6 +95,7 @@ import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -161,7 +165,7 @@ public class LauncherActivity extends BaseActivity {
         ZHTools.swapFragmentWithAnim(currentFragment, AccountFragment.class, AccountFragment.TAG, null);
     }
 
-    @Subscribe()
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void event(LaunchGameEvent event) {
         if (binding.progressLayout.hasProcesses()) {
             Toast.makeText(this, R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
@@ -180,26 +184,28 @@ public class LauncherActivity extends BaseActivity {
             return;
         }
 
-        LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
-            @Override
-            public void onUsageAllowed() {
-                preLaunch(LauncherActivity.this, version);
-            }
+        RendererPlugin rendererPlugin = RendererPluginManager.getConfigurablePluginOrNull(version.getRenderer());
+        if (rendererPlugin != null) {
+            StoragePermissionsUtils.checkPermissions(
+                    this,
+                    R.string.generic_warning,
+                    getString(R.string.permissions_storage_for_renderer_config, rendererPlugin.getDisplayName(), InfoCenter.APP_NAME),
+                    new StoragePermissionsUtils.PermissionGranted() {
+                        @Override
+                        public void granted() {
+                            launchGame(version);
+                        }
 
-            @Override
-            public void onUsageDenied() {
-                if (!AllSettings.getLocalAccountReminders().getValue()) {
-                    preLaunch(LauncherActivity.this, version);
-                } else {
-                    LocalAccountUtils.openDialog(LauncherActivity.this, checked -> {
-                                LocalAccountUtils.saveReminders(checked);
-                                preLaunch(LauncherActivity.this, version);
-                            },
-                            getString(R.string.account_no_microsoft_account) + getString(R.string.account_purchase_minecraft_account_tip),
-                            R.string.account_continue_to_launch_the_game);
-                }
-            }
-        });
+                        @Override
+                        public void cancelled() {
+                            launchGame(version);
+                        }
+                    }
+            );
+            return;
+        }
+
+        launchGame(version);
     }
 
     @Subscribe()
@@ -501,6 +507,29 @@ public class LauncherActivity extends BaseActivity {
     @Override
     public void onAttachedToWindow() {
         LauncherPreferences.computeNotchSize(this);
+    }
+
+    private void launchGame(Version version) {
+        LocalAccountUtils.checkUsageAllowed(new LocalAccountUtils.CheckResultListener() {
+            @Override
+            public void onUsageAllowed() {
+                preLaunch(LauncherActivity.this, version);
+            }
+
+            @Override
+            public void onUsageDenied() {
+                if (!AllSettings.getLocalAccountReminders().getValue()) {
+                    preLaunch(LauncherActivity.this, version);
+                } else {
+                    LocalAccountUtils.openDialog(LauncherActivity.this, checked -> {
+                                LocalAccountUtils.saveReminders(checked);
+                                preLaunch(LauncherActivity.this, version);
+                            },
+                            getString(R.string.account_no_microsoft_account) + getString(R.string.account_purchase_minecraft_account_tip),
+                            R.string.account_continue_to_launch_the_game);
+                }
+            }
+        });
     }
 
     private void checkNotice() {

@@ -105,9 +105,17 @@ class ProfilePathAdapter(
 
                 val onClickListener = View.OnClickListener {
                     if (VersionsManager.canRefresh() && currentId != profileItem.id) {
-                        StoragePermissionsUtils.checkPermissions(fragment.requireActivity(), R.string.profiles_path_title) {
-                            setPathId(profileItem.id)
-                        }
+                        StoragePermissionsUtils.checkPermissions(
+                            activity = fragment.requireActivity(),
+                            title = R.string.profiles_path_title,
+                            permissionGranted = object : StoragePermissionsUtils.PermissionGranted {
+                                override fun granted() {
+                                    setPathId(profileItem.id)
+                                }
+
+                                override fun cancelled() {}
+                            }
+                        )
                     }
                 }
                 root.setOnClickListener(onClickListener)

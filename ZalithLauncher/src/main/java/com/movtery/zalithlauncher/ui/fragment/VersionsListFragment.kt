@@ -146,13 +146,21 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 refresh(refreshVersions = true, refreshVersionInfo = true)
             }
             createPathButton.setOnClickListener {
-                StoragePermissionsUtils.checkPermissions(requireActivity(), R.string.profiles_path_create_new) {
-                    val bundle = Bundle()
-                    bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
-                    bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
-                    bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
-                    ZHTools.swapFragmentWithAnim(this@VersionsListFragment, FilesFragment::class.java, FilesFragment.TAG, bundle)
-                }
+                StoragePermissionsUtils.checkPermissions(
+                    activity = requireActivity(),
+                    title = R.string.profiles_path_create_new,
+                    permissionGranted = object : StoragePermissionsUtils.PermissionGranted {
+                        override fun granted() {
+                            val bundle = Bundle()
+                            bundle.putBoolean(FilesFragment.BUNDLE_SELECT_FOLDER_MODE, true)
+                            bundle.putBoolean(FilesFragment.BUNDLE_SHOW_FILE, false)
+                            bundle.putBoolean(FilesFragment.BUNDLE_REMOVE_LOCK_PATH, false)
+                            ZHTools.swapFragmentWithAnim(this@VersionsListFragment, FilesFragment::class.java, FilesFragment.TAG, bundle)
+                        }
+
+                        override fun cancelled() {}
+                    }
+                )
             }
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
         }

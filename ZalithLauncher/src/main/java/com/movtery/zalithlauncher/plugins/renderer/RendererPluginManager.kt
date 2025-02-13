@@ -60,11 +60,10 @@ object RendererPluginManager {
     @JvmStatic
     val selectedRendererPlugin: RendererPlugin?
         get() {
-            return rendererPluginList.find {
-                it.uniqueIdentifier == runCatching {
-                    Renderers.getCurrentRenderer().getUniqueIdentifier()
-                }.getOrNull()
-            }
+            val currentRenderer = runCatching {
+                Renderers.getCurrentRenderer().getUniqueIdentifier()
+            }.getOrNull()
+            return rendererPluginList.find { it.uniqueIdentifier == currentRenderer }
         }
 
     /**
@@ -74,6 +73,19 @@ object RendererPluginManager {
         rendererPluginList.clear()
         apkRendererPluginList.clear()
         localRendererPluginList.clear()
+    }
+
+    /**
+     * 当前渲染器插件是否带有配置项（软件式插件、白名单包名）
+     */
+    @JvmStatic
+    fun getConfigurablePluginOrNull(rendererUniqueIdentifier: String): RendererPlugin? {
+        val renderer = apkRendererPluginList.find { it.uniqueIdentifier == rendererUniqueIdentifier }
+        return renderer?.takeIf { it.packageName in setOf(
+                "com.bzlzhh.plugin.ngg",
+                "com.bzlzhh.plugin.ngg.angleless",
+                "com.fcl.plugin.mobileglues"
+            ) }
     }
 
     /**
@@ -115,28 +127,29 @@ object RendererPluginManager {
 
                 val packageName = info.packageName
 
-                rendererPluginList.add(
-                    ApkRendererPlugin(
-                        rendererId,
-                        "$des (${
-                            context.getString(
-                                R.string.setting_renderer_from_plugins,
-                                runCatching {
-                                    context.packageManager.getApplicationLabel(info)
-                                }.getOrElse {
-                                    context.getString(R.string.generic_unknown)
-                                }
-                            )
-                        })",
-                        packageName,
-                        renderer[1],
-                        renderer[2].progressEglName(nativeLibraryDir),
-                        nativeLibraryDir,
-                        envList,
-                        dlopenList,
-                        packageName
-                    )
+                val plugin = ApkRendererPlugin(
+                    rendererId,
+                    "$des (${
+                        context.getString(
+                            R.string.setting_renderer_from_plugins,
+                            runCatching {
+                                context.packageManager.getApplicationLabel(info)
+                            }.getOrElse {
+                                context.getString(R.string.generic_unknown)
+                            }
+                        )
+                    })",
+                    packageName,
+                    renderer[1],
+                    renderer[2].progressEglName(nativeLibraryDir),
+                    nativeLibraryDir,
+                    envList,
+                    dlopenList,
+                    packageName
                 )
+
+                rendererPluginList.add(plugin)
+                apkRendererPluginList.add(plugin)
             }
         }
     }

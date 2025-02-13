@@ -241,9 +241,11 @@
     <string name="version_manager_favorites_write_folder_name">Назвать новый фаворит</string>
     <string name="version_manager_favorites_dialog_title">Добавить в избранное</string>
     <string name="version_manager_favorites_dialog_no_folders">Еще нет избранного, пожалуйста, добавьте избранное сначала!</string>
-    <!-- Profiles Path -->
+    <!-- Permissions -->
     <string name="permissions_manage_external_storage">%s требует разрешения на управление всеми файлами устройства для правильной работы этой функции, пожалуйста, включите разрешение!</string>
     <string name="permissions_write_external_storage">Для работы %s требуется разрешение на управление хранилищем. Если разрешение не предоставлено, могут возникнуть проблемы, такие как невозможность сохранения или распаковки игровых файлов. Пожалуйста, предоставьте разрешение для обеспечения корректной работы.</string>
+    <string name="permissions_storage_for_renderer_config">Выбранный рендер-плагин %s может иметь настройки. Если у %s нет доступа к хранилищу, их нельзя прочитать. Разрешите доступ для корректной работы.</string>
+    <!-- Profiles Path -->
     <string name="profiles_path_title">Управление путями игры</string>
     <string name="profiles_path_default">Путь по умолчанию</string>
     <string name="profiles_path_settings">Открыть настройки пути</string>

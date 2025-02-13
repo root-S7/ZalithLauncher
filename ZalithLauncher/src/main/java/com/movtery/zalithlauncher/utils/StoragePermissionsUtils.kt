@@ -37,16 +37,23 @@ class StoragePermissionsUtils {
         /**
          * 获得提前检查好的存储权限
          */
+        @JvmStatic
         fun checkPermissions() = hasStoragePermission
 
         /**
          * 检查存储权限，如果没有存储权限，则弹出弹窗向用户申请
          */
-        fun checkPermissions(activity: Activity, title: Int = R.string.generic_warning, permissionGranted: PermissionGranted?) {
+        @JvmStatic
+        fun checkPermissions(
+            activity: Activity,
+            title: Int = R.string.generic_warning,
+            message: String = getDefaultPermissionMessage(activity),
+            permissionGranted: PermissionGranted?
+        ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                handlePermissionsForAndroid11AndAbove(activity, title, permissionGranted)
+                handlePermissionsForAndroid11AndAbove(activity, title, message, permissionGranted)
             } else {
-                handlePermissionsForAndroid10AndBelow(activity, title, permissionGranted)
+                handlePermissionsForAndroid10AndBelow(activity, title, message, permissionGranted)
             }
         }
 
@@ -62,49 +69,72 @@ class StoragePermissionsUtils {
         private fun checkPermissionsForAndroid11AndAbove() = Environment.isExternalStorageManager()
 
         @RequiresApi(api = Build.VERSION_CODES.R)
-        private fun handlePermissionsForAndroid11AndAbove(activity: Activity, title: Int, permissionGranted: PermissionGranted?) {
+        private fun handlePermissionsForAndroid11AndAbove(activity: Activity, title: Int, message: String, permissionGranted: PermissionGranted?) {
             if (!checkPermissionsForAndroid11AndAbove()) {
-                showPermissionRequestDialog(activity, title) {
-                    val intent =
-                        Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                    intent.setData(Uri.parse("package:" + activity.packageName))
-                    activity.startActivityForResult(intent, REQUEST_CODE_PERMISSIONS)
-                }
+                showPermissionRequestDialog(activity, title, message, object : RequestPermissions {
+                    override fun onRequest() {
+                        val intent =
+                            Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                        intent.setData(Uri.parse("package:" + activity.packageName))
+                        activity.startActivityForResult(intent, REQUEST_CODE_PERMISSIONS)
+                    }
+
+                    override fun onCancel() {
+                        permissionGranted?.cancelled()
+                    }
+                })
             } else {
                 permissionGranted?.granted()
             }
         }
 
-        private fun handlePermissionsForAndroid10AndBelow(activity: Activity, title: Int, permissionGranted: PermissionGranted?) {
+        private fun handlePermissionsForAndroid10AndBelow(activity: Activity, title: Int, message: String, permissionGranted: PermissionGranted?) {
             if (!hasStoragePermissions(activity)) {
-                showPermissionRequestDialog(activity, title) {
-                    ActivityCompat.requestPermissions(
-                        activity, arrayOf(
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ), REQUEST_CODE_PERMISSIONS
-                    )
-                }
+                showPermissionRequestDialog(activity, title, message, object : RequestPermissions {
+                    override fun onRequest() {
+                        ActivityCompat.requestPermissions(
+                            activity, arrayOf(
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            ), REQUEST_CODE_PERMISSIONS
+                        )
+                    }
+
+                    override fun onCancel() {
+                        permissionGranted?.cancelled()
+                    }
+                })
             } else {
                 permissionGranted?.granted()
             }
         }
 
-        private fun showPermissionRequestDialog(context: Context, title: Int, requestPermissions: RequestPermissions) {
+        private fun showPermissionRequestDialog(
+            context: Context,
+            title: Int,
+            message: String,
+            requestPermissions: RequestPermissions
+        ) {
             TipDialog.Builder(context)
                 .setTitle(title)
-                .setMessage(InfoCenter.replaceName(context, R.string.permissions_manage_external_storage))
+                .setMessage(message)
                 .setConfirmClickListener { requestPermissions.onRequest() }
+                .setCancelClickListener { requestPermissions.onCancel() }
                 .setCancelable(false)
                 .showDialog()
         }
+
+        private fun getDefaultPermissionMessage(context: Context) =
+            InfoCenter.replaceName(context, R.string.permissions_manage_external_storage)
     }
 
-    fun interface RequestPermissions {
+    private interface RequestPermissions {
         fun onRequest()
+        fun onCancel()
     }
 
-    fun interface PermissionGranted {
+    interface PermissionGranted {
         fun granted()
+        fun cancelled()
     }
 }

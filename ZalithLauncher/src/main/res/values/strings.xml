@@ -247,9 +247,11 @@
     <string name="version_manager_favorites_write_folder_name">Name New Favorite</string>
     <string name="version_manager_favorites_dialog_title">Add to Favorite</string>
     <string name="version_manager_favorites_dialog_no_folders">No favorites yet, please add a favorite first!</string>
-    <!-- Profiles Path -->
+    <!-- Permissions -->
     <string name="permissions_manage_external_storage">%s requires permission to manage all files on the device to use this feature properly. Please enable the permission!</string>
     <string name="permissions_write_external_storage">%s requires storage management permission. If the permission is not enabled, it may cause issues such as game files failing to save or decompress properly. Please grant the permission to ensure proper functionality.</string>
+    <string name="permissions_storage_for_renderer_config">The selected renderer plugin %s may have settings. If %s lacks storage access, its settings cannot be read. Grant permission for proper function.</string>
+    <!-- Profiles Path -->
     <string name="profiles_path_title">Game Path Management</string>
     <string name="profiles_path_default">Default Path</string>
     <string name="profiles_path_settings">Open Path Settings</string>

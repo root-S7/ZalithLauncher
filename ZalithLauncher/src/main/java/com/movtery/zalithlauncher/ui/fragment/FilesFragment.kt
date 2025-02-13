@@ -156,7 +156,11 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
                     setVisibilityAnim(nothingText, isNoFile)
                     // 如果目录变更到了外部存储，则会检查权限
                     if (Objects.equals(fullPath.absolutePath, storageDirectory.absolutePath)) {
-                        StoragePermissionsUtils.checkPermissions(requireActivity(), R.string.file_external_storage, null)
+                        StoragePermissionsUtils.checkPermissions(
+                            activity = requireActivity(),
+                            title = R.string.file_external_storage,
+                            permissionGranted = null
+                        )
                     }
                 }
             }
