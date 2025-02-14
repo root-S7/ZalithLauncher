@@ -280,6 +280,8 @@ public class LauncherActivity extends BaseActivity {
                             InstallTask downloadTask = modLoaderWrapper.getDownloadTask();
 
                             if (downloadTask != null) {
+                                runOnUiThread(() -> Toast.makeText(this, getString(R.string.modpack_prepare_mod_loader_installation), Toast.LENGTH_SHORT).show());
+
                                 Logging.i("Install Version", "Installing ModLoader: " + modLoaderWrapper.getModLoaderVersion());
                                 File file = downloadTask.run(customName);
                                 if (file != null) {

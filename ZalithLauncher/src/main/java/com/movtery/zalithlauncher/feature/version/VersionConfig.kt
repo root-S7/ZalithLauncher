@@ -58,7 +58,7 @@ class VersionConfig(private var versionPath: File) : Parcelable {
     fun save() {
         runCatching {
             saveWithThrowable()
-        }.getOrElse { e ->
+        }.onFailure { e ->
             Logging.e("Save Version Config", "$this\n${Tools.printToString(e)}")
         }
     }
@@ -198,7 +198,7 @@ class VersionConfig(private var versionPath: File) : Parcelable {
                             )
                         }
                     }
-                }.getOrElse { Logging.e("Refresh Versions", "Failed to parse the version isolation field of the old version.", it) }
+                }.onFailure { Logging.e("Refresh Versions", "Failed to parse the version isolation field of the old version.", it) }
                 config.setVersionPath(versionPath)
                 config
             }.getOrElse { e ->

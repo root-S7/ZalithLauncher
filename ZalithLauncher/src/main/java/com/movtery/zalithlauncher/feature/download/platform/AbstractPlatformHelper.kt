@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.download.platform
 
 import android.content.Context
+import android.widget.Toast
 import com.kdt.mcgui.ProgressLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.context.ContextExecutor
@@ -18,6 +19,7 @@ import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionsManager
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.task.Task
+import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools
@@ -84,19 +86,34 @@ abstract class AbstractPlatformHelper(val api: ApiHandler) {
                             if (!isTaskRunning(ProgressLayout.INSTALL_RESOURCE)) {
                                 ProgressLayout.setProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.generic_waiting)
                                 Task.runTask {
-                                    val modloader = installModPack(version, customName) ?: return@runTask null
+                                    val modloader = installModPack(version, customName)
 
                                     val versionPath = VersionsManager.getVersionPath(customName)
                                     VersionConfig.createIsolation(versionPath).save()
 
-                                    infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(customName)) }
-
-                                    modloader.getDownloadTask()?.let { downloadTask ->
-                                        Logging.i("Install Version", "Installing ModLoader: ${modloader.modLoaderVersion}")
-                                        downloadTask.run(customName)?.let { file ->
-                                            return@runTask Pair(modloader, file)
+                                    fun downloadIcon() {
+                                        runCatching {
+                                            infoItem.iconUrl?.let { DownloadUtils.downloadFile(it, VersionsManager.getVersionIconFile(customName)) }
+                                        }.onFailure { e ->
+                                            Logging.e("Install Version", "Failed to download the icon.", e)
                                         }
                                     }
+
+                                    modloader?.let { mod ->
+                                        mod.getDownloadTask()?.let { downloadTask ->
+                                            TaskExecutors.runInUIThread {
+                                                Toast.makeText(context, context.getString(R.string.modpack_prepare_mod_loader_installation), Toast.LENGTH_SHORT).show()
+                                            }
+
+                                            Logging.i("Install Version", "Installing ModLoader: ${mod.modLoaderVersion}")
+                                            downloadTask.run(customName)?.let { file ->
+                                                downloadIcon()
+                                                return@runTask Pair(mod, file)
+                                            }
+                                        }
+                                    }
+
+                                    downloadIcon()
 
                                     return@runTask null
                                 }.ended { filePair ->
