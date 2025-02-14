@@ -14,19 +14,18 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper
 import net.kdt.pojavlaunch.utils.ZipUtils
 import java.io.File
-import java.io.IOException
 import java.util.zip.ZipFile
 
 class ModrinthModPackInstallHelper {
     companion object {
-        @Throws(IOException::class)
+        @Throws(Exception::class)
         fun startInstall(versionItem: VersionItem, customName: String): ModLoaderWrapper? {
             return InstallHelper.installModPack(versionItem, customName) { modpackFile, targetPath ->
                 installZip(modpackFile, targetPath)
             }
         }
 
-        @Throws(IOException::class)
+        @Throws(Exception::class)
         fun installZip(packFile: File, targetPath: File): ModLoaderWrapper? {
             ZipFile(packFile).use { modpackZipFile ->
                 val modrinthIndex = Tools.GLOBAL_GSON.fromJson(

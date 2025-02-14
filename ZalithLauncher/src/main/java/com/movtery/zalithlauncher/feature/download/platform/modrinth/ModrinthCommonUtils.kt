@@ -13,6 +13,7 @@ import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
+import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils.Companion.safeRun
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -223,8 +224,7 @@ class ModrinthCommonUtils {
         }
 
         internal fun searchModFromID(api: ApiHandler, id: String): JsonObject? {
-            val jsonObject = api.get("project/$id", JsonObject::class.java)
-            return jsonObject
+            return api.safeRun { get("project/$id", JsonObject::class.java) }
         }
 
         internal fun returnResults(

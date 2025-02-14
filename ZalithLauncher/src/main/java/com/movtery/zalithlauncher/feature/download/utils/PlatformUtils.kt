@@ -1,8 +1,6 @@
 package com.movtery.zalithlauncher.feature.download.utils
 
 import com.movtery.zalithlauncher.InfoDistributor
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.context.ContextExecutor
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.enums.Classify
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils.containsChinese
@@ -44,5 +42,8 @@ class PlatformUtils {
             // TODO 由于搜索逻辑与HMCL大不相同，这里就不做进一步的筛查逻辑了，直接返回本地匹配结果，作为平台的搜索关键词，不过无法保证结果的准确度
             return englishSearchFiltersSet.joinToString(" ")
         }
+
+        inline fun <T> ApiHandler.safeRun(block: ApiHandler.() -> T): T? =
+            runCatching(block).getOrNull()
     }
 }

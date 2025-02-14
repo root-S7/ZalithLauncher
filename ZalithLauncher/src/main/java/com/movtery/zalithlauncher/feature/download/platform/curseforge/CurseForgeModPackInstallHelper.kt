@@ -26,14 +26,14 @@ import kotlin.math.max
 
 class CurseForgeModPackInstallHelper {
     companion object {
-        @Throws(IOException::class)
+        @Throws(Exception::class)
         fun startInstall(api: ApiHandler, versionItem: VersionItem, customName: String): ModLoaderWrapper? {
             return InstallHelper.installModPack(versionItem, customName) { modpackFile, targetPath ->
                 installZip(api, modpackFile, targetPath)
             }
         }
 
-        @Throws(IOException::class)
+        @Throws(Exception::class)
         fun installZip(api: ApiHandler, zipFile: File, targetPath: File): ModLoaderWrapper? {
             ZipFile(zipFile).use { modpackZipFile ->
                 val curseManifest = Tools.GLOBAL_GSON.fromJson(
@@ -58,6 +58,7 @@ class CurseForgeModPackInstallHelper {
             }
         }
 
+        @Throws(Exception::class)
         private fun getModDownloader(
             api: ApiHandler,
             instanceDestination: File,

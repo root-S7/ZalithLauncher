@@ -13,6 +13,7 @@ import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.download.utils.CategoryUtils
+import com.movtery.zalithlauncher.feature.download.utils.PlatformUtils.Companion.safeRun
 import com.movtery.zalithlauncher.feature.download.utils.VersionTypeUtils
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.MCVersionRegex.Companion.RELEASE_REGEX
@@ -195,11 +196,11 @@ class CurseForgeCommonUtils {
 
         internal fun getDownloadUrl(api: ApiHandler, projectID: Long, fileID: Long): String? {
             // First try the official api endpoint
-            val response = api.get("mods/$projectID/files/$fileID/download-url", JsonObject::class.java)
+            val response = api.safeRun { get("mods/$projectID/files/$fileID/download-url", JsonObject::class.java) }
             if (response != null && !response["data"].isJsonNull) return response["data"].asString
 
             // Otherwise, fallback to building an edge link
-            val fallbackResponse = api.get("mods/$projectID/files/$fileID", JsonObject::class.java)
+            val fallbackResponse = api.safeRun { get("mods/$projectID/files/$fileID", JsonObject::class.java) }
             if (fallbackResponse != null && !fallbackResponse["data"].isJsonNull) {
                 val modData = fallbackResponse["data"].asJsonObject
                 val id = modData["id"].asInt
@@ -211,14 +212,13 @@ class CurseForgeCommonUtils {
 
         internal fun getDownloadSha1(api: ApiHandler, projectID: Long, fileID: Long): String? {
             // Try the api endpoint, die in the other case
-            val response = api.get("mods/$projectID/files/$fileID", JsonObject::class.java)
+            val response = api.safeRun { get("mods/$projectID/files/$fileID", JsonObject::class.java) }
             val data = GsonJsonUtils.getJsonObjectSafe(response, "data") ?: return null
             return getSha1FromData(data)
         }
 
         internal fun searchModFromID(api: ApiHandler, id: String): JsonObject? {
-            val response = api.get("mods/$id", JsonObject::class.java)
-            return response
+            return api.safeRun { get("mods/$id", JsonObject::class.java) }
         }
 
         @Throws(IOException::class)
