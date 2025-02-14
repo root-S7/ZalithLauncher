@@ -29,7 +29,7 @@ class GameInstaller(
         Logging.i("Minecraft Downloader", "Start downloading the version: $realVersion")
 
         if (taskMap.isNotEmpty()) {
-            ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.download_install_download_file, 0, 0)
+            ProgressKeeper.submitProgress(ProgressLayout.INSTALL_RESOURCE, 0, R.string.download_install_download_file, 0, 0, 0)
         }
 
         val mcVersion = AsyncMinecraftDownloader.getListedVersion(realVersion)

@@ -362,7 +362,7 @@ public class MinecraftDownloader {
         private String mTargetSha1;
         private final int mDownloadClass;
         private final boolean mSkipIfFailed;
-        private int mLastCurr;
+        private long mLastCurr;
         private final long mDownloadSize;
 
         DownloaderTask(File targetPath, int downloadClass, String targetUrl, String targetSha1,
@@ -462,8 +462,8 @@ public class MinecraftDownloader {
         }
 
         @Override
-        public void updateProgress(int curr, int max) {
-            int delta = curr - mLastCurr;
+        public void updateProgress(long curr, long max) {
+            long delta = curr - mLastCurr;
             mProcessedSizeCounter.addAndGet(delta);
             mInternetUsageCounter.addAndGet(delta);
             mLastCurr = curr;

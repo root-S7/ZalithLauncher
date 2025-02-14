@@ -573,7 +573,7 @@ public final class Tools {
     }
 
     public interface DownloaderFeedback {
-        void updateProgress(int curr, int max);
+        void updateProgress(long curr, long max);
     }
 
 

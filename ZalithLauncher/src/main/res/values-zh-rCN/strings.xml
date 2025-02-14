@@ -587,7 +587,7 @@
     <string name="download_search_no_result">未找到相关资源！</string>
     <string name="download_search_platform_not_supported">当前平台不支持下载这类资源，或不支持此类别筛选！</string>
     <string name="download_install_custom_name">自定义文件名称</string>
-    <string name="download_install_download_file">正在下载资源文件（%.2fMB / %.2fMB）</string>
+    <string name="download_install_download_file">正在下载资源文件（%.2fMB / %.2fMB，速度：%s/s）</string>
     <string name="download_install_dependencies">%s 有以下依赖或不兼容的模组</string>
     <string name="download_install_dependencies_tip">请根据需求下载对应的依赖模组，缺少必要的依赖模组，或安装了不兼容的模组，将导致游戏无法运行！</string>
     <string name="download_install_dependencies_required">需装</string>
@@ -605,9 +605,9 @@
     <string name="select_modpack_local_not_supported">此整合包不受启动器支持！启动器仅支持导入 Modrinth、CurseForge、MCBBS 格式的整合包，请检查你的整合包是否按照规定的格式制作！</string>
     <string name="select_modpack_local_installing_files">安装游戏文件中… (%d / %d)</string>
 
-    <string name="modpack_download_downloading_metadata">正在下载整合包元数据（%.2fMB / %.2fMB）</string>
-    <string name="modpack_download_downloading_mods">正在下载模组（%.2fMB / %.2fMB）</string>
-    <string name="modpack_download_downloading_mods_fc">正在下载模组（已下载文件：%d, 总文件数：%d）</string>
+    <string name="modpack_download_downloading_metadata">正在下载整合包元数据（%.2fMB / %.2fMB，速度：%s/s）</string>
+    <string name="modpack_download_downloading_mods">正在下载模组（%.2fMB / %.2fMB，速度：%s/s）</string>
+    <string name="modpack_download_downloading_mods_fc">正在下载模组（已下载文件：%d (%s), 总文件数：%d, 速度：%s/s）</string>
     <string name="modpack_download_applying_overrides">正在应用覆盖（%d/%d）</string>
     <string name="modpack_install_download_failed">整合包文件下载失败</string>
     <string name="modpack_prepare_mod_loader_installation">已安装所有模组，正在准备安装模组加载器</string>

@@ -2,13 +2,17 @@ package net.kdt.pojavlaunch.progresskeeper;
 
 import static net.kdt.pojavlaunch.Tools.BYTE_TO_MB;
 
+import com.movtery.zalithlauncher.utils.ZHTools;
+import com.movtery.zalithlauncher.utils.file.FileTools;
+
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.tasks.SpeedCalculator;
 
 public class DownloaderProgressWrapper implements Tools.DownloaderFeedback {
-
+    private final SpeedCalculator mSpeedCalculator = new SpeedCalculator(128);
     private final int mProgressString;
     private final String mProgressRecord;
-    public String extraString = null;
+    private long progressUpdateTime = 0;
 
     /**
      * A simple wrapper to send the downloader progress to ProgressKeeper
@@ -21,20 +25,17 @@ public class DownloaderProgressWrapper implements Tools.DownloaderFeedback {
     }
 
     @Override
-    public void updateProgress(int curr, int max) {
+    public void updateProgress(long curr, long max) {
+        long currentTime = ZHTools.getCurrentTimeMillis();
+        if (currentTime - progressUpdateTime < 150) return;
+        progressUpdateTime = currentTime;
+
         Object[] va;
-        if(extraString != null)  {
-            va = new Object[3];
-            va[0] = extraString;
-            va[1] = curr/BYTE_TO_MB;
-            va[2] = max/BYTE_TO_MB;
-        }
-        else {
-            va = new Object[2];
-            va[0] = curr/BYTE_TO_MB;
-            va[1] = max/BYTE_TO_MB;
-        }
+        va = new Object[3];
+        va[0] = curr / BYTE_TO_MB;
+        va[1] = max / BYTE_TO_MB;
+        va[2] = FileTools.formatFileSize(mSpeedCalculator.feed(curr));
         // the allocations are fine because thats how java implements variadic arguments in bytecode: an array of whatever
-        ProgressKeeper.submitProgress(mProgressRecord, (int) Math.max((float)curr/max*100,0), mProgressString, va);
+        ProgressKeeper.submitProgress(mProgressRecord, (int) Math.max((float) curr / max * 100, 0), mProgressString, va);
     }
 }

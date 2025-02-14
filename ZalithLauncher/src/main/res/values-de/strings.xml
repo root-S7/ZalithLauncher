@@ -556,7 +556,7 @@
     <string name="download_search_no_result">Keine verwandten Ressourcen gefunden!</string>
     <string name="download_search_platform_not_supported">Die aktuelle Plattform unterstützt das Herunterladen dieses Typs von Ressourcen oder diese Kategoriefilterung nicht!</string>
     <string name="download_install_custom_name">Benutzerdefinierter Dateiname</string>
-    <string name="download_install_download_file">Ressourcendatei wird heruntergeladen (%.2fMB / %.2fMB)</string>
+    <string name="download_install_download_file">Lade Ressourcendatei herunter (%.2fMB / %.2fMB, Geschwindigkeit: %s/s)</string>
     <string name="download_install_dependencies">%s hat die folgenden Abhängigkeiten oder inkompatiblen Mods</string>
     <string name="download_install_dependencies_tip">Bitte laden Sie die erforderlichen Abhängigkeits-Mods nach Bedarf herunter. Fehlende notwendige Abhängigkeiten oder inkompatible Mods können dazu führen, dass das Spiel nicht startet!</string>
     <string name="download_install_dependencies_required">Erforderlich</string>
@@ -572,9 +572,9 @@
     <string name="select_modpack_local_tip">Bitte wählen Sie eine Modpack-Datei aus, die der Launcher unterstützt!</string>
     <string name="select_modpack_local_not_supported">Dieses Modpack wird nicht von dem Launcher unterstützt! Der Launcher nur Modpacks in Modrinth, CurseForge und MCBBS Format unterstützt. Bitte überprüfen Sie, ob Ihr Modpack gemäß der vorgeschriebenen Formatierung erstellt wurde!</string>
     <string name="select_modpack_local_installing_files">Installiere Spieldateien… (%d / %d)</string>
-    <string name="modpack_download_downloading_metadata">Lade Modpack-Metadaten herunter (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods">Lade Mods herunter (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods_fc">Lade Mods herunter (heruntergeladene Dateien: %d, Gesamtdateien: %d)</string>
+    <string name="modpack_download_downloading_metadata">Lade Modpack-Metadaten herunter (%.2fMB / %.2fMB, Geschwindigkeit: %s/s)</string>
+    <string name="modpack_download_downloading_mods">Lade Mods herunter (%.2fMB / %.2fMB, Geschwindigkeit: %s/s)</string>
+    <string name="modpack_download_downloading_mods_fc">Lade Mods herunter (Heruntergeladene Dateien: %d (%s), Gesamte Dateianzahl: %d, Geschwindigkeit: %s/s)</string>
     <string name="modpack_download_applying_overrides">Wende Überschreibungen an (%d/%d)</string>
     <string name="modpack_install_download_failed">Fehler beim Herunterladen der Modpack-Dateien</string>
     <string name="modpack_prepare_mod_loader_installation">Alle Mods wurden installiert, bereite Installation des Mod Loaders vor</string>

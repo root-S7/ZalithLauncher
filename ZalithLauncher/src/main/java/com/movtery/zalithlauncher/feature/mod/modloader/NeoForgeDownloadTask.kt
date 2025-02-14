@@ -39,7 +39,7 @@ class NeoForgeDownloadTask(neoforgeVersion: String) : InstallTask, DownloaderFee
         return outputFile
     }
 
-    override fun updateProgress(curr: Int, max: Int) {
+    override fun updateProgress(curr: Long, max: Long) {
         val progress100 = ((curr.toFloat() / max.toFloat()) * 100f).toInt()
         ProgressKeeper.submitProgress(
             ProgressLayout.INSTALL_RESOURCE,

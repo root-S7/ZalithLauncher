@@ -556,7 +556,7 @@
     <string name="download_search_no_result">لم يتم العثور على موارد ذات صلة!</string>
     <string name="download_search_platform_not_supported">المنصة الحالية لا تدعم تنزيل هذا النوع من الموارد، أو لا تدعم تصفية الفئات هذه!</string>
     <string name="download_install_custom_name">اسم ملف مخصص</string>
-    <string name="download_install_download_file">جارٍ تحميل ملف المورد (%.2fMB / %.2fMB)</string>
+    <string name="download_install_download_file">جاري تنزيل ملف الموارد (%.2fMB / %.2fMB، السرعة: %s/s)</string>
     <string name="download_install_dependencies">%s لديه التبعيات التالية أو تعديلات غير متوافقة</string>
     <string name="download_install_dependencies_tip">يرجى تنزيل تعديلات التبعيات المطلوبة حسب الحاجة. قد يؤدي فقدان التبعيات الضرورية أو تثبيت تعديلات غير متوافقة إلى عدم تشغيل اللعبة!</string>
     <string name="download_install_dependencies_required">مطلوب</string>
@@ -572,9 +572,9 @@
     <string name="select_modpack_local_tip">الرجاء تحديد ملف حزمة يدعمه المشغل للاستيراد!</string>
     <string name="select_modpack_local_not_supported">!هذه الحزمة غير مدعومة من قبل المشغل! المشغل يدعم فقط استيراد الحزمات في تنسيقات Modrinth, CurseForge, وMCBBS. يرجى التحقق من أن حزمة التعديلات الخاصة بك تمت طبقا للتنسيقات المحددة!</string>
     <string name="select_modpack_local_installing_files">جاري تثبيت ملفات اللعبة… (%d / %d)</string>
-    <string name="modpack_download_downloading_metadata">جاري تنزيل بيانات حزمة الوحدات (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods">جاري تنزيل الوحدات (%.2fMB / %.2fMB)</string>
-    <string name="modpack_download_downloading_mods_fc">جاري تنزيل الوحدات (الملفات المنزلة: %d, إجمالي الملفات: %d)</string>
+    <string name="modpack_download_downloading_metadata">جاري تنزيل بيانات حزمة التعديلات (%.2fMB / %.2fMB، السرعة: %s/s)</string>
+    <string name="modpack_download_downloading_mods">جاري تنزيل المودات (%.2fMB / %.2fMB، السرعة: %s/s)</string>
+    <string name="modpack_download_downloading_mods_fc">جاري تنزيل المودات (الملفات التي تم تنزيلها: %d (%s), إجمالي عدد الملفات: %d, السرعة: %s/s)</string>
     <string name="modpack_download_applying_overrides">جاري تطبيق التجاوزات (%d/%d)</string>
     <string name="modpack_install_download_failed">فشل في تنزيل ملفات حزمة الوحدات</string>
     <string name="modpack_prepare_mod_loader_installation">تم تثبيت جميع المودات، جاري التحضير لتثبيت محمل المودات</string>

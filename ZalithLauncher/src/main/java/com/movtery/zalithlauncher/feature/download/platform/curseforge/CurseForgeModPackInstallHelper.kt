@@ -9,6 +9,8 @@ import com.movtery.zalithlauncher.feature.download.item.VersionItem
 import com.movtery.zalithlauncher.feature.download.platform.curseforge.CurseForgeCommonUtils.Companion.getDownloadSha1
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
+import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ApiHandler
@@ -17,6 +19,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest.CurseMinecraft
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest.CurseModLoader
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper
+import net.kdt.pojavlaunch.tasks.SpeedCalculator
 import net.kdt.pojavlaunch.utils.FileUtils
 import net.kdt.pojavlaunch.utils.ZipUtils
 import java.io.File
@@ -44,12 +47,22 @@ class CurseForgeModPackInstallHelper {
                     Logging.i("CurseForgeModPackInstallHelper", "manifest verification failed")
                     return null
                 }
+                var progressUpdateTime = 0L
+                val speedCalculator = SpeedCalculator()
                 val modDownloader: ModDownloader = getModDownloader(api, targetPath, curseManifest)
-                modDownloader.awaitFinish { c: Int, m: Int ->
+                modDownloader.awaitFinish { count: Int, totalCount: Int, downloadedSize: Long ->
+                    val currentTime = ZHTools.getCurrentTimeMillis()
+                    if (currentTime - progressUpdateTime < 150) return@awaitFinish
+                    progressUpdateTime = currentTime
+
                     ProgressKeeper.submitProgress(
                         ProgressLayout.INSTALL_RESOURCE,
-                        max((c.toFloat() / m * 100).toDouble(), 0.0).toInt(),
-                        R.string.modpack_download_downloading_mods_fc, c, m
+                        max((count.toFloat() / totalCount * 100).toDouble(), 0.0).toInt(),
+                        R.string.modpack_download_downloading_mods_fc,
+                        count,
+                        FileTools.formatFileSize(downloadedSize),
+                        totalCount,
+                        FileTools.formatFileSize(speedCalculator.feed(downloadedSize))
                     )
                 }
                 val overridesDir: String = curseManifest.overrides ?: "overrides"
