@@ -577,7 +577,7 @@
     <string name="modpack_download_downloading_mods_fc">Загрузка модов (загружено файлов: %d, всего файлов: %d)</string>
     <string name="modpack_download_applying_overrides">Применение переопределений (%d/%d)</string>
     <string name="modpack_install_download_failed">Не удалось загрузить файлы модпака</string>
-    <string name="modpack_prepare_mod_loader_installation">Все моды загружены, подготовка к установке загрузчика модов</string>
+    <string name="modpack_prepare_mod_loader_installation">Все моды установлены, готовится установка загрузчика модов</string>
     <!-- Clear Up -->
     <string name="clear_up_cache">Очистить кэш</string>
     <string name="clear_up_cache_desc">Проверить и очистить кэш-файлы приложения. Очистка кэш-файлов не влияет на нормальную работу приложения.</string>
