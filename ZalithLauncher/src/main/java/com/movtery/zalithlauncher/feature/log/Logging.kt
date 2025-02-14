@@ -103,61 +103,61 @@ object Logging {
 
     @JvmStatic
     fun v(mark: String, verbose: String) {
-        Log.v(Tag.VERBOSE.name, verbose)
+        Log.v(mark, verbose)
         writeToFile(verbose, Tag.VERBOSE, mark)
     }
 
     @JvmStatic
     fun v(mark: String, verbose: String, throwable: Throwable) {
-        Log.v(Tag.VERBOSE.name, verbose, throwable)
+        Log.v(mark, verbose, throwable)
         writeToFile("$verbose\n${Tools.printToString(throwable)}", Tag.VERBOSE, mark)
     }
 
     @JvmStatic
     fun d(mark: String, debug: String) {
-        Log.d(Tag.DEBUG.name, debug)
+        Log.d(mark, debug)
         writeToFile(debug, Tag.DEBUG, mark)
     }
 
     @JvmStatic
     fun d(mark: String, debug: String, throwable: Throwable) {
-        Log.d(Tag.DEBUG.name, debug, throwable)
+        Log.d(mark, debug, throwable)
         writeToFile("$debug\n${Tools.printToString(throwable)}", Tag.DEBUG, mark)
     }
 
     @JvmStatic
     fun i(mark: String, info: String) {
-        Log.i(Tag.INFO.name, info)
+        Log.i(mark, info)
         writeToFile(info, Tag.INFO, mark)
     }
 
     @JvmStatic
     fun i(mark: String, info: String, throwable: Throwable) {
-        Log.i(Tag.INFO.name, info, throwable)
+        Log.i(mark, info, throwable)
         writeToFile("$info\n${Tools.printToString(throwable)}", Tag.INFO, mark)
     }
 
     @JvmStatic
     fun w(mark: String, warn: String) {
-        Log.w(Tag.WARN.name, warn)
+        Log.w(mark, warn)
         writeToFile(warn, Tag.WARN, mark)
     }
 
     @JvmStatic
     fun w(mark: String, warn: String, throwable: Throwable) {
-        Log.w(Tag.WARN.name, warn, throwable)
+        Log.w(mark, warn, throwable)
         writeToFile("$warn\n${Tools.printToString(throwable)}", Tag.WARN, mark)
     }
 
     @JvmStatic
     fun e(mark: String, error: String) {
-        Log.e(Tag.ERROR.name, error)
+        Log.e(mark, error)
         writeToFile(error, Tag.ERROR, mark)
     }
 
     @JvmStatic
     fun e(mark: String, error: String, throwable: Throwable) {
-        Log.e(Tag.ERROR.name, error, throwable)
+        Log.e(mark, error, throwable)
         writeToFile("$error\n${Tools.printToString(throwable)}", Tag.ERROR, mark)
     }
 
