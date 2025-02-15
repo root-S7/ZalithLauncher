@@ -36,7 +36,6 @@ import com.movtery.zalithlauncher.event.single.SwapToLoginEvent;
 import com.movtery.zalithlauncher.event.sticky.MinecraftVersionValueEvent;
 import com.movtery.zalithlauncher.event.value.AddFragmentEvent;
 import com.movtery.zalithlauncher.event.value.DownloadProgressKeyEvent;
-import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent;
 import com.movtery.zalithlauncher.event.value.InstallGameEvent;
 import com.movtery.zalithlauncher.event.value.InstallLocalModpackEvent;
 import com.movtery.zalithlauncher.event.value.LocalLoginEvent;
@@ -70,6 +69,7 @@ import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.AccountFragment;
 import com.movtery.zalithlauncher.ui.fragment.BaseFragment;
 import com.movtery.zalithlauncher.ui.fragment.DownloadFragment;
+import com.movtery.zalithlauncher.ui.fragment.DownloadModFragment;
 import com.movtery.zalithlauncher.ui.fragment.SettingsFragment;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.SettingsButtonWrapper;
@@ -115,7 +115,6 @@ public class LauncherActivity extends BaseActivity {
     private SettingsButtonWrapper mSettingsButtonWrapper;
     private ProgressServiceKeeper mProgressServiceKeeper;
     private NotificationManager mNotificationManager;
-    private boolean mIsInDownloadFragment = false;
     private Future<?> checkNotice;
 
     /* Allows to switch from one button "type" to another */
@@ -149,12 +148,6 @@ public class LauncherActivity extends BaseActivity {
     @Subscribe()
     public void event(MainBackgroundChangeEvent event) {
         refreshBackground();
-    }
-
-    @Subscribe()
-    public void event(InDownloadFragmentEvent event) {
-        mIsInDownloadFragment = event.isIn();
-        if (event.isIn()) ViewAnimUtils.setViewAnim(binding.downloadButton, Animations.Pulse);
     }
 
     @Subscribe()
@@ -417,9 +410,9 @@ public class LauncherActivity extends BaseActivity {
         mSettingsButtonWrapper = new SettingsButtonWrapper(binding.settingButton);
         mSettingsButtonWrapper.setOnTypeChangeListener(type -> ViewAnimUtils.setViewAnim(binding.settingButton, Animations.Pulse));
         binding.downloadButton.setOnClickListener(v -> {
-            if (mIsInDownloadFragment) return;
             Fragment fragment = getSupportFragmentManager().findFragmentById(binding.containerFragment.getId());
-            if (fragment != null) {
+            if (fragment != null && !(fragment instanceof DownloadFragment || fragment instanceof DownloadModFragment)) {
+                ViewAnimUtils.setViewAnim(binding.downloadButton, Animations.Pulse);
                 ZHTools.swapFragmentWithAnim(fragment, DownloadFragment.class, DownloadFragment.TAG, null);
             }
         });

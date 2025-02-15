@@ -12,10 +12,9 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentDownloadBinding
-import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
-import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.IN
-import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.OUT
-import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent.PageSwapEvent.Companion.IN
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent.PageSwapEvent.Companion.OUT
 import com.movtery.zalithlauncher.ui.fragment.download.resource.ModDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.resource.ModPackDownloadFragment
 import com.movtery.zalithlauncher.ui.fragment.download.resource.ResourcePackDownloadFragment
@@ -58,7 +57,7 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     onFragmentSelect(position)
-                    EventBus.getDefault().post(DownloadPageSwapEvent(position, IN))
+                    EventBus.getDefault().post(DownloadPageEvent.PageSwapEvent(position, IN))
                 }
             })
         }
@@ -68,23 +67,18 @@ class DownloadFragment : FragmentWithAnim(R.layout.fragment_download) {
         binding.classifyTab.onPageSelected(position)
     }
 
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().post(InDownloadFragmentEvent(true))
-    }
-
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().post(InDownloadFragmentEvent(false))
-    }
-
     override fun slideIn(animPlayer: AnimPlayer) {
         animPlayer.apply(AnimPlayer.Entry(binding.classifyLayout, Animations.BounceInRight))
     }
 
     override fun slideOut(animPlayer: AnimPlayer) {
         animPlayer.apply(AnimPlayer.Entry(binding.classifyLayout, Animations.FadeOutLeft))
-        EventBus.getDefault().post(DownloadPageSwapEvent(binding.classifyTab.currentItemIndex, OUT))
+        EventBus.getDefault().post(DownloadPageEvent.PageSwapEvent(binding.classifyTab.currentItemIndex, OUT))
+    }
+
+    override fun onDestroyView() {
+        EventBus.getDefault().post(DownloadPageEvent.PageDestroyEvent())
+        super.onDestroyView()
     }
 
     private class ViewPagerAdapter(private val fragment: Fragment): FragmentStateAdapter(fragment.requireActivity()) {

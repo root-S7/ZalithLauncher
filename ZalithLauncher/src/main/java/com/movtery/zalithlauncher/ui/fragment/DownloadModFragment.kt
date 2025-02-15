@@ -15,7 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent
 import com.movtery.zalithlauncher.feature.download.InfoViewModel
 import com.movtery.zalithlauncher.feature.download.ScreenshotAdapter
 import com.movtery.zalithlauncher.feature.download.VersionAdapter
@@ -77,7 +77,7 @@ class DownloadModFragment : ModListFragment() {
     }
 
     override fun onDestroy() {
-        EventBus.getDefault().post(DownloadRecyclerEnableEvent(true))
+        EventBus.getDefault().post(DownloadPageEvent.RecyclerEnableEvent(true))
         linkGetSubmit?.apply {
             if (!isCancelled && !isDone) cancel(true)
         }

@@ -16,11 +16,9 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentDownloadResourceBinding
-import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent
-import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.IN
-import com.movtery.zalithlauncher.event.value.DownloadPageSwapEvent.Companion.OUT
-import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
-import com.movtery.zalithlauncher.event.value.InDownloadFragmentEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent.PageSwapEvent.Companion.IN
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent.PageSwapEvent.Companion.OUT
 import com.movtery.zalithlauncher.feature.download.Filters
 import com.movtery.zalithlauncher.feature.download.InfoAdapter
 import com.movtery.zalithlauncher.feature.download.SelfReferencingFuture
@@ -223,16 +221,6 @@ abstract class AbstractResourceDownloadFragment(
         EventBus.getDefault().unregister(this)
     }
 
-    override fun onPause() {
-        closeSpinner()
-        super.onPause()
-    }
-
-    override fun onDestroyView() {
-        closeSpinner()
-        super.onDestroyView()
-    }
-
     private fun onSearchFinished() {
         binding.apply {
             setStatusText(false)
@@ -320,13 +308,15 @@ abstract class AbstractResourceDownloadFragment(
     }
 
     @Subscribe
-    fun event(event: DownloadRecyclerEnableEvent) {
+    fun event(event: DownloadPageEvent.RecyclerEnableEvent) {
         binding.recyclerView.isEnabled = event.enable
         closeSpinner()
     }
 
     @Subscribe
-    fun event(event: DownloadPageSwapEvent) {
+    fun event(event: DownloadPageEvent.PageSwapEvent) {
+        closeSpinner()
+
         if (event.index == classify.type) {
             when (event.classify) {
                 IN -> slideIn()
@@ -337,15 +327,13 @@ abstract class AbstractResourceDownloadFragment(
     }
 
     @Subscribe
-    fun event(event: InDownloadFragmentEvent) {
-        //确保父Fragment退出时，这里的Spinner能够正常且及时的关闭
-        if (!event.isIn) closeSpinner()
+    fun event(event: DownloadPageEvent.PageDestroyEvent) {
+        closeSpinner()
     }
 
     private inner class SearchApiTask(
         private val mPreviousResult: SearchResult?
-    ) :
-        SelfReferencingFuture.FutureInterface {
+    ) : SelfReferencingFuture.FutureInterface {
 
         override fun run(myFuture: Future<*>) {
             runCatching {

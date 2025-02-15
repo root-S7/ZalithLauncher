@@ -17,7 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.flexbox.FlexboxLayout
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ItemDownloadInfoBinding
-import com.movtery.zalithlauncher.event.value.DownloadRecyclerEnableEvent
+import com.movtery.zalithlauncher.event.value.DownloadPageEvent
 import com.movtery.zalithlauncher.feature.download.enums.Platform
 import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.ModInfoItem
@@ -105,7 +105,7 @@ class InfoAdapter(
             binding.apply {
                 parentFragment?.let { fragment ->
                     root.setOnClickListener {
-                        EventBus.getDefault().post(DownloadRecyclerEnableEvent(false))
+                        EventBus.getDefault().post(DownloadPageEvent.RecyclerEnableEvent(false))
 
                         val infoViewModel = ViewModelProvider(fragment.requireActivity())[InfoViewModel::class.java]
                         infoViewModel.infoItem = item.copy()
