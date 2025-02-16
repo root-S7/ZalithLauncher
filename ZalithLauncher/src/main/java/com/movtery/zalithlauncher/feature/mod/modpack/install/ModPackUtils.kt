@@ -17,7 +17,7 @@ import java.util.zip.ZipFile
 class ModPackUtils {
     companion object {
         @JvmStatic
-        fun determineModpack(modpack: File): ModPackEnum {
+        fun determineModpack(modpack: File): ModPackInfo {
             val zipName = modpack.name
             val suffix = zipName.substring(zipName.lastIndexOf('.'))
             runCatching {
@@ -30,13 +30,13 @@ class ModPackUtils {
                                 Tools.read(modpackZipFile.getInputStream(curseforgeEntry)),
                                 CurseManifest::class.java
                             )
-                            if (verifyManifest(curseManifest)) return ModPackEnum.CURSEFORGE
+                            if (verifyManifest(curseManifest)) return ModPackInfo(curseManifest.name, ModPackEnum.CURSEFORGE)
                         } else if (mcbbsEntry != null) {
                             val mcbbsPackMeta = Tools.GLOBAL_GSON.fromJson(
                                 Tools.read(modpackZipFile.getInputStream(mcbbsEntry)),
                                 MCBBSPackMeta::class.java
                             )
-                            if (verifyMCBBSPackMeta(mcbbsPackMeta)) return ModPackEnum.MCBBS
+                            if (verifyMCBBSPackMeta(mcbbsPackMeta)) return ModPackInfo(mcbbsPackMeta.name, ModPackEnum.MCBBS)
                         }
                     } else if (suffix == ".mrpack") {
                         val entry = modpackZipFile.getEntry("modrinth.index.json")
@@ -45,15 +45,15 @@ class ModPackUtils {
                                 Tools.read(modpackZipFile.getInputStream(entry)),
                                 ModrinthIndex::class.java
                             )
-                            if (verifyModrinthIndex(modrinthIndex)) return ModPackEnum.MODRINTH
+                            if (verifyModrinthIndex(modrinthIndex)) return ModPackInfo(modrinthIndex.name, ModPackEnum.MODRINTH)
                         }
                     }
                 }
-            }.getOrElse { e ->
+            }.onFailure { e ->
                 Logging.e("determineModpack", "There was a problem checking the ModPack", e)
             }
 
-            return ModPackEnum.UNKNOWN
+            return ModPackInfo(null, ModPackEnum.UNKNOWN)
         }
 
         @JvmStatic

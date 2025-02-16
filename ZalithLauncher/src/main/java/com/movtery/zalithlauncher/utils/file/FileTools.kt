@@ -268,6 +268,9 @@ class FileTools {
         }
 
         @JvmStatic
+        fun getFileNameWithoutExtension(file: File): String = file.nameWithoutExtension
+
+        @JvmStatic
         @SuppressLint("DefaultLocale")
         fun formatFileSize(bytes: Long): String {
             if (bytes <= 0) return "0 B"

@@ -35,7 +35,9 @@ class InstallLocalModPack {
                     ZipFile(zipFile)
                 }.getOrElse {
                     Logging.e("Install local ModPack", "This file doesn't seem to be a proper archive", it)
-                    showUnSupportDialog(context)
+                    TaskExecutors.runInUIThread {
+                        showUnSupportDialog(context)
+                    }
                     return null
                 }.use { modpackZipFile ->
                     val modLoader: ModLoaderWrapper?
@@ -74,7 +76,9 @@ class InstallLocalModPack {
                         }
 
                         else -> {
-                            showUnSupportDialog(context)
+                            TaskExecutors.runInUIThread {
+                                showUnSupportDialog(context)
+                            }
                             return null
                         }
                     }
@@ -84,16 +88,15 @@ class InstallLocalModPack {
             }
         }
 
-        private fun showUnSupportDialog(context: Context) {
-            TaskExecutors.runInUIThread {
-                TipDialog.Builder(context)
-                    .setTitle(R.string.generic_warning)
-                    .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
-                    .setWarning()
-                    .setShowCancel(true)
-                    .setShowConfirm(false)
-                    .showDialog()
-            }
+        @JvmStatic
+        fun showUnSupportDialog(context: Context) {
+            TipDialog.Builder(context)
+                .setTitle(R.string.generic_warning)
+                .setMessage(R.string.select_modpack_local_not_supported) //弹窗提醒
+                .setWarning()
+                .setShowCancel(true)
+                .setShowConfirm(false)
+                .showDialog()
         }
 
         @Throws(Exception::class)

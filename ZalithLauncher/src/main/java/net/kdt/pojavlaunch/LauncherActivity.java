@@ -50,6 +50,7 @@ import com.movtery.zalithlauncher.feature.download.item.ModLoaderWrapper;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallExtra;
 import com.movtery.zalithlauncher.feature.mod.modpack.install.InstallLocalModPack;
+import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackInfo;
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.zalithlauncher.feature.notice.CheckNewNotice;
 import com.movtery.zalithlauncher.feature.notice.NoticeInfo;
@@ -237,7 +238,7 @@ public class LauncherActivity extends BaseActivity {
         AccountsManager.INSTANCE.getDoneListener().onLoginDone(localAccount);
     }
 
-    @Subscribe()
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void event(InstallLocalModpackEvent event) {
         InstallExtra installExtra = event.getInstallExtra();
         if (!installExtra.startInstall) return;
@@ -248,12 +249,16 @@ public class LauncherActivity extends BaseActivity {
         }
 
         File dirGameModpackFile = new File(installExtra.modpackPath);
-        ModPackUtils.ModPackEnum type;
-        type = ModPackUtils.determineModpack(dirGameModpackFile);
+        ModPackInfo info = ModPackUtils.determineModpack(dirGameModpackFile);
+        if (info.getType() == ModPackUtils.ModPackEnum.UNKNOWN) {
+            InstallLocalModPack.showUnSupportDialog(this);
+        }
+
+        String modPackName = info.getName() != null ? info.getName() : FileTools.getFileNameWithoutExtension(dirGameModpackFile);
 
         new EditTextDialog.Builder(this)
                 .setTitle(R.string.version_install_new)
-                .setEditText(dirGameModpackFile.getName())
+                .setEditText(modPackName)
                 .setAsRequired()
                 .setConfirmListener((editText, checked) -> {
                     String customName = editText.getText().toString();
@@ -268,7 +273,7 @@ public class LauncherActivity extends BaseActivity {
                     }
 
                     Task.runTask(() -> {
-                        ModLoaderWrapper modLoaderWrapper = InstallLocalModPack.installModPack(this, type, dirGameModpackFile, customName);
+                        ModLoaderWrapper modLoaderWrapper = InstallLocalModPack.installModPack(this, info.getType(), dirGameModpackFile, customName);
                         if (modLoaderWrapper != null) {
                             InstallTask downloadTask = modLoaderWrapper.getDownloadTask();
 
