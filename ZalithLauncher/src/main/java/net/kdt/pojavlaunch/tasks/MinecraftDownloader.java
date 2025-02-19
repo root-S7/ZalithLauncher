@@ -252,7 +252,11 @@ public class MinecraftDownloader {
         mTotalFileCount++;
         // Only attempt to check size if we still use the size counter and didn't switch to file counter.
         if(size <= 0 && !mUseFileCounter) {
-            size = DownloadMirror.getContentLengthMirrored(downloadClass, url);
+            try {
+                size = DownloadMirror.getContentLengthMirrored(downloadClass, url);
+            } catch (Exception e) {
+                size = -1;
+            }
         }
         if(size < 0) {
             // If we were unable to get the content length ourselves, we automatically fall back
