@@ -17,7 +17,6 @@ import com.movtery.zalithlauncher.utils.skin.SkinLoader;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
-import java.io.IOException;
 import java.util.List;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> {
@@ -92,8 +91,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.Holder> 
 
             try {
                 binding.icon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, (int) Tools.dpToPx(mContext.getResources().getDimensionPixelSize(R.dimen._38sdp))));
-            } catch (IOException e) {
-                Logging.e("AccountAdapter", Tools.printToString(e));
+            } catch (Exception e) {
+                Logging.e("AccountAdapter", "Failed to load avatar.", e);
             }
 
             binding.loginType.setText(loginType);

@@ -7,6 +7,7 @@ import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ViewAccountBinding
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
+import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.ui.fragment.AccountFragment
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -38,7 +39,21 @@ class AccountViewWrapper(private val parentFragment: FragmentWithAnim? = null, v
                 accountType.visibility = View.GONE
                 return
             }
-            userIcon.setImageDrawable(SkinLoader.getAvatarDrawable(mContext, account, Tools.dpToPx(mContext.resources.getDimensionPixelSize(R.dimen._52sdp).toFloat()).toInt()))
+
+            runCatching {
+                userIcon.setImageDrawable(
+                    SkinLoader.getAvatarDrawable(
+                        mContext,
+                        account,
+                        Tools.dpToPx(
+                            mContext.resources.getDimensionPixelSize(R.dimen._52sdp).toFloat()
+                        ).toInt()
+                    )
+                )
+            }.onFailure { e ->
+                Logging.e("AccountViewWrapper", "Failed to load avatar.", e)
+            }
+
             userName.text = account.username
             accountType.text = AccountUtils.getAccountTypeName(mContext, account)
             accountType.visibility = View.VISIBLE
