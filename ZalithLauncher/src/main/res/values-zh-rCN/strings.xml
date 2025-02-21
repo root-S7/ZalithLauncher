@@ -639,10 +639,8 @@
 
     <!-- Other Login -->
     <string name="other_login_server">认证服务器</string>
-    <string name="other_login_server_add">添加认证服务器</string>
     <string name="other_login_email">邮箱或用户名</string>
     <string name="other_login_password">密码</string>
-    <string name="other_login_add_server">请选择身份验证服务器类型</string>
     <string name="other_login_uniform_pass">统一通行证</string>
     <string name="other_login_yggdrasil_api">请输入 Yggdrasil API 认证服务器地址</string>
     <string name="other_login_32_bit_server">请输入32位服务器ID</string>

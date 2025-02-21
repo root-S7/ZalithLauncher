@@ -603,10 +603,8 @@
     <string name="update_downloading_tip">Загрузка в процессе, источник обновления: %s</string>
     <!-- Other Login -->
     <string name="other_login_server">Сервер авторизации</string>
-    <string name="other_login_server_add">Добавить Сервер Auth</string>
     <string name="other_login_email">Электронная почта или имя пользователя</string>
     <string name="other_login_password">Пароль</string>
-    <string name="other_login_add_server">Пожалуйста, выберите тип сервера аутентификации</string>
     <string name="other_login_uniform_pass">Унифицированный пропуск</string>
     <string name="other_login_yggdrasil_api">Пожалуйста, введите адрес сервера аутентификации Yggdrasil API</string>
     <string name="other_login_32_bit_server">Пожалуйста, введите ID 32-битного сервера</string>

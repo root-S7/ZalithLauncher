@@ -603,10 +603,8 @@
     <string name="update_downloading_tip">Wird abgerufen, Aktualisierungsquelle: %s</string>
     <!-- Other Login -->
     <string name="other_login_server">Auth-Server</string>
-    <string name="other_login_server_add">Auth-Server hinzufügen</string>
     <string name="other_login_email">E-Mail oder Benutzername</string>
     <string name="other_login_password">Passwort</string>
-    <string name="other_login_add_server">Bitte wählen Sie den Typ des Authentifizierungsservers</string>
     <string name="other_login_uniform_pass">Einheitlicher Pass</string>
     <string name="other_login_yggdrasil_api">Bitte geben Sie die Adresse des Yggdrasil API-Authentifizierungsservers ein</string>
     <string name="other_login_32_bit_server">Bitte geben Sie die 32-Bit-Server-ID ein</string>

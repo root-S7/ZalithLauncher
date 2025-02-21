@@ -603,10 +603,8 @@
     <string name="update_downloading_tip">Obtendo, fonte de atualização: %s</string>
     <!-- Other Login -->
     <string name="other_login_server">Servidor Auth</string>
-    <string name="other_login_server_add">Adicionar Servidor Auth</string>
     <string name="other_login_email">Email ou Nome de Usuário</string>
     <string name="other_login_password">Senha</string>
-    <string name="other_login_add_server">Selecione o tipo de servidor de autenticação</string>
     <string name="other_login_uniform_pass">Passe Unificado</string>
     <string name="other_login_yggdrasil_api">Digite o endereço do servidor de autenticação Yggdrasil API</string>
     <string name="other_login_32_bit_server">Digite o ID do servidor de 32 bits</string>

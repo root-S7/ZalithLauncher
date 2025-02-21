@@ -603,10 +603,8 @@
     <string name="update_downloading_tip">正在獲取中，更新源：%s</string>
     <!-- Other Login -->
     <string name="other_login_server">認證伺服器</string>
-    <string name="other_login_server_add">添加認證伺服器</string>
     <string name="other_login_email">電子郵件或使用者名稱</string>
     <string name="other_login_password">密碼</string>
-    <string name="other_login_add_server">請選擇身份驗證伺服器類型</string>
     <string name="other_login_uniform_pass">統一通行證</string>
     <string name="other_login_yggdrasil_api">請輸入 Yggdrasil API 認證伺服器地址</string>
     <string name="other_login_32_bit_server">請輸入 32 位伺服器 ID</string>

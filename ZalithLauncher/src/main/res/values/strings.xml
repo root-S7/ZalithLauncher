@@ -609,10 +609,8 @@
     <string name="update_downloading_tip">Fetching, update source: %s</string>
     <!-- Other Login -->
     <string name="other_login_server">Auth Server</string>
-    <string name="other_login_server_add">Add Auth Server</string>
     <string name="other_login_email">Email or Username</string>
     <string name="other_login_password">Password</string>
-    <string name="other_login_add_server">Please select the type of authentication server</string>
     <string name="other_login_uniform_pass">Unified Passport</string>
     <string name="other_login_yggdrasil_api">Please enter the Yggdrasil API authentication server address</string>
     <string name="other_login_32_bit_server">Please enter the 32-bit server ID</string>

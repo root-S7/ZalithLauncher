@@ -603,10 +603,8 @@
     <string name="update_downloading_tip">جارٍ التحميل، مصدر التحديث: %s</string>
     <!-- Other Login -->
     <string name="other_login_server">إضافة خادم Auth</string>
-    <string name="other_login_server_add">إضافة خادم التحقق</string>
     <string name="other_login_email">البريد الإلكتروني أو اسم المستخدم</string>
     <string name="other_login_password">كلمة المرور</string>
-    <string name="other_login_add_server">يرجى اختيار نوع خادم التحقق من الهوية</string>
     <string name="other_login_uniform_pass">تصريح المرور الموحد</string>
     <string name="other_login_yggdrasil_api">يرجى إدخال عنوان خادم Yggdrasil API للتحقق</string>
     <string name="other_login_32_bit_server">يرجى إدخال معرف الخادم 32 بت</string>

@@ -603,10 +603,8 @@
     <string name="update_downloading_tip">Đang lấy, nguồn cập nhật: %s</string>
     <!-- Other Login -->
     <string name="other_login_server">Máy chủ Auth</string>
-    <string name="other_login_server_add">Thêm Máy chủ Auth</string>
     <string name="other_login_email">Email hoặc tên người dùng</string>
     <string name="other_login_password">Mật khẩu</string>
-    <string name="other_login_add_server">Vui lòng chọn loại máy chủ xác thực</string>
     <string name="other_login_uniform_pass">Thẻ đăng nhập thống nhất</string>
     <string name="other_login_yggdrasil_api">Vui lòng nhập địa chỉ máy chủ xác thực API Yggdrasil</string>
     <string name="other_login_32_bit_server">Vui lòng nhập ID máy chủ 32 bit</string>
