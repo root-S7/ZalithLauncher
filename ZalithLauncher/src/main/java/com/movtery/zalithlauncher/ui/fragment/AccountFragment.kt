@@ -14,15 +14,20 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.EditText
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.angcyo.tablayout.DslTabLayout
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentAccountBinding
 import com.movtery.zalithlauncher.databinding.ItemOtherServerBinding
+import com.movtery.zalithlauncher.databinding.ViewAddOtherServerBinding
+import com.movtery.zalithlauncher.databinding.ViewSingleActionPopupBinding
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent
 import com.movtery.zalithlauncher.event.value.LocalLoginEvent
 import com.movtery.zalithlauncher.event.value.OtherLoginEvent
@@ -88,6 +93,11 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                 }
             }
         }
+    }
+
+    private val mServerActionPopupWindow: PopupWindow = PopupWindow().apply {
+        isFocusable = true
+        isOutsideTouchable = true
     }
 
     private val mLocalNamePattern = Pattern.compile("[^a-zA-Z0-9_]")
@@ -211,7 +221,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                 }
             }
 
-            addOtherServer.setOnClickListener(this@AccountFragment)
+            addServer.setOnClickListener(this@AccountFragment)
             returnButton.setOnClickListener(this@AccountFragment)
         }
 
@@ -354,7 +364,19 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
                 val p8 = Tools.dpToPx(8f).toInt()
                 val view = ItemOtherServerBinding.inflate(layoutInflater)
                 view.text.text = server.serverName
-                view.delete.setOnClickListener { deleteOtherServer(server) }
+                view.root.setOnLongClickListener { v ->
+                    refreshActionPopupWindow(v, ViewSingleActionPopupBinding.inflate(LayoutInflater.from(activity)).apply {
+                        icon.setImageDrawable(
+                            ContextCompat.getDrawable(requireActivity(), R.drawable.ic_menu_delete_forever)
+                        )
+                        text.setText(R.string.generic_delete)
+                        text.setOnClickListener {
+                            deleteOtherServer(server)
+                            mServerActionPopupWindow.dismiss()
+                        }
+                    })
+                    true
+                }
                 view.root.layoutParams = DslTabLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
@@ -450,6 +472,16 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
             }.showDialog()
     }
 
+    private fun refreshActionPopupWindow(anchorView: View, binding: ViewBinding) {
+        mServerActionPopupWindow.apply {
+            binding.root.measure(0, 0)
+            this.contentView = binding.root
+            this.width = binding.root.measuredWidth
+            this.height = binding.root.measuredHeight
+            showAsDropDown(anchorView)
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
@@ -471,24 +503,19 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
         binding.apply {
             when (v) {
                 returnButton -> ZHTools.onBackPressed(activity)
-                addOtherServer -> TipDialog.Builder(activity)
-                    .setTitle(R.string.other_login_add_server)
-                    .setCancel(R.string.other_login_server)
-                    .setConfirm(R.string.other_login_uniform_pass)
-                    .setCancelClickListener {
-                        showServerTypeSelectDialog(
-                            R.string.other_login_yggdrasil_api,
-                            0
-                        )
-                    }
-                    .setConfirmClickListener {
-                        showServerTypeSelectDialog(
-                            R.string.other_login_32_bit_server,
-                            1
-                        )
-                    }
-                    .showDialog()
-
+                addServer -> {
+                    refreshActionPopupWindow(v, ViewAddOtherServerBinding.inflate(LayoutInflater.from(activity)).apply {
+                        val onClickListener = View.OnClickListener { v1 ->
+                            when(v1) {
+                                addOtherServer -> showServerTypeSelectDialog(R.string.other_login_yggdrasil_api, 0)
+                                addUniformPass -> showServerTypeSelectDialog(R.string.other_login_32_bit_server, 1)
+                            }
+                            mServerActionPopupWindow.dismiss()
+                        }
+                        addOtherServer.setOnClickListener(onClickListener)
+                        addUniformPass.setOnClickListener(onClickListener)
+                    })
+                }
                 else -> {}
             }
         }
@@ -497,8 +524,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     override fun slideIn(animPlayer: AnimPlayer) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(operationLayout, Animations.BounceInLeft))
-                .apply(AnimPlayer.Entry(accountTypeTab, Animations.BounceInDown))
-                .apply(AnimPlayer.Entry(addOtherServer, Animations.BounceInDown))
+                .apply(AnimPlayer.Entry(accountTypeLayout, Animations.BounceInDown))
                 .apply(AnimPlayer.Entry(accountsRecycler, Animations.BounceInUp))
         }
     }
@@ -506,8 +532,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
     override fun slideOut(animPlayer: AnimPlayer) {
         binding.apply {
             animPlayer.apply(AnimPlayer.Entry(operationLayout, Animations.FadeOutRight))
-                .apply(AnimPlayer.Entry(accountTypeTab, Animations.FadeOutUp))
-                .apply(AnimPlayer.Entry(addOtherServer, Animations.FadeOutUp))
+                .apply(AnimPlayer.Entry(accountTypeLayout, Animations.FadeOutUp))
                 .apply(AnimPlayer.Entry(accountsRecycler, Animations.FadeOutDown))
         }
     }

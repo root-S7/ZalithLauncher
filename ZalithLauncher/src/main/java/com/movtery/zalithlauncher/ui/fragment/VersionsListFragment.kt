@@ -17,7 +17,7 @@ import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionsListBinding
 import com.movtery.zalithlauncher.databinding.ItemFavoriteFolderBinding
-import com.movtery.zalithlauncher.databinding.ViewVersionFavoritesActionBinding
+import com.movtery.zalithlauncher.databinding.ViewSingleActionPopupBinding
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.END
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.START
@@ -248,8 +248,12 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     }
 
     private fun showFavoritesActionPopupWindow(anchorView: View) {
-        refreshActionPopupWindow(anchorView, ViewVersionFavoritesActionBinding.inflate(LayoutInflater.from(requireActivity())).apply {
-            addView.setOnClickListener {
+        refreshActionPopupWindow(anchorView, ViewSingleActionPopupBinding.inflate(LayoutInflater.from(requireActivity())).apply {
+            icon.setImageDrawable(
+                ContextCompat.getDrawable(requireActivity(), R.drawable.ic_add)
+            )
+            text.setText(R.string.version_manager_favorites_add_category)
+            text.setOnClickListener {
                 EditTextDialog.Builder(requireActivity())
                     .setTitle(R.string.version_manager_favorites_write_folder_name)
                     .setAsRequired()
@@ -264,12 +268,12 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
     }
 
     private fun showFavoritesDeletePopupWindow(anchorView: View, folderName: String) {
-        refreshActionPopupWindow(anchorView, ViewVersionFavoritesActionBinding.inflate(LayoutInflater.from(requireActivity())).apply {
-            addIcon.setImageDrawable(
+        refreshActionPopupWindow(anchorView, ViewSingleActionPopupBinding.inflate(LayoutInflater.from(requireActivity())).apply {
+            icon.setImageDrawable(
                 ContextCompat.getDrawable(requireActivity(), R.drawable.ic_menu_delete_forever)
             )
-            addView.setText(R.string.version_manager_favorites_remove_folder_title)
-            addView.setOnClickListener {
+            text.setText(R.string.version_manager_favorites_remove_folder_title)
+            text.setOnClickListener {
                 TipDialog.Builder(requireActivity())
                     .setTitle(R.string.version_manager_favorites_remove_folder_title)
                     .setMessage(R.string.version_manager_favorites_remove_folder_message)

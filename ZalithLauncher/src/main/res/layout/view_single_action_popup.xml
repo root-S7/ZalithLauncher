@@ -11,22 +11,20 @@
     tools:ignore="ContentDescription">
 
     <ImageView
-        android:id="@+id/add_icon"
+        android:id="@+id/icon"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
         android:layout_marginStart="@dimen/_4sdp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_add" />
+        android:layout_gravity="center_vertical"/>
 
     <com.movtery.zalithlauncher.ui.view.AnimTextView
-        android:id="@+id/add_view"
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_gravity="center_vertical"
         android:background="@drawable/background_item"
         android:gravity="center_horizontal"
-        android:paddingHorizontal="@dimen/_20sdp"
-        android:text="@string/version_manager_favorites_add_category"/>
+        android:paddingHorizontal="@dimen/_20sdp"/>
 
 </LinearLayout>
