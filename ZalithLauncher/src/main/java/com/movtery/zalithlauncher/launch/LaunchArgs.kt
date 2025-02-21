@@ -6,9 +6,9 @@ import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.getLibrariesHome
 import com.movtery.zalithlauncher.feature.version.Version
-import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.path.LibPath
+import com.movtery.zalithlauncher.utils.path.PathManager
 import net.kdt.pojavlaunch.AWTCanvasView
 import net.kdt.pojavlaunch.JMinecraftVersionList
 import net.kdt.pojavlaunch.Tools
@@ -58,6 +58,13 @@ class LaunchArgs(
         val is7 = VersionNumber.compare(VersionNumber.asVersion(versionInfo.id ?: "0.0").canonical, "1.12") < 0
         val configFilePath = if (is7) LibPath.LOG4J_XML_1_7 else LibPath.LOG4J_XML_1_12
         argsList.add("-Dlog4j.configurationFile=${configFilePath.absolutePath}")
+
+        val versionSpecificNativesDir = File(PathManager.DIR_CACHE, "natives/${minecraftVersion.getVersionName()}")
+        if (versionSpecificNativesDir.exists()) {
+            val dirPath = versionSpecificNativesDir.absolutePath
+            argsList.add("-Djava.library.path=$dirPath:${PathManager.DIR_NATIVE_LIB}")
+            argsList.add("-Djna.boot.library.path=$dirPath")
+        }
 
         return argsList
     }

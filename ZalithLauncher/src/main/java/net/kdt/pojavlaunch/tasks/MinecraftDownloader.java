@@ -9,6 +9,7 @@ import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.JAssetInfo;
 import net.kdt.pojavlaunch.JAssets;
@@ -181,7 +182,7 @@ public class MinecraftDownloader {
         ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0,
                 R.string.newdl_extracting_native_libraries, 0, totalCount);
 
-        File targetDirectory = new File(Tools.DIR_CACHE, "natives/"+versionName);
+        File targetDirectory = new File(PathManager.DIR_CACHE, "natives/"+versionName);
         FileUtils.ensureDirectory(targetDirectory);
         NativesExtractor nativesExtractor = new NativesExtractor(targetDirectory);
         int extractedCount = 0;
@@ -305,7 +306,7 @@ public class MinecraftDownloader {
     private void scheduleNativeLibraryDownload(String baseRepository, DependentLibrary dependentLibrary) throws IOException {
         String path = FileUtils.removeExtension(Tools.artifactToPath(dependentLibrary)) + ".aar";
         String downloadUrl = baseRepository + path;
-        File targetPath = new File(Tools.DIR_HOME_LIBRARY, path);
+        File targetPath = new File(ProfilePathHome.getLibrariesHome(), path);
         mDeclaredNatives.add(targetPath);
         scheduleDownload(targetPath, DownloadMirror.DOWNLOAD_CLASS_LIBRARIES, downloadUrl, null, 0, true);
     }

@@ -1,7 +1,8 @@
 package net.kdt.pojavlaunch.tasks;
 
+import com.movtery.zalithlauncher.utils.path.PathManager;
+
 import net.kdt.pojavlaunch.Architecture;
-import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.FileUtils;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class NativesExtractor {
      * @return the resulting blacklist of library file names
      */
     private static ArrayList<String> createLibraryBlacklist() {
-        String[] includedLibraryNames = new File(Tools.NATIVE_LIB_DIR).list();
+        String[] includedLibraryNames = new File(PathManager.DIR_NATIVE_LIB).list();
         ArrayList<String> blacklist = new ArrayList<>(includedLibraryNames.length);
         for(String libraryName : includedLibraryNames) {
             // allow overriding jnidispatch (as the integrated version may be too old)
