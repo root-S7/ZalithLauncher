@@ -70,6 +70,7 @@ android {
         versionName "1.4.0"
         multiDexEnabled true //important
         buildConfigField "boolean", "IS_PRE_RELEASE", "true"
+        manifestPlaceholders.put("launcher_name", project.launcher_app_name)
 
         stringfog {
             implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
@@ -132,7 +133,7 @@ android {
                 }
             }
 
-            def baseName = "ZalithLauncher-${variant.buildType.name == 'release' ? variant.versionName : "Debug-${variant.versionName}"}"
+            def baseName = "${project.launcher_name}-${variant.buildType.name == 'release' ? variant.versionName : "Debug-${variant.versionName}"}"
             outputFileName = abi == "all" ? "${baseName}.apk" : "${baseName}-${abi}.apk"
         }
     }
@@ -222,6 +223,8 @@ tasks.register("generateInfoDistributor") {
                 public static final String CURSEFORGE_API_KEY = "${getCFApiKey()}";
                 public static final String QQ_KEY_1 = "${getQQGroupKey(1)}";
                 public static final String QQ_KEY_2 = "${getQQGroupKey(2)}";
+                public static final String LAUNCHER_NAME = "${project.launcher_name}";
+                public static final String APP_NAME = "${project.launcher_app_name}";
             }
         """.stripIndent()
 

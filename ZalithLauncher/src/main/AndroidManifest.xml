@@ -32,7 +32,7 @@
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher"
         android:isGame="true"
-        android:label="Zalith Launcher"
+        android:label="${launcher_name}"
         android:process=":launcher"
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"

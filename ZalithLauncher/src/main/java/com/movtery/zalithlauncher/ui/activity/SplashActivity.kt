@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.ActivitySplashBinding
 import com.movtery.zalithlauncher.feature.unpack.Components
@@ -39,7 +40,7 @@ class SplashActivity : BaseActivity() {
         setContentView(binding.root)
 
         val splashText = findViewById<TextView>(R.id.splash_text)
-        binding.titleText.text = InfoCenter.APP_NAME
+        binding.titleText.text = InfoDistributor.APP_NAME
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SplashActivity)
             adapter = installableAdapter

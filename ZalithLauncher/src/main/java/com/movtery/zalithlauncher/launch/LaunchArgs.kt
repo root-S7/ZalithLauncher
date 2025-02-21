@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.launch
 
 import androidx.collection.ArrayMap
-import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome.Companion.getLibrariesHome
@@ -130,7 +130,7 @@ class LaunchArgs(
     }
 
     private fun setLauncherInfo(verArgMap: MutableMap<String, String>) {
-        verArgMap["launcher_name"] = InfoCenter.LAUNCHER_NAME
+        verArgMap["launcher_name"] = InfoDistributor.LAUNCHER_NAME
         verArgMap["launcher_version"] = ZHTools.getVersionName()
         verArgMap["version_type"] = minecraftVersion.getCustomInfo()
             .takeIf { it.isNotEmpty() && it.isNotBlank() }

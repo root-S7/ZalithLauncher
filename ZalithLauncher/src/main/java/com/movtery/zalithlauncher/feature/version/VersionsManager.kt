@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.feature.version
 
 import android.content.Context
-import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent
 import com.movtery.zalithlauncher.event.single.RefreshVersionsEvent.MODE.END
@@ -165,17 +165,17 @@ object VersionsManager {
     /**
      * @return 获取 Zalith 启动器版本标识文件夹
      */
-    fun getZalithVersionPath(version: Version) = File(version.getVersionPath(), InfoCenter.LAUNCHER_NAME)
+    fun getZalithVersionPath(version: Version) = File(version.getVersionPath(), InfoDistributor.LAUNCHER_NAME)
 
     /**
      * @return 通过目录获取 Zalith 启动器版本标识文件夹
      */
-    fun getZalithVersionPath(folder: File) = File(folder, InfoCenter.LAUNCHER_NAME)
+    fun getZalithVersionPath(folder: File) = File(folder, InfoDistributor.LAUNCHER_NAME)
 
     /**
      * @return 通过名称获取 Zalith 启动器版本标识文件夹
      */
-    fun getZalithVersionPath(name: String) = File(getVersionPath(name), InfoCenter.LAUNCHER_NAME)
+    fun getZalithVersionPath(name: String) = File(getVersionPath(name), InfoDistributor.LAUNCHER_NAME)
 
     /**
      * @return 获取当前版本设置的图标

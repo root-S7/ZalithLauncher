@@ -2,7 +2,7 @@ package com.movtery.zalithlauncher.feature.log
 
 import android.util.Log
 import com.movtery.zalithlauncher.BuildConfig
-import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.utils.path.PathManager.Companion.DIR_LAUNCHER_LOG
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -95,7 +95,7 @@ object Logging {
     }
 
     private fun getLauncherInfo(): String = """
-        =============== ${InfoCenter.APP_NAME} ===============
+        =============== ${InfoDistributor.APP_NAME} ===============
         - Version Name : ${BuildConfig.VERSION_NAME}
         - Version Code : ${BuildConfig.VERSION_CODE}
         - Build Type : ${BuildConfig.BUILD_TYPE}

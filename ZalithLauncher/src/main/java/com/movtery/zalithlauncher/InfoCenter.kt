@@ -1,11 +1,10 @@
 package com.movtery.zalithlauncher
 
 import android.content.Context
+import com.movtery.zalithlauncher.InfoDistributor.APP_NAME
 
 class InfoCenter {
     companion object {
-        const val LAUNCHER_NAME: String = "ZalithLauncher"
-        const val APP_NAME: String = "Zalith Launcher"
         const val QQ_GROUP: String = "435667089"
 
         @JvmStatic

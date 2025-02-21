@@ -29,7 +29,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.movtery.zalithlauncher.InfoCenter;
+import com.movtery.zalithlauncher.InfoDistributor;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.utils.LauncherProfiles;
@@ -115,10 +115,10 @@ public final class Tools {
                             forgeSplashContent.replace("enabled=true", "enabled=false"));
                 }
             } catch (IOException e) {
-                Logging.w(InfoCenter.LAUNCHER_NAME, "Could not disable Forge 1.12.2 and below splash screen!", e);
+                Logging.w(InfoDistributor.LAUNCHER_NAME, "Could not disable Forge 1.12.2 and below splash screen!", e);
             }
         } else {
-            Logging.w(InfoCenter.LAUNCHER_NAME, "Failed to create the configuration directory");
+            Logging.w(InfoDistributor.LAUNCHER_NAME, "Failed to create the configuration directory");
         }
     }
 
@@ -171,7 +171,7 @@ public final class Tools {
         }
         for (String jarFile : classpath) {
             if (!FileUtils.exists(jarFile)) {
-                Logging.d(InfoCenter.LAUNCHER_NAME, "Ignored non-exists file: " + jarFile);
+                Logging.d(InfoDistributor.LAUNCHER_NAME, "Ignored non-exists file: " + jarFile);
                 continue;
             }
             finalClasspath.append((isClientFirst ? ":" : "")).append(jarFile).append(!isClientFirst ? ":" : "");
@@ -384,7 +384,7 @@ public final class Tools {
                 // we have libjnidispatch 5.13.0 in jniLibs directory
                 if (Integer.parseInt(version[0]) >= 5 && Integer.parseInt(version[1]) >= 13)
                     continue;
-                Logging.d(InfoCenter.LAUNCHER_NAME, "Library " + libItem.name + " has been changed to version 5.13.0");
+                Logging.d(InfoDistributor.LAUNCHER_NAME, "Library " + libItem.name + " has been changed to version 5.13.0");
                 createLibraryInfo(libItem);
                 libItem.name = "net.java.dev.jna:jna:5.13.0";
                 libItem.downloads.artifact.path = "net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar";
@@ -396,7 +396,7 @@ public final class Tools {
 
                 if (Integer.parseInt(version[0]) != 6 || Integer.parseInt(version[1]) != 2)
                     continue;
-                Logging.d(InfoCenter.LAUNCHER_NAME, "Library " + libItem.name + " has been changed to version 6.3.0");
+                Logging.d(InfoDistributor.LAUNCHER_NAME, "Library " + libItem.name + " has been changed to version 6.3.0");
                 createLibraryInfo(libItem);
                 libItem.name = "com.github.oshi:oshi-core:6.3.0";
                 libItem.downloads.artifact.path = "com/github/oshi/oshi-core/6.3.0/oshi-core-6.3.0.jar";
@@ -407,7 +407,7 @@ public final class Tools {
                 // Java 8, which is not supported by old ASM versions. Mod loaders like Forge, which depend on this
                 // library, often include lwjgl in their class transformations, which causes errors with old ASM versions.
                 if (Integer.parseInt(version[0]) >= 5) continue;
-                Logging.d(InfoCenter.LAUNCHER_NAME, "Library " + libItem.name + " has been changed to version 5.0.4");
+                Logging.d(InfoDistributor.LAUNCHER_NAME, "Library " + libItem.name + " has been changed to version 5.0.4");
                 createLibraryInfo(libItem);
                 libItem.name = "org.ow2.asm:asm-all:5.0.4";
                 libItem.url = null;
@@ -468,7 +468,7 @@ public final class Tools {
                         String inheritLibName = inheritLibrary.name.substring(0, inheritLibrary.name.lastIndexOf(":"));
 
                         if(libName.equals(inheritLibName)){
-                            Logging.d(InfoCenter.LAUNCHER_NAME, "Library " + libName + ": Replaced version " +
+                            Logging.d(InfoDistributor.LAUNCHER_NAME, "Library " + libName + ": Replaced version " +
                                     libName.substring(libName.lastIndexOf(":") + 1) + " with " +
                                     inheritLibName.substring(inheritLibName.lastIndexOf(":") + 1));
 
@@ -545,7 +545,7 @@ public final class Tools {
                     fieldB.set(targetVer, value);
                 }
             } catch (Throwable th) {
-                Logging.w(InfoCenter.LAUNCHER_NAME, "Unable to insert " + key + "=" + value, th);
+                Logging.w(InfoDistributor.LAUNCHER_NAME, "Unable to insert " + key + "=" + value, th);
             }
         }
     }

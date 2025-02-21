@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentManager;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.anim.AnimPlayer;
 import com.movtery.anim.animations.Animations;
-import com.movtery.zalithlauncher.InfoCenter;
+import com.movtery.zalithlauncher.InfoDistributor;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.databinding.ActivityLauncherBinding;
@@ -183,7 +183,7 @@ public class LauncherActivity extends BaseActivity {
             StoragePermissionsUtils.checkPermissions(
                     this,
                     R.string.generic_warning,
-                    getString(R.string.permissions_storage_for_renderer_config, rendererPlugin.getDisplayName(), InfoCenter.APP_NAME),
+                    getString(R.string.permissions_storage_for_renderer_config, rendererPlugin.getDisplayName(), InfoDistributor.APP_NAME),
                     new StoragePermissionsUtils.PermissionGranted() {
                         @Override
                         public void granted() {
@@ -431,7 +431,7 @@ public class LauncherActivity extends BaseActivity {
                 Tools.backToMainMenu(this);
             }
         });
-        binding.appTitleText.setText(InfoCenter.APP_NAME);
+        binding.appTitleText.setText(InfoDistributor.APP_NAME);
         binding.appTitleText.setOnClickListener(v ->
                 binding.appTitleText.setText(StringUtils.shiftString(binding.appTitleText.getText().toString(), ShiftDirection.RIGHT, 1))
         );
@@ -622,7 +622,7 @@ public class LauncherActivity extends BaseActivity {
     private void showNotificationPermissionReasoning() {
         new TipDialog.Builder(this)
                 .setTitle(R.string.notification_permission_dialog_title)
-                .setMessage(getString(R.string.notification_permission_dialog_text, InfoCenter.APP_NAME, InfoCenter.APP_NAME))
+                .setMessage(getString(R.string.notification_permission_dialog_text, InfoDistributor.APP_NAME, InfoDistributor.APP_NAME))
                 .setConfirmClickListener(checked -> askForNotificationPermission(null))
                 .setCancelClickListener(this::handleNoNotificationPermission)
                 .showDialog();

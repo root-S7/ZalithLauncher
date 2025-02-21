@@ -5,7 +5,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
-import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.utils.path.PathManager
@@ -96,7 +96,7 @@ object BackgroundManager {
         runCatching {
             properties.store(
                 FileWriter(FILE_BACKGROUND_PROPERTIES),
-                "${InfoCenter.APP_NAME} Background Properties File"
+                "${InfoDistributor.APP_NAME} Background Properties File"
             )
         }.getOrElse { e -> Logging.e("saveProperties", Tools.printToString(e)) }
     }

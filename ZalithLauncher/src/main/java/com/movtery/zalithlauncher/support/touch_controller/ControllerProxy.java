@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Vibrator;
 import android.system.Os;
 
-import com.movtery.zalithlauncher.InfoCenter;
+import com.movtery.zalithlauncher.InfoDistributor;
 import com.movtery.zalithlauncher.feature.log.Logging;
 
 import net.kdt.pojavlaunch.Logger;
@@ -28,8 +28,8 @@ public final class ControllerProxy {
     public static void startProxy(Context context) {
         if (proxyClient == null) {
             try {
-                MessageTransport transport = UnixSocketTransportKt.UnixSocketTransport(InfoCenter.LAUNCHER_NAME);
-                Os.setenv("TOUCH_CONTROLLER_PROXY_SOCKET", InfoCenter.LAUNCHER_NAME, true);
+                MessageTransport transport = UnixSocketTransportKt.UnixSocketTransport(InfoDistributor.LAUNCHER_NAME);
+                Os.setenv("TOUCH_CONTROLLER_PROXY_SOCKET", InfoDistributor.LAUNCHER_NAME, true);
                 LauncherProxyClient client = new LauncherProxyClient(transport);
                 Vibrator vibrator = context.getSystemService(Vibrator.class);
                 VibrationHandler handler = new VibrationHandler(vibrator);

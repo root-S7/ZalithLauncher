@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.movtery.zalithlauncher.InfoCenter;
+import com.movtery.zalithlauncher.InfoDistributor;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome;
@@ -477,7 +477,7 @@ public final class JREUtils {
                 "-Dext.net.resolvPath=" +resolvFile,
                 "-Dlog4j2.formatMsgNoLookups=true", //Log4j RCE mitigation
 
-                "-Dnet.minecraft.clientmodname=" + InfoCenter.LAUNCHER_NAME,
+                "-Dnet.minecraft.clientmodname=" + InfoDistributor.LAUNCHER_NAME,
                 "-Dfml.earlyprogresswindow=false", //Forge 1.14+ workaround
                 "-Dloader.disable_forked_guis=true",
                 "-Djdk.lang.Process.launchMechanism=FORK", // Default is POSIX_SPAWN which requires starting jspawnhelper, which doesn't work on Android

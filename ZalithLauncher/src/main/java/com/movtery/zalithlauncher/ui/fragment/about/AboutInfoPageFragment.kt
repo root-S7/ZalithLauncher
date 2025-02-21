@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentAboutInfoPageBinding
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
@@ -69,7 +70,7 @@ class AboutInfoPageFragment() : Fragment(R.layout.fragment_about_info_page) {
                 qqGroupButton.setOnClickListener {
                     TipDialog.Builder(context)
                         .setTitle("QQ")
-                        .setMessage(context.getString(R.string.about_qq_group, InfoCenter.APP_NAME, InfoCenter.QQ_GROUP))
+                        .setMessage(context.getString(R.string.about_qq_group, InfoDistributor.APP_NAME, InfoCenter.QQ_GROUP))
                         .setSelectable(true)
                         .setConfirm(R.string.about_qq_group_generate_button)
                         .setConfirmClickListener {

@@ -17,7 +17,7 @@ import android.webkit.MimeTypeMap;
 import androidx.annotation.Nullable;
 
 import com.movtery.zalithlauncher.BuildConfig;
-import com.movtery.zalithlauncher.InfoCenter;
+import com.movtery.zalithlauncher.InfoDistributor;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.utils.path.PathManager;
@@ -82,7 +82,7 @@ public class FolderProvider extends DocumentsProvider {
     public Cursor queryRoots(String[] projection) {
         final MatrixCursor result = new MatrixCursor(projection != null ? projection : DEFAULT_ROOT_PROJECTION);
 
-        String summary = InfoCenter.APP_NAME;
+        String summary = InfoDistributor.APP_NAME;
         if (BuildConfig.DEBUG) {
             summary = "(" + getContext().getString(R.string.generic_debug) + ") " + summary;
         }
@@ -92,7 +92,7 @@ public class FolderProvider extends DocumentsProvider {
         row.add(Root.COLUMN_DOCUMENT_ID, getDocIdForFile(BASE_DIR));
         row.add(Root.COLUMN_SUMMARY, summary);
         row.add(Root.COLUMN_FLAGS, Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_SEARCH | Root.FLAG_SUPPORTS_IS_CHILD);
-        row.add(Root.COLUMN_TITLE, InfoCenter.APP_NAME);
+        row.add(Root.COLUMN_TITLE, InfoDistributor.APP_NAME);
         row.add(Root.COLUMN_MIME_TYPES, ALL_MIME_TYPES);
         row.add(Root.COLUMN_AVAILABLE_BYTES, BASE_DIR.getFreeSpace());
         row.add(Root.COLUMN_ICON, R.mipmap.ic_launcher);

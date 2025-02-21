@@ -1,7 +1,7 @@
 package com.movtery.zalithlauncher.utils.path
 
 import com.movtery.zalithlauncher.BuildConfig
-import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class UrlManager {
     companion object {
-        private const val URL_USER_AGENT: String = "${InfoCenter.LAUNCHER_NAME}/${BuildConfig.VERSION_NAME}"
+        private const val URL_USER_AGENT: String = "${InfoDistributor.LAUNCHER_NAME}/${BuildConfig.VERSION_NAME}"
         @JvmField
         val TIME_OUT = Pair(8000, TimeUnit.MILLISECONDS)
         const val URL_GITHUB_HOME: String = "https://api.github.com/repos/ZalithLauncher/Zalith-Info/contents/"

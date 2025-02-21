@@ -34,7 +34,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.movtery.zalithlauncher.BuildConfig;
-import com.movtery.zalithlauncher.InfoCenter;
+import com.movtery.zalithlauncher.InfoDistributor;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.feature.log.Logging;
@@ -109,7 +109,7 @@ public final class ZHTools {
                     try {
                         ZHTools.killProcess();
                     } catch (Throwable th) {
-                        Logging.w(InfoCenter.LAUNCHER_NAME, "Could not enable System.exit() method!", th);
+                        Logging.w(InfoDistributor.LAUNCHER_NAME, "Could not enable System.exit() method!", th);
                     }
                 }).showDialog();
     }

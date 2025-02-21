@@ -3,7 +3,7 @@ package com.movtery.zalithlauncher.utils.path
 import android.content.Context
 import android.os.Build.VERSION
 import android.os.Environment
-import com.movtery.zalithlauncher.InfoCenter
+import com.movtery.zalithlauncher.InfoDistributor
 import org.apache.commons.io.FileUtils
 import java.io.File
 
@@ -14,7 +14,7 @@ class PathManager {
         lateinit var DIR_DATA: String //Initialized later to get context
         lateinit var DIR_CACHE: File
         lateinit var DIR_MULTIRT_HOME: String
-        @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/${InfoCenter.LAUNCHER_NAME}"
+        @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/${InfoDistributor.LAUNCHER_NAME}"
         lateinit var DIR_LAUNCHER_LOG: String
         lateinit var DIR_CTRLMAP_PATH: String
         lateinit var DIR_ACCOUNT_NEW: String
@@ -68,7 +68,7 @@ class PathManager {
             return if (VERSION.SDK_INT >= 29) {
                 ctx.getExternalFilesDir(null)!!
             } else {
-                File(Environment.getExternalStorageDirectory(), "games/${InfoCenter.LAUNCHER_NAME}")
+                File(Environment.getExternalStorageDirectory(), "games/${InfoDistributor.LAUNCHER_NAME}")
             }
         }
     }
