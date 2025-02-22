@@ -66,8 +66,8 @@ android {
         applicationId nameId
         minSdkVersion 26
         targetSdkVersion 34
-        versionCode 140000
-        versionName "1.4.0"
+        versionCode 140010
+        versionName "1.4.0.1_rc1"
         multiDexEnabled true //important
         buildConfigField "boolean", "IS_PRE_RELEASE", "true"
         manifestPlaceholders.put("launcher_name", project.launcher_app_name)
