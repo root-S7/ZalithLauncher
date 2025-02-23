@@ -16,9 +16,12 @@ def getCFApiKey = {
 }
 
 def getBuildType = {
-    String buildType = System.getenv("ZL_BUILD_TYPE")
-    if (buildType != null) return buildType
-    else return "DEBUG"
+    String buildTypeEnv = System.getenv("ZL_BUILD_TYPE")
+    String buildType
+    if (buildTypeEnv != null) buildType = buildTypeEnv
+    else buildType = "DEBUG"
+    logger.warn('BUILD: Build Type --> ' + buildType)
+    return buildType
 }
 
 def getQQGroupKey(int number) {
