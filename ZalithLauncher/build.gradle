@@ -15,6 +15,12 @@ def getCFApiKey = {
     return "DUMMY"
 }
 
+def getBuildType = {
+    String buildType = System.getenv("ZL_BUILD_TYPE")
+    if (buildType != null) return buildType
+    else return "DEBUG"
+}
+
 def getQQGroupKey(int number) {
     String key = System.getenv("QQ_GROUP_KEY_" + number)
     if (key != null) return key
@@ -69,7 +75,6 @@ android {
         versionCode 140010
         versionName "1.4.0.1_rc1"
         multiDexEnabled true //important
-        buildConfigField "boolean", "IS_PRE_RELEASE", "true"
         manifestPlaceholders.put("launcher_name", project.launcher_app_name)
 
         stringfog {
@@ -203,32 +208,40 @@ android {
     }
 }
 
+def generateJavaClass(File sourceOutputDir, String packageName, String className, Map<String, String> constantMap) {
+    def outputDir = new File(sourceOutputDir, packageName.replace(".", "/"))
+    outputDir.mkdirs()
+    def javaFile = new File(outputDir, "${className}.java")
+
+    def constants = constantMap.collect { key, value ->
+        "\tpublic static final String $key = \"${value}\";"
+    }.join("\n")
+
+    javaFile.text = """\
+/**
+* Automatically generated file. DO NOT MODIFY
+*/
+package $packageName;
+
+public class $className {
+$constants
+}
+""".stripIndent()
+
+    println "Generated Java file: ${javaFile.absolutePath}"
+}
 
 tasks.register("generateInfoDistributor") {
-    def packageName = "com.movtery.zalithlauncher"
-    def className = "InfoDistributor"
-    def outputDir = new File(generatedZalithDir, packageName.replace(".", "/"))
-
     doLast {
-        outputDir.mkdirs()
-        def javaFile = new File(outputDir, "${className}.java")
-
-        javaFile.text = """\
-            /**
-             * Automatically generated file. DO NOT MODIFY
-             */
-            package $packageName;
-
-            public class $className {
-                public static final String CURSEFORGE_API_KEY = "${getCFApiKey()}";
-                public static final String QQ_KEY_1 = "${getQQGroupKey(1)}";
-                public static final String QQ_KEY_2 = "${getQQGroupKey(2)}";
-                public static final String LAUNCHER_NAME = "${project.launcher_name}";
-                public static final String APP_NAME = "${project.launcher_app_name}";
-            }
-        """.stripIndent()
-
-        println "Generated Java file: ${javaFile.absolutePath}"
+        Map<String, String> constantMap = [
+                CURSEFORGE_API_KEY  : getCFApiKey(),
+                QQ_KEY_1            : getQQGroupKey(1),
+                QQ_KEY_2            : getQQGroupKey(2),
+                LAUNCHER_NAME       : project.launcher_name,
+                APP_NAME            : project.launcher_app_name,
+                BUILD_TYPE          : getBuildType()
+        ]
+        generateJavaClass(generatedZalithDir, "com.movtery.zalithlauncher", "InfoDistributor", constantMap)
     }
 }
 

@@ -55,7 +55,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.zip.ZipOutputStream;
 
 public final class ZHTools {
@@ -214,21 +213,21 @@ public final class ZHTools {
      * @return 启动器是否为预发布版
      */
     public static boolean isPreRelease() {
-        return BuildConfig.IS_PRE_RELEASE;
+        return "PRE_RELEASE".equals(InfoDistributor.BUILD_TYPE);
     }
 
     /**
      * @return 启动器是否为正式版
      */
     public static boolean isRelease() {
-        return Objects.equals(BuildConfig.BUILD_TYPE, "release");
+        return "RELEASE".equals(InfoDistributor.BUILD_TYPE);
     }
 
     /**
      * @return 启动器是否为测试版
      */
     public static boolean isDebug() {
-        return Objects.equals(BuildConfig.BUILD_TYPE, "debug");
+        return "DEBUG".equals(InfoDistributor.BUILD_TYPE);
     }
 
     //获取版本状态信息
