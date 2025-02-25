@@ -2,7 +2,6 @@ package com.movtery.zalithlauncher.ui.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -160,7 +159,7 @@ public class KeyboardDialog extends FullScreenDialog {
         }
 
         if (!showSpecialButtons) {
-            findViewById(R.id.special_key).setVisibility(View.GONE);
+            binding.specialKey.setVisibility(View.GONE);
         }
     }
 

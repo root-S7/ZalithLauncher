@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.InfoCenter
@@ -39,7 +38,6 @@ class SplashActivity : BaseActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val splashText = findViewById<TextView>(R.id.splash_text)
         binding.titleText.text = InfoDistributor.APP_NAME
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SplashActivity)
@@ -50,7 +48,7 @@ class SplashActivity : BaseActivity() {
             setOnClickListener {
                 if (isStarted) return@setOnClickListener
                 isStarted = true
-                splashText.setText(R.string.splash_screen_installing)
+                binding.splashText.setText(R.string.splash_screen_installing)
                 installableAdapter.startAllTasks()
             }
             isClickable = false

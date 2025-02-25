@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -75,7 +74,6 @@ import com.movtery.zalithlauncher.ui.fragment.SettingsFragment;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.ButtonType;
 import com.movtery.zalithlauncher.ui.subassembly.settingsbutton.SettingsButtonWrapper;
 import com.movtery.zalithlauncher.ui.subassembly.view.DraggableViewWrapper;
-import com.movtery.zalithlauncher.ui.view.AnimButton;
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
@@ -442,7 +440,7 @@ public class LauncherActivity extends BaseActivity {
         binding.progressLayout.observe(ProgressLayout.LOGIN_ACCOUNT);
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
-        binding.noticeLayout.findViewById(R.id.notice_got_button).setOnClickListener(v -> {
+        binding.noticeGotButton.setOnClickListener(v -> {
             setNotice(false);
             AllSettings.getNoticeDefault().put(false).save();
         });
@@ -549,23 +547,17 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setNotice(boolean show) {
-        AnimButton gotButton = binding.noticeLayout.findViewById(R.id.notice_got_button);
-
         if (show) {
             NoticeInfo noticeInfo = CheckNewNotice.getNoticeInfo();
             if (noticeInfo != null) {
-                TextView title = binding.noticeLayout.findViewById(R.id.notice_title_view);
-                TextView message = binding.noticeLayout.findViewById(R.id.notice_message_view);
-                TextView date = binding.noticeLayout.findViewById(R.id.notice_date_view);
+                binding.noticeGotButton.setClickable(true);
 
-                gotButton.setClickable(true);
+                binding.noticeTitleView.setText(noticeInfo.title);
+                binding.noticeMessageView.setText(noticeInfo.content);
+                binding.noticeDateView.setText(noticeInfo.date);
 
-                title.setText(noticeInfo.title);
-                message.setText(noticeInfo.content);
-                date.setText(noticeInfo.date);
-
-                Linkify.addLinks(message, Linkify.WEB_URLS);
-                message.setMovementMethod(LinkMovementMethod.getInstance());
+                Linkify.addLinks(binding.noticeMessageView, Linkify.WEB_URLS);
+                binding.noticeMessageView.setMovementMethod(LinkMovementMethod.getInstance());
 
                 noticeAnimPlayer.clearEntries();
                 noticeAnimPlayer.apply(new AnimPlayer.Entry(binding.noticeLayout, Animations.BounceEnlarge))
@@ -573,7 +565,7 @@ public class LauncherActivity extends BaseActivity {
                         .start();
             }
         } else {
-            gotButton.setClickable(false);
+            binding.noticeGotButton.setClickable(false);
 
             noticeAnimPlayer.clearEntries();
             noticeAnimPlayer.apply(new AnimPlayer.Entry(binding.noticeLayout, Animations.BounceShrink))
@@ -584,7 +576,7 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void refreshBackground() {
-        BackgroundManager.setBackgroundImage(this, BackgroundType.MAIN_MENU, findViewById(R.id.background_view));
+        BackgroundManager.setBackgroundImage(this, BackgroundType.MAIN_MENU, binding.backgroundView);
     }
 
     @SuppressWarnings("SameParameterValue")

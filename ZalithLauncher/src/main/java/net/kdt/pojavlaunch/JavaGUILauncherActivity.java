@@ -10,16 +10,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 
 import com.getkeepsafe.taptargetview.TapTargetView;
-import com.kdt.LoggerView;
 import com.movtery.zalithlauncher.R;
+import com.movtery.zalithlauncher.databinding.ActivityJavaGuiLauncherBinding;
 import com.movtery.zalithlauncher.event.value.JvmExitEvent;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.launch.LaunchArgs;
@@ -36,7 +34,6 @@ import com.movtery.zalithlauncher.utils.image.Dimension;
 import com.movtery.zalithlauncher.utils.image.ImageUtils;
 
 import net.kdt.pojavlaunch.customcontrols.keyboard.AwtCharSender;
-import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
 import net.kdt.pojavlaunch.multirt.Runtime;
 import net.kdt.pojavlaunch.utils.JREUtils;
@@ -63,12 +60,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     public static final String EXTRAS_JRE_NAME = "jre_name";
     public static final String SUBSCRIBE_JVM_EXIT_EVENT = "subscribe_jvm_exit_event";
     public static final String FORCE_SHOW_LOG = "force_show_log";
-    private AWTCanvasView mTextureView;
-    private LoggerView mLoggerView;
-    private TouchCharInput mTouchCharInput;
-
-    private LinearLayout mTouchPad;
-    private ImageView mMousePointerImageView;
+    private ActivityJavaGuiLauncherBinding binding;
     private GestureDetector mGestureDetector;
 
     private boolean mIsVirtualMouseEnabled;
@@ -78,14 +70,15 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_java_gui_launcher);
+        binding = ActivityJavaGuiLauncherBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         try {
             File latestLogFile = new File(PathManager.DIR_GAME_HOME, "latestlog.txt");
             if (!latestLogFile.exists() && !latestLogFile.createNewFile())
                 throw new IOException("Failed to create a new log file");
             Logger.begin(latestLogFile.getAbsolutePath());
-        }catch (IOException e) {
+        } catch (IOException e) {
             Tools.showError(this, e, true);
         }
 
@@ -93,36 +86,31 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         MainActivity.GLOBAL_CLIPBOARD = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        mTouchCharInput = findViewById(R.id.awt_touch_char);
-        mTouchCharInput.setCharacterSender(new AwtCharSender());
+        binding.awtTouchChar.setCharacterSender(new AwtCharSender());
 
-        mTouchPad = findViewById(R.id.main_touchpad);
-        mLoggerView = findViewById(R.id.launcherLoggerView);
-        mMousePointerImageView = findViewById(R.id.main_mouse_pointer);
-        mTextureView = findViewById(R.id.installmod_surfaceview);
         mGestureDetector = new GestureDetector(this, new SingleTapConfirm());
-        mTouchPad.setFocusable(false);
-        mTouchPad.setVisibility(View.GONE);
+        binding.mainTouchpad.setFocusable(false);
+        binding.mainTouchpad.setVisibility(View.GONE);
 
-        findViewById(R.id.installmod_mouse_pri).setOnTouchListener(this);
-        findViewById(R.id.installmod_mouse_sec).setOnTouchListener(this);
-        findViewById(R.id.installmod_window_moveup).setOnTouchListener(this);
-        findViewById(R.id.installmod_window_movedown).setOnTouchListener(this);
-        findViewById(R.id.installmod_window_moveleft).setOnTouchListener(this);
-        findViewById(R.id.installmod_window_moveright).setOnTouchListener(this);
+        binding.installmodMousePri.setOnTouchListener(this);
+        binding.installmodMouseSec.setOnTouchListener(this);
+        binding.installmodWindowMoveup.setOnTouchListener(this);
+        binding.installmodWindowMovedown.setOnTouchListener(this);
+        binding.installmodWindowMoveleft.setOnTouchListener(this);
+        binding.installmodWindowMoveright.setOnTouchListener(this);
 
-        mMousePointerImageView.setImageDrawable(ZHTools.customMouse(this));
+        binding.mousePointer.setImageDrawable(ZHTools.customMouse(this));
 
-        mMousePointerImageView.post(() -> {
-            ViewGroup.LayoutParams params = mMousePointerImageView.getLayoutParams();
-            Drawable drawable = mMousePointerImageView.getDrawable();
+        binding.mousePointer.post(() -> {
+            ViewGroup.LayoutParams params = binding.mousePointer.getLayoutParams();
+            Drawable drawable = binding.mousePointer.getDrawable();
             Dimension mousescale = ImageUtils.resizeWithRatio(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
                     AllSettings.getMouseScale().getValue());
             params.width = (int) (mousescale.width * 0.5);
             params.height = (int) (mousescale.height * 0.5);
         });
 
-        mTouchPad.setOnTouchListener(new View.OnTouchListener() {
+        binding.mainTouchpad.setOnTouchListener(new View.OnTouchListener() {
             float prevX = 0, prevY = 0;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -136,8 +124,8 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 float y = event.getY();
                 float mouseX, mouseY;
 
-                mouseX = mMousePointerImageView.getX();
-                mouseY = mMousePointerImageView.getY();
+                mouseX = binding.mousePointer.getX();
+                mouseY = binding.mousePointer.getY();
 
                 if (mGestureDetector.onTouchEvent(event)) {
                     sendScaledMousePosition(mouseX,mouseY);
@@ -157,11 +145,11 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             }
         });
 
-        mTextureView.setOnTouchListener((v, event) -> {
+        binding.textureView.setOnTouchListener((v, event) -> {
             float x = event.getX();
             float y = event.getY();
             if (mGestureDetector.onTouchEvent(event)) {
-                sendScaledMousePosition(x + mTextureView.getX(), y);
+                sendScaledMousePosition(x + binding.textureView.getX(), y);
                 AWTInputBridge.sendMousePress(AWTInputEvent.BUTTON1_DOWN_MASK);
                 return true;
             }
@@ -172,7 +160,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
                 case MotionEvent.ACTION_POINTER_UP: // 6
                     break;
                 case MotionEvent.ACTION_MOVE: // 2
-                    sendScaledMousePosition(x + mTextureView.getX(), y);
+                    sendScaledMousePosition(x + binding.textureView.getX(), y);
                     break;
             }
             return true;
@@ -187,7 +175,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             }
             mSubscribeJvmExitEvent = extras.getBoolean(SUBSCRIBE_JVM_EXIT_EVENT, false);
             if (extras.getBoolean(FORCE_SHOW_LOG, false)) {
-                mLoggerView.forceShow(this::forceClose);
+                binding.launcherLoggerView.forceShow(this::forceClose);
                 showLogFloodWarning();
             }
 
@@ -240,7 +228,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     private void showLogFloodWarning() {
         if (NewbieGuideUtils.showOnlyOne("LogFloodWarning")) return;
         TapTargetView.showFor(this,
-                NewbieGuideUtils.getSimpleTarget(this, mLoggerView.getBinding().toggleLog,
+                NewbieGuideUtils.getSimpleTarget(this, binding.launcherLoggerView.getBinding().toggleLog,
                         getString(R.string.version_install_log_flood_warning)
                 )
         );
@@ -418,19 +406,19 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     public void placeMouseAt(float x, float y) {
-        mMousePointerImageView.setX(x);
-        mMousePointerImageView.setY(y);
+        binding.mousePointer.setX(x);
+        binding.mousePointer.setY(y);
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
     void sendScaledMousePosition(float x, float y){
         // Clamp positions to the borders of the usable view, then scale them
-        x = androidx.core.math.MathUtils.clamp(x, mTextureView.getX(), mTextureView.getX() + mTextureView.getWidth());
-        y = androidx.core.math.MathUtils.clamp(y, mTextureView.getY(), mTextureView.getY() + mTextureView.getHeight());
+        x = androidx.core.math.MathUtils.clamp(x, binding.textureView.getX(), binding.textureView.getX() + binding.textureView.getWidth());
+        y = androidx.core.math.MathUtils.clamp(y, binding.textureView.getY(), binding.textureView.getY() + binding.textureView.getHeight());
 
         AWTInputBridge.sendMousePos(
-                (int) MathUtils.map(x, mTextureView.getX(), mTextureView.getX() + mTextureView.getWidth(), 0, AWTCanvasView.AWT_CANVAS_WIDTH),
-                (int) MathUtils.map(y, mTextureView.getY(), mTextureView.getY() + mTextureView.getHeight(), 0, AWTCanvasView.AWT_CANVAS_HEIGHT)
+                (int) MathUtils.map(x, binding.textureView.getX(), binding.textureView.getX() + binding.textureView.getWidth(), 0, AWTCanvasView.AWT_CANVAS_WIDTH),
+                (int) MathUtils.map(y, binding.textureView.getY(), binding.textureView.getY() + binding.textureView.getHeight(), 0, AWTCanvasView.AWT_CANVAS_HEIGHT)
                 );
     }
 
@@ -443,12 +431,12 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     public void openLogOutput(View v) {
-        mLoggerView.setVisibilityWithAnim(true);
+        binding.launcherLoggerView.setVisibilityWithAnim(true);
     }
 
     public void toggleVirtualMouse(View v) {
         mIsVirtualMouseEnabled = !mIsVirtualMouseEnabled;
-        mTouchPad.setVisibility(mIsVirtualMouseEnabled ? View.VISIBLE : View.GONE);
+        binding.mainTouchpad.setVisibility(mIsVirtualMouseEnabled ? View.VISIBLE : View.GONE);
         Toast.makeText(this,
                 mIsVirtualMouseEnabled ? R.string.control_mouseon : R.string.control_mouseoff,
                 Toast.LENGTH_SHORT).show();
@@ -484,7 +472,7 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
     }
 
     public void toggleKeyboard(View view) {
-        mTouchCharInput.switchKeyboardState();
+        binding.awtTouchChar.switchKeyboardState();
     }
     public void performCopy(View view) {
         AWTInputBridge.sendKey(' ', AWTInputEvent.VK_CONTROL, 1);

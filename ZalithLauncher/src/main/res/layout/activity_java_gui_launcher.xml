@@ -21,7 +21,7 @@
             tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
         <net.kdt.pojavlaunch.AWTCanvasView
-            android:id="@+id/installmod_surfaceview"
+            android:id="@+id/texture_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foregroundGravity="bottom"
@@ -39,10 +39,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/main_mouse_pointer"
+                android:id="@+id/mouse_pointer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_mouse_pointer" />
+                android:src="@drawable/ic_mouse_pointer"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 

@@ -5,9 +5,8 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.ItemInstallableBinding
 import com.movtery.zalithlauncher.feature.unpack.OnTaskRunningListener
 
 class InstallableAdapter(
@@ -20,9 +19,8 @@ class InstallableAdapter(
     private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_installable, parent, false)
-        return ViewHolder(view)
+        val binding = ItemInstallableBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -84,24 +82,21 @@ class InstallableAdapter(
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var name: TextView = itemView.findViewById(R.id.name)
-        private var summary: TextView = itemView.findViewById(R.id.summary)
-        private var progress: View = itemView.findViewById(R.id.progress)
-        private var finish: View = itemView.findViewById(R.id.finish)
-
+    class ViewHolder(
+        private val binding: ItemInstallableBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun setData(item: InstallableItem) {
-            name.text = item.name
+            binding.name.text = item.name
 
             if (item.summary.isNullOrEmpty()) {
-                summary.visibility = View.GONE
+                binding.summary.visibility = View.GONE
             } else {
-                summary.text = item.summary
-                summary.visibility = View.VISIBLE
+                binding.summary.text = item.summary
+                binding.summary.visibility = View.VISIBLE
             }
 
-            progress.visibility = if (item.isRunning) View.VISIBLE else View.GONE
-            finish.visibility = if (item.isFinished) View.VISIBLE else View.GONE
+            binding.progress.visibility = if (item.isRunning) View.VISIBLE else View.GONE
+            binding.finish.visibility = if (item.isFinished) View.VISIBLE else View.GONE
         }
     }
 
