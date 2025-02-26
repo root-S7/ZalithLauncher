@@ -42,7 +42,7 @@ class VersionAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun refreshVersions(versions: List<Version>) {
+    fun refreshVersions(versions: List<Version>): Int {
         this.versions.clear()
         this.versions.addAll(versions)
         this.radioButtonList.apply {
@@ -50,7 +50,11 @@ class VersionAdapter(
             clear()
         }
         currentVersion = VersionsManager.getCurrentVersion()?.getVersionPath()?.absolutePath
+        //查找当前版本的索引
+        val currentIndex = versions.indexOfFirst { it.getVersionPath().absolutePath == currentVersion }
         notifyDataSetChanged()
+
+        return currentIndex
     }
 
     fun closePopupWindow() {

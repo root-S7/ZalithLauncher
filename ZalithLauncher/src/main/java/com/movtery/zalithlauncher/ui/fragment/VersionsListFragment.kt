@@ -201,7 +201,8 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 }
             }
 
-            it.refreshVersions(getVersions())
+            val currentIndex = it.refreshVersions(getVersions())
+            binding.versions.scrollToPosition(currentIndex)
             binding.versions.scheduleLayoutAnimation()
         }
     }
