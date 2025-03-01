@@ -224,7 +224,9 @@ class ModrinthCommonUtils {
         }
 
         internal fun searchModFromID(api: ApiHandler, id: String): JsonObject? {
-            return api.safeRun { get("project/$id", JsonObject::class.java) }
+            return api.safeRun { get("project/$id", JsonObject::class.java) }?.also {
+                Logging.i("Modrinth_searchModFromID", it.toString())
+            }
         }
 
         internal fun returnResults(

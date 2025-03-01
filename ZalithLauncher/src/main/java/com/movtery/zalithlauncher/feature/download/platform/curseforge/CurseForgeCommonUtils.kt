@@ -218,7 +218,9 @@ class CurseForgeCommonUtils {
         }
 
         internal fun searchModFromID(api: ApiHandler, id: String): JsonObject? {
-            return api.safeRun { get("mods/$id", JsonObject::class.java) }
+            return api.safeRun { get("mods/$id", JsonObject::class.java) }?.also {
+                Logging.i("CurseForge_searchModFromID", it.toString())
+            }
         }
 
         @Throws(IOException::class)
