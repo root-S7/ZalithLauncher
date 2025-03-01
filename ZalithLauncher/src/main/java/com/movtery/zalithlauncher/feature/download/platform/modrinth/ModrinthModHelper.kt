@@ -103,7 +103,7 @@ class ModrinthModHelper {
                                         ModrinthCommonUtils.getIconUrl(hit),
                                         ModrinthCommonUtils.getAllCategories(hit).toList(),
                                         getModLoaders(hit.getAsJsonArray("loaders")),
-                                        DependencyUtils.getDependencyType(dependencyType)
+                                        DependencyUtils.getDependencyTypeFromModrinth(dependencyType)
                                     )
                                 )
                             } else invalidDependencies.add(dProjectId)

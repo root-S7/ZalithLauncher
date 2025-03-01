@@ -148,7 +148,7 @@ class CurseForgeModHelper {
                                             CurseForgeCommonUtils.getIconUrl(hit),
                                             CurseForgeCommonUtils.getAllCategories(hit).toList(),
                                             dModLoaders,
-                                            DependencyUtils.getDependencyType(dObject.get("relationType").asString)
+                                            DependencyUtils.getDependencyTypeFromCurseForge(dObject.get("relationType").asString)
                                         )
                                     )
                                 } else invalidDependencies.add(modId)

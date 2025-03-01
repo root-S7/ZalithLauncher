@@ -6,8 +6,13 @@ import com.movtery.zalithlauncher.feature.download.enums.DependencyType
 
 class DependencyUtils {
     companion object {
-        fun getDependencyType(type: String?): DependencyType {
-            return DependencyType.entries.find { it.curseforge == type || it.modrinth == type }
+        fun getDependencyTypeFromModrinth(type: String?): DependencyType {
+            return DependencyType.entries.find { it.modrinth != null && it.modrinth == type }
+                ?: DependencyType.REQUIRED
+        }
+
+        fun getDependencyTypeFromCurseForge(type: String?): DependencyType {
+            return DependencyType.entries.find { it.curseforge != null && it.curseforge == type }
                 ?: DependencyType.REQUIRED
         }
 
