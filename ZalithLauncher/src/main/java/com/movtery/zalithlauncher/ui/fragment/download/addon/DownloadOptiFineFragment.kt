@@ -25,13 +25,12 @@ class DownloadOptiFineFragment : ModListFragment() {
         const val TAG: String = "DownloadOptiFineFragment"
     }
 
-    override fun init() {
+    override fun refreshCreatedView() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_optifine))
         setTitleText("OptiFine")
         setLink("https://www.optifine.net/home")
         setMCMod("https://www.mcmod.cn/class/36.html")
         setReleaseCheckBoxGone()
-        super.init()
     }
 
     override fun initRefresh(): Future<*> {

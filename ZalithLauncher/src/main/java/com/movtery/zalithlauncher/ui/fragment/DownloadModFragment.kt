@@ -57,6 +57,11 @@ class DownloadModFragment : ModListFragment() {
 
     override fun init() {
         parseViewModel()
+        super.init()
+    }
+
+    @SuppressLint("CheckResult")
+    override fun refreshCreatedView() {
         linkGetSubmit = TaskExecutors.getDefault().submit {
             runCatching {
                 val webUrl = platformHelper.getWebUrl(mInfoItem)
@@ -65,7 +70,30 @@ class DownloadModFragment : ModListFragment() {
                 Logging.e("DownloadModFragment", "Failed to retrieve the website link, ${Tools.printToString(e)}")
             }
         }
-        super.init()
+
+        mInfoItem.apply {
+            val type = ModTranslations.getTranslationsByRepositoryType(classify)
+            val mod = type.getModByCurseForgeId(slug)
+
+            setTitleText(
+                if (ZHTools.areaChecks("zh")) {
+                    mod?.displayName ?: title
+                } else title
+            )
+            setDescription(description)
+            mod?.let {
+                setMCMod(
+                    StringUtilsKt.getNonEmptyOrBlank(type.getMcmodUrl(it))
+                )
+            }
+            loadScreenshots()
+
+            iconUrl?.apply {
+                Glide.with(fragmentActivity!!).load(this).apply {
+                    if (!AllSettings.resourceImageCache.getValue()) diskCacheStrategy(DiskCacheStrategy.NONE)
+                }.into(getIconView())
+            }
+        }
     }
 
     override fun initRefresh(): Future<*> {
@@ -233,35 +261,10 @@ class DownloadModFragment : ModListFragment() {
         }.execute()
     }
 
-    @SuppressLint("CheckResult")
     private fun parseViewModel() {
         val viewModel = ViewModelProvider(fragmentActivity!!)[InfoViewModel::class.java]
         platformHelper = viewModel.platformHelper
         mInfoItem = viewModel.infoItem
-
-        mInfoItem.apply {
-            val type = ModTranslations.getTranslationsByRepositoryType(classify)
-            val mod = type.getModByCurseForgeId(slug)
-
-            setTitleText(
-                if (ZHTools.areaChecks("zh")) {
-                    mod?.displayName ?: title
-                } else title
-            )
-            setDescription(description)
-            mod?.let {
-                setMCMod(
-                    StringUtilsKt.getNonEmptyOrBlank(type.getMcmodUrl(it))
-                )
-            }
-            loadScreenshots()
-
-            iconUrl?.apply {
-                Glide.with(fragmentActivity!!).load(this).apply {
-                    if (!AllSettings.resourceImageCache.getValue()) diskCacheStrategy(DiskCacheStrategy.NONE)
-                }.into(getIconView())
-            }
-        }
     }
 
     private fun loadScreenshots() {

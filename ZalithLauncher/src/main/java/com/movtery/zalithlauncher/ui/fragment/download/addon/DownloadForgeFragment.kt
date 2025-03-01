@@ -23,13 +23,12 @@ class DownloadForgeFragment : ModListFragment() {
         const val TAG: String = "DownloadForgeFragment"
     }
 
-    override fun init() {
+    override fun refreshCreatedView() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_anvil))
         setTitleText("Forge")
         setLink("https://forums.minecraftforge.net/")
         setMCMod("https://www.mcmod.cn/class/30.html")
         setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
-        super.init()
     }
 
     override fun initRefresh(): Future<*> {

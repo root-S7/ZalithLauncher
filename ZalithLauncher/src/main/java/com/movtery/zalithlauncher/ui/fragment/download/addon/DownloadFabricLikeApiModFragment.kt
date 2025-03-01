@@ -28,13 +28,13 @@ abstract class DownloadFabricLikeApiModFragment(
     private val mcModUrl: String,
     private val icon: Int
 ) : ModListFragment() {
-    override fun init() {
+
+    override fun refreshCreatedView() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, icon))
         setTitleText(addon.addonName)
         setLink(webUrl)
         setMCMod(mcModUrl)
         setReleaseCheckBoxGone()
-        super.init()
     }
 
     override fun initRefresh(): Future<*>? {

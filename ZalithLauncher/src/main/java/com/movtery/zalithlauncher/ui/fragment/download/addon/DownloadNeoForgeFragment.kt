@@ -25,13 +25,12 @@ class DownloadNeoForgeFragment : ModListFragment() {
         const val TAG: String = "DownloadNeoForgeFragment"
     }
 
-    override fun init() {
+    override fun refreshCreatedView() {
         setIcon(ContextCompat.getDrawable(fragmentActivity!!, R.drawable.ic_neoforge))
         setTitleText("NeoForge")
         setLink("https://neoforged.net/")
         setMCMod("https://www.mcmod.cn/class/11433.html")
         setReleaseCheckBoxGone() //隐藏“仅展示正式版”选择框，在这里没有用处
-        super.init()
     }
 
     override fun initRefresh(): Future<*> {

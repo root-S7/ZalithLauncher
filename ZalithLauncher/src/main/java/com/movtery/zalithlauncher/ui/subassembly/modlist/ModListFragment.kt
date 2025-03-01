@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.CheckBox
+import androidx.annotation.CallSuper
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     protected var currentTask: Future<*>? = null
     private var releaseCheckBoxVisible = true
     private val parentElementAnimPlayer = AnimPlayer()
+    private var isInitialized: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,27 +50,21 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
-                if (layoutManager != null && recyclerView.adapter != null) {
-                    val lastPosition = layoutManager.findFirstVisibleItemPosition()
-                    val b = lastPosition >= 12
-
-                    AnimUtils.setVisibilityAnim(binding.backToTop, b)
-                }
-            }
-        })
-
-        init()
-    }
-
-    protected open fun init() {
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         binding.apply {
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView1: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView1, dx, dy)
+                    val layoutManager = recyclerView1.layoutManager as LinearLayoutManager?
+                    if (layoutManager != null && recyclerView1.adapter != null) {
+                        val lastPosition = layoutManager.findFirstVisibleItemPosition()
+                        val b = lastPosition >= 12
+
+                        AnimUtils.setVisibilityAnim(binding.backToTop, b)
+                    }
+                }
+            })
             recyclerView.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_downwards))
-            recyclerView.layoutManager = layoutManager
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
             refreshButton.setOnClickListener { refreshTask() }
             releaseVersion.setOnClickListener { initRefresh() }
@@ -86,8 +82,19 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
             backToTop.setOnClickListener { recyclerView.smoothScrollToPosition(0) }
         }
 
+        if (!isInitialized) {
+            isInitialized = true
+            init()
+        }
+        refreshCreatedView()
+    }
+
+    @CallSuper
+    protected open fun init() {
         currentTask = initRefresh()
     }
+
+    protected open fun refreshCreatedView() {}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
