@@ -2,15 +2,14 @@ package com.movtery.zalithlauncher.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.annotation.CallSuper
 import com.movtery.zalithlauncher.R
 
 abstract class FullScreenDialog(context: Context) : Dialog(context, R.style.CustomDialogStyle) {
-    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         setupFullScreenDialog()
     }
@@ -42,5 +41,31 @@ abstract class FullScreenDialog(context: Context) : Dialog(context, R.style.Cust
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
 
         decorView.systemUiVisibility = flags
+    }
+
+    /**
+     * 修改自FCL [FCLAlertDialog.java](https://github.com/FCL-Team/FoldCraftLauncher/blob/e7d82af/FCLLibrary/src/main/java/com/tungsten/fcllibrary/component/dialog/FCLAlertDialog.java#L62-L77)
+     */
+    protected fun checkHeight(root: View, content: View, scrollView: View, dpValue: Int = 50) {
+        root.post {
+            val wm = requireNotNull(window?.windowManager) { "WindowManager is null" }
+            val point = Point()
+            wm.defaultDisplay.getSize(point)
+            val maxHeight = (point.y - dpValue * context.resources.displayMetrics.density + 0.5f).toInt()
+
+            val isRootHeightLessThanMax = root.measuredHeight < maxHeight
+            val layoutParams = scrollView.layoutParams
+
+            if (isRootHeightLessThanMax) {
+                layoutParams.height = content.measuredHeight
+                scrollView.layoutParams = layoutParams
+                window?.setLayout(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+            } else {
+                window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, maxHeight)
+            }
+        }
     }
 }

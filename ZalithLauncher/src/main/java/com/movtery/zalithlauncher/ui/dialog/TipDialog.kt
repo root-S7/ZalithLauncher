@@ -55,6 +55,8 @@ class TipDialog private constructor(
 
             textBeautifier?.beautify(titleView, messageView)
 
+            checkHeight()
+
             cancel?.apply { cancelButton.text = this }
             confirm?.apply { confirmButton.text = this }
             if (centerMessage) messageView.gravity = Gravity.CENTER_HORIZONTAL
@@ -81,6 +83,10 @@ class TipDialog private constructor(
                 warningIcon.drawable.setTint(Color.RED)
             }
         }
+    }
+
+    private fun checkHeight() {
+        checkHeight(binding.root, binding.contentView, binding.scrollView)
     }
 
     override fun show() {

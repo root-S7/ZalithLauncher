@@ -51,6 +51,8 @@ class EditTextDialog private constructor(
                 if (required) textEdit.setHint(R.string.generic_required)
             }
 
+            checkHeight()
+
             confirm?.let { confirmButton.text = it }
             if (showCheckBox) {
                 checkBox.visibility = View.VISIBLE
@@ -75,6 +77,10 @@ class EditTextDialog private constructor(
             val cancelListener = cancelListener ?: View.OnClickListener { dismiss() }
             cancelButton.setOnClickListener(cancelListener)
         }
+    }
+
+    private fun checkHeight() {
+        checkHeight(binding.root, binding.contentView, binding.scrollView)
     }
 
     override fun onInit(): Window? = window
