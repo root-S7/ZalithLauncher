@@ -11,8 +11,9 @@ import com.movtery.zalithlauncher.utils.NewbieGuideUtils
 import com.movtery.zalithlauncher.utils.file.FileTools.Companion.formatFileSize
 import com.movtery.zalithlauncher.utils.platform.MemoryUtils
 import com.petterp.floatingx.assist.FxGravity
+import com.petterp.floatingx.assist.helper.FxScopeHelper
 import com.petterp.floatingx.listener.IFxViewLifecycle
-import com.petterp.floatingx.util.createFx
+import com.petterp.floatingx.listener.control.IFxScopeControl
 import com.petterp.floatingx.view.FxViewHolder
 import java.util.Timer
 import java.util.TimerTask
@@ -28,34 +29,37 @@ class GameMenuViewWrapper(
     private var timer: Timer? = null
     private var showMemory: Boolean = false
 
-    private val scopeFx by createFx {
-        setLayout(R.layout.view_game_menu_window)
-        setOnClickListener(0L, listener)
-        setOnLongClickListener {
-            showMemory = !showMemory
-            AllSettings.gameMenuShowMemory.put(showMemory).save()
-            setShowMemory()
-            true
-        }
-        setEnableEdgeAdsorption(false)
-        addViewLifecycle(object : IFxViewLifecycle {
-            override fun initView(holder: FxViewHolder) {
-                holder.view.alpha = AllSettings.gameMenuAlpha.getValue().toFloat() / 100f
-                showMemory = AllSettings.gameMenuShowMemory.getValue()
+    private lateinit var scopeFx: IFxScopeControl
 
-                holder.getView<TextView>(R.id.memory_text).apply {
-                    updateMemoryText(this)
+    private fun getWindow(): IFxScopeControl {
+        return FxScopeHelper.Builder().apply {
+            setLayout(R.layout.view_game_menu_window)
+            setOnClickListener(0L, listener)
+            setOnLongClickListener {
+                showMemory = !showMemory
+                AllSettings.gameMenuShowMemory.put(showMemory).save()
+                setShowMemory()
+                true
+            }
+            setEnableEdgeAdsorption(false)
+            addViewLifecycle(object : IFxViewLifecycle {
+                override fun initView(holder: FxViewHolder) {
+                    holder.view.alpha = AllSettings.gameMenuAlpha.getValue().toFloat() / 100f
+                    showMemory = AllSettings.gameMenuShowMemory.getValue()
+
+                    holder.getView<TextView>(R.id.memory_text).apply {
+                        updateMemoryText(this)
+                    }
+
+                    startNewbieGuide(holder.view)
                 }
 
-                startNewbieGuide(holder.view)
-            }
-
-            override fun detached(view: View) {
-                cancelMemoryTimer()
-            }
-        })
-        setGravity(getCurrentGravity())
-        build().toControl(activity)
+                override fun detached(view: View) {
+                    cancelMemoryTimer()
+                }
+            })
+            setGravity(getCurrentGravity())
+        }.build().toControl(activity)
     }
 
     private fun startNewbieGuide(mainView: View) {
@@ -70,11 +74,13 @@ class GameMenuViewWrapper(
     }
 
     fun setVisibility(visible: Boolean) {
+        println("TESTMENU: $visible")
         if (visible) {
+            scopeFx = getWindow()
             setShowMemory()
             scopeFx.show()
         } else {
-            scopeFx.hide()
+            scopeFx.cancel()
             cancelMemoryTimer()
         }
     }
