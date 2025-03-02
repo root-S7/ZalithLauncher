@@ -249,5 +249,11 @@ class AllSettings {
 
         @JvmStatic
         val modCheckMCEF = StringSettingUnit("modCheckMCEF", "0")
+
+        @JvmStatic
+        val modCheckValkyrienSkies = StringSettingUnit("modCheckValkyrienSkies", "0")
+
+        @JvmStatic
+        val modCheckYesSteveModel = StringSettingUnit("modCheckYesSteveModel", "0")
     }
 }

@@ -133,6 +133,8 @@
     <string name="mod_check_sodium_or_embeddium">Detected that Sodium or Embeddium mod (%s) is installed, the launcher will disable the mod\'s warnings. But please note, since the mod\'s community has explicitly stated that it will no longer handle any issues on Android devices, if you encounter any problems while using the mod, please do not report them to the mod\'s community!</string>
     <string name="mod_check_physics">The currently used physics mod (%s) is unpatched (replacing libPhysXJniBindings_64.so from x86_64 architecture to arm64), will crash on launch.</string>
     <string name="mod_check_mcef">MCEF (%s) cannot run on Android. It is usually used as a prerequisite dependency for WebDisplays/In-game Browser (browser).</string>
+    <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) cannot run directly in single-player mode. You must run it on a server (Termux can be used), otherwise the game will crash.</string>
+    <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ cannot run on Android.</string>
     <!-- Controls -->
     <string name="control_primary">Left Click</string>
     <string name="control_secondary">Right Click</string>

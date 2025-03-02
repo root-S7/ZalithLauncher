@@ -132,6 +132,8 @@
     <string name="mod_check_sodium_or_embeddium">تم الكشف عن تثبيت مود Sodium أو Embeddium (%s)، المشغل سيقوم بتعطيل تحذيرات هذا المود. لكن يرجى الملاحظة، أن مجتمع هذا المود قد أعلن بوضوح أنه لن يتعامل بعد الآن مع أي مشاكل تتعلق بأجهزة الأندرويد، فإذا واجهت أي مشكلة أثناء استخدام المود، فلا تقم بإبلاغ مجتمع المود!</string>
     <string name="mod_check_physics">المود الفيزيائي المستخدم حاليًا (%s) لم يتم ترقيعه (يستبدل libPhysXJniBindings_64.so من بنية x86_64 إلى arm64)، سوف يتعطل عند التشغيل.</string>
     <string name="mod_check_mcef">MCEF (%s) لا يمكن تشغيله على Android. عادةً ما يُستخدم كاعتماد تمهيدي لـ WebDisplays/In-game Browser (المتصفح).</string>
+    <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) لا يمكن تشغيله مباشرة في وضع اللاعب الفردي. يجب تشغيله على الخادم (يمكن استخدام Termux)، وإلا ستتعطل اللعبة.</string>
+    <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ لا يمكن تشغيله على نظام أندرويد.</string>
     <!-- Controls -->
     <string name="control_primary">النقر الأيسر</string>
     <string name="control_secondary">النقر الأيمن</string>

@@ -153,6 +153,7 @@ class LaunchGame {
                     var touchControllerProcessed = false
                     var physicsModProcessed = false
                     var mcefProcessed = false
+                    var valkyrienSkiesProcessed = false
 
                     modInfoList.forEach { mod ->
                         when (mod.id) {
@@ -185,7 +186,7 @@ class LaunchGame {
                                         mod.file,
                                         "de/fabmax/physxjni/linux/libPhysXJniBindings_64.so"
                                     )
-                                    if (arch.contains("x86")) {
+                                    if (arch.isBlank() or (!Architecture.isx86Device() and arch.contains("x86"))) {
                                         modCheckSettings[AllSettings.modCheckPhysics] = Pair(
                                             "1",
                                             activity.getString(R.string.mod_check_physics, mod.file.name)
@@ -199,6 +200,27 @@ class LaunchGame {
                                     modCheckSettings[AllSettings.modCheckMCEF] = Pair(
                                         "1",
                                         activity.getString(R.string.mod_check_mcef, mod.file.name)
+                                    )
+                                }
+                            }
+                            "valkyrienskies" -> {
+                                if (!valkyrienSkiesProcessed) {
+                                    valkyrienSkiesProcessed = true
+                                    modCheckSettings[AllSettings.modCheckValkyrienSkies] = Pair(
+                                        "1",
+                                        activity.getString(R.string.mod_check_valkyrien_skies, mod.file.name)
+                                    )
+                                }
+                            }
+                            "yes_steve_model" -> {
+                                val arch = AndroidUtil.getElfArchFromZip(
+                                    mod.file,
+                                    "META-INF/native/libysm-core.so"
+                                )
+                                if (arch.isNotBlank()) {
+                                    modCheckSettings[AllSettings.modCheckYesSteveModel] = Pair(
+                                        "1",
+                                        activity.getString(R.string.mod_check_yes_steve_model, mod.file.name)
                                     )
                                 }
                             }
