@@ -74,7 +74,6 @@ class GameMenuViewWrapper(
     }
 
     fun setVisibility(visible: Boolean) {
-        println("TESTMENU: $visible")
         if (visible) {
             scopeFx = getWindow()
             setShowMemory()
