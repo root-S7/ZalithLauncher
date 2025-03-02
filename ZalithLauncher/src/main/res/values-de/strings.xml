@@ -127,6 +127,11 @@
     <string name="mod_forge_custom_version">Versionname wird geändert</string>
     <string name="mod_failed_to_load_list">Fehler beim Laden der Versionsliste!</string>
     <string name="mod_optifine_progress">Lade %s herunter</string>
+    <string name="mod_check_dialog_title">Mod-Check-Bericht</string>
+    <string name="mod_check_touch_controller">Es wurde festgestellt, dass das Touch Controller Mod (%s) installiert ist, der Launcher ist bereit, den Steuerungsproxy zu aktivieren, um das Mod anzupassen.</string>
+    <string name="mod_check_sodium_or_embeddium">Es wurde festgestellt, dass das Sodium- oder Embeddium-Mod (%s) installiert ist, der Launcher wird die Warnungen dieses Mods deaktivieren. Aber bitte beachten Sie, dass die Community dieses Mods ausdrücklich erklärt hat, dass sie keine Probleme von Android-Geräten mehr akzeptiert, wenn Sie beim Verwenden des Mods auf Probleme stoßen, melden Sie diese bitte nicht an die Community des Mods!</string>
+    <string name="mod_check_physics">Das aktuell verwendete Physik-Mod (%s) ist nicht gepatcht (libPhysXJniBindings_64.so wird von der x86_64-Architektur auf arm64 ersetzt), es wird beim Start abstürzen.</string>
+    <string name="mod_check_mcef">MCEF (%s) kann auf Android nicht ausgeführt werden. Es wird üblicherweise als Vorbedingung für WebDisplays/In-game Browser (Browser) verwendet.</string>
     <!-- Controls -->
     <string name="control_primary">Linksklick</string>
     <string name="control_secondary">Rechtsklick</string>

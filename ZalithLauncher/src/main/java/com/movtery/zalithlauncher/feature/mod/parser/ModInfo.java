@@ -2,9 +2,11 @@ package com.movtery.zalithlauncher.feature.mod.parser;
 
 import androidx.annotation.NonNull;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class ModInfo {
+    private File file;
     private final String id;
     private final String version;
     private final String name;
@@ -17,6 +19,14 @@ public class ModInfo {
         this.name = name;
         this.description = description;
         this.authors = authors;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 
     public String getId() {

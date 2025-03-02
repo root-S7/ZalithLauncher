@@ -6,6 +6,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kdt.mcgui.ProgressLayout
+import com.mio.util.AndroidUtil
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.event.single.AccountUpdateEvent
 import com.movtery.zalithlauncher.feature.accounts.AccountType
@@ -19,6 +20,7 @@ import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllStaticSettings
+import com.movtery.zalithlauncher.setting.unit.StringSettingUnit
 import com.movtery.zalithlauncher.support.touch_controller.ControllerProxy
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
@@ -138,19 +140,99 @@ class LaunchGame {
             )
 
             checkAllMods(minecraftVersion) { modInfoList ->
-                if (modInfoList.isNotEmpty()) {
-                    Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
-                }
+                var hasSodiumOrEmbeddium = false
 
-                if (modInfoList.any { it.id == "touchcontroller" }) {
-                    Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
-                    ControllerProxy.startProxy(activity)
-                    AllStaticSettings.useControllerProxy = true
-                }
+                runCatching {
+                    val modCheckSettings = mutableMapOf<StringSettingUnit, Pair<String, String>>()
 
-                val hasSodiumOrEmbeddium = modInfoList.any { it.id == "sodium" || it.id == "embeddium" }
-                if (hasSodiumOrEmbeddium) {
-                    Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
+                    if (modInfoList.isNotEmpty()) {
+                        Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
+                    }
+
+                    // 使用标志变量跟踪已处理的mod类型
+                    var touchControllerProcessed = false
+                    var physicsModProcessed = false
+                    var mcefProcessed = false
+
+                    modInfoList.forEach { mod ->
+                        when (mod.id) {
+                            "touchcontroller" -> {
+                                if (!touchControllerProcessed) {
+                                    touchControllerProcessed = true
+                                    Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
+                                    ControllerProxy.startProxy(activity)
+                                    AllStaticSettings.useControllerProxy = true
+                                    modCheckSettings[AllSettings.modCheckTouchController] = Pair(
+                                        "1",
+                                        activity.getString(R.string.mod_check_touch_controller, mod.file.name)
+                                    )
+                                }
+                            }
+                            "sodium", "embeddium" -> {
+                                if (!hasSodiumOrEmbeddium) {
+                                    hasSodiumOrEmbeddium = true
+                                    Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
+                                    modCheckSettings[AllSettings.modCheckSodiumOrEmbeddium] = Pair(
+                                        "1",
+                                        activity.getString(R.string.mod_check_sodium_or_embeddium, mod.file.name)
+                                    )
+                                }
+                            }
+                            "physicsmod" -> {
+                                if (!physicsModProcessed) {
+                                    physicsModProcessed = true
+                                    val arch = AndroidUtil.getElfArchFromZip(
+                                        mod.file,
+                                        "de/fabmax/physxjni/linux/libPhysXJniBindings_64.so"
+                                    )
+                                    if (arch.contains("x86")) {
+                                        modCheckSettings[AllSettings.modCheckPhysics] = Pair(
+                                            "1",
+                                            activity.getString(R.string.mod_check_physics, mod.file.name)
+                                        )
+                                    }
+                                }
+                            }
+                            "mcef" -> {
+                                if (!mcefProcessed) {
+                                    mcefProcessed = true
+                                    modCheckSettings[AllSettings.modCheckMCEF] = Pair(
+                                        "1",
+                                        activity.getString(R.string.mod_check_mcef, mod.file.name)
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    if (modCheckSettings.isNotEmpty()) {
+                        var index = 1
+                        val messages = modCheckSettings
+                            .filter { (setting, valuePair) -> setting.getValue() != valuePair.first }
+                            .map { (_, valuePair) -> "${index++}. ${valuePair.second}" }
+
+                        if (messages.isNotEmpty()) {
+                            TaskExecutors.runInUIThread {
+                                TipDialog.Builder(activity)
+                                    .setTitle(R.string.mod_check_dialog_title)
+                                    .setMessage(messages.joinToString("\r\n\r\n"))
+                                    .setCheckBox(R.string.generic_no_more_reminders)
+                                    .setShowCheckBox(true)
+                                    .setCenterMessage(false)
+                                    .setCancelable(false)
+                                    .setShowCancel(false)
+                                    .setConfirmClickListener { check ->
+                                        if (check) {
+                                            modCheckSettings.forEach { (setting, valuePair) ->
+                                                setting.put(valuePair.first).save()
+                                            }
+                                        }
+                                    }.showDialog()
+                            }
+                        }
+                    }
+                }.onFailure { e ->
+                    Logging.e("LaunchGame", "An error occurred while trying to process existing mod information", e)
                 }
 
                 JREUtils.redirectAndPrintJRELog()

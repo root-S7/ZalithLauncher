@@ -79,8 +79,9 @@ class ModParser {
         val fileHash = FileTools.calculateFileHash(modFile)
 
         existingCache[fileHash]?.let { cached ->
-            modQueue.add(cached.modInfo)
-            listener.onProgress(cached.modInfo)
+            val modInfo = cached.modInfo.apply { file = modFile }
+            modQueue.add(modInfo)
+            listener.onProgress(modInfo)
             newCache[fileHash] = cached
             return
         }
@@ -96,7 +97,7 @@ class ModParser {
         return try {
             JarInputStream(FileInputStream(modFile)).use { jarStream ->
                 locateModDescriptor(jarStream)?.let { entry ->
-                    parseDescriptorContent(jarStream, entry.name)
+                    parseDescriptorContent(modFile, jarStream, entry.name)
                 }
             }
         } catch (e: Exception) {
@@ -118,18 +119,18 @@ class ModParser {
             .firstOrNull { it.name in targetFiles }
     }
 
-    private fun parseDescriptorContent(jarStream: JarInputStream, fileName: String): ModInfo? {
+    private fun parseDescriptorContent(modFile: File, jarStream: JarInputStream, fileName: String): ModInfo? {
         return when (fileName) {
-            "fabric.mod.json" -> parseFabricMod(jarStream)
-            "quilt.mod.json" -> parseQuiltMod(jarStream)
-            "META-INF/neoforge.mods.toml", "META-INF/mods.toml" -> parseForgeMod(jarStream)
-            "mcmod.info" -> parseLegacyForgeMod(jarStream)
+            "fabric.mod.json" -> parseFabricMod(modFile, jarStream)
+            "quilt.mod.json" -> parseQuiltMod(modFile, jarStream)
+            "META-INF/neoforge.mods.toml", "META-INF/mods.toml" -> parseForgeMod(modFile, jarStream)
+            "mcmod.info" -> parseLegacyForgeMod(modFile, jarStream)
             else -> null
         }
     }
 
     @Throws(Exception::class)
-    private fun parseFabricMod(jarStream: JarInputStream): ModInfo {
+    private fun parseFabricMod(modFile: File, jarStream: JarInputStream): ModInfo {
         val content = jarStream.bufferedReader().use(BufferedReader::readText)
         val jsonObject = JsonParser.parseString(content).asJsonObject
         return ModInfo(
@@ -148,11 +149,11 @@ class ModParser {
                 }
                 authorsList.toTypedArray()
             }
-        )
+        ).apply { file = modFile }
     }
 
     @Throws(Exception::class)
-    private fun parseQuiltMod(jarStream: JarInputStream): ModInfo {
+    private fun parseQuiltMod(modFile: File, jarStream: JarInputStream): ModInfo {
         val content = jarStream.bufferedReader().use(BufferedReader::readText)
         val quiltLoader = JsonParser.parseString(content).asJsonObject["quilt_loader"].asJsonObject
         val metadata = quiltLoader["metadata"].asJsonObject
@@ -162,11 +163,11 @@ class ModParser {
             metadata["name"].asString,
             metadata["description"].asString,
             metadata["contributors"].asJsonObject.keySet().toTypedArray()
-        )
+        ).apply { file = modFile }
     }
 
     @Throws(Exception::class)
-    private fun parseForgeMod(jarStream: JarInputStream): ModInfo? {
+    private fun parseForgeMod(modFile: File, jarStream: JarInputStream): ModInfo? {
         val content = jarStream.bufferedReader().use(BufferedReader::readText)
         val toml = Toml().read(content)
         val modEntry = toml.getTables("mods").firstOrNull() ?: return null
@@ -177,7 +178,7 @@ class ModParser {
             modEntry.getString("displayName") ?: return null,
             modEntry.getString("description") ?: "",
             parseForgeAuthors(modEntry)
-        )
+        ).apply { file = modFile }
     }
 
     private fun parseForgeAuthors(modEntry: Toml): Array<String> {
@@ -193,7 +194,7 @@ class ModParser {
     }
 
     @Throws(Exception::class)
-    private fun parseLegacyForgeMod(jarStream: JarInputStream): ModInfo? {
+    private fun parseLegacyForgeMod(modFile: File, jarStream: JarInputStream): ModInfo? {
         val content = jarStream.bufferedReader().use(BufferedReader::readText)
         val jsonArray = JsonParser.parseString(content).asJsonArray
         val mainEntry = jsonArray[0].asJsonObject
@@ -204,7 +205,7 @@ class ModParser {
             mainEntry["name"].asString ?: return null,
             mainEntry["description"]?.asString ?: "",
             parseLegacyForgeAuthors(mainEntry)
-        )
+        ).apply { file = modFile }
     }
 
     private fun parseLegacyForgeAuthors(entry: com.google.gson.JsonObject): Array<String> {
@@ -234,12 +235,14 @@ class ModParser {
     }
 
     private fun persistCache(gson: Gson, cacheFile: File, data: List<ModInfoCache>) {
-        runCatching {
-            cacheFile.parentFile?.mkdirs()
-            FileUtils.write(cacheFile, gson.toJson(data), Charsets.UTF_8)
-        }.onFailure { e ->
-            Logging.e("ModParser", "Cache save failed", e)
-        }
+        Task.runTask {
+            runCatching {
+                cacheFile.parentFile?.mkdirs()
+                FileUtils.write(cacheFile, gson.toJson(data), Charsets.UTF_8)
+            }.onFailure { e ->
+                Logging.e("ModParser", "Cache save failed", e)
+            }
+        }.execute()
     }
 
     private fun calculateOptimalThreads(fileCount: Int): Int {
@@ -250,9 +253,9 @@ class ModParser {
 
     private fun calculateChunkSize(totalFiles: Int): Int {
         return when {
-            totalFiles < 50 -> 1
-            totalFiles < 200 -> 5
-            else -> 10
+            totalFiles < 50 -> 4
+            totalFiles < 200 -> 32
+            else -> 64
         }
     }
 
