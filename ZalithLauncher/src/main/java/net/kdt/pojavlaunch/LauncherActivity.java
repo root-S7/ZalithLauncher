@@ -439,6 +439,7 @@ public class LauncherActivity extends BaseActivity {
         binding.progressLayout.observe(ProgressLayout.INSTALL_RESOURCE);
         binding.progressLayout.observe(ProgressLayout.LOGIN_ACCOUNT);
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
+        binding.progressLayout.observe(ProgressLayout.CHECKING_MODS);
 
         binding.noticeGotButton.setOnClickListener(v -> {
             setNotice(false);

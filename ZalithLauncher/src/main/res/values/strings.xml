@@ -129,6 +129,7 @@
     <string name="mod_failed_to_load_list">Failed to load version list!</string>
     <string name="mod_optifine_progress">Downloading %s</string>
     <string name="mod_check_dialog_title">Mod Check Report</string>
+    <string name="mod_check_progress_message">Checking mods (%d / %d)</string>
     <string name="mod_check_touch_controller">Detected that Touch Controller mod (%s) is installed, the launcher is ready to enable control proxy to adapt to the mod.</string>
     <string name="mod_check_sodium_or_embeddium">Detected that Sodium or Embeddium mod (%s) is installed, the launcher will disable the mod\'s warnings. But please note, since the mod\'s community has explicitly stated that it will no longer handle any issues on Android devices, if you encounter any problems while using the mod, please do not report them to the mod\'s community!</string>
     <string name="mod_check_physics">The currently used physics mod (%s) is unpatched (replacing libPhysXJniBindings_64.so from x86_64 architecture to arm64), will crash on launch.</string>

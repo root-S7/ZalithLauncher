@@ -6,8 +6,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
+
+import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.context.ContextExecutor;
+import com.movtery.zalithlauncher.feature.mod.parser.ModChecker;
+import com.movtery.zalithlauncher.feature.mod.parser.ModInfo;
+import com.movtery.zalithlauncher.feature.mod.parser.ModParser;
+import com.movtery.zalithlauncher.feature.mod.parser.ModParserListener;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.setting.AllSettings;
 
@@ -16,6 +23,9 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ContextAwareDoneListener implements AsyncMinecraftDownloader.DoneListener, ContextExecutorTask {
     private final String mErrorString;
@@ -33,9 +43,34 @@ public class ContextAwareDoneListener implements AsyncMinecraftDownloader.DoneLi
         return mainIntent;
     }
 
+    private void executeTask() {
+        ProgressKeeper.waitUntilDone(() -> ContextExecutor.executeTask(this));
+    }
+
     @Override
     public void onDownloadDone() {
-        ProgressKeeper.waitUntilDone(() -> ContextExecutor.executeTask(this));
+        AtomicInteger progressCount = new AtomicInteger(0);
+        ModParser.checkAllMods(mVersion, new ModParserListener() {
+            @Override
+            public void onProgress(@NonNull ModInfo recentlyParsedModInfo, int totalFileCount) {
+                int i = progressCount.incrementAndGet();
+                ProgressLayout.setProgress(ProgressLayout.CHECKING_MODS, i * 100 / totalFileCount,
+                        R.string.mod_check_progress_message, i, totalFileCount);
+            }
+
+            @Override
+            public void onParseEnded(@NonNull List<? extends ModInfo> modInfoList) {
+                ProgressLayout.clearProgress(ProgressLayout.CHECKING_MODS);
+                if (modInfoList.isEmpty()) executeTask();
+                else {
+                    ContextExecutor.executeTaskWithAllContext(context -> new ModChecker().check(context, modInfoList, modCheckResult -> {
+                        mVersion.setModCheckResult(modCheckResult);
+                        executeTask();
+                        return null;
+                    }));
+                }
+            }
+        });
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.movtery.zalithlauncher.feature.version
 import android.os.Parcel
 import android.os.Parcelable
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathHome
+import com.movtery.zalithlauncher.feature.mod.parser.ModChecker
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.path.PathManager
@@ -26,6 +27,11 @@ class Version(
      * 控制是否将当前账号视为离线账号启动游戏
      */
     var offlineAccountLogin: Boolean = false
+
+    /**
+     * 模组检查结果
+     */
+    var modCheckResult: ModChecker.ModCheckResult? = null
 
     /**
      * @return 获取版本所属的版本文件夹
@@ -102,6 +108,7 @@ class Version(
         dest.writeParcelable(versionConfig, flags)
         dest.writeInt(isValid.getInt())
         dest.writeInt(offlineAccountLogin.getInt())
+        dest.writeParcelable(modCheckResult, flags)
     }
 
     companion object CREATOR : Parcelable.Creator<Version> {
@@ -113,9 +120,11 @@ class Version(
             val versionConfig = parcel.readParcelable<VersionConfig>(VersionConfig::class.java.classLoader)!!
             val isValid = parcel.readInt().toBoolean()
             val offlineAccount = parcel.readInt().toBoolean()
+            val modCheckResult = parcel.readParcelable<ModChecker.ModCheckResult>(ModChecker.ModCheckResult::class.java.classLoader)
 
             return Version(stringList[0], stringList[1], versionConfig, isValid).apply {
                 offlineAccountLogin = offlineAccount
+                this.modCheckResult = modCheckResult
             }
         }
 

@@ -12,10 +12,6 @@ import com.movtery.zalithlauncher.feature.accounts.AccountType
 import com.movtery.zalithlauncher.feature.accounts.AccountUtils
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.feature.mod.parser.ModChecker
-import com.movtery.zalithlauncher.feature.mod.parser.ModInfo
-import com.movtery.zalithlauncher.feature.mod.parser.ModParser
-import com.movtery.zalithlauncher.feature.mod.parser.ModParserListener
 import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings
@@ -43,7 +39,6 @@ import net.kdt.pojavlaunch.tasks.MinecraftDownloader
 import net.kdt.pojavlaunch.utils.JREUtils
 import net.kdt.pojavlaunch.value.MinecraftAccount
 import org.greenrobot.eventbus.EventBus
-import java.io.File
 
 class LaunchGame {
     companion object {
@@ -66,8 +61,13 @@ class LaunchGame {
             }
 
             fun setGameProgress(pull: Boolean) {
-                if (pull) ProgressKeeper.submitProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_downloading_game_files, 0, 0, 0)
-                else ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT)
+                if (pull) {
+                    ProgressKeeper.submitProgress(ProgressLayout.CHECKING_MODS, 0, R.string.mod_check_progress_message, 0, 0, 0)
+                    ProgressKeeper.submitProgress(ProgressLayout.DOWNLOAD_MINECRAFT, 0, R.string.newdl_downloading_game_files, 0, 0, 0)
+                } else {
+                    ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT)
+                    ProgressLayout.clearProgress(ProgressLayout.CHECKING_MODS)
+                }
             }
 
             if (!NetworkUtils.isNetworkAvailable(context)) {
@@ -138,9 +138,8 @@ class LaunchGame {
                 account
             )
 
-            checkAllMods(minecraftVersion) { modInfoList ->
-                val modCheckResult = ModChecker().check(activity, modInfoList)
-
+            var hasSodiumOrEmbeddium = false
+            minecraftVersion.modCheckResult?.let { modCheckResult ->
                 if (modCheckResult.hasTouchController) {
                     Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
                     ControllerProxy.startProxy(activity)
@@ -148,21 +147,22 @@ class LaunchGame {
                 }
 
                 if (modCheckResult.hasSodiumOrEmbeddium) {
+                    hasSodiumOrEmbeddium = true
                     Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
                 }
-
-                JREUtils.redirectAndPrintJRELog()
-
-                launch(activity, account, minecraftVersion, javaRuntime, customArgs) { userArgs ->
-                    if (modCheckResult.hasSodiumOrEmbeddium) {
-                        //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
-                        userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
-                    }
-                }
-
-                //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
-                GameService.setActive(false)
             }
+
+            JREUtils.redirectAndPrintJRELog()
+
+            launch(activity, account, minecraftVersion, javaRuntime, customArgs) { userArgs ->
+                if (hasSodiumOrEmbeddium) {
+                    //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
+                    userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
+                }
+            }
+
+            //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
+            GameService.setActive(false)
         }
 
         private fun getRuntime(activity: Activity, version: Version, targetJavaVersion: Int): String {
@@ -275,29 +275,6 @@ class LaunchGame {
                 // actually launching the game, thus giving us the opportunity
                 // to start after the activity is shown again
             }
-        }
-
-        /**
-         * 获取当前版本的所有模组的模组信息，并实时打印至日志内，方便检查问题
-         */
-        private fun checkAllMods(minecraftVersion: Version, onEnded: (List<ModInfo>) -> Unit) {
-            File(minecraftVersion.getGameDir(), "mods").apply {
-                if (exists() && isDirectory && (listFiles()?.isNotEmpty() == true)) {
-                    ModParser().parseAllMods(this, object : ModParserListener {
-                        override fun onProgress(recentlyParsedModInfo: ModInfo) {
-                            Logger.appendToLog(
-                                "Mod Perception: Parsed Mod ${recentlyParsedModInfo.name} (Mod ID: ${recentlyParsedModInfo.id}, Mod Version: ${recentlyParsedModInfo.version})"
-                            )
-                        }
-
-                        override fun onParseEnded(modInfoList: List<ModInfo>) {
-                            onEnded(modInfoList)
-                        }
-                    })
-                    return
-                }
-            }
-            onEnded(emptyList())
         }
     }
 }

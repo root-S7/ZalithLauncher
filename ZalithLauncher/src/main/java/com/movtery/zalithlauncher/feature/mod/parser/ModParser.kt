@@ -7,6 +7,7 @@ import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.moandjiezana.toml.Toml
 import com.movtery.zalithlauncher.feature.log.Logging
+import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.utils.file.FileTools
 import com.movtery.zalithlauncher.utils.path.PathManager
@@ -23,6 +24,22 @@ import java.util.jar.JarInputStream
 import kotlin.jvm.Throws
 
 class ModParser {
+    companion object {
+        /**
+         * 获取当前版本的所有模组的模组信息
+         */
+        @JvmStatic
+        fun checkAllMods(minecraftVersion: Version, parserListener: ModParserListener) {
+            File(minecraftVersion.getGameDir(), "mods").apply {
+                if (exists() && isDirectory && (listFiles()?.isNotEmpty() == true)) {
+                    ModParser().parseAllMods(this, parserListener)
+                    return
+                }
+            }
+            parserListener.onParseEnded(emptyList())
+        }
+    }
+
     /**
      * 异步解析模组文件夹中的所有模组
      * @param modsFolder 模组文件夹
@@ -52,7 +69,7 @@ class ModParser {
                         val deferredList = batch.map { file ->
                             async(Dispatchers.IO) {
                                 semaphore.withPermit {
-                                    parseModFile(file, existingCache, newCacheMap, modInfoQueue, listener)
+                                    parseModFile(file, files.size, existingCache, newCacheMap, modInfoQueue, listener)
                                 }
                             }
                         }
@@ -71,6 +88,7 @@ class ModParser {
 
     private fun parseModFile(
         modFile: File,
+        totalCount: Int,
         existingCache: Map<String, ModInfoCache>,
         newCache: MutableMap<String, ModInfoCache>,
         modQueue: ConcurrentLinkedQueue<ModInfo>,
@@ -81,14 +99,14 @@ class ModParser {
         existingCache[fileHash]?.let { cached ->
             val modInfo = cached.modInfo.apply { file = modFile }
             modQueue.add(modInfo)
-            listener.onProgress(modInfo)
+            listener.onProgress(modInfo, totalCount)
             newCache[fileHash] = cached
             return
         }
 
         parseModContents(modFile)?.let { modInfo ->
             modQueue.add(modInfo)
-            listener.onProgress(modInfo)
+            listener.onProgress(modInfo, totalCount)
             newCache[fileHash] = ModInfoCache(fileHash, modInfo)
         }
     }

@@ -128,6 +128,7 @@
     <string name="mod_failed_to_load_list">فشل في تحميل قائمة الإصدارات!</string>
     <string name="mod_optifine_progress">جاري تنزيل %s</string>
     <string name="mod_check_dialog_title">تقرير فحص المودات</string>
+    <string name="mod_check_progress_message">جاري فحص المودات (%d / %d)</string>
     <string name="mod_check_touch_controller">تم الكشف عن تثبيت مود Touch Controller (%s)، المشغل جاهز لتمكين وكيل التحكم لتكييف المود.</string>
     <string name="mod_check_sodium_or_embeddium">تم الكشف عن تثبيت مود Sodium أو Embeddium (%s)، المشغل سيقوم بتعطيل تحذيرات هذا المود. لكن يرجى الملاحظة، أن مجتمع هذا المود قد أعلن بوضوح أنه لن يتعامل بعد الآن مع أي مشاكل تتعلق بأجهزة الأندرويد، فإذا واجهت أي مشكلة أثناء استخدام المود، فلا تقم بإبلاغ مجتمع المود!</string>
     <string name="mod_check_physics">المود الفيزيائي المستخدم حاليًا (%s) لم يتم ترقيعه (يستبدل libPhysXJniBindings_64.so من بنية x86_64 إلى arm64)، سوف يتعطل عند التشغيل.</string>

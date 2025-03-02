@@ -128,6 +128,7 @@
     <string name="mod_failed_to_load_list">Falha ao carregar lista de versões!</string>
     <string name="mod_optifine_progress">Baixando %s</string>
     <string name="mod_check_dialog_title">Relatório de verificação de mods</string>
+    <string name="mod_check_progress_message">Verificando mods (%d / %d)</string>
     <string name="mod_check_touch_controller">Detectado que o mod Touch Controller (%s) está instalado, o launcher está pronto para habilitar o proxy de controle para adaptar o mod.</string>
     <string name="mod_check_sodium_or_embeddium">Detectado que o mod Sodium ou Embeddium (%s) está instalado, o launcher desativará os avisos deste mod. Mas note, como a comunidade deste mod declarou explicitamente que não aceitará mais problemas de dispositivos Android, se você encontrar qualquer problema ao usar o mod, por favor, não o reporte à comunidade do mod!</string>
     <string name="mod_check_physics">O mod de física atualmente em uso (%s) não está corrigido (substituindo libPhysXJniBindings_64.so da arquitetura x86_64 para arm64), vai travar ao iniciar.</string>

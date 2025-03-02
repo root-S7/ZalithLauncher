@@ -1,6 +1,8 @@
 package com.movtery.zalithlauncher.feature.mod.parser
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import com.mio.util.AndroidUtil
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -12,20 +14,53 @@ import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.Logger
 
 class ModChecker {
-    class ModCheckResult {
+    class ModCheckResult() : Parcelable {
         var hasTouchController: Boolean = false
         var hasSodiumOrEmbeddium: Boolean = false
         var hasPhysics: Boolean = false
         var hasMCEF: Boolean = false
         var hasValkyrienSkies: Boolean = false
         var hasYesSteveModel: Boolean = false
+
+        private fun Boolean.getInt(): Int = if (this) 1 else 0
+        private fun Int.toBoolean(): Boolean = this != 0
+
+        constructor(parcel: Parcel) : this() {
+            hasTouchController = parcel.readInt().toBoolean()
+            hasSodiumOrEmbeddium = parcel.readInt().toBoolean()
+            hasPhysics = parcel.readInt().toBoolean()
+            hasMCEF = parcel.readInt().toBoolean()
+            hasValkyrienSkies = parcel.readInt().toBoolean()
+            hasYesSteveModel = parcel.readInt().toBoolean()
+        }
+
+        override fun describeContents(): Int = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) {
+            dest.writeInt(hasTouchController.getInt())
+            dest.writeInt(hasSodiumOrEmbeddium.getInt())
+            dest.writeInt(hasPhysics.getInt())
+            dest.writeInt(hasMCEF.getInt())
+            dest.writeInt(hasValkyrienSkies.getInt())
+            dest.writeInt(hasYesSteveModel.getInt())
+        }
+
+        companion object CREATOR : Parcelable.Creator<ModCheckResult> {
+            override fun createFromParcel(parcel: Parcel): ModCheckResult {
+                return ModCheckResult(parcel)
+            }
+
+            override fun newArray(size: Int): Array<ModCheckResult?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 
     /**
      * 检查所有模组，并对一些已知的模组进行判断
      */
-    fun check(context: Context, modInfoList: List<ModInfo>, showResultDialog: Boolean = true): ModCheckResult {
-        return runCatching {
+    fun check(context: Context, modInfoList: List<ModInfo>, executeTask: (ModCheckResult?) -> Unit) {
+        runCatching {
             val modCheckSettings = mutableMapOf<StringSettingUnit, Pair<String, String>>()
 
             if (modInfoList.isNotEmpty()) {
@@ -105,41 +140,49 @@ class ModChecker {
                 }
             }
 
-            if (showResultDialog) showResultDialog(context, modCheckSettings)
-
-            modResult
-        }.getOrElse { e ->
+            showResultDialog(context, modCheckSettings) {
+                executeTask(modResult)
+            }
+        }.onFailure { e ->
             Logging.e("LaunchGame", "An error occurred while trying to process existing mod information", e)
-            ModCheckResult()
+            executeTask(null)
         }
     }
 
-    private fun showResultDialog(context: Context, modCheckSettings: MutableMap<StringSettingUnit, Pair<String, String>>) {
-        if (modCheckSettings.isNotEmpty()) {
-            var index = 1
-            val messages = modCheckSettings
-                .filter { (setting, valuePair) -> setting.getValue() != valuePair.first }
-                .map { (_, valuePair) -> "${index++}. ${valuePair.second}" }
-
-            if (messages.isNotEmpty()) {
-                TaskExecutors.runInUIThread {
-                    TipDialog.Builder(context)
-                        .setTitle(R.string.mod_check_dialog_title)
-                        .setMessage(messages.joinToString("\r\n\r\n"))
-                        .setCheckBox(R.string.generic_no_more_reminders)
-                        .setShowCheckBox(true)
-                        .setCenterMessage(false)
-                        .setCancelable(false)
-                        .setShowCancel(false)
-                        .setConfirmClickListener { check ->
-                            if (check) {
-                                modCheckSettings.forEach { (setting, valuePair) ->
-                                    setting.put(valuePair.first).save()
-                                }
-                            }
-                        }.showDialog()
-                }
+    private fun showResultDialog(
+        context: Context,
+        modCheckSettings: MutableMap<StringSettingUnit, Pair<String, String>>,
+        executeTask: () -> Unit
+    ) {
+        val messages = modCheckSettings
+            .mapNotNull { (setting, valuePair) ->
+                if (setting.getValue() != valuePair.first) valuePair.second else null
+            }.withIndex()
+            .joinToString("\r\n\r\n") {
+                "${it.index + 1}. ${it.value}"
             }
+
+        if (messages.isEmpty()) {
+            executeTask()
+            return
+        }
+
+        TaskExecutors.runInUIThread {
+            TipDialog.Builder(context)
+                .setTitle(R.string.mod_check_dialog_title)
+                .setMessage(messages)
+                .setCheckBox(R.string.generic_no_more_reminders)
+                .setShowCheckBox(true)
+                .setCenterMessage(false)
+                .setCancelable(false)
+                .setConfirmClickListener { check ->
+                    if (check) {
+                        modCheckSettings.forEach { (setting, valuePair) ->
+                            setting.put(valuePair.first).save()
+                        }
+                    }
+                    executeTask()
+                }.showDialog()
         }
     }
 }

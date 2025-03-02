@@ -128,6 +128,7 @@
     <string name="mod_failed_to_load_list">Không thể tải danh sách phiên bản!</string>
     <string name="mod_optifine_progress">Đang tải %s</string>
     <string name="mod_check_dialog_title">Báo cáo kiểm tra mod</string>
+    <string name="mod_check_progress_message">Đang kiểm tra mod (%d / %d)</string>
     <string name="mod_check_touch_controller">Phát hiện đã cài đặt mod Touch Controller (%s), launcher đã sẵn sàng kích hoạt proxy điều khiển để tương thích với mod.</string>
     <string name="mod_check_sodium_or_embeddium">Phát hiện đã cài đặt mod Sodium hoặc Embeddium (%s), launcher sẽ tắt cảnh báo của mod đó. Nhưng xin lưu ý, vì cộng đồng của mod này đã tuyên bố rõ ràng rằng họ sẽ không tiếp nhận bất kỳ vấn đề nào liên quan đến thiết bị Android, nếu bạn gặp bất kỳ vấn đề nào khi sử dụng mod, xin đừng phản hồi về cho cộng đồng mod!</string>
     <string name="mod_check_physics">Mod vật lý hiện đang sử dụng (%s) chưa được vá (thay libPhysXJniBindings_64.so từ kiến trúc x86_64 sang arm64), sẽ bị sập khi khởi chạy.</string>
