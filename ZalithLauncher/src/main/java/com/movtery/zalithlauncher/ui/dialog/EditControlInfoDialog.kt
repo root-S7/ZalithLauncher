@@ -42,6 +42,8 @@ class EditControlInfoDialog(
             setValueIfNotNull(controlInfoData.version, versionEdit)
             setValueIfNotNull(controlInfoData.author, authorEdit)
             setValueIfNotNull(controlInfoData.desc, descEdit)
+
+            checkHeight(root, contentView, scrollView)
         }
         DraggableDialog.initDialog(this)
     }

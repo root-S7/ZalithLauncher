@@ -67,6 +67,8 @@ class ControlInfoDialog(
             authorText.setTextOrDefault(controlInfoData.author)
             versionText.setTextOrDefault(controlInfoData.version)
             descText.setTextOrDefault(controlInfoData.desc)
+
+            checkHeight(root, contentView, scrollView)
         }
     }
 
