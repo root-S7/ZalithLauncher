@@ -317,26 +317,32 @@ class FileTools {
         }
 
         @JvmStatic
-        fun getFileHashSHA1(inputStream: InputStream): String {
-            runCatching {
-                val md = MessageDigest.getInstance("SHA-1")
+        @Throws(Exception::class)
+        fun calculateFileHash(file: File, algorithm: String = "SHA-256"): String {
+            return calculateFileHash(file.inputStream(), algorithm)
+        }
+
+        @JvmStatic
+        @Throws(Exception::class)
+        fun calculateFileHash(inputStream: InputStream, algorithm: String = "SHA-256"): String {
+            val digest = MessageDigest.getInstance(algorithm)
+            inputStream.use { input ->
                 val buffer = ByteArray(8192)
                 var bytesRead: Int
-                while ((inputStream.read(buffer).also { bytesRead = it }) != -1) {
-                    md.update(buffer, 0, bytesRead)
+                while (input.read(buffer).also { bytesRead = it } != -1) {
+                    digest.update(buffer, 0, bytesRead)
                 }
-                val hash = md.digest()
+            }
+            return digest.digest().toHex()
+        }
 
-                //将哈希值转换为十六进制字符串
-                val hexString = StringBuilder()
-                for (b in hash) {
-                    val hex = String.format("%02x", b)
-                    hexString.append(hex)
-                }
-
-                return hexString.toString()
-            }.getOrElse { e ->
-                throw RuntimeException(e)
+        /**
+         * 字节数组转十六进制字符串（高效实现）
+         */
+        private fun ByteArray.toHex(): String {
+            val hexChars = "0123456789abcdef"
+            return joinToString("") { byte ->
+                "${hexChars[byte.toInt() shr 4 and 0x0F]}${hexChars[byte.toInt() and 0x0F]}"
             }
         }
     }

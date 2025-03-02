@@ -10,7 +10,7 @@ import com.movtery.zalithlauncher.feature.mod.models.MCBBSPackMeta.MCBBSAddons
 import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.ProgressDialog
-import com.movtery.zalithlauncher.utils.file.FileTools.Companion.getFileHashSHA1
+import com.movtery.zalithlauncher.utils.file.FileTools
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.utils.FileUtils
 import net.kdt.pojavlaunch.utils.ZipUtils
@@ -58,34 +58,32 @@ class MCBBSModPack(private val context: Context, private val zipFile: File?) {
                         val zipDestination = File(versionFolder, entryName.substring(dirNameLen))
                         if (zipDestination.exists() && !file.force) continue
 
-                        modpackZipFile.getInputStream(entry).use { inputStream ->
-                            val fileHash = getFileHashSHA1(inputStream)
-                            val equals = file.hash == fileHash
+                        val fileHash = FileTools.calculateFileHash(modpackZipFile.getInputStream(entry), "SHA-1")
+                        val equals = file.hash == fileHash
 
-                            if (equals) {
-                                //如果哈希值一致，则复制文件（文件已存在则根据“强制”设定来决定是否覆盖文件）
-                                FileUtils.ensureParentDirectory(zipDestination)
+                        if (equals) {
+                            //如果哈希值一致，则复制文件（文件已存在则根据“强制”设定来决定是否覆盖文件）
+                            FileUtils.ensureParentDirectory(zipDestination)
 
-                                modpackZipFile.getInputStream(entry).use { entryInputStream ->
-                                    Files.newOutputStream(zipDestination.toPath())
-                                        .use { outputStream ->
-                                            IOUtils.copy(entryInputStream, outputStream)
-                                        }
-                                }
-                                val fileCount = fileCounters.getAndIncrement()
-                                TaskExecutors.runInUIThread {
-                                    installDialog?.updateText(
-                                        context.getString(
-                                            R.string.select_modpack_local_installing_files,
-                                            fileCount,
-                                            length
-                                        )
+                            modpackZipFile.getInputStream(entry).use { entryInputStream ->
+                                Files.newOutputStream(zipDestination.toPath())
+                                    .use { outputStream ->
+                                        IOUtils.copy(entryInputStream, outputStream)
+                                    }
+                            }
+                            val fileCount = fileCounters.getAndIncrement()
+                            TaskExecutors.runInUIThread {
+                                installDialog?.updateText(
+                                    context.getString(
+                                        R.string.select_modpack_local_installing_files,
+                                        fileCount,
+                                        length
                                     )
-                                    installDialog?.updateProgress(
-                                        fileCount.toDouble(),
-                                        length.toDouble()
-                                    )
-                                }
+                                )
+                                installDialog?.updateProgress(
+                                    fileCount.toDouble(),
+                                    length.toDouble()
+                                )
                             }
                         }
                     }

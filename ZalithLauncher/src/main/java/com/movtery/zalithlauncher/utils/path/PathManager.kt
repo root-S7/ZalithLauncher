@@ -19,6 +19,7 @@ class PathManager {
         lateinit var DIR_CTRLMAP_PATH: String
         lateinit var DIR_ACCOUNT_NEW: String
         lateinit var DIR_CACHE_STRING: String
+        lateinit var DIR_ADDONS_INFO_CACHE: String
 
         lateinit var DIR_CUSTOM_MOUSE: String
         lateinit var DIR_BACKGROUND: File
@@ -44,6 +45,7 @@ class PathManager {
             DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
             DIR_ACCOUNT_NEW = "$DIR_FILE/accounts"
             DIR_CACHE_STRING = "$DIR_CACHE/string_cache"
+            DIR_ADDONS_INFO_CACHE = "$DIR_CACHE/addons_info_cache"
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir!!
