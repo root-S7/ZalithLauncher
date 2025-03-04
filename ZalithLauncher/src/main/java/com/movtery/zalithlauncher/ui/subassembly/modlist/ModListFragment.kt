@@ -68,16 +68,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
             refreshButton.setOnClickListener { refreshTask() }
             releaseVersion.setOnClickListener { initRefresh() }
-            returnButton.setOnClickListener {
-                parentAdapter?.apply {
-                    hideParentElement(false)
-                    recyclerView.adapter = this
-                    recyclerView.scheduleLayoutAnimation()
-                    parentAdapter = null
-                    return@setOnClickListener
-                }
-                ZHTools.onBackPressed(requireActivity())
-            }
+            returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 
             backToTop.setOnClickListener { recyclerView.smoothScrollToPosition(0) }
         }
@@ -109,6 +100,16 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     override fun onDestroy() {
         cancelTask()
         super.onDestroy()
+    }
+
+    override fun onBackPressed(): Boolean {
+        return parentAdapter?.let { adapter ->
+            hideParentElement(false)
+            recyclerView.adapter = adapter
+            recyclerView.scheduleLayoutAnimation()
+            parentAdapter = null
+            false
+        } ?: true
     }
 
     private fun hideParentElement(hide: Boolean) {
