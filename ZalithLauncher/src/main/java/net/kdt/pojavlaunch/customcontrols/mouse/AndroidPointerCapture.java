@@ -109,8 +109,9 @@ public class AndroidPointerCapture implements ViewTreeObserver.OnWindowFocusChan
     }
 
     private void checkSameDevice(InputDevice inputDevice) {
+        if (inputDevice == null) return;
         int newIdentifier = inputDevice.getId();
-        if(mInputDeviceIdentifier != newIdentifier) {
+        if (mInputDeviceIdentifier != newIdentifier) {
             reinitializeDeviceSpecificProperties(inputDevice);
             mInputDeviceIdentifier = newIdentifier;
         }
