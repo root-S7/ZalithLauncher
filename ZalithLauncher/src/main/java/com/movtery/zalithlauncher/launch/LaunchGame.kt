@@ -22,7 +22,6 @@ import com.movtery.zalithlauncher.ui.dialog.LifecycleAwareTipDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.http.NetworkUtils
-import com.movtery.zalithlauncher.utils.path.LibPath
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.JMinecraftVersionList
@@ -138,7 +137,6 @@ class LaunchGame {
                 account
             )
 
-            var hasSodiumOrEmbeddium = false
             minecraftVersion.modCheckResult?.let { modCheckResult ->
                 if (modCheckResult.hasTouchController) {
                     Logger.appendToLog("Mod Perception: TouchController Mod found, attempting to automatically enable control proxy!")
@@ -147,19 +145,13 @@ class LaunchGame {
                 }
 
                 if (modCheckResult.hasSodiumOrEmbeddium) {
-                    hasSodiumOrEmbeddium = true
                     Logger.appendToLog("Mod Perception: Sodium or Embeddium Mod found, attempting to load the disable warning tool later!")
                 }
             }
 
             JREUtils.redirectAndPrintJRELog()
 
-            launch(activity, account, minecraftVersion, javaRuntime, customArgs) { userArgs ->
-                if (hasSodiumOrEmbeddium) {
-                    //尝试禁用Sodium或Embeddium模组对PojavLauncher的警告
-                    userArgs.add("-javaagent:" + LibPath.MOD_TRIMMER.absolutePath)
-                }
-            }
+            launch(activity, account, minecraftVersion, javaRuntime, customArgs)
 
             //Note that we actually stall in the above function, even if the game crashes. But let's be safe.
             GameService.setActive(false)
@@ -220,8 +212,7 @@ class LaunchGame {
             account: MinecraftAccount,
             minecraftVersion: Version,
             javaRuntime: String,
-            customArgs: String,
-            argsCallBack: UserArgsCallBack
+            customArgs: String
         ) {
             checkMemory(activity)
 
@@ -246,7 +237,7 @@ class LaunchGame {
 
             FFmpegPlugin.discover(activity)
 
-            JREUtils.launchWithUtils(activity, runtime, minecraftVersion, launchArgs, customArgs, argsCallBack)
+            JREUtils.launchWithUtils(activity, runtime, minecraftVersion, launchArgs, customArgs)
         }
 
         private fun checkMemory(activity: AppCompatActivity) {

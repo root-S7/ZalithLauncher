@@ -23,7 +23,6 @@ import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionInfo;
-import com.movtery.zalithlauncher.launch.UserArgsCallBack;
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
@@ -361,8 +360,7 @@ public final class JREUtils {
             String runtimeHome,
             Version gameVersion,
             final List<String> JVMArgs,
-            final String userArgsString,
-            final UserArgsCallBack argsCallBack
+            final String userArgsString
     ) {
         List<String> userArgs = getJavaArgs(runtimeHome, userArgsString);
         //Remove arguments that can interfere with the good working of the launcher
@@ -380,9 +378,7 @@ public final class JREUtils {
         // Overridden by us to specify the exact number of cores that the android system has
         purgeArg(userArgs, "-XX:ActiveProcessorCount");
 
-        //禁用flite缺失、lwjgl兼容性警告的日志输出
-        userArgs.add("-javaagent:" + LibPath.MIO_LIB_FIXER.getAbsolutePath());
-        if (argsCallBack != null) argsCallBack.callback(userArgs);
+        userArgs.add("-javaagent:" + LibPath.MIO_LIB_PATCHER.getAbsolutePath());
 
         //Add automatically generated args
         userArgs.add("-Xms" + AllSettings.getRamAllocation().getValue().getValue() + "M");
@@ -425,8 +421,7 @@ public final class JREUtils {
             final Runtime runtime,
             Version gameVersion,
             final List<String> JVMArgs,
-            final String userArgsString,
-            final UserArgsCallBack argsCallBack
+            final String userArgsString
     ) throws Throwable {
         String runtimeHome = MultiRTUtils.getRuntimeHome(runtime.name).getAbsolutePath();
 
@@ -440,7 +435,7 @@ public final class JREUtils {
 
         initGraphicAndSoundEngine(gameVersion != null);
 
-        launchJavaVM(activity, runtimeHome, gameVersion, JVMArgs, userArgsString, argsCallBack);
+        launchJavaVM(activity, runtimeHome, gameVersion, JVMArgs, userArgsString);
     }
 
     /**
