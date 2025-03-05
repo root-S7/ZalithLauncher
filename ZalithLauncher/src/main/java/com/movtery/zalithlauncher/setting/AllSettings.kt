@@ -237,23 +237,5 @@ class AllSettings {
         val hotbarHeight = lazy {
             IntSettingUnit("hotbarHeight", Tools.currentDisplayMetrics.heightPixels / 4)
         }
-
-        @JvmStatic
-        val modCheckTouchController = StringSettingUnit("modCheckTouchController", "0")
-
-        @JvmStatic
-        val modCheckSodiumOrEmbeddium = StringSettingUnit("modCheckSodiumOrEmbeddium", "0")
-
-        @JvmStatic
-        val modCheckPhysics = StringSettingUnit("modCheckPhysics", "0")
-
-        @JvmStatic
-        val modCheckMCEF = StringSettingUnit("modCheckMCEF", "0")
-
-        @JvmStatic
-        val modCheckValkyrienSkies = StringSettingUnit("modCheckValkyrienSkies", "0")
-
-        @JvmStatic
-        val modCheckYesSteveModel = StringSettingUnit("modCheckYesSteveModel", "0")
     }
 }

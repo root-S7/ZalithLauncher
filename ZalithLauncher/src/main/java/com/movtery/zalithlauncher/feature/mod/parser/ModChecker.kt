@@ -6,8 +6,6 @@ import android.os.Parcelable
 import com.mio.util.AndroidUtil
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.setting.unit.StringSettingUnit
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import net.kdt.pojavlaunch.Architecture
@@ -21,6 +19,7 @@ class ModChecker {
         var hasMCEF: Boolean = false
         var hasValkyrienSkies: Boolean = false
         var hasYesSteveModel: Boolean = false
+        var hasIMBlocker: Boolean = false
 
         private fun Boolean.getInt(): Int = if (this) 1 else 0
         private fun Int.toBoolean(): Boolean = this != 0
@@ -32,6 +31,7 @@ class ModChecker {
             hasMCEF = parcel.readInt().toBoolean()
             hasValkyrienSkies = parcel.readInt().toBoolean()
             hasYesSteveModel = parcel.readInt().toBoolean()
+            hasIMBlocker = parcel.readInt().toBoolean()
         }
 
         override fun describeContents(): Int = 0
@@ -43,6 +43,7 @@ class ModChecker {
             dest.writeInt(hasMCEF.getInt())
             dest.writeInt(hasValkyrienSkies.getInt())
             dest.writeInt(hasYesSteveModel.getInt())
+            dest.writeInt(hasIMBlocker.getInt())
         }
 
         companion object CREATOR : Parcelable.Creator<ModCheckResult> {
@@ -61,7 +62,7 @@ class ModChecker {
      */
     fun check(context: Context, modInfoList: List<ModInfo>, executeTask: (ModCheckResult?) -> Unit) {
         runCatching {
-            val modCheckSettings = mutableMapOf<StringSettingUnit, Pair<String, String>>()
+            val modCheckSettings = mutableMapOf<AllModCheckSettings, Pair<String, String>>()
 
             if (modInfoList.isNotEmpty()) {
                 Logger.appendToLog("Mod Perception: ${modInfoList.size} Mods parsed successfully")
@@ -74,7 +75,7 @@ class ModChecker {
                     "touchcontroller" -> {
                         if (!modResult.hasTouchController) {
                             modResult.hasTouchController = true
-                            modCheckSettings[AllSettings.modCheckTouchController] = Pair(
+                            modCheckSettings[AllModCheckSettings.TOUCH_CONTROLLER] = Pair(
                                 "1",
                                 context.getString(R.string.mod_check_touch_controller, mod.file.name)
                             )
@@ -83,7 +84,7 @@ class ModChecker {
                     "sodium", "embeddium" -> {
                         if (!modResult.hasSodiumOrEmbeddium) {
                             modResult.hasSodiumOrEmbeddium = true
-                            modCheckSettings[AllSettings.modCheckSodiumOrEmbeddium] = Pair(
+                            modCheckSettings[AllModCheckSettings.SODIUM_OR_EMBEDDIUM] = Pair(
                                 "1",
                                 context.getString(R.string.mod_check_sodium_or_embeddium, mod.file.name)
                             )
@@ -97,7 +98,7 @@ class ModChecker {
                                 "de/fabmax/physxjni/linux/libPhysXJniBindings_64.so"
                             )
                             if (arch.isBlank() or (!Architecture.isx86Device() and arch.contains("x86"))) {
-                                modCheckSettings[AllSettings.modCheckPhysics] = Pair(
+                                modCheckSettings[AllModCheckSettings.PHYSICS_MOD] = Pair(
                                     "1",
                                     context.getString(R.string.mod_check_physics, mod.file.name)
                                 )
@@ -107,7 +108,7 @@ class ModChecker {
                     "mcef" -> {
                         if (!modResult.hasMCEF) {
                             modResult.hasMCEF = true
-                            modCheckSettings[AllSettings.modCheckMCEF] = Pair(
+                            modCheckSettings[AllModCheckSettings.MCEF] = Pair(
                                 "1",
                                 context.getString(R.string.mod_check_mcef, mod.file.name)
                             )
@@ -116,7 +117,7 @@ class ModChecker {
                     "valkyrienskies" -> {
                         if (!modResult.hasValkyrienSkies) {
                             modResult.hasValkyrienSkies = true
-                            modCheckSettings[AllSettings.modCheckValkyrienSkies] = Pair(
+                            modCheckSettings[AllModCheckSettings.VALKYRIEN_SKIES] = Pair(
                                 "1",
                                 context.getString(R.string.mod_check_valkyrien_skies, mod.file.name)
                             )
@@ -130,11 +131,20 @@ class ModChecker {
                                 "META-INF/native/libysm-core.so"
                             )
                             if (arch.isNotBlank()) {
-                                modCheckSettings[AllSettings.modCheckYesSteveModel] = Pair(
+                                modCheckSettings[AllModCheckSettings.YES_STEVE_MODEL] = Pair(
                                     "1",
                                     context.getString(R.string.mod_check_yes_steve_model, mod.file.name)
                                 )
                             }
+                        }
+                    }
+                    "imblocker" -> {
+                        if (!modResult.hasIMBlocker) {
+                            modResult.hasIMBlocker = true
+                            modCheckSettings[AllModCheckSettings.IM_BLOCKER] = Pair(
+                                "1",
+                                context.getString(R.string.mod_check_imblocker, mod.file.name)
+                            )
                         }
                     }
                 }
@@ -151,12 +161,12 @@ class ModChecker {
 
     private fun showResultDialog(
         context: Context,
-        modCheckSettings: MutableMap<StringSettingUnit, Pair<String, String>>,
+        modCheckSettings: MutableMap<AllModCheckSettings, Pair<String, String>>,
         executeTask: () -> Unit
     ) {
         val messages = modCheckSettings
             .mapNotNull { (setting, valuePair) ->
-                if (setting.getValue() != valuePair.first) valuePair.second else null
+                if (setting.unit.getValue() != valuePair.first) valuePair.second else null
             }.withIndex()
             .joinToString("\r\n\r\n") {
                 "${it.index + 1}. ${it.value}"
@@ -178,7 +188,7 @@ class ModChecker {
                 .setConfirmClickListener { check ->
                     if (check) {
                         modCheckSettings.forEach { (setting, valuePair) ->
-                            setting.put(valuePair.first).save()
+                            setting.unit.put(valuePair.first).save()
                         }
                     }
                     executeTask()
