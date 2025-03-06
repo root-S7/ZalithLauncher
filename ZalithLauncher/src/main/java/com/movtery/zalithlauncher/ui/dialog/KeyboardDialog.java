@@ -20,9 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class KeyboardDialog extends FullScreenDialog {
+public class KeyboardDialog extends FullScreenDialog implements View.OnClickListener {
     private final DialogKeyboardBinding binding = DialogKeyboardBinding.inflate(getLayoutInflater());
+    private final List<View> mSelectedViews = new ArrayList<>(1);
+    private final List<Integer> mSelectedKeycodes = new ArrayList<>(1);
     private OnKeycodeSelectListener mOnKeycodeSelectListener;
+    private OnMultiKeycodeSelectListener mOnMultiKeycodeSelectListener;
     private boolean showSpecialButtons = true;
     private boolean isGamepadMapper = false;
 
@@ -62,7 +65,8 @@ public class KeyboardDialog extends FullScreenDialog {
     }
 
     private void init(boolean showSpecialButtons) {
-        binding.close.setOnClickListener(v -> this.dismiss());
+        binding.close.setOnClickListener(this);
+        binding.send.setOnClickListener(this);
 
         List<View> specialButtons = new ArrayList<>();
 
@@ -133,7 +137,8 @@ public class KeyboardDialog extends FullScreenDialog {
             int specialCount = isGamepadMapper ? 0 : specialButtons.size() - 1;
             for (View specialButton : specialButtons) {
                 int finalSpecialCount = specialCount;
-                specialButton.setOnClickListener(v -> onKeycodeSelect(finalSpecialCount));
+                specialButton.setTag(finalSpecialCount);
+                specialButton.setOnClickListener(this);
                 if (isGamepadMapper) specialCount += 1;
                 else specialCount -= 1;
             }
@@ -145,22 +150,45 @@ public class KeyboardDialog extends FullScreenDialog {
         for (View button : buttons) {
             buttonCount += 1;
             int finalButtonCount = buttonCount;
-            button.setOnClickListener(v -> onKeycodeSelect(finalButtonCount));
+            button.setTag(finalButtonCount);
+            button.setOnClickListener(this);
 
             if (    //保证顺序正确
                     Objects.equals(button, binding.keyboard9) ||
-                            Objects.equals(button, binding.keyboardSlash) ||
-                            Objects.equals(button, binding.keyboardPageDown) ||
-                            Objects.equals(button, binding.keyboardPause) ||
-                            Objects.equals(button, binding.keyboardKpSubract) ||
-                            Objects.equals(button, binding.keyboardKpDecimal) ||
-                            Objects.equals(button, binding.keyboardKpEnter)
+                    Objects.equals(button, binding.keyboardSlash) ||
+                    Objects.equals(button, binding.keyboardPageDown) ||
+                    Objects.equals(button, binding.keyboardPause) ||
+                    Objects.equals(button, binding.keyboardKpSubract) ||
+                    Objects.equals(button, binding.keyboardKpDecimal) ||
+                    Objects.equals(button, binding.keyboardKpEnter)
             ) buttonCount += 1;
         }
 
         if (!showSpecialButtons) {
             binding.specialKey.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == binding.close) {
+            closeDialog();
+        } else if (v == binding.send) {
+            if (mOnMultiKeycodeSelectListener != null) {
+                mOnMultiKeycodeSelectListener.onSelect(new ArrayList<>(mSelectedKeycodes));
+            }
+            closeDialog();
+        } else if (v.getTag() != null) {
+            int index = (int) v.getTag();
+            onKeycodeSelect(v, index);
+        }
+    }
+
+    private void closeDialog() {
+        mSelectedViews.forEach(sv -> sv.setSelected(false));
+        mSelectedViews.clear();
+        mSelectedKeycodes.clear();
+        this.dismiss();
     }
 
     private AnimButton getKey(String text) {
@@ -175,19 +203,46 @@ public class KeyboardDialog extends FullScreenDialog {
         return getContext().getString(resId);
     }
 
-    private void onKeycodeSelect(int index) {
+    private void onKeycodeSelect(View view, int index) {
         if (this.mOnKeycodeSelectListener != null) {
             this.mOnKeycodeSelectListener.onSelect(index);
             dismiss();
+        } else if (this.mOnMultiKeycodeSelectListener != null) {
+            if (mSelectedViews.contains(view)) {
+                mSelectedViews.remove(view);
+                mSelectedKeycodes.remove((Object) index);
+                view.setSelected(false);
+            } else {
+                mSelectedViews.add(view);
+                mSelectedKeycodes.add(index);
+                view.setSelected(true);
+            }
         }
     }
 
     public KeyboardDialog setOnKeycodeSelectListener(OnKeycodeSelectListener listener) {
+        if (this.mOnMultiKeycodeSelectListener != null) {
+            throw new IllegalStateException("Two listeners should not be initialized at the same time");
+        }
         this.mOnKeycodeSelectListener = listener;
+        binding.send.setVisibility(View.GONE);
+        return this;
+    }
+
+    public KeyboardDialog setOnMultiKeycodeSelectListener(OnMultiKeycodeSelectListener listener) {
+        if (this.mOnKeycodeSelectListener != null) {
+            throw new IllegalStateException("Two listeners should not be initialized at the same time");
+        }
+        this.mOnMultiKeycodeSelectListener = listener;
+        binding.send.setVisibility(View.VISIBLE);
         return this;
     }
 
     public interface OnKeycodeSelectListener {
         void onSelect(int index);
+    }
+
+    public interface OnMultiKeycodeSelectListener {
+        void onSelect(List<Integer> index);
     }
 }

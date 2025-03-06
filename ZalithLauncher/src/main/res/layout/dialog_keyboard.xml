@@ -957,6 +957,17 @@
     </ScrollView>
 
     <ImageView
+        android:id="@+id/send"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_check"
+        app:layout_constraintEnd_toStartOf="@id/close"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/close"
         android:layout_width="@dimen/_18sdp"
         android:layout_height="@dimen/_18sdp"

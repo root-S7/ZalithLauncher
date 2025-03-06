@@ -57,6 +57,7 @@ import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager;
 import com.movtery.zalithlauncher.renderer.Renderers;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.setting.AllStaticSettings;
+import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.KeyboardDialog;
@@ -622,7 +623,29 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
 
         private void dialogSendCustomKey() {
-            keyboardDialog.setOnKeycodeSelectListener(EfficientAndroidLWJGLKeycode::execKeyIndex).show();
+            keyboardDialog.setOnMultiKeycodeSelectListener(selectedKeycodes -> {
+                //模拟同时按下，同时松开按键
+                Task.runTask(() -> {
+                    selectedKeycodes.forEach(keycode -> sendKeyPress(keycode, true));
+                    return null;
+                }).ended(a -> {
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException ignore) {
+                    }
+                    selectedKeycodes.forEach(keycode -> sendKeyPress(keycode, false));
+                }).execute();
+            }).show();
+        }
+
+        private void sendKeyPress(int keycode, boolean isDown) {
+            System.out.println("Test keycode: " + keycode);
+            int lwjglKeycode = EfficientAndroidLWJGLKeycode.getValueByIndex(keycode);
+            System.out.println("Test lwjglKeycode: " + lwjglKeycode);
+            if (keycode >= LwjglGlfwKeycode.GLFW_KEY_UNKNOWN) {
+                CallbackBridge.sendKeyPress(lwjglKeycode, CallbackBridge.getCurrentMods(), isDown);
+                CallbackBridge.setModifiers(lwjglKeycode, isDown);
+            }
         }
 
         private void replacementCustomControls() {
