@@ -29,7 +29,7 @@ class GameMenuViewWrapper(
     private var timer: Timer? = null
     private var showMemory: Boolean = false
 
-    private lateinit var scopeFx: IFxScopeControl
+    private var scopeFx: IFxScopeControl? = null
 
     private fun getWindow(): IFxScopeControl {
         return FxScopeHelper.Builder().apply {
@@ -75,17 +75,23 @@ class GameMenuViewWrapper(
 
     fun setVisibility(visible: Boolean) {
         if (visible) {
-            scopeFx = getWindow()
-            setShowMemory()
-            scopeFx.show()
+            if (scopeFx != null) {
+                setShowMemory()
+            } else {
+                scopeFx = getWindow().apply {
+                    setShowMemory()
+                    show()
+                }
+            }
         } else {
-            scopeFx.cancel()
+            scopeFx?.cancel()
+            scopeFx = null
             cancelMemoryTimer()
         }
     }
 
     private fun setShowMemory() {
-        scopeFx.getView()?.findViewById<TextView>(R.id.memory_text)?.apply {
+        scopeFx?.getView()?.findViewById<TextView>(R.id.memory_text)?.apply {
             updateMemoryText(this)
         }
     }
