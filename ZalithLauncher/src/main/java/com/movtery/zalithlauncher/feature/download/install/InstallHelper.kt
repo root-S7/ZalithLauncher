@@ -36,7 +36,7 @@ class InstallHelper {
                     val downloadBuffer = ByteArray(8192)
                     DownloadUtils.ensureSha1<Void?>(targetFile, version.fileHash) {
                         Logging.i(
-                            "CurseForgeModPackInstallHelper",
+                            "InstallHelper",
                             "Download Url: ${version.fileUrl}"
                         )
                         DownloadUtils.downloadFileMonitored(
