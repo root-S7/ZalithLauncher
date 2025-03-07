@@ -174,7 +174,7 @@ public class KeyboardDialog extends FullScreenDialog implements View.OnClickList
         if (v == binding.close) {
             closeDialog();
         } else if (v == binding.send) {
-            if (mOnMultiKeycodeSelectListener != null) {
+            if (!mSelectedKeycodes.isEmpty() && mOnMultiKeycodeSelectListener != null) {
                 mOnMultiKeycodeSelectListener.onSelect(new ArrayList<>(mSelectedKeycodes));
             }
             closeDialog();
