@@ -66,6 +66,7 @@ public class KeyboardDialog extends FullScreenDialog implements View.OnClickList
 
     private void init(boolean showSpecialButtons) {
         binding.close.setOnClickListener(this);
+        binding.close1.setOnClickListener(this);
         binding.send.setOnClickListener(this);
 
         List<View> specialButtons = new ArrayList<>();
@@ -171,7 +172,7 @@ public class KeyboardDialog extends FullScreenDialog implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v == binding.close) {
+        if (v == binding.close || v == binding.close1) {
             closeDialog();
         } else if (v == binding.send) {
             if (!mSelectedKeycodes.isEmpty() && mOnMultiKeycodeSelectListener != null) {
@@ -225,7 +226,8 @@ public class KeyboardDialog extends FullScreenDialog implements View.OnClickList
             throw new IllegalStateException("Two listeners should not be initialized at the same time");
         }
         this.mOnKeycodeSelectListener = listener;
-        binding.send.setVisibility(View.GONE);
+        binding.operateLayout.setVisibility(View.GONE);
+        binding.close.setVisibility(View.VISIBLE);
         return this;
     }
 
@@ -234,7 +236,8 @@ public class KeyboardDialog extends FullScreenDialog implements View.OnClickList
             throw new IllegalStateException("Two listeners should not be initialized at the same time");
         }
         this.mOnMultiKeycodeSelectListener = listener;
-        binding.send.setVisibility(View.VISIBLE);
+        binding.operateLayout.setVisibility(View.VISIBLE);
+        binding.close.setVisibility(View.GONE);
         return this;
     }
 
