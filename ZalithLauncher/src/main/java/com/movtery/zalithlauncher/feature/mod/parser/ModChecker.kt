@@ -85,7 +85,7 @@ class ModChecker {
                         if (!modResult.hasSodiumOrEmbeddium) {
                             modResult.hasSodiumOrEmbeddium = true
                             modCheckSettings[AllModCheckSettings.SODIUM_OR_EMBEDDIUM] = Pair(
-                                "1",
+                                "2",
                                 context.getString(R.string.mod_check_sodium_or_embeddium, mod.file.name)
                             )
                         }
