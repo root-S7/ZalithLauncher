@@ -15,6 +15,7 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.file.FileTools
+import com.movtery.zalithlauncher.utils.stringutils.SortStrings
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -92,6 +93,15 @@ object VersionsManager {
             runCatching {
                 processVersionFile(versionsHome, versionFile, refreshVersionInfo)
             }
+        }
+
+        versions.sortWith { o1, o2 ->
+            var sort = -SortStrings.compareClassVersions(
+                o1.getVersionInfo()?.minecraftVersion ?: o1.getVersionName(),
+                o2.getVersionInfo()?.minecraftVersion ?: o2.getVersionName()
+            )
+            if (sort == 0) sort = SortStrings.compareChar(o1.getVersionName(), o2.getVersionName())
+            sort
         }
 
         currentGameInfo = CurrentGameInfo.refreshCurrentInfo()
