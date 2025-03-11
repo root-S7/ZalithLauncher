@@ -607,8 +607,6 @@
     <string name="update_fail">Lỗi mạng, tạm thời không thể lấy cập nhật!</string>
     <string name="update_fail_code">Lỗi mạng, tạm thời không thể lấy cập nhật! Mã lỗi: %d</string>
     <string name="update_success">Gói cài đặt mới nhất đã được tải xuống, bạn có muốn cài đặt không? Vị trí gói cài đặt:</string>
-    <string name="update_update_source">Chọn nguồn cập nhật</string>
-    <string name="update_update_source_ghproxy">Nguồn tăng tốc Ghproxy</string>
     <string name="update_downloading">Đang tải gói cài đặt… (%s / %s)</string>
     <string name="update_downloading_tip">Đang lấy, nguồn cập nhật: %s</string>
     <!-- Other Login -->

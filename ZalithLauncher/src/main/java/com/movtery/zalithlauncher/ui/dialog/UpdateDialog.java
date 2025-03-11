@@ -63,16 +63,9 @@ public class UpdateDialog extends FullScreenDialog implements DraggableDialog.Di
 
         binding.updateButton.setOnClickListener(view -> {
             this.dismiss();
-            if (ZHTools.areaChecks("zh")) {
-                TaskExecutors.runInUIThread(() -> {
-                    UpdateSourceDialog updateSourceDialog = new UpdateSourceDialog(getContext(), launcherVersion);
-                    updateSourceDialog.show();
-                });
-            } else {
-                TaskExecutors.runInUIThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
-                UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), launcherVersion, UpdateLauncher.UpdateSource.GITHUB_RELEASE);
-                updateLauncher.start();
-            }
+            TaskExecutors.runInUIThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
+            UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), launcherVersion);
+            updateLauncher.start();
         });
         binding.cancelButton.setOnClickListener(view -> this.dismiss());
         binding.ignoreButton.setOnClickListener(view -> {

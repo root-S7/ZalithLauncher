@@ -607,8 +607,6 @@
     <string name="update_fail">Problème de réseau, impossible de vérifier les mises à jour pour le moment !</string>
     <string name="update_fail_code">Problème de réseau, impossible de vérifier les mises à jour pour le moment ! Code d\'erreur : %d</string>
     <string name="update_success">Le paquet d\'installation le plus récent a été téléchargé, voulez-vous l\'installer ? Emplacement du paquet d\'installation :</string>
-    <string name="update_update_source">Sélectionner la source de mise à jour</string>
-    <string name="update_update_source_ghproxy">Source accélérée Ghproxy</string>
     <string name="update_downloading">Téléchargement du paquet d\'installation… (%s / %s)</string>
     <string name="update_downloading_tip">En cours de récupération, source de mise à jour : %s</string>
     <!-- Other Login -->

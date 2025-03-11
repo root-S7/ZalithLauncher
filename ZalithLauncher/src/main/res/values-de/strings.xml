@@ -607,8 +607,6 @@
     <string name="update_fail">Netzwerkfehler, Update kann vorübergehend nicht abgerufen werden!</string>
     <string name="update_fail_code">Netzwerkfehler, Update kann vorübergehend nicht abgerufen werden! Fehlercode: %d</string>
     <string name="update_success">Das neueste Installationspaket wurde heruntergeladen. Möchten Sie es installieren? Speicherort des Installationspakets:</string>
-    <string name="update_update_source">Aktualisierungsquelle auswählen</string>
-    <string name="update_update_source_ghproxy">Ghproxy-Beschleunigungsquelle</string>
     <string name="update_downloading">Installationspaket wird heruntergeladen… (%s / %s)</string>
     <string name="update_downloading_tip">Wird abgerufen, Aktualisierungsquelle: %s</string>
     <!-- Other Login -->

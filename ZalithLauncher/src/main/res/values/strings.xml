@@ -613,8 +613,6 @@
     <string name="update_fail">Network error, unable to check for updates at the moment!</string>
     <string name="update_fail_code">Network error, unable to check for updates at the moment! Error code: %d</string>
     <string name="update_success">The latest installation package has been downloaded. Do you want to install it? Package location:</string>
-    <string name="update_update_source">Select Update Source</string>
-    <string name="update_update_source_ghproxy">Ghproxy Accelerated Source</string>
     <string name="update_downloading">Downloading installation package… (%s / %s)</string>
     <string name="update_downloading_tip">Fetching, update source: %s</string>
     <!-- Other Login -->

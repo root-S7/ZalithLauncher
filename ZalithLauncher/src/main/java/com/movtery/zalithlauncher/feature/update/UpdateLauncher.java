@@ -41,7 +41,7 @@ public final class UpdateLauncher {
     private Timer timer;
     private boolean isCanceled = false;
 
-    public UpdateLauncher(Context context, LauncherVersion launcherVersion, UpdateSource updateSource) {
+    public UpdateLauncher(Context context, LauncherVersion launcherVersion) {
         this.context = context;
         this.launcherVersion = launcherVersion;
 
@@ -50,8 +50,8 @@ public final class UpdateLauncher {
                 .writeTimeout(TIME_OUT.getFirst(), TIME_OUT.getSecond())
                 .build()
                 .newCall(
-                        UrlManager.createRequestBuilder(UpdateUtils.getDownloadUrl(launcherVersion, updateSource)).build()
-                ); //获取请求对象
+                        UrlManager.createRequestBuilder(UpdateUtils.getDownloadUrl(launcherVersion)).build()
+                );
     }
 
     public void start() {
@@ -155,9 +155,5 @@ public final class UpdateLauncher {
         this.call.cancel();
         this.timer.cancel();
         FileUtils.deleteQuietly(UpdateUtils.sApkFile);
-    }
-
-    public enum UpdateSource {
-        GITHUB_RELEASE, GHPROXY
     }
 }

@@ -607,8 +607,6 @@
     <string name="update_fail">網路異常，暫時無法獲取更新！</string>
     <string name="update_fail_code">網路異常，暫時無法獲取更新！錯誤碼：%d</string>
     <string name="update_success">最新的安裝包已經下載完成，是否安裝？安裝包位置：</string>
-    <string name="update_update_source">選擇更新源</string>
-    <string name="update_update_source_ghproxy">Ghproxy 加速源</string>
     <string name="update_downloading">正在下載安裝包… (%s / %s)</string>
     <string name="update_downloading_tip">正在獲取中，更新源：%s</string>
     <!-- Other Login -->

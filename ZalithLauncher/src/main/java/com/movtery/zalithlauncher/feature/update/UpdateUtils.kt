@@ -7,7 +7,6 @@ import androidx.core.content.FileProvider
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.feature.update.LauncherVersion.FileSize
-import com.movtery.zalithlauncher.feature.update.UpdateLauncher.UpdateSource
 import com.movtery.zalithlauncher.setting.AllSettings
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.ignoreUpdate
 import com.movtery.zalithlauncher.task.TaskExecutors.Companion.runInUIThread
@@ -161,19 +160,12 @@ class UpdateUtils {
             return fileSize.all
         }
 
-
         @JvmStatic
-        fun getDownloadUrl(launcherVersion: LauncherVersion, updateSource: UpdateSource): String {
-            val fileUrl: String
+        fun getDownloadUrl(launcherVersion: LauncherVersion): String {
             val archModel = getArchModel()
-            val githubUrl = "github.com/ZalithLauncher/ZalithLauncher/releases/download/" +
+            return "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/" +
                     "${launcherVersion.versionCode}/ZalithLauncher-${launcherVersion.versionName}" +
                     "${(if (archModel != null) String.format("-%s", archModel) else "")}.apk"
-            fileUrl = when (updateSource) {
-                UpdateSource.GHPROXY -> "https://mirror.ghproxy.com/$githubUrl"
-                UpdateSource.GITHUB_RELEASE -> "https://$githubUrl"
-            }
-            return fileUrl
         }
 
         @JvmStatic

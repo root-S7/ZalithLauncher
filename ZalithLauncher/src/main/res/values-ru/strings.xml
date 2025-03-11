@@ -607,8 +607,6 @@
     <string name="update_fail">Сетевая ошибка, временно невозможно получить обновление!</string>
     <string name="update_fail_code">Сетевая ошибка, временно невозможно получить обновление! Код ошибки: %d</string>
     <string name="update_success">Последний установочный файл был успешно загружен, хотите установить? Путь к установочному файлу:</string>
-    <string name="update_update_source">Выбрать источник обновлений</string>
-    <string name="update_update_source_ghproxy">Ускоренный источник Ghproxy</string>
     <string name="update_downloading">Загрузка установочного файла… (%s / %s)</string>
     <string name="update_downloading_tip">Загрузка в процессе, источник обновления: %s</string>
     <!-- Other Login -->

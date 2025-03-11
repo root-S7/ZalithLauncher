@@ -607,8 +607,6 @@
     <string name="update_fail">حدثت مشكلة في الشبكة، يتعذر الحصول على التحديث حاليًا!</string>
     <string name="update_fail_code">حدثت مشكلة في الشبكة، يتعذر الحصول على التحديث حاليًا! رمز الخطأ: %d</string>
     <string name="update_success">تم تنزيل حزمة التثبيت الأحدث، هل ترغب في التثبيت؟ موقع الحزمة:</string>
-    <string name="update_update_source">اختر مصدر التحديث</string>
-    <string name="update_update_source_ghproxy">مصدر تسريع Ghproxy</string>
     <string name="update_downloading">جارٍ تنزيل حزمة التثبيت… (%s / %s)</string>
     <string name="update_downloading_tip">جارٍ التحميل، مصدر التحديث: %s</string>
     <!-- Other Login -->
