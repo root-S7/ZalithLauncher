@@ -7,7 +7,6 @@
     <string name="generic_edit">Éditer</string>
     <string name="generic_share">Partager</string>
     <string name="generic_move">Déplacer</string>
-    <string name="generic_add">Nouveau</string>
     <string name="generic_clone">Copier</string>
     <string name="generic_paste">Coller</string>
     <string name="generic_delete">Supprimer</string>
@@ -323,10 +322,12 @@
     <string name="multirt_config_title">Environnement d\'exécution Java</string>
     <string name="multirt_progress_caching">Mise en cache en cours…</string>
     <string name="multirt_config_setdefault">Définir par défaut</string>
-    <string name="multirt_config_removeerror_last">Vous devez avoir au moins un environnement d\'exécution Java installé</string>
     <string name="multirt_nocompatiblert">Aucun environnement d\'exécution Java compatible trouvé, cette version nécessite Java %d ou une version plus récente</string>
     <string name="multirt_nojava8rt">Impossible de trouver Java 8, pour utiliser cette option, vous devez installer Java 8</string>
     <string name="multirt_delete_runtime">Supprimer l\'environnement d\'exécution</string>
+    <string name="multirt_import">Importer l\'environnement d\'exécution</string>
+    <string name="multirt_swap_setdefault">Sélectionner l\'environnement par défaut</string>
+    <string name="multirt_provided_by_launcher">Intégré</string>
     <!-- Custom Mouse & Background -->
     <string name="mouse_settings_speed_name">Vitesse de la souris virtuelle</string>
     <string name="mouse_settings_scale_name">Échelle de la souris virtuelle</string>

@@ -7,7 +7,6 @@
     <string name="generic_edit">Редактировать</string>
     <string name="generic_share">Поделиться</string>
     <string name="generic_move">Переместить</string>
-    <string name="generic_add">Создать</string>
     <string name="generic_clone">Копировать</string>
     <string name="generic_paste">Вставить</string>
     <string name="generic_delete">Удалить</string>
@@ -323,10 +322,12 @@
     <string name="multirt_config_title">Среда выполнения Java</string>
     <string name="multirt_progress_caching">Кэширование…</string>
     <string name="multirt_config_setdefault">Установить по умолчанию</string>
-    <string name="multirt_config_removeerror_last">Вы должны установить хотя бы одну среду выполнения Java</string>
     <string name="multirt_nocompatiblert">Не найдено совместимой среды выполнения Java, для этой версии требуется Java %d или более новая версия</string>
     <string name="multirt_nojava8rt">Не удалось найти Java 8, для использования этой опции необходимо установить Java 8</string>
     <string name="multirt_delete_runtime">Удалить среду выполнения</string>
+    <string name="multirt_import">Импортировать среду выполнения</string>
+    <string name="multirt_swap_setdefault">Выбрать среду по умолчанию</string>
+    <string name="multirt_provided_by_launcher">Встроенный</string>
     <!-- Custom Mouse & Background -->
     <string name="mouse_settings_speed_name">Скорость виртуальной мыши</string>
     <string name="mouse_settings_scale_name">Масштаб виртуальной мыши</string>

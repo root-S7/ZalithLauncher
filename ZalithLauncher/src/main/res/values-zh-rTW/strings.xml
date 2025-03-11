@@ -7,7 +7,6 @@
     <string name="generic_edit">編輯</string>
     <string name="generic_share">分享</string>
     <string name="generic_move">移動</string>
-    <string name="generic_add">新增</string>
     <string name="generic_clone">複製</string>
     <string name="generic_paste">貼上</string>
     <string name="generic_delete">刪除</string>
@@ -323,10 +322,12 @@
     <string name="multirt_config_title">Java 執行環境</string>
     <string name="multirt_progress_caching">正在快取……</string>
     <string name="multirt_config_setdefault">設為預設</string>
-    <string name="multirt_config_removeerror_last">你必須至少安裝一個 Java 執行環境</string>
     <string name="multirt_nocompatiblert">找不到任何相容的 Java 執行環境，此版本需要 Java %d 或更新版本</string>
     <string name="multirt_nojava8rt">無法找到 Java 8，要使用此選項，你必須安裝 Java 8</string>
     <string name="multirt_delete_runtime">刪除執行環境</string>
+    <string name="multirt_import">匯入運行環境</string>
+    <string name="multirt_swap_setdefault">選擇預設環境</string>
+    <string name="multirt_provided_by_launcher">內建</string>
     <!-- Custom Mouse & Background -->
     <string name="mouse_settings_speed_name">虛擬滑鼠速度</string>
     <string name="mouse_settings_scale_name">虛擬滑鼠縮放</string>

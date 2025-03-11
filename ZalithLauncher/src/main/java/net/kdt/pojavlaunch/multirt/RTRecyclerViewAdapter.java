@@ -18,7 +18,6 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.ui.dialog.SelectRuntimeDialog;
-import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.utils.runtime.RuntimeSelectedListener;
 
 import net.kdt.pojavlaunch.Architecture;
@@ -33,11 +32,12 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private SelectRuntimeDialog mDialog;
     private final int TYPE_MODE_SELECT = 0;
     private final int TYPE_MODE_EDIT = 1;
-    private int mType = TYPE_MODE_EDIT;
+    private final int mType;
     private boolean mIsDeleting = false;
 
     public RTRecyclerViewAdapter(List<Runtime> mData) {
         this.mData = mData;
+        this.mType = TYPE_MODE_EDIT;
     }
 
     public RTRecyclerViewAdapter(List<Runtime> mData, RuntimeSelectedListener listener, SelectRuntimeDialog dialog) {
@@ -113,6 +113,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         final Context mContext;
         final TextView mJavaVersionTextView;
         final TextView mFullJavaVersionTextView;
+        final TextView mProvidedByLauncherTextView;
 
         public RTSelectViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,10 +121,13 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             mContext = itemView.getContext();
             mJavaVersionTextView = itemView.findViewById(R.id.multirt_view_java_version);
             mFullJavaVersionTextView = itemView.findViewById(R.id.multirt_view_java_version_full);
+            mProvidedByLauncherTextView = itemView.findViewById(R.id.multirt_provided_by_launcher);
         }
 
         public void bindRuntime(Runtime runtime) {
             if (!Objects.equals(runtime.name, "auto")) {
+                mProvidedByLauncherTextView.setVisibility(runtime.isProvidedByLauncher ? View.VISIBLE : View.GONE);
+
                 if(runtime.versionString != null && Tools.DEVICE_ARCHITECTURE == Architecture.archAsInt(runtime.arch)) {
                     mJavaVersionTextView.setText(getJavaVersionName(runtime));
                     mFullJavaVersionTextView.setText(runtime.versionString);
@@ -156,6 +160,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public class RTEditViewHolder extends RecyclerView.ViewHolder {
         final TextView mJavaVersionTextView;
         final TextView mFullJavaVersionTextView;
+        final TextView mProvidedByLauncherTextView;
         final ColorStateList mDefaultColors;
         final Button mSetDefaultButton;
         final ImageButton mDeleteButton;
@@ -167,6 +172,7 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(itemView);
             mJavaVersionTextView = itemView.findViewById(R.id.multirt_view_java_version);
             mFullJavaVersionTextView = itemView.findViewById(R.id.multirt_view_java_version_full);
+            mProvidedByLauncherTextView = itemView.findViewById(R.id.multirt_provided_by_launcher);
             mSetDefaultButton = itemView.findViewById(R.id.multirt_view_setdefaultbtn);
             mDeleteButton = itemView.findViewById(R.id.multirt_view_removebtn);
 
@@ -188,16 +194,6 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             mDeleteButton.setOnClickListener(v -> {
                 if (mCurrentRuntime == null) return;
 
-                if (MultiRTUtils.getRuntimes().size() < 2) {
-                    new TipDialog.Builder(mContext)
-                            .setTitle(R.string.generic_warning)
-                            .setMessage(R.string.multirt_config_removeerror_last)
-                            .setWarning()
-                            .setShowCancel(false)
-                            .showDialog();
-                    return;
-                }
-
                 Task.runTask(() -> {
                     MultiRTUtils.removeRuntimeNamed(mCurrentRuntime.name);
                     mDeleteButton.post(() -> {
@@ -215,12 +211,14 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public void bindRuntime(Runtime runtime, int pos) {
             mCurrentRuntime = runtime;
             mCurrentPosition = pos;
-            if(runtime.versionString != null && Tools.DEVICE_ARCHITECTURE == Architecture.archAsInt(runtime.arch)) {
+
+            updateButtonsVisibility(runtime);
+            mProvidedByLauncherTextView.setVisibility(runtime.isProvidedByLauncher ? View.VISIBLE : View.GONE);
+
+            if (runtime.versionString != null && Tools.DEVICE_ARCHITECTURE == Architecture.archAsInt(runtime.arch)) {
                 mJavaVersionTextView.setText(getJavaVersionName(runtime));
                 mFullJavaVersionTextView.setText(runtime.versionString);
                 mFullJavaVersionTextView.setTextColor(mDefaultColors);
-
-                updateButtonsVisibility();
 
                 boolean defaultRuntime = isDefaultRuntime(runtime);
                 mSetDefaultButton.setEnabled(!defaultRuntime);
@@ -230,9 +228,9 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             // Problematic runtime moment, force propose deletion
             mDeleteButton.setVisibility(View.VISIBLE);
-            if(runtime.versionString == null){
+            if (runtime.versionString == null) {
                 mFullJavaVersionTextView.setText(R.string.multirt_runtime_corrupt);
-            }else{
+            } else {
                 mFullJavaVersionTextView.setText(mContext.getString(R.string.multirt_runtime_incompatiblearch, runtime.arch));
             }
             mJavaVersionTextView.setText(runtime.name);
@@ -240,9 +238,9 @@ public class RTRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             mSetDefaultButton.setVisibility(View.GONE);
         }
 
-        private void updateButtonsVisibility(){
-            mSetDefaultButton.setVisibility(mIsDeleting ? View.GONE : View.VISIBLE);
-            mDeleteButton.setVisibility(mIsDeleting ? View.VISIBLE : View.GONE);
+        private void updateButtonsVisibility(Runtime runtime) {
+            mSetDefaultButton.setVisibility(mIsDeleting ? View.INVISIBLE : View.VISIBLE);
+            mDeleteButton.setVisibility(!mIsDeleting || runtime.isProvidedByLauncher ? View.INVISIBLE : View.VISIBLE);
         }
     }
 }

@@ -7,6 +7,7 @@ import android.system.Os;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
+import com.movtery.zalithlauncher.feature.unpack.Jre;
 import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.Tools;
@@ -17,6 +18,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.jackhuang.hmcl.util.versioning.VersionNumber;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,16 +39,33 @@ public class MultiRTUtils {
     private static final String OS_ARCH_STR = "OS_ARCH=\"";
 
     public static List<Runtime> getRuntimes() {
-        if(!RUNTIME_FOLDER.exists() && !RUNTIME_FOLDER.mkdirs()) {
+        if (!RUNTIME_FOLDER.exists() && !RUNTIME_FOLDER.mkdirs()) {
             throw new RuntimeException("Failed to create runtime directory");
         }
 
         ArrayList<Runtime> runtimes = new ArrayList<>();
         File[] files = RUNTIME_FOLDER.listFiles();
-        if(files != null) for(File f : files) {
-            runtimes.add(read(f.getName()));
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) continue;
+
+                String fileName = file.getName();
+                Runtime runtime = read(fileName);
+
+                for (Jre jre : Jre.getEntries()) {
+                    if (jre.getJreName().equals(fileName)) {
+                        runtime.isProvidedByLauncher = true;
+                        break;
+                    }
+                }
+
+                runtimes.add(runtime);
+            }
+        } else {
+            throw new RuntimeException("The runtime directory does not exist");
         }
-        else throw new RuntimeException("The runtime directory does not exist");
+
+        runtimes.sort((o1, o2) -> -VersionNumber.compare(o1.versionString, o2.versionString));
 
         return runtimes;
     }
@@ -128,7 +147,7 @@ public class MultiRTUtils {
     }
 
     public static void removeRuntimeNamed(String name) throws IOException {
-        File dest = new File(RUNTIME_FOLDER,"/"+name);
+        File dest = new File(RUNTIME_FOLDER, name);
         if(dest.exists()) {
             FileUtils.deleteDirectory(dest);
             sCache.remove(name);

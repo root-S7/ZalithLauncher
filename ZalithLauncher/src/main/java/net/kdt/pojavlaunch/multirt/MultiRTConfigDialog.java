@@ -42,7 +42,7 @@ public class MultiRTConfigDialog {
         mDialog = new AlertDialog.Builder(activity, R.style.CustomAlertDialogTheme)
                 .setTitle(R.string.multirt_config_title)
                 .setView(mDialogView)
-                .setPositiveButton(R.string.generic_add, (dialog, which) -> installJvmLauncher.launch(null))
+                .setPositiveButton(R.string.multirt_import, (dialog, which) -> installJvmLauncher.launch(null))
                 .setNeutralButton(R.string.multirt_delete_runtime, null)
                 .create();
 
@@ -52,7 +52,7 @@ public class MultiRTConfigDialog {
             button.setOnClickListener(view -> {
                 boolean isEditing = !adapter.getIsEditing();
                 adapter.setIsEditing(isEditing);
-                button.setText(isEditing ? R.string.multirt_config_setdefault : R.string.multirt_delete_runtime);
+                button.setText(isEditing ? R.string.multirt_swap_setdefault : R.string.multirt_delete_runtime);
             });
         });
     }

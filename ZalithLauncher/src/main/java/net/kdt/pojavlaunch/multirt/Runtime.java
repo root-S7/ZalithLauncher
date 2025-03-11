@@ -7,6 +7,8 @@ public class Runtime {
     public final String versionString;
     public final String arch;
     public final int javaVersion;
+    public boolean isProvidedByLauncher = false;
+
     public Runtime(String name) {
         this.name = name;
         this.versionString = null;

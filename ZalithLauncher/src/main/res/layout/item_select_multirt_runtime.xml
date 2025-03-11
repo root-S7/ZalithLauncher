@@ -33,4 +33,16 @@
         app:layout_constraintTop_toTopOf="@+id/multirt_view_java_version"
         tools:text="1.8.0_422" />
 
+    <TextView
+        android:id="@+id/multirt_provided_by_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:textSize="@dimen/_12ssp"
+        android:text="@string/multirt_provided_by_launcher"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/multirt_view_java_version_full"
+        app:layout_constraintStart_toEndOf="@+id/multirt_view_java_version_full"
+        app:layout_constraintTop_toTopOf="@+id/multirt_view_java_version_full" />
+
 </com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout>
