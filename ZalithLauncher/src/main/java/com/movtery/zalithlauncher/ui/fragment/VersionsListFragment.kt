@@ -37,6 +37,7 @@ import com.movtery.zalithlauncher.ui.subassembly.version.VersionAdapter
 import com.movtery.zalithlauncher.utils.path.PathManager
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
 import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.stringutils.SortStrings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.UUID
@@ -184,7 +185,14 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
 
     private fun refreshVersions(all: Boolean = true, favoritesFolder: String? = null) {
         versionsAdapter?.let {
-            val versions = VersionsManager.getVersions()
+            val versions = VersionsManager.getVersions().sortedWith { o1, o2 ->
+                var sort = -SortStrings.compareClassVersions(
+                    o1.getVersionInfo()?.minecraftVersion ?: o1.getVersionName(),
+                    o2.getVersionInfo()?.minecraftVersion ?: o2.getVersionName()
+                )
+                if (sort == 0) sort = SortStrings.compareChar(o1.getVersionName(), o2.getVersionName())
+                sort
+            }
 
             fun getVersions(): List<Version> {
                 if (all) return versions
