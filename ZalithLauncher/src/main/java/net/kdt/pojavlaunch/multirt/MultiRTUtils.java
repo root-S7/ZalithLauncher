@@ -9,6 +9,7 @@ import com.movtery.zalithlauncher.R;
 import com.movtery.zalithlauncher.feature.log.Logging;
 import com.movtery.zalithlauncher.feature.unpack.Jre;
 import com.movtery.zalithlauncher.utils.path.PathManager;
+import com.movtery.zalithlauncher.utils.stringutils.SortStrings;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.MathUtils;
@@ -18,7 +19,6 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.jackhuang.hmcl.util.versioning.VersionNumber;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,7 +65,7 @@ public class MultiRTUtils {
             throw new RuntimeException("The runtime directory does not exist");
         }
 
-        runtimes.sort((o1, o2) -> -VersionNumber.compare(o1.versionString, o2.versionString));
+        runtimes.sort((o1, o2) -> -SortStrings.compareClassVersions(o1.versionString, o2.versionString));
 
         return runtimes;
     }
