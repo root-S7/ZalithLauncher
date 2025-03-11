@@ -6,11 +6,11 @@ import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.utils.path.PathManager.Companion.DIR_LAUNCHER_LOG
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import net.kdt.pojavlaunch.Tools
 import java.io.BufferedWriter
 import java.io.File
@@ -23,7 +23,8 @@ import java.util.Locale
  * 启动器日志记录，将软件日志及时写入本地文件存储
  */
 object Logging {
-    private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO.limitedParallelism(1) + SupervisorJob())
     private val loggerMutex = Mutex()
 
     @Volatile
@@ -65,9 +66,7 @@ object Logging {
             val timeString = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(date)
             val logString = "[$timeString] (${tag.name}) <$mark> $log"
 
-            withContext(Dispatchers.IO) {
-                appendToFile(logString)
-            }
+            appendToFile(logString)
         }
     }
 
