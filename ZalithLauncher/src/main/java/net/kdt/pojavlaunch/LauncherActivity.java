@@ -99,6 +99,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
@@ -147,6 +149,7 @@ public class LauncherActivity extends BaseActivity {
     @Subscribe()
     public void event(MainBackgroundChangeEvent event) {
         refreshBackground();
+        setPageOpacity(AllSettings.getPageOpacity().getValue());
     }
 
     @Subscribe()
@@ -635,7 +638,15 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void setPageOpacity(int pageOpacity) {
-        float v = (float) pageOpacity / 100;
-        if (binding.containerFragment.getAlpha() != v) binding.containerFragment.setAlpha(v);
+        BigDecimal opacity = BigDecimal.valueOf(pageOpacity).divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP);
+        float v = opacity.floatValue();
+
+        binding.containerFragment.setAlpha(v);
+
+        BigDecimal adjustedOpacity = BackgroundManager.hasBackgroundImage(BackgroundType.MAIN_MENU)
+                ? opacity.subtract(BigDecimal.valueOf(0.1)).max(BigDecimal.ZERO)
+                : BigDecimal.ONE;
+
+        binding.topLayout.setAlpha(adjustedOpacity.floatValue());
     }
 }

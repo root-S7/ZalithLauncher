@@ -79,9 +79,16 @@ object BackgroundManager {
         backgroundView.setImageDrawable(null)
     }
 
-    fun getBackgroundImage(backgroundType: BackgroundType): File? {
+    @JvmStatic
+    fun hasBackgroundImage(backgroundType: BackgroundType): Boolean {
         val pngName = properties[backgroundType.name] as String?
-        if (pngName == null || pngName == NULL) return null
+        return pngName != null && pngName != NULL
+    }
+
+    fun getBackgroundImage(backgroundType: BackgroundType): File? {
+        if (!hasBackgroundImage(backgroundType)) return null
+
+        val pngName = properties[backgroundType.name] as String
 
         val backgroundImage = File(PathManager.DIR_BACKGROUND, pngName)
         if (!backgroundImage.exists() || !isImage(backgroundImage)) return null
