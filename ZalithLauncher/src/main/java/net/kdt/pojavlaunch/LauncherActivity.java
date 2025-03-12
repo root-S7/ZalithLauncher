@@ -68,6 +68,7 @@ import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.task.Task;
 import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
+import com.movtery.zalithlauncher.ui.activity.ErrorActivity;
 import com.movtery.zalithlauncher.ui.dialog.EditTextDialog;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.ui.fragment.AccountFragment;
@@ -106,6 +107,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Random;
 import java.util.concurrent.Future;
 
 public class LauncherActivity extends BaseActivity {
@@ -438,9 +440,14 @@ public class LauncherActivity extends BaseActivity {
             }
         });
         binding.appTitleText.setText(InfoDistributor.APP_NAME);
-        binding.appTitleText.setOnClickListener(v ->
-                binding.appTitleText.setText(StringUtils.shiftString(binding.appTitleText.getText().toString(), ShiftDirection.RIGHT, 1))
-        );
+        binding.appTitleText.setOnClickListener(v -> {
+            String shiftedString = StringUtils.shiftString(binding.appTitleText.getText().toString(), ShiftDirection.RIGHT, 1);
+            if (new Random().nextInt(100) < 20 && shiftedString.equals(InfoDistributor.APP_NAME)) {
+                ErrorActivity.showEasterEgg(this);
+                return;
+            }
+            binding.appTitleText.setText(shiftedString);
+        });
 
         binding.progressLayout.observe(ProgressLayout.DOWNLOAD_MINECRAFT);
         binding.progressLayout.observe(ProgressLayout.UNPACK_RUNTIME);

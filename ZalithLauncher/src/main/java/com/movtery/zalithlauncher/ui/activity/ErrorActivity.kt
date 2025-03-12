@@ -32,13 +32,22 @@ class ErrorActivity : BaseActivity() {
         }
         binding.shareLog.setOnClickListener { ZHTools.shareLogs(this) }
 
-        if (extras.getBoolean(BUNDLE_IS_LAUNCHER_CRASH, true)) {
+        if (extras.getBoolean(BUNDLE_IS_LAUNCHER_CRASH, false)) {
             showLauncherCrash(extras)
-        } else {
+            return
+        }
+        if (extras.getBoolean(BUNDLE_IS_GAME_CRASH, false)) {
             //如果不是应用崩溃，那么这个页面就不允许截图
             window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
             showGameCrash(extras)
+            return
         }
+        if (extras.getBoolean(BUNDLE_EASTER_EGG, false)) {
+            showEasterEgg()
+            return
+        }
+
+        finish()
     }
 
     private fun showLauncherCrash(extras: Bundle) {
@@ -82,12 +91,30 @@ class ErrorActivity : BaseActivity() {
         }
     }
 
+    private fun showEasterEgg() {
+        val context = this
+
+        binding.apply {
+            this.topView.visibility = View.GONE
+            this.scrollView.visibility = View.GONE
+            this.shareLog.visibility = View.GONE
+            this.centerText.visibility = View.VISIBLE
+
+            this.centerText.text = InfoCenter.replaceName(context, R.string.error_fatal)
+
+            this.topView.setBackgroundColor(ContextCompat.getColor(context, R.color.background_menu_top_error))
+            this.background.setBackgroundResource(R.drawable.image_xibao)
+        }
+    }
+
     companion object {
-        private const val BUNDLE_IS_LAUNCHER_CRASH = "is_error"
+        private const val BUNDLE_IS_LAUNCHER_CRASH = "is_launcher_crash"
+        private const val BUNDLE_IS_GAME_CRASH = "is_game_crash"
         private const val BUNDLE_IS_SIGNAL = "is_signal"
         private const val BUNDLE_CODE = "code"
         private const val BUNDLE_THROWABLE = "throwable"
         private const val BUNDLE_SAVE_PATH = "save_path"
+        private const val BUNDLE_EASTER_EGG = "easter_egg"
 
         @JvmStatic
         fun showLauncherCrash(ctx: Context, savePath: String?, th: Throwable?) {
@@ -112,6 +139,16 @@ class ErrorActivity : BaseActivity() {
             intent.putExtra(BUNDLE_CODE, code)
             intent.putExtra(BUNDLE_IS_LAUNCHER_CRASH, false)
             intent.putExtra(BUNDLE_IS_SIGNAL, isSignal)
+            intent.putExtra(BUNDLE_IS_GAME_CRASH, true)
+            ctx.startActivity(intent)
+        }
+
+        @JvmStatic
+        fun showEasterEgg(ctx: Context) {
+            val intent = Intent(ctx, ErrorActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra(BUNDLE_EASTER_EGG, true)
             ctx.startActivity(intent)
         }
     }
