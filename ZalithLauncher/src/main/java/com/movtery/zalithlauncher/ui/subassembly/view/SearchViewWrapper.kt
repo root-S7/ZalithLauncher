@@ -1,20 +1,17 @@
 package com.movtery.zalithlauncher.ui.subassembly.view
 
-import android.animation.Animator
-import android.animation.ObjectAnimator
 import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.movtery.zalithlauncher.R
-import com.petterp.floatingx.assist.FxAnimation
 import com.petterp.floatingx.assist.FxGravity
+import com.petterp.floatingx.assist.helper.FxScopeHelper
 import com.petterp.floatingx.listener.IFxViewLifecycle
-import com.petterp.floatingx.util.createFx
+import com.petterp.floatingx.listener.control.IFxScopeControl
 import com.petterp.floatingx.view.FxViewHolder
 
 class SearchViewWrapper(private val fragment: Fragment) {
@@ -24,36 +21,29 @@ class SearchViewWrapper(private val fragment: Fragment) {
     private var searchAsynchronousUpdatesListener: SearchAsynchronousUpdatesListener? = null
     private var isShow = false
 
-    private val scopeFx by createFx {
-        setLayout(R.layout.view_search)
-        setEnableEdgeAdsorption(false)
-        addViewLifecycle(object : IFxViewLifecycle {
-            override fun initView(holder: FxViewHolder) {
-                mSearchEditText = holder.getView(R.id.edit_text)
-                val caseSensitive = holder.getView<CheckBox>(R.id.case_sensitive)
-                val searchCountText = holder.getView<TextView>(R.id.text)
+    private var scopeFx: IFxScopeControl? = null
 
-                holder.getView<ImageButton>(R.id.search_button).setOnClickListener {
-                    search(searchCountText, caseSensitive.isChecked)
-                }
-                holder.getView<CheckBox>(R.id.show_search_results_only).setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-                    showSearchResultsListener?.apply { onSearch(isChecked) }
-                    if (mSearchEditText.getText().toString().isNotEmpty()) search(searchCountText, caseSensitive.isChecked)
-                }
-            }
-        })
-        setGravity(FxGravity.TOP_OR_CENTER)
-        setEnableAnimation(true)
-        setAnimationImpl(object : FxAnimation() {
-            override fun fromAnimator(view: FrameLayout?): Animator {
-                return ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-            }
+    private fun getWindow(): IFxScopeControl {
+        return FxScopeHelper.Builder().apply {
+            setLayout(R.layout.view_search)
+            setEnableEdgeAdsorption(false)
+            addViewLifecycle(object : IFxViewLifecycle {
+                override fun initView(holder: FxViewHolder) {
+                    mSearchEditText = holder.getView(R.id.edit_text)
+                    val caseSensitive = holder.getView<CheckBox>(R.id.case_sensitive)
+                    val searchCountText = holder.getView<TextView>(R.id.text)
 
-            override fun toAnimator(view: FrameLayout?): Animator {
-                return ObjectAnimator.ofFloat(view, "alpha", 1f, 0f)
-            }
-        })
-        build().toControl(fragment)
+                    holder.getView<ImageButton>(R.id.search_button).setOnClickListener {
+                        search(searchCountText, caseSensitive.isChecked)
+                    }
+                    holder.getView<CheckBox>(R.id.show_search_results_only).setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+                        showSearchResultsListener?.apply { onSearch(isChecked) }
+                        if (mSearchEditText.getText().toString().isNotEmpty()) search(searchCountText, caseSensitive.isChecked)
+                    }
+                }
+            })
+            setGravity(FxGravity.TOP_OR_CENTER)
+        }.build().toControl(fragment)
     }
 
     private fun search(searchCountText: TextView, caseSensitive: Boolean) {
@@ -88,8 +78,16 @@ class SearchViewWrapper(private val fragment: Fragment) {
     }
 
     fun setVisibility(visible: Boolean) {
-        if (visible) scopeFx.show()
-        else scopeFx.hide()
+        if (visible) {
+            scopeFx ?: run {
+                scopeFx = getWindow().apply {
+                    show()
+                }
+            }
+        } else {
+            scopeFx?.cancel()
+            scopeFx = null
+        }
     }
 
     interface SearchListener {
