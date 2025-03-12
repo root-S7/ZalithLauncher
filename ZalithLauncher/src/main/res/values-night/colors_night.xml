@@ -3,11 +3,11 @@
     <color name="black_or_white">#FFFFFF</color>
 
     <color name="background_app">#181818</color>
-    <color name="background_app_error">#1A1111</color>
+    <color name="background_app_error">#431A1A</color>
     <color name="background_overlay">#464646</color>
     <color name="background_status_bar">#242424</color>
     <color name="background_menu_top">#232323</color>
-    <color name="background_menu_top_error">#1D1B1B</color>
+    <color name="background_menu_top_error">#E62E0909</color>
     <color name="background_menu_element">#1F7281</color>
 
     <color name="button_background">#3C3C3C</color>
