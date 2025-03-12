@@ -24,6 +24,7 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginVertical="@dimen/_12sdp"
             android:background="@drawable/background_card"
+            android:padding="@dimen/_2sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_item"
+                android:padding="@dimen/_8sdp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +54,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" >
 
-                <com.movtery.zalithlauncher.ui.view.AnimTextView
+                <TextView
                     android:id="@+id/nothing_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +67,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:text="@string/profile_mods_download_mod"
-                    android:layout_marginHorizontal="@dimen/_8sdp" />
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    app:ripple_for_text="true"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

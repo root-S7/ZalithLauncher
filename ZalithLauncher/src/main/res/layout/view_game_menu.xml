@@ -46,7 +46,9 @@
                 android:background="@drawable/background_item"
                 android:text="@string/option_force_close"
                 android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_8sdp"/>
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                app:ripple_for_text="true"/>
 
             <com.movtery.zalithlauncher.ui.view.AnimTextView
                 android:id="@+id/log_output"
@@ -56,7 +58,9 @@
                 android:background="@drawable/background_item"
                 android:text="@string/option_log_out"
                 android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_8sdp"/>
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                app:ripple_for_text="true"/>
 
             <com.movtery.zalithlauncher.ui.view.AnimTextView
                 android:id="@+id/send_custom_key"
@@ -66,7 +70,9 @@
                 android:background="@drawable/background_item"
                 android:text="@string/option_send_custom_key"
                 android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_8sdp"/>
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                app:ripple_for_text="true"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/resolution_scaler_layout"
@@ -170,7 +176,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_item"
-                android:padding="@dimen/_8sdp">
+                android:padding="@dimen/_8sdp"
+                app:ripple_for_relative="true">
 
                 <TextView
                     android:id="@+id/disableGestures_title"
@@ -197,7 +204,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_item"
-                android:padding="@dimen/_8sdp">
+                android:padding="@dimen/_8sdp"
+                app:ripple_for_relative="true">
 
                 <TextView
                     android:id="@+id/disableDoubleTap_title"
@@ -362,7 +370,9 @@
                 android:background="@drawable/background_item"
                 android:text="@string/custom_mouse_title"
                 android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_8sdp"/>
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                app:ripple_for_text="true"/>
 
             <com.movtery.zalithlauncher.ui.view.AnimTextView
                 android:id="@+id/replacement_customcontrol"
@@ -372,7 +382,9 @@
                 android:background="@drawable/background_item"
                 android:text="@string/replacement_customcontrol"
                 android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_8sdp"/>
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                app:ripple_for_text="true"/>
 
             <com.movtery.zalithlauncher.ui.view.AnimTextView
                 android:id="@+id/edit_control"
@@ -382,7 +394,9 @@
                 android:background="@drawable/background_item"
                 android:text="@string/option_edit_controls"
                 android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/_8sdp"/>
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                app:ripple_for_text="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -404,7 +418,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_item"
-                android:padding="@dimen/_8sdp">
+                android:padding="@dimen/_8sdp"
+                app:ripple_for_relative="true">
 
                 <TextView
                     android:id="@+id/enableGyro_title"
@@ -505,7 +520,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/background_item"
-                    android:padding="@dimen/_8sdp">
+                    android:padding="@dimen/_8sdp"
+                    app:ripple_for_relative="true">
 
                     <TextView
                         android:id="@+id/gyroInvertX_title"
@@ -532,7 +548,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/background_item"
-                    android:padding="@dimen/_8sdp">
+                    android:padding="@dimen/_8sdp"
+                    app:ripple_for_relative="true">
 
                     <TextView
                         android:id="@+id/gyroInvertY_title"
@@ -580,12 +597,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:background="@drawable/background_item"
+                android:paddingVertical="@dimen/_12sdp"
                 android:paddingHorizontal="@dimen/padding_heavy"
                 app:spinner_arrow_tint="@color/primary_text"
                 app:spinner_item_height="@dimen/_40sdp"
                 app:spinner_popup_max_height="@dimen/_240sdp"
-                app:spinner_popup_background="@drawable/background_edit_box"
-                tools:paddingVertical="@dimen/_12sdp" />
+                app:spinner_popup_background="@drawable/background_edit_box" />
 
             <LinearLayout
                 android:id="@+id/hotbar_width_layout"

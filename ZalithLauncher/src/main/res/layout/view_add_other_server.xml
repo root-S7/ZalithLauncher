@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_240sdp"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_card"
     android:padding="@dimen/_8sdp"
     android:orientation="vertical"
@@ -31,7 +32,9 @@
             android:background="@drawable/background_item"
             android:gravity="center_horizontal"
             android:paddingHorizontal="@dimen/_20sdp"
-            android:text="@string/other_login_server"/>
+            android:paddingVertical="@dimen/_12sdp"
+            android:text="@string/other_login_server"
+            app:ripple_for_text="true"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -57,7 +60,9 @@
             android:background="@drawable/background_item"
             android:gravity="center_horizontal"
             android:paddingHorizontal="@dimen/_20sdp"
-            android:text="@string/other_login_uniform_pass"/>
+            android:paddingVertical="@dimen/_12sdp"
+            android:text="@string/other_login_uniform_pass"
+            app:ripple_for_text="true"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

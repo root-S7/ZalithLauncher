@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_240sdp"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_card"
     android:padding="@dimen/_8sdp"
     android:orientation="horizontal"
@@ -25,6 +26,8 @@
         android:layout_gravity="center_vertical"
         android:background="@drawable/background_item"
         android:gravity="center_horizontal"
-        android:paddingHorizontal="@dimen/_20sdp"/>
+        android:paddingVertical="@dimen/_12sdp"
+        android:paddingHorizontal="@dimen/_20sdp"
+        app:ripple_for_text="true"/>
 
 </LinearLayout>

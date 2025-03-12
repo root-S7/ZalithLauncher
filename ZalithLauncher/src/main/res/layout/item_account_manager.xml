@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/_4sdp"
     android:background="@drawable/background_item"
+    android:paddingVertical="@dimen/_12sdp"
+    app:ripple_for_constraint="true"
     tools:ignore="ContentDescription">
 
     <ImageView

@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_card"
             android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:paddingVertical="@dimen/_12sdp">
 
             <TextView

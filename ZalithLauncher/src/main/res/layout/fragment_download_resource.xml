@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_item"
-            android:paddingHorizontal="@dimen/_12sdp"
+            android:padding="@dimen/_12sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
             app:layout_constraintEnd_toEndOf="@+id/recycler_view"

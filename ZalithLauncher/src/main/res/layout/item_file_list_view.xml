@@ -6,6 +6,7 @@
     android:layout_height="@dimen/_40sdp"
     android:layout_marginVertical="@dimen/_4sdp"
     android:background="@drawable/background_item_2"
+    app:ripple_for_constraint="true"
     tools:ignore="ContentDescription,HardcodedText">
 
     <ImageView

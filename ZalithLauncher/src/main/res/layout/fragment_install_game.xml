@@ -15,6 +15,7 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/background_item"
         android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_12sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -92,7 +93,9 @@
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_12sdp"
+                    app:ripple_for_constraint="true">
 
                     <ImageView
                         android:id="@+id/optifine_icon"
@@ -170,7 +173,9 @@
                     android:layout_marginStart="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_12sdp"
+                    app:ripple_for_constraint="true">
 
                     <ImageView
                         android:id="@+id/forge_icon"
@@ -247,7 +252,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/background_item"
-                android:paddingHorizontal="@dimen/_8sdp">
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_12sdp"
+                app:ripple_for_constraint="true">
 
                 <ImageView
                     android:id="@+id/neoforge_icon"
@@ -332,7 +339,9 @@
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_12sdp"
+                    app:ripple_for_constraint="true">
 
                     <ImageView
                         android:id="@+id/fabric_icon"
@@ -408,7 +417,9 @@
                     android:layout_marginStart="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_12sdp"
+                    app:ripple_for_constraint="true">
 
                     <ImageView
                         android:id="@+id/fabric_api_icon"
@@ -493,7 +504,9 @@
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_12sdp"
+                    app:ripple_for_constraint="true">
 
                     <ImageView
                         android:id="@+id/quilt_icon"
@@ -569,7 +582,9 @@
                     android:layout_marginStart="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp">
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_12sdp"
+                    app:ripple_for_constraint="true">
 
                     <ImageView
                         android:id="@+id/quilt_api_icon"

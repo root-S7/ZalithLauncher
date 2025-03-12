@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:minWidth="@dimen/_280sdp"
     android:background="@drawable/background_card"
+    android:paddingHorizontal="@dimen/_2sdp"
     android:paddingVertical="@dimen/_10sdp">
 
     <com.movtery.zalithlauncher.ui.view.AnimEditText

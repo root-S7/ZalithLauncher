@@ -34,7 +34,8 @@
                 android:background="@drawable/background_card"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:ripple_for_relative="true">
 
                 <ImageView
                     android:id="@+id/install_icon"
@@ -85,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/_8sdp">
 
-                        <com.movtery.zalithlauncher.ui.view.AnimTextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"

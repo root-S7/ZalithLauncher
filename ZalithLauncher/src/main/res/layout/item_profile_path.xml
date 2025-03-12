@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/_4sdp"
     android:padding="@dimen/_8sdp"
-    android:background="@drawable/background_item">
+    android:background="@drawable/background_item"
+    app:ripple_for_constraint="true">
 
     <RadioButton
         android:id="@+id/radio_button"

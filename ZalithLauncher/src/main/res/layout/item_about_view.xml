@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/_4sdp"
-    android:background="@drawable/background_item">
+    android:background="@drawable/background_item"
+    android:paddingVertical="@dimen/_12sdp" >
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_view"
@@ -61,4 +62,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-</com.movtery.zalithlauncher.ui.layout.AnimConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

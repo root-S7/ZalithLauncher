@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_240sdp"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_card"
     android:padding="@dimen/_8sdp"
     android:orientation="vertical"
@@ -29,8 +30,10 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/background_item"
             android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/_12sdp"
             android:paddingHorizontal="@dimen/_20sdp"
-            android:text="@string/profiles_path_settings_goto"/>
+            android:text="@string/profiles_path_settings_goto"
+            app:ripple_for_text="true"/>
         
     </LinearLayout>
     
@@ -56,8 +59,10 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/background_item"
             android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/_12sdp"
             android:paddingHorizontal="@dimen/_20sdp"
-            android:text="@string/version_manager_shortcuts_version_path"/>
+            android:text="@string/version_manager_shortcuts_version_path"
+            app:ripple_for_text="true"/>
         
     </LinearLayout>
     
@@ -83,8 +88,10 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/background_item"
             android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/_12sdp"
             android:paddingHorizontal="@dimen/_20sdp"
-            android:text="@string/version_manager_rename"/>
+            android:text="@string/version_manager_rename"
+            app:ripple_for_text="true"/>
         
     </LinearLayout>
     
@@ -110,8 +117,10 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/background_item"
             android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/_12sdp"
             android:paddingHorizontal="@dimen/_20sdp"
-            android:text="@string/version_manager_copy"/>
+            android:text="@string/version_manager_copy"
+            app:ripple_for_text="true"/>
         
     </LinearLayout>
     
@@ -137,8 +146,10 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/background_item"
             android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/_12sdp"
             android:paddingHorizontal="@dimen/_20sdp"
-            android:text="@string/version_manager_delete"/>
+            android:text="@string/version_manager_delete"
+            app:ripple_for_text="true"/>
         
     </LinearLayout>
 
