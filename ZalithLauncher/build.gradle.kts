@@ -250,6 +250,7 @@ dependencies {
     implementation("androidx.annotation:annotation:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-ktx:1.13.0")
+    implementation("androidx.palette:palette-ktx:1.0.0")
 
     implementation("com.github.duanhong169:checkerboarddrawable:1.0.2")
     implementation("com.github.PojavLauncherTeam:portrait-sdp:ed33e89cbc")

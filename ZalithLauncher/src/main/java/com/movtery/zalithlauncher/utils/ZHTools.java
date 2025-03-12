@@ -394,6 +394,11 @@ public final class ZHTools {
                 .execute();
     }
 
+    public static boolean isDarkMode(Context context) {
+        Configuration configuration = context.getResources().getConfiguration();
+        return (configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    }
+
     public static void getWebViewAfterProcessing(WebView view) {
         view.setWebViewClient(new WebViewClient() {
             @Override
@@ -401,8 +406,7 @@ public final class ZHTools {
                 super.onPageFinished(view, url);
 
                 String[] color = new String[2];
-                Configuration configuration = view.getResources().getConfiguration();
-                boolean darkMode = (configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+                boolean darkMode = isDarkMode(view.getContext());
                 color[0] = darkMode ? "#333333" : "#CFCFCF";
                 color[1] = darkMode ? "#ffffff" : "#0E0E0E";
 

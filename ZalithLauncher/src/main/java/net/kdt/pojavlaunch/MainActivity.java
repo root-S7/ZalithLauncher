@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         mGameMenuWrapper = new GameMenuViewWrapper(this, v -> onClickedMenu());
         touchCharInput = binding.mainTouchCharInput;
 
-        BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, binding.backgroundView);
+        BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, binding.backgroundView, null);
 
         keyboardDialog = new KeyboardDialog(this).setShowSpecialButtons(false);
 

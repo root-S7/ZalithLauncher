@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -57,18 +56,22 @@ object BackgroundManager {
     fun setBackgroundImage(
         context: Context,
         backgroundType: BackgroundType,
-        backgroundView: ImageView
+        backgroundView: ImageView,
+        callback: CallbackDrawableImageViewTarget.Callback? = null
     ) {
         backgroundView.setImageDrawable(
             ContextCompat.getDrawable(context, R.color.background_app)
         )
 
-        val backgroundImage = getBackgroundImage(backgroundType) ?: return
+        val backgroundImage = getBackgroundImage(backgroundType) ?: run {
+            callback?.callback(false)
+            return
+        }
 
         Glide.with(context).load(backgroundImage)
             .override(backgroundView.width, backgroundView.height)
             .centerCrop()
-            .into(DrawableImageViewTarget(backgroundView))
+            .into(CallbackDrawableImageViewTarget(backgroundView, callback))
     }
 
     @JvmStatic

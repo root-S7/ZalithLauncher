@@ -44,7 +44,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 			else drawerLayout.openDrawer(drawerNavigationView);
 		}).setVisibility(true);
 
-		BackgroundManager.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, binding.backgroundView);
+		BackgroundManager.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, binding.backgroundView, null);
 
 		drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 		drawerLayout.setScrimColor(Color.TRANSPARENT);

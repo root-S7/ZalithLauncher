@@ -6,6 +6,8 @@ import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -18,8 +20,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.palette.graphics.Palette;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.anim.AnimPlayer;
@@ -78,6 +82,7 @@ import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.anim.ViewAnimUtils;
 import com.movtery.zalithlauncher.utils.file.FileTools;
+import com.movtery.zalithlauncher.utils.image.ImageUtils;
 import com.movtery.zalithlauncher.utils.stringutils.ShiftDirection;
 import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
 
@@ -580,7 +585,41 @@ public class LauncherActivity extends BaseActivity {
     }
 
     private void refreshBackground() {
-        BackgroundManager.setBackgroundImage(this, BackgroundType.MAIN_MENU, binding.backgroundView);
+        BackgroundManager.setBackgroundImage(this, BackgroundType.MAIN_MENU, binding.backgroundView, this::refreshTopBarColor);
+    }
+
+    private void refreshTopBarColor(boolean loadFromBackground) {
+        int backgroundMenuTop = ContextCompat.getColor(this, R.color.background_menu_top);
+
+        if (loadFromBackground) {
+            Bitmap bitmap = ImageUtils.getBitmapFromImageView(binding.backgroundView);
+            if (bitmap != null) {
+                Palette palette = Palette.from(bitmap).generate();
+
+                boolean isDarkMode = ZHTools.isDarkMode(this);
+                binding.topLayout.setBackgroundColor(
+                        isDarkMode ?
+                                palette.getDarkVibrantColor(backgroundMenuTop) :
+                                palette.getLightVibrantColor(backgroundMenuTop)
+                );
+
+                int mutedColor = isDarkMode ?
+                        palette.getLightMutedColor(0xFFFFFFFF) :
+                        palette.getDarkMutedColor(0xFFFFFFFF);
+
+                ColorStateList colorStateList = ColorStateList.valueOf(mutedColor);
+                binding.appTitleText.setTextColor(mutedColor);
+                binding.downloadButton.setImageTintList(colorStateList);
+                binding.settingButton.setImageTintList(colorStateList);
+
+                return;
+            }
+        }
+        binding.topLayout.setBackgroundColor(backgroundMenuTop);
+        binding.appTitleText.setTextColor(ContextCompat.getColor(this, R.color.menu_bar_text));
+        ColorStateList colorStateList = ColorStateList.valueOf(0xFFFFFFFF);
+        binding.downloadButton.setImageTintList(colorStateList);
+        binding.settingButton.setImageTintList(colorStateList);
     }
 
     @SuppressWarnings("SameParameterValue")

@@ -1,8 +1,13 @@
 package com.movtery.zalithlauncher.utils.image
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.widget.ImageView
 import java.io.File
 import kotlin.math.min
+
 
 class ImageUtils {
     companion object {
@@ -44,6 +49,29 @@ class ImageUtils {
             val newHeight = (imageHeight * ratio).toInt()
 
             return Dimension(newWidth, newHeight)
+        }
+
+        /**
+         * 从一个 ImageView 中获取 Drawable，并将其转换为 Bitmap
+         */
+        @JvmStatic
+        fun getBitmapFromImageView(imageView: ImageView): Bitmap? {
+            val drawable = imageView.drawable ?: return null
+
+            if (drawable is BitmapDrawable) {
+                return drawable.bitmap
+            }
+
+            val width = drawable.intrinsicWidth.takeIf { it > 0 } ?: 1
+            val height = drawable.intrinsicHeight.takeIf { it > 0 } ?: 1
+
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+
+            drawable.mutate().setBounds(0, 0, canvas.width, canvas.height)
+            drawable.draw(canvas)
+
+            return bitmap
         }
     }
 }
