@@ -49,14 +49,20 @@ class LaunchGame {
          */
         @JvmStatic
         fun preLaunch(context: Context, version: Version) {
+            val networkAvailable = NetworkUtils.isNetworkAvailable(context)
+
             fun launch(setOfflineAccount: Boolean = false) {
                 version.offlineAccountLogin = setOfflineAccount
 
                 val versionName = version.getVersionName()
                 val mcVersion = AsyncMinecraftDownloader.getListedVersion(versionName)
-                MinecraftDownloader().start(
-                    mcVersion, versionName, ContextAwareDoneListener(context, version)
-                )
+                val listener = ContextAwareDoneListener(context, version)
+                //若网络未连接，跳过下载任务直接启动
+                if (!networkAvailable) {
+                    listener.onDownloadDone()
+                } else {
+                    MinecraftDownloader().start(mcVersion, versionName, listener)
+                }
             }
 
             fun setGameProgress(pull: Boolean) {
@@ -69,7 +75,7 @@ class LaunchGame {
                 }
             }
 
-            if (!NetworkUtils.isNetworkAvailable(context)) {
+            if (!networkAvailable) {
                 // 网络未链接，无法登录，但是依旧允许玩家启动游戏 (临时创建一个同名的离线账号启动游戏)
                 Toast.makeText(context, context.getString(R.string.account_login_no_network), Toast.LENGTH_SHORT).show()
                 launch(true)
