@@ -133,6 +133,9 @@ class AllSettings {
         val gameMenuLocation = StringSettingUnit("gameMenuLocation", "center")
 
         @JvmStatic
+        val gameMenuInfoRefreshRate = IntSettingUnit("gameMenuInfoRefreshRate", 1000)
+
+        @JvmStatic
         val gameMenuAlpha = IntSettingUnit("gameMenuAlpha", 100)
 
         // Launcher

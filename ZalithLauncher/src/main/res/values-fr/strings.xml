@@ -520,6 +520,8 @@
     <string name="setting_game_menu_show_fps_desc">Afficher les FPS en temps réel dans la fenêtre flottante du menu de jeu</string>
     <string name="setting_game_menu_memory_text_title">Texte préfixe des informations sur la mémoire</string>
     <string name="setting_game_menu_memory_text_desc">Vous pouvez personnaliser ce texte préfixe selon vos besoins</string>
+    <string name="setting_game_menu_info_refresh_rate_title">Fréquence de rafraîchissement des informations</string>
+    <string name="setting_game_menu_info_refresh_rate_desc">Contrôle la fréquence de rafraîchissement des informations affichées dans la fenêtre flottante du menu de jeu. Un rafraîchissement trop fréquent peut provoquer des problèmes de performance.</string>
     <string name="setting_game_menu_location_title">Position initiale de la fenêtre flottante du menu du jeu</string>
     <string name="setting_game_menu_location_center">Centre</string>
     <string name="setting_game_menu_location_bottom_or_center">Centre en bas</string>

@@ -189,6 +189,17 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
 
         SeekBarSettingsWrapper(
             context,
+            AllSettings.gameMenuInfoRefreshRate,
+            binding.gameMenuInfoRefreshRateLayout,
+            binding.gameMenuInfoRefreshRateTitle,
+            binding.gameMenuInfoRefreshRateSummary,
+            binding.gameMenuInfoRefreshRateValue,
+            binding.gameMenuInfoRefreshRate,
+            "ms"
+        )
+
+        SeekBarSettingsWrapper(
+            context,
             AllSettings.gameMenuAlpha,
             binding.gameMenuAlphaLayout,
             binding.gameMenuAlphaTitle,

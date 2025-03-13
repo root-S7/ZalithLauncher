@@ -520,6 +520,8 @@
     <string name="setting_game_menu_show_fps_desc">Exibir FPS em tempo real na janela flutuante do menu do jogo</string>
     <string name="setting_game_menu_memory_text_title">Texto de Prefixo para Informações de Memória</string>
     <string name="setting_game_menu_memory_text_desc">Você pode personalizar esse texto de prefixo de acordo com suas necessidades</string>
+    <string name="setting_game_menu_info_refresh_rate_title">Taxa de atualização das informações</string>
+    <string name="setting_game_menu_info_refresh_rate_desc">Controla a taxa de atualização das informações exibidas na janela flutuante do menu do jogo. Atualizar com muita frequência pode causar problemas de desempenho.</string>
     <string name="setting_game_menu_location_title">Posição Inicial da Janela Flutuante do Menu do Jogo</string>
     <string name="setting_game_menu_location_center">Centro</string>
     <string name="setting_game_menu_location_bottom_or_center">Centro Inferior</string>

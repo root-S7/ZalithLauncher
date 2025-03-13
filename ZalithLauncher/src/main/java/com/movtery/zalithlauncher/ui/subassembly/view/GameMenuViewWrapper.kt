@@ -25,14 +25,19 @@ class GameMenuViewWrapper(
     private val showInfo: Boolean
 ) {
     companion object {
-        private const val TAG = "GameMenuView"
+        private const val TAG = "GameMenuViewWrapper"
     }
 
     private var timer: Timer? = null
     private var showMemory: Boolean = false
     private var showFPS: Boolean = false
+    private var visible: Boolean = false
 
     private var scopeFx: IFxScopeControl? = null
+
+    init {
+        refreshState()
+    }
 
     private fun getWindow(): IFxScopeControl {
         return FxScopeHelper.Builder().apply {
@@ -42,11 +47,8 @@ class GameMenuViewWrapper(
             addViewLifecycle(object : IFxViewLifecycle {
                 override fun initView(holder: FxViewHolder) {
                     holder.view.alpha = AllSettings.gameMenuAlpha.getValue().toFloat() / 100f
-                    refreshState()
 
                     updateInfoText(holder.view)
-
-                    startNewbieGuide(holder.view)
                 }
 
                 override fun detached(view: View) {
@@ -69,7 +71,20 @@ class GameMenuViewWrapper(
     }
 
     fun setVisibility(visible: Boolean) {
-        val v1 = showMemory || showFPS || visible
+        this.visible = visible
+        thinkForVisibility()
+    }
+
+    fun refreshSettingsState() {
+        refreshState()
+        thinkForVisibility()
+    }
+
+    /**
+     * 根据三个条件判断是否显示悬浮窗（是否想要显示、是否展示内存信息、是否展示FPS）
+     */
+    private fun thinkForVisibility() {
+        val v1 = visible || showMemory || showFPS
         if (v1) {
             if (scopeFx != null) {
                 updateInfoText()
@@ -77,6 +92,7 @@ class GameMenuViewWrapper(
                 scopeFx = getWindow().apply {
                     updateInfoText()
                     show()
+                    getView()?.let { startNewbieGuide(it) }
                 }
             }
         } else {
@@ -84,11 +100,6 @@ class GameMenuViewWrapper(
             scopeFx = null
             cancelInfoTimer()
         }
-    }
-
-    fun refreshSettingsState() {
-        refreshState()
-        setVisibility(scopeFx != null)
     }
 
     private fun refreshState() {
@@ -125,7 +136,7 @@ class GameMenuViewWrapper(
                                 TaskExecutors.runInUIThread { fpsText.text = fpsString }
                             }
                         }
-                    }, 0, 1000)
+                    }, 0, AllSettings.gameMenuInfoRefreshRate.getValue().toLong())
                 }
             }
         }

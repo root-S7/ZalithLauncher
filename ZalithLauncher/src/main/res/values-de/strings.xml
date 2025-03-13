@@ -520,6 +520,8 @@
     <string name="setting_game_menu_show_fps_desc">Zeige Echtzeit-FPS im Spielmenü-Floating-Fenster</string>
     <string name="setting_game_menu_memory_text_title">Textpräfix für Speicherinformationen</string>
     <string name="setting_game_menu_memory_text_desc">Sie können dieses Textpräfix nach Ihren Wünschen anpassen</string>
+    <string name="setting_game_menu_info_refresh_rate_title">Aktualisierungsrate der Informationen</string>
+    <string name="setting_game_menu_info_refresh_rate_desc">Steuert die Aktualisierungsrate der Informationen, die im Spielmenü-Floating-Fenster angezeigt werden. Zu häufiges Aktualisieren kann Leistungsprobleme verursachen.</string>
     <string name="setting_game_menu_location_title">Anfangsposition des schwebenden Spielmenüs</string>
     <string name="setting_game_menu_location_center">Genau in der Mitte</string>
     <string name="setting_game_menu_location_bottom_or_center">Genau in der Mitte unten</string>

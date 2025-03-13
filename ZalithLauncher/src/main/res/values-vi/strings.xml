@@ -520,6 +520,8 @@
     <string name="setting_game_menu_show_fps_desc">Hiển thị FPS theo thời gian thực trên cửa sổ nổi menu game</string>
     <string name="setting_game_menu_memory_text_title">Văn bản tiền tố thông tin bộ nhớ</string>
     <string name="setting_game_menu_memory_text_desc">Bạn có thể tùy chỉnh văn bản tiền tố này theo nhu cầu của mình</string>
+    <string name="setting_game_menu_info_refresh_rate_title">Tần suất làm mới thông tin</string>
+    <string name="setting_game_menu_info_refresh_rate_desc">Điều chỉnh tần suất làm mới thông tin hiển thị trên cửa sổ nổi menu game. Làm mới quá thường xuyên có thể gây ra vấn đề về hiệu suất.</string>
     <string name="setting_game_menu_location_title">Vị trí ban đầu của cửa sổ nổi menu trò chơi</string>
     <string name="setting_game_menu_location_center">Chính giữa</string>
     <string name="setting_game_menu_location_bottom_or_center">Chính giữa dưới</string>

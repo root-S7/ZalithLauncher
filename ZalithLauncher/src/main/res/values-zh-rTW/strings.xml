@@ -520,6 +520,8 @@
     <string name="setting_game_menu_show_fps_desc">在遊戲菜單懸浮窗上實時顯示 FPS</string>
     <string name="setting_game_menu_memory_text_title">記憶體資訊前綴文字</string>
     <string name="setting_game_menu_memory_text_desc">你可以按照自己的需求，自訂這個前綴文字</string>
+    <string name="setting_game_menu_info_refresh_rate_title">展示資訊刷新頻率</string>
+    <string name="setting_game_menu_info_refresh_rate_desc">控制在遊戲菜單懸浮窗上展示的資訊的刷新頻率，刷新過快可能導致效能問題</string>
     <string name="setting_game_menu_location_title">遊戲菜單懸浮窗初始位置</string>
     <string name="setting_game_menu_location_center">正中心</string>
     <string name="setting_game_menu_location_bottom_or_center">底部正中心</string>

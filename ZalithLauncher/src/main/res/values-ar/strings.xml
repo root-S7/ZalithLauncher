@@ -520,6 +520,8 @@
     <string name="setting_game_menu_show_fps_desc">عرض FPS في الوقت الفعلي على نافذة اللعبة المنبثقة</string>
     <string name="setting_game_menu_memory_text_title">نص بادئة معلومات الذاكرة</string>
     <string name="setting_game_menu_memory_text_desc">يمكنك تخصيص هذا النص البادئ وفقًا لاحتياجاتك الخاصة</string>
+    <string name="setting_game_menu_info_refresh_rate_title">معدل تحديث المعلومات</string>
+    <string name="setting_game_menu_info_refresh_rate_desc">يتم التحكم في معدل تحديث المعلومات المعروضة على نافذة اللعبة المنبثقة. التحديث المتكرر قد يسبب مشاكل في الأداء.</string>
     <string name="setting_game_menu_location_title">موضع القائمة العائمة للعبة في البداية</string>
     <string name="setting_game_menu_location_center">المركز</string>
     <string name="setting_game_menu_location_bottom_or_center">المركز السفلي</string>
