@@ -253,24 +253,16 @@ void* maybe_load_vulkan() {
     return (void*) strtoul(getenv("VULKAN_PTR"), NULL, 0x10);
 }
 
-static int frameCount = 0;
 static int fps = 0;
 static time_t lastTime = 0;
 
 void calculateFPS() {
+    fps++;
     time_t currentTime = time(NULL);
 
-    if (lastTime == 0) {
-        lastTime = currentTime;
-        return;
-    }
-
-    frameCount++;
-
     if (currentTime != lastTime) {
-        fps = frameCount;
-        frameCount = 0;
         lastTime = currentTime;
+        fps = 0;
     }
 }
 
