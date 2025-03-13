@@ -129,7 +129,7 @@ class GameMenuViewWrapper(
                     schedule(object : TimerTask() {
                         override fun run() {
                             if (showMemory) {
-                                val memoryString = "$memoryText ${getUsedDeviceMemory()}/${getTotalDeviceMemory()}}".let { string ->
+                                val memoryString = "${this@GameMenuViewWrapper.memoryText} ${getUsedDeviceMemory()}/${getTotalDeviceMemory()}}".let { string ->
                                     if (string.length > 40) return@let string.take(40)
                                     string
                                 }
