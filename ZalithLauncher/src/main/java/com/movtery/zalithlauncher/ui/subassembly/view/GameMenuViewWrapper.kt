@@ -29,6 +29,7 @@ class GameMenuViewWrapper(
     }
 
     private var timer: Timer? = null
+    private val memoryText: String = AllSettings.gameMenuMemoryText.getValue()
     private var showMemory: Boolean = false
     private var showFPS: Boolean = false
     private var visible: Boolean = false
@@ -128,7 +129,10 @@ class GameMenuViewWrapper(
                     schedule(object : TimerTask() {
                         override fun run() {
                             if (showMemory) {
-                                val memoryString = "${AllSettings.gameMenuMemoryText.getValue()} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))}"
+                                val memoryString = "$memoryText ${getUsedDeviceMemory()}/${getTotalDeviceMemory()}}".let { string ->
+                                    if (string.length > 40) return@let string.take(40)
+                                    string
+                                }
                                 TaskExecutors.runInUIThread { memoryText.text = memoryString }
                             }
                             if (showFPS) {
@@ -141,6 +145,10 @@ class GameMenuViewWrapper(
             }
         }
     }
+
+    private fun getUsedDeviceMemory(): String = formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))
+
+    private fun getTotalDeviceMemory(): String = formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))
 
     private fun cancelInfoTimer() {
         timer?.cancel()

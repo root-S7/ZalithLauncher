@@ -176,7 +176,7 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             binding.gameMenuMemoryText
         ).setOnTextChangedListener {
             updateGameMenuMemoryText()
-        }
+        }.setMaxLength(40)
 
         ListSettingsWrapper(
             context,

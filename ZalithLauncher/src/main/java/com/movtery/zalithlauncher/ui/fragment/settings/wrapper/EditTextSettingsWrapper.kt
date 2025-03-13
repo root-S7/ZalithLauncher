@@ -1,6 +1,8 @@
 package com.movtery.zalithlauncher.ui.fragment.settings.wrapper
 
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
 import android.text.InputType
 import android.view.Gravity
 import android.view.View
@@ -11,7 +13,7 @@ import com.movtery.zalithlauncher.setting.unit.StringSettingUnit
 class EditTextSettingsWrapper(
     private val unit: StringSettingUnit,
     val mainView: View,
-    editText: EditText
+    private val editText: EditText
 ) : AbstractSettingsWrapper(mainView) {
     private var listener: OnTextChangedListener? = null
 
@@ -34,8 +36,15 @@ class EditTextSettingsWrapper(
         }
     }
 
-    fun setOnTextChangedListener(listener: OnTextChangedListener) {
+    fun setOnTextChangedListener(listener: OnTextChangedListener): EditTextSettingsWrapper {
         this.listener = listener
+        return this
+    }
+
+    fun setMaxLength(maxLength: Int): EditTextSettingsWrapper {
+        val filters = arrayOf<InputFilter>(LengthFilter(maxLength))
+        editText.filters = filters
+        return this
     }
 
     fun interface OnTextChangedListener {
