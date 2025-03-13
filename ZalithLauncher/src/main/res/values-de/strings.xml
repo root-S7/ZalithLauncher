@@ -515,7 +515,9 @@
     <string name="setting_ask_for_notification_title">Benachrichtigungen zulassen</string>
     <string name="setting_ask_for_notification_desc">Klicken Sie hier, um erneut um Erlaubnis für Benachrichtigungen zu bitten. Dies ist notwendig, damit die Spieldateien im Hintergrund korrekt heruntergeladen werden können</string>
     <string name="setting_game_menu_show_memory_title">Speicherinformationen in Echtzeit anzeigen</string>
-    <string name="setting_game_menu_show_memory_desc">Zeigt Speicherinformationen in Echtzeit im schwebenden Spielmenü an. Diese Option kann durch langes Drücken des schwebenden Spielmenüs schnell ein- und ausgeschaltet werden</string>
+    <string name="setting_game_menu_show_memory_desc">Zeige Echtzeit-Speicherinformationen im Spielmenü-Floating-Fenster</string>
+    <string name="setting_game_menu_show_fps_title">Echtzeit-FPS anzeigen</string>
+    <string name="setting_game_menu_show_fps_desc">Zeige Echtzeit-FPS im Spielmenü-Floating-Fenster</string>
     <string name="setting_game_menu_memory_text_title">Textpräfix für Speicherinformationen</string>
     <string name="setting_game_menu_memory_text_desc">Sie können dieses Textpräfix nach Ihren Wünschen anpassen</string>
     <string name="setting_game_menu_location_title">Anfangsposition des schwebenden Spielmenüs</string>

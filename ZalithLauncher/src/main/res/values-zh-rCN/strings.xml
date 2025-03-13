@@ -544,7 +544,9 @@
     <string name="setting_ask_for_notification_desc">单击可重新请求通知权限，这是游戏文件在后台正常下载所必需的</string>
     
     <string name="setting_game_menu_show_memory_title">实时显示内存信息</string>
-    <string name="setting_game_menu_show_memory_desc">在游戏菜单悬浮窗上实时显示内存信息，通过长按游戏菜单悬浮窗，可以快捷开关此选项</string>
+    <string name="setting_game_menu_show_memory_desc">在游戏菜单悬浮窗上实时显示内存信息</string>
+    <string name="setting_game_menu_show_fps_title">实时显示 FPS</string>
+    <string name="setting_game_menu_show_fps_desc">在游戏菜单悬浮窗上实时显示 FPS</string>
     <string name="setting_game_menu_memory_text_title">内存信息前缀文本</string>
     <string name="setting_game_menu_memory_text_desc">你可以按照你自己的需求，自定义这个前缀文本</string>
     <string name="setting_game_menu_location_title">游戏菜单悬浮窗初始位置</string>

@@ -515,7 +515,9 @@
     <string name="setting_ask_for_notification_title">允許通知</string>
     <string name="setting_ask_for_notification_desc">單擊可重新請求通知權限，這是遊戲文件在後台正常下載所必需的</string>
     <string name="setting_game_menu_show_memory_title">即時顯示記憶體資訊</string>
-    <string name="setting_game_menu_show_memory_desc">在遊戲菜單懸浮窗上即時顯示記憶體資訊，通過長按遊戲菜單懸浮窗，可以快速開關此選項</string>
+    <string name="setting_game_menu_show_memory_desc">在遊戲菜單懸浮窗上實時顯示記憶體資訊</string>
+    <string name="setting_game_menu_show_fps_title">實時顯示 FPS</string>
+    <string name="setting_game_menu_show_fps_desc">在遊戲菜單懸浮窗上實時顯示 FPS</string>
     <string name="setting_game_menu_memory_text_title">記憶體資訊前綴文字</string>
     <string name="setting_game_menu_memory_text_desc">你可以按照自己的需求，自訂這個前綴文字</string>
     <string name="setting_game_menu_location_title">遊戲菜單懸浮窗初始位置</string>

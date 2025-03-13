@@ -42,7 +42,7 @@ public class CustomControlsActivity extends BaseActivity implements EditorExitab
 
 			if (open) drawerLayout.closeDrawer(drawerNavigationView);
 			else drawerLayout.openDrawer(drawerNavigationView);
-		}).setVisibility(true);
+		}, false).setVisibility(true);
 
 		BackgroundManager.setBackgroundImage(this, BackgroundType.CUSTOM_CONTROLS, binding.backgroundView, null);
 

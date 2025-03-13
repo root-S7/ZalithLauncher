@@ -124,6 +124,9 @@ class AllSettings {
         val gameMenuShowMemory = BooleanSettingUnit("gameMenuShowMemory", false)
 
         @JvmStatic
+        val gameMenuShowFPS = BooleanSettingUnit("gameMenuShowFPS", false)
+
+        @JvmStatic
         val gameMenuMemoryText = StringSettingUnit("gameMenuMemoryText", "M:")
 
         @JvmStatic

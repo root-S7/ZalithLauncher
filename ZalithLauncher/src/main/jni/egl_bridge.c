@@ -27,6 +27,7 @@
 #include <string.h>
 #include <environ/environ.h>
 #include <android/dlext.h>
+#include <time.h>
 #include "utils.h"
 #include "ctxbridges/bridge_tbl.h"
 #include "ctxbridges/osm_bridge.h"
@@ -45,6 +46,7 @@ EGLConfig config;
 struct PotatoBridge potatoBridge;
 
 void* loadTurnipVulkan();
+void calculateFPS();
 
 EXTERNAL_API void pojavTerminate() {
     printf("EGLBridge: Terminating\n");
@@ -204,6 +206,8 @@ EXTERNAL_API void pojavSetWindowHint(int hint, int value) {
 }
 
 EXTERNAL_API void pojavSwapBuffers() {
+    calculateFPS();
+
     if (pojav_environ->config_renderer == RENDERER_VK_ZINK
      || pojav_environ->config_renderer == RENDERER_GL4ES)
     {
@@ -248,6 +252,33 @@ void* maybe_load_vulkan() {
     if(getenv("VULKAN_PTR") == NULL) load_vulkan();
     return (void*) strtoul(getenv("VULKAN_PTR"), NULL, 0x10);
 }
+
+static int frameCount = 0;
+static int fps = 0;
+static time_t lastTime = 0;
+
+void calculateFPS() {
+    time_t currentTime = time(NULL);
+
+    if (lastTime == 0) {
+        lastTime = currentTime;
+        return;
+    }
+
+    frameCount++;
+
+    if (currentTime != lastTime) {
+        fps = frameCount;
+        frameCount = 0;
+        lastTime = currentTime;
+    }
+}
+
+EXTERNAL_API JNIEXPORT jint JNICALL
+Java_org_lwjgl_glfw_CallbackBridge_getCurrentFps(JNIEnv *env, jclass clazz) {
+    return fps;
+}
+
 EXTERNAL_API JNIEXPORT jlong JNICALL
 Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle(ABI_COMPAT JNIEnv *env, ABI_COMPAT jclass thiz) {
     printf("EGLBridge: LWJGL-side Vulkan loader requested the Vulkan handle\n");

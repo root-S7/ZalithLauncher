@@ -15,12 +15,14 @@ import com.petterp.floatingx.assist.helper.FxScopeHelper
 import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.listener.control.IFxScopeControl
 import com.petterp.floatingx.view.FxViewHolder
+import org.lwjgl.glfw.CallbackBridge
 import java.util.Timer
 import java.util.TimerTask
 
 class GameMenuViewWrapper(
     private val activity: Activity,
-    private val listener: View.OnClickListener
+    private val listener: View.OnClickListener,
+    private val showInfo: Boolean
 ) {
     companion object {
         private const val TAG = "GameMenuView"
@@ -28,6 +30,7 @@ class GameMenuViewWrapper(
 
     private var timer: Timer? = null
     private var showMemory: Boolean = false
+    private var showFPS: Boolean = false
 
     private var scopeFx: IFxScopeControl? = null
 
@@ -35,27 +38,19 @@ class GameMenuViewWrapper(
         return FxScopeHelper.Builder().apply {
             setLayout(R.layout.view_game_menu_window)
             setOnClickListener(0L, listener)
-            setOnLongClickListener {
-                showMemory = !showMemory
-                AllSettings.gameMenuShowMemory.put(showMemory).save()
-                setShowMemory()
-                true
-            }
             setEnableEdgeAdsorption(false)
             addViewLifecycle(object : IFxViewLifecycle {
                 override fun initView(holder: FxViewHolder) {
                     holder.view.alpha = AllSettings.gameMenuAlpha.getValue().toFloat() / 100f
-                    showMemory = AllSettings.gameMenuShowMemory.getValue()
+                    refreshState()
 
-                    holder.getView<TextView>(R.id.memory_text).apply {
-                        updateMemoryText(this)
-                    }
+                    updateInfoText(holder.view)
 
                     startNewbieGuide(holder.view)
                 }
 
                 override fun detached(view: View) {
-                    cancelMemoryTimer()
+                    cancelInfoTimer()
                 }
             })
             setGravity(getCurrentGravity())
@@ -74,51 +69,69 @@ class GameMenuViewWrapper(
     }
 
     fun setVisibility(visible: Boolean) {
-        if (visible) {
+        val v1 = showMemory || showFPS || visible
+        if (v1) {
             if (scopeFx != null) {
-                setShowMemory()
+                updateInfoText()
             } else {
                 scopeFx = getWindow().apply {
-                    setShowMemory()
+                    updateInfoText()
                     show()
                 }
             }
         } else {
             scopeFx?.cancel()
             scopeFx = null
-            cancelMemoryTimer()
+            cancelInfoTimer()
         }
     }
 
-    private fun setShowMemory() {
-        scopeFx?.getView()?.findViewById<TextView>(R.id.memory_text)?.apply {
-            updateMemoryText(this)
+    fun refreshSettingsState() {
+        refreshState()
+        setVisibility(scopeFx != null)
+    }
+
+    private fun refreshState() {
+        showMemory = AllSettings.gameMenuShowMemory.getValue()
+        showFPS = AllSettings.gameMenuShowFPS.getValue()
+    }
+
+    private fun updateInfoText() {
+        scopeFx?.getView()?.apply {
+            updateInfoText(this)
         }
     }
 
-    private fun updateMemoryText(memoryText: TextView) {
-        cancelMemoryTimer()
+    private fun updateInfoText(view: View) {
+        cancelInfoTimer()
 
-        memoryText.apply {
-            visibility = if (showMemory) {
-                timer = Timer()
-                timer?.schedule(object : TimerTask() {
-                    override fun run() {
-                        val string =
-                            "${AllSettings.gameMenuMemoryText.getValue()} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${
-                                formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))
-                            }".trim()
-                        TaskExecutors.runInUIThread { text = string }
-                    }
-                }, 0, 2000)
-                View.VISIBLE
-            } else {
-                View.GONE
+        if (showInfo) {
+            val memoryText: TextView = view.findViewById(R.id.memory_text)
+            val fpsText: TextView = view.findViewById(R.id.fps_text)
+
+            memoryText.visibility = if (showMemory) View.VISIBLE else View.GONE
+            fpsText.visibility = if (showFPS) View.VISIBLE else View.GONE
+
+            if (showMemory || showFPS) {
+                timer = Timer().apply {
+                    schedule(object : TimerTask() {
+                        override fun run() {
+                            if (showMemory) {
+                                val memoryString = "${AllSettings.gameMenuMemoryText.getValue()} ${formatFileSize(MemoryUtils.getUsedDeviceMemory(activity))}/${formatFileSize(MemoryUtils.getTotalDeviceMemory(activity))}"
+                                TaskExecutors.runInUIThread { memoryText.text = memoryString }
+                            }
+                            if (showFPS) {
+                                val fpsString = "FPS: ${CallbackBridge.getCurrentFps()}"
+                                TaskExecutors.runInUIThread { fpsText.text = fpsString }
+                            }
+                        }
+                    }, 0, 1000)
+                }
             }
         }
     }
 
-    private fun cancelMemoryTimer() {
+    private fun cancelInfoTimer() {
         timer?.cancel()
         timer = null
     }

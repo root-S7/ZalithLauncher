@@ -166,7 +166,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         binding = ActivityGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mGameMenuWrapper = new GameMenuViewWrapper(this, v -> onClickedMenu());
+        mGameMenuWrapper = new GameMenuViewWrapper(this, v -> onClickedMenu(), true);
         touchCharInput = binding.mainTouchCharInput;
 
         BackgroundManager.setBackgroundImage(this, BackgroundType.IN_GAME, binding.backgroundView, null);
@@ -554,6 +554,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             MenuUtils.initSeekBarValue(this.binding.hotbarWidth, AllSettings.getHotbarWidth().getValue().getValue(), this.binding.hotbarWidthValue, "px");
 
             //初始化Switch的状态
+            this.binding.openMemoryInfo.setChecked(AllSettings.getGameMenuShowMemory().getValue());
+            this.binding.openFpsInfo.setChecked(AllSettings.getGameMenuShowFPS().getValue());
             this.binding.disableGestures.setChecked(AllSettings.getDisableGestures().getValue());
             this.binding.disableDoubleTap.setChecked(AllSettings.getDisableDoubleTap().getValue());
             this.binding.enableGyro.setChecked(AllSettings.getEnableGyro().getValue());
@@ -567,6 +569,10 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             this.binding.forceClose.setOnClickListener(this);
             this.binding.logOutput.setOnClickListener(this);
             this.binding.sendCustomKey.setOnClickListener(this);
+            this.binding.openMemoryInfo.setOnCheckedChangeListener(this);
+            this.binding.openMemoryInfoLayout.setOnClickListener(this);
+            this.binding.openFpsInfo.setOnCheckedChangeListener(this);
+            this.binding.openFpsInfoLayout.setOnClickListener(this);
 
             this.binding.resolutionScaler.setOnSeekBarChangeListener(this);
             this.binding.resolutionScalerRemove.setOnClickListener(this);
@@ -672,6 +678,8 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             if (v == binding.forceClose) ZHTools.dialogForceClose(MainActivity.this);
             else if (v == binding.logOutput) MainActivity.binding.mainLoggerView.toggleViewWithAnim();
             else if (v == binding.sendCustomKey) dialogSendCustomKey();
+            else if (v == binding.openMemoryInfoLayout) MenuUtils.toggleSwitchState(binding.openMemoryInfo);
+            else if (v == binding.openFpsInfoLayout) MenuUtils.toggleSwitchState(binding.openFpsInfo);
             else if (v == binding.resolutionScalerRemove) MenuUtils.adjustSeekbar(binding.resolutionScaler, -1);
             else if (v == binding.resolutionScalerAdd) MenuUtils.adjustSeekbar(binding.resolutionScaler, 1);
             else if (v == binding.disableGesturesLayout) MenuUtils.toggleSwitchState(binding.disableGestures);
@@ -743,7 +751,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         }
 
         @Override public void onCheckedChanged(CompoundButton v, boolean isChecked) {
-            if (v == binding.disableGestures) {
+            if (v == binding.openMemoryInfo) {
+                AllSettings.getGameMenuShowMemory().put(isChecked).save();
+                mGameMenuWrapper.refreshSettingsState();
+            } else if (v == binding.openFpsInfo) {
+                AllSettings.getGameMenuShowFPS().put(isChecked).save();
+                mGameMenuWrapper.refreshSettingsState();
+            } else if (v == binding.disableGestures) {
                 refreshLayoutVisible(binding.timeLongPressTriggerLayout, !isChecked);
                 AllSettings.getDisableGestures().put(isChecked).save();
             } else if (v == binding.disableDoubleTap) {

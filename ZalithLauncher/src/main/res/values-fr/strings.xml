@@ -515,7 +515,9 @@
     <string name="setting_ask_for_notification_title">Autoriser les notifications</string>
     <string name="setting_ask_for_notification_desc">Cliquez pour demander à nouveau l\'autorisation de notification, nécessaire pour le téléchargement normal des fichiers du jeu en arrière-plan</string>
     <string name="setting_game_menu_show_memory_title">Afficher les informations sur la mémoire en temps réel</string>
-    <string name="setting_game_menu_show_memory_desc">Afficher les informations sur la mémoire en temps réel sur la fenêtre flottante du menu du jeu, en appuyant longuement sur la fenêtre flottante du menu du jeu, vous pouvez activer/désactiver cette option rapidement</string>
+    <string name="setting_game_menu_show_memory_desc">Afficher les informations mémoire en temps réel dans la fenêtre flottante du menu de jeu</string>
+    <string name="setting_game_menu_show_fps_title">Afficher les FPS en temps réel</string>
+    <string name="setting_game_menu_show_fps_desc">Afficher les FPS en temps réel dans la fenêtre flottante du menu de jeu</string>
     <string name="setting_game_menu_memory_text_title">Texte préfixe des informations sur la mémoire</string>
     <string name="setting_game_menu_memory_text_desc">Vous pouvez personnaliser ce texte préfixe selon vos besoins</string>
     <string name="setting_game_menu_location_title">Position initiale de la fenêtre flottante du menu du jeu</string>

@@ -515,7 +515,9 @@
     <string name="setting_ask_for_notification_title">السماح بالإشعارات</string>
     <string name="setting_ask_for_notification_desc">يمكنك النقر لإعادة طلب إذن الإشعارات، وهو ضروري لتنزيل ملفات اللعبة في الخلفية بشكل طبيعي</string>
     <string name="setting_game_menu_show_memory_title">عرض معلومات الذاكرة في الوقت الفعلي</string>
-    <string name="setting_game_menu_show_memory_desc">عرض معلومات الذاكرة في الوقت الفعلي على نافذة القائمة العائمة للعبة، يمكنك تشغيل أو إيقاف هذا الخيار بسرعة من خلال الضغط المطول على نافذة القائمة العائمة للعبة</string>
+    <string name="setting_game_menu_show_memory_desc">عرض معلومات الذاكرة في الوقت الفعلي على نافذة اللعبة المنبثقة</string>
+    <string name="setting_game_menu_show_fps_title">عرض FPS في الوقت الفعلي</string>
+    <string name="setting_game_menu_show_fps_desc">عرض FPS في الوقت الفعلي على نافذة اللعبة المنبثقة</string>
     <string name="setting_game_menu_memory_text_title">نص بادئة معلومات الذاكرة</string>
     <string name="setting_game_menu_memory_text_desc">يمكنك تخصيص هذا النص البادئ وفقًا لاحتياجاتك الخاصة</string>
     <string name="setting_game_menu_location_title">موضع القائمة العائمة للعبة في البداية</string>

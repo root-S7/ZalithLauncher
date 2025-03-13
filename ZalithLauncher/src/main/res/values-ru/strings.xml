@@ -515,7 +515,9 @@
     <string name="setting_ask_for_notification_title">Разрешить уведомления</string>
     <string name="setting_ask_for_notification_desc">Нажмите, чтобы повторно запросить разрешение на уведомления, необходимое для правильной загрузки файлов игры в фоновом режиме</string>
     <string name="setting_game_menu_show_memory_title">Отображать информацию о памяти в реальном времени</string>
-    <string name="setting_game_menu_show_memory_desc">Отображать информацию о памяти в реальном времени на всплывающем меню игры, длительное нажатие на всплывающее меню игры позволяет быстро включить или выключить эту опцию</string>
+    <string name="setting_game_menu_show_memory_desc">Отображать информацию о памяти в реальном времени на всплывающем окне меню игры</string>
+    <string name="setting_game_menu_show_fps_title">Отображать FPS в реальном времени</string>
+    <string name="setting_game_menu_show_fps_desc">Отображать FPS в реальном времени на всплывающем окне меню игры</string>
     <string name="setting_game_menu_memory_text_title">Текст префикса информации о памяти</string>
     <string name="setting_game_menu_memory_text_desc">Вы можете настроить этот префикс в соответствии с вашими потребностями</string>
     <string name="setting_game_menu_location_title">Начальное положение всплывающего меню игры</string>

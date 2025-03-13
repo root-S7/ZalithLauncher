@@ -515,7 +515,9 @@
     <string name="setting_ask_for_notification_title">Permitir Notificações</string>
     <string name="setting_ask_for_notification_desc">Clique para solicitar novamente a permissão de notificações, necessária para que os arquivos do jogo sejam baixados corretamente em segundo plano</string>
     <string name="setting_game_menu_show_memory_title">Exibir Informações de Memória em Tempo Real</string>
-    <string name="setting_game_menu_show_memory_desc">Exibir informações de memória em tempo real na janela flutuante do menu do jogo. Ao pressionar e segurar a janela flutuante do menu do jogo, você pode ativar ou desativar essa opção rapidamente</string>
+    <string name="setting_game_menu_show_memory_desc">Exibir informações de memória em tempo real na janela flutuante do menu do jogo</string>
+    <string name="setting_game_menu_show_fps_title">Exibir FPS em tempo real</string>
+    <string name="setting_game_menu_show_fps_desc">Exibir FPS em tempo real na janela flutuante do menu do jogo</string>
     <string name="setting_game_menu_memory_text_title">Texto de Prefixo para Informações de Memória</string>
     <string name="setting_game_menu_memory_text_desc">Você pode personalizar esse texto de prefixo de acordo com suas necessidades</string>
     <string name="setting_game_menu_location_title">Posição Inicial da Janela Flutuante do Menu do Jogo</string>

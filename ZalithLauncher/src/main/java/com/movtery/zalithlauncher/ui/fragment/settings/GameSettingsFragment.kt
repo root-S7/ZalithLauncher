@@ -160,6 +160,16 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
             openGameMenuMemory()
         }
 
+        SwitchSettingsWrapper(
+            context,
+            AllSettings.gameMenuShowFPS,
+            binding.gameMenuShowFPSLayout,
+            binding.gameMenuShowFPS
+        ).setOnCheckedChangeListener { _, _, listener ->
+            listener.onSave()
+            openGameMenuFPS()
+        }
+
         EditTextSettingsWrapper(
             AllSettings.gameMenuMemoryText,
             binding.gameMenuMemoryTextLayout,
@@ -191,6 +201,7 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
         }
 
         openGameMenuMemory()
+        openGameMenuFPS()
         updateGameMenuMemoryText()
         setGameMenuAlpha(AllSettings.gameMenuAlpha.getValue().toFloat() / 100F)
     }
@@ -223,6 +234,10 @@ class GameSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment
 
     private fun openGameMenuMemory() {
         binding.gameMenuPreview.memoryText.visibility = if (AllSettings.gameMenuShowMemory.getValue()) View.VISIBLE else View.GONE
+    }
+
+    private fun openGameMenuFPS() {
+        binding.gameMenuPreview.fpsText.visibility = if (AllSettings.gameMenuShowFPS.getValue()) View.VISIBLE else View.GONE
     }
 
     private fun setGameMenuAlpha(alpha: Float) {

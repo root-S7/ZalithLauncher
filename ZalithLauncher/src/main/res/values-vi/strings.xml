@@ -515,7 +515,9 @@
     <string name="setting_ask_for_notification_title">Cho phép thông báo</string>
     <string name="setting_ask_for_notification_desc">Nhấp để yêu cầu lại quyền thông báo, điều này là cần thiết để tải xuống các tệp trò chơi ở chế độ nền bình thường</string>
     <string name="setting_game_menu_show_memory_title">Hiển thị thông tin bộ nhớ thời gian thực</string>
-    <string name="setting_game_menu_show_memory_desc">Hiển thị thông tin bộ nhớ thời gian thực trên cửa sổ nổi của menu trò chơi, bạn có thể bật/tắt tùy chọn này nhanh chóng bằng cách nhấn giữ cửa sổ nổi của menu trò chơi</string>
+    <string name="setting_game_menu_show_memory_desc">Hiển thị thông tin bộ nhớ theo thời gian thực trên cửa sổ nổi menu game</string>
+    <string name="setting_game_menu_show_fps_title">Hiển thị FPS theo thời gian thực</string>
+    <string name="setting_game_menu_show_fps_desc">Hiển thị FPS theo thời gian thực trên cửa sổ nổi menu game</string>
     <string name="setting_game_menu_memory_text_title">Văn bản tiền tố thông tin bộ nhớ</string>
     <string name="setting_game_menu_memory_text_desc">Bạn có thể tùy chỉnh văn bản tiền tố này theo nhu cầu của mình</string>
     <string name="setting_game_menu_location_title">Vị trí ban đầu của cửa sổ nổi menu trò chơi</string>
