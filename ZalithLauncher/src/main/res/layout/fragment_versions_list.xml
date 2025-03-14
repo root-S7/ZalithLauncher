@@ -91,7 +91,9 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:paddingHorizontal="@dimen/_8sdp"
-                            android:text="@string/generic_all"/>
+                            android:maxLines="2"
+                            android:text="@string/generic_all"
+                            android:textColor="@color/black_or_white"/>
 
                     </com.movtery.zalithlauncher.ui.layout.AnimRelativeLayout>
 
