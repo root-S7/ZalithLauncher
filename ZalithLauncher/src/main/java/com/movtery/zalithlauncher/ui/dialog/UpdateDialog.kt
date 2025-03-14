@@ -1,100 +1,84 @@
-package com.movtery.zalithlauncher.ui.dialog;
+package com.movtery.zalithlauncher.ui.dialog
 
-import static com.movtery.zalithlauncher.utils.stringutils.StringUtils.markdownToHtml;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
+import android.view.View
+import android.view.Window
+import android.widget.Toast
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.databinding.DialogUpdateBinding
+import com.movtery.zalithlauncher.feature.update.LauncherVersion
+import com.movtery.zalithlauncher.feature.update.LauncherVersion.WhatsNew
+import com.movtery.zalithlauncher.feature.update.UpdateLauncher
+import com.movtery.zalithlauncher.feature.update.UpdateUtils.Companion.getFileSize
+import com.movtery.zalithlauncher.setting.AllSettings.Companion.ignoreUpdate
+import com.movtery.zalithlauncher.task.TaskExecutors.Companion.runInUIThread
+import com.movtery.zalithlauncher.ui.dialog.DraggableDialog.DialogInitializationListener
+import com.movtery.zalithlauncher.utils.ZHTools
+import com.movtery.zalithlauncher.utils.file.FileTools.Companion.formatFileSize
+import com.movtery.zalithlauncher.utils.stringutils.StringUtils
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.Window;
-import android.widget.Toast;
+class UpdateDialog(context: Context, private val launcherVersion: LauncherVersion) :
+    FullScreenDialog(context), DialogInitializationListener {
+    private val binding = DialogUpdateBinding.inflate(
+        layoutInflater
+    )
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-import com.movtery.zalithlauncher.R;
-import com.movtery.zalithlauncher.databinding.DialogUpdateBinding;
-import com.movtery.zalithlauncher.feature.update.LauncherVersion;
-import com.movtery.zalithlauncher.feature.update.UpdateLauncher;
-import com.movtery.zalithlauncher.feature.update.UpdateUtils;
-import com.movtery.zalithlauncher.setting.AllSettings;
-import com.movtery.zalithlauncher.task.TaskExecutors;
-import com.movtery.zalithlauncher.utils.ZHTools;
-import com.movtery.zalithlauncher.utils.file.FileTools;
-import com.movtery.zalithlauncher.utils.stringutils.StringUtils;
+        this.setCancelable(false)
+        this.setContentView(binding.root)
 
-public class UpdateDialog extends FullScreenDialog implements DraggableDialog.DialogInitializationListener {
-    private final DialogUpdateBinding binding = DialogUpdateBinding.inflate(getLayoutInflater());
-    private final LauncherVersion launcherVersion;
-
-    public UpdateDialog(@NonNull Context context, LauncherVersion launcherVersion) {
-        super(context);
-        this.launcherVersion = launcherVersion;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        this.setCancelable(false);
-        this.setContentView(binding.getRoot());
-
-        init();
-        DraggableDialog.initDialog(this);
+        init()
+        DraggableDialog.initDialog(this)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void init() {
-        String versionString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_version), launcherVersion.getVersionName());
-        String timeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_time), StringUtils.formattingTime(launcherVersion.getPublishedAt()));
-        String sizeString = StringUtils.insertSpace(getContext().getString(R.string.update_dialog_file_size), FileTools.formatFileSize(UpdateUtils.getFileSize(launcherVersion.getFileSize())));
-        String versionType = StringUtils.insertSpace(getContext().getString(R.string.about_version_status), getVersionType());
+    private fun init() {
+        binding.apply {
+            getLanguageText(launcherVersion.title).takeIf { it != "NONE" }?.let { titleString ->
+                titleText.visibility = View.VISIBLE
+                titleText.text = titleString
+            }
 
-        binding.versionName.setText(versionString);
-        binding.updateTime.setText(timeString);
-        binding.fileSize.setText(sizeString);
-        binding.versionType.setText(versionType);
+            versionName.text = StringUtils.insertSpace(context.getString(R.string.update_dialog_version), launcherVersion.versionName)
+            updateTime.text = StringUtils.insertSpace(context.getString(R.string.update_dialog_time), StringUtils.formattingTime(launcherVersion.publishedAt))
+            fileSize.text = StringUtils.insertSpace(context.getString(R.string.update_dialog_file_size), formatFileSize(getFileSize(launcherVersion.fileSize)))
+            versionType.text = StringUtils.insertSpace(context.getString(R.string.about_version_status), versionType)
 
-        String descriptionHtml = markdownToHtml(getLanguageText(launcherVersion.getDescription()));
+            ZHTools.getWebViewAfterProcessing(description)
 
-        ZHTools.getWebViewAfterProcessing(binding.description);
+            description.settings.javaScriptEnabled = true
+            description.loadDataWithBaseURL(null, StringUtils.markdownToHtml(getLanguageText(launcherVersion.description)), "text/html", "UTF-8", null)
 
-        binding.description.getSettings().setJavaScriptEnabled(true);
-        binding.description.loadDataWithBaseURL(null, descriptionHtml, "text/html", "UTF-8", null);
-
-        binding.updateButton.setOnClickListener(view -> {
-            this.dismiss();
-            TaskExecutors.runInUIThread(() -> Toast.makeText(getContext(), getContext().getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show());
-            UpdateLauncher updateLauncher = new UpdateLauncher(getContext(), launcherVersion);
-            updateLauncher.start();
-        });
-        binding.cancelButton.setOnClickListener(view -> this.dismiss());
-        binding.ignoreButton.setOnClickListener(view -> {
-            AllSettings.getIgnoreUpdate().put(launcherVersion.getVersionName()).save();
-            this.dismiss();
-        });
-    }
-
-    private String getVersionType() {
-        return getContext().getString(launcherVersion.isPreRelease() ? R.string.generic_pre_release : R.string.generic_release);
-    }
-
-    private String getLanguageText(LauncherVersion.WhatsNew whatsNew) {
-        String text;
-        switch (ZHTools.getSystemLanguage()) {
-            case "zh_cn":
-                text = whatsNew.getZhCN();
-                break;
-            case "zh_tw":
-                text = whatsNew.getZhTW();
-                break;
-            default:
-                text = whatsNew.getEnUS();
+            updateButton.setOnClickListener {
+                dismiss()
+                runInUIThread {
+                    Toast.makeText(context, context.getString(R.string.update_downloading_tip, "Github Release"), Toast.LENGTH_SHORT).show()
+                }
+                val updateLauncher = UpdateLauncher(context, launcherVersion)
+                updateLauncher.start()
+            }
+            cancelButton.setOnClickListener { dismiss() }
+            ignoreButton.setOnClickListener {
+                ignoreUpdate.put(launcherVersion.versionName).save()
+                dismiss()
+            }
         }
-        return text;
     }
 
-    @Override
-    public Window onInit() {
-        return getWindow();
+    private fun getLanguageText(whatsNew: WhatsNew): String {
+        val text = when (ZHTools.getSystemLanguage()) {
+            "zh_cn" -> whatsNew.zhCN
+            "zh_tw" -> whatsNew.zhTW
+            else -> whatsNew.enUS
+        }
+        return text
+    }
+
+    override fun onInit(): Window? {
+        return window
     }
 }
