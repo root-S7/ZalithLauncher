@@ -1394,13 +1394,10 @@ public class GLFW
 
     /** Array version of: {@link #glfwGetWindowContentScale GetWindowContentScale} */
     public static void glfwGetWindowContentScale(@NativeType("GLFWwindow *") long window, @Nullable @NativeType("float *") float[] xscale, @Nullable @NativeType("float *") float[] yscale) {
-//        long __functionAddress = Functions.GetWindowContentScale;
-//        if (CHECKS) {
-//            // check(window);
-//            checkSafe(xscale, 1);
-//            checkSafe(yscale, 1);
-//        }
-//        invokePPPV(window, xscale, yscale, __functionAddress);
+        if (xscale != null && yscale != null) {
+            xscale[0] = 1f;
+            yscale[0] = 1f;
+        }
     }
 
 
