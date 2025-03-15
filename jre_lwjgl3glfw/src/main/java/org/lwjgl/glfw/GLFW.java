@@ -989,7 +989,16 @@ public class GLFW
     public static long nglfwCreateContext(long share) {
         return invokePP(share, Functions.CreateContext);
     }
+
     public static long glfwCreateWindow(int width, int height, CharSequence title, long monitor, long share) {
+        return mglfwCreateWindow(width,height,title,monitor,share);
+    }
+
+    public static long nglfwCreateWindow(int width, int height, long title, long monitor, long share) {
+        return mglfwCreateWindow(width, height, "Game", monitor, share);
+    }
+
+    private static long mglfwCreateWindow(int width, int height, CharSequence title, long monitor, long share) {
         // Create an ACTUAL EGL context
         long ptr = nglfwCreateContext(share);
         //nativeEglMakeCurrent(ptr);
@@ -1000,6 +1009,9 @@ public class GLFW
         win.width = mGLFWWindowWidth;
         win.height = mGLFWWindowHeight;
         win.title = title;
+
+        win.windowAttribs.put(GLFW_HOVERED, 1);
+        win.windowAttribs.put(GLFW_VISIBLE, 1);
 
         mGLFWWindowMap.put(ptr, win);
         mainContext = ptr;
@@ -1012,10 +1024,6 @@ public class GLFW
 
         return ptr;
         //Return our context
-    }
-
-    public static long nglfwCreateWindow(int width, int height, long title, long monitor, long share) {
-        return glfwCreateWindow(width,height,"Game",monitor,share);
     }
 
     public static void glfwDestroyWindow(long window) {
