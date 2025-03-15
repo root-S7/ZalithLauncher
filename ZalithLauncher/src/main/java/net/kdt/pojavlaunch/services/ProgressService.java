@@ -74,7 +74,13 @@ public class ProgressService extends Service implements TaskCountListener {
         mNotificationBuilder.setContentText(getString(R.string.progresslayout_tasks_in_progress, ProgressKeeper.getTaskCount()));
         Notification notification = mNotificationBuilder.build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            startForeground(NotificationUtils.NOTIFICATION_ID_PROGRESS_SERVICE, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST);
+            int serviceType;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) { //SDK 34+
+                serviceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE;
+            } else {
+                serviceType = ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST;
+            }
+            startForeground(NotificationUtils.NOTIFICATION_ID_GAME_SERVICE, notification, serviceType);
         } else {
             startForeground(NotificationUtils.NOTIFICATION_ID_PROGRESS_SERVICE, notification);
         }
