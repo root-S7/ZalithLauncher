@@ -46,7 +46,7 @@ class UpdateDialog(context: Context, private val launcherVersion: LauncherVersio
             versionName.text = StringUtils.insertSpace(context.getString(R.string.update_dialog_version), launcherVersion.versionName)
             updateTime.text = StringUtils.insertSpace(context.getString(R.string.update_dialog_time), StringUtils.formattingTime(launcherVersion.publishedAt))
             fileSize.text = StringUtils.insertSpace(context.getString(R.string.update_dialog_file_size), formatFileSize(getFileSize(launcherVersion.fileSize)))
-            versionType.text = StringUtils.insertSpace(context.getString(R.string.about_version_status), versionType)
+            versionType.text = StringUtils.insertSpace(context.getString(R.string.about_version_status), getVersionType())
 
             ZHTools.getWebViewAfterProcessing(description)
 
@@ -67,6 +67,10 @@ class UpdateDialog(context: Context, private val launcherVersion: LauncherVersio
                 dismiss()
             }
         }
+    }
+
+    private fun getVersionType(): String {
+        return context.getString(if (launcherVersion.isPreRelease) R.string.generic_pre_release else R.string.generic_release)
     }
 
     private fun getLanguageText(whatsNew: WhatsNew): String {
