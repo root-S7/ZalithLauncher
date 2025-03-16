@@ -120,8 +120,21 @@ class GameMenuViewWrapper(
         val memoryText: TextView = view.findViewById(R.id.memory_text)
         val fpsText: TextView = view.findViewById(R.id.fps_text)
 
-        memoryText.text = ""
-        fpsText.text = ""
+        fun updateInfoText() {
+            if (showMemory) {
+                val memoryString = "${this@GameMenuViewWrapper.memoryText} ${getUsedDeviceMemory()}/${getTotalDeviceMemory()}".let { string ->
+                    if (string.length > 40) return@let string.take(40)
+                    string
+                }
+                TaskExecutors.runInUIThread { memoryText.text = memoryString }
+            }
+            if (showFPS) {
+                val fpsString = "FPS: ${CallbackBridge.getCurrentFps()}"
+                TaskExecutors.runInUIThread { fpsText.text = fpsString }
+            }
+        }
+
+        updateInfoText()
 
         if (showInfo) {
             memoryText.visibility = if (showMemory) View.VISIBLE else View.GONE
@@ -131,17 +144,7 @@ class GameMenuViewWrapper(
                 timer = Timer().apply {
                     schedule(object : TimerTask() {
                         override fun run() {
-                            if (showMemory) {
-                                val memoryString = "${this@GameMenuViewWrapper.memoryText} ${getUsedDeviceMemory()}/${getTotalDeviceMemory()}".let { string ->
-                                    if (string.length > 40) return@let string.take(40)
-                                    string
-                                }
-                                TaskExecutors.runInUIThread { memoryText.text = memoryString }
-                            }
-                            if (showFPS) {
-                                val fpsString = "FPS: ${CallbackBridge.getCurrentFps()}"
-                                TaskExecutors.runInUIThread { fpsText.text = fpsString }
-                            }
+                            updateInfoText()
                         }
                     }, 0, AllSettings.gameMenuInfoRefreshRate.getValue().toLong())
                 }
