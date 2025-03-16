@@ -117,10 +117,13 @@ class GameMenuViewWrapper(
     private fun updateInfoText(view: View) {
         cancelInfoTimer()
 
-        if (showInfo) {
-            val memoryText: TextView = view.findViewById(R.id.memory_text)
-            val fpsText: TextView = view.findViewById(R.id.fps_text)
+        val memoryText: TextView = view.findViewById(R.id.memory_text)
+        val fpsText: TextView = view.findViewById(R.id.fps_text)
 
+        memoryText.text = ""
+        fpsText.text = ""
+
+        if (showInfo) {
             memoryText.visibility = if (showMemory) View.VISIBLE else View.GONE
             fpsText.visibility = if (showFPS) View.VISIBLE else View.GONE
 
