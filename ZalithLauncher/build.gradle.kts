@@ -83,8 +83,8 @@ android {
         applicationId = nameId
         minSdk = 26
         targetSdk = 34
-        versionCode = 140211
-        versionName = "1.4.0.3_rc2"
+        versionCode = 140300
+        versionName = "1.4.0.3"
         multiDexEnabled = true //important
         manifestPlaceholders["launcher_name"] = launcherAPPName
     }
