@@ -65,7 +65,11 @@ public class MultiRTUtils {
             throw new RuntimeException("The runtime directory does not exist");
         }
 
-        runtimes.sort((o1, o2) -> -SortStrings.compareClassVersions(o1.versionString, o2.versionString));
+        runtimes.sort((o1, o2) -> {
+            String thisRuntime = o1.versionString != null ? o1.versionString : o1.name;
+            String otherRuntime = o2.versionString != null ? o2.versionString : o2.name;
+            return -SortStrings.compareClassVersions(thisRuntime, otherRuntime);
+        });
 
         return runtimes;
     }
