@@ -1,6 +1,7 @@
 package com.movtery.zalithlauncher.feature.version.utils
 
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.movtery.zalithlauncher.feature.log.Logging
@@ -72,6 +73,17 @@ class VersionInfoUtils {
         }
 
         private fun extractMinecraftVersion(json: JsonObject): String {
+            //尝试识别HMCL版本
+            if (json.has("patches") && json.get("patches").isJsonArray) {
+                val patches = json.getAsJsonArray("patches")
+                if (patches.size() > 0) {
+                    val minecraft = patches[0].asJsonObject
+                    if (minecraft.has("version")) {
+                        return minecraft.get("version").asString
+                    }
+                }
+            }
+
             //从minecraft库中获取
             json.getAsJsonArray("libraries")?.forEach { lib ->
                 val (group, artifact, version) = lib.asJsonObject["name"].asString.split(":").let {
@@ -152,12 +164,8 @@ class VersionInfoUtils {
          * 尝试在 arguments: { "game": [] } 中寻找NeoForge的版本
          */
         private fun JsonArray.findNeoForgeVersion(): String? {
-            for (i in 0 until this.size() - 1) {
-                if (this[i].asString == "--fml.neoForgeVersion") {
-                    return this[i + 1].asString
-                }
-            }
-            return null
+            val args = this.mapNotNull { it.takeIf(JsonElement::isJsonPrimitive)?.asString }
+            return args.zipWithNext().find { it.first == "--fml.neoForgeVersion" }?.second
         }
     }
 }

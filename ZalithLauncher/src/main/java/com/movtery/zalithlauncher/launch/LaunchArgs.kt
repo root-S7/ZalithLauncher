@@ -35,6 +35,12 @@ class LaunchArgs(
         argsList.add("-cp")
         argsList.add("${Tools.getLWJGL3ClassPath()}:$launchClassPath")
 
+        if (runtime.javaVersion > 8) {
+            argsList.add("--add-exports")
+            val pkg: String = versionInfo.mainClass.substring(0, versionInfo.mainClass.lastIndexOf("."))
+            argsList.add("$pkg/$pkg=ALL-UNNAMED")
+        }
+
         argsList.add(versionInfo.mainClass)
         argsList.addAll(getMinecraftClientArgs())
 
@@ -72,10 +78,10 @@ class LaunchArgs(
     private fun getMinecraftJVMArgs(): Array<String> {
         val versionInfo = Tools.getVersionInfo(minecraftVersion, true)
 
-        // Parse Forge 1.17+ additional JVM Arguments
-        if (versionInfo.inheritsFrom == null || versionInfo.arguments == null || versionInfo.arguments.jvm == null) {
-            return emptyArray()
-        }
+//        // Parse Forge 1.17+ additional JVM Arguments
+//        if (versionInfo.inheritsFrom == null || versionInfo.arguments == null || versionInfo.arguments.jvm == null) {
+//            return emptyArray()
+//        }
 
         val varArgMap: MutableMap<String, String?> = android.util.ArrayMap()
         varArgMap["classpath_separator"] = ":"

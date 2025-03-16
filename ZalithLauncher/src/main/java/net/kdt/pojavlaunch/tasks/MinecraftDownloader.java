@@ -304,7 +304,9 @@ public class MinecraftDownloader {
      * @throws IOException in case if download scheduling fails.
      */
     private void scheduleNativeLibraryDownload(String baseRepository, DependentLibrary dependentLibrary) throws IOException {
-        String path = FileUtils.removeExtension(Tools.artifactToPath(dependentLibrary)) + ".aar";
+        String libArtifactPath = Tools.artifactToPath(dependentLibrary);
+        if (libArtifactPath == null) return;
+        String path = FileUtils.removeExtension(libArtifactPath) + ".aar";
         String downloadUrl = baseRepository + path;
         File targetPath = new File(ProfilePathHome.getLibrariesHome(), path);
         mDeclaredNatives.add(targetPath);
@@ -323,6 +325,8 @@ public class MinecraftDownloader {
             }
 
             String libArtifactPath = Tools.artifactToPath(dependentLibrary);
+            if (libArtifactPath == null) continue;
+
             String sha1 = null, url = null;
             long size = 0;
             boolean skipIfFailed = false;

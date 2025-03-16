@@ -138,7 +138,19 @@ public final class Tools {
             library.downloads.artifact.path != null)
             return library.downloads.artifact.path;
         String[] libInfos = library.name.split(":");
-        return libInfos[0].replaceAll("\\.", "/") + "/" + libInfos[1] + "/" + libInfos[2] + "/" + libInfos[1] + "-" + libInfos[2] + ".jar";
+
+        if (libInfos.length < 3) {
+            Logging.e("Tools_artifactToPath", "Invalid library name format: " + library.name);
+            return null;
+        }
+
+        String groupId = libInfos[0].replace('.', '/');
+        String artifactId = libInfos[1];
+        String version = libInfos[2];
+
+        String classifier = (libInfos.length > 3) ? "-" + libInfos[3] : "";
+
+        return String.format("%s/%s/%s/%s-%s%s.jar", groupId, artifactId, version, artifactId, version, classifier);
     }
 
     public static String getClientClasspath(Version version) {
@@ -166,8 +178,10 @@ public final class Tools {
 
         String[] classpath = generateLibClasspath(info);
 
+        String clientClasspath = getClientClasspath(minecraftVersion);
+
         if (isClientFirst) {
-            finalClasspath.append(getClientClasspath(minecraftVersion));
+            finalClasspath.append(clientClasspath);
         }
         for (String jarFile : classpath) {
             if (!FileUtils.exists(jarFile)) {
@@ -177,7 +191,7 @@ public final class Tools {
             finalClasspath.append((isClientFirst ? ":" : "")).append(jarFile).append(!isClientFirst ? ":" : "");
         }
         if (!isClientFirst) {
-            finalClasspath.append(getClientClasspath(minecraftVersion));
+            finalClasspath.append(clientClasspath);
         }
 
         return finalClasspath.toString();
@@ -427,7 +441,9 @@ public final class Tools {
         List<String> libDir = new ArrayList<>();
         for (DependentLibrary libItem : info.libraries) {
             if (!checkRules(libItem.rules)) continue;
-            libDir.add(ProfilePathHome.getLibrariesHome() + "/" + artifactToPath(libItem));
+            String libArtifactPath = artifactToPath(libItem);
+            if (libArtifactPath == null) continue;
+            libDir.add(ProfilePathHome.getLibrariesHome() + "/" + libArtifactPath);
         }
         return libDir.toArray(new String[0]);
     }
