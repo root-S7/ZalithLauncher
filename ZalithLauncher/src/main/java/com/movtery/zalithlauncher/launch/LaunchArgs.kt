@@ -95,7 +95,7 @@ class LaunchArgs(
                 if (startsWith("-DignoreList=")) return "$this,$versionFileName.jar"
                 return this
             }
-            for (arg in it.jvm) {
+            it.jvm?.forEach { arg ->
                 if (arg is String) {
                     minecraftArgs.add(arg.addIgnoreListIfHas())
                 }
