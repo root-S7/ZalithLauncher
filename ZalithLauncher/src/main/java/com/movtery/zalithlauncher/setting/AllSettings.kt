@@ -91,7 +91,7 @@ class AllSettings {
 
         // Game
         @JvmStatic
-        val versionIsolation = BooleanSettingUnit("versionIsolation", false)
+        val versionIsolation = BooleanSettingUnit("versionIsolation", true)
 
         @JvmStatic
         val versionCustomInfo = StringSettingUnit("versionCustomInfo", "${InfoDistributor.LAUNCHER_NAME}[zl_version]")
