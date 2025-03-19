@@ -2,10 +2,14 @@
     <img width="256" src="ZalithLauncher/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
+<div align="center">
+
 [![Android CI](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml)
 ![Downloads](https://img.shields.io/github/downloads/ZalithLauncher/ZalithLauncher/total)
 [![QQ](https://img.shields.io/badge/QQ-blue)](https://qm.qq.com/q/2MVxS0B29y)
 [![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
+
+</div>
 
 - <a href="/README.md">English</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
 - Zalith Launcher 是一款基于 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) 开发的 Minecraft 启动器，它能够在 Android 设备上运行 [Minecraft: Java Edition](https://www.minecraft.net/)。
@@ -30,10 +34,6 @@
 ![Screenshot1](/.github/images/Screenshot_Launcher_Light_ZH_CN.jpg)
 ![Screenshot2](/.github/images/Screenshot_Launcher_Dark_ZH_CN.jpg)
 ![Screenshot3](/.github/images/Screenshot_Game_ZH_CN.jpg)
-
-<h2 align="center">下载</h2>  
-
-- 前往 [Release](https://github.com/ZalithLauncher/ZalithLauncher/releases) 查看最新且经过测试的稳定版本（更新并不频繁）。
 
 <h2 align="center">协议</h2>
 

@@ -2,16 +2,20 @@
     <img width="256" src="ZalithLauncher/src/main/res/drawable/app_name_title.png"></img>
 </div>
 
+<div align="center">
+
 [![Android CI](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml/badge.svg)](https://github.com/ZalithLauncher/ZalithLauncher/actions/workflows/android.yml)
 ![Downloads](https://img.shields.io/github/downloads/ZalithLauncher/ZalithLauncher/total)
 [![QQ](https://img.shields.io/badge/QQ-blue)](https://qm.qq.com/q/2MVxS0B29y)
 [![Sponsor](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors)](https://afdian.com/a/MovTery)
 
+</div>
+
 - <a href="/README_ZH_CN.md">简体中文</a>丨<a href="/README-ZH_TW.md">繁體中文</a>
 - Zalith Launcher is a Minecraft launcher based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) that runs [Minecraft: Java Edition](https://www.minecraft.net/) on Android devices.
 - Zalith Launcher aims to enhance user experience by redesigning the app interface, adding more practical features, and lowering the barrier to entry, making it easier for more people to enjoy Minecraft.
 
-⚠️**Note! This project is just a community rework, similar to how PojavLauncher is developed based on [Boardwalk](https://github.com/zhuowei/Boardwalk).**
+⚠️**Note! This project is just a community rework, similar to how PojavLauncher is developed based on [Boardwalk](https://github.com/zhuowei/Boardwalk).**  
 ⚠️**Additionally, we have never set up any official website. Our only community is on [GitHub](https://github.com/ZalithLauncher) and [QQ](https://qm.qq.com/q/2MVxS0B29y). Any other content is created by unofficial individuals. We do not participate in, accept, or trust such content. Please verify carefully and protect your personal privacy!**
 
 <h2 align="center">New Features</h2>
@@ -30,10 +34,6 @@
 ![Screenshot1](/.github/images/Screenshot_Launcher_Light_EN_US.jpg)
 ![Screenshot2](/.github/images/Screenshot_Launcher_Dark_EN_US.jpg)
 ![Screenshot3](/.github/images/Screenshot_Game_EN_US.jpg)
-
-<h2 align="center">Download</h2>
-
-- Visit [Release](https://github.com/ZalithLauncher/ZalithLauncher/releases) to check the latest stable version (updates are infrequent).
 
 <h2 align="center">License</h2>
 
