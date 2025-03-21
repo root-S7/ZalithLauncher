@@ -4,6 +4,7 @@ import static com.movtery.zalithlauncher.task.TaskExecutors.runInUIThread;
 import static com.movtery.zalithlauncher.utils.file.FileTools.formatFileSize;
 import static com.movtery.zalithlauncher.utils.path.UrlManager.TIME_OUT;
 
+import android.app.Dialog;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import java.nio.file.Files;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -101,12 +103,12 @@ public final class UpdateLauncher {
                                 lastSize[0] = size;
                                 lastTime[0] = currentTime;
 
-                                runInUIThread(() -> {
-                                    String formattedDownloaded = formatFileSize(size);
-                                    String totalSize = formatFileSize(UpdateUtils.getFileSize(launcherVersion.getFileSize()));
-                                    UpdateLauncher.this.dialog.updateProgress(size, UpdateUtils.getFileSize(launcherVersion.getFileSize()));
-                                    UpdateLauncher.this.dialog.updateRate(rate > 0 ? rate : 0L);
-                                    UpdateLauncher.this.dialog.updateText(String.format(context.getString(R.string.update_downloading), formattedDownloaded, totalSize));
+                                String formattedDownloaded = formatFileSize(size);
+                                String totalSize = formatFileSize(UpdateUtils.getFileSize(launcherVersion.getFileSize()));
+                                handleDialog(dialog -> {
+                                    dialog.updateProgress(size, UpdateUtils.getFileSize(launcherVersion.getFileSize()));
+                                    dialog.updateRate(rate > 0 ? rate : 0L);
+                                    dialog.updateText(String.format(context.getString(R.string.update_downloading), formattedDownloaded, totalSize));
                                 });
                             }
                         }, 0, 120);
@@ -129,10 +131,16 @@ public final class UpdateLauncher {
     }
 
     private void finish(File outputFile) {
-        runInUIThread(UpdateLauncher.this.dialog::dismiss);
+        handleDialog(Dialog::dismiss);
         timer.cancel();
 
         UpdateUtils.installApk(context, outputFile);
+    }
+
+    public void handleDialog(Consumer<ProgressDialog> func) {
+        if (UpdateLauncher.this.dialog != null) {
+            runInUIThread(() -> func.accept(UpdateLauncher.this.dialog));
+        }
     }
 
     private void handleDownloadError(Exception e) {
@@ -141,10 +149,8 @@ public final class UpdateLauncher {
             return;
         }
 
-        runInUIThread(() -> {
-            UpdateLauncher.this.dialog.dismiss();
-            Tools.showError(context, R.string.update_fail, e);
-        });
+        handleDialog(Dialog::dismiss);
+        runInUIThread(() -> Tools.showError(context, R.string.update_fail, e));
         timer.cancel();
         FileUtils.deleteQuietly(UpdateUtils.sApkFile);
         Logging.e("Update Launcher", "There was an exception downloading the update!", e);
