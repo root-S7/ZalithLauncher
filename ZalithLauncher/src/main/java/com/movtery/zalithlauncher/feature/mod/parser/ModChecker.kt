@@ -10,6 +10,7 @@ import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import net.kdt.pojavlaunch.Architecture
 import net.kdt.pojavlaunch.Logger
+import net.kdt.pojavlaunch.plugins.FFmpegPlugin
 
 class ModChecker {
     class ModCheckResult() : Parcelable {
@@ -19,7 +20,8 @@ class ModChecker {
         var hasMCEF: Boolean = false
         var hasValkyrienSkies: Boolean = false
         var hasYesSteveModel: Boolean = false
-        var hasIMBlocker: Boolean = false
+        var hasIMBlockerOrInGameIME: Boolean = false
+        var hasReplayMod: Boolean = false
 
         private fun Boolean.getInt(): Int = if (this) 1 else 0
         private fun Int.toBoolean(): Boolean = this != 0
@@ -31,7 +33,8 @@ class ModChecker {
             hasMCEF = parcel.readInt().toBoolean()
             hasValkyrienSkies = parcel.readInt().toBoolean()
             hasYesSteveModel = parcel.readInt().toBoolean()
-            hasIMBlocker = parcel.readInt().toBoolean()
+            hasIMBlockerOrInGameIME = parcel.readInt().toBoolean()
+            hasReplayMod = parcel.readInt().toBoolean()
         }
 
         override fun describeContents(): Int = 0
@@ -43,7 +46,8 @@ class ModChecker {
             dest.writeInt(hasMCEF.getInt())
             dest.writeInt(hasValkyrienSkies.getInt())
             dest.writeInt(hasYesSteveModel.getInt())
-            dest.writeInt(hasIMBlocker.getInt())
+            dest.writeInt(hasIMBlockerOrInGameIME.getInt())
+            dest.writeInt(hasReplayMod.getInt())
         }
 
         companion object CREATOR : Parcelable.Creator<ModCheckResult> {
@@ -138,13 +142,28 @@ class ModChecker {
                             }
                         }
                     }
-                    "imblocker" -> {
-                        if (!modResult.hasIMBlocker) {
-                            modResult.hasIMBlocker = true
+                    "imblocker", "ingameime" -> {
+                        if (!modResult.hasIMBlockerOrInGameIME) {
+                            modResult.hasIMBlockerOrInGameIME = true
                             modCheckSettings[AllModCheckSettings.IM_BLOCKER] = Pair(
-                                "1",
+                                "2",
                                 context.getString(R.string.mod_check_imblocker, mod.file.name)
                             )
+                        }
+                    }
+                    "replaymod" -> {
+                        if (!modResult.hasReplayMod) {
+                            modResult.hasReplayMod = true
+                            FFmpegPlugin.discover(context)
+                            if (!FFmpegPlugin.isAvailable) {
+                                modCheckSettings[AllModCheckSettings.REPLAY_MOD] = Pair(
+                                    "1",
+                                    context.getString(R.string.mod_check_replay_mod, mod.file.name,
+                                        "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/ffmpeg/Pojav.FFmpeg.Plugin.1.1.APK",
+                                        "https://pan.quark.cn/s/6201574edb62"
+                                    )
+                                )
+                            }
                         }
                     }
                 }
@@ -185,6 +204,7 @@ class ModChecker {
                 .setShowCheckBox(true)
                 .setCenterMessage(false)
                 .setCancelable(false)
+                .setSelectable(true)
                 .setConfirmClickListener { check ->
                     if (check) {
                         modCheckSettings.forEach { (setting, valuePair) ->

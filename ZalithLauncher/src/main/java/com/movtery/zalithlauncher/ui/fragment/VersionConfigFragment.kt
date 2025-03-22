@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.doAfterTextChanged
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
@@ -20,9 +21,8 @@ import com.movtery.zalithlauncher.feature.version.Version
 import com.movtery.zalithlauncher.feature.version.VersionConfig
 import com.movtery.zalithlauncher.feature.version.VersionConfig.CREATOR.getIsolationString
 import com.movtery.zalithlauncher.feature.version.VersionConfig.IsolationType
-import com.movtery.zalithlauncher.feature.version.utils.VersionIconUtils
 import com.movtery.zalithlauncher.feature.version.VersionsManager.getCurrentVersion
-import com.movtery.zalithlauncher.listener.SimpleTextWatcher
+import com.movtery.zalithlauncher.feature.version.utils.VersionIconUtils
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
 import com.movtery.zalithlauncher.renderer.Renderers
 import com.movtery.zalithlauncher.setting.AllSettings.Companion.versionIsolation
@@ -104,12 +104,12 @@ class VersionConfigFragment : FragmentWithAnim(R.layout.fragment_version_config)
             customPath.setOnClickListener(listener)
             resetCustomPath.setOnClickListener(listener)
 
-            customInfoEdit.addTextChangedListener(SimpleTextWatcher { s: Editable? ->
-                mTempConfig?.setCustomInfo(getEditableValue(s))
-            })
-            jvmArgsEdit.addTextChangedListener(SimpleTextWatcher { s: Editable? ->
-                mTempConfig?.setJavaArgs(getEditableValue(s))
-            })
+            customInfoEdit.doAfterTextChanged { text ->
+                mTempConfig?.setCustomInfo(getEditableValue(text))
+            }
+            jvmArgsEdit.doAfterTextChanged { text ->
+                mTempConfig?.setJavaArgs(getEditableValue(text))
+            }
 
             initSpinners(isolationType, rendererSpinner, driverSpinner, runtimeSpinner)
         }

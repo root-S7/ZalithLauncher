@@ -134,7 +134,8 @@
     <string name="mod_check_mcef">MCEF (%s) không thể chạy trên Android. Nó thường được dùng làm phụ thuộc tiền xử cho WebDisplays/In-game Browser (trình duyệt).</string>
     <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) không thể chạy trực tiếp ở chế độ chơi đơn. Bạn phải chạy nó trên máy chủ (có thể sử dụng Termux), otherwise trò chơi sẽ bị crash.</string>
     <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ không thể chạy trên hệ điều hành Android.</string>
-    <string name="mod_check_imblocker">IMBlocker (%s) không tương thích với Android và sẽ làm trò chơi bị lỗi khi khởi động.</string>
+    <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) không tương thích với Android và sẽ khiến trò chơi bị treo khi khởi động.</string>
+    <string name="mod_check_replay_mod">ReplayMod (%s) yêu cầu FFmpeg để render video. Vui lòng cài đặt plugin FFmpeg riêng (%s hoặc %s)</string>
     <!-- Controls -->
     <string name="control_primary">Nhấp chuột trái</string>
     <string name="control_secondary">Nhấp chuột phải</string>

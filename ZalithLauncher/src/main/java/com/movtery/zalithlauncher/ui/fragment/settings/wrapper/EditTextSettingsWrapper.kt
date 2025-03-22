@@ -1,13 +1,12 @@
 package com.movtery.zalithlauncher.ui.fragment.settings.wrapper
 
-import android.text.Editable
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.text.InputType
 import android.view.Gravity
 import android.view.View
 import android.widget.EditText
-import com.movtery.zalithlauncher.listener.SimpleTextWatcher
+import androidx.core.widget.doAfterTextChanged
 import com.movtery.zalithlauncher.setting.unit.StringSettingUnit
 
 class EditTextSettingsWrapper(
@@ -27,12 +26,11 @@ class EditTextSettingsWrapper(
                 false
             }
 
-            addTextChangedListener(object : SimpleTextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    unit.put(s.toString()).save()
-                    listener?.onChanged(s.toString())
-                }
-            })
+            doAfterTextChanged { text ->
+                val string = text?.toString() ?: ""
+                unit.put(string).save()
+                listener?.onChanged(string)
+            }
         }
     }
 

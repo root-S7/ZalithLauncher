@@ -135,7 +135,8 @@
     <string name="mod_check_mcef">MCEF (%s) cannot run on Android. It is usually used as a prerequisite dependency for WebDisplays/In-game Browser (browser).</string>
     <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) cannot run directly in single-player mode. You must run it on a server (Termux can be used), otherwise the game will crash.</string>
     <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ cannot run on Android.</string>
-    <string name="mod_check_imblocker">IMBlocker (%s) is not compatible with Android and will cause the game to crash during startup.</string>
+    <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) is not compatible with Android and will cause the game to crash during startup.</string>
+    <string name="mod_check_replay_mod">ReplayMod (%s) requires FFmpeg to render videos. Please install the FFmpeg plugin separately (%s or %s)</string>
     <!-- Controls -->
     <string name="control_primary">Left Click</string>
     <string name="control_secondary">Right Click</string>

@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentVersionBinding
-import com.movtery.zalithlauncher.listener.SimpleTextWatcher
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionSelectedListener
 import com.movtery.zalithlauncher.ui.subassembly.versionlist.VersionType
 import com.movtery.zalithlauncher.utils.ZHTools
@@ -57,10 +57,10 @@ class VersionSelectorFragment : FragmentWithAnim(R.layout.fragment_version) {
                 }
             })
 
-            searchVersion.addTextChangedListener(SimpleTextWatcher { editable ->
-                val string = editable?.toString() ?: ""
+            searchVersion.doAfterTextChanged { text ->
+                val string = text?.toString() ?: ""
                 version.setFilterString(string)
-            })
+            }
 
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
 

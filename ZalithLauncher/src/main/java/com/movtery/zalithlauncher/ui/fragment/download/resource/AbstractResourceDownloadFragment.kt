@@ -1,13 +1,13 @@
 package com.movtery.zalithlauncher.ui.fragment.download.resource
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.Button
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +31,6 @@ import com.movtery.zalithlauncher.feature.download.item.InfoItem
 import com.movtery.zalithlauncher.feature.download.item.SearchResult
 import com.movtery.zalithlauncher.feature.download.platform.PlatformNotSupportedException
 import com.movtery.zalithlauncher.feature.log.Logging
-import com.movtery.zalithlauncher.listener.SimpleTextWatcher
 import com.movtery.zalithlauncher.task.TaskExecutors
 import com.movtery.zalithlauncher.ui.dialog.SelectVersionDialog
 import com.movtery.zalithlauncher.ui.fragment.FragmentWithAnim
@@ -116,11 +115,9 @@ abstract class AbstractResourceDownloadFragment(
             backToTop.setOnClickListener { recyclerView.smoothScrollToPosition(0) }
 
             searchView.setOnClickListener { search() }
-            nameEdit.addTextChangedListener(object : SimpleTextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    mFilters.name = s?.toString() ?: ""
-                }
-            })
+            nameEdit.doAfterTextChanged { text ->
+                mFilters.name = text?.toString() ?: ""
+            }
             nameEdit.setOnEditorActionListener { _, _, _ ->
                 search()
                 nameEdit.clearFocus()
