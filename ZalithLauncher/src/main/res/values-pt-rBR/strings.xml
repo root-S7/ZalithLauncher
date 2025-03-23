@@ -135,7 +135,7 @@
     <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) não pode ser executado diretamente no modo single-player. Você deve executá-lo em um servidor (Termux pode ser usado), caso contrário o jogo travará.</string>
     <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ não pode ser executado no Android.</string>
     <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) não é compatível com Android e causará falha no jogo durante a inicialização.</string>
-    <string name="mod_check_replay_mod">ReplayMod (%s) requer o FFmpeg para renderizar vídeos. Instale o plugin FFmpeg separadamente (%s ou %s)</string>
+    <string name="mod_check_replay_mod">ReplayMod (%s) requer o FFmpeg para renderizar vídeos. Instale o plugin FFmpeg separadamente\n%s\n%s</string>
     <!-- Controls -->
     <string name="control_primary">Clique Esquerdo</string>
     <string name="control_secondary">Clique Direito</string>

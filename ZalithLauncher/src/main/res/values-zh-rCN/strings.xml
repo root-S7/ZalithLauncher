@@ -139,7 +139,7 @@
     <string name="mod_check_valkyrien_skies">瓦尔基里天空/瓦尔基里战争 (%s) 无法直接在单人模式下运行。你必须使用服务器运行（可以使用 Termux），否则游戏会崩溃。</string>
     <string name="mod_check_yes_steve_model">是，史蒂夫模型 (%s) 2.2.2+ 无法在 Android 系统上运行。</string>
     <string name="mod_check_imblocker">输入法冲突修复/游戏内输入法 (%s) 不适用于 Android ，它会使游戏在启动阶段崩溃。</string>
-    <string name="mod_check_replay_mod">ReplayMod (%s) 需要 FFmpeg 渲染视频，请单独安装 FFmpeg 插件（ %s 或者 %s ）</string>
+    <string name="mod_check_replay_mod">ReplayMod (%s) 需要 FFmpeg 渲染视频，请单独安装 FFmpeg 插件\n%s\n%s</string>
 
     <!-- Controls -->
     <string name="control_primary">左键</string>
