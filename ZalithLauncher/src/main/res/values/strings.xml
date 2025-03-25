@@ -417,6 +417,8 @@
     <string name="setting_driver_title">Vulkan Driver</string>
     <string name="setting_ignore_notch_title">Fullscreen Mode</string>
     <string name="setting_ignore_notch_desc">Ignore the notch and extend the screen content to full screen for a more immersive experience</string>
+    <string name="setting_launcher_ignore_notch_title">Fullscreen Mode (Non-Game)</string>
+    <string name="setting_launcher_ignore_notch_desc">On non-game interfaces, ignore the notch and extend the screen content to fullscreen</string>
     <string name="setting_resolution_scaler_title">Resolution Scaling</string>
     <string name="setting_resolution_scaler_desc">Allows adjusting the game\'s resolution, with native resolution set to 100%</string>
     <string name="setting_use_surface_view_title">Use Alternative Surface Rendering</string>

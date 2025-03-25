@@ -411,6 +411,8 @@
     <string name="setting_driver_title">Pilote Vulkan</string>
     <string name="setting_ignore_notch_title">Mode plein écran</string>
     <string name="setting_ignore_notch_desc">Ignorez l\'encoche et étendez le contenu de l\'écran en plein écran pour une expérience plus immersive</string>
+    <string name="setting_launcher_ignore_notch_title">Mode plein écran (non-jeu)</string>
+    <string name="setting_launcher_ignore_notch_desc">Dans les interfaces non liées au jeu, ignorer l\'encoche et étendre le contenu de l\'écran en mode plein écran</string>
     <string name="setting_resolution_scaler_title">Ajustement de la résolution</string>
     <string name="setting_resolution_scaler_desc">Permet d\'ajuster la résolution de l\'écran du jeu, la résolution native est de 100%</string>
     <string name="setting_use_surface_view_title">Utiliser le rendu de surface alternatif</string>

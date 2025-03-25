@@ -10,14 +10,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.movtery.zalithlauncher.context.ContextExecutor;
 import com.movtery.zalithlauncher.context.LocaleHelper;
+import com.movtery.zalithlauncher.event.single.LauncherIgnoreNotchEvent;
 import com.movtery.zalithlauncher.feature.accounts.AccountsManager;
 import com.movtery.zalithlauncher.feature.customprofilepath.ProfilePathManager;
 import com.movtery.zalithlauncher.plugins.PluginLoader;
 import com.movtery.zalithlauncher.renderer.Renderers;
+import com.movtery.zalithlauncher.setting.AllSettings;
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils;
 
 import net.kdt.pojavlaunch.MissingStorageActivity;
 import net.kdt.pojavlaunch.Tools;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -69,9 +74,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         Tools.getDisplayMetrics(this);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void event(LauncherIgnoreNotchEvent event) {
+        Tools.ignoreNotch(shouldIgnoreNotch(),this);
+    }
+
     /** @return Whether or not the notch should be ignored */
     public boolean shouldIgnoreNotch() {
-        return true;
+        return AllSettings.getIgnoreNotchLauncher().getValue();
     }
 
     private void checkStoragePermissions() {

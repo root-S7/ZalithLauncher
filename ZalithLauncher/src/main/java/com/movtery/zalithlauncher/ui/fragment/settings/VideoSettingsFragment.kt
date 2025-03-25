@@ -13,6 +13,7 @@ import com.movtery.anim.AnimPlayer
 import com.movtery.anim.animations.Animations
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.SettingsFragmentVideoBinding
+import com.movtery.zalithlauncher.event.single.LauncherIgnoreNotchEvent
 import com.movtery.zalithlauncher.feature.log.Logging
 import com.movtery.zalithlauncher.plugins.driver.DriverPluginManager
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager
@@ -34,6 +35,7 @@ import com.movtery.zalithlauncher.utils.path.UrlManager
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
 import org.apache.commons.io.FileUtils
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragment_video, SettingCategory.VIDEO) {
@@ -149,8 +151,21 @@ class VideoSettingsFragment : AbstractSettingsFragment(R.layout.settings_fragmen
             binding.ignoreNotchLayout,
             binding.ignoreNotch
         )
-        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && AllStaticSettings.notchSize > 0))
+
+        val ignoreNotchLauncher = SwitchSettingsWrapper(
+            context,
+            AllSettings.ignoreNotchLauncher,
+            binding.ignoreNotchLauncherLayout,
+            binding.ignoreNotchLauncher
+        ).setOnCheckedChangeListener { _, _, listener ->
+            listener.onSave()
+            EventBus.getDefault().post(LauncherIgnoreNotchEvent())
+        }
+
+        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && AllStaticSettings.notchSize > 0)) {
             ignoreNotch.setGone()
+            ignoreNotchLauncher.setGone()
+        }
 
         SeekBarSettingsWrapper(
             context,

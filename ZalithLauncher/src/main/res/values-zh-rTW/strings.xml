@@ -411,6 +411,8 @@
     <string name="setting_driver_title">Vulkan 驅動程式</string>
     <string name="setting_ignore_notch_title">全螢幕模式</string>
     <string name="setting_ignore_notch_desc">忽略劉海螢幕並將螢幕內容擴展至全螢幕，給你更完整的沉浸感</string>
+    <string name="setting_launcher_ignore_notch_title">全螢幕模式（非遊戲）</string>
+    <string name="setting_launcher_ignore_notch_desc">非遊戲介面，忽略劉海屏並將螢幕內容擴展至全螢幕</string>
     <string name="setting_resolution_scaler_title">解析度調整</string>
     <string name="setting_resolution_scaler_desc">允許調整遊戲畫面解析度，原生解析度為 100%</string>
     <string name="setting_use_surface_view_title">使用備用 Surface 渲染</string>

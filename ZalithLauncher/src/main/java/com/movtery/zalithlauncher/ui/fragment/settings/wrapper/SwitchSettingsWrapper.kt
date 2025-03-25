@@ -31,8 +31,9 @@ class SwitchSettingsWrapper(
         }
     }
 
-    fun setOnCheckedChangeListener(listener: OnCheckedChangeListener) {
+    fun setOnCheckedChangeListener(listener: OnCheckedChangeListener): SwitchSettingsWrapper {
         this.listener = listener
+        return this
     }
 
     fun interface OnSwitchSaveListener {

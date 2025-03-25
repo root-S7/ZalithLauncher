@@ -27,11 +27,11 @@ import com.movtery.zalithlauncher.task.TaskExecutors;
 import com.movtery.zalithlauncher.ui.activity.BaseActivity;
 import com.movtery.zalithlauncher.ui.dialog.TipDialog;
 import com.movtery.zalithlauncher.utils.NewbieGuideUtils;
-import com.movtery.zalithlauncher.utils.path.LibPath;
-import com.movtery.zalithlauncher.utils.path.PathManager;
 import com.movtery.zalithlauncher.utils.ZHTools;
 import com.movtery.zalithlauncher.utils.image.Dimension;
 import com.movtery.zalithlauncher.utils.image.ImageUtils;
+import com.movtery.zalithlauncher.utils.path.LibPath;
+import com.movtery.zalithlauncher.utils.path.PathManager;
 
 import net.kdt.pojavlaunch.customcontrols.keyboard.AwtCharSender;
 import net.kdt.pojavlaunch.multirt.MultiRTUtils;
@@ -40,7 +40,6 @@ import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MathUtils;
 
 import org.apache.commons.io.IOUtils;
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.lwjgl.glfw.CallbackBridge;
 
@@ -211,18 +210,6 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
         if (mSubscribeJvmExitEvent) {
             ZHTools.killProcess();
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     private void showLogFloodWarning() {

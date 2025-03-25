@@ -411,6 +411,8 @@
     <string name="setting_driver_title">Driver Vulkan</string>
     <string name="setting_ignore_notch_title">Modo Tela Cheia</string>
     <string name="setting_ignore_notch_desc">Ignorar o entalhe e estender o conteúdo da tela para a tela cheia para uma experiência mais imersiva</string>
+    <string name="setting_launcher_ignore_notch_title">Modo de Tela Cheia (Não-jogo)</string>
+    <string name="setting_launcher_ignore_notch_desc">Em interfaces não-jogo, ignore o entalhe e estenda o conteúdo da tela para o modo de tela cheia</string>
     <string name="setting_resolution_scaler_title">Ajuste de Resolução</string>
     <string name="setting_resolution_scaler_desc">Permite ajustar a resolução da tela do jogo, a resolução nativa é 100%</string>
     <string name="setting_use_surface_view_title">Usar renderização de superfície alternativa</string>

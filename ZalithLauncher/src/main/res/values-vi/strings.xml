@@ -411,6 +411,8 @@
     <string name="setting_driver_title">Trình điều khiển Vulkan</string>
     <string name="setting_ignore_notch_title">Chế độ toàn màn hình</string>
     <string name="setting_ignore_notch_desc">Bỏ qua phần notch và mở rộng nội dung màn hình ra toàn màn hình để có trải nghiệm sống động hơn</string>
+    <string name="setting_launcher_ignore_notch_title">Chế độ toàn màn hình (Không phải trò chơi)</string>
+    <string name="setting_launcher_ignore_notch_desc">Trên giao diện không phải trò chơi, bỏ qua phần "tai thỏ" và mở rộng nội dung màn hình ra toàn màn hình</string>
     <string name="setting_resolution_scaler_title">Điều chỉnh độ phân giải</string>
     <string name="setting_resolution_scaler_desc">Cho phép điều chỉnh độ phân giải hình ảnh trò chơi, độ phân giải gốc là 100%</string>
     <string name="setting_use_surface_view_title">Sử dụng kết xuất Surface thay thế</string>

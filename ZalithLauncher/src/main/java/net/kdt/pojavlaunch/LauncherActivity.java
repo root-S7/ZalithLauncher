@@ -58,10 +58,10 @@ import com.movtery.zalithlauncher.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.zalithlauncher.feature.notice.CheckNewNotice;
 import com.movtery.zalithlauncher.feature.notice.NoticeInfo;
 import com.movtery.zalithlauncher.feature.update.UpdateUtils;
-import com.movtery.zalithlauncher.feature.version.install.GameInstaller;
-import com.movtery.zalithlauncher.feature.version.install.InstallTask;
 import com.movtery.zalithlauncher.feature.version.Version;
 import com.movtery.zalithlauncher.feature.version.VersionsManager;
+import com.movtery.zalithlauncher.feature.version.install.GameInstaller;
+import com.movtery.zalithlauncher.feature.version.install.InstallTask;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPlugin;
 import com.movtery.zalithlauncher.plugins.renderer.RendererPluginManager;
 import com.movtery.zalithlauncher.setting.AllSettings;
@@ -498,13 +498,6 @@ public class LauncherActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentCallbackListener, true);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

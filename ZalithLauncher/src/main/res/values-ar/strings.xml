@@ -411,6 +411,8 @@
     <string name="setting_driver_title">برنامج تشغيل Vulkan</string>
     <string name="setting_ignore_notch_title">وضع ملء الشاشة</string>
     <string name="setting_ignore_notch_desc">تجاهل الشق وتمديد محتوى الشاشة إلى وضع ملء الشاشة للحصول على تجربة أكثر غمرًا</string>
+    <string name="setting_launcher_ignore_notch_title">وضع ملء الشاشة (غير الألعاب)</string>
+    <string name="setting_launcher_ignore_notch_desc">في واجهات غير الألعاب، تجاهل الشق العلوي وتمديد محتوى الشاشة إلى وضع ملء الشاشة</string>
     <string name="setting_resolution_scaler_title">ضبط الدقة</string>
     <string name="setting_resolution_scaler_desc">يسمح بتعديل دقة اللعبة، حيث تكون الدقة الأصلية 100%</string>
     <string name="setting_use_surface_view_title">استخدام عرض سطح بديل</string>
