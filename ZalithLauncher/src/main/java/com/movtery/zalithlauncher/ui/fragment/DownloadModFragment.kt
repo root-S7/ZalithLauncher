@@ -263,8 +263,14 @@ class DownloadModFragment : ModListFragment() {
 
     private fun parseViewModel() {
         val viewModel = ViewModelProvider(fragmentActivity!!)[InfoViewModel::class.java]
-        platformHelper = viewModel.platformHelper
-        mInfoItem = viewModel.infoItem
+        platformHelper = viewModel.platformHelper ?: run {
+            ZHTools.onBackPressed(fragmentActivity!!)
+            return
+        }
+        mInfoItem = viewModel.infoItem ?: run {
+            ZHTools.onBackPressed(fragmentActivity!!)
+            return
+        }
     }
 
     private fun loadScreenshots() {
