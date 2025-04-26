@@ -22,6 +22,7 @@ class ModChecker {
         var hasYesSteveModel: Boolean = false
         var hasIMBlockerOrInGameIME: Boolean = false
         var hasReplayMod: Boolean = false
+        var hasBorderlesswindow: Boolean = false
 
         private fun Boolean.getInt(): Int = if (this) 1 else 0
         private fun Int.toBoolean(): Boolean = this != 0
@@ -35,6 +36,7 @@ class ModChecker {
             hasYesSteveModel = parcel.readInt().toBoolean()
             hasIMBlockerOrInGameIME = parcel.readInt().toBoolean()
             hasReplayMod = parcel.readInt().toBoolean()
+            hasBorderlesswindow = parcel.readInt().toBoolean()
         }
 
         override fun describeContents(): Int = 0
@@ -48,6 +50,7 @@ class ModChecker {
             dest.writeInt(hasYesSteveModel.getInt())
             dest.writeInt(hasIMBlockerOrInGameIME.getInt())
             dest.writeInt(hasReplayMod.getInt())
+            dest.writeInt(hasBorderlesswindow.getInt())
         }
 
         companion object CREATOR : Parcelable.Creator<ModCheckResult> {
@@ -164,6 +167,15 @@ class ModChecker {
                                     )
                                 )
                             }
+                        }
+                    }
+                    "borderlesswindow" -> {
+                        if (!modResult.hasBorderlesswindow) {
+                            modResult.hasBorderlesswindow = true
+                            modCheckSettings[AllModCheckSettings.BORDERLESS_WINDOW] = Pair(
+                                "1",
+                                context.getString(R.string.mod_check_borderlesswindow, mod.file.name)
+                            )
                         }
                     }
                 }

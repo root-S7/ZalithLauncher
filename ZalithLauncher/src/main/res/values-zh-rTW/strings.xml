@@ -136,6 +136,7 @@
     <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ 無法在 Android 系統上運行.</string>
     <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) 不適用於 Android，會導致遊戲在啟動時崩潰。</string>
     <string name="mod_check_replay_mod">ReplayMod (%s) 需要 FFmpeg 來渲染影片，請另外安裝 FFmpeg 插件\n%s\n%s</string>
+    <string name="mod_check_borderlesswindow">Borderless Window (%s) 不適用於 Android，會導致遊戲在啟動時崩潰。</string>
     <!-- Controls -->
     <string name="control_primary">左鍵</string>
     <string name="control_secondary">右鍵</string>

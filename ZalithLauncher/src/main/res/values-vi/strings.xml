@@ -136,6 +136,7 @@
     <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ không thể chạy trên hệ điều hành Android.</string>
     <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) không tương thích với Android và sẽ khiến trò chơi bị treo khi khởi động.</string>
     <string name="mod_check_replay_mod">ReplayMod (%s) yêu cầu FFmpeg để render video. Vui lòng cài đặt plugin FFmpeg riêng\n%s\n%s</string>
+    <string name="mod_check_borderlesswindow">Borderless Window (%s) không tương thích với Android và sẽ khiến trò chơi bị treo khi khởi động.</string>
     <!-- Controls -->
     <string name="control_primary">Nhấp chuột trái</string>
     <string name="control_secondary">Nhấp chuột phải</string>

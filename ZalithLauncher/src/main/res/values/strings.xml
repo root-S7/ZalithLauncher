@@ -137,6 +137,7 @@
     <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ cannot run on Android.</string>
     <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) is not compatible with Android and will cause the game to crash during startup.</string>
     <string name="mod_check_replay_mod">ReplayMod (%s) requires FFmpeg to render videos. Please install the FFmpeg plugin separately\n%s\n%s</string>
+    <string name="mod_check_borderlesswindow">Borderless Window (%s) is not compatible with Android and will cause the game to crash during startup.</string>
     <!-- Controls -->
     <string name="control_primary">Left Click</string>
     <string name="control_secondary">Right Click</string>
