@@ -44,6 +44,8 @@ val nameId = "com.movtery.zalithlauncher"
 val generatedZalithDir = file("$buildDir/generated/source/zalith/java")
 val launcherAPPName = project.findProperty("launcher_app_name") as? String ?: error("The \"launcher_app_name\" property is not set in gradle.properties.")
 val launcherName = project.findProperty("launcher_name") as? String ?: error("The \"launcher_name\" property is not set in gradle.properties.")
+val launcherVersionCode = (project.findProperty("launcher_version_code") as? String)?.toIntOrNull() ?: error("The \"launcher_version_code\" property is not set as an integer in gradle.properties.")
+val launcherVersionName = project.findProperty("launcher_version_name") as? String ?: error("The \"launcher_version_name\" property is not set in gradle.properties.")
 
 configurations {
     create("instrumentedClasspath") {
@@ -83,8 +85,8 @@ android {
         applicationId = nameId
         minSdk = 26
         targetSdk = 34
-        versionCode = 140500
-        versionName = "1.4.0.5"
+        versionCode = launcherVersionCode
+        versionName = launcherVersionName
         multiDexEnabled = true //important
         manifestPlaceholders["launcher_name"] = launcherAPPName
     }
