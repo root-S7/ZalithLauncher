@@ -37,7 +37,7 @@ object OtherLoginApi {
         }
         val agent = AuthRequest.Agent().apply {
             this.name = "Minecraft"
-            this.version = 1.0
+            this.version = 1
         }
         val authRequest = AuthRequest().apply {
             this.username = userName

@@ -58,7 +58,7 @@ public class AuthRequest {
         @SerializedName("name")
         private String name;
         @SerializedName("version")
-        private Double version;
+        private Integer version;
 
         public String getName() {
             return name;
@@ -68,11 +68,11 @@ public class AuthRequest {
             this.name = name;
         }
 
-        public Double getVersion() {
+        public Integer getVersion() {
             return version;
         }
 
-        public void setVersion(Double version) {
+        public void setVersion(Integer version) {
             this.version = version;
         }
     }
