@@ -15,8 +15,9 @@
 - Zalith Launcher is a Minecraft launcher based on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) that runs [Minecraft: Java Edition](https://www.minecraft.net/) on Android devices.
 - Zalith Launcher aims to enhance user experience by redesigning the app interface, adding more practical features, and lowering the barrier to entry, making it easier for more people to enjoy Minecraft.
 
-⚠️**Note! This project is just a community rework, similar to how PojavLauncher is developed based on [Boardwalk](https://github.com/zhuowei/Boardwalk).**  
-⚠️**Additionally, we have never set up any official website. Our only community is on [GitHub](https://github.com/ZalithLauncher) and [QQ](https://qm.qq.com/q/2MVxS0B29y). Any other content is created by unofficial individuals. We do not participate in, accept, or trust such content. Please verify carefully and protect your personal privacy!**
+> [!WARNING]
+> Attention! This project is only a **community remake**, just like PojavLauncher is developed based on [Boardwalk](https://github.com/zhuowei/Boardwalk).  
+> We are planning to build the official website [zalithlauncher.cn](https://zalithlauncher.cn). Please note, our website domain ends with `.cn`, not `.com`! **That is not our site!** We do not participate in, accept, or trust that site! Please be careful to distinguish it and protect your personal privacy!
 
 <h2 align="center">New Features</h2>
 
