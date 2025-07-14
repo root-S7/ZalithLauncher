@@ -1465,4 +1465,7 @@ public class GLFW
             heightMM[0] = mGLFWWindowHeight;
         }
     }
+
+    public static void glfwMaximizeWindow(@NativeType("GLFWwindow *") long window) {
+    }
 }
