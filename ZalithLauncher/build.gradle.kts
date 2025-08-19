@@ -1,6 +1,7 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
 import com.android.build.gradle.tasks.MergeSourceSetFolders
 import com.github.megatronking.stringfog.plugin.StringFogExtension
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -9,15 +10,12 @@ plugins {
 }
 apply(plugin = "stringfog")
 
-val getCFApiKey = {
-    System.getenv("CURSEFORGE_API_KEY") ?: run {
-        val curseforgeKeyFile = File(rootDir, "curseforge_key.txt")
-        if (curseforgeKeyFile.canRead() && curseforgeKeyFile.isFile) {
-            curseforgeKeyFile.readText()
-        } else {
-            logger.warn("BUILD: You have no CurseForge key, the curseforge api will get disabled !")
-            "DUMMY"
-        }
+val localProperty: Properties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if(file.exists()) {
+        try {
+            file.inputStream().use { load(it) }
+        }catch(_: Exception) { }
     }
 }
 
@@ -67,10 +65,10 @@ android {
 
     signingConfigs {
         create("releaseBuild") {
-            val pwd = System.getenv("MOVTERY_KEYSTORE_PASSWORD")
-            storeFile = file("movtery-key.jks")
+            val pwd = localProperty.getProperty("key.store.password", "NULL")
+            storeFile = file("key-store.jks")
             storePassword = pwd
-            keyAlias = "mtp"
+            keyAlias = "FCL-Key"
             keyPassword = pwd
         }
         create("customDebug") {
@@ -101,15 +99,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("customDebug")
             resValue("string", "storageProviderAuthorities", "$storageProviderId.debug")
-        }
-        create("proguard") {
-            initWith(getByName("debug"))
-            isMinifyEnabled = true
-            isShrinkResources = true
-        }
-        create("proguardNoDebug") {
-            initWith(getByName("proguard"))
-            isDebuggable = false
         }
         getByName("release") {
             // Don't set to true or java.awt will be a.a or something similar.
@@ -228,7 +217,7 @@ fun generateJavaClass(sourceOutputDir: File, packageName: String, className: Str
 tasks.register("generateInfoDistributor") {
     doLast {
         val constantMap = mapOf(
-            "CURSEFORGE_API_KEY" to getCFApiKey(),
+            "CURSEFORGE_API_KEY" to localProperty.getProperty("curse.api.key", "NULL"),
             "QQ_KEY_1" to getQQGroupKey(1),
             "QQ_KEY_2" to getQQGroupKey(2),
             "LAUNCHER_NAME" to project.property("launcher_name").toString(),
