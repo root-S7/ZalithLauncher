@@ -89,6 +89,10 @@ android {
         manifestPlaceholders["launcher_name"] = launcherAPPName
     }
 
+    androidResources {
+        ignoreAssetsPattern = "<dir>_*:*~|!.*"
+    }
+
     buildTypes {
         val storageProviderId = "$nameId.storage_provider"
 

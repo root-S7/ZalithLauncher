@@ -11,3 +11,4 @@ local.properties
 /ZalithLauncher/src/main/assets/components/lwjgl3/
 /ZalithLauncher/release/
 /ZalithLauncher/debug/
+/ZalithLauncher/src/main/assets/components/game/*.xz
