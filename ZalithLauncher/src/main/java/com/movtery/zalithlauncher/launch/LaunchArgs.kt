@@ -161,7 +161,7 @@ class LaunchArgs(
             argsList.add("-Dcacio.managed.screensize=" + AWTCanvasView.AWT_CANVAS_WIDTH + "x" + AWTCanvasView.AWT_CANVAS_HEIGHT)
             argsList.add("-Dcacio.font.fontmanager=sun.awt.X11FontManager")
             argsList.add("-Dcacio.font.fontscaler=sun.font.FreetypeFontScaler")
-            argsList.add("-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel")
+            argsList.add("-Dswing.defaultlaf=javax.swing.plaf.nimbus.NimbusLookAndFeel")
             if (isJava8) {
                 argsList.add("-Dawt.toolkit=net.java.openjdk.cacio.ctc.CTCToolkit")
                 argsList.add("-Djava.awt.graphicsenv=net.java.openjdk.cacio.ctc.CTCGraphicsEnvironment")
