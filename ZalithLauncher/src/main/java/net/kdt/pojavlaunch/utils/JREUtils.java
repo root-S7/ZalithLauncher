@@ -376,7 +376,7 @@ public final class JREUtils {
         // Don't let the user specify a custom Freetype library (as the user is unlikely to specify a version compiled for Android)
         purgeArg(userArgs, "-Dorg.lwjgl.freetype.libname");
         // Overridden by us to specify the exact number of cores that the android system has
-        if (runtime.javaVersion != 9) {
+        if (Runtime.javaVersion != 9) {
           purgeArg(userArgs, "-XX:ActiveProcessorCount");
         }
 
@@ -392,7 +392,7 @@ public final class JREUtils {
         userArgs.add("-Dorg.lwjgl.freetype.libname="+ DIR_NATIVE_LIB +"/libfreetype.so");
 
         // Some phones are not using the right number of cores, fix that
-        if (runtime.javaVersion != 9) {
+        if (Runtime.javaVersion != 9) {
           userArgs.add("-XX:ActiveProcessorCount=" + java.lang.Runtime.getRuntime().availableProcessors());
         }
 
