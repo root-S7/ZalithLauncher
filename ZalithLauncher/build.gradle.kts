@@ -27,19 +27,6 @@ val getBuildType = {
     buildType
 }
 
-fun getQQGroupKey(number: Int): String {
-    val key = System.getenv("QQ_GROUP_KEY_$number")
-    return key ?: run {
-        val qqGroupKeyFile = File(rootDir, "qq_group_key_$number.txt")
-        if (qqGroupKeyFile.canRead() && qqGroupKeyFile.isFile) {
-            qqGroupKeyFile.readText()
-        } else {
-            logger.warn("BUILD: The QQ key ($number) is not provided, the QQ group chat join verification code generator will be disabled !")
-            "NULL"
-        }
-    }
-}
-
 val nameId = "com.movtery.zalithlauncher"
 val generatedZalithDir = file("$buildDir/generated/source/zalith/java")
 val launcherAPPName = project.findProperty("launcher_app_name") as? String ?: error("The \"launcher_app_name\" property is not set in gradle.properties.")
@@ -229,8 +216,6 @@ tasks.register("generateInfoDistributor") {
     doLast {
         val constantMap = mapOf(
             "CURSEFORGE_API_KEY" to getCFApiKey(),
-            "QQ_KEY_1" to getQQGroupKey(1),
-            "QQ_KEY_2" to getQQGroupKey(2),
             "LAUNCHER_NAME" to project.property("launcher_name").toString(),
             "APP_NAME" to project.property("launcher_app_name").toString(),
             "BUILD_TYPE" to getBuildType()

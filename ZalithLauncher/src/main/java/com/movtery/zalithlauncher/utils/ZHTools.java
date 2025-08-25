@@ -70,6 +70,11 @@ public final class ZHTools {
         return locales.get(0).getLanguage().equals("en");
     }
 
+    public static boolean isChinese(Context context) {
+        Locale locale = context.getResources().getConfiguration().getLocales().get(0);
+        return locale.equals(Locale.SIMPLIFIED_CHINESE);
+    }
+
     public static void setTooltipText(ImageView... views) {
         for (ImageView view : views) {
             setTooltipText(view, view.getContentDescription());

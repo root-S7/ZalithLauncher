@@ -16,8 +16,6 @@ jobs:
 
     env:
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
-      QQ_GROUP_KEY_1: ${{ secrets.QQ_GROUP_KEY_1 }}
-      QQ_GROUP_KEY_2: ${{ secrets.QQ_GROUP_KEY_2 }}
 
     steps:
       - name: Checkout
