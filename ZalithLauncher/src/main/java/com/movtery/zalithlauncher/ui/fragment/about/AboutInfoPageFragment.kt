@@ -3,7 +3,6 @@ package com.movtery.zalithlauncher.ui.fragment.about
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +13,12 @@ import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.InfoDistributor
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.databinding.FragmentAboutInfoPageBinding
-import com.movtery.zalithlauncher.ui.dialog.EditTextDialog
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean.AboutItemButtonBean
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutRecyclerAdapter
 import com.movtery.zalithlauncher.utils.ZHTools
-import com.movtery.zalithlauncher.utils.group.QQGroup
 import com.movtery.zalithlauncher.utils.path.UrlManager
-import com.movtery.zalithlauncher.utils.stringutils.StringUtils
-import net.kdt.pojavlaunch.Tools
 
 class AboutInfoPageFragment() : Fragment(R.layout.fragment_about_info_page) {
     private lateinit var binding: FragmentAboutInfoPageBinding
@@ -65,45 +60,22 @@ class AboutInfoPageFragment() : Fragment(R.layout.fragment_about_info_page) {
                 parentPager2?.currentItem = 1
             }
 
-            if (QQGroup.hasKey()) {
+            if (ZHTools.isChinese(requireActivity())) {
                 qqGroupButton.visibility = View.VISIBLE
                 qqGroupButton.setOnClickListener {
                     TipDialog.Builder(context)
                         .setTitle("QQ")
-                        .setMessage(context.getString(R.string.about_qq_group, InfoDistributor.APP_NAME, InfoCenter.QQ_GROUP))
+                        .setMessage("欢迎加入 ${InfoDistributor.APP_NAME} 官方 QQ 交流群（群号：${InfoCenter.QQ_GROUP}）！由于群人数有限，加入群聊前需要赞助 5元 或以上金额，请点击右侧“赞助开发”按钮访问爱发电。")
                         .setSelectable(true)
-                        .setConfirm(R.string.about_qq_group_generate_button)
-                        .setConfirmClickListener {
-                            EditTextDialog.Builder(context)
-                                .setTitle(R.string.about_qq_group_generate_button)
-                                .setMessage(R.string.about_qq_group_generate_edit)
-                                .setAsRequired()
-                                .setInputType(InputType.TYPE_CLASS_NUMBER)
-                                .setConfirmText(R.string.generic_confirm)
-                                .setConfirmListener { editBox, _ ->
-                                    val string = editBox.text.toString()
-
-                                    runCatching {
-                                        val code = QQGroup.generateQQJoinGroupCode(string.toLong())
-
-                                        TipDialog.Builder(context)
-                                            .setTitle(R.string.about_qq_group_generate_button)
-                                            .setMessage(context.getString(R.string.about_qq_group_generate_success, code))
-                                            .setSelectable(true)
-                                            .setConfirm(android.R.string.copy)
-                                            .setConfirmClickListener {
-                                                StringUtils.copyText("text", code, context)
-                                            }.showDialog()
-                                    }.onFailure { e ->
-                                        Tools.showError(context, R.string.about_qq_group_generate_fail, e)
-                                        return@setConfirmListener false
-                                    }
-
-                                    true
-                                }.showDialog()
-                        }.showDialog()
+                        .setConfirm(R.string.generic_confirm)
+                        .setShowCancel(false)
+                        .showDialog()
                 }
+            } else {
+                qqGroupButton.visibility = View.GONE
             }
+
+            discordButton.setOnClickListener { ZHTools.openLink(requireActivity(), "https://discord.gg/yDDkTHp4cJ") }
         }
     }
 

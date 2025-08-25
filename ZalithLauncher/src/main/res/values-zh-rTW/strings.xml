@@ -647,11 +647,6 @@
     <string name="about_dec1">%s 是一款基於 PojavLauncher 開發的 Minecraft 啟動器，它能夠在 Android 設備上運行 Minecraft: Java Edition。</string>
     <string name="about_dec2">%s 致力於優化使用者體驗，重新設計了應用介面，新增了更多實用的功能，旨在最大程度地降低遊玩門檻，讓更多人能夠輕鬆體驗 Minecraft 的樂趣。</string>
     <string name="about_dec3">%s 使用的是 GPL 3.0 開源協議，這一協議具有「傳染性」，任何使用、修改或衍生自 GPL 類庫或軟體的程式碼也必須採用 GPL 協議進行開源。如果你打算傳播或分發本軟體，請務必遵守 GPL 3.0 開源協議的相關規定。</string>
-    <string name="about_qq_group">歡迎加入 %s 官方 QQ 群組（群號：%s）！加入時需透過啟動器生成專屬驗證碼（基於你的 QQ 號），該驗證碼將用於群管理員核實你的身份真實性。</string>
-    <string name="about_qq_group_generate_button">生成驗證碼</string>
-    <string name="about_qq_group_generate_edit">請在輸入框內填入你的 QQ 號，啟動器會根據它生成一個專屬的驗證碼，申請加入群聊時，群管理員需要憑藉這個驗證碼來驗證你的身份！</string>
-    <string name="about_qq_group_generate_success">這是你的專屬驗證碼，你現在可以在申請入群的時候，在答案處填寫這個驗證碼：%s（基於 QQ 號生成）</string>
-    <string name="about_qq_group_generate_fail">生成失敗，填入的內容貌似並不是一個正常的 QQ 號，或者驗證碼算法存在問題！</string>
     <string name="about_contributors">貢獻者與鳴謝:</string>
     <string name="about_sponsors">贊助者鳴謝:</string>
     <string name="about_sponsors_list">查看贊助者清單</string>

@@ -653,11 +653,6 @@
     <string name="about_dec1">%s is a Minecraft launcher based on PojavLauncher that allows Minecraft: Java Edition to run on Android devices.</string>
     <string name="about_dec2">%s focuses on optimizing user experience, redesigning the application interface, and adding more practical features, aiming to lower the barriers to play and let more people enjoy the fun of Minecraft easily.</string>
     <string name="about_dec3">%s uses the GPL 3.0 open-source license, which is "viral." Any code that uses, modifies, or derives from GPL libraries or software must also adopt the GPL license for open sourcing. If you intend to distribute this software, please comply with the relevant provisions of the GPL 3.0 open-source license.</string>
-    <string name="about_qq_group">Welcome to join the official %s QQ group (Group ID: %s)! To join, you need to generate a unique verification code using the launcher (based on your QQ number). This code will be used by the group admin to verify your identity.</string>
-    <string name="about_qq_group_generate_button">Generate Verification Code</string>
-    <string name="about_qq_group_generate_edit">Please enter your QQ number in the input box. The launcher will generate a unique verification code based on it. When applying to join the group chat, the admin will use this code to verify your identity!</string>
-    <string name="about_qq_group_generate_success">This is your unique verification code. You can now enter this code as the answer when applying to join the group: %s (Generated based on QQ number)</string>
-    <string name="about_qq_group_generate_fail">Generation failed. The entered content does not appear to be a valid QQ number, or there may be an issue with the verification code algorithm!</string>
     <string name="about_contributors">Contributors and Acknowledgements:</string>
     <string name="about_sponsors">Acknowledgements to Sponsors:</string>
     <string name="about_sponsors_list">View Sponsors List</string>

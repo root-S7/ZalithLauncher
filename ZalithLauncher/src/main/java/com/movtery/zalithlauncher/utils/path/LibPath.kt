@@ -11,6 +11,7 @@ class LibPath {
 
         @JvmField val CACIO_8 = File(DIR_GAME_HOME, "caciocavallo")
         @JvmField val CACIO_17 = File(DIR_GAME_HOME, "caciocavallo17")
+        @JvmField val CACIO_17_AGENT = File(CACIO_17, "cacio-agent.jar")
 
         @JvmField val FORGE_INSTALLER = File(COMPONENTS_DIR, "forge_installer.jar")
         @JvmField val MIO_FABRIC_AGENT = File(COMPONENTS_DIR, "MioFabricAgent.jar")
