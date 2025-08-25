@@ -647,11 +647,6 @@
     <string name="about_dec1">%s ist ein Minecraft-Launcher basierend auf PojavLauncher, der es ermöglicht, Minecraft: Java Edition auf Android-Geräten auszuführen.</string>
     <string name="about_dec2">%s konzentriert sich auf die Optimierung der Benutzererfahrung, die Neugestaltung der Anwendungsoberfläche und das Hinzufügen weiterer praktischer Funktionen, um die Einstiegshürden zu senken und mehr Menschen den einfachen Zugang zum Spaß von Minecraft zu ermöglichen.</string>
     <string name="about_dec3">%s verwendet die GPL-3.0-Open-Source-Lizenz, die "virale" Eigenschaften hat. Jeder Code, der Bibliotheken oder Software der GPL verwendet, modifiziert oder davon abgeleitet ist, muss ebenfalls die GPL-Lizenz für Open Source verwenden. Wenn Sie beabsichtigen, diese Software zu verbreiten, halten Sie sich bitte an die entsprechenden Bestimmungen der GPL-3.0-Lizenz.</string>
-    <string name="about_qq_group">Willkommen in der offiziellen %s QQ-Gruppe (Gruppen-ID: %s)! Um beizutreten, müssen Sie mit dem Launcher einen eindeutigen Bestätigungscode generieren (basierend auf Ihrer QQ-Nummer). Dieser Code wird vom Gruppenadministrator zur Identitätsprüfung verwendet.</string>
-    <string name="about_qq_group_generate_button">Bestätigungscode generieren</string>
-    <string name="about_qq_group_generate_edit">Bitte geben Sie Ihre QQ-Nummer in das Eingabefeld ein. Der Launcher generiert daraufhin einen eindeutigen Bestätigungscode. Wenn Sie der Gruppe beitreten möchten, wird der Administrator diesen Code zur Identitätsüberprüfung verwenden!</string>
-    <string name="about_qq_group_generate_success">Dies ist Ihr einzigartiger Bestätigungscode. Sie können diesen Code nun als Antwort eingeben, wenn Sie der Gruppe beitreten möchten: %s (Generiert basierend auf QQ-Nummer)</string>
-    <string name="about_qq_group_generate_fail">Generierung fehlgeschlagen. Die eingegebene Information scheint keine gültige QQ-Nummer zu sein oder es gibt ein Problem mit dem Algorithmus zur Code-Erstellung!</string>
     <string name="about_contributors">Beiträger und Danksagungen:</string>
     <string name="about_sponsors">Danksagungen an Sponsoren:</string>
     <string name="about_sponsors_list">Sponsorenliste anzeigen</string>
