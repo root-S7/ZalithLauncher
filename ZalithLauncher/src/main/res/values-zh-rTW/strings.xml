@@ -133,7 +133,7 @@
     <string name="mod_check_physics">當前使用的物理模組 (%s) 未經修補 (將 libPhysXJniBindings_64.so 從 x86_64 架構替換到 arm64)，啟動後將會崩潰。</string>
     <string name="mod_check_mcef">MCEF (%s) 無法在 Android 上運行。它通常被用來作為 WebDisplays/In-game Browser（瀏覽器）的前置依賴。</string>
     <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) 無法直接在單人模式下運行。你必須使用伺服器運行（可以使用 Termux），否則遊戲會崩潰.</string>
-    <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ 無法在 Android 系統上運行.</string>
+    <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2–2.5.1 無法在 Android 系統上運行.</string>
     <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) 不適用於 Android，會導致遊戲在啟動時崩潰。</string>
     <string name="mod_check_replay_mod">ReplayMod (%s) 需要 FFmpeg 來渲染影片，請另外安裝 FFmpeg 插件\n%s\n%s</string>
     <string name="mod_check_borderlesswindow">Borderless Window (%s) 不適用於 Android，會導致遊戲在啟動時崩潰。</string>

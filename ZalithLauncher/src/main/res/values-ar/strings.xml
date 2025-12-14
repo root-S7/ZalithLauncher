@@ -133,7 +133,7 @@
     <string name="mod_check_physics">المود الفيزيائي المستخدم حاليًا (%s) لم يتم ترقيعه (يستبدل libPhysXJniBindings_64.so من بنية x86_64 إلى arm64)، سوف يتعطل عند التشغيل.</string>
     <string name="mod_check_mcef">MCEF (%s) لا يمكن تشغيله على Android. عادةً ما يُستخدم كاعتماد تمهيدي لـ WebDisplays/In-game Browser (المتصفح).</string>
     <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) لا يمكن تشغيله مباشرة في وضع اللاعب الفردي. يجب تشغيله على الخادم (يمكن استخدام Termux)، وإلا ستتعطل اللعبة.</string>
-    <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ لا يمكن تشغيله على نظام أندرويد.</string>
+    <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2–2.5.1 لا يمكن تشغيله على نظام أندرويد.</string>
     <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) غير متوافق مع أندرويد وسيتسبب في تعطل اللعبة أثناء بدء التشغيل.</string>
     <string name="mod_check_replay_mod">ReplayMod (%s) يتطلب FFmpeg لتصيير الفيديو. يرجى تثبيت إضافة FFmpeg بشكل منفصل\n%s\n%s</string>
     <string name="mod_check_borderlesswindow">Borderless Window‏ (%s) غير متوافق مع أندرويد وسيتسبب في تعطل اللعبة أثناء بدء التشغيل.</string>

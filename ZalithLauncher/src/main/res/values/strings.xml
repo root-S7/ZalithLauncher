@@ -134,7 +134,7 @@
     <string name="mod_check_physics">The currently used physics mod (%s) is unpatched (replacing libPhysXJniBindings_64.so from x86_64 architecture to arm64), will crash on launch.</string>
     <string name="mod_check_mcef">MCEF (%s) cannot run on Android. It is usually used as a prerequisite dependency for WebDisplays/In-game Browser (browser).</string>
     <string name="mod_check_valkyrien_skies">Valkyrien Skies/Valkyrien Warfare (%s) cannot run directly in single-player mode. You must run it on a server (Termux can be used), otherwise the game will crash.</string>
-    <string name="mod_check_yes_steve_model">Yes Steve Model (%s) 2.2.2+ cannot run on Android.</string>
+    <string name="mod_check_yes_steve_model">Yes, Steve Model (%s) 2.2.2–2.5.1 cannot run on the Android system.</string>
     <string name="mod_check_imblocker">IMBlocker/In-GameIME (%s) is not compatible with Android and will cause the game to crash during startup.</string>
     <string name="mod_check_replay_mod">ReplayMod (%s) requires FFmpeg to render videos. Please install the FFmpeg plugin separately\n%s\n%s</string>
     <string name="mod_check_borderlesswindow">Borderless Window (%s) is not compatible with Android and will cause the game to crash during startup.</string>

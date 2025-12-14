@@ -441,6 +441,18 @@ public final class Tools {
         List<String> libDir = new ArrayList<>();
         for (DependentLibrary libItem : info.libraries) {
             if (!checkRules(libItem.rules)) continue;
+
+            String libName = libItem.name;
+            if (libName == null) continue;
+
+            if (libName.contains("org.lwjgl") ||
+                libName.contains("jinput-platform") ||
+                libName.contains("twitch-platform")
+            ) {
+                Logging.d(InfoDistributor.LAUNCHER_NAME, "Ignored unusable dependency: " + libName);
+                continue;
+            }
+
             String libArtifactPath = artifactToPath(libItem);
             if (libArtifactPath == null) continue;
             libDir.add(ProfilePathHome.getLibrariesHome() + "/" + libArtifactPath);

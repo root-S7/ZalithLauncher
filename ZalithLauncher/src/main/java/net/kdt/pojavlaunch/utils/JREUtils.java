@@ -193,8 +193,12 @@ public final class JREUtils {
                 .append(":");
         ldLibraryPath.append("/system/").append(libName).append(":")
                 .append("/vendor/").append(libName).append(":")
-                .append("/vendor/").append(libName).append("/hw:")
-                .append(DIR_NATIVE_LIB);
+                .append("/vendor/").append(libName).append("/hw:");
+        File runtimeModDir = PathManager.DIR_RUNTIME_MOD;
+        if (runtimeModDir != null) {
+            ldLibraryPath.append(runtimeModDir.getAbsolutePath()).append(":");
+        }
+        ldLibraryPath.append(DIR_NATIVE_LIB);
         LD_LIBRARY_PATH = ldLibraryPath.toString();
     }
 
@@ -217,6 +221,7 @@ public final class JREUtils {
         envMap.put("FORCE_VSYNC", String.valueOf(AllSettings.getForceVsync().getValue()));
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
+        envMap.put("MOD_ANDROID_RUNTIME", PathManager.DIR_RUNTIME_MOD != null ? PathManager.DIR_RUNTIME_MOD.getAbsolutePath() : "");
 
         if (AllSettings.getDumpShaders().getValue())
             envMap.put("LIBGL_VGPU_DUMP", "1");

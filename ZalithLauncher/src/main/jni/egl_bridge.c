@@ -122,6 +122,8 @@ int pojavInitOpenGL() {
 
     const char *renderer = getenv("POJAV_RENDERER");
 
+    load_vulkan();
+
     if (!strncmp("opengles", renderer, 8))
     {
         pojav_environ->config_renderer = RENDERER_GL4ES;
@@ -131,7 +133,6 @@ int pojavInitOpenGL() {
     if (!strcmp(renderer, "custom_gallium"))
     {
         pojav_environ->config_renderer = RENDERER_VK_ZINK;
-        load_vulkan();
         set_osm_bridge_tbl();
     }
 

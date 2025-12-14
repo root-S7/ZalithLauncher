@@ -20,6 +20,7 @@ class PathManager {
         lateinit var DIR_ACCOUNT_NEW: String
         lateinit var DIR_CACHE_STRING: String
         lateinit var DIR_ADDONS_INFO_CACHE: String
+        @JvmField var DIR_RUNTIME_MOD: File? = null
 
         lateinit var DIR_CUSTOM_MOUSE: String
         lateinit var DIR_BACKGROUND: File
@@ -51,6 +52,9 @@ class PathManager {
             DIR_APP_CACHE = context.externalCacheDir!!
             DIR_USER_SKIN = File(DIR_FILE, "/user_skin")
             DIR_INSTALLED_RENDERER_PLUGIN = File(DIR_FILE, "/renderer_plugins")
+            DIR_RUNTIME_MOD = context.getDir("runtime_mod", 0)?.also {
+                it.mkdirs()
+            }
 
             FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
             FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"

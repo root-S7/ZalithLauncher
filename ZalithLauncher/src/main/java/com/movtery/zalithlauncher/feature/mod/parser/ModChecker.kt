@@ -133,11 +133,15 @@ class ModChecker {
                     "yes_steve_model" -> {
                         if (!modResult.hasYesSteveModel) {
                             modResult.hasYesSteveModel = true
-                            val arch = AndroidUtil.getElfArchFromZip(
+                            val defaultArch = AndroidUtil.getElfArchFromZip(
                                 mod.file,
                                 "META-INF/native/libysm-core.so"
                             )
-                            if (arch.isNotBlank()) {
+                            val androidArch = AndroidUtil.getElfArchFromZip(
+                                mod.file,
+                                "META-INF/native/libysm-core-android.so"
+                            )
+                            if (defaultArch.isNotBlank() && androidArch.isBlank()) {
                                 modCheckSettings[AllModCheckSettings.YES_STEVE_MODEL] = Pair(
                                     "1",
                                     context.getString(R.string.mod_check_yes_steve_model, mod.file.name)
