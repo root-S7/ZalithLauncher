@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.movtery.zalithlauncher.InfoCenter
 import com.movtery.zalithlauncher.InfoDistributor
@@ -19,9 +20,13 @@ import com.movtery.zalithlauncher.feature.unpack.UnpackSingleFilesTask
 import com.movtery.zalithlauncher.task.Task
 import com.movtery.zalithlauncher.ui.dialog.TipDialog
 import com.movtery.zalithlauncher.utils.StoragePermissionsUtils
+import com.root.direct.install.feature.check.FileFormat
+import com.root.direct.install.feature.unpack.DirectInstall
+import kotlinx.coroutines.*
 import net.kdt.pojavlaunch.LauncherActivity
 import net.kdt.pojavlaunch.MissingStorageActivity
 import net.kdt.pojavlaunch.Tools
+import kotlin.system.exitProcess
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {
@@ -47,9 +52,33 @@ class SplashActivity : BaseActivity() {
         binding.startButton.apply {
             setOnClickListener {
                 if (isStarted) return@setOnClickListener
-                isStarted = true
-                binding.splashText.setText(R.string.splash_screen_installing)
-                installableAdapter.startAllTasks()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    try {
+                        val result = FileFormat().checkFiles()
+                        if (!result) throw Exception("文件检查失败，请检查所有文件是否有效！")
+
+                        withContext(Dispatchers.Main) {
+                            isStarted = true
+                            binding.splashText.setText(R.string.splash_screen_installing)
+                            installableAdapter.startAllTasks()
+                        }
+
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            TipDialog.Builder(this@SplashActivity)
+                                .setTitle(R.string.generic_error)
+                                .setMessage(e.message ?: "检测必要文件时发生致命性错误")
+                                .setWarning()
+                                .setCancelable(false)
+                                .setShowCancel(false)
+                                .setConfirmClickListener {
+                                    this@SplashActivity.finishAndRemoveTask()
+                                    exitProcess(-1)
+                                }
+                                .showDialog()
+                        }
+                    }
+                }
             }
             isClickable = false
         }
@@ -120,6 +149,15 @@ class SplashActivity : BaseActivity() {
                     )
                 )
             }
+        }
+        DirectInstall.entries.forEach {
+            items.add(
+                InstallableItem(
+                    it.displayName,
+                    it.tips,
+                    it.createTask(application)
+                )
+            )
         }
         items.sort()
         installableAdapter = InstallableAdapter(items) {

@@ -35,10 +35,12 @@ import java.util.Objects;
 
 public class PojavApplication extends Application {
 	public static final String CRASH_REPORT_TAG = "ZalithCrashReport";
+	private static Application INSTANCE;
 
 	@Override
 	public void onCreate() {
 		ContextExecutor.setApplication(this);
+		INSTANCE = this;
 
 		Thread.setDefaultUncaughtExceptionHandler((thread, th) -> {
 			boolean storagePermAllowed = (Build.VERSION.SDK_INT >= 29 || ActivityCompat.checkSelfPermission(PojavApplication.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) && Tools.checkStorageRoot();
@@ -116,4 +118,8 @@ public class PojavApplication extends Application {
 		ContextExecutor.setApplication(this);
 		LocaleHelper.Companion.setLocale(this);
     }
+
+	public static Application getINSTANCE() {
+		return INSTANCE;
+	}
 }

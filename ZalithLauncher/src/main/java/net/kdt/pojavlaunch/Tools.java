@@ -567,9 +567,9 @@ public final class Tools {
     }
 
     public static String read(InputStream is) throws IOException {
-        String readResult = IOUtils.toString(is, StandardCharsets.UTF_8);
-        is.close();
-        return readResult;
+        try (InputStream input = is) {
+            return IOUtils.toString(input, StandardCharsets.UTF_8);
+        }
     }
 
     public static String read(String path) throws IOException {

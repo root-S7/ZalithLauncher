@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch.customcontrols;
 
+import static net.kdt.pojavlaunch.PojavApplication.getINSTANCE;
+
 import android.content.Context;
 
 import com.google.gson.JsonSyntaxException;
@@ -53,7 +55,7 @@ public class LayoutConverter {
         }
     }
 
-    private static CustomControls loadAndConvertIfNecessary(Context ctx, JSONObject layoutJobj, String jsonLayoutData, String jsonPath, boolean showError) throws Exception {
+    public static CustomControls loadAndConvertIfNecessary(Context ctx, JSONObject layoutJobj, String jsonLayoutData, String jsonPath, boolean showError) throws Exception {
         if (!layoutJobj.has("version")) { //v1 layout
             CustomControls layout = LayoutConverter.convertV1Layout(layoutJobj);
             if (jsonPath != null) layout.save(jsonPath);

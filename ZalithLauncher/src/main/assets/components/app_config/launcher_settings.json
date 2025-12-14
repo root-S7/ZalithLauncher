@@ -1,0 +1,214 @@
+[{
+    "key": "enableGyro",
+    "value": "false"
+}, {
+    "key": "resolutionRatio",
+    "value": "100"
+}, {
+    "key": "ignoreNotch",
+    "value": "false"
+}, {
+    "key": "quitLauncher",
+    "value": "true"
+}, {
+    "key": "versionCustomInfo",
+    "value": "ZalithLauncher[zl_version]"
+}, {
+    "key": "disableDoubleTap",
+    "value": "false"
+}, {
+    "key": "buttonAllCaps",
+    "value": "false"
+}, {
+    "key": "java_sandbox",
+    "value": "true"
+}, {
+    "key": "resourceImageCache",
+    "value": "false"
+}, {
+    "key": "enableLogOutput",
+    "value": "false"
+}, {
+    "key": "sustainedPerformance",
+    "value": "false"
+}, {
+    "key": "animation",
+    "value": "true"
+}, {
+    "key": "animationSpeed",
+    "value": "666"
+}, {
+    "key": "driver",
+    "value": "Turnip"
+}, {
+    "key": "gameMenuMemoryText",
+    "value": "M:"
+}, {
+    "key": "ignoreNotchLauncher",
+    "value": "true"
+}, {
+    "key": "renderer",
+    "value": "8b52d82d-8f6d-4d3a-a767-dc93f8b72fc7"
+}, {
+    "key": "gameMenuAlpha",
+    "value": "100"
+}, {
+    "key": "gameMenuShowFPS",
+    "value": "false"
+}, {
+    "key": "acceptPreReleaseUpdates",
+    "value": "false"
+}, {
+    "key": "javaArgs",
+    "value": ""
+}, {
+    "key": "alternate_surface",
+    "value": "false"
+}, {
+    "key": "autoSetGameLanguage",
+    "value": "true"
+}, {
+    "key": "timeLongPressTrigger",
+    "value": "380"
+}, {
+    "key": "mouse_start",
+    "value": "true"
+}, {
+    "key": "buttonscale",
+    "value": "100"
+}, {
+    "key": "checkLibraries",
+    "value": "true"
+}, {
+    "key": "addFullResourceName",
+    "value": "true"
+}, {
+    "key": "gyroSampleRate",
+    "value": "16"
+}, {
+    "key": "selectRuntimeMode",
+    "value": "auto"
+}, {
+    "key": "pageOpacity",
+    "value": "100"
+}, {
+    "key": "versionIsolation",
+    "value": "true"
+}, {
+    "key": "defaultCtrl",
+    "value": "/storage/emulated/0/Android/data/com.movtery.zalithlauncher.debug/files/controlmap/default.json"
+}, {
+    "key": "setGameLanguage",
+    "value": "zh_cn"
+}, {
+    "key": "noticeCheck",
+    "value": "0L"
+}, {
+    "key": "gamepad_deadzone_scale",
+    "value": "100"
+}, {
+    "key": "vsync_in_zink",
+    "value": "false"
+}, {
+    "key": "defaultRuntime",
+    "value": ""
+}, {
+    "key": "launcherTheme",
+    "value": "system"
+}, {
+    "key": "gameMenuShowMemory",
+    "value": "false"
+}, {
+    "key": "maxDownloadThreads",
+    "value": "64"
+}, {
+    "key": "launcherProfile",
+    "value": "default"
+}, {
+    "key": "disableGestures",
+    "value": "false"
+}, {
+    "key": "tcVibrateDuration",
+    "value": "111"
+}, {
+    "key": "gameMenuLocation",
+    "value": "center"
+}, {
+    "key": "verifyManifest",
+    "value": "true"
+}, {
+    "key": "allocation",
+    "value": "3072"
+}, {
+    "key": "noticeNumbering",
+    "value": "0"
+}, {
+    "key": "zinkPreferSystemDriver",
+    "value": "false"
+}, {
+    "key": "noticeDefault",
+    "value": "false"
+}, {
+    "key": "mousescale",
+    "value": "100"
+}, {
+    "key": "downloadSource",
+    "value": "default"
+}, {
+    "key": "mousespeed",
+    "value": "100"
+}, {
+    "key": "gameLanguageOverridden",
+    "value": "false"
+}, {
+    "key": "gyroSensitivity",
+    "value": "100"
+}, {
+    "key": "dump_shaders",
+    "value": "false"
+}, {
+    "key": "bigCoreAffinity",
+    "value": "false"
+}, {
+    "key": "gameMenuInfoRefreshRate",
+    "value": "1000"
+}, {
+    "key": "force_vsync",
+    "value": "false"
+}, {
+    "key": "custom_mouse",
+    "value": ""
+}, {
+    "key": "gyroSmoothing",
+    "value": "true"
+}, {
+    "key": "gyroInvertX",
+    "value": "false"
+}, {
+    "key": "gyroInvertY",
+    "value": "false"
+}, {
+    "key": "notification_permission_request",
+    "value": "false"
+}, {
+    "key": "skipNotificationPermissionCheck",
+    "value": "false"
+}, {
+    "key": "localAccountReminders",
+    "value": "true"
+}, {
+    "key": "updateCheck",
+    "value": "0L"
+}, {
+    "key": "ignoreUpdate",
+    "value": ""
+}, {
+    "key": "buttonSnapping",
+    "value": "true"
+}, {
+    "key": "buttonSnappingDistance",
+    "value": "8"
+}, {
+    "key": "hotbarType",
+    "value": "auto"
+}]

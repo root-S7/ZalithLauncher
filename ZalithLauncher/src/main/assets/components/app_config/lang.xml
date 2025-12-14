@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+    <about>
+        <string name="des1">这是直装包默认的提示内容，你可以设置三行这样的内容</string>
+        <string name="des2">如果需要修改，请使用『MT/NP管理器』打开APK文件，然后编辑『assets/components/app_config/lang.xml』文件</string>
+        <string name="des3">『Zalith Launcher直装版』与『官方版』完全独立，直装版不会修改制作组信息或赞助链接，同时我们希望任何第三方分支也不要擅自更改这些信息。</string>
+    </about>
+</lang>

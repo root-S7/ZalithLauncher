@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -19,6 +20,10 @@ import com.movtery.zalithlauncher.ui.subassembly.about.AboutItemBean.AboutItemBu
 import com.movtery.zalithlauncher.ui.subassembly.about.AboutRecyclerAdapter
 import com.movtery.zalithlauncher.utils.ZHTools
 import com.movtery.zalithlauncher.utils.path.UrlManager
+import com.root.direct.install.config.ConfigManager.langMap
+import com.root.direct.install.config.ConfigManager.settings
+import com.root.direct.install.utils.DIUtils.*
+import com.root.direct.install.utils.StringUtils.*
 
 class AboutInfoPageFragment() : Fragment(R.layout.fragment_about_info_page) {
     private lateinit var binding: FragmentAboutInfoPageBinding
@@ -44,12 +49,12 @@ class AboutInfoPageFragment() : Fragment(R.layout.fragment_about_info_page) {
         val context = requireActivity()
 
         binding.apply {
-            dec1.text = InfoCenter.replaceName(context, R.string.about_dec1)
-            dec2.text = InfoCenter.replaceName(context, R.string.about_dec2)
-            dec3.text = InfoCenter.replaceName(context, R.string.about_dec3)
+            dec1.text = langMap.getOrDefault("about.des1", "")
+            dec2.text = langMap.getOrDefault("about.des2", "")
+            dec3.text = langMap.getOrDefault("about.des3", "")
 
-            githubButton.setOnClickListener { ZHTools.openLink(requireActivity(), UrlManager.URL_HOME) }
-            licenseButton.setOnClickListener { ZHTools.openLink(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
+            githubButton.setOnClickListener { directOpenURL(requireActivity(), UrlManager.URL_HOME) }
+            licenseButton.setOnClickListener { directOpenURL(requireActivity(), "https://www.gnu.org/licenses/gpl-3.0.html") }
 
             val aboutAdapter = AboutRecyclerAdapter(this@AboutInfoPageFragment.mAboutData)
             aboutRecycler.apply {
@@ -60,22 +65,20 @@ class AboutInfoPageFragment() : Fragment(R.layout.fragment_about_info_page) {
                 parentPager2?.currentItem = 1
             }
 
-            if (ZHTools.isChinese(requireActivity())) {
+            val groupAPI = settings.getProperty("qq.group.api", "")
+            if (isEffective(groupAPI)) {
                 qqGroupButton.visibility = View.VISIBLE
                 qqGroupButton.setOnClickListener {
-                    TipDialog.Builder(context)
-                        .setTitle("QQ")
-                        .setMessage("欢迎加入 ${InfoDistributor.APP_NAME} 官方 QQ 交流群（群号：${InfoCenter.QQ_GROUP}）！由于群人数有限，加入群聊前需要赞助 5元 或以上金额，请点击右侧“赞助开发”按钮访问爱发电。")
-                        .setSelectable(true)
-                        .setConfirm(R.string.generic_confirm)
-                        .setShowCancel(false)
-                        .showDialog()
+                    joinQQGroup(context, groupAPI)
                 }
             } else {
                 qqGroupButton.visibility = View.GONE
             }
 
-            discordButton.setOnClickListener { ZHTools.openLink(requireActivity(), "https://discord.gg/yDDkTHp4cJ") }
+            settings.getProperty("discord.url", "").let { url ->
+                if (isNetworkUrl(url)) discordButton.setOnClickListener { directOpenURL(requireActivity(), url) }
+                else discordButton.visibility = View.GONE
+            }
         }
     }
 
