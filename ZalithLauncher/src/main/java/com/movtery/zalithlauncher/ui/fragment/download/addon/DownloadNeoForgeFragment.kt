@@ -89,14 +89,9 @@ class DownloadNeoForgeFragment : ModListFragment() {
         neoForgeVersions.forEach(Consumer { neoForgeVersion: String ->
             currentTask?.apply { if (isCancelled) return@Consumer }
             //查找并分组Minecraft版本与NeoForge版本
-            val gameVersion: String
-
-            val isOldVersion = neoForgeVersion.contains("1.20.1")
-            gameVersion = if (isOldVersion) {
-                "1.20.1"
-            } else if (neoForgeVersion == "47.1.82") {
+            val gameVersion = if (neoForgeVersion == "47.1.82") {
                 return@Consumer
-            } else { //1.20.2+
+            } else {
                 formatGameVersion(neoForgeVersion)
             }
             addIfAbsent(mNeoForgeVersions, gameVersion, neoForgeVersion)
