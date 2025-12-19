@@ -23,6 +23,11 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.Map;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class DIUtils {
     private static String SOC_NAME;
@@ -138,6 +143,33 @@ public class DIUtils {
             throw e;
         }catch(Exception ignore) {
             return null;
+        }
+    }
+
+    private static final OkHttpClient CLIENT = new OkHttpClient();
+    /**
+     * GET 请求（支持自定义 Content-Type / Header）
+     *
+     * @param url      请求地址
+     * @param headers  额外请求头（可包含 Content-Type）
+     * @return 响应体字符串
+     */
+    public static String get(String url, Map<String, String> headers) throws IOException {
+        Request.Builder builder = new Request.Builder()
+                .url(url)
+                .get();
+
+        if(headers != null) {
+            for(Map.Entry<String, String> e : headers.entrySet()) builder.addHeader(e.getKey(), e.getValue());
+        }
+
+        Request request = builder.build();
+
+        try(Response response = CLIENT.newCall(request).execute()) {
+            if(!response.isSuccessful()) throw new IOException("HTTP " + response.code() + ": " + response.message());
+            if(response.body() == null) throw new IOException("Empty response body");
+
+            return response.body().string();
         }
     }
 }

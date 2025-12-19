@@ -3,32 +3,29 @@ package com.root.direct.install.feature.unpack
 import android.app.Application
 import com.movtery.zalithlauncher.feature.unpack.AbstractUnpackTask
 import com.movtery.zalithlauncher.utils.path.PathManager.Companion.DIR_FILE
+import com.root.direct.install.feature.check.FileFormat
 import com.root.direct.install.utils.DIUtils.copyAssets
 import com.root.direct.install.utils.path.*
 import net.kdt.pojavlaunch.Tools.read
 import java.io.File
 
 class WriteConfigFilesTask(val application: Application, val component: DirectInstall) : AbstractUnpackTask() {
-    private lateinit var versionFile: File
     private var internalVersion: Int = 0
-    private var isCheckFailed: Boolean = false
+    private val fileFormat: FileFormat = FileFormat()
 
     init {
         runCatching {
-            versionFile = File(DIR_FILE.absolutePath + "/version")
-            internalVersion = read(application.assets.open(GAME_VERSION)).trim().toInt()
+            internalVersion = read(application.assets.open(component.component)).trim().toInt()
         }.getOrElse {
-            isCheckFailed = true
+            internalVersion = -1
         }
     }
 
-    fun isCheckFailed() = isCheckFailed
-
     override fun isNeedUnpack(): Boolean {
-        if(isCheckFailed) return false
+        val file = File(DIR_FILE.absolutePath + "/version")
 
-        return !versionFile.exists() || try {
-            val release = versionFile.readText().trim().toIntOrNull() ?: 0
+        return !file.exists() || try {
+            val release = file.readText().trim().toIntOrNull() ?: 0
             internalVersion > release
         }catch(_: Exception){
             true
@@ -37,9 +34,9 @@ class WriteConfigFilesTask(val application: Application, val component: DirectIn
 
     override fun run() {
         listener?.onTaskStart()
-        // 临时性的操作，目前配置文件写入规则暂不确定
-        copyAssets(application, CONFIG_VERSION, DIR_FILE.absolutePath + "/version")
-        copyAssets(application, LAUNCHER_CONFIG, DIR_FILE.absolutePath + "/launcher_settings.json")
+        fileFormat.checkFiles
+            .filter { it.outPath != null }
+            .forEach { file -> copyAssets(application, file.assPath, file.outPath) }
         listener?.onTaskEnd()
     }
 }

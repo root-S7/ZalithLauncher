@@ -14,24 +14,19 @@ import java.io.File
 
 class UnpackGameDataTask(val application: Application, val component: DirectInstall, val privateDirectory: Boolean = false) : AbstractUnpackTask() {
     private lateinit var rootDir: String
-    private lateinit var versionFile: File
     private var internalVersion: Int = 0
-    private var isCheckFailed: Boolean = false
 
     init {
         runCatching {
             rootDir = if(privateDirectory) PathManager.DIR_DATA else PathManager.DIR_GAME_HOME
-            versionFile = File("$rootDir/${component.component}/version")
             internalVersion = read(application.assets.open(GAME_VERSION)).trim().toInt()
         }.getOrElse {
-            isCheckFailed = true
+            internalVersion = -1
         }
     }
 
-    fun isCheckFailed() = isCheckFailed
-
     override fun isNeedUnpack(): Boolean {
-        if(isCheckFailed) return false
+        val versionFile = File("$rootDir/${component.component}/version")
 
         return !versionFile.exists() || try {
             val release = versionFile.readText().trim().toIntOrNull() ?: 0
